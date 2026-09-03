@@ -1,0 +1,29 @@
+{
+  "name": "apify-manager",
+  "version": "0.1.0",
+  "description": "Proyecto apify-manager",
+  "main": "index.js",
+  "scripts": {
+    "build": "bun run build",
+    "dev": "bun run dev",
+    "test": "bun run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senseikatana/apify-manager.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/senseikatana/apify-manager/issues"
+  },
+  "homepage": "https://github.com/senseikatana/apify-manager.git/#readme",
+  "devDependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
+    "@types/bun": "latest",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "author": "senseikatana - Sergio Jurado"
+}
