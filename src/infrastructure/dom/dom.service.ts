@@ -1,8 +1,8 @@
 import type { IDomService } from "../../types/index.js";
 
-/**
- * DOM facade (Singleton) over `document`, with SSR-safe guards.
- */
+// ============================================================
+// DOM facade (Singleton) over `document`, with SSR-safe guards.
+// ============================================================
 export class DomService implements IDomService {
 	private static instance: DomService;
 
