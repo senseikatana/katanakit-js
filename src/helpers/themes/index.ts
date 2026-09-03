@@ -1,192 +1,153 @@
+// services/theme.service.ts
 import {
 	ADD_CLASS,
-	ON_EVENT,
+	GET_ROOT,
+	ON,
 	REMOVE_CLASS,
 	SET_ATTRIBUTE,
 } from "@/infrastructure/dom-api/dom";
 import { GET_STORAGE, REMOVE_STORAGE, SET_STORAGE } from "../localstorage";
 
-/**
- * Supported theme modes.
- */
 export type ThemeMode = "light" | "dark" | "system";
 
-/**
- * Options for theme initialization.
- */
 export interface ThemeOptions {
-	/** Default theme mode. Default: 'system' */
 	defaultMode?: ThemeMode;
-	/** LocalStorage key. Default: 'theme' */
 	storageKey?: string;
-	/** HTML attribute to set theme on. Default: 'data-theme' */
 	attribute?: string;
-	/** Element to apply theme attribute to. Default: document.documentElement */
 	target?: HTMLElement;
-	/** Callback fired when theme changes */
 	onChange?: (mode: ThemeMode, resolved: "light" | "dark") => void;
 }
 
-/**
- * Singleton service for managing application theme (light/dark/system).
- * Persists user preference in localStorage and respects system preference.
- *
- * @example
- * ```typescript
- * const theme = ThemeService.getInstance();
- * theme.init({ defaultMode: 'system' });
- * theme.set('dark');
- * console.log(theme.get()); // 'dark'
- * console.log(theme.getResolved()); // 'dark'
- * ```
- */
-export class ThemeService {
+export interface IThemeService {
+	INIT_THEME(options?: ThemeOptions): void;
+	SET_THEME_MODE(mode: ThemeMode): void;
+	GET_THEME_MODE(): ThemeMode;
+	GET_RESOLVED(): "light" | "dark";
+	PREFERS_COLOR_SCHEME(): boolean;
+	TOGGLE_THEME(): void;
+	RESET_THEME(): void;
+	DESTROY_THEME(): void;
+}
+
+export class ThemeService implements IThemeService {
 	private static instance: ThemeService;
 
 	private mode: ThemeMode = "system";
-	private storageKey = GET_STORAGE("theme") as string;
+	private storageKey: string = "theme";
+	private attribute: string = "data-theme";
 	private target: HTMLElement | null = null;
 	private onChange?: (mode: ThemeMode, resolved: "light" | "dark") => void;
 	private mediaQuery: MediaQueryList | null = null;
-	private mediaQueryHandler: ((e: MediaQueryListEvent) => void) | null = null;
+	private cleanMediaQueryListener: (() => void) | null = null;
 
 	private constructor() {}
 
-	static getInstance(): ThemeService {
+	public static getInstance(): ThemeService {
 		if (!ThemeService.instance) {
 			ThemeService.instance = new ThemeService();
 		}
 		return ThemeService.instance;
 	}
 
-	/**
-	 * Checks if running in a browser environment.
-	 */
-	private isBrowser(): boolean {
+	private IS_BROWSER = (): boolean => {
 		return typeof window !== "undefined" && typeof document !== "undefined";
-	}
+	};
 
-	/**
-	 * Initializes the theme service. Call once at app startup.
-	 * Reads stored preference, applies it, and listens for system changes.
-	 *
-	 * @param options - Configuration options
-	 */
-	INIT_THEME(options: ThemeOptions = {}): void {
-		if (!this.isBrowser()) return;
+	public INIT_THEME = (options: ThemeOptions = {}): void => {
+		if (!this.IS_BROWSER()) return;
 
 		this.storageKey = options.storageKey ?? "theme";
-		this.target = options.target ?? document.documentElement;
+		this.attribute = options.attribute ?? "data-theme";
+		this.target = options.target ?? GET_ROOT();
 		this.onChange = options.onChange;
 
-		// Load stored preference or use default
 		const stored = GET_STORAGE(this.storageKey) as ThemeMode | null;
 		this.mode = stored ?? options.defaultMode ?? "system";
 
-		// Apply initial theme
 		this.APPLY_THEME();
+		this.SETUP_MEDIA_QUERY_LISTENER();
+	};
 
-		// Listen for system preference changes (only when mode is 'system')
-		this.setupMediaQueryListener();
-	}
-
-	/**
-	 * Sets the theme mode and persists it to localStorage.
-	 *
-	 * @param mode - Theme mode: 'light', 'dark', or 'system'
-	 */
-	SET_THEME_MODE(mode: ThemeMode): void {
-		if (!this.isBrowser()) return;
+	public SET_THEME_MODE = (mode: ThemeMode): void => {
+		if (!this.IS_BROWSER()) return;
 
 		this.mode = mode ?? "system";
-		SET_STORAGE(this.storageKey, mode as ThemeMode, "localStorage");
+		SET_STORAGE(this.storageKey, this.mode, "localStorage");
 		this.APPLY_THEME();
-	}
+	};
 
-	/**
-	 * Gets the current theme mode (as stored, may be 'system').
-	 */
-	GET_THEME_MODE(): ThemeMode {
+	public GET_THEME_MODE = (): ThemeMode => {
 		return this.mode;
-	}
+	};
 
-	/**
-	 * Gets the resolved theme ('light' or 'dark'), taking system preference into account.
-	 */
-	GET_RESOLVED(): "light" | "dark" {
+	public GET_RESOLVED = (): "light" | "dark" => {
 		if (this.mode !== "system") return this.mode;
 		return this.PREFERS_COLOR_SCHEME() ? "dark" : "light";
-	}
+	};
 
-	/**
-	 * Checks if the user/system prefers dark mode.
-	 */
-	PREFERS_COLOR_SCHEME(): boolean {
-		if (!this.isBrowser() || !window.matchMedia) return false;
+	public PREFERS_COLOR_SCHEME = (): boolean => {
+		if (!this.IS_BROWSER() || !window.matchMedia) return false;
 		return window.matchMedia("(prefers-color-scheme: dark)").matches;
-	}
+	};
 
-	/**
-	 * Toggles between light and dark mode (ignores 'system' state).
-	 */
-	TOGGLE_THEME(): void {
+	public TOGGLE_THEME = (): void => {
 		const current = this.GET_RESOLVED();
 		this.SET_THEME_MODE(current === "light" ? "dark" : "light");
-	}
+	};
 
-	/** * Clears stored preference and reverts to system default.	 */
-	RESET_THEME(): void {
-		if (!this.isBrowser()) return;
+	public RESET_THEME = (): void => {
+		if (!this.IS_BROWSER()) return;
 		REMOVE_STORAGE(this.storageKey);
-		this.mode = "system" as ThemeMode;
+		this.mode = "system";
 		this.APPLY_THEME();
-	}
+	};
 
-	/**
-	 * Destroys the service, removing event listeners.
-	 * Call on app teardown if needed.
-	 */
-	DETROY_THEME_SERVICE(): void {
-		if (this.mediaQuery && this.mediaQueryHandler) {
-			this.mediaQuery.removeEventListener("change", this.mediaQueryHandler);
-			this.mediaQueryHandler = null;
+	public DESTROY_THEME = (): void => {
+		if (this.cleanMediaQueryListener) {
+			this.cleanMediaQueryListener();
+			this.cleanMediaQueryListener = null;
 			this.mediaQuery = null;
 		}
-	}
+	};
 
-	/**
-	 * Applies the current theme to the target element.
-	 */
-	private APPLY_THEME(): void {
+	private APPLY_THEME = (): void => {
 		if (!this.target) return;
 
 		const resolved = this.GET_RESOLVED();
-		SET_ATTRIBUTE(this.target, resolved, "");
+
+		// Asigna atributo: ej. data-theme="dark"
+		SET_ATTRIBUTE(this.target, this.attribute, resolved);
+
+		// Alterna clases CSS
 		REMOVE_CLASS(this.target, ["light", "dark"]);
 		ADD_CLASS(this.target, resolved);
 
 		this.onChange?.(this.mode, resolved);
-	}
+	};
 
-	/**
-	 * Sets up listener for system color scheme changes.
-	 */
-	private setupMediaQueryListener(): void {
-		if (!this.isBrowser() || !window.matchMedia) return;
+	private SETUP_MEDIA_QUERY_LISTENER = (): void => {
+		if (!this.IS_BROWSER() || !window.matchMedia) return;
+
 		this.mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-		this.mediaQueryHandler = () => {
+
+		// Registra listener usando tu DomService
+		this.cleanMediaQueryListener = ON(this.mediaQuery, "change", () => {
 			if (this.mode === "system") {
 				this.APPLY_THEME();
 			}
-		};
-		ON_EVENT(this.mediaQuery, "change", () => this.mediaQueryHandler);
-	}
+		});
+	};
 }
 
-// Export singleton instance
+// Instancia única y exportación segura
+export const THEME_SERVICE: ThemeService = ThemeService.getInstance();
+
 export const {
-	GET_THEME_MODE,
 	INIT_THEME,
 	SET_THEME_MODE,
+	GET_THEME_MODE,
+	GET_RESOLVED,
 	TOGGLE_THEME,
-}: ThemeService = ThemeService.getInstance();
+	RESET_THEME,
+	DESTROY_THEME,
+}: ThemeService = THEME_SERVICE;

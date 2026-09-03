@@ -1,6 +1,6 @@
 {
 	"name": "apify-manager",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Proyecto apify-manager",
 	"main": "index.js",
 	"scripts": {
