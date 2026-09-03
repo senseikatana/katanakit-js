@@ -1,4 +1,4 @@
-import { AstroService, type CollectionEntryLike } from "@/api/api-astro";
+import { AstroService } from "@/api";
 
 export const {
 	GET_STATIC_PATHS,
@@ -19,8 +19,17 @@ export interface BlogPostData {
 
 export type BlogPostEntry = CollectionEntryLike<BlogPostData>;
 
+export interface CollectionEntryLike<TData = unknown> {
+	id: string;
+	slug?: string;
+	data?: TData;
+	[key: string]: unknown;
+}
+
 // Simulación de astro:content getCollection
-const mockGetCollection = async (_name: string): Promise<BlogPostEntry[]> => [
+export const mockGetCollection = async (
+	_name: string,
+): Promise<BlogPostEntry[]> => [
 	{
 		id: "1",
 		slug: "hello-world",
@@ -37,6 +46,17 @@ const mockGetCollection = async (_name: string): Promise<BlogPostEntry[]> => [
 		data: { title: "Patrón Singleton", tags: ["architecture", "typescript"] },
 	},
 ];
+
+export const { GET_STATIC_PATHS }: AstroService = AstroService.getInstance();
+
+const response = await GET_STATIC_PATHS(mockGetCollection, "blog", {
+	param: "slug",
+	valueFrom: (entry) => entry.slug ?? entry.id,
+	propsFrom: (entry) => entry.data,
+});
+
+if (!response.ok) {
+}
 
 export async function runAstroDemo(): Promise<void> {
 	// 1. GET_STATIC_PATHS con manejo de Safe Result ({ data, error, ok })

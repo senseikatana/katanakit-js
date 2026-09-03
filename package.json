@@ -1,29 +1,43 @@
 {
-  "name": "apify-manager",
-  "version": "0.1.0",
-  "description": "Proyecto apify-manager",
-  "main": "index.js",
-  "scripts": {
-    "build": "bun run build",
-    "dev": "bun run dev",
-    "test": "bun run test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/senseikatana/apify-manager.git"
-  },
-  "keywords": [],
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/senseikatana/apify-manager/issues"
-  },
-  "homepage": "https://github.com/senseikatana/apify-manager.git/#readme",
-  "devDependencies": {
-    "@babel/core": "^8.0.1",
-    "@babel/preset-typescript": "^8.0.1",
-    "@types/bun": "latest",
-    "typescript": "^7.0.2"
-  },
-  "private": true,
-  "author": "senseikatana - Sergio Jurado"
+	"name": "apify-manager",
+	"version": "0.1.0",
+	"description": "Proyecto apify-manager",
+	"main": "index.js",
+	"scripts": {
+		"build": "bun run build",
+		"dev": "bun run dev",
+		"build:css": "postcss src/styles/main.css -o public/styles.css",
+		"watch:css": "postcss src/styles/main.css -o public/styles.css --watch",
+		"lint": "biome lint ./src",
+		"lint:fix": "biome lint --apply ./src",
+		"format": "biome format ./src",
+		"format:fix": "biome format --write ./src",
+		"check": "biome check ./src",
+		"check:fix": "biome check --apply ./src"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/senseikatana/apify-manager.git"
+	},
+	"keywords": [],
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/senseikatana/apify-manager/issues"
+	},
+	"homepage": "https://github.com/senseikatana/apify-manager.git/#readme",
+	"devDependencies": {
+		"@babel/core": "^8.0.1",
+		"@babel/preset-typescript": "^8.0.1",
+		"@types/bun": "latest",
+		"typescript": "^7.0.2"
+	},
+	"private": true,
+	"author": "senseikatana - Sergio Jurado",
+	"dependencies": {
+		"@js-temporal/polyfill": "^0.5.1",
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.6",
+		"cors": "^2.8.6",
+		"express": "^5.2.1"
+	}
 }

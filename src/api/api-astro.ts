@@ -1,6 +1,13 @@
 // services/astro.service.ts
 
-import type { AstroPath, AstroServiceResult } from "@/types/astro.types";
+import type {
+	AstroPath,
+	AstroServiceResult,
+	CollectionEntryLike,
+	IAstroService,
+	PaginationProps,
+	PathsOptions,
+} from "@/api/astro.types";
 // ============================================================
 // 3. IMPLEMENTACIÓN (FACADE + ADAPTER + SINGLETON)
 // ============================================================
@@ -86,7 +93,7 @@ export class AstroService implements IAstroService {
 			keyFrom ??
 			((item: T & { slug?: string; id?: string }) =>
 				item?.slug ?? item?.id ?? "");
-		return items.find((item) => String(getKey(item)) === value) ?? null;
+		return items.find(() => String(getKey(`${item}`)) === value) ?? null;
 	};
 
 	public GENERATE_PAGINATION = <T, TParam extends string = "page">(
