@@ -18,6 +18,12 @@
 	},
 	"files": ["dist"],
 	"sideEffects": false,
+	"engines": {
+		"node": ">=20"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
 		"dev": "bun run src/adapters/express/main.ts",
@@ -30,7 +36,8 @@
 		"format": "biome format ./src",
 		"format:fix": "biome format --write ./src",
 		"check": "biome check ./src",
-		"check:fix": "biome check --write ./src"
+		"check:fix": "biome check --write ./src",
+		"prepublishOnly": "bun run check && bun run test && bun run build"
 	},
 	"repository": {
 		"type": "git",
