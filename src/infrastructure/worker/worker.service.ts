@@ -34,28 +34,44 @@ export default class WorkerService {
 		}
 
 		return new Promise((resolve, reject) => {
+			let worker: Worker | undefined;
+			let workerUrl: string | undefined;
+
+			const cleanup = () => {
+				if (worker) {
+					worker.terminate();
+					worker = undefined;
+				}
+				if (workerUrl) {
+					URL.revokeObjectURL(workerUrl);
+					workerUrl = undefined;
+				}
+			};
+
 			try {
 				const funcString = workerFunc.toString();
 				const blob = new Blob([`self.onmessage = (e) => self.postMessage((${funcString})(e.data))`], {
 					type: "application/javascript",
 				});
-				const workerUrl = URL.createObjectURL(blob);
-				const worker = new Worker(workerUrl);
+				workerUrl = URL.createObjectURL(blob);
+				worker = new Worker(workerUrl);
 
 				worker.onmessage = (event) => {
+					cleanup();
 					resolve(event.data);
-					worker.terminate();
-					URL.revokeObjectURL(workerUrl);
 				};
-
 				worker.onerror = (error) => {
+					cleanup();
 					reject(new Error(`Worker error: ${error.message}`));
-					worker.terminate();
-					URL.revokeObjectURL(workerUrl);
+				};
+				worker.onmessageerror = () => {
+					cleanup();
+					reject(new Error("Worker returned a non-cloneable value."));
 				};
 
 				worker.postMessage(data);
 			} catch (error) {
+				cleanup();
 				reject(error);
 			}
 		});

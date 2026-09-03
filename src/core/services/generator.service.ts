@@ -14,6 +14,9 @@ export interface IUuidStrategy {
 
 /**
  * Loads the Node.js `crypto` module lazily, only when `ENCRYPT` is invoked.
+ *
+ * NOTE: this is a one-way hash demo, not a credential store. Do not rely on the
+ * fixed default salt for real password hashing; prefer scrypt/argon2id instead.
  */
 export class LazyNodeCryptoStrategy implements ICryptoStrategy {
 	async ENCRYPT(plainText: string, salt = "default-salt"): Promise<string> {
@@ -89,7 +92,14 @@ export default class GeneratorService {
 			.replace(/-+$/, "");
 	};
 
-	public TOKEN = (): number => Math.floor(100000 + Math.random() * 900000);
+	public TOKEN = (): number => {
+		if (typeof globalThis.crypto?.getRandomValues === "function") {
+			const buffer = new Uint32Array(1);
+			globalThis.crypto.getRandomValues(buffer);
+			return 100000 + (buffer[0] % 900000);
+		}
+		return Math.floor(100000 + Math.random() * 900000);
+	};
 
 	public ENCRYPT = async (plainText: string, salt = "default-salt"): Promise<string> =>
 		this.cryptoStrategy.ENCRYPT(plainText, salt);

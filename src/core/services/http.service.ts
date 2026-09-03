@@ -89,6 +89,11 @@ export class FetchApiManager implements IFetchApiManager {
 		const pathClean = path.startsWith("/") ? path : `/${path}`;
 		const url = new URL(`${baseClean}${pathClean}`);
 
+		// Only allow http(s) to prevent SSRF and `javascript:` URLs.
+		if (url.protocol !== "http:" && url.protocol !== "https:") {
+			throw new Error(`[FetchApiManager] Scheme "${url.protocol}" is not allowed.`);
+		}
+
 		const defaultParams = ignoreDefaultQuery ? {} : (api.defaultQueryParams?.[endpointName] ?? {});
 
 		const mergedQuery = { ...defaultParams, ...query };
