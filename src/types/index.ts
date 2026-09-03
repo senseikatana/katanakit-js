@@ -1,5 +1,5 @@
-import type { AppError } from "@/core/services/error.service";
 import type { Temporal } from "@js-temporal/polyfill";
+import type { AppError } from "../core/services/error.service";
 
 /* -------------------------------------------------------------------------- */
 /* Logging                                                                    */
