@@ -1,40 +1,40 @@
-import { LOGGER } from "../../../../senseikatana/snippets-lab/helpers/logs/logger.service";
-import { ObserverService } from "./observer.service";
-import { lazyLoaderService, observerService } from "./utils/observer.utils";
+/**
+ * Example: IntersectionObserver and lazy-loading utilities.
+ *
+ * NOTE: IntersectionObserver requires a browser environment, so this example
+ * is illustrative only and will not run under Bun/Node.
+ */
+import { LazyLoaderService, ObserverService } from "@/infrastructure/observer/observer.service";
 
-const {
-	create: OBSERVER_CREATE,
-	observeAll: OBSERVE_ALL,
-	observe: OBSERVE,
-}: ObserverService = ObserverService.getInstance();
+const observer = ObserverService.getInstance();
+const lazyLoader = LazyLoaderService.getInstance();
 
-// Create a custom observer for fade-in animations
-OBSERVER_CREATE(
+// Create a fade-in observer and observe elements.
+observer.create(
 	"fade-in",
-	({ target }: EventListener) => {
-		target.classList.toggle("visible");
+	(entry) => {
+		entry.target.classList.toggle("visible");
 	},
 	{ threshold: 0.2 },
 );
 
-OBSERVE("fade-in", "#hero");
-OBSERVE("fade-in", "#about");
-OBSERVE_ALL("fade-in", ".card");
+observer.observe("fade-in", "#hero");
+observer.observeAll("fade-in", ".card");
 
-// Create another observer for analytics tracking
-observerService.create("track-view", (entry) => {
-	LOGGER(`View: ${entry.target.id}`, "info");
+// Create an analytics observer.
+observer.create("track-view", (entry) => {
+	console.log(`View: ${entry.target.id}`);
 });
-observerService.observe("track-view", "#promo-banner");
+observer.observe("track-view", "#promo-banner");
 
-// Lazy load images for different sections
-lazyLoaderService.init("pokemon-list", ".pokemon-card img", "300px");
-lazyLoaderService.init("blog-posts", ".post-cover img");
+// Lazy load images for different sections.
+lazyLoader.init("pokemon-list", ".pokemon-card img", "300px");
+lazyLoader.init("blog-posts", ".post-cover img");
 
-// Selective cleanup
-observerService.disconnect("track-view");
-lazyLoaderService.stop("pokemon-list");
+// Selective cleanup.
+observer.disconnect("track-view");
+lazyLoader.stop("pokemon-list");
 
-// Full cleanup (e.g., on SPA route change or component unmount)
-observerService.disconnectAll();
-lazyLoaderService.stopAll();
+// Full cleanup (e.g., on SPA route change or component unmount).
+observer.disconnectAll();
+lazyLoader.stopAll();
