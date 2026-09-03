@@ -1,4 +1,4 @@
-import type { ICryptoStrategy, IUuidStrategy } from "../../types";
+import type { ICryptoStrategy, IUuidStrategy } from "../../types/index.js";
 
 /**
  * Loads the Node.js `crypto` module lazily, only when `useEncrypt` is invoked.

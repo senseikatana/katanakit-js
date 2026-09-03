@@ -1,4 +1,4 @@
-import type { IAppUtils, IDataUtils, ISystemUtils } from "../../types";
+import type { IAppUtils, IDataUtils, ISystemUtils } from "../../types/index.js";
 
 /**
  * Data utilities implemented as a Singleton.

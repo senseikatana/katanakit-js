@@ -5,7 +5,7 @@ import type {
 	IAstroService,
 	PaginationProps,
 	PathsOptions,
-} from "../../types";
+} from "../../types/index.js";
 
 /**
  * Astro adapter (Facade + Adapter + Singleton). Converts arbitrary collections

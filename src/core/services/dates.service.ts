@@ -1,6 +1,6 @@
 import { Temporal } from "@js-temporal/polyfill";
 
-import type { DatesServiceTypes, Locale, TemporalInput } from "../../types";
+import type { DatesServiceTypes, Locale, TemporalInput } from "../../types/index.js";
 
 /**
  * Facade + Adapter + Singleton over the Temporal polyfill.

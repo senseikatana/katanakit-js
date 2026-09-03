@@ -1,4 +1,4 @@
-import type { IDomService } from "../../types";
+import type { IDomService } from "../../types/index.js";
 
 /**
  * DOM facade (Singleton) over `document`, with SSR-safe guards.

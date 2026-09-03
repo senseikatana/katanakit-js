@@ -1,6 +1,6 @@
 import "dotenv/config";
 import postgres from "@prisma/orm-postgres/runtime";
-import type { Contract } from "./schema.d";
+import type { Contract } from "./schema.d.js";
 import contractJson from "./schema.json" with { type: "json" };
 
 const DATABASE_URL = process.env.DATABASE_URL;

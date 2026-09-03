@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 
-import type { ProductType } from "../../types";
+import type { ProductType } from "../../types/index.js";
 
 export class ProductController {
 	private products: ProductType[] = [];

@@ -1,4 +1,4 @@
-import type { StorageStrategy, StorageTarget } from "../../types";
+import type { StorageStrategy, StorageTarget } from "../../types/index.js";
 
 /**
  * Base strategy handling safe JSON serialization over a Web Storage backend.

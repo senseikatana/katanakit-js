@@ -1,4 +1,4 @@
-import type { LogLevel, LogStrategy } from "../../types";
+import type { LogLevel, LogStrategy } from "../../types/index.js";
 
 /**
  * Concrete strategy: native console output.

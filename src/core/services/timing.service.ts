@@ -1,6 +1,6 @@
-import { useLog } from "./logger.service";
+import { useLog } from "./logger.service.js";
 
-import type { IntervalControl, TimeoutControl } from "../../types";
+import type { IntervalControl, TimeoutControl } from "../../types/index.js";
 
 type TimerId = ReturnType<typeof setTimeout>;
 

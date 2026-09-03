@@ -34,10 +34,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .atl/
 .opencode/
 .cursor/
-.agents/
-.skills/
 .claude/
-.prisma/
 .devin/
 # Finder (MacOS) folder config
 .DS_Store

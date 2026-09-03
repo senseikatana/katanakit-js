@@ -1,4 +1,4 @@
-import type { ScrollOptions, ScrollPosition, ViewportSize } from "../../types";
+import type { ScrollOptions, ScrollPosition, ViewportSize } from "../../types/index.js";
 
 /**
  * Viewport, scroll and window utilities. All methods are SSR-safe.

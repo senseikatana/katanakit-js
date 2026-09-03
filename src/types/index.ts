@@ -631,7 +631,7 @@ export interface IRssService {
 	): (context: { site?: URL | string }) => Promise<Response>;
 	/** Convenience: creates an RSS endpoint from a SiteConfig. */
 	useCreateRssEndpointFromConfig(
-		siteConfig: import("../config/site.config").SiteConfig,
+		siteConfig: import("../config/site.config.js").SiteConfig,
 		items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>),
 	): (context: { site?: URL | string }) => Promise<Response>;
 }

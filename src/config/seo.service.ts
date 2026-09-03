@@ -1,4 +1,4 @@
-import type { SiteConfig } from "./site.config";
+import type { SiteConfig } from "./site.config.js";
 
 /**
  * SEO meta tag configuration for a single page.

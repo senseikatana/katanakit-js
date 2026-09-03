@@ -5,7 +5,7 @@ import type {
 	FetchResult,
 	IFetchApiManager,
 	UrlOptions,
-} from "../../types";
+} from "../../types/index.js";
 
 /**
  * Framework-agnostic HTTP client: builds safe URLs from a JSON-defined registry

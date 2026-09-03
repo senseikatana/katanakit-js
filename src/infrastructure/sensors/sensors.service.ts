@@ -1,6 +1,6 @@
-import { useLog } from "../../core/services/logger.service";
+import { useLog } from "../../core/services/logger.service.js";
 
-import type { BatteryManager, GeoPosition } from "../../types";
+import type { BatteryManager, GeoPosition } from "../../types/index.js";
 
 /**
  * Device sensors and hardware APIs: camera, microphone, geolocation,

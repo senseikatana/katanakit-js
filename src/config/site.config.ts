@@ -7,7 +7,7 @@
  * @example
  * ```ts
  * // astro.config.mjs
- * import { siteConfig } from "./src/config/site.config";
+ * import { siteConfig } from "./src/config/site.config.js";
  * export default defineConfig({ site: siteConfig.site });
  * ```
  */

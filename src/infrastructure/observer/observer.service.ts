@@ -1,4 +1,4 @@
-import { useLog } from "../../core/services/logger.service";
+import { useLog } from "../../core/services/logger.service.js";
 
 import type {
 	LazyLoaderEntry,
@@ -6,7 +6,7 @@ import type {
 	ObserverConfig,
 	ObserverEntry,
 	ObserverTarget,
-} from "../../types";
+} from "../../types/index.js";
 
 /**
  * Singleton wrapper around the native IntersectionObserver API.

@@ -1,8 +1,8 @@
 import cors from "cors";
 import express, { type Application, type NextFunction, type Request, type Response } from "express";
 
-import { useLog } from "../../core/services/logger.service";
-import router from "./router";
+import { useLog } from "../../core/services/logger.service.js";
+import router from "./router.js";
 
 export default class ServerExpress {
 	private static instance: ServerExpress;

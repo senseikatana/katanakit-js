@@ -1,4 +1,4 @@
-import type { GeometryFormatOptions } from "../../types";
+import type { GeometryFormatOptions } from "../../types/index.js";
 
 function formatGeometry(value: number, options: GeometryFormatOptions = {}): string {
 	const { locale = "en", digits = 2, unit } = options;

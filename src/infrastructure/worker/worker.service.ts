@@ -1,4 +1,4 @@
-import type { WorkerFunc, WorkerPoolEntry } from "../../types";
+import type { WorkerFunc, WorkerPoolEntry } from "../../types/index.js";
 
 /**
  * Worker facade (Singleton + Pool pattern) for running pure functions off the

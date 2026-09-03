@@ -1,4 +1,4 @@
-import type { IErrorFactory, ISerializedError } from "../../types";
+import type { IErrorFactory, ISerializedError } from "../../types/index.js";
 
 /**
  * Decoupled application error. Carries an HTTP-style status code.

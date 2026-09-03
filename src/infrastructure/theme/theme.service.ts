@@ -4,10 +4,10 @@ import {
 	useOn,
 	useRemoveClass,
 	useSetAttribute,
-} from "../dom/dom.service";
-import { useGetStorage, useRemoveStorage, useSetStorage } from "../storage/storage.service";
+} from "../dom/dom.service.js";
+import { useGetStorage, useRemoveStorage, useSetStorage } from "../storage/storage.service.js";
 
-import type { IThemeService, ThemeMode, ThemeOptions } from "../../types";
+import type { IThemeService, ThemeMode, ThemeOptions } from "../../types/index.js";
 
 /**
  * Theme facade (Singleton) over the DOM and Storage, with a media-query listener.

@@ -3,7 +3,7 @@ import type {
 	IConverterService,
 	IFormatterService,
 	Locale,
-} from "../../types";
+} from "../../types/index.js";
 
 /**
  * Number/currency/string formatter (Adapter + Singleton) over `Intl`.

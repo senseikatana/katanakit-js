@@ -1,3 +1,3 @@
-import ServerExpress from "./server";
+import ServerExpress from "./server.js";
 
 ServerExpress.getInstance().useStart();
