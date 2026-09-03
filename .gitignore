@@ -39,6 +39,3 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .claude/
 # Finder (MacOS) folder config
 .DS_Store
-
-# ZCode session metadata
-.zcode/
