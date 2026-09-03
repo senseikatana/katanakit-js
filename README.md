@@ -40,9 +40,9 @@ Safe Result, one way to do logging, storage and DOM across every framework.
 ## 📦 Installation
 
 ```bash
-npm install katanakit
+npm install katanakit-dev
 # or
-bun add katanakit
+bun add katanakit-dev
 ```
 
 ### Building from source

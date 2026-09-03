@@ -1,89 +1,87 @@
 {
-  "name": "katanakit",
-  "version": "2.0.0",
-  "description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./adapters/express": {
-      "types": "./dist/adapters/express/index.d.ts",
-      "import": "./dist/adapters/express/index.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": false,
-  "engines": {
-    "node": ">=22.18.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "bun run src/adapters/express/main.ts",
-    "start": "bun run src/adapters/express/main.ts",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "lint": "biome lint ./src",
-    "lint:fix": "biome lint --write ./src",
-    "format": "biome format ./src",
-    "format:fix": "biome format --write ./src",
-    "check": "biome check ./src",
-    "check:fix": "biome check --write ./src",
-    "prepublishOnly": "bun run check && bun run test && bun run build",
-    "postinstall": "prisma skills sync || exit 0",
-    "contract:emit": "prisma contract emit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/senseikatana/katanakit.git"
-  },
-  "keywords": [
-    "api",
-    "fetch",
-    "http-client",
-    "url-builder",
-    "typescript",
-    "hexagonal-architecture",
-    "astro",
-    "express",
-    "singleton",
-    "observer",
-    "factory"
-  ],
-  "author": "senseikatana - Sergio Jurado",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/senseikatana/katanakit/issues"
-  },
-  "homepage": "https://github.com/senseikatana/katanakit#readme",
-  "dependencies": {
-    "@js-temporal/polyfill": "^0.5.1",
-    "@prisma/orm-postgres": "8.0.0-rc.8",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@prisma/cli-engine": "0.2.3",
-    "@prisma/client": "^7.10.0",
-    "@prisma/extension-accelerate": "^3.0.1",
-    "@types/bun": "latest",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/node": "^26.4.1",
-    "prisma": "8.0.0-rc.10",
-    "typescript": "^7.0.2",
-    "vitest": "^3.2.4"
-  }
+	"name": "katanakit-dev",
+	"version": "2.0.0",
+	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./adapters/express": {
+			"types": "./dist/adapters/express/index.d.ts",
+			"import": "./dist/adapters/express/index.js"
+		}
+	},
+	"files": ["dist"],
+	"sideEffects": false,
+	"engines": {
+		"node": ">=22.18.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"dev": "bun run src/adapters/express/main.ts",
+		"start": "bun run src/adapters/express/main.ts",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"lint": "biome lint ./src",
+		"lint:fix": "biome lint --write ./src",
+		"format": "biome format ./src",
+		"format:fix": "biome format --write ./src",
+		"check": "biome check ./src",
+		"check:fix": "biome check --write ./src",
+		"prepublishOnly": "bun run check && bun run test && bun run build",
+		"postinstall": "prisma skills sync || exit 0",
+		"contract:emit": "prisma contract emit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/senseikatana/katanakit.git"
+	},
+	"keywords": [
+		"api",
+		"fetch",
+		"http-client",
+		"url-builder",
+		"typescript",
+		"hexagonal-architecture",
+		"astro",
+		"express",
+		"singleton",
+		"observer",
+		"factory"
+	],
+	"author": "senseikatana - Sergio Jurado",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/senseikatana/katanakit/issues"
+	},
+	"homepage": "https://github.com/senseikatana/katanakit#readme",
+	"dependencies": {
+		"@js-temporal/polyfill": "^0.5.1",
+		"@prisma/orm-postgres": "8.0.0-rc.8",
+		"cors": "^2.8.6",
+		"dotenv": "^17.4.2",
+		"express": "^5.2.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@prisma/cli-engine": "0.2.3",
+		"@prisma/client": "^7.10.0",
+		"@prisma/extension-accelerate": "^3.0.1",
+		"@types/bun": "latest",
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.6",
+		"@types/node": "^26.4.1",
+		"prisma": "8.0.0-rc.10",
+		"typescript": "^7.0.2",
+		"vitest": "^3.2.4"
+	}
 }
