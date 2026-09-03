@@ -1,43 +1,71 @@
 {
 	"name": "apify-manager",
-	"version": "1.0.0",
-	"description": "Proyecto apify-manager",
-	"main": "index.js",
+	"version": "2.0.0",
+	"description": "Universal API Manager — framework-agnostic HTTP client and TypeScript service toolkit organized with hexagonal architecture.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./adapters/express": {
+			"types": "./dist/adapters/express/index.d.ts",
+			"import": "./dist/adapters/express/index.js"
+		}
+	},
+	"files": ["dist"],
+	"sideEffects": false,
 	"scripts": {
-		"build": "bun run build",
-		"dev": "bun run dev",
-		"build:css": "postcss src/styles/main.css -o public/styles.css",
-		"watch:css": "postcss src/styles/main.css -o public/styles.css --watch",
+		"build": "tsc -p tsconfig.json",
+		"dev": "bun run src/adapters/express/main.ts",
+		"start": "bun run src/adapters/express/main.ts",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"lint": "biome lint ./src",
-		"lint:fix": "biome lint --apply ./src",
+		"lint:fix": "biome lint --write ./src",
 		"format": "biome format ./src",
 		"format:fix": "biome format --write ./src",
 		"check": "biome check ./src",
-		"check:fix": "biome check --apply ./src"
+		"check:fix": "biome check --write ./src"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/senseikatana/apify-manager.git"
 	},
-	"keywords": [],
-	"type": "commonjs",
+	"keywords": [
+		"api",
+		"fetch",
+		"http-client",
+		"url-builder",
+		"typescript",
+		"hexagonal-architecture",
+		"astro",
+		"express",
+		"singleton",
+		"observer",
+		"factory"
+	],
+	"author": "senseikatana - Sergio Jurado",
+	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/senseikatana/apify-manager/issues"
 	},
-	"homepage": "https://github.com/senseikatana/apify-manager.git/#readme",
-	"devDependencies": {
-		"@babel/core": "^8.0.1",
-		"@babel/preset-typescript": "^8.0.1",
-		"@types/bun": "latest",
-		"typescript": "^7.0.2"
-	},
-	"private": true,
-	"author": "senseikatana - Sergio Jurado",
+	"homepage": "https://github.com/senseikatana/apify-manager#readme",
 	"dependencies": {
 		"@js-temporal/polyfill": "^0.5.1",
-		"@types/cors": "^2.8.19",
-		"@types/express": "^5.0.6",
 		"cors": "^2.8.6",
 		"express": "^5.2.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/bun": "latest",
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.6",
+		"typescript": "^7.0.2",
+		"vitest": "^3.2.4"
 	}
 }
