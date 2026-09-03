@@ -29,6 +29,13 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # IntelliJ based IDEs
 .idea
-
+.zcode/
+.vscode/
+.atl/
+.opencode/
+.cursor/
+.agents/
+.skills/
+.claude/
 # Finder (MacOS) folder config
 .DS_Store
