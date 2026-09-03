@@ -1,4 +1,5 @@
 import type { IRssService, RssConfig, RssItem, RssResult } from "../../types";
+import type { SiteConfig } from "../../config/site.config";
 
 /**
  * Escapes special XML characters in a string.
@@ -193,7 +194,7 @@ export default class RssService implements IRssService {
 					: config.items;
 
 				// Use context.site as fallback for the site URL.
-				const site = config.site ?? (context.site ? String(context.site) : "");
+				const site = config.site || (context.site ? String(context.site) : "");
 				if (!site) {
 					return new Response(
 						JSON.stringify({ error: "RSS feed requires a 'site' URL." }),
@@ -227,8 +228,50 @@ export default class RssService implements IRssService {
 			}
 		};
 	};
+
+	/**
+	 * Convenience method: creates an RSS endpoint from a SiteConfig.
+	 * Reads title, description, site, and rss settings from the config.
+	 *
+	 * @example
+	 * ```ts
+	 * // src/pages/rss.xml.ts
+	 * import { RssService } from "katanakit";
+	 * import { siteConfig } from "@/config/site.config";
+	 * import { getCollection } from "astro:content";
+	 *
+	 * const { useCreateRssEndpointFromConfig } = RssService.getInstance();
+	 *
+	 * export const GET = useCreateRssEndpointFromConfig(siteConfig, async () => {
+	 *   const posts = await getCollection("blog");
+	 *   return posts.map(post => ({
+	 *     title: post.data.title,
+	 *     pubDate: post.data.date,
+	 *     link: `/blog/${post.slug}/`,
+	 *     description: post.data.description,
+	 *   }));
+	 * });
+	 * ```
+	 */
+	public useCreateRssEndpointFromConfig = (
+		siteConfig: SiteConfig,
+		items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>),
+	): ((context: { site?: URL | string }) => Promise<Response>) => {
+		return this.useCreateRssEndpoint({
+			title: siteConfig.rss.title ?? siteConfig.title,
+			description: siteConfig.rss.description ?? siteConfig.description,
+			site: siteConfig.site,
+			items,
+			xmlPath: siteConfig.rss.path,
+			language: siteConfig.lang,
+		});
+	};
 }
 
 // Singleton instance and destructured exports.
-export const { useGenerateRss, useRssLinkTag, useCreateRssEndpoint }: RssService =
-	RssService.getInstance();
+export const {
+	useGenerateRss,
+	useRssLinkTag,
+	useCreateRssEndpoint,
+	useCreateRssEndpointFromConfig,
+}: RssService = RssService.getInstance();

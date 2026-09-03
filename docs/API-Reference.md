@@ -103,6 +103,79 @@ Adapter for Astro `getStaticPaths`.
 `CollectionEntryLike`, `PathsOptions`, `AstroPath`, `PaginationProps`,
 `AstroServiceResult`, `IAstroService`.
 
+## RSS — `RssService`
+
+Generates RSS 2.0 feeds for Astro projects. Pure implementation — no external
+dependencies required (`@astrojs/rss` is optional).
+
+### `useGenerateRss(config): RssResult`
+
+Generates the RSS XML string from a config. Returns a Safe Result.
+
+```ts
+import { RssService } from "katanakit";
+
+const { useGenerateRss } = RssService.getInstance();
+
+const result = useGenerateRss({
+  title: "My Blog",
+  description: "Posts about TypeScript",
+  site: "https://example.com",
+  items: [
+    {
+      title: "Hello World",
+      pubDate: new Date(),
+      link: "/blog/hello/",
+      description: "My first post",
+    },
+  ],
+});
+
+if (result.ok) {
+  console.log(result.data); // RSS XML string
+}
+```
+
+### `useRssLinkTag(config): string`
+
+Generates an HTML `<link>` tag for the RSS feed. Paste into your Astro layout's
+`<head>`.
+
+```ts
+const tag = useRssLinkTag({ title: "My Blog" });
+// <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml" />
+```
+
+### `useCreateRssEndpoint(config): AstroEndpoint`
+
+Creates an Astro-compatible GET endpoint handler. Use in `src/pages/rss.xml.ts`.
+
+```ts
+// src/pages/rss.xml.ts
+import { RssService } from "katanakit";
+import { getCollection } from "astro:content";
+
+const { useCreateRssEndpoint } = RssService.getInstance();
+
+export const GET = useCreateRssEndpoint({
+  title: "My Blog",
+  description: "Posts about TypeScript",
+  site: "https://example.com",
+  items: async () => {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+      title: post.data.title,
+      pubDate: post.data.date,
+      link: `/blog/${post.slug}/`,
+    }));
+  },
+});
+```
+
+### Types
+
+`RssItem`, `RssConfig`, `RssResult`, `IRssService`.
+
 ## Other services
 
 | Service              | Key exports                                                              |

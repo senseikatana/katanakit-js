@@ -117,6 +117,130 @@ export async function getStaticPaths() {
 }
 ```
 
+### RSS feeds for Astro
+
+```ts
+// src/pages/rss.xml.ts
+import { RssService } from "katanakit";
+import { getCollection } from "astro:content";
+
+const { useCreateRssEndpoint } = RssService.getInstance();
+
+export const GET = useCreateRssEndpoint({
+  title: "My Blog",
+  description: "Posts about TypeScript",
+  site: "https://example.com",
+  items: async () => {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+      title: post.data.title,
+      pubDate: post.data.date,
+      link: `/blog/${post.slug}/`,
+      description: post.data.description,
+    }));
+  },
+});
+```
+
+Then add the RSS link tag to your layout's `<head>`:
+
+```astro
+---
+import { RssService } from "katanakit";
+const { useRssLinkTag } = RssService.getInstance();
+---
+<head>
+  <Fragment set:html={useRssLinkTag({ title: "My Blog" })} />
+</head>
+```
+
+### Site config & SEO
+
+Centralize your site metadata in `src/config/site.config.ts`:
+
+```ts
+// src/config/site.config.ts
+import { type SiteConfig } from "katanakit";
+
+export const siteConfig: SiteConfig = {
+  site: "https://myblog.com",
+  title: "My Blog",
+  description: "A blog about TypeScript and Astro",
+  lang: "en",
+  author: "John Doe",
+  ogImage: "/og-default.png",
+  twitter: "johndoe",
+  rss: { enabled: true, path: "/rss.xml", limit: 20 },
+  seo: { noindex: false, canonical: true, openGraph: true, twitterCard: true, jsonLd: true },
+  nav: [
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: "GitHub", href: "https://github.com/...", external: true },
+  ],
+};
+```
+
+Then use it in your Astro layouts for full SEO:
+
+```astro
+---
+// src/layouts/BaseLayout.astro
+import { siteConfig } from "@/config/site.config";
+import { useHeadTags } from "katanakit";
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  publishedTime?: string;
+}
+
+const { title, description, ogImage, ogType, publishedTime } = Astro.props;
+const canonical = new URL(Astro.url.pathname, siteConfig.site).href;
+
+const headTags = useHeadTags(siteConfig, {
+  title,
+  description,
+  url: canonical,
+  ogImage,
+  ogType,
+  publishedTime,
+});
+---
+<html lang={siteConfig.lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <Fragment set:html={headTags} />
+</head>
+<body>
+  <slot />
+</body>
+</html>
+```
+
+And the RSS endpoint uses the same config:
+
+```ts
+// src/pages/rss.xml.ts
+import { RssService } from "katanakit";
+import { siteConfig } from "@/config/site.config";
+import { getCollection } from "astro:content";
+
+const { useCreateRssEndpointFromConfig } = RssService.getInstance();
+
+export const GET = useCreateRssEndpointFromConfig(siteConfig, async () => {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    title: post.data.title,
+    pubDate: post.data.date,
+    link: `/blog/${post.slug}/`,
+    description: post.data.description,
+  }));
+});
+```
+
 ### Logger, storage and DOM
 
 ```ts
@@ -154,6 +278,8 @@ useAddClass(useGetRoot()!, "dark-mode");
 | Worker    | `WorkerService`      | `useRun`, `useCreatePool`, `useRunPool`               |
 | Theme     | `ThemeService`       | `useInitTheme`, `useToggleTheme`, `useSetThemeMode`   |
 | Astro     | `AstroService`       | `usePathsFrom`, `useGetStaticPaths`, pagination       |
+| RSS       | `RssService`         | `useGenerateRss`, `useRssLinkTag`, `useCreateRssEndpoint` |
+| Config    | `siteConfig`         | `useHeadTags`, `useGenerateMetaTags`, `useTitle`, `useRssHeadLink` |
 | Server    | `ServerExpress`      | optional Express adapter (via subpath)                |
 
 ## 🧱 Project structure (hexagonal)
