@@ -5,7 +5,7 @@ import type {
 	FetchResult,
 	IFetchApiManager,
 	UrlOptions,
-} from "@/types";
+} from "../../types";
 
 /**
  * Framework-agnostic HTTP client: builds safe URLs from a JSON-defined registry
@@ -38,26 +38,22 @@ export class FetchApiManager implements IFetchApiManager {
 		return api;
 	};
 
-	public useBuildUrl = (
-		apiName: string,
-		endpointName: string,
-		options: UrlOptions = {},
-	): string => {
+	public useBuildUrl = (apiName: string, endpointName: string, options: UrlOptions = {}): string => {
 		const { params, query, ignoreDefaultQuery = false } = options;
 		const api = this.GET_API_ENTRY(apiName);
 		let path = api.endpoints?.[endpointName] ?? "";
 
 		if (!path) {
-			throw new Error(
-				`[FetchApiManager] Endpoint "${endpointName}" not found in API "${apiName}".`,
-			);
+			throw new Error(`[FetchApiManager] Endpoint "${endpointName}" not found in API "${apiName}".`);
 		}
 
 		if (params) {
+			const escapeRegex = (s: string): string =>
+				s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 			path = Object.entries(params).reduce(
 				(acc, [key, value]) =>
 					acc.replace(
-						new RegExp(`:${key}\\b`, "g"),
+						new RegExp(`:${escapeRegex(key)}\\b`, "g"),
 						encodeURIComponent(String(value)),
 					),
 				path,
@@ -74,9 +70,7 @@ export class FetchApiManager implements IFetchApiManager {
 			throw new Error(`[FetchApiManager] Scheme "${url.protocol}" is not allowed.`);
 		}
 
-		const defaultParams = ignoreDefaultQuery
-			? {}
-			: (api.defaultQueryParams?.[endpointName] ?? {});
+		const defaultParams = ignoreDefaultQuery ? {} : (api.defaultQueryParams?.[endpointName] ?? {});
 
 		const mergedQuery = { ...defaultParams, ...query };
 
@@ -122,10 +116,8 @@ export class FetchApiManager implements IFetchApiManager {
 			}
 
 			const contentType = response.headers.get("content-type");
-			const isJson = contentType && contentType.includes("application/json");
-			const data = isJson
-				? ((await response.json()) as T)
-				: ((await response.text()) as unknown as T);
+			const isJson = contentType?.includes("application/json");
+			const data = isJson ? ((await response.json()) as T) : ((await response.text()) as unknown as T);
 
 			return {
 				data,

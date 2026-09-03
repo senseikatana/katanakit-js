@@ -1,8 +1,5 @@
+import { useGetStorage, useSetStorage } from "../../infrastructure/storage/storage.service";
 import { useLog } from "./logger.service";
-import {
-	useGetStorage,
-	useSetStorage,
-} from "@/infrastructure/storage/storage.service";
 
 import type {
 	IReactiveService,
@@ -12,7 +9,7 @@ import type {
 	StorageTarget,
 	Subscribable,
 	ToggleSignalSetter,
-} from "@/types";
+} from "../../types";
 
 /**
  * Minimal reactive kernel (Observer / Publisher-Subscriber) implemented as a
@@ -21,7 +18,7 @@ import type {
 export default class ReactiveService implements IReactiveService {
 	private static instance: ReactiveService;
 
-	private isBatching: boolean = false;
+	private isBatching = false;
 	private batchQueue: Set<() => void> = new Set();
 
 	private constructor() {}
@@ -41,9 +38,7 @@ export default class ReactiveService implements IReactiveService {
 		}
 	};
 
-	public useCreateSignal = <T>(
-		initialValue: T,
-	): [SignalGetter<T>, SignalSetter<T>] => {
+	public useCreateSignal = <T>(initialValue: T): [SignalGetter<T>, SignalSetter<T>] => {
 		let value = initialValue;
 		const listeners = new Set<SignalListener<T>>();
 
@@ -51,10 +46,7 @@ export default class ReactiveService implements IReactiveService {
 
 		const set: SignalSetter<T> = (nextValue) => {
 			const oldValue = value;
-			value =
-				typeof nextValue === "function"
-					? (nextValue as (prev: T) => T)(oldValue)
-					: nextValue;
+			value = typeof nextValue === "function" ? (nextValue as (prev: T) => T)(oldValue) : nextValue;
 
 			if (value !== oldValue) {
 				this.NOTIFY(() => {
@@ -137,9 +129,7 @@ export default class ReactiveService implements IReactiveService {
 		return get;
 	};
 
-	public useCreateToggle = (
-		initialValue: boolean = false,
-	): [SignalGetter<boolean>, ToggleSignalSetter] => {
+	public useCreateToggle = (initialValue = false): [SignalGetter<boolean>, ToggleSignalSetter] => {
 		const [get, set] = this.useCreateSignal<boolean>(initialValue);
 		const toggle = () => set((prev) => !prev);
 
@@ -166,10 +156,7 @@ export default class ReactiveService implements IReactiveService {
 
 		const setWithStorage: SignalSetter<T> = (nextValue) => {
 			set((prev) => {
-				const newValue =
-					typeof nextValue === "function"
-						? (nextValue as (p: T) => T)(prev)
-						: nextValue;
+				const newValue = typeof nextValue === "function" ? (nextValue as (p: T) => T)(prev) : nextValue;
 
 				try {
 					useSetStorage(key, newValue, target);
@@ -186,7 +173,7 @@ export default class ReactiveService implements IReactiveService {
 
 	public useCreateDebouncedSignal = <T>(
 		initialValue: T,
-		delayMs: number = 300,
+		delayMs = 300,
 	): [SignalGetter<T>, SignalSetter<T>] => {
 		const [get, set] = this.useCreateSignal<T>(initialValue);
 		let timeoutId: ReturnType<typeof setTimeout> | undefined;

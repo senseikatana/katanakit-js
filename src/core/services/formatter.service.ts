@@ -1,9 +1,4 @@
-import type {
-	CurrencyFormatOptions,
-	IConverterService,
-	IFormatterService,
-	Locale,
-} from "@/types";
+import type { CurrencyFormatOptions, IConverterService, IFormatterService, Locale } from "../../types";
 
 /**
  * Number/currency/string formatter (Adapter + Singleton) over `Intl`.
@@ -20,11 +15,7 @@ export class FormatterService implements IFormatterService {
 		return FormatterService.instance;
 	}
 
-	public useFormatNumber = (
-		value: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => {
+	public useFormatNumber = (value: number, locale: Locale = "en", digits = 2): string => {
 		return new Intl.NumberFormat(locale, {
 			maximumFractionDigits: digits,
 			minimumFractionDigits: digits,
@@ -75,53 +66,29 @@ export class ConverterService implements IConverterService {
 		return ConverterService.instance;
 	}
 
-	public useToCelsius = (
-		fahrenheit: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber((fahrenheit - 32) / 1.8, locale, digits);
+	public useToCelsius = (fahrenheit: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber((fahrenheit - 32) / 1.8, locale, digits);
 
-	public useToFahrenheit = (
-		celsius: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber(celsius * 1.8 + 32, locale, digits);
+	public useToFahrenheit = (celsius: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber(celsius * 1.8 + 32, locale, digits);
 
-	public useToKilometers = (
-		miles: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber(miles / 0.62137, locale, digits);
+	public useToKilometers = (miles: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber(miles / 0.62137, locale, digits);
 
-	public useToMiles = (
-		km: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber(km * 1.60934, locale, digits);
+	public useToMiles = (km: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber(km * 1.60934, locale, digits);
 
-	public useToInches = (
-		cm: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber(cm / 2.54, locale, digits);
+	public useToInches = (cm: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber(cm / 2.54, locale, digits);
 
-	public useToCm = (
-		inches: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber(inches * 2.54, locale, digits);
+	public useToCm = (inches: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber(inches * 2.54, locale, digits);
 
-	public useToKilos = (
-		pounds: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber(pounds * 0.453592, locale, digits);
+	public useToKilos = (pounds: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber(pounds * 0.453592, locale, digits);
 
-	public useToPounds = (
-		kilos: number,
-		locale: Locale = "en",
-		digits: number = 2,
-	): string => this.formatter.useFormatNumber(kilos / 0.453592, locale, digits);
+	public useToPounds = (kilos: number, locale: Locale = "en", digits = 2): string =>
+		this.formatter.useFormatNumber(kilos / 0.453592, locale, digits);
 }
 
 // Singleton instances and destructured exports.

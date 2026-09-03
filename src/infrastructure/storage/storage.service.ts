@@ -1,4 +1,4 @@
-import type { StorageStrategy, StorageTarget } from "@/types";
+import type { StorageStrategy, StorageTarget } from "../../types";
 
 /**
  * Base strategy handling safe JSON serialization over a Web Storage backend.
@@ -108,12 +108,8 @@ export default class StorageService {
 		if (!this.strategies) {
 			const hasWindow = typeof window !== "undefined";
 			this.strategies = {
-				localStorage: hasWindow
-					? new LocalStorageStrategy()
-					: new MemoryStorageStrategy(),
-				sessionStorage: hasWindow
-					? new SessionStorageStrategy()
-					: new MemoryStorageStrategy(),
+				localStorage: hasWindow ? new LocalStorageStrategy() : new MemoryStorageStrategy(),
+				sessionStorage: hasWindow ? new SessionStorageStrategy() : new MemoryStorageStrategy(),
 			};
 		}
 		return this.strategies;
@@ -130,19 +126,13 @@ export default class StorageService {
 		target: StorageTarget = "localStorage",
 	): void => this.getStrategies()[target].useSetItem(key, value);
 
-	public useRemoveStorage = (
-		key: string,
-		target: StorageTarget = "localStorage",
-	): void => this.getStrategies()[target].useRemoveItem(key);
+	public useRemoveStorage = (key: string, target: StorageTarget = "localStorage"): void =>
+		this.getStrategies()[target].useRemoveItem(key);
 
 	public useClearStorage = (target: StorageTarget = "localStorage"): void =>
 		this.getStrategies()[target].useClear();
 }
 
 // Singleton instance and destructured exports.
-export const {
-	useClearStorage,
-	useGetStorage,
-	useRemoveStorage,
-	useSetStorage,
-} = StorageService.getInstance();
+export const { useClearStorage, useGetStorage, useRemoveStorage, useSetStorage } =
+	StorageService.getInstance();

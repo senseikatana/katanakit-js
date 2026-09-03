@@ -1,7 +1,7 @@
 import cors from "cors";
 import express, { type Application, type NextFunction, type Request, type Response } from "express";
 
-import { LOGGER } from "@/core/services/logger.service";
+import { useLog } from "../../core/services/logger.service";
 import router from "./router";
 
 export default class ServerExpress {
@@ -23,22 +23,29 @@ export default class ServerExpress {
 		return ServerExpress.instance;
 	}
 
-	start = (): void => {
+	useStart = (): void => {
 		this.setupMiddlewares();
 		this.setupRoutes();
 		this.setupErrorHandling();
 
 		this.app.listen(this.port, this.host, () => {
-			LOGGER(`Server running on http://${this.host}:${this.port}`);
+			useLog(`Server running on http://${this.host}:${this.port}`);
 		});
 	};
 
-	getApp = (): Application => this.app;
+	useGetApp = (): Application => this.app;
 
 	private setupMiddlewares(): void {
-		this.app.use(cors());
-		this.app.use(express.json());
-		this.app.use(express.urlencoded({ extended: true }));
+		// Restrict CORS to configured origins (defaults to localhost).
+		this.app.use(
+			cors({
+				origin: process.env.CORS_ORIGINS?.split(",") ?? ["http://localhost:3000"],
+				methods: ["GET", "POST", "PUT", "DELETE"],
+			}),
+		);
+		this.app.disable("x-powered-by");
+		this.app.use(express.json({ limit: "100kb" }));
+		this.app.use(express.urlencoded({ extended: true, limit: "100kb" }));
 	}
 
 	private setupRoutes(): void {

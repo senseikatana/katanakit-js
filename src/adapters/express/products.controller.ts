@@ -1,21 +1,17 @@
 import type { Request, Response } from "express";
 
-export type ProductType = {
-	id: number;
-	name: string;
-	price: number;
-};
+import type { ProductType } from "../../types";
 
 export class ProductController {
 	private products: ProductType[] = [];
 
 	// GET /products
-	getAll(_request: Request, response: Response): void {
+	useGetAll(_request: Request, response: Response): void {
 		response.json(this.products);
 	}
 
 	// GET /products/:id
-	getProductById(request: Request, response: Response): void {
+	useGetProductById(request: Request, response: Response): void {
 		const id = Number.parseInt(String(request.params.id), 10);
 		const product = this.products.find((item) => item.id === id);
 
@@ -28,7 +24,7 @@ export class ProductController {
 	}
 
 	// POST /products
-	createProduct(request: Request, response: Response): void {
+	useCreateProduct(request: Request, response: Response): void {
 		const { name = "", price = 0 } = (request.body ?? {}) as {
 			name?: string;
 			price?: number;
@@ -45,7 +41,7 @@ export class ProductController {
 	}
 
 	// PUT /products/:id
-	upsertProduct(request: Request, response: Response): void {
+	useUpsertProduct(request: Request, response: Response): void {
 		const id = Number.parseInt(String(request.params.id), 10);
 		const product = this.products.find((item) => item.id === id);
 
@@ -65,7 +61,7 @@ export class ProductController {
 	}
 
 	// DELETE /products/:id
-	deleteProductById(request: Request, response: Response): void {
+	useDeleteProductById(request: Request, response: Response): void {
 		const id = Number.parseInt(String(request.params.id), 10);
 		const index = this.products.findIndex((item) => item.id === id);
 

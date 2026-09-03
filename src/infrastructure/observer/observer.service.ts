@@ -1,4 +1,4 @@
-import { LOGGER } from "@/core/services/logger.service";
+import { useLog } from "../../core/services/logger.service";
 
 import type {
 	LazyLoaderEntry,
@@ -6,18 +6,10 @@ import type {
 	ObserverConfig,
 	ObserverEntry,
 	ObserverTarget,
-} from "@/types";
+} from "../../types";
 
 /**
  * Singleton wrapper around the native IntersectionObserver API.
- * Manages multiple named observers with automatic cleanup and target tracking.
- *
- * @example
- * ```typescript
- * const observer = ObserverService.getInstance();
- * observer.create('fade-in', (entry) => entry.target.classList.add('visible'));
- * observer.observeAll('fade-in', '.card');
- * ```
  */
 export class ObserverService {
 	private static instance: ObserverService;
@@ -32,36 +24,23 @@ export class ObserverService {
 		return ObserverService.instance;
 	}
 
-	/**
-	 * Checks if IntersectionObserver is supported in the current environment.
-	 */
-	static isSupported(): boolean {
+	static useIsSupported(): boolean {
 		return typeof window !== "undefined" && "IntersectionObserver" in window;
 	}
 
-	/**
-	 * Creates and registers a new observer under a unique key.
-	 * Disconnects any existing observer with the same key to prevent duplicates.
-	 *
-	 * @param key - Unique identifier for this observer
-	 * @param callback - Function invoked when observed elements enter viewport
-	 * @param options - Native IntersectionObserverInit options
-	 * @param autoUnobserve - Automatically unobserve after first intersection
-	 * @returns The service instance for method chaining
-	 */
-	create(
+	useCreate(
 		key: string,
 		callback: ObserverCallback,
 		options: IntersectionObserverInit = { threshold: 0.1 },
 		autoUnobserve = true,
 	): this {
-		if (!ObserverService.isSupported()) {
-			LOGGER("warn", "[ObserverService] IntersectionObserver not supported.");
+		if (!ObserverService.useIsSupported()) {
+			useLog("warn", "[ObserverService] IntersectionObserver not supported.");
 			return this;
 		}
 
 		if (this.registry.has(key)) {
-			this.disconnect(key);
+			this.useDisconnect(key);
 		}
 
 		const config: ObserverConfig = { callback, options, autoUnobserve };
@@ -71,7 +50,7 @@ export class ObserverService {
 				if (entry.isIntersecting) {
 					config.callback(entry);
 					if (config.autoUnobserve) {
-						this.unobserve(key, entry.target as HTMLElement);
+						this.useUnobserve(key, entry.target as HTMLElement);
 					}
 				}
 			}
@@ -81,27 +60,17 @@ export class ObserverService {
 		return this;
 	}
 
-	/**
-	 * Resolves an ObserverTarget into an HTMLElement or null.
-	 */
 	private resolveTarget(element: ObserverTarget): HTMLElement | null {
 		return typeof element === "string" ? document.querySelector<HTMLElement>(element) : element;
 	}
 
-	/**
-	 * Starts observing a specific element with the observer registered under the given key.
-	 *
-	 * @param key - Key of the observer to use
-	 * @param element - Element or CSS selector to observe
-	 * @returns The service instance for method chaining
-	 */
-	observe(key: string, element: ObserverTarget): this {
+	useObserve(key: string, element: ObserverTarget): this {
 		const entry = this.registry.get(key);
 		if (!entry || !entry.observer) return this;
 
 		const target = this.resolveTarget(element);
 		if (!target) {
-			LOGGER("warn", `[ObserverService] Target not found for key "${key}":`, element);
+			useLog("warn", `[ObserverService] Target not found for key "${key}":`, element);
 			return this;
 		}
 
@@ -110,25 +79,15 @@ export class ObserverService {
 		return this;
 	}
 
-	/**
-	 * Observes all elements matching a CSS selector.
-	 *
-	 * @param key - Key of the observer to use
-	 * @param selector - CSS selector to match elements
-	 * @returns The service instance for method chaining
-	 */
-	observeAll(key: string, selector: string): this {
-		if (!ObserverService.isSupported()) return this;
+	useObserveAll(key: string, selector: string): this {
+		if (!ObserverService.useIsSupported()) return this;
 		for (const el of document.querySelectorAll<HTMLElement>(selector)) {
-			this.observe(key, el);
+			this.useObserve(key, el);
 		}
 		return this;
 	}
 
-	/**
-	 * Stops observing a specific element.
-	 */
-	unobserve(key: string, element: HTMLElement): this {
+	useUnobserve(key: string, element: HTMLElement): this {
 		const entry = this.registry.get(key);
 		if (!entry || !entry.observer) return this;
 
@@ -137,10 +96,7 @@ export class ObserverService {
 		return this;
 	}
 
-	/**
-	 * Disconnects and removes an observer by key.
-	 */
-	disconnect(key: string): this {
+	useDisconnect(key: string): this {
 		const entry = this.registry.get(key);
 		if (!entry) return this;
 
@@ -150,39 +106,24 @@ export class ObserverService {
 		return this;
 	}
 
-	/**
-	 * Disconnects all registered observers. Useful for cleanup on unmount.
-	 */
-	disconnectAll(): this {
+	useDisconnectAll(): this {
 		for (const key of this.registry.keys()) {
-			this.disconnect(key);
+			this.useDisconnect(key);
 		}
 		return this;
 	}
 
-	/**
-	 * Checks if an observer exists under the given key.
-	 */
-	has(key: string): boolean {
+	useHas(key: string): boolean {
 		return this.registry.has(key);
 	}
 
-	/**
-	 * Returns all registered observer keys.
-	 */
-	keys(): string[] {
+	useKeys(): string[] {
 		return Array.from(this.registry.keys());
 	}
 }
 
 /**
- * Singleton service for lazy loading images and other elements using IntersectionObserver.
- * Built on top of ObserverService to share the same underlying observer infrastructure.
- *
- * @example
- * ```typescript
- * LazyLoaderService.getInstance().init('products', '.product-card img', '300px');
- * ```
+ * Singleton service for lazy loading images using IntersectionObserver.
  */
 export class LazyLoaderService {
 	private static instance: LazyLoaderService;
@@ -197,25 +138,17 @@ export class LazyLoaderService {
 		return LazyLoaderService.instance;
 	}
 
-	/**
-	 * Registers and starts a lazy loader under a unique key.
-	 *
-	 * @param key - Unique identifier for this lazy loader
-	 * @param selector - CSS selector for elements to lazy load
-	 * @param rootMargin - Distance from viewport to trigger loading
-	 * @returns The service instance for method chaining
-	 */
-	init(key = "default", selector = "img[data-src]", rootMargin = "200px"): this {
-		if (!ObserverService.isSupported()) return this;
+	useInit(key = "default", selector = "img[data-src]", rootMargin = "200px"): this {
+		if (!ObserverService.useIsSupported()) return this;
 
 		if (this.registry.has(key)) {
-			this.stop(key);
+			this.useStop(key);
 		}
 
 		const observer = ObserverService.getInstance();
 		const observerKey = `lazy_loader_${key}`;
 
-		observer.create(
+		observer.useCreate(
 			observerKey,
 			(entry) => {
 				const img = entry.target as HTMLImageElement;
@@ -229,37 +162,28 @@ export class LazyLoaderService {
 			true,
 		);
 
-		observer.observeAll(observerKey, selector);
+		observer.useObserveAll(observerKey, selector);
 		this.registry.set(key, { selector, observerKey });
 		return this;
 	}
 
-	/**
-	 * Stops and removes a lazy loader by key.
-	 */
-	stop(key: string): this {
+	useStop(key: string): this {
 		const entry = this.registry.get(key);
 		if (!entry) return this;
 
-		ObserverService.getInstance().disconnect(entry.observerKey);
+		ObserverService.getInstance().useDisconnect(entry.observerKey);
 		this.registry.delete(key);
 		return this;
 	}
 
-	/**
-	 * Stops all registered lazy loaders.
-	 */
-	stopAll(): this {
+	useStopAll(): this {
 		for (const key of this.registry.keys()) {
-			this.stop(key);
+			this.useStop(key);
 		}
 		return this;
 	}
 
-	/**
-	 * Checks if a lazy loader exists under the given key.
-	 */
-	has(key: string): boolean {
+	useHas(key: string): boolean {
 		return this.registry.has(key);
 	}
 }

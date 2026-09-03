@@ -1,33 +1,21 @@
 import {
-	ADD_CLASS,
-	GET_ROOT,
-	ON,
-	REMOVE_CLASS,
-	SET_ATTRIBUTE,
-} from "@/infrastructure/dom/dom.service";
-import { GET_STORAGE, REMOVE_STORAGE, SET_STORAGE } from "@/infrastructure/storage/storage.service";
+	useAddClass,
+	useGetRoot,
+	useOn,
+	useRemoveClass,
+	useSetAttribute,
+} from "../dom/dom.service";
+import {
+	useGetStorage,
+	useRemoveStorage,
+	useSetStorage,
+} from "../storage/storage.service";
 
-export type ThemeMode = "light" | "dark" | "system";
+import type { IThemeService, ThemeMode, ThemeOptions } from "../../types";
 
-export interface ThemeOptions {
-	defaultMode?: ThemeMode;
-	storageKey?: string;
-	attribute?: string;
-	target?: HTMLElement;
-	onChange?: (mode: ThemeMode, resolved: "light" | "dark") => void;
-}
-
-export interface IThemeService {
-	INIT_THEME(options?: ThemeOptions): void;
-	SET_THEME_MODE(mode: ThemeMode): void;
-	GET_THEME_MODE(): ThemeMode;
-	GET_RESOLVED(): "light" | "dark";
-	PREFERS_COLOR_SCHEME(): boolean;
-	TOGGLE_THEME(): void;
-	RESET_THEME(): void;
-	DESTROY_THEME(): void;
-}
-
+/**
+ * Theme facade (Singleton) over the DOM and Storage, with a media-query listener.
+ */
 export class ThemeService implements IThemeService {
 	private static instance: ThemeService;
 
@@ -52,56 +40,54 @@ export class ThemeService implements IThemeService {
 		return typeof window !== "undefined" && typeof document !== "undefined";
 	};
 
-	public INIT_THEME = (options: ThemeOptions = {}): void => {
+	public useInitTheme = (options: ThemeOptions = {}): void => {
 		if (!this.IS_BROWSER()) return;
 
 		this.storageKey = options.storageKey ?? "theme";
 		this.attribute = options.attribute ?? "data-theme";
-		this.target = options.target ?? GET_ROOT();
+		this.target = options.target ?? useGetRoot();
 		this.onChange = options.onChange;
 
-		const stored = GET_STORAGE(this.storageKey) as ThemeMode | null;
+		const stored = useGetStorage(this.storageKey) as ThemeMode | null;
 		this.mode = stored ?? options.defaultMode ?? "system";
 
 		this.APPLY_THEME();
 		this.SETUP_MEDIA_QUERY_LISTENER();
 	};
 
-	public SET_THEME_MODE = (mode: ThemeMode): void => {
+	public useSetThemeMode = (mode: ThemeMode): void => {
 		if (!this.IS_BROWSER()) return;
 
 		this.mode = mode ?? "system";
-		SET_STORAGE(this.storageKey, this.mode, "localStorage");
+		useSetStorage(this.storageKey, this.mode, "localStorage");
 		this.APPLY_THEME();
 	};
 
-	public GET_THEME_MODE = (): ThemeMode => {
-		return this.mode;
-	};
+	public useGetThemeMode = (): ThemeMode => this.mode;
 
-	public GET_RESOLVED = (): "light" | "dark" => {
+	public useGetResolved = (): "light" | "dark" => {
 		if (this.mode !== "system") return this.mode;
-		return this.PREFERS_COLOR_SCHEME() ? "dark" : "light";
+		return this.usePrefersColorScheme() ? "dark" : "light";
 	};
 
-	public PREFERS_COLOR_SCHEME = (): boolean => {
+	public usePrefersColorScheme = (): boolean => {
 		if (!this.IS_BROWSER() || !window.matchMedia) return false;
 		return window.matchMedia("(prefers-color-scheme: dark)").matches;
 	};
 
-	public TOGGLE_THEME = (): void => {
-		const current = this.GET_RESOLVED();
-		this.SET_THEME_MODE(current === "light" ? "dark" : "light");
+	public useToggleTheme = (): void => {
+		const current = this.useGetResolved();
+		this.useSetThemeMode(current === "light" ? "dark" : "light");
 	};
 
-	public RESET_THEME = (): void => {
+	public useResetTheme = (): void => {
 		if (!this.IS_BROWSER()) return;
-		REMOVE_STORAGE(this.storageKey);
+		useRemoveStorage(this.storageKey);
 		this.mode = "system";
 		this.APPLY_THEME();
 	};
 
-	public DESTROY_THEME = (): void => {
+	public useDestroyTheme = (): void => {
 		if (this.cleanMediaQueryListener) {
 			this.cleanMediaQueryListener();
 			this.cleanMediaQueryListener = null;
@@ -112,14 +98,14 @@ export class ThemeService implements IThemeService {
 	private APPLY_THEME = (): void => {
 		if (!this.target) return;
 
-		const resolved = this.GET_RESOLVED();
+		const resolved = this.useGetResolved();
 
 		// Set the attribute, e.g. data-theme="dark".
-		SET_ATTRIBUTE(this.target, this.attribute, resolved);
+		useSetAttribute(this.target, this.attribute, resolved);
 
 		// Toggle CSS classes.
-		REMOVE_CLASS(this.target, ["light", "dark"]);
-		ADD_CLASS(this.target, resolved);
+		useRemoveClass(this.target, ["light", "dark"]);
+		useAddClass(this.target, resolved);
 
 		this.onChange?.(this.mode, resolved);
 	};
@@ -127,10 +113,16 @@ export class ThemeService implements IThemeService {
 	private SETUP_MEDIA_QUERY_LISTENER = (): void => {
 		if (!this.IS_BROWSER() || !window.matchMedia) return;
 
+		// Clean up any existing listener before registering a new one.
+		if (this.cleanMediaQueryListener) {
+			this.cleanMediaQueryListener();
+			this.cleanMediaQueryListener = null;
+		}
+
 		this.mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 		// Register the listener using DomService.
-		this.cleanMediaQueryListener = ON(this.mediaQuery, "change", () => {
+		this.cleanMediaQueryListener = useOn(this.mediaQuery, "change", () => {
 			if (this.mode === "system") {
 				this.APPLY_THEME();
 			}
@@ -142,11 +134,12 @@ export class ThemeService implements IThemeService {
 export const THEME_SERVICE: ThemeService = ThemeService.getInstance();
 
 export const {
-	INIT_THEME,
-	SET_THEME_MODE,
-	GET_THEME_MODE,
-	GET_RESOLVED,
-	TOGGLE_THEME,
-	RESET_THEME,
-	DESTROY_THEME,
+	useInitTheme,
+	useSetThemeMode,
+	useGetThemeMode,
+	useGetResolved,
+	usePrefersColorScheme,
+	useToggleTheme,
+	useResetTheme,
+	useDestroyTheme,
 }: ThemeService = THEME_SERVICE;

@@ -1,35 +1,35 @@
 import { describe, expect, it } from "vitest";
 
 import { GeometryUtils } from "@/core/services/geometry.service";
-import { CUSTOM, INTERNAL, NOT_FOUND } from "@/core/services/error.service";
+import { useCustom, useInternal, useNotFound } from "@/core/services/error.service";
 import {
-	CREATE_EFFECT,
-	CREATE_MEMO,
-	CREATE_SIGNAL,
+	useCreateEffect,
+	useCreateMemo,
+	useCreateSignal,
 } from "@/core/services/reactive.service";
 
 describe("GeometryUtils", () => {
 	it("computes the rectangle area", () => {
-		expect(GeometryUtils.area.rectangle(5, 10)).toBe("50.00");
+		expect(GeometryUtils.area.useRectangle(5, 10)).toBe("50.00");
 	});
 
 	it("computes the circle area", () => {
-		expect(GeometryUtils.area.circle(3)).toBe("28.27");
+		expect(GeometryUtils.area.useCircle(3)).toBe("28.27");
 	});
 
 	it("appends a unit when provided", () => {
-		expect(GeometryUtils.perimeter.circle(3, { unit: "cm" })).toBe("18.85 cm");
+		expect(GeometryUtils.perimeter.useCircle(3, { unit: "cm" })).toBe("18.85 cm");
 	});
 });
 
 describe("ErrorFactoryService", () => {
 	it("creates typed errors with status codes", () => {
-		expect(NOT_FOUND("Missing").code).toBe(404);
-		expect(INTERNAL().code).toBe(500);
+		expect(useNotFound("Missing").code).toBe(404);
+		expect(useInternal().code).toBe(500);
 	});
 
 	it("serializes an error", () => {
-		expect(CUSTOM("Teapot", 418).TO_JSON()).toEqual({
+		expect(useCustom("Teapot", 418).useToJson()).toEqual({
 			name: "AppError",
 			message: "Teapot",
 			code: 418,
@@ -39,10 +39,10 @@ describe("ErrorFactoryService", () => {
 
 describe("ReactiveService", () => {
 	it("updates a signal and notifies effects", () => {
-		const [count, setCount] = CREATE_SIGNAL(0);
+		const [count, setCount] = useCreateSignal(0);
 		let last = 0;
 
-		CREATE_EFFECT(() => {
+		useCreateEffect(() => {
 			last = count();
 		}, [count]);
 
@@ -53,8 +53,8 @@ describe("ReactiveService", () => {
 	});
 
 	it("recomputes a memo when its dependency changes", () => {
-		const [count, setCount] = CREATE_SIGNAL(1);
-		const doubled = CREATE_MEMO(() => count() * 2, [count]);
+		const [count, setCount] = useCreateSignal(1);
+		const doubled = useCreateMemo(() => count() * 2, [count]);
 
 		expect(doubled()).toBe(2);
 		setCount(3);

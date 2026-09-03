@@ -1,4 +1,4 @@
-import type { IAppUtils, IDataUtils, ISystemUtils } from "@/types";
+import type { IAppUtils, IDataUtils, ISystemUtils } from "../../types";
 
 /**
  * Data utilities implemented as a Singleton.
@@ -24,10 +24,7 @@ export class DataUtils implements IDataUtils {
 		);
 	};
 
-	public useGroupBy = <T>(
-		array: T[],
-		key: keyof T | ((item: T) => string),
-	): Record<string, T[]> => {
+	public useGroupBy = <T>(array: T[], key: keyof T | ((item: T) => string)): Record<string, T[]> => {
 		return array.reduce(
 			(acc, item) => {
 				const groupKey: string = typeof key === "function" ? key(item) : String(item[key]);
@@ -71,10 +68,7 @@ export class DataUtils implements IDataUtils {
 		return output as T;
 	};
 
-	public usePick = <T extends object, K extends keyof T>(
-		obj: T,
-		keys: K[],
-	): Pick<T, K> => {
+	public usePick = <T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {
 		return keys.reduce(
 			(acc, key) => {
 				if (key in obj) acc[key] = obj[key];
@@ -84,10 +78,7 @@ export class DataUtils implements IDataUtils {
 		);
 	};
 
-	public useOmit = <T extends object, K extends keyof T>(
-		obj: T,
-		keys: K[],
-	): Omit<T, K> => {
+	public useOmit = <T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
 		const result = this.useDeepClone(obj) as Record<string, unknown>;
 		for (const key of keys) delete result[key as string];
 		return result as Omit<T, K>;
@@ -109,14 +100,9 @@ export class SystemUtils implements ISystemUtils {
 		return SystemUtils.instance;
 	}
 
-	public useSleep = (ms: number): Promise<void> =>
-		new Promise((resolve) => setTimeout(resolve, ms));
+	public useSleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
-	public async useRetry<T>(
-		fn: () => Promise<T>,
-		retries = 3,
-		delayMs = 1000,
-	): Promise<T> {
+	public useRetry = async <T>(fn: () => Promise<T>, retries = 3, delayMs = 1000): Promise<T> => {
 		try {
 			return await fn();
 		} catch (error) {
@@ -124,9 +110,9 @@ export class SystemUtils implements ISystemUtils {
 			await this.useSleep(delayMs);
 			return this.useRetry(fn, retries - 1, delayMs);
 		}
-	}
+	};
 
-	public async useCopyToClipboard(text: string): Promise<boolean> {
+	public useCopyToClipboard = async (text: string): Promise<boolean> => {
 		try {
 			await navigator.clipboard.writeText(text);
 			return true;
@@ -145,7 +131,7 @@ export class SystemUtils implements ISystemUtils {
 	};
 
 	public useRound = (value: string | number, decimals = 2): number => {
-		const num = typeof value === "string" ? parseFloat(value) : value;
+		const num = typeof value === "string" ? Number.parseFloat(value) : value;
 		if (Number.isNaN(num)) return 0;
 		const factor = 10 ** decimals;
 		return Math.round(num * factor) / factor;

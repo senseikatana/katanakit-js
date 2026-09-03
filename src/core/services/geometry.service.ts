@@ -1,4 +1,4 @@
-import type { GeometryFormatOptions } from "@/types";
+import type { GeometryFormatOptions } from "../../types";
 
 function formatGeometry(value: number, options: GeometryFormatOptions = {}): string {
 	const { locale = "en", digits = 2, unit } = options;
@@ -14,11 +14,7 @@ function formatGeometry(value: number, options: GeometryFormatOptions = {}): str
 export class GeometryArea {
 	private constructor() {}
 
-	static useRectangle(
-		width: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useRectangle(width: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(width * height, options);
 	}
 
@@ -26,11 +22,7 @@ export class GeometryArea {
 		return formatGeometry(side ** 2, options);
 	}
 
-	static useTriangle(
-		base: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useTriangle(base: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry((base * height) / 2, options);
 	}
 
@@ -51,19 +43,11 @@ export class GeometryArea {
 		return formatGeometry(((3 * Math.sqrt(3)) / 2) * side ** 2, options);
 	}
 
-	static useEllipse(
-		semiMajor: number,
-		semiMinor: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useEllipse(semiMajor: number, semiMinor: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(Math.PI * semiMajor * semiMinor, options);
 	}
 
-	static useParallelogram(
-		base: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useParallelogram(base: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(base * height, options);
 	}
 }
@@ -72,11 +56,7 @@ export class GeometryArea {
 export class GeometryPerimeter {
 	private constructor() {}
 
-	static useRectangle(
-		width: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useRectangle(width: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(2 * (width + height), options);
 	}
 
@@ -111,11 +91,7 @@ export class GeometryPerimeter {
 		return formatGeometry(side1 + side2 + side3 + side4, options);
 	}
 
-	static useEllipse(
-		semiMajor: number,
-		semiMinor: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useEllipse(semiMajor: number, semiMinor: number, options?: GeometryFormatOptions): string {
 		const a = semiMajor;
 		const b = semiMinor;
 		const h = (a - b) ** 2 / (a + b) ** 2;
@@ -123,11 +99,7 @@ export class GeometryPerimeter {
 		return formatGeometry(perimeter, options);
 	}
 
-	static useParallelogram(
-		side1: number,
-		side2: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useParallelogram(side1: number, side2: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(2 * (side1 + side2), options);
 	}
 }
@@ -153,27 +125,15 @@ export class GeometryVolume {
 		return formatGeometry((4 / 3) * Math.PI * radius ** 3, options);
 	}
 
-	static useCylinder(
-		radius: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useCylinder(radius: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(Math.PI * radius ** 2 * height, options);
 	}
 
-	static useCone(
-		radius: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static useCone(radius: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry((1 / 3) * Math.PI * radius ** 2 * height, options);
 	}
 
-	static usePyramid(
-		baseArea: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static usePyramid(baseArea: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry((1 / 3) * baseArea * height, options);
 	}
 }

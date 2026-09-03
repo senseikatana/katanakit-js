@@ -4,7 +4,7 @@
  * Run with: `bun run examples/astro/demo.ts`
  */
 import { AstroService } from "@/adapters/astro";
-import type { CollectionEntryLike } from "@/adapters/astro";
+import type { CollectionEntryLike } from "@/types";
 
 interface BlogPostData {
 	title: string;
@@ -20,16 +20,16 @@ const mockGetCollection = async (_name: string): Promise<BlogPostEntry[]> => [
 ];
 
 const {
-	GET_STATIC_PATHS,
-	FIND_ENTRY,
-	GENERATE_PAGINATION,
-	PATHS_FROM_VALUES,
-	EXTRACT_UNIQUE_VALUES,
+	useGetStaticPaths,
+	useFindEntry,
+	useGeneratePagination,
+	usePathsFromValues,
+	useExtractUniqueValues,
 }: AstroService = AstroService.getInstance();
 
 async function main(): Promise<void> {
-	// 1. GET_STATIC_PATHS with Safe Result ({ data, error, ok }).
-	const result = await GET_STATIC_PATHS(mockGetCollection, "blog", {
+	// 1. useGetStaticPaths with Safe Result ({ data, error, ok }).
+	const result = await useGetStaticPaths(mockGetCollection, "blog", {
 		param: "slug",
 		valueFrom: (entry) => entry.slug ?? entry.id,
 		propsFrom: (entry) => entry.data,
@@ -45,20 +45,20 @@ async function main(): Promise<void> {
 	// 2. Load the collection for the synchronous utilities.
 	const posts = await mockGetCollection("blog");
 
-	// 3. FIND_ENTRY
-	const singlePost = FIND_ENTRY(posts, "hello-world");
+	// 3. useFindEntry
+	const singlePost = useFindEntry(posts, "hello-world");
 	console.log("Found post:", singlePost?.data?.title);
 
-	// 4. GENERATE_PAGINATION
-	const paginated = GENERATE_PAGINATION(posts, 2, "page");
+	// 4. useGeneratePagination
+	const paginated = useGeneratePagination(posts, 2, "page");
 	console.log("Generated pages:", paginated.length);
 
-	// 5. EXTRACT_UNIQUE_VALUES
-	const uniqueTags = EXTRACT_UNIQUE_VALUES(posts, (post) => post.data?.tags ?? []);
+	// 5. useExtractUniqueValues
+	const uniqueTags = useExtractUniqueValues(posts, (post) => post.data?.tags ?? []);
 	console.log("Unique tags:", uniqueTags);
 
-	// 6. PATHS_FROM_VALUES
-	const tagRoutes = PATHS_FROM_VALUES(uniqueTags, "tag");
+	// 6. usePathsFromValues
+	const tagRoutes = usePathsFromValues(uniqueTags, "tag");
 	console.log("Tag routes:", tagRoutes);
 }
 

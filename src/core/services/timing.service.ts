@@ -1,6 +1,6 @@
 import { useLog } from "./logger.service";
 
-import type { IntervalControl, TimeoutControl } from "@/types";
+import type { IntervalControl, TimeoutControl } from "../../types";
 
 type TimerId = ReturnType<typeof setTimeout>;
 
@@ -20,16 +20,12 @@ export default class TimingService {
 		return TimingService.instance;
 	}
 
-	public useDelay = (ms: number): Promise<void> =>
-		new Promise((resolve) => setTimeout(resolve, ms));
+	public useDelay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 	/** Alias for delay, more semantic for sleep operations. */
 	public useSleep = (ms: number): Promise<void> => this.useDelay(ms);
 
-	public useSetTimeout = <T>(
-		callback: () => T | Promise<T>,
-		ms: number,
-	): TimeoutControl<T> => {
+	public useSetTimeout = <T>(callback: () => T | Promise<T>, ms: number): TimeoutControl<T> => {
 		let timerId: TimerId;
 		let isCancelled = false;
 
@@ -57,7 +53,7 @@ export default class TimingService {
 	public useInterval = (
 		callback: () => void | Promise<void>,
 		ms: number,
-		immediate: boolean = false,
+		immediate = false,
 	): IntervalControl => {
 		let timerId: TimerId | null = null;
 		let isPaused = false;
@@ -235,11 +231,11 @@ export default class TimingService {
 		};
 	};
 
-	public async useRepeat(
+	public useRepeat = async (
 		callback: (iteration: number) => void | Promise<void>,
 		iterations: number,
-		delayMs: number = 0,
-	): Promise<void> {
+		delayMs = 0,
+	): Promise<void> => {
 		for (let i = 0; i < iterations; i++) {
 			try {
 				await callback(i);
@@ -251,13 +247,13 @@ export default class TimingService {
 				await this.useDelay(delayMs);
 			}
 		}
-	}
+	};
 
-	public async useRace<T>(
+	public useRace = async <T>(
 		promise: Promise<T>,
 		timeoutMs: number,
-		errorMessage: string = "Operation timed out",
-	): Promise<T> {
+		errorMessage = "Operation timed out",
+	): Promise<T> => {
 		const timeoutPromise = new Promise<never>((_, reject) => {
 			setTimeout(() => reject(new Error(errorMessage)), timeoutMs);
 		});

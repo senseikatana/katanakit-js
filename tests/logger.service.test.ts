@@ -6,12 +6,12 @@ describe("LoggerService", () => {
 	it("delegates to the configured strategy", () => {
 		const calls: Array<{ level: string; message: string }> = [];
 		const strategy: LogStrategy = {
-			output: (level, message) => calls.push({ level, message }),
+			useOutput: (level, message) => calls.push({ level, message }),
 		};
 
 		const logger = LoggerService.getInstance();
-		logger.setStrategy(strategy);
-		logger.log("info", "hello", { id: 1 });
+		logger.useSetStrategy(strategy);
+		logger.useLog("info", "hello", { id: 1 });
 
 		expect(calls).toEqual([{ level: "info", message: "hello" }]);
 	});
@@ -19,12 +19,12 @@ describe("LoggerService", () => {
 	it("defaults to the info level when only a message is provided", () => {
 		const calls: Array<{ level: string; message: string }> = [];
 		const strategy: LogStrategy = {
-			output: (level, message) => calls.push({ level, message }),
+			useOutput: (level, message) => calls.push({ level, message }),
 		};
 
 		const logger = LoggerService.getInstance();
-		logger.setStrategy(strategy);
-		logger.log("plain message");
+		logger.useSetStrategy(strategy);
+		logger.useLog("plain message");
 
 		expect(calls).toEqual([{ level: "info", message: "plain message" }]);
 	});

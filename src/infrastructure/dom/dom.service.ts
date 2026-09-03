@@ -1,4 +1,4 @@
-import type { IDomService } from "@/types";
+import type { IDomService } from "../../types";
 
 /**
  * DOM facade (Singleton) over `document`, with SSR-safe guards.
@@ -28,15 +28,11 @@ export class DomService implements IDomService {
 		return document.body as HTMLBodyElement | null;
 	};
 
-	private RESOLVE = <T extends Element = HTMLElement>(
-		target: T | string,
-	): T | null => {
+	private RESOLVE = <T extends Element = HTMLElement>(target: T | string): T | null => {
 		return typeof target === "string" ? this.useQuerySelector<T>(target) : target;
 	};
 
-	public useGetElementById = <T extends HTMLElement = HTMLElement>(
-		id: string,
-	): T | null => {
+	public useGetElementById = <T extends HTMLElement = HTMLElement>(id: string): T | null => {
 		if (!this.useIsBrowser()) return null;
 		return document.getElementById(id) as T | null;
 	};
@@ -50,9 +46,7 @@ export class DomService implements IDomService {
 	};
 
 	public useQuerySelector: {
-		<K extends keyof HTMLElementTagNameMap>(
-			selector: K,
-		): HTMLElementTagNameMap[K] | null;
+		<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null;
 		<E extends Element = HTMLElement>(selector: string): E | null;
 	} = <E extends Element = HTMLElement>(selector: string): E | null => {
 		if (!this.useIsBrowser()) return null;
@@ -60,9 +54,7 @@ export class DomService implements IDomService {
 	};
 
 	public useQuerySelectorAll: {
-		<K extends keyof HTMLElementTagNameMap>(
-			selector: K,
-		): HTMLElementTagNameMap[K][];
+		<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K][];
 		<E extends Element = HTMLElement>(selector: string): E[];
 	} = <E extends Element = HTMLElement>(selector: string): E[] => {
 		if (!this.useIsBrowser()) return [];
@@ -73,10 +65,7 @@ export class DomService implements IDomService {
 		this.RESOLVE(target)?.classList.add(className);
 	};
 
-	public useRemoveClass = (
-		target: Element | string,
-		className: string | string[],
-	): void => {
+	public useRemoveClass = (target: Element | string, className: string | string[]): void => {
 		const el = this.RESOLVE(target);
 		if (!el) return;
 		if (Array.isArray(className)) {
@@ -98,18 +87,15 @@ export class DomService implements IDomService {
 		return this.RESOLVE(target)?.classList.contains(className) ?? false;
 	};
 
-	public useGetAttribute = (
-		target: Element | string,
-		attr: string,
-	): string | null => {
+	public useGetAttribute = (target: Element | string, attr: string): string | null => {
 		return this.RESOLVE(target)?.getAttribute(attr) ?? null;
 	};
 
-	public useSetAttribute = (
-		target: Element | string,
-		attr: string,
-		value: string,
-	): void => {
+	public useSetAttribute = (target: Element | string, attr: string, value: string): void => {
+		// Block event-handler attributes to prevent XSS.
+		if (/^on/i.test(attr)) {
+			throw new Error(`[DomService] Attribute "${attr}" is not allowed. Use useOn() for events.`);
+		}
 		this.RESOLVE(target)?.setAttribute(attr, value);
 	};
 
@@ -117,18 +103,11 @@ export class DomService implements IDomService {
 		this.RESOLVE(target)?.removeAttribute(attr);
 	};
 
-	public useGetDataAttribute = (
-		target: HTMLElement | string,
-		key: string,
-	): string | undefined => {
+	public useGetDataAttribute = (target: HTMLElement | string, key: string): string | undefined => {
 		return this.RESOLVE<HTMLElement>(target)?.dataset[key];
 	};
 
-	public useSetDataAttribute = (
-		target: HTMLElement | string,
-		key: string,
-		value: string,
-	): void => {
+	public useSetDataAttribute = (target: HTMLElement | string, key: string, value: string): void => {
 		const el = this.RESOLVE<HTMLElement>(target);
 		if (el) el.dataset[key] = value;
 	};
@@ -158,6 +137,11 @@ export class DomService implements IDomService {
 		return document.createElement<T>(tagName, options);
 	};
 
+	/**
+	 * Sets innerHTML on the target element.
+	 * WARNING: this is an XSS sink. Only pass trusted HTML. For user-supplied
+	 * content, use `useSetText` (textContent) instead, or sanitize with DOMPurify.
+	 */
 	public useSetHtml = (target: Element | string, html: string): void => {
 		const el = this.RESOLVE(target);
 		if (el) el.innerHTML = html ?? "";

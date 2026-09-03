@@ -5,7 +5,7 @@ import type {
 	IAstroService,
 	PaginationProps,
 	PathsOptions,
-} from "./astro.types";
+} from "../../types";
 
 /**
  * Astro adapter (Facade + Adapter + Singleton). Converts arbitrary collections
@@ -23,7 +23,7 @@ export class AstroService implements IAstroService {
 		return AstroService.instance;
 	}
 
-	public PATHS_FROM = <T, TParam extends string = "slug", TProps = T>(
+	public usePathsFrom = <T, TParam extends string = "slug", TProps = T>(
 		items: T[],
 		options: PathsOptions<T, TParam, TProps> = {},
 	): AstroPath<TParam, TProps>[] => {
@@ -46,7 +46,7 @@ export class AstroService implements IAstroService {
 		}));
 	};
 
-	public GET_STATIC_PATHS = async <
+	public useGetStaticPaths = async <
 		TData = unknown,
 		TParam extends string = "slug",
 		TProps = CollectionEntryLike<TData>,
@@ -57,7 +57,7 @@ export class AstroService implements IAstroService {
 	): Promise<AstroServiceResult<AstroPath<TParam, TProps>[]>> => {
 		try {
 			const entries = await getCollectionFn(collectionName);
-			const paths = this.PATHS_FROM(entries, options);
+			const paths = this.usePathsFrom(entries, options);
 			return {
 				data: paths,
 				error: null,
@@ -76,7 +76,7 @@ export class AstroService implements IAstroService {
 		}
 	};
 
-	public FIND_ENTRY = <T>(
+	public useFindEntry = <T>(
 		items: T[],
 		value: string,
 		keyFrom?: (item: T) => string | number,
@@ -90,7 +90,7 @@ export class AstroService implements IAstroService {
 		return items.find((item) => String(getKey(item)) === value) ?? null;
 	};
 
-	public GENERATE_PAGINATION = <T, TParam extends string = "page">(
+	public useGeneratePagination = <T, TParam extends string = "page">(
 		items: T[],
 		pageSize = 10,
 		param: TParam = "page" as TParam,
@@ -112,7 +112,7 @@ export class AstroService implements IAstroService {
 		});
 	};
 
-	public PATHS_FROM_VALUES = <TParam extends string = "slug">(
+	public usePathsFromValues = <TParam extends string = "slug">(
 		values: (string | number)[],
 		param: TParam = "slug" as TParam,
 	): AstroPath<TParam, string | number>[] => {
@@ -122,7 +122,7 @@ export class AstroService implements IAstroService {
 		}));
 	};
 
-	public EXTRACT_UNIQUE_VALUES = <T, V>(items: T[], keyFrom: (item: T) => V | V[]): V[] => {
+	public useExtractUniqueValues = <T, V>(items: T[], keyFrom: (item: T) => V | V[]): V[] => {
 		const values = items.flatMap(keyFrom);
 		return [...new Set(values)];
 	};
@@ -130,10 +130,10 @@ export class AstroService implements IAstroService {
 
 // Singleton instance and destructured exports.
 export const {
-	PATHS_FROM,
-	GET_STATIC_PATHS,
-	FIND_ENTRY,
-	GENERATE_PAGINATION,
-	PATHS_FROM_VALUES,
-	EXTRACT_UNIQUE_VALUES,
+	usePathsFrom,
+	useGetStaticPaths,
+	useFindEntry,
+	useGeneratePagination,
+	usePathsFromValues,
+	useExtractUniqueValues,
 }: AstroService = AstroService.getInstance();

@@ -1,5 +1,5 @@
-import type { Temporal } from "@js-temporal/polyfill";
 import type { AppError } from "@/core/services/error.service";
+import type { Temporal } from "@js-temporal/polyfill";
 
 /* -------------------------------------------------------------------------- */
 /* Logging                                                                    */
@@ -394,10 +394,7 @@ export interface IReactiveService {
 		fallbackValue: T,
 		target?: StorageTarget,
 	): [SignalGetter<T>, SignalSetter<T>];
-	useCreateDebouncedSignal<T>(
-		initialValue: T,
-		delayMs?: number,
-	): [SignalGetter<T>, SignalSetter<T>];
+	useCreateDebouncedSignal<T>(initialValue: T, delayMs?: number): [SignalGetter<T>, SignalSetter<T>];
 	useCreateBatch(): (callback: () => void) => void;
 }
 

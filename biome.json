@@ -9,10 +9,16 @@
 		"indentWidth": 1,
 		"lineWidth": 100
 	},
+	"files": {
+		"ignore": ["src/prisma/schema.d.ts", "src/prisma/schema.json"]
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"suspicious": {
+				"noConfusingVoidType": "off"
+			}
 		}
 	},
 	"javascript": {

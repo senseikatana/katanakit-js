@@ -10,7 +10,7 @@ const observer = ObserverService.getInstance();
 const lazyLoader = LazyLoaderService.getInstance();
 
 // Create a fade-in observer and observe elements.
-observer.create(
+observer.useCreate(
 	"fade-in",
 	(entry) => {
 		entry.target.classList.toggle("visible");
@@ -18,23 +18,23 @@ observer.create(
 	{ threshold: 0.2 },
 );
 
-observer.observe("fade-in", "#hero");
-observer.observeAll("fade-in", ".card");
+observer.useObserve("fade-in", "#hero");
+observer.useObserveAll("fade-in", ".card");
 
 // Create an analytics observer.
-observer.create("track-view", (entry) => {
+observer.useCreate("track-view", (entry) => {
 	console.log(`View: ${entry.target.id}`);
 });
-observer.observe("track-view", "#promo-banner");
+observer.useObserve("track-view", "#promo-banner");
 
 // Lazy load images for different sections.
-lazyLoader.init("pokemon-list", ".pokemon-card img", "300px");
-lazyLoader.init("blog-posts", ".post-cover img");
+lazyLoader.useInit("pokemon-list", ".pokemon-card img", "300px");
+lazyLoader.useInit("blog-posts", ".post-cover img");
 
 // Selective cleanup.
-observer.disconnect("track-view");
-lazyLoader.stop("pokemon-list");
+observer.useDisconnect("track-view");
+lazyLoader.useStop("pokemon-list");
 
 // Full cleanup (e.g., on SPA route change or component unmount).
-observer.disconnectAll();
-lazyLoader.stopAll();
+observer.useDisconnectAll();
+lazyLoader.useStopAll();

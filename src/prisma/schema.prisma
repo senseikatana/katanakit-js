@@ -3,19 +3,23 @@
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  username  String?
+  username  String?  @unique
   name      String?
   posts     Post[]
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
+
+  @@map("users")
 }
 
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String?
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  Int
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
+
+  @@map("posts")
 }

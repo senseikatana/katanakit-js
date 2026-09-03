@@ -10,21 +10,25 @@ pick something and open a pull request.
 - [x] Barrel exports + `@/` path alias.
 - [x] Vitest suite for the core services.
 - [x] English documentation (`README`, `CONTRIBUTING`, `docs/`, `SECURITY`).
+- [x] `use*` method convention across all services.
+- [x] Prisma integration with contract pattern.
+- [x] Biome linting and formatting configured.
 
 ## Next
 
-- [ ] Publish to npm (scoped or unscoped, once the name is finalized).
+- [ ] Publish to npm.
 - [ ] Add a website / docs site for the project.
 - [ ] Framework adapters: React hooks (`useApi`, `useSignal`) and Svelte stores.
 - [ ] HTTP client: request interceptors, retry with backoff, request cancellation
       (`AbortSignal`) and a caching layer (stale-while-revalidate).
-- [ ] Reactive: automatic dependency tracking for `CREATE_EFFECT`/`CREATE_MEMO`.
-- [ ] Worker: fix the `RUN_POOL` concurrency by correlating tasks by id.
+- [ ] Reactive: automatic dependency tracking for `useCreateEffect`/`useCreateMemo`.
+- [ ] Worker: fix the `useRunPool` concurrency by correlating tasks by id.
 - [ ] Add a logger strategy for structured/JSON output.
+- [ ] Prisma migrations and seed scripts.
 
 ## Later
 
 - [ ] Deno/Cloudflare Workers compatibility pass.
 - [ ] More geometry (3D solids) and unit-system conversions.
-- [ ] i18n for the date formatter (`DatesService.DIFF`).
+- [ ] i18n for the date formatter (`DatesService.useDiff`).
 - [ ] E2E tests for the Express adapter.

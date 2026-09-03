@@ -1,6 +1,6 @@
 import { Temporal } from "@js-temporal/polyfill";
 
-import type { DatesServiceTypes, Locale, TemporalInput } from "@/types";
+import type { DatesServiceTypes, Locale, TemporalInput } from "../../types";
 
 /**
  * Facade + Adapter + Singleton over the Temporal polyfill.
@@ -18,9 +18,7 @@ export class DatesService implements DatesServiceTypes {
 	}
 
 	// Private helper that adapts flexible inputs into a PlainDate.
-	private TO_PLAIN_DATE = (
-		date: string | Temporal.PlainDate,
-	): Temporal.PlainDate =>
+	private TO_PLAIN_DATE = (date: string | Temporal.PlainDate): Temporal.PlainDate =>
 		typeof date === "string" ? Temporal.PlainDate.from(date) : date;
 
 	public useDiff = (
@@ -39,16 +37,13 @@ export class DatesService implements DatesServiceTypes {
 		locale: Locale = "en",
 		options: Intl.DateTimeFormatOptions = {},
 	): string => {
-		let date:
-			| Temporal.PlainDate
-			| Temporal.PlainDateTime
-			| Temporal.ZonedDateTime;
+		let date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime;
 
 		try {
 			if (typeof dateInput === "number") {
-				date = Temporal.Instant.fromEpochMilliseconds(
-					dateInput,
-				).toZonedDateTimeISO(Temporal.Now.timeZoneId());
+				date = Temporal.Instant.fromEpochMilliseconds(dateInput).toZonedDateTimeISO(
+					Temporal.Now.timeZoneId(),
+				);
 			} else if (typeof dateInput === "string") {
 				try {
 					date = Temporal.PlainDate.from(dateInput);
@@ -56,9 +51,9 @@ export class DatesService implements DatesServiceTypes {
 					date = Temporal.PlainDateTime.from(dateInput);
 				}
 			} else if (dateInput instanceof Date) {
-				date = Temporal.Instant.fromEpochMilliseconds(
-					dateInput.getTime(),
-				).toZonedDateTimeISO(Temporal.Now.timeZoneId());
+				date = Temporal.Instant.fromEpochMilliseconds(dateInput.getTime()).toZonedDateTimeISO(
+					Temporal.Now.timeZoneId(),
+				);
 			} else if (dateInput instanceof Temporal.Instant) {
 				date = dateInput.toZonedDateTimeISO(Temporal.Now.timeZoneId());
 			} else {
@@ -74,45 +69,29 @@ export class DatesService implements DatesServiceTypes {
 
 	public useNow = (): string => Temporal.Now.plainDateISO().toString();
 
-	public useNowDateTime = (): string =>
-		Temporal.Now.plainDateTimeISO().toString();
+	public useNowDateTime = (): string => Temporal.Now.plainDateTimeISO().toString();
 
-	public useAddDays = (
-		date: string | Temporal.PlainDate,
-		days: number,
-	): string => this.TO_PLAIN_DATE(date).add({ days }).toString();
+	public useAddDays = (date: string | Temporal.PlainDate, days: number): string =>
+		this.TO_PLAIN_DATE(date).add({ days }).toString();
 
-	public useSubtractDays = (
-		date: string | Temporal.PlainDate,
-		days: number,
-	): string => this.TO_PLAIN_DATE(date).subtract({ days }).toString();
+	public useSubtractDays = (date: string | Temporal.PlainDate, days: number): string =>
+		this.TO_PLAIN_DATE(date).subtract({ days }).toString();
 
 	public useIsEqual = (
 		date1: string | Temporal.PlainDate,
 		date2: string | Temporal.PlainDate,
 	): boolean =>
-		Temporal.PlainDate.compare(
-			this.TO_PLAIN_DATE(date1),
-			this.TO_PLAIN_DATE(date2),
-		) === 0;
+		Temporal.PlainDate.compare(this.TO_PLAIN_DATE(date1), this.TO_PLAIN_DATE(date2)) === 0;
 
 	public useIsBefore = (
 		date1: string | Temporal.PlainDate,
 		date2: string | Temporal.PlainDate,
-	): boolean =>
-		Temporal.PlainDate.compare(
-			this.TO_PLAIN_DATE(date1),
-			this.TO_PLAIN_DATE(date2),
-		) < 0;
+	): boolean => Temporal.PlainDate.compare(this.TO_PLAIN_DATE(date1), this.TO_PLAIN_DATE(date2)) < 0;
 
 	public useIsAfter = (
 		date1: string | Temporal.PlainDate,
 		date2: string | Temporal.PlainDate,
-	): boolean =>
-		Temporal.PlainDate.compare(
-			this.TO_PLAIN_DATE(date1),
-			this.TO_PLAIN_DATE(date2),
-		) > 0;
+	): boolean => Temporal.PlainDate.compare(this.TO_PLAIN_DATE(date1), this.TO_PLAIN_DATE(date2)) > 0;
 
 	public useFirstDayOfMonth = (
 		date: string | Temporal.PlainDate = Temporal.Now.plainDateISO(),
@@ -121,11 +100,7 @@ export class DatesService implements DatesServiceTypes {
 	public useLastDayOfMonth = (
 		date: string | Temporal.PlainDate = Temporal.Now.plainDateISO(),
 	): string =>
-		this.TO_PLAIN_DATE(date)
-			.add({ months: 1 })
-			.with({ day: 1 })
-			.subtract({ days: 1 })
-			.toString();
+		this.TO_PLAIN_DATE(date).add({ months: 1 }).with({ day: 1 }).subtract({ days: 1 }).toString();
 }
 
 // Singleton instance and destructured exports.

@@ -8,12 +8,12 @@ alias when developing). The Express server lives under
 
 Register APIs once, then build URLs and fetch with a Safe Result.
 
-### `INIT(apis: ApisConfig): void`
+### `useInit(apis: ApisConfig): void`
 
 Registers (merges) API definitions. Call once at startup.
 
 ```ts
-INIT({
+useInit({
   api: {
     baseUri: "https://example.com", // string | URL
     endpoints: { user: "/users/:id" },
@@ -22,12 +22,12 @@ INIT({
 });
 ```
 
-### `BUILD_URL(apiName, endpointName, options?): string`
+### `useBuildUrl(apiName, endpointName, options?): string`
 
 Builds a URL, substituting `:param` placeholders with `encodeURIComponent` and
 merging query params. Throws if the API or endpoint is not registered.
 
-### `FETCH / GET / POST / PUT / DELETE`
+### `useFetch / useGet / usePost / usePut / useDelete`
 
 Wrappers around `fetch` returning a `FetchResult<T>`.
 
@@ -49,21 +49,22 @@ type FetchResult<T> =
 
 ### Destructured exports
 
-- `LOGGER(message, data?)` / `LOGGER(level, message, data?)` — log a message.
-- `LOGGER_ERROR(message, data?)` — error level.
-- `LOGGER_CLEAR()` / `LOGGER_TABLE(data)`.
+- `useLog(message, data?)` / `useLog(level, message, data?)` — log a message.
+- `useError(message, data?)` — error level.
+- `useClear()` / `useTable(data)`.
 
 ### `LogStrategy` and `ConsoleStrategy`
 
-Swap the output strategy at runtime via `LoggerService.getInstance().setStrategy(strategy)`.
+Swap the output strategy at runtime via
+`LoggerService.getInstance().useSetStrategy(strategy)`.
 
 ## Storage — `StorageService`
 
 ### Destructured exports
 
-- `GET_STORAGE<T>(key, target?)` — read a value (`localStorage` by default).
-- `SET_STORAGE(key, value, target?)` — write a value (JSON-serialized).
-- `REMOVE_STORAGE(key, target?)` / `CLEAR_STORAGE(target?)`.
+- `useGetStorage<T>(key, target?)` — read a value (`localStorage` by default).
+- `useSetStorage(key, value, target?)` — write a value (JSON-serialized).
+- `useRemoveStorage(key, target?)` / `useClearStorage(target?)`.
 
 ### Strategies
 
@@ -74,13 +75,13 @@ fallback). `StorageTarget = "localStorage" | "sessionStorage"`.
 
 ### Destructured exports
 
-- `IS_BROWSER()`, `GET_ROOT()`, `GET_BODY()`.
-- `QUERY_SELECTOR(selector)`, `QUERY_SELECTOR_ALL(selector)`.
-- `ADD_CLASS(target, className)`, `REMOVE_CLASS`, `TOGGLE_CLASS`, `HAS_CLASS`.
-- `GET_ATTRIBUTE` / `SET_ATTRIBUTE` / `REMOVE_ATTRIBUTE`.
-- `GET_DATA_ATTRIBUTE` / `SET_DATA_ATTRIBUTE`.
-- `ON(target, event, callback, options?)` — returns an unsubscribe function.
-- `CREATE_ELEMENT`, `SET_HTML`, `SET_TEXT`, `APPEND`, `REMOVE`.
+- `useIsBrowser()`, `useGetRoot()`, `useGetBody()`.
+- `useQuerySelector(selector)`, `useQuerySelectorAll(selector)`.
+- `useAddClass(target, className)`, `useRemoveClass`, `useToggleClass`, `useHasClass`.
+- `useGetAttribute` / `useSetAttribute` / `useRemoveAttribute`.
+- `useGetDataAttribute` / `useSetDataAttribute`.
+- `useOn(target, event, callback, options?)` — returns an unsubscribe function.
+- `useCreateElement`, `useSetHtml`, `useSetText`, `useAppend`, `useRemove`.
 
 All methods are SSR-safe (return `null`/`[]`/`false` when `document` is absent).
 
@@ -90,12 +91,12 @@ Adapter for Astro `getStaticPaths`.
 
 ### Methods
 
-- `PATHS_FROM(items, options?)` — map items to `{ params, props }`.
-- `GET_STATIC_PATHS(getCollectionFn, collectionName, options?)` — async, Safe Result.
-- `FIND_ENTRY(items, value, keyFrom?)` — find an item by slug/id.
-- `GENERATE_PAGINATION(items, pageSize?, param?)` — paginate items.
-- `PATHS_FROM_VALUES(values, param?)` — build paths from raw values.
-- `EXTRACT_UNIQUE_VALUES(items, keyFrom)` — dedupe values.
+- `usePathsFrom(items, options?)` — map items to `{ params, props }`.
+- `useGetStaticPaths(getCollectionFn, collectionName, options?)` — async, Safe Result.
+- `useFindEntry(items, value, keyFrom?)` — find an item by slug/id.
+- `useGeneratePagination(items, pageSize?, param?)` — paginate items.
+- `usePathsFromValues(values, param?)` — build paths from raw values.
+- `useExtractUniqueValues(items, keyFrom)` — dedupe values.
 
 ### Types
 
@@ -106,24 +107,24 @@ Adapter for Astro `getStaticPaths`.
 
 | Service              | Key exports                                                              |
 | -------------------- | ------------------------------------------------------------------------ |
-| `FormatterService`   | `FORMAT_NUMBER`, `FORMAT_CURRENCY`, `UPPER_CASE`, `JSON_STRINGIFY`, ...   |
-| `ConverterService`   | `TO_CELSIUS`, `TO_FAHRENHEIT`, `TO_KILOMETERS`, `TO_MILES`, ...           |
-| `ErrorFactoryService`| `BAD_REQUEST`, `UNAUTHORIZED`, `FORBIDDEN`, `NOT_FOUND`, `INTERNAL`, `CUSTOM` |
-| `GeneratorService`   | `UUID`, `SLUGIFY`, `NUMERIC_ID`, `TOKEN`, `ENCRYPT`                       |
-| `DatesService`       | `FORMAT`, `NOW`, `NOW_DATE_TIME`, `ADD_DAYS`, `IS_BEFORE`, ...            |
-| `TimingService`      | `DELAY`, `SET_TIMEOUT`, `INTERVAL`, `DEBOUNCE`, `THROTTLE`, ...           |
-| `ReactiveService`    | `CREATE_SIGNAL`, `CREATE_EFFECT`, `CREATE_MEMO`, `CREATE_STORAGE_SIGNAL`, ... |
-| `DataUtils`/`SystemUtils`/`AppUtils` | `UNIQUE`, `CHUNK`, `GROUP_BY`, `RETRY`, `COPY_TO_CLIPBOARD`, ... |
-| `ViewportService`    | `getViewportSize`, `scrollToTop`, `prefersReducedMotion`, ...             |
-| `SensorsUtils`       | `getGeolocation`, `getMediaStream`, `vibrate`, ...                        |
-| `ObserverService`    | `create`, `observe`, `observeAll`, `disconnect`, ...                      |
-| `LazyLoaderService`  | `init`, `stop`, `stopAll`                                                 |
-| `WorkerService`      | `RUN`, `CREATE_POOL`, `RUN_POOL`, `TERMINATE`                             |
-| `ThemeService`       | `INIT_THEME`, `SET_THEME_MODE`, `TOGGLE_THEME`, ...                       |
+| `FormatterService`   | `useFormatNumber`, `useFormatCurrency`, `useUpperCase`, `useJsonStringify` |
+| `ConverterService`   | `useToCelsius`, `useToFahrenheit`, `useToKilometers`, `useToMiles`, ...   |
+| `ErrorFactoryService`| `useBadRequest`, `useUnauthorized`, `useForbidden`, `useNotFound`, ...    |
+| `GeneratorService`   | `useUuid`, `useSlugify`, `useNumericId`, `useToken`, `useEncrypt`         |
+| `DatesService`       | `useFormat`, `useNow`, `useNowDateTime`, `useAddDays`, `useIsBefore`, ... |
+| `TimingService`      | `useDelay`, `useSetTimeout`, `useInterval`, `useDebounce`, `useThrottle`  |
+| `ReactiveService`    | `useCreateSignal`, `useCreateEffect`, `useCreateMemo`, ...                |
+| `DataUtils`/`SystemUtils`/`AppUtils` | `useUnique`, `useChunk`, `useGroupBy`, `useRetry`, ... |
+| `ViewportService`    | `useGetViewportSize`, `useScrollToTop`, `usePrefersReducedMotion`, ...    |
+| `SensorsUtils`       | `useGetGeolocation`, `useGetMediaStream`, `useVibrate`, ...               |
+| `ObserverService`    | `useCreate`, `useObserve`, `useObserveAll`, `useDisconnect`, ...          |
+| `LazyLoaderService`  | `useInit`, `useStop`, `useStopAll`                                        |
+| `WorkerService`      | `useRun`, `useCreatePool`, `useRunPool`, `useTerminate`                   |
+| `ThemeService`       | `useInitTheme`, `useSetThemeMode`, `useToggleTheme`, ...                  |
 
 ## Express server (subpath)
 
 `import { ServerExpress, router, ProductController } from "katanakit/adapters/express"`
 
-- `ServerExpress.getInstance().start()` — start on `http://localhost:3000`.
-- `ServerExpress.getInstance().getApp()` — the raw Express app.
+- `ServerExpress.getInstance().useStart()` — start on `http://localhost:3000`.
+- `ServerExpress.getInstance().useGetApp()` — the raw Express app.

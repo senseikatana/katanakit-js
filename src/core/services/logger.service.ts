@@ -1,4 +1,4 @@
-import type { LogLevel, LogStrategy } from "@/types";
+import type { LogLevel, LogStrategy } from "../../types";
 
 /**
  * Concrete strategy: native console output.
@@ -72,10 +72,5 @@ export class LoggerService {
 }
 
 // Singleton instance and destructured exports.
-export const {
-	useClear,
-	useLog,
-	useError,
-	useTable,
-	useSetStrategy,
-}: LoggerService = LoggerService.getInstance();
+export const { useClear, useLog, useError, useTable, useSetStrategy }: LoggerService =
+	LoggerService.getInstance();

@@ -1,4 +1,4 @@
-import type { ICryptoStrategy, IUuidStrategy } from "@/types";
+import type { ICryptoStrategy, IUuidStrategy } from "../../types";
 
 /**
  * Loads the Node.js `crypto` module lazily, only when `useEncrypt` is invoked.
@@ -7,17 +7,16 @@ import type { ICryptoStrategy, IUuidStrategy } from "@/types";
  * fixed default salt for real password hashing; prefer scrypt/argon2id instead.
  */
 export class LazyNodeCryptoStrategy implements ICryptoStrategy {
-	async useEncrypt(plainText: string, salt: string = "default-salt"): Promise<string> {
+	async useEncrypt(plainText: string, salt?: string): Promise<string> {
 		const cryptoModule = await import("node:crypto");
 		// Supports both CJS and pure ESM environments.
 		const cryptoInstance = cryptoModule.default ?? cryptoModule;
 
-		const rounds = cryptoInstance.randomBytes(32).toString("hex");
-		const hash = cryptoInstance
-			.pbkdf2Sync(plainText, salt, 100000, 64, "sha512")
-			.toString("hex");
+		// Generate a random salt if none is provided (128 bits).
+		const actualSalt = salt ?? cryptoInstance.randomBytes(16).toString("hex");
+		const hash = cryptoInstance.pbkdf2Sync(plainText, actualSalt, 100000, 64, "sha512").toString("hex");
 
-		return `${rounds}:${hash}`;
+		return `${actualSalt}:${hash}`;
 	}
 }
 
@@ -45,7 +44,7 @@ export class NativeUuidStrategy implements IUuidStrategy {
  */
 export default class GeneratorService {
 	private static instance: GeneratorService;
-	private counter: number = 0;
+	private counter = 0;
 
 	private cryptoStrategy: ICryptoStrategy;
 	private uuidStrategy: IUuidStrategy;
@@ -91,10 +90,8 @@ export default class GeneratorService {
 		return Math.floor(100000 + Math.random() * 900000);
 	};
 
-	public useEncrypt = async (
-		plainText: string,
-		salt: string = "default-salt",
-	): Promise<string> => this.cryptoStrategy.useEncrypt(plainText, salt);
+	public useEncrypt = async (plainText: string, salt = "default-salt"): Promise<string> =>
+		this.cryptoStrategy.useEncrypt(plainText, salt);
 }
 
 // Singleton instance and destructured exports.

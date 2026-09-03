@@ -14,19 +14,22 @@ These rules keep the codebase consistent and maintainable:
 2. **Design patterns** — services are implemented as Singleton facades with
    Strategy/Observer/Factory/Decorator where it makes sense. Preserve the pattern
    when extending a service.
-3. **Destructured exports** — every service exposes its methods as arrow functions
-   and re-exports them destructured (e.g. `LOGGER`, `GET_STORAGE`, `FETCH`) so
-   consumers can tree-shake and call them without binding `this`.
-4. **`@/` path alias** — internal imports use the `@/` alias (mapped to `src/`).
+3. **`use*` convention** — every public method (except `getInstance`) uses the
+   `use` prefix (like React hooks). This makes the API consistent and predictable.
+4. **Destructured exports** — every service exposes its methods as arrow functions
+   and re-exports them destructured (e.g. `useLog`, `useGetStorage`, `useFetch`)
+   so consumers can tree-shake and call them without binding `this`.
+5. **`@/` path alias** — internal imports use the `@/` alias (mapped to `src/`).
    The public API is exposed through barrel files (`index.ts`).
-5. **English only** — comments, identifiers and user-facing messages are written
+6. **Single source of truth** — all contracts and types live in `src/types/`.
+7. **English only** — comments, identifiers and user-facing messages are written
    in English.
-6. **No side effects on import** — importing a module must never trigger network
+8. **No side effects on import** — importing a module must never trigger network
    calls, timers, storage writes or DOM mutations. Demos and examples live under
    `examples/`.
-7. **SSR safety** — browser-only adapters must guard or fall back gracefully when
+9. **SSR safety** — browser-only adapters must guard or fall back gracefully when
    `window` is unavailable (Node.js/Bun SSR).
-8. **Tests** — add or update a test under `tests/` for every new feature or bug fix.
+10. **Tests** — add or update a test under `tests/` for every new feature or bug fix.
 
 ## Getting started
 
@@ -50,16 +53,18 @@ Useful scripts:
 
 ## Directory layout
 
-- `src/core/` — pure domain services and ports (contracts).
-- `src/infrastructure/` — adapters that implement ports (DOM, storage, sensors, ...).
+- `src/types/` — single source of truth for all contracts and domain types.
+- `src/core/services/` — pure domain services (no I/O).
+- `src/infrastructure/` — adapters that implement contracts (DOM, storage, sensors, ...).
 - `src/adapters/` — framework adapters (Astro, Express).
-- `src/types/` — shared domain types (single source of truth).
+- `src/prisma/` — database layer (Prisma schema + client).
 - `tests/` — Vitest unit tests.
 - `examples/` — runnable examples (`bun run examples/<name>/demo.ts`).
 
 ## Pull request checklist
 
 - [ ] Code follows the development contract above.
+- [ ] All methods use the `use*` prefix (except `getInstance`).
 - [ ] `bun run typecheck` passes with no errors.
 - [ ] `bun run check` passes (Biome lint + format).
 - [ ] `bun run test` passes.
