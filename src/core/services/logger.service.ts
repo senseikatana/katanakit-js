@@ -1,11 +1,15 @@
-export type LogLevel = "log" | "info" | "warn" | "error" | "debug";
+import type { LogLevel } from "@/types";
 
-// 1. Interfaz Strategy: define el contrato de salida usando tipos seguros
+/**
+ * Strategy interface: defines the output contract using type-safe levels.
+ */
 export interface LogStrategy {
 	output(level: LogLevel, message: string, data?: unknown): void;
 }
 
-// 2. Estrategia Concreta: salida por consola nativa
+/**
+ * Concrete strategy: native console output.
+ */
 export class ConsoleStrategy implements LogStrategy {
 	output(level: LogLevel, message: string, data?: unknown): void {
 		if (data !== undefined) {
@@ -16,7 +20,10 @@ export class ConsoleStrategy implements LogStrategy {
 	}
 }
 
-// 3. Singleton Context: gestiona la estrategia y mantiene el contexto 'this' intacto
+/**
+ * Singleton context: holds the active strategy and keeps `this` bound through
+ * arrow-function methods so destructured exports remain safe.
+ */
 export class LoggerService {
 	private static instance: LoggerService;
 	private strategy: LogStrategy;
@@ -36,10 +43,12 @@ export class LoggerService {
 		this.strategy = strategy;
 	}
 
-	// Sobrecargas para permitir:
-	// - Solo mensaje: LOGGER("mensaje")
-	// - Mensaje + Data: LOGGER("mensaje", { id: 1 })
-	// - Nivel + Mensaje + Data: LOGGER("error", "falló algo", { code: 500 })
+	/**
+	 * Overloads allow:
+	 * - message only: `LOGGER("message")`
+	 * - message + data: `LOGGER("message", { id: 1 })`
+	 * - level + message + data: `LOGGER("error", "something failed", { code: 500 })`
+	 */
 	public log: {
 		(message: string, data?: unknown): void;
 		(level: LogLevel, message: string, data?: unknown): void;
@@ -48,8 +57,7 @@ export class LoggerService {
 
 		if (levels.includes(param1 as LogLevel)) {
 			const level = param1 as LogLevel;
-			const message =
-				typeof param2 === "string" ? param2 : String(param2 ?? "");
+			const message = typeof param2 === "string" ? param2 : String(param2 ?? "");
 			this.strategy.output(level, message, param3);
 			return;
 		}
@@ -71,7 +79,7 @@ export class LoggerService {
 	};
 }
 
-// 4. Instancia Singleton y exportación directa
+// Singleton instance and destructured exports.
 export const {
 	clear: LOGGER_CLEAR,
 	log: LOGGER,

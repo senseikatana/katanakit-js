@@ -43,7 +43,7 @@ export default class ViewportService {
 	private constructor() {}
 
 	public static getInstance(): ViewportService {
-		if (ViewportService) {
+		if (!ViewportService.instance) {
 			ViewportService.instance = new ViewportService();
 		}
 		return ViewportService.instance;
@@ -157,8 +157,7 @@ export default class ViewportService {
 	 */
 	public getScrollProgress(): number {
 		if (!this.isBrowser()) return 0;
-		const scrollHeight =
-			document.documentElement.scrollHeight - window.innerHeight;
+		const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 		if (scrollHeight <= 0) return 0;
 		return Math.min(1, Math.max(0, window.scrollY / scrollHeight));
 	}
@@ -168,7 +167,7 @@ export default class ViewportService {
 	 *
 	 * @param threshold - Pixels of tolerance. Default: 0
 	 */
-	public isAtTop(threshold: number = 0): boolean {
+	public isAtTop(threshold = 0): boolean {
 		return this.getScrollY() <= threshold;
 	}
 
@@ -177,7 +176,7 @@ export default class ViewportService {
 	 *
 	 * @param threshold - Pixels of tolerance. Default: 50
 	 */
-	public isAtBottom(threshold: number = 50): boolean {
+	public isAtBottom(threshold = 50): boolean {
 		if (!this.isBrowser()) return false;
 		const scrollHeight = document.documentElement.scrollHeight;
 		return window.scrollY + window.innerHeight >= scrollHeight - threshold;
@@ -192,11 +191,7 @@ export default class ViewportService {
 	 * @param y - Vertical position
 	 * @param behavior - Scroll behavior: 'smooth' or 'auto'. Default: 'smooth'
 	 */
-	public scrollTo(
-		x: number = 0,
-		y: number = 0,
-		behavior: ScrollBehavior = "smooth",
-	): void {
+	public scrollTo(x = 0, y = 0, behavior: ScrollBehavior = "smooth"): void {
 		if (!this.isBrowser()) return;
 
 		const finalBehavior = this.prefersReducedMotion() ? "auto" : behavior;
@@ -208,11 +203,10 @@ export default class ViewportService {
 	 *
 	 * @param smooth - Use smooth scrolling. Default: true (respects reduced motion)
 	 */
-	public scrollToTop(smooth: boolean = true): void {
+	public scrollToTop(smooth = true): void {
 		if (!this.isBrowser()) return;
 
-		const behavior: ScrollBehavior =
-			smooth && !this.prefersReducedMotion() ? "smooth" : "auto";
+		const behavior: ScrollBehavior = smooth && !this.prefersReducedMotion() ? "smooth" : "auto";
 		window.scrollTo({ top: 0, behavior });
 	}
 
@@ -221,11 +215,10 @@ export default class ViewportService {
 	 *
 	 * @param smooth - Use smooth scrolling. Default: true
 	 */
-	public scrollToBottom(smooth: boolean = true): void {
+	public scrollToBottom(smooth = true): void {
 		if (!this.isBrowser()) return;
 
-		const behavior: ScrollBehavior =
-			smooth && !this.prefersReducedMotion() ? "smooth" : "auto";
+		const behavior: ScrollBehavior = smooth && !this.prefersReducedMotion() ? "smooth" : "auto";
 		const scrollHeight = document.documentElement.scrollHeight;
 		window.scrollTo({ top: scrollHeight, behavior });
 	}
@@ -245,16 +238,10 @@ export default class ViewportService {
 	 * });
 	 * ```
 	 */
-	public scrollToElement(
-		target: HTMLElement | string,
-		options: ScrollOptions = {},
-	): boolean {
+	public scrollToElement(target: HTMLElement | string, options: ScrollOptions = {}): boolean {
 		if (!this.isBrowser()) return false;
 
-		const element =
-			typeof target === "string"
-				? document.querySelector<HTMLElement>(target)
-				: target;
+		const element = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
 
 		if (!element) return false;
 
@@ -289,10 +276,7 @@ export default class ViewportService {
 	public focusElement(target: HTMLElement | string): boolean {
 		if (!this.isBrowser()) return false;
 
-		const element =
-			typeof target === "string"
-				? document.querySelector<HTMLElement>(target)
-				: target;
+		const element = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
 
 		if (!element) return false;
 
@@ -374,9 +358,7 @@ export default class ViewportService {
 	 * unsubscribe();
 	 * ```
 	 */
-	public onVisibilityChange(
-		callback: (isVisible: boolean) => void,
-	): () => void {
+	public onVisibilityChange(callback: (isVisible: boolean) => void): () => void {
 		if (!this.isBrowser()) return () => {};
 
 		const handler = () => callback(this.isDocumentVisible());
@@ -407,7 +389,7 @@ export default class ViewportService {
 	 * @param tempTitle - Temporary title to show
 	 * @param durationMs - Duration before restoring. Default: 3000
 	 */
-	public setTempTitle(tempTitle: string, durationMs: number = 3000): void {
+	public setTempTitle(tempTitle: string, durationMs = 3000): void {
 		if (!this.isBrowser()) return;
 
 		const original = document.title;
@@ -421,5 +403,4 @@ export default class ViewportService {
 	}
 }
 
-export const { blurActiveElement }: ViewportService =
-	ViewportService.getInstance();
+export const { blurActiveElement }: ViewportService = ViewportService.getInstance();

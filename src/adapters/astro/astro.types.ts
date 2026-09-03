@@ -1,7 +1,6 @@
-// ============================================================
-// 1. TIPOS DECLARADOS LOCALMENTE (AUTOCONTENIDO)
-// ============================================================
-
+/**
+ * Minimal shape of an Astro content collection entry.
+ */
 export interface CollectionEntryLike<TData = unknown> {
 	id: string;
 	slug?: string;
@@ -33,7 +32,9 @@ export interface AstroServiceError {
 	details?: unknown;
 }
 
-// Patrón Safe Result (Unión discriminada sin throw)
+/**
+ * Safe Result (discriminated union without throwing).
+ */
 export type AstroServiceResult<T> =
 	| {
 			data: T;
@@ -46,10 +47,9 @@ export type AstroServiceResult<T> =
 			ok: false;
 	  };
 
-// ============================================================
-// 2. CONTRATO DE LA FACHADA (INTERFAZ)
-// ============================================================
-
+/**
+ * Contract of the Astro facade.
+ */
 export interface IAstroService {
 	PATHS_FROM<T, TParam extends string = "slug", TProps = T>(
 		items: T[],
@@ -61,18 +61,12 @@ export interface IAstroService {
 		TParam extends string = "slug",
 		TProps = CollectionEntryLike<TData>,
 	>(
-		getCollectionFn: (
-			collection: string,
-		) => Promise<CollectionEntryLike<TData>[]>,
+		getCollectionFn: (collection: string) => Promise<CollectionEntryLike<TData>[]>,
 		collectionName: string,
 		options?: PathsOptions<CollectionEntryLike<TData>, TParam, TProps>,
 	): Promise<AstroServiceResult<AstroPath<TParam, TProps>[]>>;
 
-	FIND_ENTRY<T>(
-		items: T[],
-		value: string,
-		keyFrom?: (item: T) => string | number,
-	): T | null;
+	FIND_ENTRY<T>(items: T[], value: string, keyFrom?: (item: T) => string | number): T | null;
 
 	GENERATE_PAGINATION<T, TParam extends string = "page">(
 		items: T[],
@@ -86,9 +80,4 @@ export interface IAstroService {
 	): AstroPath<TParam, string | number>[];
 
 	EXTRACT_UNIQUE_VALUES<T, V>(items: T[], keyFrom: (item: T) => V | V[]): V[];
-}
-
-export interface BlogPostData {
-	title: string;
-	tags: string[];
 }

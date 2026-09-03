@@ -1,69 +1,62 @@
 import type { Temporal } from "@js-temporal/polyfill";
 
 /* -------------------------------------------------------------------------- */
-/*                                    Logger                                  */
+/* Logging                                                                    */
 /* -------------------------------------------------------------------------- */
 
 export type LogLevel = "log" | "info" | "warn" | "error" | "debug";
 
 /* -------------------------------------------------------------------------- */
-/*                                  DOM / HTML                                */
+/* DOM / Observers                                                            */
 /* -------------------------------------------------------------------------- */
 
-/**
- * Tipos nativos de TypeScript/DOM usados aquí:
- *
- * HTMLElement
- * Element
- * Node
- * Window
- * Document
- * EventTarget
- * Event
- * MouseEvent
- * KeyboardEvent
- * IntersectionObserver
- * IntersectionObserverEntry
- * IntersectionObserverInit
- * Worker
- * RequestInfo
- * RequestInit
- * Response
- * BodyInit
- * Storage
- */
+/** Target can be either an HTMLElement reference or a CSS selector string. */
+export type ObserverTarget = HTMLElement | string;
 
-export type DOMTarget = HTMLElement | string;
-
-export type EventTargetLike = HTMLElement | Window | Document | string;
-
-/**
- * Alias semántico para observers.
- * Internamente es lo mismo que DOMTarget.
- */
-export type ObserverTarget = DOMTarget;
-
+/** Callback invoked when an observed element enters the viewport. */
 export type ObserverCallback = (entry: IntersectionObserverEntry) => void;
 
+/** Configuration for a registered IntersectionObserver. */
 export interface ObserverConfig {
 	callback: ObserverCallback;
-	options?: IntersectionObserverInit;
-	autoUnobserve?: boolean;
+	options: IntersectionObserverInit;
+	autoUnobserve: boolean;
 }
 
+/** Internal registry entry storing an observer instance and its tracked targets. */
 export interface ObserverEntry {
 	config: ObserverConfig;
 	observer: IntersectionObserver | null;
 	targets: Set<HTMLElement>;
 }
 
+/** Internal registry entry for lazy loading configurations. */
 export interface LazyLoaderEntry {
 	selector: string;
 	observerKey: string;
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                   Workers                                  */
+/* Sensors                                                                    */
+/* -------------------------------------------------------------------------- */
+
+/** Represents a geographic position with latitude, longitude and accuracy. */
+export interface GeoPosition {
+	lat: number;
+	lng: number;
+	accuracy: number;
+}
+
+/** Type for the experimental Battery API. */
+export interface BatteryManager extends EventTarget {
+	charging: boolean;
+	chargingTime: number;
+	dischargingTime: number;
+	level: number;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Workers                                                                    */
 /* -------------------------------------------------------------------------- */
 
 export type WorkerFunc<TInput = unknown, TOutput = unknown> = (
@@ -77,27 +70,46 @@ export interface WorkerPoolEntry<TInput = unknown, TOutput = unknown> {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                               Locale / Currency                            */
+/* Storage                                                                    */
 /* -------------------------------------------------------------------------- */
 
-/**
- * Evitamos llamarlo `Symbol` porque `Symbol` ya existe en JavaScript.
- */
-export type CurrencySymbol = "€" | "$";
+export type StorageTarget = "localStorage" | "sessionStorage";
 
-export type Locale = "en-US" | "es-ES" | "ja-JP" | "es-MX";
+/* -------------------------------------------------------------------------- */
+/* Locale / Currency                                                          */
+/* -------------------------------------------------------------------------- */
 
-export type Currency = "EUR" | "USD" | "JPY" | "MXN" | "CAD";
+export type Locale = "en" | "es" | "fr" | "de" | "it" | "pt" | "ja" | "zh";
+
+export type Currency =
+	| "EUR"
+	| "USD"
+	| "GBP"
+	| "JPY"
+	| "CAD"
+	| "MXN"
+	| "CHF"
+	| "AUD"
+	| "BRL"
+	| "CNY"
+	| "ARS"
+	| "COP"
+	| "CLP";
 
 export interface CurrencyFormatOptions {
 	amount: number;
 	currency?: Currency;
-	locale?: Locale;
 	taxes?: number;
+	locale?: Locale;
+}
+
+export interface NumberFormatOptions {
+	locale?: Locale;
+	digits?: number;
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                    Dates                                   */
+/* Dates                                                                      */
 /* -------------------------------------------------------------------------- */
 
 export type TemporalInput =
@@ -106,69 +118,70 @@ export type TemporalInput =
 	| Date
 	| Temporal.PlainDate
 	| Temporal.PlainDateTime
-	| Temporal.ZonedDateTime;
+	| Temporal.ZonedDateTime
+	| Temporal.Instant;
 
-/**
- * Si quieres algo más flexible, también puedes usar directamente:
- *
- * Intl.DateTimeFormatOptions
- */
 export interface AppDateFormatOptions {
 	year?: "numeric" | "2-digit";
 	month?: "numeric" | "2-digit" | "long" | "short" | "narrow";
 	day?: "numeric" | "2-digit";
 }
 
-/**
- * Alias si prefieres mantener el nombre anterior.
- */
+/** Backwards-compatible alias for {@link AppDateFormatOptions}. */
 export type DateFormatOptions = AppDateFormatOptions;
 
 /* -------------------------------------------------------------------------- */
-/*                                  Fetch API                                 */
+/* HTTP / Fetch                                                               */
 /* -------------------------------------------------------------------------- */
+
+export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+
+export type QueryParams = Record<string, string | number | boolean | undefined | null>;
+
+export type PathParams = Record<string, string | number>;
+
+export interface UrlOptions {
+	params?: PathParams;
+	query?: QueryParams;
+	ignoreDefaultQuery?: boolean;
+}
+
+export interface ApiEntry {
+	baseUri: string | URL;
+	endpoints: Record<string, string>;
+	defaultQueryParams?: Record<string, QueryParams>;
+}
 
 export type ApisConfig = Record<string, ApiEntry>;
 
-export interface ApiEntry {
-	baseUri: string;
-	endpoints?: Record<string, string>;
-	defaultQueryParams?: Record<string, Record<string, string | number>>;
-}
-
-export interface UrlOptions {
-	params?: Record<string, string | number>;
-	query?: Record<string, string | number | boolean | null | undefined>;
-}
-
-export interface FetchOptions extends Omit<RequestInit, "body"> {
+/** Options passed when executing a fetch request. */
+export interface FetchOptions extends RequestInit {
 	urlOptions?: UrlOptions;
-	body?: BodyInit | null;
 }
 
-export interface FetchResult<T = unknown> {
-	data: T;
-	url: string;
+/** Structure of the safe error returned on non-2xx or network failures. */
+export interface ApiError {
+	message: string;
 	status: number;
-	ok: boolean;
+	details?: unknown;
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                DummyJSON API                               */
-/* -------------------------------------------------------------------------- */
-
-export interface User {
-	id: number;
-	firstName: string;
-	lastName: string;
-	email: string;
-	age: number;
-	username?: string;
-}
-
-export interface UsersResponse {
-	users: User[];
-	total: number;
-	skip: number;
-	limit: number;
-}
+/**
+ * Safe result, discriminated union (Astro Actions style) without throwing.
+ * The `ok` flag narrows the union between the success and error branches.
+ */
+export type FetchResult<T = unknown> =
+	| {
+			data: T;
+			error: null;
+			url: string;
+			status: number;
+			ok: true;
+	  }
+	| {
+			data: null;
+			error: ApiError;
+			url: string;
+			status: number;
+			ok: false;
+	  };

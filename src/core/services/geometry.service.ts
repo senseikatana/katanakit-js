@@ -23,10 +23,7 @@ export class GeometryArea {
 	/**
 	 * Formats a number with the specified precision.
 	 */
-	private static format(
-		value: number,
-		options: GeometryFormatOptions = {},
-	): string {
+	private static format(value: number, options: GeometryFormatOptions = {}): string {
 		const { locale = "en", digits = 2, unit } = options;
 		const formatted = new Intl.NumberFormat(locale, {
 			maximumFractionDigits: digits,
@@ -39,37 +36,29 @@ export class GeometryArea {
 	/**
 	 * Rectangle area: A = width × height
 	 */
-	static rectangle(
-		width: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format(width * height, options);
+	static rectangle(width: number, height: number, options?: GeometryFormatOptions): string {
+		return GeometryArea.format(width * height, options);
 	}
 
 	/**
 	 * Square area: A = side²
 	 */
 	static square(side: number, options?: GeometryFormatOptions): string {
-		return this.format(side ** 2, options);
+		return GeometryArea.format(side ** 2, options);
 	}
 
 	/**
 	 * Triangle area: A = (base × height) / 2
 	 */
-	static triangle(
-		base: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format((base * height) / 2, options);
+	static triangle(base: number, height: number, options?: GeometryFormatOptions): string {
+		return GeometryArea.format((base * height) / 2, options);
 	}
 
 	/**
 	 * Circle area: A = π × r²
 	 */
 	static circle(radius: number, options?: GeometryFormatOptions): string {
-		return this.format(Math.PI * radius ** 2, options);
+		return GeometryArea.format(Math.PI * radius ** 2, options);
 	}
 
 	/**
@@ -81,39 +70,28 @@ export class GeometryArea {
 		height: number,
 		options?: GeometryFormatOptions,
 	): string {
-		return this.format(
-			((parallelSide1 + parallelSide2) * height) / 2,
-			options,
-		);
+		return GeometryArea.format(((parallelSide1 + parallelSide2) * height) / 2, options);
 	}
 
 	/**
 	 * Regular hexagon area: A = (3√3 / 2) × side²
 	 */
 	static hexagon(side: number, options?: GeometryFormatOptions): string {
-		return this.format(((3 * Math.sqrt(3)) / 2) * side ** 2, options);
+		return GeometryArea.format(((3 * Math.sqrt(3)) / 2) * side ** 2, options);
 	}
 
 	/**
 	 * Ellipse area: A = π × a × b (semi-major × semi-minor axes)
 	 */
-	static ellipse(
-		semiMajor: number,
-		semiMinor: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format(Math.PI * semiMajor * semiMinor, options);
+	static ellipse(semiMajor: number, semiMinor: number, options?: GeometryFormatOptions): string {
+		return GeometryArea.format(Math.PI * semiMajor * semiMinor, options);
 	}
 
 	/**
 	 * Parallelogram area: A = base × height
 	 */
-	static parallelogram(
-		base: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format(base * height, options);
+	static parallelogram(base: number, height: number, options?: GeometryFormatOptions): string {
+		return GeometryArea.format(base * height, options);
 	}
 }
 
@@ -129,10 +107,7 @@ export class GeometryArea {
 export class GeometryPerimeter {
 	private constructor() {}
 
-	private static format(
-		value: number,
-		options: GeometryFormatOptions = {},
-	): string {
+	private static format(value: number, options: GeometryFormatOptions = {}): string {
 		const { locale = "en", digits = 2, unit } = options;
 		const formatted = new Intl.NumberFormat(locale, {
 			maximumFractionDigits: digits,
@@ -145,19 +120,15 @@ export class GeometryPerimeter {
 	/**
 	 * Rectangle perimeter: P = 2 × (width + height)
 	 */
-	static rectangle(
-		width: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format(2 * (width + height), options);
+	static rectangle(width: number, height: number, options?: GeometryFormatOptions): string {
+		return GeometryPerimeter.format(2 * (width + height), options);
 	}
 
 	/**
 	 * Square perimeter: P = 4 × side
 	 */
 	static square(side: number, options?: GeometryFormatOptions): string {
-		return this.format(4 * side, options);
+		return GeometryPerimeter.format(4 * side, options);
 	}
 
 	/**
@@ -169,21 +140,21 @@ export class GeometryPerimeter {
 		side3: number,
 		options?: GeometryFormatOptions,
 	): string {
-		return this.format(side1 + side2 + side3, options);
+		return GeometryPerimeter.format(side1 + side2 + side3, options);
 	}
 
 	/**
 	 * Circle circumference: C = 2 × π × r
 	 */
 	static circle(radius: number, options?: GeometryFormatOptions): string {
-		return this.format(2 * Math.PI * radius, options);
+		return GeometryPerimeter.format(2 * Math.PI * radius, options);
 	}
 
 	/**
 	 * Regular hexagon perimeter: P = 6 × side
 	 */
 	static hexagon(side: number, options?: GeometryFormatOptions): string {
-		return this.format(6 * side, options);
+		return GeometryPerimeter.format(6 * side, options);
 	}
 
 	/**
@@ -196,33 +167,25 @@ export class GeometryPerimeter {
 		side4: number,
 		options?: GeometryFormatOptions,
 	): string {
-		return this.format(side1 + side2 + side3 + side4, options);
+		return GeometryPerimeter.format(side1 + side2 + side3 + side4, options);
 	}
 
 	/**
 	 * Ellipse perimeter (approximation using Ramanujan's formula)
 	 */
-	static ellipse(
-		semiMajor: number,
-		semiMinor: number,
-		options?: GeometryFormatOptions,
-	): string {
+	static ellipse(semiMajor: number, semiMinor: number, options?: GeometryFormatOptions): string {
 		const a = semiMajor;
 		const b = semiMinor;
-		const h = ((a - b) ** 2) / ((a + b) ** 2);
+		const h = (a - b) ** 2 / (a + b) ** 2;
 		const perimeter = Math.PI * (a + b) * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
-		return this.format(perimeter, options);
+		return GeometryPerimeter.format(perimeter, options);
 	}
 
 	/**
 	 * Parallelogram perimeter: P = 2 × (a + b)
 	 */
-	static parallelogram(
-		side1: number,
-		side2: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format(2 * (side1 + side2), options);
+	static parallelogram(side1: number, side2: number, options?: GeometryFormatOptions): string {
+		return GeometryPerimeter.format(2 * (side1 + side2), options);
 	}
 }
 
@@ -238,10 +201,7 @@ export class GeometryPerimeter {
 export class GeometryVolume {
 	private constructor() {}
 
-	private static format(
-		value: number,
-		options: GeometryFormatOptions = {},
-	): string {
+	private static format(value: number, options: GeometryFormatOptions = {}): string {
 		const { locale = "en", digits = 2, unit } = options;
 		const formatted = new Intl.NumberFormat(locale, {
 			maximumFractionDigits: digits,
@@ -255,7 +215,7 @@ export class GeometryVolume {
 	 * Cube volume: V = side³
 	 */
 	static cube(side: number, options?: GeometryFormatOptions): string {
-		return this.format(side ** 3, options);
+		return GeometryVolume.format(side ** 3, options);
 	}
 
 	/**
@@ -267,54 +227,37 @@ export class GeometryVolume {
 		height: number,
 		options?: GeometryFormatOptions,
 	): string {
-		return this.format(length * width * height, options);
+		return GeometryVolume.format(length * width * height, options);
 	}
 
 	/**
 	 * Sphere volume: V = (4/3) × π × r³
 	 */
 	static sphere(radius: number, options?: GeometryFormatOptions): string {
-		return this.format((4 / 3) * Math.PI * radius ** 3, options);
+		return GeometryVolume.format((4 / 3) * Math.PI * radius ** 3, options);
 	}
 
 	/**
 	 * Cylinder volume: V = π × r² × height
 	 */
-	static cylinder(
-		radius: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format(Math.PI * radius ** 2 * height, options);
+	static cylinder(radius: number, height: number, options?: GeometryFormatOptions): string {
+		return GeometryVolume.format(Math.PI * radius ** 2 * height, options);
 	}
 
 	/**
 	 * Cone volume: V = (1/3) × π × r² × height
 	 */
-	static cone(
-		radius: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format((1 / 3) * Math.PI * radius ** 2 * height, options);
+	static cone(radius: number, height: number, options?: GeometryFormatOptions): string {
+		return GeometryVolume.format((1 / 3) * Math.PI * radius ** 2 * height, options);
 	}
 
 	/**
 	 * Pyramid volume: V = (1/3) × baseArea × height
 	 */
-	static pyramid(
-		baseArea: number,
-		height: number,
-		options?: GeometryFormatOptions,
-	): string {
-		return this.format((1 / 3) * baseArea * height, options);
+	static pyramid(baseArea: number, height: number, options?: GeometryFormatOptions): string {
+		return GeometryVolume.format((1 / 3) * baseArea * height, options);
 	}
 }
-
-
-// const { }: GeometryArea = GeometryArea() as GeometryArea
-
-
 
 /**
  * Consolidated geometry utilities namespace.

@@ -7,42 +7,27 @@ export interface IDomService {
 	GET_ROOT(): HTMLElement | null;
 	GET_BODY(): HTMLBodyElement | null;
 	GET_ELEMENT_BY_ID<T extends HTMLElement = HTMLElement>(id: string): T | null;
-	GET_ELEMENT_BY_CLASS<T extends HTMLElement = HTMLElement>(
-		className: string,
-	): T | null;
+	GET_ELEMENT_BY_CLASS<T extends HTMLElement = HTMLElement>(className: string): T | null;
 
-	// Sobrecargas de QUERY_SELECTOR
+	// QUERY_SELECTOR overloads
 	QUERY_SELECTOR<K extends keyof HTMLElementTagNameMap>(
 		selector: K,
 	): HTMLElementTagNameMap[K] | null;
 	QUERY_SELECTOR<E extends Element = HTMLElement>(selector: string): E | null;
 
-	// Sobrecargas de QUERY_SELECTOR_ALL
-	QUERY_SELECTOR_ALL<K extends keyof HTMLElementTagNameMap>(
-		selector: K,
-	): HTMLElementTagNameMap[K][];
+	// QUERY_SELECTOR_ALL overloads
+	QUERY_SELECTOR_ALL<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K][];
 	QUERY_SELECTOR_ALL<E extends Element = HTMLElement>(selector: string): E[];
 
 	ADD_CLASS(target: Element | string, className: string): void;
 	REMOVE_CLASS(target: Element | string, className: string | string[]): void;
-	TOGGLE_CLASS(
-		target: Element | string,
-		className: string,
-		force?: boolean,
-	): boolean | undefined;
+	TOGGLE_CLASS(target: Element | string, className: string, force?: boolean): boolean | undefined;
 	HAS_CLASS(target: Element | string, className: string): boolean;
 	GET_ATTRIBUTE(target: Element | string, attr: string): string | null;
 	SET_ATTRIBUTE(target: Element | string, attr: string, value: string): void;
 	REMOVE_ATTRIBUTE(target: Element | string, attr: string): void;
-	GET_DATA_ATTRIBUTE(
-		target: HTMLElement | string,
-		key: string,
-	): string | undefined;
-	SET_DATA_ATTRIBUTE(
-		target: HTMLElement | string,
-		key: string,
-		value: string,
-	): void;
+	GET_DATA_ATTRIBUTE(target: HTMLElement | string, key: string): string | undefined;
+	SET_DATA_ATTRIBUTE(target: HTMLElement | string, key: string, value: string): void;
 	ON<K extends keyof HTMLElementEventMap>(
 		target: EventTarget | string,
 		event: K,
@@ -79,27 +64,23 @@ export class DomService implements IDomService {
 		return typeof window !== "undefined" && typeof document !== "undefined";
 	};
 
-	// Acceso seguro a document.documentElement (<html>)
+	// Safe access to document.documentElement (<html>).
 	public GET_ROOT = (): HTMLElement | null => {
 		if (!this.IS_BROWSER()) return null;
 		return document.documentElement;
 	};
 
-	// Acceso seguro a document.body (<body>)
+	// Safe access to document.body (<body>).
 	public GET_BODY = (): HTMLBodyElement | null => {
 		if (!this.IS_BROWSER()) return null;
 		return document.body as HTMLBodyElement | null;
 	};
 
-	private RESOLVE = <T extends Element = HTMLElement>(
-		target: T | string,
-	): T | null => {
+	private RESOLVE = <T extends Element = HTMLElement>(target: T | string): T | null => {
 		return typeof target === "string" ? this.QUERY_SELECTOR<T>(target) : target;
 	};
 
-	public GET_ELEMENT_BY_ID = <T extends HTMLElement = HTMLElement>(
-		id: string,
-	): T | null => {
+	public GET_ELEMENT_BY_ID = <T extends HTMLElement = HTMLElement>(id: string): T | null => {
 		if (!this.IS_BROWSER()) return null;
 		return document.getElementById(id) as T | null;
 	};
@@ -108,16 +89,12 @@ export class DomService implements IDomService {
 		className: string,
 	): T | null => {
 		if (!this.IS_BROWSER()) return null;
-		const formattedSelector = className.startsWith(".")
-			? className
-			: `.${className}`;
+		const formattedSelector = className.startsWith(".") ? className : `.${className}`;
 		return document.querySelector<T>(formattedSelector);
 	};
 
 	public QUERY_SELECTOR: {
-		<K extends keyof HTMLElementTagNameMap>(
-			selector: K,
-		): HTMLElementTagNameMap[K] | null;
+		<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null;
 		<E extends Element = HTMLElement>(selector: string): E | null;
 	} = <E extends Element = HTMLElement>(selector: string): E | null => {
 		if (!this.IS_BROWSER()) return null;
@@ -125,9 +102,7 @@ export class DomService implements IDomService {
 	};
 
 	public QUERY_SELECTOR_ALL: {
-		<K extends keyof HTMLElementTagNameMap>(
-			selector: K,
-		): HTMLElementTagNameMap[K][];
+		<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K][];
 		<E extends Element = HTMLElement>(selector: string): E[];
 	} = <E extends Element = HTMLElement>(selector: string): E[] => {
 		if (!this.IS_BROWSER()) return [];
@@ -138,10 +113,7 @@ export class DomService implements IDomService {
 		this.RESOLVE(target)?.classList.add(className);
 	};
 
-	public REMOVE_CLASS = (
-		target: Element | string,
-		className: string | string[],
-	): void => {
+	public REMOVE_CLASS = (target: Element | string, className: string | string[]): void => {
 		const el = this.RESOLVE(target);
 		if (!el) return;
 		if (Array.isArray(className)) {
@@ -163,18 +135,11 @@ export class DomService implements IDomService {
 		return this.RESOLVE(target)?.classList.contains(className) ?? false;
 	};
 
-	public GET_ATTRIBUTE = (
-		target: Element | string,
-		attr: string,
-	): string | null => {
+	public GET_ATTRIBUTE = (target: Element | string, attr: string): string | null => {
 		return this.RESOLVE(target)?.getAttribute(attr) ?? null;
 	};
 
-	public SET_ATTRIBUTE = (
-		target: Element | string,
-		attr: string,
-		value: string,
-	): void => {
+	public SET_ATTRIBUTE = (target: Element | string, attr: string, value: string): void => {
 		this.RESOLVE(target)?.setAttribute(attr, value);
 	};
 
@@ -182,18 +147,11 @@ export class DomService implements IDomService {
 		this.RESOLVE(target)?.removeAttribute(attr);
 	};
 
-	public GET_DATA_ATTRIBUTE = (
-		target: HTMLElement | string,
-		key: string,
-	): string | undefined => {
+	public GET_DATA_ATTRIBUTE = (target: HTMLElement | string, key: string): string | undefined => {
 		return this.RESOLVE<HTMLElement>(target)?.dataset[key];
 	};
 
-	public SET_DATA_ATTRIBUTE = (
-		target: HTMLElement | string,
-		key: string,
-		value: string,
-	): void => {
+	public SET_DATA_ATTRIBUTE = (target: HTMLElement | string, key: string, value: string): void => {
 		const el = this.RESOLVE<HTMLElement>(target);
 		if (el) el.dataset[key] = value;
 	};
@@ -205,8 +163,7 @@ export class DomService implements IDomService {
 		options?: boolean | AddEventListenerOptions,
 	): (() => void) | null => {
 		if (!this.IS_BROWSER()) return null;
-		const el =
-			typeof target === "string" ? this.QUERY_SELECTOR(target) : target;
+		const el = typeof target === "string" ? this.QUERY_SELECTOR(target) : target;
 		if (!el) return null;
 
 		const handler = callback as EventListener;
@@ -275,21 +232,3 @@ export const {
 	APPEND,
 	REMOVE,
 }: DomService = DOM_SERVICE;
-
-// ============================================================
-// 4. EJEMPLOS DE USO
-// ============================================================
-
-// Alternar modo oscuro sobre document.documentElement (<html>)
-const htmlRoot = GET_ROOT();
-if (htmlRoot) {
-	TOGGLE_CLASS(htmlRoot, "dark-theme");
-}
-
-// Manipular o escuchar eventos sobre document.body (<body>)
-const body = GET_BODY();
-if (body) {
-	ADD_CLASS(body, "page-loaded");
-}
-
-// Registrar listeners con limpieza

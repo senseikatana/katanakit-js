@@ -1,51 +1,12 @@
-// utils/observer.utils.ts
-import { LOGGER } from "../services/logger.service";
+import { LOGGER } from "@/core/services/logger.service";
 
-/**
- * Represents a geographic position with latitude, longitude, and accuracy.
- * (Included here for compatibility, though typically lives in sensors.utils.ts)
- */
-export interface GeoPosition {
-	lat: number;
-	lng: number;
-	accuracy: number;
-}
-
-/**
- * Callback invoked when an observed element enters the viewport.
- */
-export type ObserverCallback = (entry: IntersectionObserverEntry) => void;
-
-/**
- * Configuration for a registered IntersectionObserver.
- */
-export interface ObserverConfig {
-	callback: ObserverCallback;
-	options: IntersectionObserverInit;
-	autoUnobserve: boolean;
-}
-
-/**
- * Internal registry entry storing an observer instance and its tracked targets.
- */
-export interface ObserverEntry {
-	config: ObserverConfig;
-	observer: IntersectionObserver | null;
-	targets: Set<HTMLElement>;
-}
-
-/**
- * Target can be either an HTMLElement reference or a CSS selector string.
- */
-export type ObserverTarget = HTMLElement | string;
-
-/**
- * Internal registry entry for lazy loading configurations.
- */
-export interface LazyLoaderEntry {
-	selector: string;
-	observerKey: string;
-}
+import type {
+	LazyLoaderEntry,
+	ObserverCallback,
+	ObserverConfig,
+	ObserverEntry,
+	ObserverTarget,
+} from "@/types";
 
 /**
  * Singleton wrapper around the native IntersectionObserver API.
@@ -92,10 +53,10 @@ export class ObserverService {
 		key: string,
 		callback: ObserverCallback,
 		options: IntersectionObserverInit = { threshold: 0.1 },
-		autoUnobserve: boolean = true,
+		autoUnobserve = true,
 	): this {
 		if (!ObserverService.isSupported()) {
-			LOGGER("[ObserverService] IntersectionObserver not supported.", "warn");
+			LOGGER("warn", "[ObserverService] IntersectionObserver not supported.");
 			return this;
 		}
 
@@ -124,9 +85,7 @@ export class ObserverService {
 	 * Resolves an ObserverTarget into an HTMLElement or null.
 	 */
 	private resolveTarget(element: ObserverTarget): HTMLElement | null {
-		return typeof element === "string"
-			? document.querySelector<HTMLElement>(element)
-			: element;
+		return typeof element === "string" ? document.querySelector<HTMLElement>(element) : element;
 	}
 
 	/**
@@ -142,7 +101,7 @@ export class ObserverService {
 
 		const target = this.resolveTarget(element);
 		if (!target) {
-			LOGGER(`[ObserverService] Target not found for key "${key}":`, element, "warn");
+			LOGGER("warn", `[ObserverService] Target not found for key "${key}":`, element);
 			return this;
 		}
 
@@ -160,9 +119,9 @@ export class ObserverService {
 	 */
 	observeAll(key: string, selector: string): this {
 		if (!ObserverService.isSupported()) return this;
-		document
-			.querySelectorAll<HTMLElement>(selector)
-			.forEach((el) => this.observe(key, el));
+		for (const el of document.querySelectorAll<HTMLElement>(selector)) {
+			this.observe(key, el);
+		}
 		return this;
 	}
 
@@ -246,11 +205,7 @@ export class LazyLoaderService {
 	 * @param rootMargin - Distance from viewport to trigger loading
 	 * @returns The service instance for method chaining
 	 */
-	init(
-		key: string = "default",
-		selector: string = "img[data-src]",
-		rootMargin: string = "200px",
-	): this {
+	init(key = "default", selector = "img[data-src]", rootMargin = "200px"): this {
 		if (!ObserverService.isSupported()) return this;
 
 		if (this.registry.has(key)) {
@@ -308,4 +263,3 @@ export class LazyLoaderService {
 		return this.registry.has(key);
 	}
 }
-

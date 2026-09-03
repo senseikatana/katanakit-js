@@ -1,6 +1,6 @@
-// utils/sensors.utils.ts
-import { LOGGER } from "../services/logger.service";
+import { LOGGER } from "@/core/services/logger.service";
 
+import type { BatteryManager, GeoPosition } from "@/types";
 
 /**
  * Utility class for device sensors and hardware APIs like camera, microphone,
@@ -51,14 +51,14 @@ export class SensorsUtils {
 		constraints: MediaStreamConstraints = { video: true, audio: true },
 	): Promise<MediaStream | null> {
 		if (!this.isBrowser() || !navigator.mediaDevices?.getUserMedia) {
-			LOGGER("[getMediaStream] API not supported in this environment.", "warn");
+			LOGGER("warn", "[getMediaStream] API not supported in this environment.");
 			return null;
 		}
 
 		try {
 			return await navigator.mediaDevices.getUserMedia(constraints);
 		} catch (error) {
-			LOGGER("[getMediaStream] Permission denied or error:", error, "error");
+			LOGGER("error", "[getMediaStream] Permission denied or error:", error);
 			return null;
 		}
 	}
@@ -78,7 +78,9 @@ export class SensorsUtils {
 	 */
 	stopMediaStream(stream: MediaStream | null): void {
 		if (stream) {
-			stream.getTracks().forEach((track) => track.stop());
+			for (const track of stream.getTracks()) {
+				track.stop();
+			}
 		}
 	}
 
@@ -135,7 +137,7 @@ export class SensorsUtils {
 					});
 				},
 				(error) => {
-					LOGGER("[getGeolocation] Error:", error.message, "error");
+					LOGGER("error", "[getGeolocation] Error:", error.message);
 					resolve(null);
 				},
 				{ enableHighAccuracy: true, timeout: 10000, ...options },
@@ -175,7 +177,7 @@ export class SensorsUtils {
 				});
 			},
 			(error) => {
-				LOGGER("[watchGeolocation] Error:", error.message, "error");
+				LOGGER("error", "[watchGeolocation] Error:", error.message);
 			},
 			{ enableHighAccuracy: true, ...options },
 		);
@@ -214,7 +216,7 @@ export class SensorsUtils {
 				const response = await DeviceOrientationEventExtended.requestPermission();
 				return response === "granted";
 			} catch (error) {
-				LOGGER("[requestMotionPermission] Error:", error, "error");
+				LOGGER("error", "[requestMotionPermission] Error:", error);
 				return false;
 			}
 		}
@@ -330,13 +332,11 @@ export class SensorsUtils {
 		try {
 			return await nav.getBattery();
 		} catch (error) {
-			LOGGER("[getBattery] Error:", error, "error");
+			LOGGER("error", "[getBattery] Error:", error);
 			return null;
 		}
 	}
 }
-
-
 
 // Export singleton instance for convenience
 export const sensorsUtils = SensorsUtils.getInstance();

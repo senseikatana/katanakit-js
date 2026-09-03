@@ -1,5 +1,4 @@
-// utils/timing.utils.ts
-import { LOGGER } from "../services/logger.service";
+import { LOGGER } from "./logger.service";
 
 /**
  * Cross-environment timer ID type.
@@ -50,7 +49,7 @@ export class TimingService {
 	private constructor() {}
 
 	public static getInstance(): TimingService {
-		if (TimingService) {
+		if (!TimingService.instance) {
 			TimingService.instance = new TimingService();
 		}
 		return TimingService.instance;
@@ -64,8 +63,8 @@ export class TimingService {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
 
-	/* Alias for delay - more semantic for sleep operations.
-	 * @param() ms: number
+	/**
+	 * Alias for delay, more semantic for sleep operations.
 	 */
 	public SLEEP(ms: number): Promise<void> {
 		return this.DELAY(ms);
@@ -79,10 +78,7 @@ export class TimingService {
 	 * @param ms - Delay in milliseconds
 	 * @returns Control object with promise and cancel function
 	 */
-	public SET_TIMEOUT<T>(
-		callback: () => T | Promise<T>,
-		ms: number,
-	): TimeoutControl<T> {
+	public SET_TIMEOUT<T>(callback: () => T | Promise<T>, ms: number): TimeoutControl<T> {
 		let timerId: TimerId;
 		let isCancelled = false;
 
@@ -120,7 +116,7 @@ export class TimingService {
 	public INTERVAL(
 		callback: () => void | Promise<void>,
 		ms: number,
-		immediate: boolean = false,
+		immediate = false,
 	): IntervalControl {
 		let timerId: TimerId | null = null;
 		let isPaused = false;
@@ -134,7 +130,7 @@ export class TimingService {
 			try {
 				await callback();
 			} catch (error) {
-				LOGGER("[interval] Callback error:", error, "error");
+				LOGGER("error", "[interval] Callback error:", error);
 			} finally {
 				isExecuting = false;
 			}
@@ -207,7 +203,7 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("[debounce] Callback error:", error, "error");
+					LOGGER("error", "[debounce] Callback error:", error);
 				}
 				timeoutId = undefined;
 			}, delayMs);
@@ -239,7 +235,7 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("[debounceImmediate] Callback error:", error, "error");
+					LOGGER("error", "[debounceImmediate] Callback error:", error);
 				}
 			}
 
@@ -252,7 +248,7 @@ export class TimingService {
 					try {
 						func(...args);
 					} catch (error) {
-						LOGGER("[debounceImmediate] Callback error:", error, "error");
+						LOGGER("error", "[debounceImmediate] Callback error:", error);
 					}
 				}
 				timeoutId = undefined;
@@ -280,7 +276,7 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("[throttle] Callback error:", error, "error");
+					LOGGER("error", "[throttle] Callback error:", error);
 				}
 				inThrottle = true;
 				setTimeout(() => {
@@ -298,7 +294,7 @@ export class TimingService {
 	 * @param limitMs - Minimum time between executions in milliseconds
 	 * @returns Throttled function with trailing edge
 	 */
-	public THROTTLE_TRAILING<T extends (...args: any[]) => any>(
+	public THROTTLE_TRAILING<T extends (...args: unknown[]) => unknown>(
 		func: T,
 		limitMs: number,
 	): (...args: Parameters<T>) => void {
@@ -310,7 +306,7 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("[throttleTrailing] Callback error:", error, "error");
+					LOGGER("error", "[throttleTrailing] Callback error:", error);
 				}
 				inThrottle = true;
 				lastArgs = null;
@@ -321,7 +317,7 @@ export class TimingService {
 						try {
 							func(...lastArgs);
 						} catch (error) {
-							LOGGER("[throttleTrailing] Callback error:", error, "error");
+							LOGGER("error", "[throttleTrailing] Callback error:", error);
 						}
 					}
 				}, limitMs);
@@ -342,13 +338,13 @@ export class TimingService {
 	public async REPEAT(
 		callback: (iteration: number) => void | Promise<void>,
 		iterations: number,
-		delayMs: number = 0,
+		delayMs = 0,
 	): Promise<void> {
 		for (let i = 0; i < iterations; i++) {
 			try {
 				await callback(i);
 			} catch (error) {
-				LOGGER("[repeat] Callback error:", error, "error");
+				LOGGER("error", "[repeat] Callback error:", error);
 			}
 
 			if (i < iterations - 1 && delayMs > 0) {
@@ -369,7 +365,7 @@ export class TimingService {
 	public async RACE<T>(
 		promise: Promise<T>,
 		timeoutMs: number,
-		errorMessage: string = "Operation timed out",
+		errorMessage = "Operation timed out",
 	): Promise<T> {
 		const timeoutPromise = new Promise<never>((_, reject) => {
 			setTimeout(() => reject(new Error(errorMessage)), timeoutMs);
@@ -379,9 +375,5 @@ export class TimingService {
 	}
 }
 
-// Export convenience aliases
-export const { DEBOUNCE, INTERVAL, SET_TIMEOUT }: TimingService =
-	TimingService.getInstance();
-
-SET_TIMEOUT(() => {}, 3000);
-INTERVAL(() => {}, 3000, true);
+// Export convenience aliases.
+export const { DEBOUNCE, INTERVAL, SET_TIMEOUT }: TimingService = TimingService.getInstance();

@@ -1,18 +1,20 @@
-import type { WorkerFunc, WorkerPoolEntry } from "../../types";
+import type { WorkerFunc, WorkerPoolEntry } from "@/types";
 
-export default class WORKER {
-	private static instance: WORKER;
+/**
+ * Worker facade (Singleton + Pool pattern) for running pure functions off the
+ * main thread, with an SSR/main-thread fallback when Worker is unavailable.
+ */
+export default class WorkerService {
+	private static instance: WorkerService;
 	private pools: Map<string, WorkerPoolEntry> = new Map();
 
-	private constructor() {
-		// Constructor privado para forzar Singleton
-	}
+	private constructor() {}
 
-	static getInstance(): WORKER {
-		if (!WORKER.instance) {
-			WORKER.instance = new WORKER();
+	static getInstance(): WorkerService {
+		if (!WorkerService.instance) {
+			WorkerService.instance = new WorkerService();
 		}
-		return WORKER.instance;
+		return WorkerService.instance;
 	}
 
 	static IS_SUPPORTED(): boolean {
@@ -20,25 +22,23 @@ export default class WORKER {
 	}
 
 	/**
-	 * Ejecuta una función pura en un Worker one-shot.
-	 * Crea el worker, ejecuta, y lo destruye automáticamente.
+	 * Runs a pure function in a one-shot Worker and destroys it afterwards.
 	 */
 	async RUN<TInput, TOutput>(
 		workerFunc: WorkerFunc<TInput, TOutput>,
 		data: TInput,
 	): Promise<TOutput> {
-		if (!WORKER.IS_SUPPORTED()) {
-			// Fallback SSR/Node: ejecutar en hilo principal
+		if (!WorkerService.IS_SUPPORTED()) {
+			// SSR/Node fallback: run on the main thread.
 			return Promise.resolve(workerFunc(data));
 		}
 
 		return new Promise((resolve, reject) => {
 			try {
 				const funcString = workerFunc.toString();
-				const blob = new Blob(
-					[`self.onmessage = (e) => self.postMessage((${funcString})(e.data))`],
-					{ type: "application/javascript" },
-				);
+				const blob = new Blob([`self.onmessage = (e) => self.postMessage((${funcString})(e.data))`], {
+					type: "application/javascript",
+				});
 				const workerUrl = URL.createObjectURL(blob);
 				const worker = new Worker(workerUrl);
 
@@ -62,57 +62,53 @@ export default class WORKER {
 	}
 
 	/**
-	 * Crea un Worker reutilizable bajo una key única.
-	 * Ideal para cálculos secuenciales sin overhead de creación/destrucción.
+	 * Creates a reusable Worker pool under a unique key.
 	 */
-	CREATE_POOL<TInput, TOutput>(
-		key: string,
-		workerFunc: WorkerFunc<TInput, TOutput>,
-	): this {
-		if (!WORKER.IS_SUPPORTED()) return this;
+	CREATE_POOL<TInput, TOutput>(key: string, workerFunc: WorkerFunc<TInput, TOutput>): this {
+		if (!WorkerService.IS_SUPPORTED()) return this;
 
 		if (this.pools.has(key)) {
 			this.TERMINATE(key);
 		}
 
 		const funcString = workerFunc.toString();
-		const blob = new Blob(
-			[`self.onmessage = (e) => self.postMessage((${funcString})(e.data))`],
-			{ type: "application/javascript" },
-		);
+		const blob = new Blob([`self.onmessage = (e) => self.postMessage((${funcString})(e.data))`], {
+			type: "application/javascript",
+		});
 		const workerUrl = URL.createObjectURL(blob);
 		const worker = new Worker(workerUrl);
 
-		this.pools.set(key, { worker, workerUrl, func: workerFunc });
+		this.pools.set(key, {
+			worker,
+			workerUrl,
+			func: workerFunc,
+		} as WorkerPoolEntry);
 		return this;
 	}
 
 	/**
-	 * Ejecuta una tarea en un pool existente.
+	 * Runs a task on an existing pool.
 	 */
 	RUN_POOL<TInput, TOutput>(key: string, data: TInput): Promise<TOutput> {
-		const entry = this.pools.get(key) as
-			| WorkerPoolEntry<TInput, TOutput>
-			| undefined;
+		const entry = this.pools.get(key) as WorkerPoolEntry<TInput, TOutput> | undefined;
 
 		if (!entry) {
 			return Promise.reject(new Error(`Worker pool "${key}" not found`));
 		}
 
-		if (!WORKER.IS_SUPPORTED()) {
+		if (!WorkerService.IS_SUPPORTED()) {
 			return Promise.resolve(entry.func(data));
 		}
 
 		return new Promise((resolve, reject) => {
 			entry.worker.onmessage = (event) => resolve(event.data);
-			entry.worker.onerror = (error) =>
-				reject(new Error(`Worker error: ${error.message}`));
+			entry.worker.onerror = (error) => reject(new Error(`Worker error: ${error.message}`));
 			entry.worker.postMessage(data);
 		});
 	}
 
 	/**
-	 * Termina un pool específico.
+	 * Terminates a specific pool.
 	 */
 	TERMINATE(key: string): this {
 		const entry = this.pools.get(key);
@@ -125,7 +121,7 @@ export default class WORKER {
 	}
 
 	/**
-	 * Termina todos los pools activos.
+	 * Terminates all active pools.
 	 */
 	TERMINATE_ALL(): this {
 		this.pools.forEach((_, key) => {
@@ -135,14 +131,14 @@ export default class WORKER {
 	}
 
 	/**
-	 * Verifica si un pool existe.
+	 * Checks whether a pool exists.
 	 */
-	HASWORKER(key: string): boolean {
+	HAS_WORKER(key: string): boolean {
 		return this.pools.has(key);
 	}
 
 	/**
-	 * Lista todas las keys de pools activos.
+	 * Lists all active pool keys.
 	 */
 	KEYS(): string[] {
 		return Array.from(this.pools.keys());

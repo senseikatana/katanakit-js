@@ -1,12 +1,11 @@
-// services/theme.service.ts
 import {
 	ADD_CLASS,
 	GET_ROOT,
 	ON,
 	REMOVE_CLASS,
 	SET_ATTRIBUTE,
-} from "@/infrastructure/dom-api/dom";
-import { GET_STORAGE, REMOVE_STORAGE, SET_STORAGE } from "../localstorage";
+} from "@/infrastructure/dom/dom.service";
+import { GET_STORAGE, REMOVE_STORAGE, SET_STORAGE } from "@/infrastructure/storage/storage.service";
 
 export type ThemeMode = "light" | "dark" | "system";
 
@@ -33,8 +32,8 @@ export class ThemeService implements IThemeService {
 	private static instance: ThemeService;
 
 	private mode: ThemeMode = "system";
-	private storageKey: string = "theme";
-	private attribute: string = "data-theme";
+	private storageKey = "theme";
+	private attribute = "data-theme";
 	private target: HTMLElement | null = null;
 	private onChange?: (mode: ThemeMode, resolved: "light" | "dark") => void;
 	private mediaQuery: MediaQueryList | null = null;
@@ -115,10 +114,10 @@ export class ThemeService implements IThemeService {
 
 		const resolved = this.GET_RESOLVED();
 
-		// Asigna atributo: ej. data-theme="dark"
+		// Set the attribute, e.g. data-theme="dark".
 		SET_ATTRIBUTE(this.target, this.attribute, resolved);
 
-		// Alterna clases CSS
+		// Toggle CSS classes.
 		REMOVE_CLASS(this.target, ["light", "dark"]);
 		ADD_CLASS(this.target, resolved);
 
@@ -130,7 +129,7 @@ export class ThemeService implements IThemeService {
 
 		this.mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-		// Registra listener usando tu DomService
+		// Register the listener using DomService.
 		this.cleanMediaQueryListener = ON(this.mediaQuery, "change", () => {
 			if (this.mode === "system") {
 				this.APPLY_THEME();
@@ -139,7 +138,7 @@ export class ThemeService implements IThemeService {
 	};
 }
 
-// Instancia única y exportación segura
+// Singleton instance and safe export.
 export const THEME_SERVICE: ThemeService = ThemeService.getInstance();
 
 export const {

@@ -1,27 +1,17 @@
 export interface IDataUtils {
 	UNIQUE<T>(array: T[]): T[];
 	CHUNK<T>(array: T[], size: number): T[][];
-	GROUP_BY<T>(
-		array: T[],
-		key: keyof T | ((item: T) => string),
-	): Record<string, T[]>;
+	GROUP_BY<T>(array: T[], key: keyof T | ((item: T) => string)): Record<string, T[]>;
 	IS_OBJECT(item: unknown): item is Record<string, unknown>;
 	DEEP_CLONE<T>(value: T): T;
-	DEEP_MERGE<T extends Record<string, unknown>>(
-		target: T,
-		source: Record<string, unknown>,
-	): T;
+	DEEP_MERGE<T extends Record<string, unknown>>(target: T, source: Record<string, unknown>): T;
 	PICK<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
 	OMIT<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K>;
 }
 
 export interface ISystemUtils {
 	SLEEP(ms: number): Promise<void>;
-	RETRY<T>(
-		fn: () => Promise<T>,
-		retries?: number,
-		delayMs?: number,
-	): Promise<T>;
+	RETRY<T>(fn: () => Promise<T>, retries?: number, delayMs?: number): Promise<T>;
 	COPY_TO_CLIPBOARD(text: string): Promise<boolean>;
 	GET_URL_PARAMS(urlString: string): Record<string, string>;
 	ROUND(value: string | number, decimals?: number): number;
@@ -59,18 +49,14 @@ export class DataUtils implements IDataUtils {
 		);
 	}
 
-	public GROUP_BY<T>(
-		array: T[],
-		key: keyof T | ((item: T) => string),
-	): Record<string, T[]> {
-		if (typeof Object.groupBy === "function" && typeof key === "string") {
-			Object.groupBy(array, (item) => String(item[key as keyof T]));
-		}
+	public GROUP_BY<T>(array: T[], key: keyof T | ((item: T) => string)): Record<string, T[]> {
 		return array.reduce(
 			(acc, item) => {
-				const groupKey: string =
-					typeof key === "function" ? key(item) : String(item[key]);
-				(acc[groupKey] ??= []).push(item);
+				const groupKey: string = typeof key === "function" ? key(item) : String(item[key]);
+				if (!acc[groupKey]) {
+					acc[groupKey] = [];
+				}
+				acc[groupKey].push(item);
 				return acc;
 			},
 			{} as Record<string, T[]>,
@@ -108,10 +94,7 @@ export class DataUtils implements IDataUtils {
 		return output as T;
 	}
 
-	public PICK<T extends object, K extends keyof T>(
-		obj: T,
-		keys: K[],
-	): Pick<T, K> {
+	public PICK<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
 		return keys.reduce(
 			(acc, key) => {
 				if (key in obj) acc[key] = obj[key];
@@ -121,10 +104,7 @@ export class DataUtils implements IDataUtils {
 		);
 	}
 
-	public OMIT<T extends object, K extends keyof T>(
-		obj: T,
-		keys: K[],
-	): Omit<T, K> {
+	public OMIT<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
 		const result = this.DEEP_CLONE(obj) as Record<string, unknown>;
 		for (const key of keys) delete result[key as string];
 		return result as Omit<T, K>;
@@ -150,11 +130,7 @@ export class SystemUtils implements ISystemUtils {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
 
-	public async RETRY<T>(
-		fn: () => Promise<T>,
-		retries = 3,
-		delayMs = 1000,
-	): Promise<T> {
+	public async RETRY<T>(fn: () => Promise<T>, retries = 3, delayMs = 1000): Promise<T> {
 		try {
 			return await fn();
 		} catch (error) {
@@ -183,7 +159,7 @@ export class SystemUtils implements ISystemUtils {
 	}
 
 	public ROUND(value: string | number, decimals = 2): number {
-		const num = typeof value === "string" ? parseFloat(value) : value;
+		const num = typeof value === "string" ? Number.parseFloat(value) : value;
 		if (Number.isNaN(num)) return 0;
 		const factor = 10 ** decimals;
 		return Math.round(num * factor) / factor;
@@ -197,7 +173,7 @@ export class SystemUtils implements ISystemUtils {
 }
 
 // ==========================================
-// 3. FACHADA PRINCIPAL (Singleton)
+// 3. MAIN FACADE (Singleton)
 // ==========================================
 export class AppUtils implements IAppUtils {
 	private static instance: AppUtils;
@@ -222,24 +198,5 @@ export class AppUtils implements IAppUtils {
 // TODO: USAGE EXAMPLES
 // ============================================================
 
-export const {
-	COPY_TO_CLIPBOARD,
-	GET_URL_PARAMS,
-	SLEEP,
-	AVERAGE,
-	RETRY,
-	ROUND,
-}: SystemUtils = SystemUtils.getInstance();
-
-COPY_TO_CLIPBOARD("Hello, World!").then((success) => {
-	console.log("Copy to clipboard success:", success);
-});
-
-const urlParams: Record<string, string> = GET_URL_PARAMS(
-	"https://example.com/?name=John&age=30",
-);
-console.log("URL Params:", urlParams);
-
-SLEEP(2000).then(() => {
-	console.log("Slept for 2 seconds");
-});
+export const { COPY_TO_CLIPBOARD, GET_URL_PARAMS, SLEEP, AVERAGE, RETRY, ROUND }: SystemUtils =
+	SystemUtils.getInstance();

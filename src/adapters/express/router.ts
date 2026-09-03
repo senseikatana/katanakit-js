@@ -1,11 +1,9 @@
-// routes/user.routes.ts
 import { type Request, type Response, Router } from "express";
 
 const router = Router();
 
-router.get("/", (response: Response, request: Request) => {
-	const { id } = request.params;
-	response.json({ message: `Get user with ${id}` });
+router.get("/", (_request: Request, response: Response) => {
+	response.json({ message: "Get all users" });
 });
 
 router.get("/:id", (request: Request, response: Response) => {
@@ -13,9 +11,8 @@ router.get("/:id", (request: Request, response: Response) => {
 	response.json({ message: `Get user by ${id}` });
 });
 
-router.post("/", (response: Response, request: Request) => {
-	const { id, slug } = request.params;
-	response.json({ message: `Create a new user with ${id} or with ${slug}` });
+router.post("/", (_request: Request, response: Response) => {
+	response.json({ message: "Create a new user" });
 });
 
 export default router;

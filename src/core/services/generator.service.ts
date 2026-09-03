@@ -1,36 +1,36 @@
-// ============================================================
-/** biome-ignore-all lint/style/useNodejsImportProtocol: <explanation> */
-// 1. ESTRATEGIAS (STRATEGY PATTERN)
-// ============================================================
-
+/**
+ * Contract for a crypto strategy.
+ */
 export interface ICryptoStrategy {
 	ENCRYPT(plainText: string, salt?: string): Promise<string>;
 }
 
+/**
+ * Contract for a UUID strategy.
+ */
 export interface IUuidStrategy {
 	GENERATE(): string;
 }
 
-// Estrategia que carga crypto únicamente al invocar ENCRYPT()
+/**
+ * Loads the Node.js `crypto` module lazily, only when `ENCRYPT` is invoked.
+ */
 export class LazyNodeCryptoStrategy implements ICryptoStrategy {
-	async ENCRYPT(
-		plainText: string,
-		salt: string = "default-salt",
-	): Promise<string> {
-		const cryptoModule = await import("crypto");
-		// Soporte compatible tanto para CJS como para ESM puro
+	async ENCRYPT(plainText: string, salt = "default-salt"): Promise<string> {
+		const cryptoModule = await import("node:crypto");
+		// Supports both CJS and pure ESM environments.
 		const cryptoInstance = cryptoModule.default ?? cryptoModule;
 
 		const rounds = cryptoInstance.randomBytes(32).toString("hex");
-		const hash = cryptoInstance
-			.pbkdf2Sync(plainText, salt, 100000, 64, "sha512")
-			.toString("hex");
+		const hash = cryptoInstance.pbkdf2Sync(plainText, salt, 100000, 64, "sha512").toString("hex");
 
 		return `${rounds}:${hash}`;
 	}
 }
 
-// Estrategia UUID nativa (usa globalThis.crypto si existe, o fallback sin imports)
+/**
+ * Native UUID strategy using `globalThis.crypto.randomUUID`, with a fallback.
+ */
 export class NativeUuidStrategy implements IUuidStrategy {
 	GENERATE(): string {
 		if (
@@ -47,23 +47,19 @@ export class NativeUuidStrategy implements IUuidStrategy {
 	}
 }
 
-// ============================================================
-// 2. SERVICIO FACHADA (SINGLETON PATTERN)
-// ============================================================
-
+/**
+ * Generator facade (Singleton + Strategy) for ids, slugs, tokens and hashing.
+ */
 export default class GeneratorService {
 	private static instance: GeneratorService;
-	private counter: number = 0;
+	private counter = 0;
 
 	private cryptoStrategy: ICryptoStrategy;
 	private uuidStrategy: IUuidStrategy;
 
-	private constructor(
-		cryptoStrategy: ICryptoStrategy = new LazyNodeCryptoStrategy(),
-		uuidStrategy: IUuidStrategy = new NativeUuidStrategy(),
-	) {
-		this.cryptoStrategy = cryptoStrategy;
-		this.uuidStrategy = uuidStrategy;
+	private constructor() {
+		this.cryptoStrategy = new LazyNodeCryptoStrategy();
+		this.uuidStrategy = new NativeUuidStrategy();
 	}
 
 	public static getInstance(): GeneratorService {
@@ -72,14 +68,6 @@ export default class GeneratorService {
 		}
 		return GeneratorService.instance;
 	}
-
-	protected SET_CRYPTO_STRATEGY = (strategy: ICryptoStrategy): void => {
-		this.cryptoStrategy = strategy;
-	};
-
-	protected SET_UUID_STRATEGY = (strategy: IUuidStrategy): void => {
-		this.uuidStrategy = strategy;
-	};
 
 	public NUMERIC_ID = (): number => ++this.counter;
 
@@ -93,7 +81,7 @@ export default class GeneratorService {
 			.trim()
 			.toLowerCase()
 			.normalize("NFD")
-			.replace(/[\u0300-\u036f]/g, "")
+			.replace(/\p{M}/gu, "")
 			.replace(/\s+/g, "-")
 			.replace(/[^\w-]+/g, "")
 			.replace(/--+/g, "-")
@@ -103,31 +91,10 @@ export default class GeneratorService {
 
 	public TOKEN = (): number => Math.floor(100000 + Math.random() * 900000);
 
-	public ENCRYPT = async (
-		plainText: string,
-		salt: string = "default-salt",
-	): Promise<string> => {
-		return this.cryptoStrategy.ENCRYPT(plainText, salt);
-	};
+	public ENCRYPT = async (plainText: string, salt = "default-salt"): Promise<string> =>
+		this.cryptoStrategy.ENCRYPT(plainText, salt);
 }
 
-// ============================================================
-// 3. EXPORTACIÓN SEGURA
-// ============================================================
-
+// Singleton instance and destructured exports.
 export const { SLUGIFY, UUID, NUMERIC_ID, TOKEN, ENCRYPT }: GeneratorService =
 	GeneratorService.getInstance();
-
-// ============================================================
-// 4. EJECUCIÓN (Manejando la promesa de ENCRYPT)
-// ============================================================
-
-console.log("UUID:", UUID());
-console.log("NUMERIC_ID:", NUMERIC_ID());
-console.log("SLUGIFY:", SLUGIFY("Hello World! This is a test."));
-console.log("TOKEN:", TOKEN());
-
-// ENCRYPT retorna una promesa, se resuelve con await o .then():
-ENCRYPT("Hello, World!", "default-salt").then((encryptedHash) => {
-	console.log("ENCRYPT:", encryptedHash);
-});

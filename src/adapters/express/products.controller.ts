@@ -1,7 +1,5 @@
-// controllers/ProductController.ts
-// import { ProductType } from '../types/product.types';
-// import { Request, Response } from 'express';
-// types/product.types.ts
+import type { Request, Response } from "express";
+
 export type ProductType = {
 	id: number;
 	name: string;
@@ -12,71 +10,71 @@ export class ProductController {
 	private products: ProductType[] = [];
 
 	// GET /products
-	getAll(_req: Request, res: Response): void {
-		res.json(this.products);
+	getAll(_request: Request, response: Response): void {
+		response.json(this.products);
 	}
 
 	// GET /products/:id
-	getProductById(req: Request, res: Response): void {
-		const getProductid: number = parseInt(req.params.id) as number;
-		const product: ProductType = this.products.find(
-			({ id }) => id === getProductid,
-		);
+	getProductById(request: Request, response: Response): void {
+		const id = Number.parseInt(String(request.params.id), 10);
+		const product = this.products.find((item) => item.id === id);
 
 		if (!product) {
-			res.status(404).json({ error: "Product not found" });
+			response.status(404).json({ error: "Product not found" });
 			return;
 		}
 
-		res.json({ productById: product });
+		response.json({ productById: product });
 	}
 
 	// POST /products
-	createdProduct(req: Request, res: Response): void {
-		const { name, price } = req.body;
-
-		const setProductNew: ProductType = {
-			id: this.products.length + 1,
-			name,
-			price: parseFloat(price),
+	createProduct(request: Request, response: Response): void {
+		const { name = "", price = 0 } = (request.body ?? {}) as {
+			name?: string;
+			price?: number;
 		};
 
-		this.products.push(setProductNew);
-		res.status(201).json(setProductNew);
+		const product: ProductType = {
+			id: this.products.length + 1,
+			name,
+			price: Number(price),
+		};
+
+		this.products.push(product);
+		response.status(201).json(product);
 	}
 
 	// PUT /products/:id
-	upsertProduct(req: Request, res: Response): void {
-		const id: number = parseInt(req.params.id);
-		const product: ProductType = this.products.find(
-			({ id: productId }) => productId === id,
-		);
+	upsertProduct(request: Request, response: Response): void {
+		const id = Number.parseInt(String(request.params.id), 10);
+		const product = this.products.find((item) => item.id === id);
 
 		if (!product) {
-			res.status(404).json({ error: "Product not found" });
+			response.status(404).json({ error: "Product not found" });
 			return;
 		}
 
-		const { name, price } = req.body;
-		product.name = name;
-		product.price = parseFloat(price);
+		const { name, price } = (request.body ?? {}) as {
+			name?: string;
+			price?: number;
+		};
+		product.name = name ?? product.name;
+		product.price = Number(price ?? product.price);
 
-		res.json(product);
+		response.json(product);
 	}
 
 	// DELETE /products/:id
-	deleteProductById(req: Request, res: Response): void {
-		const getProductById: number = parseInt(req.params.id);
-		const getProductIndex: number = this.products.findIndex(
-			({ id: productId }) => productId === getProductById,
-		);
+	deleteProductById(request: Request, response: Response): void {
+		const id = Number.parseInt(String(request.params.id), 10);
+		const index = this.products.findIndex((item) => item.id === id);
 
-		if (getProductIndex === -1) {
-			res.status(404).json({ error: "Product not found" });
+		if (index === -1) {
+			response.status(404).json({ error: "Product not found" });
 			return;
 		}
 
-		this.products.splice(getProductIndex, 1);
-		res.status(204).send();
+		this.products.splice(index, 1);
+		response.status(204).send();
 	}
 }
