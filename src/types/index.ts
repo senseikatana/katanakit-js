@@ -567,6 +567,69 @@ export interface IAstroService {
 }
 
 /* -------------------------------------------------------------------------- */
+/* RSS                                                                        */
+/* -------------------------------------------------------------------------- */
+
+/** A single item in an RSS feed. */
+export interface RssItem {
+	/** Title of the item. */
+	title: string;
+	/** Publication date (Date object or ISO string). */
+	pubDate: Date | string;
+	/** URL of the item (relative to site, e.g. "/blog/my-post/"). */
+	link: string;
+	/** Optional description or excerpt. */
+	description?: string;
+	/** Optional full content (HTML allowed). */
+	content?: string;
+	/** Optional categories/tags. */
+	categories?: string[];
+	/** Optional author name. */
+	author?: string;
+	/** Optional custom data (e.g. enclosure for podcasts). */
+	customData?: string;
+}
+
+/** Configuration for generating an RSS feed. */
+export interface RssConfig {
+	/** Title of the feed (e.g. "My Blog"). */
+	title: string;
+	/** Description of the feed. */
+	description: string;
+	/** Base URL of the site (e.g. "https://example.com"). */
+	site: string;
+	/** Feed items. */
+	items: RssItem[];
+	/** Output path (default: "/rss.xml"). */
+	xmlPath?: string;
+	/** Language code (default: "en"). */
+	language?: string;
+	/** Custom XML to inject into the `<channel>` element. */
+	customData?: string;
+	/** XSL stylesheet URL for browser rendering (optional). */
+	xslUrl?: string;
+	/** Whether to include the `<lastBuildDate>` (default: true). */
+	lastBuildDate?: boolean;
+	/** Trailing slash behavior for item links (default: true). */
+	trailingSlash?: boolean;
+}
+
+/** Result of an RSS generation attempt. */
+export type RssResult =
+	| { data: string; error: null; ok: true }
+	| { data: null; error: { message: string; details?: unknown }; ok: false };
+
+/** Contract of the RSS facade. */
+export interface IRssService {
+	/** Generates the RSS XML string from a config. */
+	useGenerateRss(config: RssConfig): RssResult;
+	/** Generates an HTML `<link>` tag for the RSS feed. */
+	useRssLinkTag(config: Pick<RssConfig, "title" | "xmlPath">): string;
+	/** Generates an Astro GET endpoint handler for the RSS feed. */
+	useCreateRssEndpoint(config: Omit<RssConfig, "items"> & { items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>) }): (context: { site?: URL | string }) => Promise<Response>;
+}
+
+/* -------------------------------------------------------------------------- */
 /* Express                                                                     */
 /* -------------------------------------------------------------------------- */
 
