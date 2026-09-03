@@ -1,0 +1,145 @@
+import type { StorageTarget } from "@/types";
+
+/**
+ * Strategy interface: homogeneous storage contract without `any`.
+ */
+export interface StorageStrategy {
+	getItem<T = unknown>(key: string): T | null;
+	setItem(key: string, value: unknown): void;
+	removeItem(key: string): void;
+	clear(): void;
+}
+
+/**
+ * Base strategy handling safe JSON serialization over a Web Storage backend.
+ */
+abstract class WebStorageStrategy implements StorageStrategy {
+	protected constructor(private readonly storage: Storage) {}
+
+	getItem<T = unknown>(key: string): T | null {
+		try {
+			const raw = this.storage.getItem(key);
+			return raw ? (JSON.parse(raw) as T) : null;
+		} catch {
+			return this.storage.getItem(key) as unknown as T;
+		}
+	}
+
+	setItem(key: string, value: unknown): void {
+		const serialized = typeof value === "string" ? value : JSON.stringify(value);
+		this.storage.setItem(key, serialized);
+	}
+
+	removeItem(key: string): void {
+		this.storage.removeItem(key);
+	}
+
+	clear(): void {
+		this.storage.clear();
+	}
+}
+
+/**
+ * In-memory Web Storage implementation used as an SSR fallback.
+ */
+class MemoryStorage implements Storage {
+	private store = new Map<string, string>();
+
+	get length(): number {
+		return this.store.size;
+	}
+
+	clear(): void {
+		this.store.clear();
+	}
+
+	getItem(key: string): string | null {
+		return this.store.get(key) ?? null;
+	}
+
+	key(index: number): string | null {
+		return Array.from(this.store.keys())[index] ?? null;
+	}
+
+	removeItem(key: string): void {
+		this.store.delete(key);
+	}
+
+	setItem(key: string, value: string): void {
+		this.store.set(key, value);
+	}
+}
+
+/**
+ * Concrete strategy backed by `window.localStorage`.
+ */
+export class LocalStorageStrategy extends WebStorageStrategy {
+	constructor() {
+		super(window.localStorage);
+	}
+}
+
+/**
+ * Concrete strategy backed by `window.sessionStorage`.
+ */
+export class SessionStorageStrategy extends WebStorageStrategy {
+	constructor() {
+		super(window.sessionStorage);
+	}
+}
+
+/**
+ * Concrete strategy backed by an in-memory store (SSR fallback).
+ */
+export class MemoryStorageStrategy extends WebStorageStrategy {
+	constructor() {
+		super(new MemoryStorage());
+	}
+}
+
+/**
+ * Storage facade (Singleton + Strategy). Lazily picks browser storage or an
+ * in-memory fallback so importing this module never crashes in SSR (Node/Bun).
+ */
+export default class StorageService {
+	private static instance: StorageService;
+	private strategies: Record<StorageTarget, StorageStrategy> | null = null;
+
+	private constructor() {}
+
+	public static getInstance(): StorageService {
+		if (!StorageService.instance) {
+			StorageService.instance = new StorageService();
+		}
+		return StorageService.instance;
+	}
+
+	private getStrategies(): Record<StorageTarget, StorageStrategy> {
+		if (!this.strategies) {
+			const hasWindow = typeof window !== "undefined";
+			this.strategies = {
+				localStorage: hasWindow ? new LocalStorageStrategy() : new MemoryStorageStrategy(),
+				sessionStorage: hasWindow ? new SessionStorageStrategy() : new MemoryStorageStrategy(),
+			};
+		}
+		return this.strategies;
+	}
+
+	public GET_STORAGE = <T = unknown>(
+		key: string,
+		target: StorageTarget = "localStorage",
+	): T | null => this.getStrategies()[target].getItem<T>(key);
+
+	public SET_STORAGE = (key: string, value: unknown, target: StorageTarget = "localStorage"): void =>
+		this.getStrategies()[target].setItem(key, value);
+
+	public REMOVE_STORAGE = (key: string, target: StorageTarget = "localStorage"): void =>
+		this.getStrategies()[target].removeItem(key);
+
+	public CLEAR_STORAGE = (target: StorageTarget = "localStorage"): void =>
+		this.getStrategies()[target].clear();
+}
+
+// Singleton instance and destructured exports.
+export const { CLEAR_STORAGE, GET_STORAGE, REMOVE_STORAGE, SET_STORAGE } =
+	StorageService.getInstance();
