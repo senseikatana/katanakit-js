@@ -1,5 +1,5 @@
-import type { IRssService, RssConfig, RssItem, RssResult } from "../../types";
 import type { SiteConfig } from "../../config/site.config";
+import type { IRssService, RssConfig, RssItem, RssResult } from "../../types";
 
 /**
  * Escapes special XML characters in a string.
@@ -189,26 +189,24 @@ export default class RssService implements IRssService {
 		return async (context: { site?: URL | string }): Promise<Response> => {
 			try {
 				// Resolve items (static array or factory function).
-				const resolvedItems = typeof config.items === "function"
-					? await config.items()
-					: config.items;
+				const resolvedItems = typeof config.items === "function" ? await config.items() : config.items;
 
 				// Use context.site as fallback for the site URL.
 				const site = config.site || (context.site ? String(context.site) : "");
 				if (!site) {
-					return new Response(
-						JSON.stringify({ error: "RSS feed requires a 'site' URL." }),
-						{ status: 500, headers: { "Content-Type": "application/json" } },
-					);
+					return new Response(JSON.stringify({ error: "RSS feed requires a 'site' URL." }), {
+						status: 500,
+						headers: { "Content-Type": "application/json" },
+					});
 				}
 
 				const result = useGenerateRss({ ...config, site, items: resolvedItems });
 
 				if (!result.ok) {
-					return new Response(
-						JSON.stringify({ error: result.error.message }),
-						{ status: 500, headers: { "Content-Type": "application/json" } },
-					);
+					return new Response(JSON.stringify({ error: result.error.message }), {
+						status: 500,
+						headers: { "Content-Type": "application/json" },
+					});
 				}
 
 				return new Response(result.data, {

@@ -14,7 +14,9 @@ export class LazyNodeCryptoStrategy implements ICryptoStrategy {
 
 		// Generate a random salt if none is provided (128 bits).
 		const actualSalt = salt ?? cryptoInstance.randomBytes(16).toString("hex");
-		const hash = cryptoInstance.pbkdf2Sync(plainText, actualSalt, 100000, 64, "sha512").toString("hex");
+		const hash = cryptoInstance
+			.pbkdf2Sync(plainText, actualSalt, 100000, 64, "sha512")
+			.toString("hex");
 
 		return `${actualSalt}:${hash}`;
 	}
@@ -90,7 +92,7 @@ export default class GeneratorService {
 		return Math.floor(100000 + Math.random() * 900000);
 	};
 
-	public useEncrypt = async (plainText: string, salt = "default-salt"): Promise<string> =>
+	public useEncrypt = async (plainText: string, salt?: string): Promise<string> =>
 		this.cryptoStrategy.useEncrypt(plainText, salt);
 }
 

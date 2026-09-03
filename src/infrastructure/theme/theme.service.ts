@@ -5,11 +5,7 @@ import {
 	useRemoveClass,
 	useSetAttribute,
 } from "../dom/dom.service";
-import {
-	useGetStorage,
-	useRemoveStorage,
-	useSetStorage,
-} from "../storage/storage.service";
+import { useGetStorage, useRemoveStorage, useSetStorage } from "../storage/storage.service";
 
 import type { IThemeService, ThemeMode, ThemeOptions } from "../../types";
 

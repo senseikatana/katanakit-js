@@ -119,7 +119,7 @@ export class SystemUtils implements ISystemUtils {
 		} catch {
 			return false;
 		}
-	}
+	};
 
 	public useGetUrlParams = (urlString: string): Record<string, string> => {
 		try {

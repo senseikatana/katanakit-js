@@ -31,14 +31,11 @@ export default class ViewportService {
 	public usePrefersReducedMotion = (): boolean =>
 		this.useMatchesMedia("(prefers-reduced-motion: reduce)");
 
-	public usePrefersDarkMode = (): boolean =>
-		this.useMatchesMedia("(prefers-color-scheme: dark)");
+	public usePrefersDarkMode = (): boolean => this.useMatchesMedia("(prefers-color-scheme: dark)");
 
-	public useGetScrollY = (): number =>
-		this.isBrowser() ? window.scrollY : 0;
+	public useGetScrollY = (): number => (this.isBrowser() ? window.scrollY : 0);
 
-	public useGetScrollX = (): number =>
-		this.isBrowser() ? window.scrollX : 0;
+	public useGetScrollX = (): number => (this.isBrowser() ? window.scrollX : 0);
 
 	public useGetScrollPosition = (): ScrollPosition => ({
 		x: this.useGetScrollX(),
@@ -52,8 +49,7 @@ export default class ViewportService {
 		return Math.min(1, Math.max(0, window.scrollY / scrollHeight));
 	};
 
-	public useIsAtTop = (threshold = 0): boolean =>
-		this.useGetScrollY() <= threshold;
+	public useIsAtTop = (threshold = 0): boolean => this.useGetScrollY() <= threshold;
 
 	public useIsAtBottom = (threshold = 50): boolean => {
 		if (!this.isBrowser()) return false;
@@ -69,15 +65,13 @@ export default class ViewportService {
 
 	public useScrollToTop = (smooth = true): void => {
 		if (!this.isBrowser()) return;
-		const behavior: ScrollBehavior =
-			smooth && !this.usePrefersReducedMotion() ? "smooth" : "auto";
+		const behavior: ScrollBehavior = smooth && !this.usePrefersReducedMotion() ? "smooth" : "auto";
 		window.scrollTo({ top: 0, behavior });
 	};
 
 	public useScrollToBottom = (smooth = true): void => {
 		if (!this.isBrowser()) return;
-		const behavior: ScrollBehavior =
-			smooth && !this.usePrefersReducedMotion() ? "smooth" : "auto";
+		const behavior: ScrollBehavior = smooth && !this.usePrefersReducedMotion() ? "smooth" : "auto";
 		const scrollHeight = document.documentElement.scrollHeight;
 		window.scrollTo({ top: scrollHeight, behavior });
 	};
@@ -88,10 +82,7 @@ export default class ViewportService {
 	): boolean => {
 		if (!this.isBrowser()) return false;
 
-		const element =
-			typeof target === "string"
-				? document.querySelector<HTMLElement>(target)
-				: target;
+		const element = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
 
 		if (!element) return false;
 
@@ -115,10 +106,7 @@ export default class ViewportService {
 	public useFocusElement = (target: HTMLElement | string): boolean => {
 		if (!this.isBrowser()) return false;
 
-		const element =
-			typeof target === "string"
-				? document.querySelector<HTMLElement>(target)
-				: target;
+		const element = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
 
 		if (!element) return false;
 
@@ -148,17 +136,14 @@ export default class ViewportService {
 		await document.exitFullscreen();
 	};
 
-	public useIsFullscreen = (): boolean =>
-		this.isBrowser() && !!document.fullscreenElement;
+	public useIsFullscreen = (): boolean => this.isBrowser() && !!document.fullscreenElement;
 
 	public useIsDocumentVisible = (): boolean => {
 		if (!this.isBrowser()) return true;
 		return document.visibilityState === "visible";
 	};
 
-	public useOnVisibilityChange = (
-		callback: (isVisible: boolean) => void,
-	): (() => void) => {
+	public useOnVisibilityChange = (callback: (isVisible: boolean) => void): (() => void) => {
 		if (!this.isBrowser()) return () => {};
 
 		const handler = () => callback(this.useIsDocumentVisible());
@@ -167,8 +152,7 @@ export default class ViewportService {
 		return () => document.removeEventListener("visibilitychange", handler);
 	};
 
-	public useGetTitle = (): string =>
-		this.isBrowser() ? document.title : "";
+	public useGetTitle = (): string => (this.isBrowser() ? document.title : "");
 
 	public useSetTitle = (title: string): void => {
 		if (this.isBrowser()) document.title = title;

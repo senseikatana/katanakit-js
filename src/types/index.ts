@@ -626,9 +626,14 @@ export interface IRssService {
 	/** Generates an HTML `<link>` tag for the RSS feed. */
 	useRssLinkTag(config: Pick<RssConfig, "title" | "xmlPath">): string;
 	/** Generates an Astro GET endpoint handler for the RSS feed. */
-	useCreateRssEndpoint(config: Omit<RssConfig, "items"> & { items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>) }): (context: { site?: URL | string }) => Promise<Response>;
+	useCreateRssEndpoint(
+		config: Omit<RssConfig, "items"> & { items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>) },
+	): (context: { site?: URL | string }) => Promise<Response>;
 	/** Convenience: creates an RSS endpoint from a SiteConfig. */
-	useCreateRssEndpointFromConfig(siteConfig: import("../config/site.config").SiteConfig, items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>)): (context: { site?: URL | string }) => Promise<Response>;
+	useCreateRssEndpointFromConfig(
+		siteConfig: import("../config/site.config").SiteConfig,
+		items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>),
+	): (context: { site?: URL | string }) => Promise<Response>;
 }
 
 /* -------------------------------------------------------------------------- */

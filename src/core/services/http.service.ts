@@ -48,14 +48,10 @@ export class FetchApiManager implements IFetchApiManager {
 		}
 
 		if (params) {
-			const escapeRegex = (s: string): string =>
-				s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+			const escapeRegex = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 			path = Object.entries(params).reduce(
 				(acc, [key, value]) =>
-					acc.replace(
-						new RegExp(`:${escapeRegex(key)}\\b`, "g"),
-						encodeURIComponent(String(value)),
-					),
+					acc.replace(new RegExp(`:${escapeRegex(key)}\\b`, "g"), encodeURIComponent(String(value))),
 				path,
 			);
 		}

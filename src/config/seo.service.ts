@@ -58,15 +58,15 @@ export interface SeoMeta {
 export function useGenerateMetaTags(config: SiteConfig, meta: SeoMeta): string {
 	const tags: string[] = [];
 
-	const fullTitle = meta.title === config.title
-		? config.title
-		: `${meta.title} | ${config.title}`;
+	const fullTitle = meta.title === config.title ? config.title : `${meta.title} | ${config.title}`;
 
 	const description = meta.description ?? config.description;
 	const url = meta.url ?? config.site;
 	const ogImage = meta.ogImage ?? config.ogImage;
 	const ogImageUrl = ogImage
-		? (ogImage.startsWith("http") ? ogImage : `${config.site}${ogImage}`)
+		? ogImage.startsWith("http")
+			? ogImage
+			: `${config.site}${ogImage}`
 		: undefined;
 
 	// Basic meta tags.
@@ -107,10 +107,14 @@ export function useGenerateMetaTags(config: SiteConfig, meta: SeoMeta): string {
 		// Article-specific OG tags.
 		if (meta.ogType === "article") {
 			if (meta.publishedTime) {
-				tags.push(`<meta property="article:published_time" content="${escapeAttr(meta.publishedTime)}" />`);
+				tags.push(
+					`<meta property="article:published_time" content="${escapeAttr(meta.publishedTime)}" />`,
+				);
 			}
 			if (meta.modifiedTime) {
-				tags.push(`<meta property="article:modified_time" content="${escapeAttr(meta.modifiedTime)}" />`);
+				tags.push(
+					`<meta property="article:modified_time" content="${escapeAttr(meta.modifiedTime)}" />`,
+				);
 			}
 			if (meta.author) {
 				tags.push(`<meta property="article:author" content="${escapeAttr(meta.author)}" />`);
@@ -141,7 +145,12 @@ export function useGenerateMetaTags(config: SiteConfig, meta: SeoMeta): string {
 	// JSON-LD structured data.
 	if (config.seo.jsonLd) {
 		const jsonLd = buildJsonLd(config, meta);
-		tags.push(`<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`);
+		// Escape <, >, & to prevent XSS via </script> breakout.
+		const safeJson = JSON.stringify(jsonLd)
+			.replace(/</g, "\\u003c")
+			.replace(/>/g, "\\u003e")
+			.replace(/&/g, "\\u0026");
+		tags.push(`<script type="application/ld+json">${safeJson}</script>`);
 	}
 
 	return tags.join("\n");
@@ -182,10 +191,7 @@ export function useHeadTags(config: SiteConfig, meta: SeoMeta): string {
 // --- Internal helpers ---
 
 function escapeHtml(text: string): string {
-	return text
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;");
+	return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 function escapeAttr(text: string): string {

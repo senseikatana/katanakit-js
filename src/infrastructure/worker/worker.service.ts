@@ -88,9 +88,10 @@ export default class WorkerService {
 		}
 
 		const funcString = workerFunc.toString();
-		const blob = new Blob([`self.onmessage = (e) => self.postMessage((${funcString})(e.data))`], {
-			type: "application/javascript",
-		});
+		const blob = new Blob(
+			[`self.onmessage = (e) => self.postMessage({ __taskId: e.data.__taskId, payload: (${funcString})(e.data.payload) })`],
+			{ type: "application/javascript" },
+		);
 		const workerUrl = URL.createObjectURL(blob);
 		const worker = new Worker(workerUrl);
 

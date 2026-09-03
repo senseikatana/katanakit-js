@@ -259,7 +259,7 @@ export default class TimingService {
 		});
 
 		return Promise.race([promise, timeoutPromise]);
-	}
+	};
 }
 
 // Singleton instance and destructured exports.

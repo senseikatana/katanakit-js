@@ -1,4 +1,9 @@
-import type { CurrencyFormatOptions, IConverterService, IFormatterService, Locale } from "../../types";
+import type {
+	CurrencyFormatOptions,
+	IConverterService,
+	IFormatterService,
+	Locale,
+} from "../../types";
 
 /**
  * Number/currency/string formatter (Adapter + Singleton) over `Intl`.
