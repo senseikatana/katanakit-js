@@ -1,4 +1,4 @@
-# Contributing to apify-manager
+# Contributing to KatanaKit
 
 Thank you for considering contributing! This document describes the architecture,
 the conventions and the development workflow so you can jump in quickly.
@@ -32,8 +32,8 @@ These rules keep the codebase consistent and maintainable:
 
 ```bash
 # Prerequisites: Node.js >= 20 or Bun >= 1.0
-git clone https://github.com/senseikatana/apify-manager.git
-cd apify-manager
+git clone https://github.com/senseikatana/katanakit.git
+cd katanakit
 bun install
 ```
 

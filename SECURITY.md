@@ -1,6 +1,6 @@
 # Security
 
-This document summarizes the security posture of `apify-manager` and provides
+This document summarizes the security posture of KatanaKit and provides
 guidance for deploying it safely.
 
 ## Trust boundary

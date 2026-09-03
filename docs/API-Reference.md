@@ -1,8 +1,8 @@
 # API Reference
 
-Everything below is importable from the main barrel `apify-manager` (or the `@/`
+Everything below is importable from the main barrel KatanaKit (or the `@/`
 alias when developing). The Express server lives under
-`apify-manager/adapters/express`.
+`katanakit/adapters/express`.
 
 ## HTTP client — `FetchApiManager`
 
@@ -123,7 +123,7 @@ Adapter for Astro `getStaticPaths`.
 
 ## Express server (subpath)
 
-`import { ServerExpress, router, ProductController } from "apify-manager/adapters/express"`
+`import { ServerExpress, router, ProductController } from "katanakit/adapters/express"`
 
 - `ServerExpress.getInstance().start()` — start on `http://localhost:3000`.
 - `ServerExpress.getInstance().getApp()` — the raw Express app.

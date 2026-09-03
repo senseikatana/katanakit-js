@@ -1,7 +1,7 @@
 {
-	"name": "apify-manager",
+	"name": "katanakit",
 	"version": "2.0.0",
-	"description": "Universal API Manager — framework-agnostic HTTP client and TypeScript service toolkit organized with hexagonal architecture.",
+	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -34,7 +34,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/senseikatana/apify-manager.git"
+		"url": "git+https://github.com/senseikatana/katanakit.git"
 	},
 	"keywords": [
 		"api",
@@ -52,9 +52,9 @@
 	"author": "senseikatana - Sergio Jurado",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/senseikatana/apify-manager/issues"
+		"url": "https://github.com/senseikatana/katanakit/issues"
 	},
-	"homepage": "https://github.com/senseikatana/apify-manager#readme",
+	"homepage": "https://github.com/senseikatana/katanakit#readme",
 	"dependencies": {
 		"@js-temporal/polyfill": "^0.5.1",
 		"cors": "^2.8.6",

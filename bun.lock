@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "apify-manager",
+      "name": "katanakit",
       "dependencies": {
         "@js-temporal/polyfill": "^0.5.1",
         "cors": "^2.8.6",

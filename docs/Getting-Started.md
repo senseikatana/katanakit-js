@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide walks you through installing `apify-manager` and using its core
+This guide walks you through installing KatanaKit and using its core
 services.
 
 ## Prerequisites
@@ -10,9 +10,9 @@ services.
 ## Installation
 
 ```bash
-npm install apify-manager
+npm install katanakit
 # or
-bun add apify-manager
+bun add katanakit
 ```
 
 ## Registering APIs and fetching data
@@ -21,7 +21,7 @@ The heart of the library is the HTTP client. You register your APIs once, then
 build safe URLs and fetch data with a Safe Result.
 
 ```ts
-import { INIT, GET, POST, BUILD_URL } from "apify-manager";
+import { INIT, GET, POST, BUILD_URL } from "katanakit";
 
 INIT({
   dummyjson: {
@@ -57,7 +57,7 @@ await POST("dummyjson", "users", { firstName: "Ada", lastName: "Lovelace" });
 ## Logging
 
 ```ts
-import { LOGGER, LoggerService, type LogStrategy } from "apify-manager";
+import { LOGGER, LoggerService, type LogStrategy } from "katanakit";
 
 LOGGER("Application started");
 LOGGER("error", "Failed to load", { code: 500 });
@@ -74,7 +74,7 @@ LoggerService.getInstance().setStrategy(custom);
 ## Storage
 
 ```ts
-import { SET_STORAGE, GET_STORAGE, REMOVE_STORAGE } from "apify-manager";
+import { SET_STORAGE, GET_STORAGE, REMOVE_STORAGE } from "katanakit";
 
 SET_STORAGE("theme", "dark");
 const theme = GET_STORAGE<string>("theme"); // "dark"
@@ -87,7 +87,7 @@ REMOVE_STORAGE("theme");
 ## DOM
 
 ```ts
-import { GET_ROOT, ADD_CLASS, ON, QUERY_SELECTOR } from "apify-manager";
+import { GET_ROOT, ADD_CLASS, ON, QUERY_SELECTOR } from "katanakit";
 
 const root = GET_ROOT();
 ADD_CLASS(root!, "dark-mode");
@@ -102,7 +102,7 @@ unsubscribe?.();
 
 ```ts
 // src/pages/blog/[slug].astro
-import { AstroService } from "apify-manager";
+import { AstroService } from "katanakit";
 
 export async function getStaticPaths() {
   const { GET_STATIC_PATHS } = AstroService.getInstance();
@@ -121,7 +121,7 @@ The Express server is exposed through a subpath so it does not bloat library
 consumers:
 
 ```ts
-import { ServerExpress } from "apify-manager/adapters/express";
+import { ServerExpress } from "katanakit/adapters/express";
 
 ServerExpress.getInstance().start(); // http://localhost:3000
 ```

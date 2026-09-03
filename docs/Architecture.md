@@ -1,6 +1,6 @@
 # Architecture
 
-`apify-manager` follows **hexagonal architecture** (ports and adapters). The goal
+KatanaKit follows **hexagonal architecture** (ports and adapters). The goal
 is a pure, framework-agnostic core surrounded by adapters that talk to the outside
 world (browser APIs, HTTP, frameworks).
 
