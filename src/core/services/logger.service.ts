@@ -1,17 +1,10 @@
-import type { LogLevel } from "@/types";
-
-/**
- * Strategy interface: defines the output contract using type-safe levels.
- */
-export interface LogStrategy {
-	output(level: LogLevel, message: string, data?: unknown): void;
-}
+import type { LogLevel, LogStrategy } from "@/types";
 
 /**
  * Concrete strategy: native console output.
  */
 export class ConsoleStrategy implements LogStrategy {
-	output(level: LogLevel, message: string, data?: unknown): void {
+	useOutput(level: LogLevel, message: string, data?: unknown): void {
 		if (data !== undefined) {
 			console[level](`[${level.toUpperCase()}] ${message}`, data);
 			return;
@@ -39,17 +32,17 @@ export class LoggerService {
 		return LoggerService.instance;
 	}
 
-	public setStrategy(strategy: LogStrategy): void {
+	public useSetStrategy = (strategy: LogStrategy): void => {
 		this.strategy = strategy;
-	}
+	};
 
 	/**
 	 * Overloads allow:
-	 * - message only: `LOGGER("message")`
-	 * - message + data: `LOGGER("message", { id: 1 })`
-	 * - level + message + data: `LOGGER("error", "something failed", { code: 500 })`
+	 * - message only: `useLog("message")`
+	 * - message + data: `useLog("message", { id: 1 })`
+	 * - level + message + data: `useLog("error", "something failed", { code: 500 })`
 	 */
-	public log: {
+	public useLog: {
 		(message: string, data?: unknown): void;
 		(level: LogLevel, message: string, data?: unknown): void;
 	} = (param1: LogLevel | string, param2?: unknown, param3?: unknown): void => {
@@ -58,31 +51,31 @@ export class LoggerService {
 		if (levels.includes(param1 as LogLevel)) {
 			const level = param1 as LogLevel;
 			const message = typeof param2 === "string" ? param2 : String(param2 ?? "");
-			this.strategy.output(level, message, param3);
+			this.strategy.useOutput(level, message, param3);
 			return;
 		}
 
-		const message = param1;
-		this.strategy.output("info", message, param2);
+		this.strategy.useOutput("info", param1, param2);
 	};
 
-	public error = (message: string, data?: unknown): void => {
-		this.strategy.output("error", message, data);
+	public useError = (message: string, data?: unknown): void => {
+		this.strategy.useOutput("error", message, data);
 	};
 
-	public clear = (): void => {
+	public useClear = (): void => {
 		console.clear();
 	};
 
-	public table = (data: unknown): void => {
+	public useTable = (data: unknown): void => {
 		console.table(data);
 	};
 }
 
 // Singleton instance and destructured exports.
 export const {
-	clear: LOGGER_CLEAR,
-	log: LOGGER,
-	error: LOGGER_ERROR,
-	table: LOGGER_TABLE,
-} = LoggerService.getInstance();
+	useClear,
+	useLog,
+	useError,
+	useTable,
+	useSetStrategy,
+}: LoggerService = LoggerService.getInstance();

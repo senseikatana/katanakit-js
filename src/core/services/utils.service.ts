@@ -1,31 +1,8 @@
-export interface IDataUtils {
-	UNIQUE<T>(array: T[]): T[];
-	CHUNK<T>(array: T[], size: number): T[][];
-	GROUP_BY<T>(array: T[], key: keyof T | ((item: T) => string)): Record<string, T[]>;
-	IS_OBJECT(item: unknown): item is Record<string, unknown>;
-	DEEP_CLONE<T>(value: T): T;
-	DEEP_MERGE<T extends Record<string, unknown>>(target: T, source: Record<string, unknown>): T;
-	PICK<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
-	OMIT<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K>;
-}
+import type { IAppUtils, IDataUtils, ISystemUtils } from "@/types";
 
-export interface ISystemUtils {
-	SLEEP(ms: number): Promise<void>;
-	RETRY<T>(fn: () => Promise<T>, retries?: number, delayMs?: number): Promise<T>;
-	COPY_TO_CLIPBOARD(text: string): Promise<boolean>;
-	GET_URL_PARAMS(urlString: string): Record<string, string>;
-	ROUND(value: string | number, decimals?: number): number;
-	AVERAGE(numbers: number[]): number;
-}
-
-export interface IAppUtils {
-	readonly data: IDataUtils;
-	readonly system: ISystemUtils;
-}
-
-// ==========================================
-// 1. DATA UTILS (Singleton)
-// ==========================================
+/**
+ * Data utilities implemented as a Singleton.
+ */
 export class DataUtils implements IDataUtils {
 	private static instance: DataUtils;
 
@@ -38,18 +15,19 @@ export class DataUtils implements IDataUtils {
 		return DataUtils.instance;
 	}
 
-	public UNIQUE<T>(array: T[]): T[] {
-		return [...new Set(array)];
-	}
+	public useUnique = <T>(array: T[]): T[] => [...new Set(array)];
 
-	public CHUNK<T>(array: T[], size: number): T[][] {
+	public useChunk = <T>(array: T[], size: number): T[][] => {
 		if (size <= 0) throw new Error("Chunk size must be greater than 0");
 		return Array.from({ length: Math.ceil(array.length / size) }, (_, i) =>
 			array.slice(i * size, i * size + size),
 		);
-	}
+	};
 
-	public GROUP_BY<T>(array: T[], key: keyof T | ((item: T) => string)): Record<string, T[]> {
+	public useGroupBy = <T>(
+		array: T[],
+		key: keyof T | ((item: T) => string),
+	): Record<string, T[]> => {
 		return array.reduce(
 			(acc, item) => {
 				const groupKey: string = typeof key === "function" ? key(item) : String(item[key]);
@@ -61,23 +39,22 @@ export class DataUtils implements IDataUtils {
 			},
 			{} as Record<string, T[]>,
 		);
-	}
+	};
 
-	public IS_OBJECT(item: unknown): item is Record<string, unknown> {
-		return typeof item === "object" && item !== null && !Array.isArray(item);
-	}
+	public useIsObject = (item: unknown): item is Record<string, unknown> =>
+		typeof item === "object" && item !== null && !Array.isArray(item);
 
-	public DEEP_CLONE<T>(value: T): T {
+	public useDeepClone = <T>(value: T): T => {
 		if (typeof structuredClone === "function") {
 			return structuredClone(value);
 		}
 		return JSON.parse(JSON.stringify(value)) as T;
-	}
+	};
 
-	public DEEP_MERGE<T extends Record<string, unknown>>(
+	public useDeepMerge = <T extends Record<string, unknown>>(
 		target: T,
 		source: Record<string, unknown>,
-	): T {
+	): T => {
 		if (!target || !source) return { ...target };
 		const output = { ...target } as Record<string, unknown>;
 
@@ -85,16 +62,19 @@ export class DataUtils implements IDataUtils {
 			const targetVal = target[key];
 			const sourceVal = source[key];
 
-			if (this.IS_OBJECT(targetVal) && this.IS_OBJECT(sourceVal)) {
-				output[key] = this.DEEP_MERGE(targetVal, sourceVal);
+			if (this.useIsObject(targetVal) && this.useIsObject(sourceVal)) {
+				output[key] = this.useDeepMerge(targetVal, sourceVal);
 			} else {
 				output[key] = sourceVal;
 			}
 		}
 		return output as T;
-	}
+	};
 
-	public PICK<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+	public usePick = <T extends object, K extends keyof T>(
+		obj: T,
+		keys: K[],
+	): Pick<T, K> => {
 		return keys.reduce(
 			(acc, key) => {
 				if (key in obj) acc[key] = obj[key];
@@ -102,18 +82,21 @@ export class DataUtils implements IDataUtils {
 			},
 			{} as Pick<T, K>,
 		);
-	}
+	};
 
-	public OMIT<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-		const result = this.DEEP_CLONE(obj) as Record<string, unknown>;
+	public useOmit = <T extends object, K extends keyof T>(
+		obj: T,
+		keys: K[],
+	): Omit<T, K> => {
+		const result = this.useDeepClone(obj) as Record<string, unknown>;
 		for (const key of keys) delete result[key as string];
 		return result as Omit<T, K>;
-	}
+	};
 }
 
-// ==========================================
-// 2. SYSTEM UTILS (Singleton)
-// ==========================================
+/**
+ * System utilities implemented as a Singleton.
+ */
 export class SystemUtils implements ISystemUtils {
 	private static instance: SystemUtils;
 
@@ -126,21 +109,24 @@ export class SystemUtils implements ISystemUtils {
 		return SystemUtils.instance;
 	}
 
-	public SLEEP(ms: number): Promise<void> {
-		return new Promise((resolve) => setTimeout(resolve, ms));
-	}
+	public useSleep = (ms: number): Promise<void> =>
+		new Promise((resolve) => setTimeout(resolve, ms));
 
-	public async RETRY<T>(fn: () => Promise<T>, retries = 3, delayMs = 1000): Promise<T> {
+	public async useRetry<T>(
+		fn: () => Promise<T>,
+		retries = 3,
+		delayMs = 1000,
+	): Promise<T> {
 		try {
 			return await fn();
 		} catch (error) {
 			if (retries <= 0) throw error;
-			await this.SLEEP(delayMs);
-			return this.RETRY(fn, retries - 1, delayMs);
+			await this.useSleep(delayMs);
+			return this.useRetry(fn, retries - 1, delayMs);
 		}
 	}
 
-	public async COPY_TO_CLIPBOARD(text: string): Promise<boolean> {
+	public async useCopyToClipboard(text: string): Promise<boolean> {
 		try {
 			await navigator.clipboard.writeText(text);
 			return true;
@@ -149,32 +135,32 @@ export class SystemUtils implements ISystemUtils {
 		}
 	}
 
-	public GET_URL_PARAMS(urlString: string): Record<string, string> {
+	public useGetUrlParams = (urlString: string): Record<string, string> => {
 		try {
 			const url = new URL(urlString);
 			return Object.fromEntries(url.searchParams.entries());
 		} catch {
 			return {};
 		}
-	}
+	};
 
-	public ROUND(value: string | number, decimals = 2): number {
-		const num = typeof value === "string" ? Number.parseFloat(value) : value;
+	public useRound = (value: string | number, decimals = 2): number => {
+		const num = typeof value === "string" ? parseFloat(value) : value;
 		if (Number.isNaN(num)) return 0;
 		const factor = 10 ** decimals;
 		return Math.round(num * factor) / factor;
-	}
+	};
 
-	public AVERAGE(numbers: number[]): number {
+	public useAverage = (numbers: number[]): number => {
 		if (numbers.length === 0) return 0;
 		const sum = numbers.reduce((acc, n) => acc + n, 0);
 		return sum / numbers.length;
-	}
+	};
 }
 
-// ==========================================
-// 3. MAIN FACADE (Singleton)
-// ==========================================
+/**
+ * Main facade composing data and system utilities.
+ */
 export class AppUtils implements IAppUtils {
 	private static instance: AppUtils;
 
@@ -194,9 +180,23 @@ export class AppUtils implements IAppUtils {
 	}
 }
 
-// ============================================================
-// TODO: USAGE EXAMPLES
-// ============================================================
+// Singleton instances and destructured exports.
+export const {
+	useUnique,
+	useChunk,
+	useGroupBy,
+	useIsObject,
+	useDeepClone,
+	useDeepMerge,
+	usePick,
+	useOmit,
+}: DataUtils = DataUtils.getInstance();
 
-export const { COPY_TO_CLIPBOARD, GET_URL_PARAMS, SLEEP, AVERAGE, RETRY, ROUND }: SystemUtils =
-	SystemUtils.getInstance();
+export const {
+	useSleep,
+	useRetry,
+	useCopyToClipboard,
+	useGetUrlParams,
+	useRound,
+	useAverage,
+}: SystemUtils = SystemUtils.getInstance();

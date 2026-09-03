@@ -1,40 +1,11 @@
-import type { ApiEntry, ApisConfig, FetchOptions, FetchResult, UrlOptions } from "@/types";
-
-/**
- * Contract of the fetch facade.
- */
-export interface IFetchApiManager {
-	INIT(apis: ApisConfig): void;
-	GET_APIS(): ApisConfig;
-	BUILD_URL(apiName: string, endpointName: string, options?: UrlOptions): string;
-	FETCH<T = unknown>(
-		apiName: string,
-		endpointName: string,
-		options?: FetchOptions,
-	): Promise<FetchResult<T>>;
-	GET<T = unknown>(
-		apiName: string,
-		endpointName: string,
-		urlOptions?: UrlOptions,
-	): Promise<FetchResult<T>>;
-	POST<T = unknown>(
-		apiName: string,
-		endpointName: string,
-		body?: unknown,
-		urlOptions?: UrlOptions,
-	): Promise<FetchResult<T>>;
-	PUT<T = unknown>(
-		apiName: string,
-		endpointName: string,
-		body?: unknown,
-		urlOptions?: UrlOptions,
-	): Promise<FetchResult<T>>;
-	DELETE<T = unknown>(
-		apiName: string,
-		endpointName: string,
-		urlOptions?: UrlOptions,
-	): Promise<FetchResult<T>>;
-}
+import type {
+	ApiEntry,
+	ApisConfig,
+	FetchOptions,
+	FetchResult,
+	IFetchApiManager,
+	UrlOptions,
+} from "@/types";
 
 /**
  * Framework-agnostic HTTP client: builds safe URLs from a JSON-defined registry
@@ -53,11 +24,11 @@ export class FetchApiManager implements IFetchApiManager {
 		return FetchApiManager.instance;
 	}
 
-	public INIT = (apis: ApisConfig): void => {
+	public useInit = (apis: ApisConfig): void => {
 		this.apis = { ...this.apis, ...apis };
 	};
 
-	public GET_APIS = (): ApisConfig => this.apis;
+	public useGetApis = (): ApisConfig => this.apis;
 
 	private GET_API_ENTRY = (apiName: string): ApiEntry => {
 		const api = this.apis[apiName];
@@ -67,19 +38,28 @@ export class FetchApiManager implements IFetchApiManager {
 		return api;
 	};
 
-	public BUILD_URL = (apiName: string, endpointName: string, options: UrlOptions = {}): string => {
+	public useBuildUrl = (
+		apiName: string,
+		endpointName: string,
+		options: UrlOptions = {},
+	): string => {
 		const { params, query, ignoreDefaultQuery = false } = options;
 		const api = this.GET_API_ENTRY(apiName);
 		let path = api.endpoints?.[endpointName] ?? "";
 
 		if (!path) {
-			throw new Error(`[FetchApiManager] Endpoint "${endpointName}" not found in API "${apiName}".`);
+			throw new Error(
+				`[FetchApiManager] Endpoint "${endpointName}" not found in API "${apiName}".`,
+			);
 		}
 
 		if (params) {
 			path = Object.entries(params).reduce(
 				(acc, [key, value]) =>
-					acc.replace(new RegExp(`:${key}\\b`, "g"), encodeURIComponent(String(value))),
+					acc.replace(
+						new RegExp(`:${key}\\b`, "g"),
+						encodeURIComponent(String(value)),
+					),
 				path,
 			);
 		}
@@ -94,7 +74,9 @@ export class FetchApiManager implements IFetchApiManager {
 			throw new Error(`[FetchApiManager] Scheme "${url.protocol}" is not allowed.`);
 		}
 
-		const defaultParams = ignoreDefaultQuery ? {} : (api.defaultQueryParams?.[endpointName] ?? {});
+		const defaultParams = ignoreDefaultQuery
+			? {}
+			: (api.defaultQueryParams?.[endpointName] ?? {});
 
 		const mergedQuery = { ...defaultParams, ...query };
 
@@ -107,7 +89,7 @@ export class FetchApiManager implements IFetchApiManager {
 		return url.toString();
 	};
 
-	public FETCH = async <T = unknown>(
+	public useFetch = async <T = unknown>(
 		apiName: string,
 		endpointName: string,
 		{ urlOptions, ...init }: FetchOptions = {},
@@ -115,10 +97,9 @@ export class FetchApiManager implements IFetchApiManager {
 		let url = "";
 
 		try {
-			url = this.BUILD_URL(apiName, endpointName, urlOptions);
+			url = this.useBuildUrl(apiName, endpointName, urlOptions);
 			const response = await fetch(url, init);
 
-			// 4xx or 5xx response.
 			if (!response.ok) {
 				let errorDetails: unknown;
 				try {
@@ -140,10 +121,11 @@ export class FetchApiManager implements IFetchApiManager {
 				};
 			}
 
-			// 2xx response.
 			const contentType = response.headers.get("content-type");
-			const isJson = contentType?.includes("application/json");
-			const data = isJson ? ((await response.json()) as T) : ((await response.text()) as unknown as T);
+			const isJson = contentType && contentType.includes("application/json");
+			const data = isJson
+				? ((await response.json()) as T)
+				: ((await response.text()) as unknown as T);
 
 			return {
 				data,
@@ -153,7 +135,6 @@ export class FetchApiManager implements IFetchApiManager {
 				ok: true,
 			};
 		} catch (err: unknown) {
-			// Network or configuration failures (CORS, server down, etc.).
 			const message = err instanceof Error ? err.message : String(err);
 			return {
 				data: null,
@@ -168,49 +149,58 @@ export class FetchApiManager implements IFetchApiManager {
 		}
 	};
 
-	public GET = async <T = unknown>(
+	public useGet = async <T = unknown>(
 		apiName: string,
 		endpointName: string,
 		urlOptions?: UrlOptions,
-	): Promise<FetchResult<T>> => this.FETCH<T>(apiName, endpointName, { method: "GET", urlOptions });
+	): Promise<FetchResult<T>> =>
+		this.useFetch<T>(apiName, endpointName, { method: "GET", urlOptions });
 
-	public POST = async <T = unknown>(
+	public usePost = async <T = unknown>(
 		apiName: string,
 		endpointName: string,
 		body?: unknown,
 		urlOptions?: UrlOptions,
 	): Promise<FetchResult<T>> =>
-		this.FETCH<T>(apiName, endpointName, {
+		this.useFetch<T>(apiName, endpointName, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: body !== undefined ? JSON.stringify(body) : undefined,
 			urlOptions,
 		});
 
-	public PUT = async <T = unknown>(
+	public usePut = async <T = unknown>(
 		apiName: string,
 		endpointName: string,
 		body?: unknown,
 		urlOptions?: UrlOptions,
 	): Promise<FetchResult<T>> =>
-		this.FETCH<T>(apiName, endpointName, {
+		this.useFetch<T>(apiName, endpointName, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: body !== undefined ? JSON.stringify(body) : undefined,
 			urlOptions,
 		});
 
-	public DELETE = async <T = unknown>(
+	public useDelete = async <T = unknown>(
 		apiName: string,
 		endpointName: string,
 		urlOptions?: UrlOptions,
 	): Promise<FetchResult<T>> =>
-		this.FETCH<T>(apiName, endpointName, {
+		this.useFetch<T>(apiName, endpointName, {
 			method: "DELETE",
 			urlOptions,
 		});
 }
 
 // Singleton instance and destructured exports.
-export const { FETCH, GET_APIS, INIT, GET, POST, DELETE, PUT, BUILD_URL }: FetchApiManager =
-	FetchApiManager.getInstance();
+export const {
+	useFetch,
+	useGetApis,
+	useInit,
+	useGet,
+	usePost,
+	useDelete,
+	usePut,
+	useBuildUrl,
+}: FetchApiManager = FetchApiManager.getInstance();

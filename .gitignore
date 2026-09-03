@@ -37,5 +37,10 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .agents/
 .skills/
 .claude/
+.prisma/
+.devin/
 # Finder (MacOS) folder config
 .DS_Store
+.prisma/
+node_modules/
+dist/

@@ -1,49 +1,14 @@
-import { LOGGER } from "./logger.service";
+import { useLog } from "./logger.service";
 
-/**
- * Cross-environment timer ID type.
- * Works in both browser (number) and Node/Bun (NodeJS.Timeout).
- */
+import type { IntervalControl, TimeoutControl } from "@/types";
+
 type TimerId = ReturnType<typeof setTimeout>;
 
 /**
- * Control object returned by timeout operations.
+ * Timing utilities: delays, debouncing, throttling and timeouts.
+ * Implemented as a Singleton facade with factory methods.
  */
-export interface TimeoutControl<T> {
-	promise: Promise<T>;
-	cancel: () => void;
-}
-
-/**
- * Control object returned by interval operations.
- */
-export interface IntervalControl {
-	pause: () => void;
-	resume: () => void;
-	stop: () => void;
-	isRunning: () => boolean;
-}
-
-/**
- * Utility class for timing operations, delays, debouncing, and throttling.
- * All methods are static as they are pure factories with no shared state.
- *
- * @example
- * ```typescript
- * // Simple delay
- * await TimingUtils.delay(1000);
- *
- * // Debounced search
- * const search = TimingUtils.debounce((query: string) => {
- *   console.log('Searching:', query);
- * }, 300);
- *
- * search('h');
- * search('he');
- * search('hello'); // Only executes once after 300ms
- * ```
- */
-export class TimingService {
+export default class TimingService {
 	private static instance: TimingService;
 
 	private constructor() {}
@@ -55,30 +20,16 @@ export class TimingService {
 		return TimingService.instance;
 	}
 
-	// ============================================================
-	// * Promisified version of setTimeout. Useful for clean pauses with async/await.
-	// ============================================================
+	public useDelay = (ms: number): Promise<void> =>
+		new Promise((resolve) => setTimeout(resolve, ms));
 
-	public DELAY(ms: number): Promise<void> {
-		return new Promise((resolve) => setTimeout(resolve, ms));
-	}
+	/** Alias for delay, more semantic for sleep operations. */
+	public useSleep = (ms: number): Promise<void> => this.useDelay(ms);
 
-	/**
-	 * Alias for delay, more semantic for sleep operations.
-	 */
-	public SLEEP(ms: number): Promise<void> {
-		return this.DELAY(ms);
-	}
-
-	/**
-	 * Executes a function after X milliseconds.
-	 * Returns an object with the result promise and a cancel function.
-	 *
-	 * @param callback - Function to execute after the delay
-	 * @param ms - Delay in milliseconds
-	 * @returns Control object with promise and cancel function
-	 */
-	public SET_TIMEOUT<T>(callback: () => T | Promise<T>, ms: number): TimeoutControl<T> {
+	public useSetTimeout = <T>(
+		callback: () => T | Promise<T>,
+		ms: number,
+	): TimeoutControl<T> => {
 		let timerId: TimerId;
 		let isCancelled = false;
 
@@ -101,23 +52,13 @@ export class TimingService {
 		};
 
 		return { promise, cancel };
-	}
+	};
 
-	/**
-	 * Improved and controllable version of setInterval.
-	 * Supports async callbacks without overlapping executions.
-	 * Returns a control object to pause, resume, and stop.
-	 *
-	 * @param callback - Function to execute on each interval (sync or async)
-	 * @param ms - Interval duration in milliseconds
-	 * @param immediate - Execute immediately on start. Default: false
-	 * @returns Control object with pause, resume, stop methods
-	 */
-	public INTERVAL(
+	public useInterval = (
 		callback: () => void | Promise<void>,
 		ms: number,
-		immediate = false,
-	): IntervalControl {
+		immediate: boolean = false,
+	): IntervalControl => {
 		let timerId: TimerId | null = null;
 		let isPaused = false;
 		let isStopped = false;
@@ -130,7 +71,7 @@ export class TimingService {
 			try {
 				await callback();
 			} catch (error) {
-				LOGGER("error", "[interval] Callback error:", error);
+				useLog("error", "[interval] Callback error:", error);
 			} finally {
 				isExecuting = false;
 			}
@@ -170,7 +111,6 @@ export class TimingService {
 
 		const isRunning = () => !isStopped && !isPaused;
 
-		// Start the interval
 		if (immediate) {
 			execute().then(() => scheduleNext());
 		} else {
@@ -178,20 +118,12 @@ export class TimingService {
 		}
 
 		return { pause, resume, stop, isRunning };
-	}
+	};
 
-	/**
-	 * Delays execution until X ms have passed without new calls (trailing edge).
-	 * Essential for search inputs or window resize events.
-	 *
-	 * @param func - Function to debounce
-	 * @param delayMs - Delay in milliseconds
-	 * @returns Debounced function
-	 */
-	public DEBOUNCE<T extends (...args: unknown[]) => unknown>(
+	public useDebounce = <T extends (...args: unknown[]) => unknown>(
 		func: T,
 		delayMs: number,
-	): (...args: Parameters<T>) => void {
+	): ((...args: Parameters<T>) => void) => {
 		let timeoutId: TimerId | undefined;
 
 		return (...args: Parameters<T>) => {
@@ -203,25 +135,17 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("error", "[debounce] Callback error:", error);
+					useLog("error", "[debounce] Callback error:", error);
 				}
 				timeoutId = undefined;
 			}, delayMs);
 		};
-	}
+	};
 
-	/**
-	 * Debounce with leading edge execution (immediate + trailing).
-	 * Executes immediately on first call, then debounces subsequent calls.
-	 *
-	 * @param func - Function to debounce
-	 * @param delayMs - Delay in milliseconds
-	 * @returns Debounced function with leading edge
-	 */
-	public DEBOUNCE_IMMEDIATE<T extends (...args: unknown[]) => unknown>(
+	public useDebounceImmediate = <T extends (...args: unknown[]) => unknown>(
 		func: T,
 		delayMs: number,
-	): (...args: Parameters<T>) => void {
+	): ((...args: Parameters<T>) => void) => {
 		let timeoutId: TimerId | undefined;
 		let lastCallTime: number | undefined;
 
@@ -235,7 +159,7 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("error", "[debounceImmediate] Callback error:", error);
+					useLog("error", "[debounceImmediate] Callback error:", error);
 				}
 			}
 
@@ -248,27 +172,19 @@ export class TimingService {
 					try {
 						func(...args);
 					} catch (error) {
-						LOGGER("error", "[debounceImmediate] Callback error:", error);
+						useLog("error", "[debounceImmediate] Callback error:", error);
 					}
 				}
 				timeoutId = undefined;
 				lastCallTime = undefined;
 			}, delayMs);
 		};
-	}
+	};
 
-	/**
-	 * Limits execution to once every X ms (throttling).
-	 * Essential for scroll or mousemove events.
-	 *
-	 * @param func - Function to throttle
-	 * @param limitMs - Minimum time between executions in milliseconds
-	 * @returns Throttled function
-	 */
-	public THROTTLE<T extends (...args: unknown[]) => unknown>(
+	public useThrottle = <T extends (...args: unknown[]) => unknown>(
 		func: T,
 		limitMs: number,
-	): (...args: Parameters<T>) => void {
+	): ((...args: Parameters<T>) => void) => {
 		let inThrottle = false;
 
 		return (...args: Parameters<T>) => {
@@ -276,7 +192,7 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("error", "[throttle] Callback error:", error);
+					useLog("error", "[throttle] Callback error:", error);
 				}
 				inThrottle = true;
 				setTimeout(() => {
@@ -284,20 +200,12 @@ export class TimingService {
 				}, limitMs);
 			}
 		};
-	}
+	};
 
-	/**
-	 * Throttle with trailing edge execution.
-	 * Executes at start and end of throttle period.
-	 *
-	 * @param func - Function to throttle
-	 * @param limitMs - Minimum time between executions in milliseconds
-	 * @returns Throttled function with trailing edge
-	 */
-	public THROTTLE_TRAILING<T extends (...args: unknown[]) => unknown>(
+	public useThrottleTrailing = <T extends (...args: unknown[]) => unknown>(
 		func: T,
 		limitMs: number,
-	): (...args: Parameters<T>) => void {
+	): ((...args: Parameters<T>) => void) => {
 		let inThrottle = false;
 		let lastArgs: Parameters<T> | null = null;
 
@@ -306,7 +214,7 @@ export class TimingService {
 				try {
 					func(...args);
 				} catch (error) {
-					LOGGER("error", "[throttleTrailing] Callback error:", error);
+					useLog("error", "[throttleTrailing] Callback error:", error);
 				}
 				inThrottle = true;
 				lastArgs = null;
@@ -317,7 +225,7 @@ export class TimingService {
 						try {
 							func(...lastArgs);
 						} catch (error) {
-							LOGGER("error", "[throttleTrailing] Callback error:", error);
+							useLog("error", "[throttleTrailing] Callback error:", error);
 						}
 					}
 				}, limitMs);
@@ -325,47 +233,30 @@ export class TimingService {
 				lastArgs = args;
 			}
 		};
-	}
+	};
 
-	/**
-	 * Executes a function repeatedly with a delay between executions.
-	 * Returns a promise that resolves when all iterations complete.
-	 *
-	 * @param callback - Function to execute on each iteration
-	 * @param iterations - Number of times to execute
-	 * @param delayMs - Delay between executions in milliseconds
-	 */
-	public async REPEAT(
+	public async useRepeat(
 		callback: (iteration: number) => void | Promise<void>,
 		iterations: number,
-		delayMs = 0,
+		delayMs: number = 0,
 	): Promise<void> {
 		for (let i = 0; i < iterations; i++) {
 			try {
 				await callback(i);
 			} catch (error) {
-				LOGGER("error", "[repeat] Callback error:", error);
+				useLog("error", "[repeat] Callback error:", error);
 			}
 
 			if (i < iterations - 1 && delayMs > 0) {
-				await this.DELAY(delayMs);
+				await this.useDelay(delayMs);
 			}
 		}
 	}
 
-	/**
-	 * Races a promise against a timeout.
-	 * Rejects if the promise doesn't resolve within the timeout.
-	 *
-	 * @param promise - Promise to race
-	 * @param timeoutMs - Timeout in milliseconds
-	 * @param errorMessage - Custom error message for timeout
-	 * @returns Promise that resolves with the result or rejects on timeout
-	 */
-	public async RACE<T>(
+	public async useRace<T>(
 		promise: Promise<T>,
 		timeoutMs: number,
-		errorMessage = "Operation timed out",
+		errorMessage: string = "Operation timed out",
 	): Promise<T> {
 		const timeoutPromise = new Promise<never>((_, reject) => {
 			setTimeout(() => reject(new Error(errorMessage)), timeoutMs);
@@ -375,5 +266,15 @@ export class TimingService {
 	}
 }
 
-// Export convenience aliases.
-export const { DEBOUNCE, INTERVAL, SET_TIMEOUT }: TimingService = TimingService.getInstance();
+// Singleton instance and destructured exports.
+export const {
+	useDelay,
+	useSetTimeout,
+	useInterval,
+	useDebounce,
+	useDebounceImmediate,
+	useThrottle,
+	useThrottleTrailing,
+	useRepeat,
+	useRace,
+}: TimingService = TimingService.getInstance();

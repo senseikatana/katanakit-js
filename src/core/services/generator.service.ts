@@ -1,31 +1,21 @@
-/**
- * Contract for a crypto strategy.
- */
-export interface ICryptoStrategy {
-	ENCRYPT(plainText: string, salt?: string): Promise<string>;
-}
+import type { ICryptoStrategy, IUuidStrategy } from "@/types";
 
 /**
- * Contract for a UUID strategy.
- */
-export interface IUuidStrategy {
-	GENERATE(): string;
-}
-
-/**
- * Loads the Node.js `crypto` module lazily, only when `ENCRYPT` is invoked.
+ * Loads the Node.js `crypto` module lazily, only when `useEncrypt` is invoked.
  *
  * NOTE: this is a one-way hash demo, not a credential store. Do not rely on the
  * fixed default salt for real password hashing; prefer scrypt/argon2id instead.
  */
 export class LazyNodeCryptoStrategy implements ICryptoStrategy {
-	async ENCRYPT(plainText: string, salt = "default-salt"): Promise<string> {
+	async useEncrypt(plainText: string, salt: string = "default-salt"): Promise<string> {
 		const cryptoModule = await import("node:crypto");
 		// Supports both CJS and pure ESM environments.
 		const cryptoInstance = cryptoModule.default ?? cryptoModule;
 
 		const rounds = cryptoInstance.randomBytes(32).toString("hex");
-		const hash = cryptoInstance.pbkdf2Sync(plainText, salt, 100000, 64, "sha512").toString("hex");
+		const hash = cryptoInstance
+			.pbkdf2Sync(plainText, salt, 100000, 64, "sha512")
+			.toString("hex");
 
 		return `${rounds}:${hash}`;
 	}
@@ -35,7 +25,7 @@ export class LazyNodeCryptoStrategy implements ICryptoStrategy {
  * Native UUID strategy using `globalThis.crypto.randomUUID`, with a fallback.
  */
 export class NativeUuidStrategy implements IUuidStrategy {
-	GENERATE(): string {
+	useGenerate(): string {
 		if (
 			typeof globalThis.crypto !== "undefined" &&
 			typeof globalThis.crypto.randomUUID === "function"
@@ -55,7 +45,7 @@ export class NativeUuidStrategy implements IUuidStrategy {
  */
 export default class GeneratorService {
 	private static instance: GeneratorService;
-	private counter = 0;
+	private counter: number = 0;
 
 	private cryptoStrategy: ICryptoStrategy;
 	private uuidStrategy: IUuidStrategy;
@@ -72,11 +62,11 @@ export default class GeneratorService {
 		return GeneratorService.instance;
 	}
 
-	public NUMERIC_ID = (): number => ++this.counter;
+	public useNumericId = (): number => ++this.counter;
 
-	public UUID = (): string => this.uuidStrategy.GENERATE();
+	public useUuid = (): string => this.uuidStrategy.useGenerate();
 
-	public SLUGIFY = (text: string): string => {
+	public useSlugify = (text: string): string => {
 		if (!text) throw new Error("Text is required for slugify");
 
 		return text
@@ -92,7 +82,7 @@ export default class GeneratorService {
 			.replace(/-+$/, "");
 	};
 
-	public TOKEN = (): number => {
+	public useToken = (): number => {
 		if (typeof globalThis.crypto?.getRandomValues === "function") {
 			const buffer = new Uint32Array(1);
 			globalThis.crypto.getRandomValues(buffer);
@@ -101,10 +91,12 @@ export default class GeneratorService {
 		return Math.floor(100000 + Math.random() * 900000);
 	};
 
-	public ENCRYPT = async (plainText: string, salt = "default-salt"): Promise<string> =>
-		this.cryptoStrategy.ENCRYPT(plainText, salt);
+	public useEncrypt = async (
+		plainText: string,
+		salt: string = "default-salt",
+	): Promise<string> => this.cryptoStrategy.useEncrypt(plainText, salt);
 }
 
 // Singleton instance and destructured exports.
-export const { SLUGIFY, UUID, NUMERIC_ID, TOKEN, ENCRYPT }: GeneratorService =
+export const { useSlugify, useUuid, useNumericId, useToken, useEncrypt }: GeneratorService =
 	GeneratorService.getInstance();

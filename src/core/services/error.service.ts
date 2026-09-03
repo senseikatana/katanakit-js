@@ -1,18 +1,11 @@
-/**
- * Serialized shape returned by {@link AppError.TO_JSON}.
- */
-export interface ISerializedError {
-	name: string;
-	message: string;
-	code: number;
-}
+import type { IErrorFactory, ISerializedError } from "@/types";
 
 /**
  * Decoupled application error. Carries an HTTP-style status code.
  */
 export class AppError extends Error {
 	constructor(
-		message = "Unknown error",
+		message: string = "Unknown error",
 		public readonly code: number = 400,
 	) {
 		super(message);
@@ -20,23 +13,11 @@ export class AppError extends Error {
 		Object.setPrototypeOf(this, AppError.prototype);
 	}
 
-	public TO_JSON = (): ISerializedError => ({
+	public useToJson = (): ISerializedError => ({
 		name: this.name,
 		message: this.message,
 		code: this.code,
 	});
-}
-
-/**
- * Contract of the error factory.
- */
-export interface IErrorFactory {
-	BAD_REQUEST(message?: string): AppError;
-	UNAUTHORIZED(message?: string): AppError;
-	FORBIDDEN(message?: string): AppError;
-	NOT_FOUND(message?: string): AppError;
-	INTERNAL(message?: string): AppError;
-	CUSTOM(message: string, code: number): AppError;
 }
 
 /**
@@ -54,25 +35,31 @@ export class ErrorFactoryService implements IErrorFactory {
 		return ErrorFactoryService.instance;
 	}
 
-	public BAD_REQUEST = (message = "Bad Request"): AppError => new AppError(message, 400);
+	public useBadRequest = (message: string = "Bad Request"): AppError =>
+		new AppError(message, 400);
 
-	public UNAUTHORIZED = (message = "Unauthorized"): AppError => new AppError(message, 401);
+	public useUnauthorized = (message: string = "Unauthorized"): AppError =>
+		new AppError(message, 401);
 
-	public FORBIDDEN = (message = "Forbidden"): AppError => new AppError(message, 403);
+	public useForbidden = (message: string = "Forbidden"): AppError =>
+		new AppError(message, 403);
 
-	public NOT_FOUND = (message = "Not Found"): AppError => new AppError(message, 404);
+	public useNotFound = (message: string = "Not Found"): AppError =>
+		new AppError(message, 404);
 
-	public INTERNAL = (message = "Internal Server Error"): AppError => new AppError(message, 500);
+	public useInternal = (message: string = "Internal Server Error"): AppError =>
+		new AppError(message, 500);
 
-	public CUSTOM = (message: string, code: number): AppError => new AppError(message, code);
+	public useCustom = (message: string, code: number): AppError =>
+		new AppError(message, code);
 }
 
 // Singleton instance and destructured exports.
 export const {
-	BAD_REQUEST,
-	UNAUTHORIZED,
-	FORBIDDEN,
-	NOT_FOUND,
-	INTERNAL,
-	CUSTOM,
+	useBadRequest,
+	useUnauthorized,
+	useForbidden,
+	useNotFound,
+	useInternal,
+	useCustom,
 }: ErrorFactoryService = ErrorFactoryService.getInstance();

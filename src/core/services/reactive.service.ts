@@ -1,44 +1,18 @@
-import { GET_STORAGE, SET_STORAGE } from "@/infrastructure/storage/storage.service";
-import { LOGGER } from "./logger.service";
+import { useLog } from "./logger.service";
+import {
+	useGetStorage,
+	useSetStorage,
+} from "@/infrastructure/storage/storage.service";
 
-import type { StorageTarget } from "@/types";
-
-export type SignalListener<T> = (newValue: T, oldValue: T) => void;
-
-export interface Subscribable<T> {
-	subscribe: (listener: SignalListener<T>) => () => void;
-}
-
-export interface SignalGetter<T> extends Subscribable<T> {
-	(): T;
-}
-
-export type SignalSetter<T> = (newValue: T | ((prev: T) => T)) => void;
-
-export interface ToggleSignalSetter {
-	set: (value: boolean) => void;
-	toggle: () => void;
-}
-
-/**
- * Contract of the reactive facade.
- */
-export interface IReactiveService {
-	CREATE_SIGNAL<T>(initialValue: T): [SignalGetter<T>, SignalSetter<T>];
-	CREATE_EFFECT(
-		callback: () => undefined | (() => void),
-		signals: Subscribable<unknown>[],
-	): () => void;
-	CREATE_MEMO<T>(computation: () => T, signals: Subscribable<unknown>[]): SignalGetter<T>;
-	CREATE_TOGGLE(initialValue?: boolean): [SignalGetter<boolean>, ToggleSignalSetter];
-	CREATE_STORAGE_SIGNAL<T>(
-		key: string,
-		fallbackValue: T,
-		target?: StorageTarget,
-	): [SignalGetter<T>, SignalSetter<T>];
-	CREATE_DEBOUNCED_SIGNAL<T>(initialValue: T, delayMs?: number): [SignalGetter<T>, SignalSetter<T>];
-	CREATE_BATCH(): (callback: () => void) => void;
-}
+import type {
+	IReactiveService,
+	SignalGetter,
+	SignalListener,
+	SignalSetter,
+	StorageTarget,
+	Subscribable,
+	ToggleSignalSetter,
+} from "@/types";
 
 /**
  * Minimal reactive kernel (Observer / Publisher-Subscriber) implemented as a
@@ -47,7 +21,7 @@ export interface IReactiveService {
 export default class ReactiveService implements IReactiveService {
 	private static instance: ReactiveService;
 
-	private isBatching = false;
+	private isBatching: boolean = false;
 	private batchQueue: Set<() => void> = new Set();
 
 	private constructor() {}
@@ -67,7 +41,9 @@ export default class ReactiveService implements IReactiveService {
 		}
 	};
 
-	public CREATE_SIGNAL = <T>(initialValue: T): [SignalGetter<T>, SignalSetter<T>] => {
+	public useCreateSignal = <T>(
+		initialValue: T,
+	): [SignalGetter<T>, SignalSetter<T>] => {
 		let value = initialValue;
 		const listeners = new Set<SignalListener<T>>();
 
@@ -75,7 +51,10 @@ export default class ReactiveService implements IReactiveService {
 
 		const set: SignalSetter<T> = (nextValue) => {
 			const oldValue = value;
-			value = typeof nextValue === "function" ? (nextValue as (prev: T) => T)(oldValue) : nextValue;
+			value =
+				typeof nextValue === "function"
+					? (nextValue as (prev: T) => T)(oldValue)
+					: nextValue;
 
 			if (value !== oldValue) {
 				this.NOTIFY(() => {
@@ -83,14 +62,14 @@ export default class ReactiveService implements IReactiveService {
 						try {
 							listener(value, oldValue);
 						} catch (error) {
-							LOGGER("error", "[CREATE_SIGNAL] Listener error:", error);
+							useLog("error", "[createSignal] Listener error:", error);
 						}
 					}
 				});
 			}
 		};
 
-		get.subscribe = (listener: SignalListener<T>): (() => void) => {
+		get.useSubscribe = (listener: SignalListener<T>): (() => void) => {
 			listeners.add(listener);
 			return () => {
 				listeners.delete(listener);
@@ -100,31 +79,31 @@ export default class ReactiveService implements IReactiveService {
 		return [get, set];
 	};
 
-	public CREATE_EFFECT = (
-		callback: () => undefined | (() => void),
+	public useCreateEffect = (
+		callback: () => void | (() => void),
 		signals: Subscribable<unknown>[],
 	): (() => void) => {
-		let cleanup: undefined | (() => void);
+		let cleanup: void | (() => void);
 
 		const execute = () => {
 			if (typeof cleanup === "function") {
 				try {
 					cleanup();
 				} catch (error) {
-					LOGGER("error", "[CREATE_EFFECT] Previous cleanup error:", error);
+					useLog("error", "[createEffect] Previous cleanup error:", error);
 				}
 			}
 
 			try {
-				cleanup = callback() as undefined | (() => void);
+				cleanup = callback() as void | (() => void);
 			} catch (error) {
-				LOGGER("error", "[CREATE_EFFECT] Effect execution error:", error);
+				useLog("error", "[createEffect] Effect execution error:", error);
 			}
 		};
 
 		const unsubscribes = signals.map((signal) => {
-			if (signal && typeof signal.subscribe === "function") {
-				return signal.subscribe(execute);
+			if (signal && typeof signal.useSubscribe === "function") {
+				return signal.useSubscribe(execute);
 			}
 			return () => {};
 		});
@@ -136,7 +115,7 @@ export default class ReactiveService implements IReactiveService {
 				try {
 					cleanup();
 				} catch (error) {
-					LOGGER("error", "[CREATE_EFFECT] Final cleanup error:", error);
+					useLog("error", "[createEffect] Final cleanup error:", error);
 				}
 			}
 			for (const unsub of unsubscribes) {
@@ -145,27 +124,29 @@ export default class ReactiveService implements IReactiveService {
 		};
 	};
 
-	public CREATE_MEMO = <T>(
+	public useCreateMemo = <T>(
 		computation: () => T,
 		signals: Subscribable<unknown>[],
 	): SignalGetter<T> => {
-		const [get, set] = this.CREATE_SIGNAL<T>(computation());
+		const [get, set] = this.useCreateSignal<T>(computation());
 
-		this.CREATE_EFFECT(() => {
+		this.useCreateEffect(() => {
 			set(computation());
 		}, signals);
 
 		return get;
 	};
 
-	public CREATE_TOGGLE = (initialValue = false): [SignalGetter<boolean>, ToggleSignalSetter] => {
-		const [get, set] = this.CREATE_SIGNAL<boolean>(initialValue);
+	public useCreateToggle = (
+		initialValue: boolean = false,
+	): [SignalGetter<boolean>, ToggleSignalSetter] => {
+		const [get, set] = this.useCreateSignal<boolean>(initialValue);
 		const toggle = () => set((prev) => !prev);
 
-		return [get, { set, toggle }];
+		return [get, { useSet: set, useToggle: toggle }];
 	};
 
-	public CREATE_STORAGE_SIGNAL = <T>(
+	public useCreateStorageSignal = <T>(
 		key: string,
 		fallbackValue: T,
 		target: StorageTarget = "localStorage",
@@ -173,24 +154,27 @@ export default class ReactiveService implements IReactiveService {
 		let initial: T = fallbackValue;
 
 		try {
-			const stored = GET_STORAGE<T>(key, target);
+			const stored = useGetStorage<T>(key, target);
 			if (stored !== null && stored !== undefined) {
 				initial = stored;
 			}
 		} catch (error) {
-			LOGGER("error", `[CREATE_STORAGE_SIGNAL] Error reading from ${target}:`, error);
+			useLog("error", `[createStorageSignal] Error reading from ${target}:`, error);
 		}
 
-		const [get, set] = this.CREATE_SIGNAL<T>(initial);
+		const [get, set] = this.useCreateSignal<T>(initial);
 
 		const setWithStorage: SignalSetter<T> = (nextValue) => {
 			set((prev) => {
-				const newValue = typeof nextValue === "function" ? (nextValue as (p: T) => T)(prev) : nextValue;
+				const newValue =
+					typeof nextValue === "function"
+						? (nextValue as (p: T) => T)(prev)
+						: nextValue;
 
 				try {
-					SET_STORAGE(key, newValue, target);
+					useSetStorage(key, newValue, target);
 				} catch (error) {
-					LOGGER("error", `[CREATE_STORAGE_SIGNAL] Error writing to ${target}:`, error);
+					useLog("error", `[createStorageSignal] Error writing to ${target}:`, error);
 				}
 
 				return newValue;
@@ -200,11 +184,11 @@ export default class ReactiveService implements IReactiveService {
 		return [get, setWithStorage];
 	};
 
-	public CREATE_DEBOUNCED_SIGNAL = <T>(
+	public useCreateDebouncedSignal = <T>(
 		initialValue: T,
-		delayMs = 300,
+		delayMs: number = 300,
 	): [SignalGetter<T>, SignalSetter<T>] => {
-		const [get, set] = this.CREATE_SIGNAL<T>(initialValue);
+		const [get, set] = this.useCreateSignal<T>(initialValue);
 		let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
 		const debouncedSet: SignalSetter<T> = (nextValue) => {
@@ -221,13 +205,13 @@ export default class ReactiveService implements IReactiveService {
 		return [get, debouncedSet];
 	};
 
-	public CREATE_BATCH = (): ((callback: () => void) => void) => {
+	public useCreateBatch = (): ((callback: () => void) => void) => {
 		return (callback: () => void) => {
 			this.isBatching = true;
 			try {
 				callback();
 			} catch (error) {
-				LOGGER("error", "[CREATE_BATCH] Batch block error:", error);
+				useLog("error", "[createBatch] Batch block error:", error);
 			} finally {
 				this.isBatching = false;
 				const queue = Array.from(this.batchQueue);
@@ -242,11 +226,11 @@ export default class ReactiveService implements IReactiveService {
 
 // Singleton instance and destructured exports.
 export const {
-	CREATE_SIGNAL,
-	CREATE_EFFECT,
-	CREATE_MEMO,
-	CREATE_TOGGLE,
-	CREATE_STORAGE_SIGNAL,
-	CREATE_DEBOUNCED_SIGNAL,
-	CREATE_BATCH,
+	useCreateSignal,
+	useCreateEffect,
+	useCreateMemo,
+	useCreateToggle,
+	useCreateStorageSignal,
+	useCreateDebouncedSignal,
+	useCreateBatch,
 }: ReactiveService = ReactiveService.getInstance();

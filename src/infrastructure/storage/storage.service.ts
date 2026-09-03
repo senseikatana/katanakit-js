@@ -1,14 +1,4 @@
-import type { StorageTarget } from "@/types";
-
-/**
- * Strategy interface: homogeneous storage contract without `any`.
- */
-export interface StorageStrategy {
-	getItem<T = unknown>(key: string): T | null;
-	setItem(key: string, value: unknown): void;
-	removeItem(key: string): void;
-	clear(): void;
-}
+import type { StorageStrategy, StorageTarget } from "@/types";
 
 /**
  * Base strategy handling safe JSON serialization over a Web Storage backend.
@@ -16,7 +6,7 @@ export interface StorageStrategy {
 abstract class WebStorageStrategy implements StorageStrategy {
 	protected constructor(private readonly storage: Storage) {}
 
-	getItem<T = unknown>(key: string): T | null {
+	useGetItem<T = unknown>(key: string): T | null {
 		try {
 			const raw = this.storage.getItem(key);
 			return raw ? (JSON.parse(raw) as T) : null;
@@ -25,16 +15,16 @@ abstract class WebStorageStrategy implements StorageStrategy {
 		}
 	}
 
-	setItem(key: string, value: unknown): void {
+	useSetItem(key: string, value: unknown): void {
 		const serialized = typeof value === "string" ? value : JSON.stringify(value);
 		this.storage.setItem(key, serialized);
 	}
 
-	removeItem(key: string): void {
+	useRemoveItem(key: string): void {
 		this.storage.removeItem(key);
 	}
 
-	clear(): void {
+	useClear(): void {
 		this.storage.clear();
 	}
 }
@@ -118,28 +108,41 @@ export default class StorageService {
 		if (!this.strategies) {
 			const hasWindow = typeof window !== "undefined";
 			this.strategies = {
-				localStorage: hasWindow ? new LocalStorageStrategy() : new MemoryStorageStrategy(),
-				sessionStorage: hasWindow ? new SessionStorageStrategy() : new MemoryStorageStrategy(),
+				localStorage: hasWindow
+					? new LocalStorageStrategy()
+					: new MemoryStorageStrategy(),
+				sessionStorage: hasWindow
+					? new SessionStorageStrategy()
+					: new MemoryStorageStrategy(),
 			};
 		}
 		return this.strategies;
 	}
 
-	public GET_STORAGE = <T = unknown>(
+	public useGetStorage = <T = unknown>(
 		key: string,
 		target: StorageTarget = "localStorage",
-	): T | null => this.getStrategies()[target].getItem<T>(key);
+	): T | null => this.getStrategies()[target].useGetItem<T>(key);
 
-	public SET_STORAGE = (key: string, value: unknown, target: StorageTarget = "localStorage"): void =>
-		this.getStrategies()[target].setItem(key, value);
+	public useSetStorage = (
+		key: string,
+		value: unknown,
+		target: StorageTarget = "localStorage",
+	): void => this.getStrategies()[target].useSetItem(key, value);
 
-	public REMOVE_STORAGE = (key: string, target: StorageTarget = "localStorage"): void =>
-		this.getStrategies()[target].removeItem(key);
+	public useRemoveStorage = (
+		key: string,
+		target: StorageTarget = "localStorage",
+	): void => this.getStrategies()[target].useRemoveItem(key);
 
-	public CLEAR_STORAGE = (target: StorageTarget = "localStorage"): void =>
-		this.getStrategies()[target].clear();
+	public useClearStorage = (target: StorageTarget = "localStorage"): void =>
+		this.getStrategies()[target].useClear();
 }
 
 // Singleton instance and destructured exports.
-export const { CLEAR_STORAGE, GET_STORAGE, REMOVE_STORAGE, SET_STORAGE } =
-	StorageService.getInstance();
+export const {
+	useClearStorage,
+	useGetStorage,
+	useRemoveStorage,
+	useSetStorage,
+} = StorageService.getInstance();
