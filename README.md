@@ -40,9 +40,9 @@ Safe Result, one way to do logging, storage and DOM across every framework.
 ## 📦 Installation
 
 ```bash
-npm install katanakit-dev
+npm install katanakit-dev-dev
 # or
-bun add katanakit-dev
+bun add katanakit-dev-dev
 ```
 
 ### Building from source
@@ -66,13 +66,13 @@ import {
   useGetStorage,
   useAddClass,
   useGetRoot,
-} from "katanakit";
+} from "katanakit-dev";
 ```
 
 ### HTTP client (the core)
 
 ```ts
-import { useInit, useGet, usePost, useBuildUrl } from "katanakit";
+import { useInit, useGet, usePost, useBuildUrl } from "katanakit-dev";
 
 // 1. Register your APIs once.
 useInit({
@@ -105,7 +105,7 @@ if (result.ok) {
 
 ```ts
 // src/pages/blog/[slug].astro
-import { AstroService } from "katanakit";
+import { AstroService } from "katanakit-dev";
 
 export async function getStaticPaths() {
   const { useGetStaticPaths } = AstroService.getInstance();
@@ -121,7 +121,7 @@ export async function getStaticPaths() {
 
 ```ts
 // src/pages/rss.xml.ts
-import { RssService } from "katanakit";
+import { RssService } from "katanakit-dev";
 import { getCollection } from "astro:content";
 
 const { useCreateRssEndpoint } = RssService.getInstance();
@@ -146,7 +146,7 @@ Then add the RSS link tag to your layout's `<head>`:
 
 ```astro
 ---
-import { RssService } from "katanakit";
+import { RssService } from "katanakit-dev";
 const { useRssLinkTag } = RssService.getInstance();
 ---
 <head>
@@ -160,7 +160,7 @@ Centralize your site metadata in `src/config/site.config.ts`:
 
 ```ts
 // src/config/site.config.ts
-import { type SiteConfig } from "katanakit";
+import { type SiteConfig } from "katanakit-dev";
 
 export const siteConfig: SiteConfig = {
   site: "https://myblog.com",
@@ -186,7 +186,7 @@ Then use it in your Astro layouts for full SEO:
 ---
 // src/layouts/BaseLayout.astro
 import { siteConfig } from "@/config/site.config";
-import { useHeadTags } from "katanakit";
+import { useHeadTags } from "katanakit-dev";
 
 interface Props {
   title: string;
@@ -224,7 +224,7 @@ And the RSS endpoint uses the same config:
 
 ```ts
 // src/pages/rss.xml.ts
-import { RssService } from "katanakit";
+import { RssService } from "katanakit-dev";
 import { siteConfig } from "@/config/site.config";
 import { getCollection } from "astro:content";
 
@@ -244,7 +244,7 @@ export const GET = useCreateRssEndpointFromConfig(siteConfig, async () => {
 ### Logger, storage and DOM
 
 ```ts
-import { useLog, useSetStorage, useGetStorage, useAddClass, useGetRoot } from "katanakit";
+import { useLog, useSetStorage, useGetStorage, useAddClass, useGetRoot } from "katanakit-dev";
 
 useLog("Hello", { user: "John" });                 // info level
 useLog("error", "Something failed", { code: 500 }); // error level

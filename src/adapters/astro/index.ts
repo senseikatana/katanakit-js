@@ -1,3 +1,3 @@
-export * from "./astro.service";
-export * from "./rss.service";
-export { default as RssService } from "./rss.service";
+export * from "./astro.service.js";
+export * from "./rss.service.js";
+export { default as RssService } from "./rss.service.js";
