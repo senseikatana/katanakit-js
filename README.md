@@ -6,9 +6,9 @@ Observer, Factory, Strategy, Facade and Adapter).
 
 It runs in the browser, in Node.js (>= 22.18) and in Bun, ships with an Astro
 `getStaticPaths` adapter, an RSS 2.0 generator, a site-config/SEO module, an
-optional Express server reference and a Nuxt (Nitro/H3) adapter. Importing a
-module never triggers side effects, and every async operation returns a **Safe
-Result** instead of throwing.
+optional Express server reference, a Nuxt (Nitro/H3) adapter and a Vue 3
+composable. Importing a module never triggers side effects, and every async
+operation returns a **Safe Result** instead of throwing.
 
 - **Version:** 2.1.4
 - **npm package:** `katanakit-js`
@@ -36,8 +36,8 @@ storage and DOM across every framework.
   on HTTP errors.
 - **Hexagonal architecture** — a pure `core` layer (services), an
   `infrastructure` layer (browser/runtime adapters), an `adapters` layer
-  (Astro, Express, Nuxt), a `config` layer (site config + SEO) and a single
-  source of truth for contracts and types in `src/types/`.
+  (Astro, Express, Nuxt, Vue), a `config` layer (site config + SEO) and a
+  single source of truth for contracts and types in `src/types/`.
 - **Design patterns** — Singleton facades, Strategy (logger, storage,
   crypto/UUID), Factory (errors, debounce/throttle), Observer (signals,
   IntersectionObserver, media queries), Facade and Adapter, all exposed as
@@ -76,6 +76,9 @@ published as package **subpaths** of the same `katanakit-js` package:
 ```ts
 // Nuxt / Nitro adapter helpers (no extra dependency; h3 ships with Nuxt)
 import { useUnwrap } from "katanakit-js/adapters/nuxt";
+
+// Vue 3 composable (requires vue as a peer dependency)
+import { useKatanaFetch } from "katanakit-js/adapters/vue";
 
 // Express reference server (requires express as a peer dependency)
 import { ServerExpress } from "katanakit-js/adapters/express";
@@ -347,6 +350,54 @@ JSON response object) and `useEventResponse(event, result)` (set the H3 event
 status code and return data/error). See the
 [API Reference](docs/API-Reference.md#nuxt-adapter--katanakit-jsadaptersnuxt).
 
+## Vue adapter
+
+`useKatanaFetch` is a Vue 3 composable that bridges KatanaKit's Safe Results to
+Vue's reactivity system. It exposes `data`, `error`, `loading` and a `refetch`
+function, and it never throws on HTTP errors.
+
+```ts
+import { useInit } from "katanakit-js";
+import { useKatanaFetch } from "katanakit-js/adapters/vue";
+
+useInit({
+  pokeapi: {
+    baseUri: "https://pokeapi.co/api/v2",
+    endpoints: { pokemonById: "/pokemon/:id/" },
+  },
+});
+```
+
+```vue
+<script setup lang="ts">
+import { useKatanaFetch } from "katanakit-js/adapters/vue";
+
+interface Pokemon { name: string; id: number; }
+
+const { data: pokemon, error, loading } = useKatanaFetch<Pokemon>(
+  "pokeapi",
+  "pokemonById",
+  { params: { id: 25 } },
+);
+</script>
+
+<template>
+  <div v-if="loading">Loading…</div>
+  <div v-else-if="error">{{ error.message }}</div>
+  <div v-else>{{ pokemon?.name }}</div>
+</template>
+```
+
+Pass a `Ref` as the options argument to refetch automatically when it changes:
+
+```ts
+const id = ref(25);
+const { data } = useKatanaFetch("pokeapi", "pokemonById", computed(() => ({ params: { id: id.value } })));
+```
+
+`vue` is an optional peer dependency — install it only if you use this adapter.
+See the [API Reference](docs/API-Reference.md#vue-adapter--katanakit-jsadaptersvue).
+
 ## Express server (optional)
 
 The Express reference adapter is exposed only through its own subpath so it
@@ -389,11 +440,12 @@ project. A `ProductController` and a demo `router` are also exported.
 | SEO       | `useHeadTags` and friends   | `useGenerateMetaTags`, `useTitle`, `useRssHeadLink` + typed `SiteConfig` |
 | Config    | `siteConfig` / `SiteConfig` | single source for site metadata, RSS and SEO defaults                |
 | Nuxt      | `katanakit-js/adapters/nuxt`| `useUnwrap`, `useSafeResponse`, `useEventResponse` (pure functions)  |
+| Vue       | `katanakit-js/adapters/vue` | `useKatanaFetch` composable (`data`, `error`, `loading`, `refetch`)  |
 | Server    | `katanakit-js/adapters/express` | `ServerExpress`, `router`, `ProductController` (optional reference) |
 
 The Astro, RSS, SEO and config modules plus all core/infrastructure services
-are re-exported from the main barrel. The Nuxt and Express adapters are only
-available through their subpaths.
+are re-exported from the main barrel. The Nuxt, Vue and Express adapters are
+only available through their subpaths.
 
 ## Project structure (hexagonal)
 
@@ -412,10 +464,11 @@ katanakit/
 │   ├── adapters/             # framework adapters
 │   │   ├── astro/            #   AstroService + RssService
 │   │   ├── express/          #   ServerExpress reference (subpath export)
-│   │   └── nuxt/             #   Nuxt helpers (subpath export)
+│   │   ├── nuxt/             #   Nuxt helpers (subpath export)
+│   │   └── vue/              #   Vue composable (subpath export)
 │   ├── config/               # siteConfig (SiteConfig) + SEO helpers
 │   └── prisma/               # Prisma schema, contract types and db client
-├── tests/                    # Vitest suite (57 tests across 7 files)
+├── tests/                    # Vitest suite (60 tests across 8 files)
 ├── examples/                 # runnable demos
 ├── docs/                     # Getting Started, Architecture, API Reference, Roadmap
 ├── CONTRIBUTING.md

@@ -40,6 +40,8 @@ Legend: `[x]` done · `[ ]` planned.
       (`useHeadTags`, `useGenerateMetaTags`, `useTitle`, `useRssHeadLink`).
 - [x] Nuxt adapter (`katanakit-js/adapters/nuxt`): `useUnwrap`,
       `useSafeResponse`, `useEventResponse`.
+- [x] Vue adapter (`katanakit-js/adapters/vue`): `useKatanaFetch` composable
+      (`data`, `error`, `loading`, `refetch`).
 - [x] Express reference server (`katanakit-js/adapters/express`) with CORS
       restriction defaults and hardened headers.
 - [x] Prisma integration using the ORM contract pattern
@@ -49,8 +51,8 @@ Legend: `[x]` done · `[ ]` planned.
 
 ### Quality and tooling
 
-- [x] Vitest suite: 57 tests across 7 files (http, logger, storage, core, rss,
-      nuxt, seo) with the `@/` alias.
+- [x] Vitest suite: 60 tests across 8 files (http, logger, storage, core, rss,
+      nuxt, seo, vue) with the `@/` alias.
 - [x] Biome 2 lint + format wired (`lint`, `check`, `format` scripts).
 - [x] `publish:patch|minor|major|beta` scripts with a `prepublishOnly` gate
       (check + test + build).

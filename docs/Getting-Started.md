@@ -25,8 +25,9 @@ only if you use the Express adapter or the Prisma layer.
 ## The two import entry points
 
 - Main barrel: `import { useGet, useLog, ... } from "katanakit-js"` — everything
-  except the Nuxt and Express adapters.
-- Subpaths: `import ... from "katanakit-js/adapters/nuxt"` and
+  except the Nuxt, Vue and Express adapters.
+- Subpaths: `import ... from "katanakit-js/adapters/nuxt"`,
+  `import ... from "katanakit-js/adapters/vue"` and
   `import ... from "katanakit-js/adapters/express"`.
 
 ## Registering APIs and fetching data
@@ -250,6 +251,45 @@ export default defineEventHandler(async (event) => {
 `useSafeResponse(result)` returns a clean serializable object
 (`{ data, error, ok }`) and `useEventResponse(event, result)` sets the response
 status code on the H3 event and returns the payload.
+
+## Vue 3 composable
+
+The Vue adapter ships as a subpath and requires the `vue` optional peer
+dependency. `useKatanaFetch` wraps `useGet` with Vue's reactivity system.
+
+```ts
+import { useInit } from "katanakit-js";
+import { useKatanaFetch } from "katanakit-js/adapters/vue";
+
+useInit({
+  pokeapi: {
+    baseUri: "https://pokeapi.co/api/v2",
+    endpoints: { pokemonById: "/pokemon/:id/" },
+  },
+});
+```
+
+```vue
+<script setup lang="ts">
+import { useKatanaFetch } from "katanakit-js/adapters/vue";
+
+const { data: pokemon, error, loading } = useKatanaFetch<{ name: string }>(
+  "pokeapi",
+  "pokemonById",
+  { params: { id: 25 } },
+);
+</script>
+
+<template>
+  <p v-if="loading">Loading…</p>
+  <p v-else-if="error">{{ error.message }}</p>
+  <p v-else>{{ pokemon?.name }}</p>
+</template>
+```
+
+Pass a `Ref`/`computed` as the options argument to refetch automatically when it
+changes. No `try/catch` is needed — HTTP errors are captured in `error` instead
+of thrown.
 
 ## Express server (optional)
 

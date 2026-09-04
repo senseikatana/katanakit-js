@@ -8,8 +8,9 @@ Two import entry points exist:
 - **Main barrel** — `import { ... } from "katanakit-js"`. Exposes the Astro and
   RSS services, site config and SEO helpers, all `core` services, all
   `infrastructure` services and every shared type.
-- **Subpaths** — `katanakit-js/adapters/express` and
-  `katanakit-js/adapters/nuxt` (framework-specific, published separately).
+- **Subpaths** — `katanakit-js/adapters/express`,
+  `katanakit-js/adapters/nuxt` and `katanakit-js/adapters/vue`
+  (framework-specific, published separately).
 
 Services are Singleton facades. In this document, "destructured export" means
 the method is also available as a standalone named export of the module.
@@ -892,6 +893,59 @@ useEventResponse<T>(
 Success: `event.node.res.statusCode = 200` and returns `result.data`. Failure:
 `statusCode = result.error.status || 500` and returns
 `{ error: result.error.message, status: result.error.status }`.
+
+---
+
+## Vue adapter — `katanakit-js/adapters/vue`
+
+`src/adapters/vue/vue.service.ts`. A Vue 3 composable that wraps `useGet` with
+the reactivity system. It never throws on HTTP errors and exposes idiomatic
+reactive state. `vue` is an optional peer dependency (`>=3.0.0`).
+
+```ts
+import { useKatanaFetch } from "katanakit-js/adapters/vue";
+```
+
+### `useKatanaFetch<T>(apiName, endpointName, options?)`
+
+Returns `KatanaFetchState<T>`:
+
+```ts
+interface KatanaFetchState<T> {
+  data: Ref<T | null>;        // resolved data on success, null otherwise
+  error: Ref<ApiError | null>; // Safe Result error on failure, null otherwise
+  loading: Ref<boolean>;      // whether a request is in flight
+  refetch: () => Promise<void>; // re-run the request manually
+}
+```
+
+| Parameter | Signature | Notes |
+| --------- | --------- | ----- |
+| `apiName` | `string` | Registered API name (see `useInit`). |
+| `endpointName` | `string` | Endpoint inside that API. |
+| `options` | `MaybeRef<UrlOptions>` | Optional path/query params. When passed as a Vue `Ref`, the request re-runs automatically (deep watch) whenever it changes. |
+
+The composable performs an initial fetch on setup and sets `loading`/`error`
+before every request, so no `try/catch` is needed around HTTP errors.
+
+```vue
+<script setup lang="ts">
+import { useKatanaFetch } from "katanakit-js/adapters/vue";
+
+const { data: pokemon, error, loading } = useKatanaFetch<{ name: string }>(
+  "pokeapi",
+  "pokemonById",
+  { params: { id: 25 } },
+);
+</script>
+```
+
+Reactive options:
+
+```ts
+const id = ref(25);
+const { data } = useKatanaFetch("pokeapi", "pokemonById", computed(() => ({ params: { id: id.value } })));
+```
 
 ---
 
