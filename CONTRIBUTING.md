@@ -1,72 +1,139 @@
 # Contributing to KatanaKit
 
-Thank you for considering contributing! This document describes the architecture,
-the conventions and the development workflow so you can jump in quickly.
+Thank you for considering contributing to `katanakit-js`! This document
+describes the architecture, the conventions and the development workflow so you
+can jump in quickly. It is the source of truth for how code lands in this
+repository.
 
 ## The development contract
 
-These rules keep the codebase consistent and maintainable:
+These rules keep the codebase consistent and maintainable. Please read
+[Architecture](docs/Architecture.md) for the full context behind each rule.
 
-1. **Hexagonal layering** — keep the pure `core` layer free of browser/runtime I/O.
-   Adapters (DOM, storage, sensors, worker, HTTP, Express, Astro) live in
-   `infrastructure/` or `adapters/`. New capabilities go in the layer that matches
-   their responsibility.
-2. **Design patterns** — services are implemented as Singleton facades with
-   Strategy/Observer/Factory/Decorator where it makes sense. Preserve the pattern
-   when extending a service.
-3. **`use*` convention** — every public method (except `getInstance`) uses the
-   `use` prefix (like React hooks). This makes the API consistent and predictable.
-4. **Destructured exports** — every service exposes its methods as arrow functions
-   and re-exports them destructured (e.g. `useLog`, `useGetStorage`, `useFetch`)
-   so consumers can tree-shake and call them without binding `this`.
-5. **`@/` path alias** — internal imports use the `@/` alias (mapped to `src/`).
-   The public API is exposed through barrel files (`index.ts`).
-6. **Single source of truth** — all contracts and types live in `src/types/`.
-7. **English only** — comments, identifiers and user-facing messages are written
-   in English.
-8. **No side effects on import** — importing a module must never trigger network
-   calls, timers, storage writes or DOM mutations. Demos and examples live under
-   `examples/`.
-9. **SSR safety** — browser-only adapters must guard or fall back gracefully when
-   `window` is unavailable (Node.js/Bun SSR).
-10. **Tests** — add or update a test under `tests/` for every new feature or bug fix.
+1. **Hexagonal layering** — keep the pure `core` layer (`src/core/services/`)
+   free of browser/runtime I/O. Adapters that own I/O live in
+   `src/infrastructure/` (DOM, storage, viewport, sensors, observer, worker,
+   theme). Framework-facing adapters live in `src/adapters/` (`astro/`,
+   `express/`, `nuxt/`), site config/SEO in `src/config/` and the Prisma
+   contract layer in `src/prisma/`. Put new capabilities in the layer that
+   matches their responsibility.
+2. **Design patterns** — services are Singleton facades and use
+   Strategy/Observer/Factory/Facade/Adapter where it makes sense. Preserve the
+   pattern when extending a service. `adapters/nuxt` is the one deliberate
+   exception: it exports pure functions, not a singleton.
+3. **`use*` convention** — every public method (except `getInstance()`) uses the
+   `use` prefix (like React hooks), e.g. `useInit`, `useFetch`, `useLog`,
+   `useCreateSignal`. This makes the API consistent and predictable.
+4. **Pure ESM with `.js` extensions** — the package is `"type": "module"` and
+   compiles with `module: nodenext`. All relative imports **must** use an
+   explicit `.js` extension (e.g. `import { useLog } from
+   "./logger.service.js"`). Do not import without the extension and do not add
+   new `@/`-aliased imports inside `src/`; the `@/` alias exists for the test
+   suite and examples only.
+5. **Destructured exports** — services expose their methods as arrow-function
+   class fields and re-export them destructured at the bottom of the module
+   (`export const { useLog, ... } = LoggerService.getInstance();`) so consumers
+   can tree-shake and call them without binding `this`. For modules whose
+   consumers are expected to hold an instance (`ObserverService`,
+   `SensorsUtils`, `WorkerService`), exporting the singleton instance or a
+   stable `getInstance()` is acceptable — document the choice.
+6. **Single source of truth for types** — every contract and shared domain type
+   lives in `src/types/index.ts`. Services reference these interfaces (`I*`,
+   `LogStrategy`, `StorageStrategy`, ...) instead of re-declaring shapes.
+7. **Framework adapters as subpaths** — anything that imports a framework
+   (`express`, `h3`/Nuxt, `@prisma/*`) must not be re-exported from the main
+   barrel `src/index.ts`. Expose it through the `exports` map in
+   `package.json` (`katanakit-js/adapters/express`, `katanakit-js/adapters/nuxt`)
+   so library consumers never pull those dependencies.
+8. **Optional peer dependencies** — keep heavy/framework dependencies out of
+   `dependencies`. Only add a runtime dependency when every consumer needs it.
+   New optional integrations go to `peerDependencies` +
+   `peerDependenciesMeta.optional` and are installed by developers/devDeps here.
+9. **English only** — comments, identifiers, error messages and documentation
+   are written in English.
+10. **No side effects on import** — importing any public module must never
+    trigger network calls, timers, storage writes or DOM mutations. Strategy
+    objects and I/O are created lazily inside methods. The only module that
+    reads the environment is `src/prisma/db.ts`, which is intentionally absent
+    from the public barrel.
+11. **SSR safety** — browser-only adapters must guard or fall back gracefully
+    when `window`/`document`/`navigator` is unavailable (Node/Bun SSR).
+12. **Safe Result for fallible async operations** — prefer returning a
+    discriminated union `{ data, error, ok }` over throwing.
+13. **Tests** — add or update a Vitest test under `tests/` for every new feature
+    or bug fix, and keep the `@/` alias imports there.
 
 ## Getting started
 
 ```bash
-# Prerequisites: Node.js >= 20 or Bun >= 1.0
+# Prerequisites: Node.js >= 22.18 or Bun >= 1.0
 git clone https://github.com/senseikatana/katanakit.git
 cd katanakit
+git checkout dev
 bun install
 ```
 
-Useful scripts:
+Useful scripts (all runnable with `bun run` or `npm run`):
 
-| Command              | Description                              |
-| -------------------- | ---------------------------------------- |
-| `bun run typecheck`  | Type-check the project (`tsc --noEmit`)  |
-| `bun run build`      | Build to `dist/` (declarations + ESM)    |
-| `bun run test`       | Run the Vitest suite                     |
-| `bun run check`      | Lint and format with Biome               |
-| `bun run check:fix`  | Auto-fix lint and format issues          |
-| `bun run dev`        | Start the Express example server         |
+| Command              | Description                                   |
+| -------------------- | --------------------------------------------- |
+| `bun run typecheck`  | Type-check the project (`tsc --noEmit`)       |
+| `bun run build`      | Build to `dist/` (declarations + ESM)         |
+| `bun run test`       | Run the Vitest suite                          |
+| `bun run test:watch` | Run Vitest in watch mode                      |
+| `bun run lint`       | Lint `src/` with Biome                        |
+| `bun run format`     | Format `src/` with Biome                      |
+| `bun run check`      | Biome lint + format check on `src/`           |
+| `bun run check:fix`  | Auto-fix Biome issues                         |
+| `bun run dev`        | Start the Express example server              |
+| `bun run publish:patch` / `:minor` / `:major` / `:beta` | Version bump + `npm publish` (tag `beta` for the beta channel) |
+
+`prepublishOnly` runs `check`, `test` and `build` before every publish.
 
 ## Directory layout
 
 - `src/types/` — single source of truth for all contracts and domain types.
 - `src/core/services/` — pure domain services (no I/O).
-- `src/infrastructure/` — adapters that implement contracts (DOM, storage, sensors, ...).
-- `src/adapters/` — framework adapters (Astro, Express).
-- `src/prisma/` — database layer (Prisma schema + client).
-- `tests/` — Vitest unit tests.
-- `examples/` — runnable examples (`bun run examples/<name>/demo.ts`).
+- `src/infrastructure/` — adapters that own browser/runtime I/O.
+- `src/adapters/` — framework adapters (`astro/`, `express/`, `nuxt/`).
+- `src/config/` — `site.config.ts` + `seo.service.ts`.
+- `src/prisma/` — Prisma schema, generated contract artifacts and the `db`
+  client (`schema.json`/`schema.d.ts` are generated — do not edit; regenerate
+  with `prisma contract emit`).
+- `src/index.ts` — main barrel (public API surface).
+- `tests/` — Vitest unit tests (import from `src/` via the `@/` alias).
+- `examples/` — runnable demos.
+- `docs/` — user documentation (keep in sync with code changes).
+
+## Updating documentation
+
+Documentation lives in the repository root (`README.md`, `CONTRIBUTING.md`,
+`SECURITY.md`, `CHANGELOG.md`) and in `docs/`. When you change a public API:
+
+- Update the matching entry in the "Services at a glance" table in `README.md`.
+- Add or correct the exact signatures in `docs/API-Reference.md` (they are
+  verified against `src/` — do not guess method names).
+- Reflect structural changes in `docs/Architecture.md`.
+- Note user-visible changes in `CHANGELOG.md` under `[Unreleased]`.
+- Always use `katanakit-js` in example imports.
+
+## Versioning and changelog
+
+This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
+and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
+`CHANGELOG.md`. The current development version is **2.1.4** (unreleased). Use
+the `publish:*` scripts to cut a release.
 
 ## Pull request checklist
 
 - [ ] Code follows the development contract above.
-- [ ] All methods use the `use*` prefix (except `getInstance`).
+- [ ] All new public methods use the `use*` prefix (except `getInstance`).
+- [ ] Relative imports inside `src/` carry explicit `.js` extensions.
+- [ ] New contracts/types were added to `src/types/` (not re-declared).
+- [ ] New framework code is reachable via a subpath, not the main barrel.
 - [ ] `bun run typecheck` passes with no errors.
 - [ ] `bun run check` passes (Biome lint + format).
 - [ ] `bun run test` passes.
 - [ ] Tests added/updated for the change.
+- [ ] Documentation and `CHANGELOG.md` updated if the public API changed.
 - [ ] Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/).
