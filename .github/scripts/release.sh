@@ -25,6 +25,14 @@ if [[ -z "$tag_name" ]]; then
 	tag_name="$(bash "${SCRIPT_DIR}/determine-version.sh")"
 fi
 
+# Normalize and validate the version: accept "2.3.0" or "v2.3.0", output "v2.3.0".
+if [[ "$tag_name" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+	tag_name="v${tag_name#v}"
+else
+	echo "❌ Invalid version '${tag_name}'. Expected MAJOR.MINOR.PATCH (e.g. v2.3.0)." >&2
+	exit 1
+fi
+
 if git rev-parse "refs/tags/${tag_name}" >/dev/null 2>&1; then
 	echo "Tag ${tag_name} already exists — nothing to do."
 	exit 0
