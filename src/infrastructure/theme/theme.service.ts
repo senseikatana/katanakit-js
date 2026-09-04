@@ -139,10 +139,3 @@ export const {
 	useResetTheme,
 	useDestroyTheme,
 }: ThemeService = THEME_SERVICE;
-
-useInitTheme({
-	defaultMode: "dark",
-	storageKey: "theme",
-	target: useGetBody() as HTMLBodyElement,
-	attribute: "data-theme",
-});
