@@ -1,49 +1,91 @@
-# KatanaKit
+# KatanaKit (`katanakit-js`)
 
-A sharp, framework-agnostic **TypeScript service toolkit**,
-organized with hexagonal architecture and built on proven design patterns
-(Singleton, Observer, Factory, Decorator and Strategy).
+KatanaKit is a sharp, framework-agnostic **TypeScript service toolkit** organized
+with **hexagonal architecture** and built on proven design patterns (Singleton,
+Observer, Factory, Strategy, Facade and Adapter).
 
-It works in the browser, in Node.js and in Bun, ships with an Astro
-`getStaticPaths` adapter and an optional Express server, and never triggers side
-effects on import.
+It runs in the browser, in Node.js (>= 22.18) and in Bun, ships with an Astro
+`getStaticPaths` adapter, an RSS 2.0 generator, a site-config/SEO module, an
+optional Express server reference and a Nuxt (Nitro/H3) adapter. Importing a
+module never triggers side effects, and every async operation returns a **Safe
+Result** instead of throwing.
+
+- **Version:** 2.1.4
+- **npm package:** `katanakit-js`
+- **Repository:** [senseikatana/katanakit](https://github.com/senseikatana/katanakit)
+  (development happens on the `dev` branch)
+- **License:** MIT
 
 ## Why
 
 Modern frontend and full-stack apps keep reimplementing the same plumbing:
 fetching an API safely, logging, persisting to storage, querying the DOM,
-reacting to state changes, generating slugs, formatting dates and money. This
-library gives you all of that as a single, tree-shakeable set of `use*` services
-with a consistent API — one `useInit` for your APIs, one `useFetch` that returns a
-Safe Result, one way to do logging, storage and DOM across every framework.
+reacting to state changes, generating slugs, formatting dates and money,
+building RSS/SEO output. KatanaKit provides all of that as a single, typed and
+tree-shakeable set of `use*` services with a consistent API: one `useInit` for
+your APIs, one `useFetch` that returns a Safe Result, one way to do logging,
+storage and DOM across every framework.
 
-## ✨ Features
+## Features
 
-- **Safe URL construction** — build URLs from a JSON-defined API registry using the
-  native `URL` API and `encodeURIComponent`; non-http(s) schemes are rejected to
-  prevent `javascript:` URLs and SSRF.
+- **Safe URL construction** — builds URLs from a JSON-defined API registry using
+  the native `URL` API and `encodeURIComponent`; only `http:`/`https:` schemes
+  are allowed (prevents `javascript:` URLs and SSRF).
 - **Safe Result** — every `useFetch` returns a discriminated union
-  `{ data, error, ok }` (Astro Actions style) instead of throwing on HTTP errors.
+  `{ data, error, url, status, ok }` (Astro Actions style) instead of throwing
+  on HTTP errors.
 - **Hexagonal architecture** — a pure `core` layer (services), an
-  `infrastructure` layer (browser/runtime adapters) and an `adapters` layer
-  (Astro + Express), with a single `@/` path alias, barrel exports and a single
-  source of truth for types in `src/types/`.
-- **Design patterns** — Singleton facades, Strategy (logger, storage, generator),
-  Factory (errors), Observer (signals, IntersectionObserver) and more, exposed
-  as `use*` methods (like React hooks) with safe destructured exports.
+  `infrastructure` layer (browser/runtime adapters), an `adapters` layer
+  (Astro, Express, Nuxt), a `config` layer (site config + SEO) and a single
+  source of truth for contracts and types in `src/types/`.
+- **Design patterns** — Singleton facades, Strategy (logger, storage,
+  crypto/UUID), Factory (errors, debounce/throttle), Observer (signals,
+  IntersectionObserver, media queries), Facade and Adapter, all exposed as
+  `use*` methods (like React hooks) with safe destructured exports.
+- **Consistent `use*` API** — every public method is prefixed with `use`
+  (`useInit`, `useFetch`, `useLog`, `useCreateSignal`, ...); the only exception
+  is `getInstance()`.
+- **Pure ESM** — relative imports use explicit `.js` extensions and
+  `module: nodenext`; bundlers and Node resolve the package cleanly.
 - **Zero side effects on import** — importing a module never triggers network
-  calls, timers or storage writes.
-- **SSR-safe** — browser-only adapters fall back gracefully (in-memory storage,
-  main-thread worker execution) when `window` is unavailable.
-- **Fully typed** — strict TypeScript with generated declarations.
+  calls, timers, storage writes or DOM mutations.
+- **SSR-safe** — browser-only adapters guard or fall back gracefully
+  (in-memory storage, main-thread worker execution) when `window` is
+  unavailable.
+- **Optional heavy dependencies** — only `@js-temporal/polyfill` is a runtime
+  dependency; `express`, `cors`, `dotenv` and `@prisma/orm-postgres` are
+  optional peer dependencies.
+- **Fully typed** — strict TypeScript with generated `.d.ts` declarations.
 
-## 📦 Installation
+## Installation
 
 ```bash
-npm install katanakit-js-dev
+npm install katanakit-js
 # or
-bun add katanakit-js-dev
+bun add katanakit-js
 ```
+
+Requirements: **Node.js >= 22.18.0** (pure ESM package). TypeScript consumers
+should use `moduleResolution: "nodenext"` (or `"bundler"`).
+
+### Framework adapters
+
+The root import is framework-agnostic. Framework-specific entry points are
+published as package **subpaths**:
+
+```bash
+# Nuxt / Nitro adapter helpers
+npm install katanakit-js          # already installed; subpath needs no extra dep
+import { useUnwrap } from "katanakit-js/adapters/nuxt";
+
+# Express reference server (requires express as a peer dependency)
+npm install express
+import { ServerExpress } from "katanakit-js/adapters/express";
+```
+
+`express`, `cors`, `dotenv` and `@prisma/orm-postgres` are **optional peer
+dependencies** — install them only if you use the Express adapter or the Prisma
+layer.
 
 ### Building from source
 
@@ -51,25 +93,14 @@ bun add katanakit-js-dev
 git clone https://github.com/senseikatana/katanakit.git
 cd katanakit
 bun install
-bun run build
+bun run build       # outputs to dist/
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
-```ts
-import {
-  useInit,
-  useGet,
-  useBuildUrl,
-  useLog,
-  useSetStorage,
-  useGetStorage,
-  useAddClass,
-  useGetRoot,
-} from "katanakit-js";
-```
+Everything below is importable from the main barrel `katanakit-js`.
 
-### HTTP client (the core)
+### HTTP client
 
 ```ts
 import { useInit, useGet, usePost, useBuildUrl } from "katanakit-js";
@@ -85,13 +116,15 @@ useInit({
   },
 });
 
-// 2. Build a safe URL.
-const url = useBuildUrl("pokeapi", "pokemonById", { params: { id: "pikachu" } });
+// 2. Build a safe URL (path params encoded, query params merged).
+const url = useBuildUrl("pokeapi", "pokemonById", {
+  params: { id: "pikachu" },
+});
 // => "https://pokeapi.co/api/v2/pokemon/pikachu/"
 
 // 3. Fetch with a Safe Result (no throwing on HTTP errors).
 const result = await useGet<{ name: string }>("pokeapi", "pokemonById", {
-  params: { id: 1 },
+  params: { id: 25 },
 });
 
 if (result.ok) {
@@ -99,9 +132,40 @@ if (result.ok) {
 } else {
   console.error(result.error.message, result.error.status);
 }
+
+// 4. POST JSON.
+await usePost("pokeapi", "pokemons", { name: "charmander" });
 ```
 
-### Astro adapter
+### Logger, storage and DOM
+
+```ts
+import {
+  useLog,
+  useSetStorage,
+  useGetStorage,
+  useRemoveStorage,
+  useAddClass,
+  useGetRoot,
+} from "katanakit-js";
+
+useLog("Hello", { user: "John" });                  // info level
+useLog("error", "Something failed", { code: 500 }); // error level
+
+useSetStorage("theme", "dark");
+const theme = useGetStorage<string>("theme");       // "dark"
+useRemoveStorage("theme");
+
+useAddClass(useGetRoot()!, "dark-mode");
+```
+
+Storage is SSR-safe: when `window` is unavailable an in-memory fallback is used
+automatically, so imports never crash in Node/Bun.
+
+## Astro adapter
+
+KatanaKit converts arbitrary collections into the payload Astro's
+`getStaticPaths` expects, wrapped in a Safe Result.
 
 ```ts
 // src/pages/blog/[slug].astro
@@ -109,6 +173,7 @@ import { AstroService } from "katanakit-js";
 
 export async function getStaticPaths() {
   const { useGetStaticPaths } = AstroService.getInstance();
+
   return useGetStaticPaths(getCollection, "blog", {
     param: "slug",
     valueFrom: (entry) => entry.slug ?? entry.id,
@@ -117,7 +182,14 @@ export async function getStaticPaths() {
 }
 ```
 
-### RSS feeds for Astro
+Also available: `usePathsFrom`, `useFindEntry`, `useGeneratePagination`,
+`usePathsFromValues` and `useExtractUniqueValues`. See the
+[API Reference](docs/API-Reference.md#astro--astroservice).
+
+## RSS feeds for Astro
+
+`RssService` generates pure RSS 2.0 XML with **no external dependencies**
+(`@astrojs/rss` is not required).
 
 ```ts
 // src/pages/rss.xml.ts
@@ -142,21 +214,24 @@ export const GET = useCreateRssEndpoint({
 });
 ```
 
-Then add the RSS link tag to your layout's `<head>`:
+Add the feed `<link>` tag to your layout's `<head>`:
 
 ```astro
 ---
-import { RssService } from "katanakit-js";
-const { useRssLinkTag } = RssService.getInstance();
+import { useRssLinkTag } from "katanakit-js";
 ---
 <head>
   <Fragment set:html={useRssLinkTag({ title: "My Blog" })} />
 </head>
 ```
 
-### Site config & SEO
+`useCreateRssEndpointFromConfig(siteConfig, items)` builds the same endpoint
+from your `SiteConfig`. See the [API Reference](docs/API-Reference.md#rss--rssservice).
 
-Centralize your site metadata in `src/config/site.config.ts`:
+## Site config and SEO
+
+Centralize your site metadata in a typed `SiteConfig` and derive every `<head>`
+tag from it.
 
 ```ts
 // src/config/site.config.ts
@@ -175,12 +250,13 @@ export const siteConfig: SiteConfig = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Blog", href: "/blog" },
-    { label: "GitHub", href: "https://github.com/...", external: true },
+    { label: "GitHub", href: "https://github.com/senseikatana/katanakit", external: true },
   ],
 };
 ```
 
-Then use it in your Astro layouts for full SEO:
+Then inject complete meta tags (title, description, canonical, Open Graph,
+Twitter Card and JSON-LD) in your layout:
 
 ```astro
 ---
@@ -191,19 +267,15 @@ import { useHeadTags } from "katanakit-js";
 interface Props {
   title: string;
   description?: string;
-  ogImage?: string;
   ogType?: "website" | "article";
   publishedTime?: string;
 }
 
-const { title, description, ogImage, ogType, publishedTime } = Astro.props;
-const canonical = new URL(Astro.url.pathname, siteConfig.site).href;
-
+const { title, description, ogType, publishedTime } = Astro.props;
 const headTags = useHeadTags(siteConfig, {
   title,
   description,
-  url: canonical,
-  ogImage,
+  url: new URL(Astro.url.pathname, siteConfig.site).href,
   ogType,
   publishedTime,
 });
@@ -220,7 +292,7 @@ const headTags = useHeadTags(siteConfig, {
 </html>
 ```
 
-And the RSS endpoint uses the same config:
+The RSS endpoint consumes the same config:
 
 ```ts
 // src/pages/rss.xml.ts
@@ -241,64 +313,46 @@ export const GET = useCreateRssEndpointFromConfig(siteConfig, async () => {
 });
 ```
 
-### Logger, storage and DOM
+## Nuxt adapter
+
+New in 2.1.4. Three pure helper functions bridge KatanaKit's Safe Results to
+Nuxt/Nitro server routes. They are **not** singleton services — just exported
+functions — and they avoid a hard dependency on `h3` (it ships with Nuxt).
 
 ```ts
-import { useLog, useSetStorage, useGetStorage, useAddClass, useGetRoot } from "katanakit-js";
+import { useInit, useGet } from "katanakit-js";
+import { useUnwrap } from "katanakit-js/adapters/nuxt";
 
-useLog("Hello", { user: "John" });                 // info level
-useLog("error", "Something failed", { code: 500 }); // error level
-
-useSetStorage("theme", "dark");
-const theme = useGetStorage<string>("theme");
-
-useAddClass(useGetRoot()!, "dark-mode");
+// server/plugins/api.ts — register your APIs once
+useInit({
+  pokeapi: {
+    baseUri: "https://pokeapi.co/api/v2",
+    endpoints: { pokemonById: "/pokemon/:id/" },
+  },
+});
 ```
 
-## 🧰 Services at a glance
+```ts
+// server/api/pokemon/[id].ts
+import { useGet } from "katanakit-js";
+import { useUnwrap } from "katanakit-js/adapters/nuxt";
 
-| Area      | Service              | Highlights                                            |
-| --------- | -------------------- | ----------------------------------------------------- |
-| HTTP      | `FetchApiManager`    | `useInit`, `useBuildUrl`, `useFetch`, `useGet`...     |
-| Logging   | `LoggerService`      | `useLog`, `useError`, `LogStrategy`                   |
-| Storage   | `StorageService`     | `useGetStorage`, `useSetStorage`, `StorageStrategy`   |
-| DOM       | `DomService`         | `useQuerySelector`, `useAddClass`, `useOn`...         |
-| Reactive  | `ReactiveService`    | `useCreateSignal`, `useCreateEffect`, `useCreateMemo` |
-| Format    | `FormatterService`   | `useFormatNumber`, `useFormatCurrency`, `useUpperCase` |
-| Convert   | `ConverterService`   | `useToCelsius`, `useToMiles`, `useToKilos`...         |
-| Errors    | `ErrorFactoryService`| `useBadRequest`, `useNotFound`, `useInternal`...      |
-| Generate  | `GeneratorService`   | `useUuid`, `useSlugify`, `useToken`, `useEncrypt`     |
-| Dates     | `DatesService`       | `useFormat`, `useNow`, `useAddDays`, `useIsBefore`... |
-| Geometry  | `GeometryUtils`      | `useRectangle`, `useCircle`, `useSphere`...           |
-| Timing    | `TimingService`      | `useDebounce`, `useThrottle`, `useSetTimeout`, `useRace` |
-| Utils     | `DataUtils`/`SystemUtils` | `useUnique`, `useGroupBy`, `useRetry`, `useDeepClone`... |
-| Viewport  | `ViewportService`    | scroll, fullscreen, visibility, `usePrefersReducedMotion` |
-| Sensors   | `SensorsUtils`       | geolocation, camera, vibration, battery               |
-| Observer  | `ObserverService`    | `useCreate`, `useObserve`, `useObserveAll`            |
-| Worker    | `WorkerService`      | `useRun`, `useCreatePool`, `useRunPool`               |
-| Theme     | `ThemeService`       | `useInitTheme`, `useToggleTheme`, `useSetThemeMode`   |
-| Astro     | `AstroService`       | `usePathsFrom`, `useGetStaticPaths`, pagination       |
-| RSS       | `RssService`         | `useGenerateRss`, `useRssLinkTag`, `useCreateRssEndpoint` |
-| Config    | `siteConfig`         | `useHeadTags`, `useGenerateMetaTags`, `useTitle`, `useRssHeadLink` |
-| Server    | `ServerExpress`      | optional Express adapter (via subpath)                |
-
-## 🧱 Project structure (hexagonal)
-
-```
-src/
-├── index.ts                # main barrel (public API)
-├── types/                  # single source of truth for all types & contracts
-├── core/
-│   └── services/           # logger, http, formatter, error, generator, ...
-├── infrastructure/         # adapters (browser/runtime I/O)
-│   ├── dom/  storage/  viewport/  sensors/  observer/  worker/  theme/
-└── adapters/               # framework adapters
-    ├── astro/              #   AstroService
-    └── express/            #   ServerExpress (optional, via subpath)
+export default defineEventHandler(async (event) => {
+  const id = getRouterParam(event, "id");
+  const result = await useGet("pokeapi", "pokemonById", { params: { id } });
+  return useUnwrap(result, `Pokemon ${id}`); // returns data, or throws an H3-compatible error
+});
 ```
 
-The Express server is **not** part of the main barrel to avoid forcing Express on
-library consumers. Import it explicitly:
+The other helpers are `useSafeResponse(result)` (shape the result as a clean
+JSON response object) and `useEventResponse(event, result)` (set the H3 event
+status code and return data/error). See the
+[API Reference](docs/API-Reference.md#nuxt-adapter--katanakit-jsadaptersnuxt).
+
+## Express server (optional)
+
+The Express reference adapter is exposed only through its own subpath so it
+never bloats the main bundle:
 
 ```ts
 import { ServerExpress } from "katanakit-js/adapters/express";
@@ -306,19 +360,89 @@ import { ServerExpress } from "katanakit-js/adapters/express";
 ServerExpress.getInstance().useStart(); // http://localhost:3000
 ```
 
-## 📚 Documentation
+It expects `express` (and `cors`/`dotenv` if used) to be installed in your
+project. A `ProductController` and a demo `router` are also exported.
+
+## Services at a glance
+
+| Area      | Service / module            | Highlights                                                          |
+| --------- | --------------------------- | ------------------------------------------------------------------- |
+| HTTP      | `FetchApiManager`           | `useInit`, `useGetApis`, `useBuildUrl`, `useFetch`, `useGet`, `usePost`, `usePut`, `useDelete` |
+| Logging   | `LoggerService`             | `useLog`, `useError`, `useClear`, `useTable`, pluggable `LogStrategy` |
+| Storage   | `StorageService`            | `useGetStorage`, `useSetStorage`, `useRemoveStorage`, `useClearStorage` (SSR-safe) |
+| DOM       | `DomService`                | `useQuerySelector`, `useAddClass`, `useOn`, `useSetText`, ...        |
+| Reactive  | `ReactiveService`           | `useCreateSignal`, `useCreateEffect`, `useCreateMemo`, `useCreateToggle`, `useCreateStorageSignal`, `useCreateDebouncedSignal`, `useCreateBatch` |
+| Format    | `FormatterService`          | `useFormatNumber`, `useFormatCurrency`, `useJsonStringify`, `useUpperCase`, `useCapitalize`, ... |
+| Convert   | `ConverterService`          | `useToCelsius`, `useToFahrenheit`, `useToMiles`, `useToKilos`, ...   |
+| Errors    | `ErrorFactoryService`       | `useBadRequest`, `useUnauthorized`, `useForbidden`, `useNotFound`, `useInternal`, `useCustom` |
+| Generate  | `GeneratorService`          | `useUuid`, `useSlugify`, `useNumericId`, `useToken`, `useEncrypt`    |
+| Dates     | `DatesService`              | `useFormat`, `useNow`, `useAddDays`, `useIsBefore`, `useLastDayOfMonth`, ... (Temporal) |
+| Geometry  | `GeometryUtils`             | `area`, `perimeter`, `volume` static helpers (`useCircle`, `useSphere`, ...) |
+| Timing    | `TimingService`             | `useDelay`, `useSetTimeout`, `useInterval`, `useDebounce`, `useThrottle`, `useRepeat`, `useRace` |
+| Utils     | `DataUtils` / `SystemUtils` | `useUnique`, `useGroupBy`, `useDeepClone`, `useSleep`, `useRetry`, `useRound`, ... |
+| Viewport  | `ViewportService`           | scroll, fullscreen, visibility, `usePrefersReducedMotion`            |
+| Sensors   | `SensorsUtils`              | `useGetGeolocation`, `useGetMediaStream`, `useVibrate`, `useGetBattery`, ... |
+| Observer  | `ObserverService`           | `useCreate`, `useObserve`, `useObserveAll`, `useDisconnect`          |
+| LazyLoad  | `LazyLoaderService`         | `useInit`, `useStop`, `useStopAll` for `img[data-src]`               |
+| Worker    | `WorkerService`             | `useRun`, `useCreatePool`, `useRunPool`, `useTerminate`              |
+| Theme     | `ThemeService`              | `useInitTheme`, `useSetThemeMode`, `useToggleTheme`, `useResetTheme` |
+| Astro     | `AstroService`              | `useGetStaticPaths`, `usePathsFrom`, `useGeneratePagination`, ...    |
+| RSS       | `RssService`                | `useGenerateRss`, `useRssLinkTag`, `useCreateRssEndpoint`, `useCreateRssEndpointFromConfig` |
+| SEO       | `useHeadTags` and friends   | `useGenerateMetaTags`, `useTitle`, `useRssHeadLink` + typed `SiteConfig` |
+| Config    | `siteConfig` / `SiteConfig` | single source for site metadata, RSS and SEO defaults                |
+| Nuxt      | `katanakit-js/adapters/nuxt`| `useUnwrap`, `useSafeResponse`, `useEventResponse` (pure functions)  |
+| Server    | `katanakit-js/adapters/express` | `ServerExpress`, `router`, `ProductController` (optional reference) |
+
+The Astro, RSS, SEO and config modules plus all core/infrastructure services
+are re-exported from the main barrel. The Nuxt and Express adapters are only
+available through their subpaths.
+
+## Project structure (hexagonal)
+
+```
+katanakit/
+├── package.json              # name: katanakit-js, ESM, exports map
+├── prisma.config.ts          # Prisma ORM config (contract + connection)
+├── src/
+│   ├── index.ts              # main barrel (public API)
+│   ├── types/                # single source of truth: contracts & types
+│   ├── core/
+│   │   └── services/         # pure services (no I/O): logger, http, ...
+│   ├── infrastructure/       # browser/runtime adapters
+│   │   ├── dom/  storage/  viewport/  sensors/
+│   │   └── observer/  worker/  theme/
+│   ├── adapters/             # framework adapters
+│   │   ├── astro/            #   AstroService + RssService
+│   │   ├── express/          #   ServerExpress reference (subpath export)
+│   │   └── nuxt/             #   Nuxt helpers (subpath export)
+│   ├── config/               # siteConfig (SiteConfig) + SEO helpers
+│   └── prisma/               # Prisma schema, contract types and db client
+├── tests/                    # Vitest suite (57 tests across 7 files)
+├── examples/                 # runnable demos
+├── docs/                     # Getting Started, Architecture, API Reference, Roadmap
+├── CONTRIBUTING.md
+└── SECURITY.md
+```
+
+All internal source imports are relative and carry an explicit `.js` extension
+(pure ESM, `module: nodenext`). The `@/` alias (mapped to `src/`) is configured
+for the test suite and the examples.
+
+## Documentation
 
 - [Getting Started](docs/Getting-Started.md)
 - [Architecture](docs/Architecture.md)
 - [API Reference](docs/API-Reference.md)
-- [Security](SECURITY.md)
 - [Roadmap](docs/Roadmap.md)
+- [Security](SECURITY.md)
+- [Changelog](CHANGELOG.md)
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for the
-development contract, conventions and how to get started.
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for
+the development contract (hexagonal layering, `use*` convention, `.js` ESM
+imports, tests, scripts) before opening a pull request.
 
-## 📄 License
+## License
 
 [MIT](LICENSE)
