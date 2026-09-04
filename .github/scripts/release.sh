@@ -33,6 +33,19 @@ else
 	exit 1
 fi
 
+# Monotonic guard: never publish a version lower than the highest already
+# published (e.g. someone types v2.2.3 when v2.3.0 already exists). Only
+# well-formed vX.Y.Z tags are considered, so junk tags like v2.2.0-1 are ignored.
+max_tag="$(git tag --sort=-v:refname 2>/dev/null | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)"
+if [[ -n "$max_tag" ]]; then
+	new_num="${tag_name#v}"
+	max_num="${max_tag#v}"
+	if [[ "$new_num" != "$max_num" ]] && [[ "$(printf '%s\n%s\n' "$new_num" "$max_num" | sort -V | head -n 1)" == "$new_num" ]]; then
+		echo "❌ Version ${tag_name} is lower than the latest published ${max_tag}." >&2
+		exit 1
+	fi
+fi
+
 if git rev-parse "refs/tags/${tag_name}" >/dev/null 2>&1; then
 	echo "Tag ${tag_name} already exists — nothing to do."
 	exit 0
