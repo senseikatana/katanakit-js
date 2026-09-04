@@ -1,6 +1,4 @@
 import { useGetStorage, useSetStorage } from "../../infrastructure/storage/storage.service.js";
-import { useLog } from "./logger.service.js";
-
 import type {
 	IReactiveService,
 	SignalGetter,
@@ -10,6 +8,7 @@ import type {
 	Subscribable,
 	ToggleSignalSetter,
 } from "../../types/index.js";
+import { useLog } from "./logger.service.js";
 
 /**
  * Minimal reactive kernel (Observer / Publisher-Subscriber) implemented as a

@@ -1,8 +1,6 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
+	"$schema": "https://biomejs.dev/schemas/2.5.12/schema.json",
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
@@ -10,12 +8,12 @@
 		"lineWidth": 100
 	},
 	"files": {
-		"ignore": ["src/prisma/schema.d.ts", "src/prisma/schema.json"]
+		"includes": ["**", "!**/src/prisma/schema.d.ts", "!**/src/prisma/schema.json"]
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"suspicious": {
 				"noConfusingVoidType": "off"
 			}

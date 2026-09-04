@@ -5,6 +5,30 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-09-04
+
+### Changed
+
+- Renamed package to `katanakit-js` on npm.
+- Restructured dependencies: `express`, `cors`, `dotenv` and
+  `@prisma/orm-postgres` are now **optional peer dependencies**; only
+  `@js-temporal/polyfill` remains a runtime dependency.
+- Upgraded Biome to v2 and Vitest to v5; migrated `biome.json` schema.
+
+### Added
+
+- Added a **Nuxt adapter** (`katanakit-js/adapters/nuxt`) with `useUnwrap`,
+  `useSafeResponse` and `useEventResponse` helpers.
+- Added `publish:*` scripts to `package.json`.
+
+### Fixed
+
+- Fixed ESM exports: all barrel files now use explicit `.js` extensions so
+  tree-shaking and bundlers resolve imports correctly.
+- Fixed `WorkerService` pool correlation (taskId echo in the worker blob).
+- Fixed `useEncrypt` to generate a random salt when none is provided.
+- Escaped JSON-LD `</script>` breakouts in the SEO service.
+
 ## [2.0.0] - 2026-09-03
 
 ### Changed

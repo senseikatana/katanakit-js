@@ -1,1 +1,1 @@
-export { useUnwrap, useSafeResponse, useEventResponse } from "./nuxt.service.js";
+export { useEventResponse, useSafeResponse, useUnwrap } from "./nuxt.service.js";

@@ -66,7 +66,7 @@ export class ObserverService {
 
 	useObserve(key: string, element: ObserverTarget): this {
 		const entry = this.registry.get(key);
-		if (!entry || !entry.observer) return this;
+		if (!entry?.observer) return this;
 
 		const target = this.resolveTarget(element);
 		if (!target) {
@@ -89,7 +89,7 @@ export class ObserverService {
 
 	useUnobserve(key: string, element: HTMLElement): this {
 		const entry = this.registry.get(key);
-		if (!entry || !entry.observer) return this;
+		if (!entry?.observer) return this;
 
 		entry.observer.unobserve(element);
 		entry.targets.delete(element);

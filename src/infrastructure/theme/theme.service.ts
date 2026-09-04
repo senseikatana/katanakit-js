@@ -1,3 +1,4 @@
+import type { IThemeService, ThemeMode, ThemeOptions } from "../../types/index.js";
 import {
 	useAddClass,
 	useGetBody,
@@ -7,8 +8,6 @@ import {
 	useSetAttribute,
 } from "../dom/dom.service.js";
 import { useGetStorage, useRemoveStorage, useSetStorage } from "../storage/storage.service.js";
-
-import type { IThemeService, ThemeMode, ThemeOptions } from "../../types/index.js";
 
 /**
  * Theme facade (Singleton) over the DOM and Storage, with a media-query listener.

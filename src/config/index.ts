@@ -1,8 +1,8 @@
-export { type SiteConfig, siteConfig } from "./site.config.js";
 export {
 	type SeoMeta,
 	useGenerateMetaTags,
-	useTitle,
-	useRssHeadLink,
 	useHeadTags,
+	useRssHeadLink,
+	useTitle,
 } from "./seo.service.js";
+export { type SiteConfig, siteConfig } from "./site.config.js";
