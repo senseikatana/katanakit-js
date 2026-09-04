@@ -1,6 +1,6 @@
 {
 	"name": "katanakit-js",
-	"version": "2.1.5",
+	"version": "2.1.6",
 	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -51,7 +51,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/senseikatana/katanakit.git"
+		"url": "git@github.com:senseikatana/katanakit-js.git"
 	},
 	"keywords": [
 		"api",
@@ -70,9 +70,9 @@
 	"author": "senseikatana - Sergio Jurado",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/senseikatana/katanakit/issues"
+		"url": "https://github.com/senseikatana/katanakit-js.git/issues"
 	},
-	"homepage": "https://github.com/senseikatana/katanakit#readme",
+	"homepage": "https://github.com/senseikatana/katanakit-js.git#readme",
 	"dependencies": {
 		"@js-temporal/polyfill": "^0.5.1"
 	},
