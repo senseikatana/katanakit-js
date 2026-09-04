@@ -121,7 +121,7 @@ Documentation lives in the repository root (`README.md`, `CONTRIBUTING.md`,
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
-`CHANGELOG.md`. The current development version is **2.1.4** (unreleased). Use
+`CHANGELOG.md`. The current development version is **2.2.1** (unreleased). Use
 the `publish:*` scripts to cut a release.
 
 ## Pull request checklist

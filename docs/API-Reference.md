@@ -1,6 +1,6 @@
 # API Reference
 
-Complete reference for `katanakit-js` **2.1.4**. Every signature in this
+Complete reference for `katanakit-js` **2.2.1**. Every signature in this
 document was checked against the source code in `src/`.
 
 Two import entry points exist:

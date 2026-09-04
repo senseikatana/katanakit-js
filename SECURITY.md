@@ -21,10 +21,10 @@ and deploy it. In particular:
   in `innerHTML`, RSS CDATA or `SeoMeta` is trusted output. Sanitize
   user-supplied content before it reaches these sinks.
 
-## Built-in protections (already applied in 2.1.4)
+## Built-in protections (already applied in 2.2.1)
 
 The following hardening measures are implemented in the current code and were
-verified during the 2.1.4 development cycle:
+verified during the 2.2.1 development cycle:
 
 - **URL construction** (`FetchApiManager.useBuildUrl`) encodes path params with
   `encodeURIComponent`, sets query params through `URLSearchParams`, and rejects
