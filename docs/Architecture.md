@@ -35,6 +35,7 @@ world (browser APIs, HTTP, frameworks) and a shared kernel of contracts.
    │   astro/  (AstroService, RssService)            │
    │   express/ (ServerExpress reference)            │
    │   nuxt/    (pure Nuxt helpers)                  │
+   │   vue/     (useKatanaFetch composable)          │
    └──────────────────────────────────────────────────┘
    │
    ├── config/   siteConfig (typed SiteConfig) + SEO helpers (seo.service.ts)
@@ -123,6 +124,10 @@ to the default-exported classes (`StorageService`, `ViewportService`,
   `useEventResponse(event, result)`. They bridge KatanaKit `FetchResult` values
   to Nuxt/Nitro server routes without importing `h3`. Published only as the
   `katanakit-js/adapters/nuxt` subpath.
+- `vue/` — `useKatanaFetch`, a Vue 3 composable that wraps `useGet` with the
+  reactivity system (`data`, `error`, `loading`, `refetch`). It imports `vue`
+  directly and is published only as the `katanakit-js/adapters/vue` subpath;
+  `vue` is an optional peer dependency.
 
 ### `config/` — site configuration and SEO
 
@@ -163,6 +168,7 @@ and the client is not exported from the main barrel.
   | `katanakit-js`                    | astro (Astro + RSS), config (site + SEO), core, infrastructure, types |
   | `katanakit-js/adapters/express`   | Express reference adapter                     |
   | `katanakit-js/adapters/nuxt`      | Nuxt helpers                                  |
+  | `katanakit-js/adapters/vue`       | Vue 3 composable                              |
 
 - **`@/` alias** maps to `src/` in `tsconfig.json` and `vitest.config.ts`. It is
   used by the test suite and the examples, not by library source files.
@@ -204,8 +210,8 @@ and the client is not exported from the main barrel.
 
 - `bun run build` — `tsc` to `dist/` (declarations + ESM).
 - `bun run typecheck` — `tsc --noEmit`.
-- `bun run test` / `test:watch` — Vitest (57 tests across 7 files: http,
-  logger, storage, core, rss, nuxt, seo).
+- `bun run test` / `test:watch` — Vitest (60 tests across 8 files: http,
+  logger, storage, core, rss, nuxt, seo, vue).
 - `bun run check` / `check:fix` — Biome 2 lint + format.
 - `bun run dev` / `start` — the bundled Express example server.
 

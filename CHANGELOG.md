@@ -13,6 +13,11 @@ Current development version. This is the first release published under the
 
 ### Added
 
+- **Vue adapter** — new `katanakit-js/adapters/vue` subpath exporting the
+  `useKatanaFetch` composable, which bridges KatanaKit Safe Results to Vue 3
+  reactivity (`data`, `error`, `loading`, `refetch`). Accepts a reactive `Ref`
+  of `UrlOptions` and refetches automatically on change. `vue` is an optional
+  peer dependency.
 - **Nuxt adapter** — new `katanakit-js/adapters/nuxt` subpath exporting three
   pure helpers that bridge KatanaKit Safe Results to Nuxt/Nitro server routes:
   `useUnwrap(result, context?)`, `useSafeResponse(result)` and

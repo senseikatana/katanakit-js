@@ -18,6 +18,10 @@
 		"./adapters/nuxt": {
 			"types": "./dist/adapters/nuxt/index.d.ts",
 			"import": "./dist/adapters/nuxt/index.js"
+		},
+		"./adapters/vue": {
+			"types": "./dist/adapters/vue/index.d.ts",
+			"import": "./dist/adapters/vue/index.js"
 		}
 	},
 	"files": [
@@ -63,6 +67,7 @@
 		"astro",
 		"express",
 		"nuxt",
+		"vue",
 		"singleton",
 		"observer",
 		"factory"
@@ -80,7 +85,8 @@
 		"@prisma/orm-postgres": ">=8.0.0-rc.0",
 		"cors": ">=2.8.0",
 		"dotenv": ">=16.0.0",
-		"express": ">=5.0.0"
+		"express": ">=5.0.0",
+		"vue": ">=3.0.0"
 	},
 	"peerDependenciesMeta": {
 		"@prisma/orm-postgres": {
@@ -93,6 +99,9 @@
 			"optional": true
 		},
 		"express": {
+			"optional": true
+		},
+		"vue": {
 			"optional": true
 		}
 	},
@@ -112,6 +121,7 @@
 		"prisma": "8.0.0-rc.12",
 		"typescript": "^7.0.2",
 		"vite": "^8.2.2",
-		"vitest": "^5.0.0"
+		"vitest": "^5.0.0",
+		"vue": "^3.5.0"
 	}
 }
