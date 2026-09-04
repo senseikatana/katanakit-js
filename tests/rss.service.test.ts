@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 import RssService, {
+	useCreateRssEndpoint,
 	useGenerateRss,
 	useRssLinkTag,
-	useCreateRssEndpoint,
 } from "@/adapters/astro/rss.service";
 
 describe("RssService", () => {
@@ -27,7 +27,7 @@ describe("RssService", () => {
 			if (!result.ok) return;
 
 			expect(result.data).toContain('<?xml version="1.0" encoding="UTF-8"?>');
-			expect(result.data).toContain("<rss version=\"2.0\"");
+			expect(result.data).toContain('<rss version="2.0"');
 			expect(result.data).toContain("<title>My Blog</title>");
 			expect(result.data).toContain("<link>https://example.com</link>");
 			expect(result.data).toContain("<title>Hello World</title>");

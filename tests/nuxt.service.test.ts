@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { useUnwrap, useSafeResponse, useEventResponse } from "@/adapters/nuxt/nuxt.service";
+import { useEventResponse, useSafeResponse, useUnwrap } from "@/adapters/nuxt/nuxt.service";
 import type { FetchResult } from "@/types";
 
 function okResult<T>(data: T): FetchResult<T> {

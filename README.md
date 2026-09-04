@@ -301,7 +301,7 @@ The Express server is **not** part of the main barrel to avoid forcing Express o
 library consumers. Import it explicitly:
 
 ```ts
-import { ServerExpress } from "katanakit/adapters/express";
+import { ServerExpress } from "katanakit-js/adapters/express";
 
 ServerExpress.getInstance().useStart(); // http://localhost:3000
 ```

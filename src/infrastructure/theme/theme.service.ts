@@ -1,7 +1,6 @@
 import type { IThemeService, ThemeMode, ThemeOptions } from "../../types/index.js";
 import {
 	useAddClass,
-	useGetBody,
 	useGetRoot,
 	useOn,
 	useRemoveClass,

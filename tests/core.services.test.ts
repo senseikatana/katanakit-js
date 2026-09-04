@@ -1,12 +1,7 @@
 import { describe, expect, it } from "vitest";
-
-import { GeometryUtils } from "@/core/services/geometry.service";
 import { useCustom, useInternal, useNotFound } from "@/core/services/error.service";
-import {
-	useCreateEffect,
-	useCreateMemo,
-	useCreateSignal,
-} from "@/core/services/reactive.service";
+import { GeometryUtils } from "@/core/services/geometry.service";
+import { useCreateEffect, useCreateMemo, useCreateSignal } from "@/core/services/reactive.service";
 
 describe("GeometryUtils", () => {
 	it("computes the rectangle area", () => {
