@@ -1,12 +1,6 @@
 import { describe, expect, it } from "vitest";
-
-import { siteConfig, type SiteConfig } from "@/config/site.config";
-import {
-	useGenerateMetaTags,
-	useHeadTags,
-	useTitle,
-	useRssHeadLink,
-} from "@/config/seo.service";
+import { useGenerateMetaTags, useHeadTags, useRssHeadLink, useTitle } from "@/config/seo.service";
+import { type SiteConfig, siteConfig } from "@/config/site.config";
 
 const config: SiteConfig = {
 	site: "https://example.com",
@@ -73,7 +67,9 @@ describe("seo.service", () => {
 			expect(tags).toContain('<meta property="og:locale" content="en_US" />');
 			expect(tags).toContain('<meta property="og:url" content="https://example.com/blog/post/" />');
 			// ogImage is relative → converted to absolute.
-			expect(tags).toContain('<meta property="og:image" content="https://example.com/og-default.png" />');
+			expect(tags).toContain(
+				'<meta property="og:image" content="https://example.com/og-default.png" />',
+			);
 		});
 
 		it("generates article tags when ogType=article", () => {
@@ -88,8 +84,12 @@ describe("seo.service", () => {
 			});
 
 			expect(tags).toContain('<meta property="og:type" content="article" />');
-			expect(tags).toContain('<meta property="article:published_time" content="2024-01-15T00:00:00Z" />');
-			expect(tags).toContain('<meta property="article:modified_time" content="2024-01-16T00:00:00Z" />');
+			expect(tags).toContain(
+				'<meta property="article:published_time" content="2024-01-15T00:00:00Z" />',
+			);
+			expect(tags).toContain(
+				'<meta property="article:modified_time" content="2024-01-16T00:00:00Z" />',
+			);
 			expect(tags).toContain('<meta property="article:author" content="Jane Doe" />');
 			expect(tags).toContain('<meta property="article:tag" content="typescript" />');
 			expect(tags).toContain('<meta property="article:tag" content="astro" />');
@@ -109,7 +109,7 @@ describe("seo.service", () => {
 			// ogType "article" embeds the title into the JSON-LD headline,
 			// which is where the `</script>` breakout must be neutralized.
 			const tags = useGenerateMetaTags(config, {
-				title: 'Post </script><img src=x onerror=alert(1)>',
+				title: "Post </script><img src=x onerror=alert(1)>",
 				ogType: "article",
 				publishedTime: "2024-01-15T00:00:00Z",
 			});
@@ -117,7 +117,7 @@ describe("seo.service", () => {
 			expect(tags).toContain('<script type="application/ld+json">');
 			// The `</script>` must be escaped to prevent XSS.
 			expect(tags).toContain("\\u003c/script\\u003e");
-			expect(tags).not.toContain('</script><img');
+			expect(tags).not.toContain("</script><img");
 		});
 	});
 
@@ -138,9 +138,9 @@ describe("seo.service", () => {
 		it("combines meta tags and RSS link", () => {
 			const tags = useHeadTags(config, { title: "Blog Post" });
 
-			expect(tags).toContain('<title>Blog Post | My Site</title>');
+			expect(tags).toContain("<title>Blog Post | My Site</title>");
 			expect(tags).toContain('rel="alternate"');
-			expect(tags).toContain('application/rss+xml');
+			expect(tags).toContain("application/rss+xml");
 		});
 	});
 

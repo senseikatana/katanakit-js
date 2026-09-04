@@ -1,11 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import {
-	useBuildUrl,
-	useFetch,
-	useGetApis,
-	useInit,
-} from "@/core/services/http.service";
+import { useBuildUrl, useFetch, useGetApis, useInit } from "@/core/services/http.service";
 
 describe("FetchApiManager", () => {
 	afterEach(() => {

@@ -12,8 +12,8 @@ import type { FetchResult } from "../../types/index.js";
  * @example
  * ```ts
  * // server/api/pokemon/[id].ts
- * import { useGet } from "katanakit-dev";
- * import { useUnwrap } from "katanakit-dev/adapters/nuxt";
+ * import { useGet } from "katanakit-js";
+ * import { useUnwrap } from "katanakit-js/adapters/nuxt";
  *
  * export default defineEventHandler(async (event) => {
  *   const id = getRouterParam(event, "id");
@@ -47,8 +47,8 @@ export function useUnwrap<T>(result: FetchResult<T>, context?: string): T {
  * @example
  * ```ts
  * // server/api/users.ts
- * import { useGet } from "katanakit-dev";
- * import { useSafeResponse } from "katanakit-dev/adapters/nuxt";
+ * import { useGet } from "katanakit-js";
+ * import { useSafeResponse } from "katanakit-js/adapters/nuxt";
  *
  * export default defineEventHandler(async () => {
  *   const result = await useGet("api", "users");
@@ -86,8 +86,8 @@ export function useSafeResponse<T>(result: FetchResult<T>): {
  * @example
  * ```ts
  * // server/api/products.ts
- * import { useFetch } from "katanakit-dev";
- * import { useEventResponse } from "katanakit-dev/adapters/nuxt";
+ * import { useFetch } from "katanakit-js";
+ * import { useEventResponse } from "katanakit-js/adapters/nuxt";
  *
  * export default defineEventHandler(async (event) => {
  *   const result = await useFetch("shop", "products");
