@@ -10,7 +10,7 @@ optional Express server reference, a Nuxt (Nitro/H3) adapter and a Vue 3
 composable. Importing a module never triggers side effects, and every async
 operation returns a **Safe Result** instead of throwing.
 
-- **Version:** 2.1.4
+- **Version:** 2.2.1
 - **npm package:** `katanakit-js`
 - **Repository:** [senseikatana/katanakit](https://github.com/senseikatana/katanakit)
   (development happens on the `dev` branch)
@@ -316,7 +316,7 @@ export const GET = useCreateRssEndpointFromConfig(siteConfig, async () => {
 
 ## Nuxt adapter
 
-New in 2.1.4. Three pure helper functions bridge KatanaKit's Safe Results to
+New in 2.2.1. Three pure helper functions bridge KatanaKit's Safe Results to
 Nuxt/Nitro server routes. They are **not** singleton services — just exported
 functions — and they avoid a hard dependency on `h3` (it ships with Nuxt).
 

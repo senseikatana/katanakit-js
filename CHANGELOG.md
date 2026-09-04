@@ -5,7 +5,7 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.4] - Unreleased
+## [2.2.1] - Unreleased
 
 Current development version. This is the first release published under the
 **`katanakit-js`** npm name (previous development releases were published as
@@ -30,14 +30,14 @@ Current development version. This is the first release published under the
 - **`publish:*` scripts** — `publish:patch`, `publish:minor`, `publish:major`
   and `publish:beta` (tagged `beta`) with a `prepublishOnly` gate that runs
   Biome, tests and the build before publishing.
-- New Vitest suites for RSS, Nuxt and SEO services (57 tests across 7 files).
+- New Vitest suites for RSS, Nuxt, SEO and Vue services (60 tests across 8 files).
 
 ### Changed
 
 - **Renamed the npm package** from `katanakit-dev` to **`katanakit-js`**
-  (version bumped to 2.1.4). The `exports` map now exposes the root entry plus
-  two framework subpaths: `katanakit-js/adapters/express` and
-  `katanakit-js/adapters/nuxt`.
+  (version bumped to 2.2.1). The `exports` map now exposes the root entry plus
+  three framework subpaths: `katanakit-js/adapters/express`,
+  `katanakit-js/adapters/nuxt` and `katanakit-js/adapters/vue`.
 - **Restructured dependencies** — only `@js-temporal/polyfill` remains a
   runtime dependency; `express`, `cors`, `dotenv` and `@prisma/orm-postgres`
   are now **optional peer dependencies** installed only by consumers that use

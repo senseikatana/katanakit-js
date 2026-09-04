@@ -5,7 +5,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 2.1.4)
+## Shipped (as of 2.2.1)
 
 ### Architecture and packaging
 
@@ -63,7 +63,7 @@ Legend: `[x]` done · `[ ]` planned.
 
 ## Next
 
-- [ ] **Publish `katanakit-js` 2.1.4 to npm** (the package is renamed and
+- [ ] **Publish `katanakit-js` 2.2.1 to npm** (the package is renamed and
       versioned but not yet released).
 - [ ] Add a docs website / landing page for the project.
 - [ ] HTTP client: request interceptors, retry with backoff, request
