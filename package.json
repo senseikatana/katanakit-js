@@ -1,6 +1,6 @@
 {
 	"name": "katanakit-dev",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -14,6 +14,10 @@
 		"./adapters/express": {
 			"types": "./dist/adapters/express/index.d.ts",
 			"import": "./dist/adapters/express/index.js"
+		},
+		"./adapters/nuxt": {
+			"types": "./dist/adapters/nuxt/index.d.ts",
+			"import": "./dist/adapters/nuxt/index.js"
 		}
 	},
 	"files": [
