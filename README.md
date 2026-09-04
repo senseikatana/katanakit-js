@@ -71,15 +71,13 @@ should use `moduleResolution: "nodenext"` (or `"bundler"`).
 ### Framework adapters
 
 The root import is framework-agnostic. Framework-specific entry points are
-published as package **subpaths**:
+published as package **subpaths** of the same `katanakit-js` package:
 
-```bash
-# Nuxt / Nitro adapter helpers
-npm install katanakit-js          # already installed; subpath needs no extra dep
+```ts
+// Nuxt / Nitro adapter helpers (no extra dependency; h3 ships with Nuxt)
 import { useUnwrap } from "katanakit-js/adapters/nuxt";
 
-# Express reference server (requires express as a peer dependency)
-npm install express
+// Express reference server (requires express as a peer dependency)
 import { ServerExpress } from "katanakit-js/adapters/express";
 ```
 
