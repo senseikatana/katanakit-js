@@ -73,22 +73,25 @@ git checkout dev
 bun install
 ```
 
-Useful scripts (all runnable with `bun run` or `npm run`):
+Useful scripts (all runnable with `yarn` or `bun run`):
 
-| Command              | Description                                   |
-| -------------------- | --------------------------------------------- |
-| `bun run typecheck`  | Type-check the project (`tsc --noEmit`)       |
-| `bun run build`      | Build to `dist/` (declarations + ESM)         |
-| `bun run test`       | Run the Vitest suite                          |
-| `bun run test:watch` | Run Vitest in watch mode                      |
-| `bun run lint`       | Lint `src/` with Biome                        |
-| `bun run format`     | Format `src/` with Biome                      |
-| `bun run check`      | Biome lint + format check on `src/`           |
-| `bun run check:fix`  | Auto-fix Biome issues                         |
-| `bun run dev`        | Start the Express example server              |
-| `bun run publish:patch` / `:minor` / `:major` / `:beta` | Version bump + `npm publish` (tag `beta` for the beta channel) |
+| Command               | Description                                   |
+| --------------------- | --------------------------------------------- |
+| `yarn typecheck`      | Type-check the project (`tsc --noEmit`)       |
+| `yarn build`          | Build to `dist/` (declarations + ESM)         |
+| `yarn check`          | Biome lint + format check on `src/`           |
+| `yarn check:fix`      | Auto-fix Biome issues                         |
+| `yarn lint` / `lint:fix` | Lint `src/` with Biome                     |
+| `yarn format` / `format:fix` | Format `src/` with Biome                |
+| `yarn test`           | Run the Vitest suite                          |
+| `yarn test:watch`     | Run Vitest in watch mode                      |
+| `yarn dev`            | Start the Express example server              |
+| `yarn validate`       | Run check + test + build (full validation)    |
+| `yarn release:patch` / `:minor` / `:major` / `:beta` | Validate + version bump + `yarn publish` |
+| `yarn docs:dev`       | Start the docs site dev server (Astro Starlight) |
+| `yarn docs:build`     | Build the docs site                           |
 
-`prepublishOnly` runs `check`, `test` and `build` before every publish.
+`prepublishOnly` runs `validate` (check + test + build) before every publish.
 
 ## Directory layout
 
@@ -107,22 +110,46 @@ Useful scripts (all runnable with `bun run` or `npm run`):
 
 ## Updating documentation
 
-Documentation lives in the repository root (`README.md`, `CONTRIBUTING.md`,
-`SECURITY.md`, `CHANGELOG.md`) and in `docs/`. When you change a public API:
+The public documentation site lives at **[senseikatana.github.io/katanakit-js](https://senseikatana.github.io/katanakit-js)** and is built with [Astro Starlight](https://starlight.astro.build/). The source is in `docs-site/`.
 
+When you change a public API:
+
+- **API Reference is auto-generated** from JSDoc/TSDoc comments in `src/` by `starlight-typedoc`. Write good doc comments on your exported functions and types — they become the public API docs automatically on each build.
 - Update the matching entry in the "Services at a glance" table in `README.md`.
-- Add or correct the exact signatures in `docs/API-Reference.md` (they are
-  verified against `src/` — do not guess method names).
-- Reflect structural changes in `docs/Architecture.md`.
+- Reflect structural changes in `docs-site/src/content/docs/guides/architecture.md`.
 - Note user-visible changes in `CHANGELOG.md` under `[Unreleased]`.
 - Always use `katanakit-js` in example imports.
+
+### Running the docs locally
+
+```bash
+yarn docs:dev    # starts Astro dev server at localhost:4321
+yarn docs:build  # builds the static site to docs-site/dist/
+```
+
+### How versioning works
+
+- On every push to `dev`, the docs site is rebuilt and deployed to GitHub Pages.
+- On every release (tag), `.github/scripts/archive-docs-version.sh` snapshots the current docs into a versioned directory. The `starlight-versions` plugin provides a version selector dropdown in the header.
+- The API Reference is regenerated from source on every build — no manual maintenance needed.
 
 ## Versioning and changelog
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
 `CHANGELOG.md`. The current development version is **2.2.1** (unreleased). Use
-the `publish:*` scripts to cut a release.
+the `release:*` scripts to cut a release:
+
+```bash
+yarn release:patch   # validate + bump patch + yarn publish
+yarn release:minor   # validate + bump minor + yarn publish
+yarn release:major   # validate + bump major + yarn publish
+yarn release:beta    # validate + bump prerelease + yarn publish --tag beta
+```
+
+The release workflow on GitHub Actions creates a tag and GitHub release on every
+push to `dev`. The docs site is automatically rebuilt and the current version is
+archived for the version selector.
 
 ## Pull request checklist
 
