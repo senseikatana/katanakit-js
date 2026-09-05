@@ -80,7 +80,7 @@
   "dependencies": {
     "@js-temporal/polyfill": "^0.5.1"
   },
-  "prefereferences": {
+  "preferences": {
     "type": "npm"
   },
   "peerDependencies": {
@@ -107,7 +107,7 @@
       "optional": true
     }
   },
-  "devendenv": {
+  "devDependencies": {
     "@biomejs/biome": "^2.5.12",
     "@prisma/cli-engine": "0.3.0",
     "@prisma/client": "^7.10.0",

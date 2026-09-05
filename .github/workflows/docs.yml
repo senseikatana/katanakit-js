@@ -51,7 +51,7 @@ jobs:
       - name: Update version references
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          find docs-site/src/content -name '*.md' -exec \
+          find docs-site/docs -name '*.md' -exec \
             sed -i "s/\*\*Version:\*\* [0-9]\+\.[0-9]\+\.[0-9]\+/**Version:** ${VERSION}/g" {} +
 
       - name: Build docs
@@ -61,7 +61,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs-site/dist
+          path: docs-site/build
 
   deploy:
     needs: build

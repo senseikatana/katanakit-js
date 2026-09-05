@@ -14,7 +14,7 @@
 export interface SiteConfig {
     /** Base URL of the site (no trailing slash). */
     site: string;
-    /** Site title (used in <title>, RSS, Open Graph). */
+    /** Site title (used in `<title>`, RSS, Open Graph). */
     title: string;
     /** Default meta description. */
     description: string;
