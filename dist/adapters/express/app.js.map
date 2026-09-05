@@ -1,0 +1,1 @@
+{"version":3,"file":"app.js","sourceRoot":"","sources":["../../../src/adapters/express/app.ts"],"names":[],"mappings":"AAEA,OAAO,aAAa,MAAM,aAAa,CAAC;AAExC,MAAM,CAAC,MAAM,EAAE,SAAS,EAAE,QAAQ,EAAE,GAAkB,aAAa,CAAC,WAAW,EAAE,CAAC;AAElF,MAAM,CAAC,MAAM,GAAG,GAAgB,SAAS,EAAE,CAAC"}
