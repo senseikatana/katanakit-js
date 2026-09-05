@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useHasClass",
+  "title": "Variable: useHasClass",
+  "description": "useHasClass: (target, className) => boolean",
+  "source": "@site/docs/api/variables/useHasClass.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useHasClass",
+  "permalink": "/katanakit-js/docs/api/variables/useHasClass",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useHasClass.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

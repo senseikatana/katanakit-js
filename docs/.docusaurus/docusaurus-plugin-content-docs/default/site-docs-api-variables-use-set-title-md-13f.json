@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetTitle",
+  "title": "Variable: useSetTitle",
+  "description": "useSetTitle: (title) => void",
+  "source": "@site/docs/api/variables/useSetTitle.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetTitle",
+  "permalink": "/katanakit-js/docs/api/variables/useSetTitle",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetTitle.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

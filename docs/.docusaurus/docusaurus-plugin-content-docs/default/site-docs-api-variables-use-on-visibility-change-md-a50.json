@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useOnVisibilityChange",
+  "title": "Variable: useOnVisibilityChange",
+  "description": "useOnVisibilityChange: (callback) => () => void",
+  "source": "@site/docs/api/variables/useOnVisibilityChange.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useOnVisibilityChange",
+  "permalink": "/katanakit-js/docs/api/variables/useOnVisibilityChange",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useOnVisibilityChange.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

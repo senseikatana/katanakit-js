@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetRoot",
+  "title": "Variable: useGetRoot",
+  "description": "useGetRoot: () => HTMLElement \\| null",
+  "source": "@site/docs/api/variables/useGetRoot.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetRoot",
+  "permalink": "/katanakit-js/docs/api/variables/useGetRoot",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetRoot.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

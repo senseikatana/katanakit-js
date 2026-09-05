@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useUnique",
+  "title": "Variable: useUnique",
+  "description": "useUnique: &lt;T&gt;(array) => T[]",
+  "source": "@site/docs/api/variables/useUnique.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useUnique",
+  "permalink": "/katanakit-js/docs/api/variables/useUnique",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useUnique.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

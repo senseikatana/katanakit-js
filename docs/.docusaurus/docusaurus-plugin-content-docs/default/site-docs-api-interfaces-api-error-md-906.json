@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ApiError",
+  "title": "Interface: ApiError",
+  "description": "Defined in232",
+  "source": "@site/docs/api/interfaces/ApiError.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ApiError",
+  "permalink": "/katanakit-js/docs/api/interfaces/ApiError",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ApiError.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

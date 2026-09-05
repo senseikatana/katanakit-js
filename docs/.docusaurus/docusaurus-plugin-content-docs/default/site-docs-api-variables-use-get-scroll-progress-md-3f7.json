@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetScrollProgress",
+  "title": "Variable: useGetScrollProgress",
+  "description": "useGetScrollProgress: () => number",
+  "source": "@site/docs/api/variables/useGetScrollProgress.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetScrollProgress",
+  "permalink": "/katanakit-js/docs/api/variables/useGetScrollProgress",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetScrollProgress.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

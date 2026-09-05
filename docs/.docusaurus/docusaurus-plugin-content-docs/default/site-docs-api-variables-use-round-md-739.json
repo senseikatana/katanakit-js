@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRound",
+  "title": "Variable: useRound",
+  "description": "useRound: (value, decimals) => number",
+  "source": "@site/docs/api/variables/useRound.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRound",
+  "permalink": "/katanakit-js/docs/api/variables/useRound",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRound.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

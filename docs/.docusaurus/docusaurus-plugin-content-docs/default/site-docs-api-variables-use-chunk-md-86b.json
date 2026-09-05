@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useChunk",
+  "title": "Variable: useChunk",
+  "description": "useChunk: &lt;T&gt;(array, size) => T",
+  "source": "@site/docs/api/variables/useChunk.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useChunk",
+  "permalink": "/katanakit-js/docs/api/variables/useChunk",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useChunk.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

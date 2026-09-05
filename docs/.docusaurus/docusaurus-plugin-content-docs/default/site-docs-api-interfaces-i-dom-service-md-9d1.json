@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/IDomService",
+  "title": "Interface: IDomService",
+  "description": "Defined in46",
+  "source": "@site/docs/api/interfaces/IDomService.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/IDomService",
+  "permalink": "/katanakit-js/docs/api/interfaces/IDomService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/IDomService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

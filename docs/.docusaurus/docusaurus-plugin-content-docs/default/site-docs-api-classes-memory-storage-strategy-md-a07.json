@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/MemoryStorageStrategy",
+  "title": "Class: MemoryStorageStrategy",
+  "description": "Defined in84",
+  "source": "@site/docs/api/classes/MemoryStorageStrategy.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/MemoryStorageStrategy",
+  "permalink": "/katanakit-js/docs/api/classes/MemoryStorageStrategy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/MemoryStorageStrategy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

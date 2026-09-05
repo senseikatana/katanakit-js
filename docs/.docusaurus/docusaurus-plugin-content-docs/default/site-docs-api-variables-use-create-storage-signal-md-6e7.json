@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateStorageSignal",
+  "title": "Variable: useCreateStorageSignal",
+  "description": "useCreateStorageSignal: &lt;T&gt;(key, fallbackValue, target) => \\[SignalGetter&lt;T&gt;, SignalSetter&lt;T&gt;\\]",
+  "source": "@site/docs/api/variables/useCreateStorageSignal.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateStorageSignal",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateStorageSignal",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateStorageSignal.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

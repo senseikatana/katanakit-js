@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useExtractUniqueValues",
+  "title": "Variable: useExtractUniqueValues",
+  "description": "useExtractUniqueValues: &lt;T, V&gt;(items, keyFrom) => V[]",
+  "source": "@site/docs/api/variables/useExtractUniqueValues.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useExtractUniqueValues",
+  "permalink": "/katanakit-js/docs/api/variables/useExtractUniqueValues",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useExtractUniqueValues.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

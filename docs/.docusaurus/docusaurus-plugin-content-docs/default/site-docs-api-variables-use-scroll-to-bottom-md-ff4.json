@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useScrollToBottom",
+  "title": "Variable: useScrollToBottom",
+  "description": "useScrollToBottom: (smooth) => void",
+  "source": "@site/docs/api/variables/useScrollToBottom.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useScrollToBottom",
+  "permalink": "/katanakit-js/docs/api/variables/useScrollToBottom",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useScrollToBottom.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

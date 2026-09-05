@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/ProductType",
+  "title": "Type Alias: ProductType",
+  "description": "ProductType = object",
+  "source": "@site/docs/api/type-aliases/ProductType.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/ProductType",
+  "permalink": "/katanakit-js/docs/api/type-aliases/ProductType",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/ProductType.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/siteConfig",
+  "title": "Variable: siteConfig",
+  "description": "const siteConfig: SiteConfig",
+  "source": "@site/docs/api/variables/siteConfig.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/siteConfig",
+  "permalink": "/katanakit-js/docs/api/variables/siteConfig",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/siteConfig.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

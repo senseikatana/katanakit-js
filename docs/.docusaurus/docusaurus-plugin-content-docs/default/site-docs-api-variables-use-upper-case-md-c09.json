@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useUpperCase",
+  "title": "Variable: useUpperCase",
+  "description": "useUpperCase: (text, locale) => string",
+  "source": "@site/docs/api/variables/useUpperCase.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useUpperCase",
+  "permalink": "/katanakit-js/docs/api/variables/useUpperCase",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useUpperCase.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

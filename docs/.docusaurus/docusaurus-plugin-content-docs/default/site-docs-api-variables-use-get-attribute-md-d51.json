@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetAttribute",
+  "title": "Variable: useGetAttribute",
+  "description": "useGetAttribute: (target, attr) => string \\| null",
+  "source": "@site/docs/api/variables/useGetAttribute.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetAttribute",
+  "permalink": "/katanakit-js/docs/api/variables/useGetAttribute",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetAttribute.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useAverage",
+  "title": "Variable: useAverage",
+  "description": "useAverage: (numbers) => number",
+  "source": "@site/docs/api/variables/useAverage.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useAverage",
+  "permalink": "/katanakit-js/docs/api/variables/useAverage",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useAverage.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

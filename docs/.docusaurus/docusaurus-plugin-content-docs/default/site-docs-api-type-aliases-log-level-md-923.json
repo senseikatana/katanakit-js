@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/LogLevel",
+  "title": "Type Alias: LogLevel",
+  "description": "LogLevel = \"log\" \\| \"info\" \\| \"warn\" \\| \"error\" \\| \"debug\"",
+  "source": "@site/docs/api/type-aliases/LogLevel.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/LogLevel",
+  "permalink": "/katanakit-js/docs/api/type-aliases/LogLevel",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/LogLevel.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

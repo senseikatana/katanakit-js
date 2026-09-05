@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetHtml",
+  "title": "Variable: useSetHtml",
+  "description": "useSetHtml: (target, html) => void",
+  "source": "@site/docs/api/variables/useSetHtml.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetHtml",
+  "permalink": "/katanakit-js/docs/api/variables/useSetHtml",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetHtml.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

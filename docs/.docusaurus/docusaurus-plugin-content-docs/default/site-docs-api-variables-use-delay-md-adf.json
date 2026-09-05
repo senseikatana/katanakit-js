@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useDelay",
+  "title": "Variable: useDelay",
+  "description": "useDelay: (ms) => Promise&lt;void&gt;",
+  "source": "@site/docs/api/variables/useDelay.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useDelay",
+  "permalink": "/katanakit-js/docs/api/variables/useDelay",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useDelay.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateMemo",
+  "title": "Variable: useCreateMemo",
+  "description": "useCreateMemo: &lt;T&gt;(computation, signals) => SignalGetter&lt;T&gt;",
+  "source": "@site/docs/api/variables/useCreateMemo.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateMemo",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateMemo",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateMemo.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

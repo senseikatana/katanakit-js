@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useError",
+  "title": "Variable: useError",
+  "description": "useError: (message, data?) => void",
+  "source": "@site/docs/api/variables/useError.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useError",
+  "permalink": "/katanakit-js/docs/api/variables/useError",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useError.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

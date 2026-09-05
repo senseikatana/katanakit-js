@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/IErrorFactory",
+  "title": "Interface: IErrorFactory",
+  "description": "Defined in304",
+  "source": "@site/docs/api/interfaces/IErrorFactory.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/IErrorFactory",
+  "permalink": "/katanakit-js/docs/api/interfaces/IErrorFactory",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/IErrorFactory.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

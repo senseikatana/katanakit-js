@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetBody",
+  "title": "Variable: useGetBody",
+  "description": "useGetBody: () => HTMLBodyElement \\| null",
+  "source": "@site/docs/api/variables/useGetBody.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetBody",
+  "permalink": "/katanakit-js/docs/api/variables/useGetBody",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetBody.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

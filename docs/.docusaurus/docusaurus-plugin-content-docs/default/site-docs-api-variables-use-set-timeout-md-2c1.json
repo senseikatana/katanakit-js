@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetTimeout",
+  "title": "Variable: useSetTimeout",
+  "description": "useSetTimeout: &lt;T&gt;(callback, ms) => TimeoutControl&lt;T&gt;",
+  "source": "@site/docs/api/variables/useSetTimeout.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetTimeout",
+  "permalink": "/katanakit-js/docs/api/variables/useSetTimeout",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetTimeout.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/IFormatterService",
+  "title": "Interface: IFormatterService",
+  "description": "Defined in318",
+  "source": "@site/docs/api/interfaces/IFormatterService.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/IFormatterService",
+  "permalink": "/katanakit-js/docs/api/interfaces/IFormatterService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/IFormatterService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

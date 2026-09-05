@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/DOM_SERVICE",
+  "title": "Variable: DOM\\_SERVICE",
+  "description": "const DOM\\_SERVICE: DomService",
+  "source": "@site/docs/api/variables/DOM_SERVICE.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/DOM_SERVICE",
+  "permalink": "/katanakit-js/docs/api/variables/DOM_SERVICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/DOM_SERVICE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

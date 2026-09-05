@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useMatchesMedia",
+  "title": "Variable: useMatchesMedia",
+  "description": "useMatchesMedia: (query) => boolean",
+  "source": "@site/docs/api/variables/useMatchesMedia.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useMatchesMedia",
+  "permalink": "/katanakit-js/docs/api/variables/useMatchesMedia",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useMatchesMedia.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

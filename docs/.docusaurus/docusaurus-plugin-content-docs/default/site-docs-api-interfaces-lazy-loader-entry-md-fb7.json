@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/LazyLoaderEntry",
+  "title": "Interface: LazyLoaderEntry",
+  "description": "Defined in40",
+  "source": "@site/docs/api/interfaces/LazyLoaderEntry.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/LazyLoaderEntry",
+  "permalink": "/katanakit-js/docs/api/interfaces/LazyLoaderEntry",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/LazyLoaderEntry.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

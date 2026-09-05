@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToggleTheme",
+  "title": "Variable: useToggleTheme",
+  "description": "useToggleTheme: () => void",
+  "source": "@site/docs/api/variables/useToggleTheme.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToggleTheme",
+  "permalink": "/katanakit-js/docs/api/variables/useToggleTheme",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToggleTheme.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

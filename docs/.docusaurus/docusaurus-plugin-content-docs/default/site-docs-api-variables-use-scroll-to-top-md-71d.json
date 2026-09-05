@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useScrollToTop",
+  "title": "Variable: useScrollToTop",
+  "description": "useScrollToTop: (smooth) => void",
+  "source": "@site/docs/api/variables/useScrollToTop.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useScrollToTop",
+  "permalink": "/katanakit-js/docs/api/variables/useScrollToTop",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useScrollToTop.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

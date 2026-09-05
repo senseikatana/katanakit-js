@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCopyToClipboard",
+  "title": "Variable: useCopyToClipboard",
+  "description": "useCopyToClipboard: (text) => Promise&lt;boolean&gt;",
+  "source": "@site/docs/api/variables/useCopyToClipboard.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCopyToClipboard",
+  "permalink": "/katanakit-js/docs/api/variables/useCopyToClipboard",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCopyToClipboard.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

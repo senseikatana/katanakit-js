@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ScrollPosition",
+  "title": "Interface: ScrollPosition",
+  "description": "Defined in462",
+  "source": "@site/docs/api/interfaces/ScrollPosition.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ScrollPosition",
+  "permalink": "/katanakit-js/docs/api/interfaces/ScrollPosition",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ScrollPosition.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

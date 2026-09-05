@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/ThemeMode",
+  "title": "Type Alias: ThemeMode",
+  "description": "ThemeMode = \"light\" \\| \"dark\" \\| \"system\"",
+  "source": "@site/docs/api/type-aliases/ThemeMode.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/ThemeMode",
+  "permalink": "/katanakit-js/docs/api/type-aliases/ThemeMode",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/ThemeMode.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

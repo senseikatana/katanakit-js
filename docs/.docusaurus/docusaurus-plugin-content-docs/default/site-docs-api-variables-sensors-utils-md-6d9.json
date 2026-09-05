@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/sensorsUtils",
+  "title": "Variable: sensorsUtils",
+  "description": "const sensorsUtils: SensorsUtils",
+  "source": "@site/docs/api/variables/sensorsUtils.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/sensorsUtils",
+  "permalink": "/katanakit-js/docs/api/variables/sensorsUtils",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/sensorsUtils.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

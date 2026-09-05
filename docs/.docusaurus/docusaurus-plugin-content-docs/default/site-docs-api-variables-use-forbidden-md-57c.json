@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useForbidden",
+  "title": "Variable: useForbidden",
+  "description": "useForbidden: (message) => AppError",
+  "source": "@site/docs/api/variables/useForbidden.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useForbidden",
+  "permalink": "/katanakit-js/docs/api/variables/useForbidden",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useForbidden.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

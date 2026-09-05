@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ViewportSize",
+  "title": "Interface: ViewportSize",
+  "description": "Defined in456",
+  "source": "@site/docs/api/interfaces/ViewportSize.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ViewportSize",
+  "permalink": "/katanakit-js/docs/api/interfaces/ViewportSize",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ViewportSize.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

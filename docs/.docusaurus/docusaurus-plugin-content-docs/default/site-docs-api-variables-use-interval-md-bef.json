@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useInterval",
+  "title": "Variable: useInterval",
+  "description": "useInterval: (callback, ms, immediate) => IntervalControl",
+  "source": "@site/docs/api/variables/useInterval.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useInterval",
+  "permalink": "/katanakit-js/docs/api/variables/useInterval",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useInterval.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

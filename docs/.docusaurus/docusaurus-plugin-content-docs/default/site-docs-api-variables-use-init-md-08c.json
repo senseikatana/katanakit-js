@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useInit",
+  "title": "Variable: useInit",
+  "description": "useInit: (apis) => void",
+  "source": "@site/docs/api/variables/useInit.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useInit",
+  "permalink": "/katanakit-js/docs/api/variables/useInit",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useInit.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

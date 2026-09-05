@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useFormatNumber",
+  "title": "Variable: useFormatNumber",
+  "description": "useFormatNumber: (value, locale, digits) => string",
+  "source": "@site/docs/api/variables/useFormatNumber.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useFormatNumber",
+  "permalink": "/katanakit-js/docs/api/variables/useFormatNumber",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useFormatNumber.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

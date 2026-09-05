@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateEffect",
+  "title": "Variable: useCreateEffect",
+  "description": "useCreateEffect: (callback, signals) => () => void",
+  "source": "@site/docs/api/variables/useCreateEffect.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateEffect",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateEffect",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateEffect.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useClearStorage",
+  "title": "Variable: useClearStorage",
+  "description": "useClearStorage: (target) => void",
+  "source": "@site/docs/api/variables/useClearStorage.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useClearStorage",
+  "permalink": "/katanakit-js/docs/api/variables/useClearStorage",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useClearStorage.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

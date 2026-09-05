@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useFocusElement",
+  "title": "Variable: useFocusElement",
+  "description": "useFocusElement: (target) => boolean",
+  "source": "@site/docs/api/variables/useFocusElement.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useFocusElement",
+  "permalink": "/katanakit-js/docs/api/variables/useFocusElement",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useFocusElement.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

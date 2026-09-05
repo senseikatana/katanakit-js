@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/PaginationProps",
+  "title": "Interface: PaginationProps&lt;T&gt;",
+  "description": "Defined in524",
+  "source": "@site/docs/api/interfaces/PaginationProps.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/PaginationProps",
+  "permalink": "/katanakit-js/docs/api/interfaces/PaginationProps",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/PaginationProps.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

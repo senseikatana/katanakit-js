@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useIsObject",
+  "title": "Variable: useIsObject",
+  "description": "useIsObject: (item) => item is Record",
+  "source": "@site/docs/api/variables/useIsObject.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useIsObject",
+  "permalink": "/katanakit-js/docs/api/variables/useIsObject",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useIsObject.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

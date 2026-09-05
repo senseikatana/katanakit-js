@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRequestFullscreen",
+  "title": "Variable: useRequestFullscreen",
+  "description": "useRequestFullscreen: (target?) => Promise&lt;void&gt;",
+  "source": "@site/docs/api/variables/useRequestFullscreen.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRequestFullscreen",
+  "permalink": "/katanakit-js/docs/api/variables/useRequestFullscreen",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRequestFullscreen.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

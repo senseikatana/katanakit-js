@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToKilometers",
+  "title": "Variable: useToKilometers",
+  "description": "useToKilometers: (miles, locale, digits) => string",
+  "source": "@site/docs/api/variables/useToKilometers.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToKilometers",
+  "permalink": "/katanakit-js/docs/api/variables/useToKilometers",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToKilometers.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

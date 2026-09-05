@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/HttpMethod",
+  "title": "Type Alias: HttpMethod",
+  "description": "HttpMethod = \"GET\" \\| \"POST\" \\| \"PUT\" \\| \"DELETE\" \\| \"PATCH\"",
+  "source": "@site/docs/api/type-aliases/HttpMethod.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/HttpMethod",
+  "permalink": "/katanakit-js/docs/api/type-aliases/HttpMethod",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/HttpMethod.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

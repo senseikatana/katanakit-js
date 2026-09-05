@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useFormatCurrency",
+  "title": "Variable: useFormatCurrency",
+  "description": "useFormatCurrency: (options) => string",
+  "source": "@site/docs/api/variables/useFormatCurrency.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useFormatCurrency",
+  "permalink": "/katanakit-js/docs/api/variables/useFormatCurrency",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useFormatCurrency.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

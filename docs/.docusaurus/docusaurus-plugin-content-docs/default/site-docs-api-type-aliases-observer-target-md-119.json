@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/ObserverTarget",
+  "title": "Type Alias: ObserverTarget",
+  "description": "ObserverTarget = HTMLElement \\| string",
+  "source": "@site/docs/api/type-aliases/ObserverTarget.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/ObserverTarget",
+  "permalink": "/katanakit-js/docs/api/type-aliases/ObserverTarget",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/ObserverTarget.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

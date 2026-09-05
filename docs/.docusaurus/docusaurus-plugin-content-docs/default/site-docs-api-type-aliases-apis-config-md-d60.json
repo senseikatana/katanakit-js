@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/ApisConfig",
+  "title": "Type Alias: ApisConfig",
+  "description": "ApisConfig = Record&lt;string, ApiEntry&gt;",
+  "source": "@site/docs/api/type-aliases/ApisConfig.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/ApisConfig",
+  "permalink": "/katanakit-js/docs/api/type-aliases/ApisConfig",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/ApisConfig.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

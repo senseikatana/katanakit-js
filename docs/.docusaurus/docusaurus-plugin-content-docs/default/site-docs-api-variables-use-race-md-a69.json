@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRace",
+  "title": "Variable: useRace",
+  "description": "useRace: &lt;T&gt;(promise, timeoutMs, errorMessage) => Promise&lt;T&gt;",
+  "source": "@site/docs/api/variables/useRace.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRace",
+  "permalink": "/katanakit-js/docs/api/variables/useRace",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRace.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

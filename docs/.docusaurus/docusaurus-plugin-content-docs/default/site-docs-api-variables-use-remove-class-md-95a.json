@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRemoveClass",
+  "title": "Variable: useRemoveClass",
+  "description": "useRemoveClass: (target, className) => void",
+  "source": "@site/docs/api/variables/useRemoveClass.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRemoveClass",
+  "permalink": "/katanakit-js/docs/api/variables/useRemoveClass",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRemoveClass.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

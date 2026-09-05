@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToInches",
+  "title": "Variable: useToInches",
+  "description": "useToInches: (cm, locale, digits) => string",
+  "source": "@site/docs/api/variables/useToInches.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToInches",
+  "permalink": "/katanakit-js/docs/api/variables/useToInches",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToInches.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

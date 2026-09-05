@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/usePathsFrom",
+  "title": "Variable: usePathsFrom",
+  "description": "usePathsFrom: &lt;T, TParam, TProps&gt;(items, options) => AstroPath&lt;TParam, TProps&gt;[]",
+  "source": "@site/docs/api/variables/usePathsFrom.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/usePathsFrom",
+  "permalink": "/katanakit-js/docs/api/variables/usePathsFrom",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/usePathsFrom.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/TimingService",
+  "title": "Class: TimingService",
+  "description": "Defined in10",
+  "source": "@site/docs/api/classes/TimingService.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/TimingService",
+  "permalink": "/katanakit-js/docs/api/classes/TimingService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/TimingService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

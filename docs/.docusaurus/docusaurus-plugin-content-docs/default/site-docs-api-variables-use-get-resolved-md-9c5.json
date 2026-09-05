@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetResolved",
+  "title": "Variable: useGetResolved",
+  "description": "useGetResolved: () => \"light\" \\| \"dark\"",
+  "source": "@site/docs/api/variables/useGetResolved.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetResolved",
+  "permalink": "/katanakit-js/docs/api/variables/useGetResolved",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetResolved.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

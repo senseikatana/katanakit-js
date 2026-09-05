@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGroupBy",
+  "title": "Variable: useGroupBy",
+  "description": "useGroupBy: &lt;T&gt;(array, key) => Record&lt;string, T[]&gt;",
+  "source": "@site/docs/api/variables/useGroupBy.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGroupBy",
+  "permalink": "/katanakit-js/docs/api/variables/useGroupBy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGroupBy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

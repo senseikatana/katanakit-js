@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/WorkerService",
+  "title": "Class: WorkerService",
+  "description": "Defined in7",
+  "source": "@site/docs/api/classes/WorkerService.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/WorkerService",
+  "permalink": "/katanakit-js/docs/api/classes/WorkerService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/WorkerService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

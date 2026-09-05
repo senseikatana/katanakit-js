@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetTempTitle",
+  "title": "Variable: useSetTempTitle",
+  "description": "useSetTempTitle: (tempTitle, durationMs) => void",
+  "source": "@site/docs/api/variables/useSetTempTitle.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetTempTitle",
+  "permalink": "/katanakit-js/docs/api/variables/useSetTempTitle",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetTempTitle.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

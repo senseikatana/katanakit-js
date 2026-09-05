@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useDeepMerge",
+  "title": "Variable: useDeepMerge",
+  "description": "useDeepMerge: &lt;T&gt;(target, source) => T",
+  "source": "@site/docs/api/variables/useDeepMerge.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useDeepMerge",
+  "permalink": "/katanakit-js/docs/api/variables/useDeepMerge",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useDeepMerge.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

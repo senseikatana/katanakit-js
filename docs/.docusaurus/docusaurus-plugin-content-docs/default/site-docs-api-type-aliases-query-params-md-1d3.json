@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/QueryParams",
+  "title": "Type Alias: QueryParams",
+  "description": "QueryParams = Record&lt;string, string \\| number \\| boolean \\| undefined \\| null&gt;",
+  "source": "@site/docs/api/type-aliases/QueryParams.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/QueryParams",
+  "permalink": "/katanakit-js/docs/api/type-aliases/QueryParams",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/QueryParams.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

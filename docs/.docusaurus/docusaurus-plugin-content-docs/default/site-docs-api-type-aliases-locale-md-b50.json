@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/Locale",
+  "title": "Type Alias: Locale",
+  "description": "Locale = \"en\" \\| \"es\" \\| \"fr\" \\| \"de\" \\| \"it\" \\| \"pt\" \\| \"ja\" \\| \"zh\"",
+  "source": "@site/docs/api/type-aliases/Locale.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/Locale",
+  "permalink": "/katanakit-js/docs/api/type-aliases/Locale",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/Locale.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

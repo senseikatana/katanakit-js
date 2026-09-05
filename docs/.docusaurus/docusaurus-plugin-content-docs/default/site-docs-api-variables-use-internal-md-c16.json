@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useInternal",
+  "title": "Variable: useInternal",
+  "description": "useInternal: (message) => AppError",
+  "source": "@site/docs/api/variables/useInternal.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useInternal",
+  "permalink": "/katanakit-js/docs/api/variables/useInternal",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useInternal.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

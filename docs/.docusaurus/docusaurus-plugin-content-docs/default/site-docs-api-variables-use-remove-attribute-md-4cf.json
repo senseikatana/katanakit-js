@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRemoveAttribute",
+  "title": "Variable: useRemoveAttribute",
+  "description": "useRemoveAttribute: (target, attr) => void",
+  "source": "@site/docs/api/variables/useRemoveAttribute.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRemoveAttribute",
+  "permalink": "/katanakit-js/docs/api/variables/useRemoveAttribute",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRemoveAttribute.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

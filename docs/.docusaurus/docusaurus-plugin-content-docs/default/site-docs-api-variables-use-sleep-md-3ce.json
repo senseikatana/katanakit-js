@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSleep",
+  "title": "Variable: useSleep",
+  "description": "useSleep: (ms) => Promise&lt;void&gt;",
+  "source": "@site/docs/api/variables/useSleep.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSleep",
+  "permalink": "/katanakit-js/docs/api/variables/useSleep",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSleep.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

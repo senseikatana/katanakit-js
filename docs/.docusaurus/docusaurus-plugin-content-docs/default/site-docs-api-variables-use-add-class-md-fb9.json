@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useAddClass",
+  "title": "Variable: useAddClass",
+  "description": "useAddClass: (target, className) => void",
+  "source": "@site/docs/api/variables/useAddClass.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useAddClass",
+  "permalink": "/katanakit-js/docs/api/variables/useAddClass",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useAddClass.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

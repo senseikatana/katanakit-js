@@ -1,0 +1,29 @@
+{
+  "id": "guides/architecture",
+  "title": "Architecture",
+  "description": "Hexagonal architecture, layer breakdown, design patterns and conventions.",
+  "source": "@site/docs/guides/architecture.md",
+  "sourceDirName": "guides",
+  "slug": "/guides/architecture",
+  "permalink": "/katanakit-js/docs/guides/architecture",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/guides/architecture.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Architecture",
+    "sidebar_position": 2,
+    "description": "Hexagonal architecture, layer breakdown, design patterns and conventions."
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Getting Started",
+    "permalink": "/katanakit-js/docs/guides/getting-started"
+  },
+  "next": {
+    "title": "Roadmap",
+    "permalink": "/katanakit-js/docs/guides/roadmap"
+  }
+}

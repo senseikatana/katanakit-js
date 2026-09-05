@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/WorkerFunc",
+  "title": "Type Alias: WorkerFunc&lt;TInput, TOutput&gt;",
+  "description": "WorkerFunc&lt;TInput, TOutput&gt; = (data) => TOutput \\| Promise&lt;TOutput&gt;",
+  "source": "@site/docs/api/type-aliases/WorkerFunc.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/WorkerFunc",
+  "permalink": "/katanakit-js/docs/api/type-aliases/WorkerFunc",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/WorkerFunc.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

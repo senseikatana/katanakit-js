@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateDebouncedSignal",
+  "title": "Variable: useCreateDebouncedSignal",
+  "description": "useCreateDebouncedSignal: &lt;T&gt;(initialValue, delayMs) => \\[SignalGetter&lt;T&gt;, SignalSetter&lt;T&gt;\\]",
+  "source": "@site/docs/api/variables/useCreateDebouncedSignal.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateDebouncedSignal",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateDebouncedSignal",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateDebouncedSignal.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

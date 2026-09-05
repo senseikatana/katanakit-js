@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetStaticPaths",
+  "title": "Variable: useGetStaticPaths",
+  "description": "useGetStaticPaths: &lt;TData, TParam, TProps&gt;(getCollectionFn, collectionName, options) => Promise&lt;AstroServiceResult&lt;AstroPath&lt;TParam, TProps&gt;[]&gt;&gt;",
+  "source": "@site/docs/api/variables/useGetStaticPaths.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetStaticPaths",
+  "permalink": "/katanakit-js/docs/api/variables/useGetStaticPaths",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetStaticPaths.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

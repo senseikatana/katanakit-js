@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetStrategy",
+  "title": "Variable: useSetStrategy",
+  "description": "useSetStrategy: (strategy) => void",
+  "source": "@site/docs/api/variables/useSetStrategy.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetStrategy",
+  "permalink": "/katanakit-js/docs/api/variables/useSetStrategy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetStrategy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

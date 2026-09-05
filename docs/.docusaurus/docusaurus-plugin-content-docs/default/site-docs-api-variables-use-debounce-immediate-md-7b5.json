@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useDebounceImmediate",
+  "title": "Variable: useDebounceImmediate",
+  "description": "useDebounceImmediate: &lt;T&gt;(func, delayMs) => (...args) => void",
+  "source": "@site/docs/api/variables/useDebounceImmediate.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useDebounceImmediate",
+  "permalink": "/katanakit-js/docs/api/variables/useDebounceImmediate",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useDebounceImmediate.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

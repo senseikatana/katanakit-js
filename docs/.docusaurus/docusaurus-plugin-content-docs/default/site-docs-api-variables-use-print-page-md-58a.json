@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/usePrintPage",
+  "title": "Variable: usePrintPage",
+  "description": "usePrintPage: () => void",
+  "source": "@site/docs/api/variables/usePrintPage.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/usePrintPage",
+  "permalink": "/katanakit-js/docs/api/variables/usePrintPage",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/usePrintPage.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

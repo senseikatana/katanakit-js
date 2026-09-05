@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/DomService",
+  "title": "Class: DomService",
+  "description": "Defined in6",
+  "source": "@site/docs/api/classes/DomService.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/DomService",
+  "permalink": "/katanakit-js/docs/api/classes/DomService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/DomService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateElement",
+  "title": "Variable: useCreateElement",
+  "description": "useCreateElement: &lt;T&gt;(tagName, options?) => HTMLElementTagNameMap\\[T\\]",
+  "source": "@site/docs/api/variables/useCreateElement.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateElement",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateElement",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateElement.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useBuildUrl",
+  "title": "Variable: useBuildUrl",
+  "description": "useBuildUrl: (apiName, endpointName, options) => string",
+  "source": "@site/docs/api/variables/useBuildUrl.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useBuildUrl",
+  "permalink": "/katanakit-js/docs/api/variables/useBuildUrl",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useBuildUrl.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

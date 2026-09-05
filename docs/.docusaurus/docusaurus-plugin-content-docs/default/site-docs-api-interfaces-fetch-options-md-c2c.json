@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/FetchOptions",
+  "title": "Interface: FetchOptions",
+  "description": "Defined in227",
+  "source": "@site/docs/api/interfaces/FetchOptions.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/FetchOptions",
+  "permalink": "/katanakit-js/docs/api/interfaces/FetchOptions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/FetchOptions.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

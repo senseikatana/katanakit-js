@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCustom",
+  "title": "Variable: useCustom",
+  "description": "useCustom: (message, code) => AppError",
+  "source": "@site/docs/api/variables/useCustom.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCustom",
+  "permalink": "/katanakit-js/docs/api/variables/useCustom",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCustom.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

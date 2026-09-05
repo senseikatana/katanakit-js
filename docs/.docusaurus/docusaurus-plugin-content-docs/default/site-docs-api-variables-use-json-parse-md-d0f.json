@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useJsonParse",
+  "title": "Variable: useJsonParse",
+  "description": "useJsonParse: &lt;T&gt;(json) => T",
+  "source": "@site/docs/api/variables/useJsonParse.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useJsonParse",
+  "permalink": "/katanakit-js/docs/api/variables/useJsonParse",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useJsonParse.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

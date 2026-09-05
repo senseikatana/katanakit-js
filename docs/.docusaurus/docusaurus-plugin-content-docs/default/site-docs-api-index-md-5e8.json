@@ -1,0 +1,15 @@
+{
+  "id": "api/index",
+  "title": "Dashboard Empresa Plana",
+  "description": "A modern, framework-agnostic dashboard built with Astro and KatanaKit.",
+  "source": "@site/docs/api/index.md",
+  "sourceDirName": "api",
+  "slug": "/api/",
+  "permalink": "/katanakit-js/docs/api/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/index.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/functions/useHeadTags",
+  "title": "Function: useHeadTags()",
+  "description": "useHeadTags(config, meta): string",
+  "source": "@site/docs/api/functions/useHeadTags.md",
+  "sourceDirName": "api/functions",
+  "slug": "/api/functions/useHeadTags",
+  "permalink": "/katanakit-js/docs/api/functions/useHeadTags",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/functions/useHeadTags.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

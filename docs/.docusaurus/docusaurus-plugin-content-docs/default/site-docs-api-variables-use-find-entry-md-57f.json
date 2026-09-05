@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useFindEntry",
+  "title": "Variable: useFindEntry",
+  "description": "useFindEntry: &lt;T&gt;(items, value, keyFrom?) => T \\| null",
+  "source": "@site/docs/api/variables/useFindEntry.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useFindEntry",
+  "permalink": "/katanakit-js/docs/api/variables/useFindEntry",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useFindEntry.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

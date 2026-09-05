@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ApiEntry",
+  "title": "Interface: ApiEntry",
+  "description": "Defined in218",
+  "source": "@site/docs/api/interfaces/ApiEntry.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ApiEntry",
+  "permalink": "/katanakit-js/docs/api/interfaces/ApiEntry",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ApiEntry.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

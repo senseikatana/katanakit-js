@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGet",
+  "title": "Variable: useGet",
+  "description": "useGet: &lt;T&gt;(apiName, endpointName, urlOptions?) => Promise&lt;FetchResult&lt;T&gt;&gt;",
+  "source": "@site/docs/api/variables/useGet.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGet",
+  "permalink": "/katanakit-js/docs/api/variables/useGet",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGet.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

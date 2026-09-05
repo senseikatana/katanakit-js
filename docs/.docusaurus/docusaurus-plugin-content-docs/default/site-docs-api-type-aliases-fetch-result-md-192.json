@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/FetchResult",
+  "title": "Type Alias: FetchResult&lt;T&gt;",
+  "description": "FetchResult&lt;T&gt; = \\{ data null; ok number; url null; error false; status string; \\}",
+  "source": "@site/docs/api/type-aliases/FetchResult.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/FetchResult",
+  "permalink": "/katanakit-js/docs/api/type-aliases/FetchResult",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/FetchResult.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGenerateRss",
+  "title": "Variable: useGenerateRss",
+  "description": "useGenerateRss: (config) => RssResult",
+  "source": "@site/docs/api/variables/useGenerateRss.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGenerateRss",
+  "permalink": "/katanakit-js/docs/api/variables/useGenerateRss",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGenerateRss.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

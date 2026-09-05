@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/usePick",
+  "title": "Variable: usePick",
+  "description": "usePick: &lt;T, K&gt;(obj, keys) => Pick&lt;T, K&gt;",
+  "source": "@site/docs/api/variables/usePick.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/usePick",
+  "permalink": "/katanakit-js/docs/api/variables/usePick",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/usePick.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

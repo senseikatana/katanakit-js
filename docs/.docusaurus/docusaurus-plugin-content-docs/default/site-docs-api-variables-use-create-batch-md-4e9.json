@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateBatch",
+  "title": "Variable: useCreateBatch",
+  "description": "useCreateBatch: () => (callback) => void",
+  "source": "@site/docs/api/variables/useCreateBatch.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateBatch",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateBatch",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateBatch.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

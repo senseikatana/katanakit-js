@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/THEME_SERVICE",
+  "title": "Variable: THEME\\_SERVICE",
+  "description": "const THEME\\_SERVICE: ThemeService",
+  "source": "@site/docs/api/variables/THEME_SERVICE.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/THEME_SERVICE",
+  "permalink": "/katanakit-js/docs/api/variables/THEME_SERVICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/THEME_SERVICE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

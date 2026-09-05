@@ -1,0 +1,25 @@
+{
+  "id": "guides/getting-started",
+  "title": "Getting Started",
+  "description": "Install KatanaKit and learn every service with real code examples.",
+  "source": "@site/docs/guides/getting-started.md",
+  "sourceDirName": "guides",
+  "slug": "/guides/getting-started",
+  "permalink": "/katanakit-js/docs/guides/getting-started",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/guides/getting-started.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Getting Started",
+    "sidebar_position": 1,
+    "description": "Install KatanaKit and learn every service with real code examples."
+  },
+  "sidebar": "docsSidebar",
+  "next": {
+    "title": "Architecture",
+    "permalink": "/katanakit-js/docs/guides/architecture"
+  }
+}

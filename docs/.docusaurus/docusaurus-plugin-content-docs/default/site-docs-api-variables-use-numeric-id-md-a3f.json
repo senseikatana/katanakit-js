@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useNumericId",
+  "title": "Variable: useNumericId",
+  "description": "useNumericId: () => number",
+  "source": "@site/docs/api/variables/useNumericId.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useNumericId",
+  "permalink": "/katanakit-js/docs/api/variables/useNumericId",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useNumericId.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

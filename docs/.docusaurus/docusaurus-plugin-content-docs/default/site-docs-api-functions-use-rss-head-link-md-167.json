@@ -1,0 +1,15 @@
+{
+  "id": "api/functions/useRssHeadLink",
+  "title": "Function: useRssHeadLink()",
+  "description": "useRssHeadLink(config): string",
+  "source": "@site/docs/api/functions/useRssHeadLink.md",
+  "sourceDirName": "api/functions",
+  "slug": "/api/functions/useRssHeadLink",
+  "permalink": "/katanakit-js/docs/api/functions/useRssHeadLink",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/functions/useRssHeadLink.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

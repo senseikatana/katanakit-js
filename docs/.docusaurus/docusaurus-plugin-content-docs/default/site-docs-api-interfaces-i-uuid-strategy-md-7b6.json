@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/IUuidStrategy",
+  "title": "Interface: IUuidStrategy",
+  "description": "Defined in350",
+  "source": "@site/docs/api/interfaces/IUuidStrategy.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/IUuidStrategy",
+  "permalink": "/katanakit-js/docs/api/interfaces/IUuidStrategy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/IUuidStrategy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

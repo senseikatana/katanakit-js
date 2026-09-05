@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetScrollX",
+  "title": "Variable: useGetScrollX",
+  "description": "useGetScrollX: () => number",
+  "source": "@site/docs/api/variables/useGetScrollX.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetScrollX",
+  "permalink": "/katanakit-js/docs/api/variables/useGetScrollX",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetScrollX.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

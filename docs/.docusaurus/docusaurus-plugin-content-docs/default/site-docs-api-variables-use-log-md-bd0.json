@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useLog",
+  "title": "Variable: useLog",
+  "description": "useLog void; (level, message, data?): void; \\}",
+  "source": "@site/docs/api/variables/useLog.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useLog",
+  "permalink": "/katanakit-js/docs/api/variables/useLog",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useLog.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

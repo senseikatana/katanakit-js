@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useJsonStringify",
+  "title": "Variable: useJsonStringify",
+  "description": "useJsonStringify: (data) => string",
+  "source": "@site/docs/api/variables/useJsonStringify.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useJsonStringify",
+  "permalink": "/katanakit-js/docs/api/variables/useJsonStringify",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useJsonStringify.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

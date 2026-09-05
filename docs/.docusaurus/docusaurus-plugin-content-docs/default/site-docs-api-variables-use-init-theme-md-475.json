@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useInitTheme",
+  "title": "Variable: useInitTheme",
+  "description": "useInitTheme: (options) => void",
+  "source": "@site/docs/api/variables/useInitTheme.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useInitTheme",
+  "permalink": "/katanakit-js/docs/api/variables/useInitTheme",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useInitTheme.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

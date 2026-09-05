@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useFetch",
+  "title": "Variable: useFetch",
+  "description": "useFetch: &lt;T&gt;(apiName, endpointName, namedParameters) => Promise&lt;FetchResult&lt;T&gt;&gt;",
+  "source": "@site/docs/api/variables/useFetch.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useFetch",
+  "permalink": "/katanakit-js/docs/api/variables/useFetch",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useFetch.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

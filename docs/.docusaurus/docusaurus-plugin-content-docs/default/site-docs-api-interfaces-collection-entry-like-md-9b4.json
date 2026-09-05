@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/CollectionEntryLike",
+  "title": "Interface: CollectionEntryLike&lt;TData&gt;",
+  "description": "Defined in505",
+  "source": "@site/docs/api/interfaces/CollectionEntryLike.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/CollectionEntryLike",
+  "permalink": "/katanakit-js/docs/api/interfaces/CollectionEntryLike",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/CollectionEntryLike.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

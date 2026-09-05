@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useLowerCase",
+  "title": "Variable: useLowerCase",
+  "description": "useLowerCase: (text, locale) => string",
+  "source": "@site/docs/api/variables/useLowerCase.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useLowerCase",
+  "permalink": "/katanakit-js/docs/api/variables/useLowerCase",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useLowerCase.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

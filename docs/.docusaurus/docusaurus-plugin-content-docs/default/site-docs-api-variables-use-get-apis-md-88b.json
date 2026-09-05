@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetApis",
+  "title": "Variable: useGetApis",
+  "description": "useGetApis: () => ApisConfig",
+  "source": "@site/docs/api/variables/useGetApis.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetApis",
+  "permalink": "/katanakit-js/docs/api/variables/useGetApis",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetApis.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

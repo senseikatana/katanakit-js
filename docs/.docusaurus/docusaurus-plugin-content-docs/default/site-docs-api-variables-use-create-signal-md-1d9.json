@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateSignal",
+  "title": "Variable: useCreateSignal",
+  "description": "useCreateSignal: &lt;T&gt;(initialValue) => \\[SignalGetter&lt;T&gt;, SignalSetter&lt;T&gt;\\]",
+  "source": "@site/docs/api/variables/useCreateSignal.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateSignal",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateSignal",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateSignal.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

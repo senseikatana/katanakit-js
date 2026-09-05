@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ScrollOptions",
+  "title": "Interface: ScrollOptions",
+  "description": "Defined in468",
+  "source": "@site/docs/api/interfaces/ScrollOptions.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ScrollOptions",
+  "permalink": "/katanakit-js/docs/api/interfaces/ScrollOptions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ScrollOptions.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

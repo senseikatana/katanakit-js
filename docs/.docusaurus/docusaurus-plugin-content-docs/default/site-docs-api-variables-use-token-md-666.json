@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToken",
+  "title": "Variable: useToken",
+  "description": "useToken: () => number",
+  "source": "@site/docs/api/variables/useToken.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToken",
+  "permalink": "/katanakit-js/docs/api/variables/useToken",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToken.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

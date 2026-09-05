@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/SeoMeta",
+  "title": "Interface: SeoMeta",
+  "description": "Defined in6",
+  "source": "@site/docs/api/interfaces/SeoMeta.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/SeoMeta",
+  "permalink": "/katanakit-js/docs/api/interfaces/SeoMeta",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/SeoMeta.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useDebounce",
+  "title": "Variable: useDebounce",
+  "description": "useDebounce: &lt;T&gt;(func, delayMs) => (...args) => void",
+  "source": "@site/docs/api/variables/useDebounce.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useDebounce",
+  "permalink": "/katanakit-js/docs/api/variables/useDebounce",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useDebounce.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

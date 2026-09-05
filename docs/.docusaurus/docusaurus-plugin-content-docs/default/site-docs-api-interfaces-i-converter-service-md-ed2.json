@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/IConverterService",
+  "title": "Interface: IConverterService",
+  "description": "Defined in329",
+  "source": "@site/docs/api/interfaces/IConverterService.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/IConverterService",
+  "permalink": "/katanakit-js/docs/api/interfaces/IConverterService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/IConverterService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

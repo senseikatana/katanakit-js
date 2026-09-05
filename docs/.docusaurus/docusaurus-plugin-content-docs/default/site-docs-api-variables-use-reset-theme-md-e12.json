@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useResetTheme",
+  "title": "Variable: useResetTheme",
+  "description": "useResetTheme: () => void",
+  "source": "@site/docs/api/variables/useResetTheme.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useResetTheme",
+  "permalink": "/katanakit-js/docs/api/variables/useResetTheme",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useResetTheme.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

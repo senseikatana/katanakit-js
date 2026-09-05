@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useDelete",
+  "title": "Variable: useDelete",
+  "description": "useDelete: &lt;T&gt;(apiName, endpointName, urlOptions?) => Promise&lt;FetchResult&lt;T&gt;&gt;",
+  "source": "@site/docs/api/variables/useDelete.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useDelete",
+  "permalink": "/katanakit-js/docs/api/variables/useDelete",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useDelete.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

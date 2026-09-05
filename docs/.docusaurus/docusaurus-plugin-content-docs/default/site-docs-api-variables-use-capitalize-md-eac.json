@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCapitalize",
+  "title": "Variable: useCapitalize",
+  "description": "useCapitalize: (text, locale) => string",
+  "source": "@site/docs/api/variables/useCapitalize.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCapitalize",
+  "permalink": "/katanakit-js/docs/api/variables/useCapitalize",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCapitalize.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

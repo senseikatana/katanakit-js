@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/StorageService",
+  "title": "Class: StorageService",
+  "description": "Defined in94",
+  "source": "@site/docs/api/classes/StorageService.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/StorageService",
+  "permalink": "/katanakit-js/docs/api/classes/StorageService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/StorageService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

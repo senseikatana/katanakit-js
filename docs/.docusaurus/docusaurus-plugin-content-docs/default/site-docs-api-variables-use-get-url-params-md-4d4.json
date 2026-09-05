@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetUrlParams",
+  "title": "Variable: useGetUrlParams",
+  "description": "useGetUrlParams: (urlString) => Record&lt;string, string&gt;",
+  "source": "@site/docs/api/variables/useGetUrlParams.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetUrlParams",
+  "permalink": "/katanakit-js/docs/api/variables/useGetUrlParams",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetUrlParams.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

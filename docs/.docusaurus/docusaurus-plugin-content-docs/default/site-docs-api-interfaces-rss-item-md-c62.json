@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/RssItem",
+  "title": "Interface: RssItem",
+  "description": "Defined in574",
+  "source": "@site/docs/api/interfaces/RssItem.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/RssItem",
+  "permalink": "/katanakit-js/docs/api/interfaces/RssItem",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/RssItem.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

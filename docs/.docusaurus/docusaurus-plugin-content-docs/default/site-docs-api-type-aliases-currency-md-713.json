@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/Currency",
+  "title": "Type Alias: Currency",
+  "description": "Currency = \"EUR\" \\| \"USD\" \\| \"GBP\" \\| \"JPY\" \\| \"CAD\" \\| \"MXN\" \\| \"CHF\" \\| \"AUD\" \\| \"BRL\" \\| \"CNY\" \\| \"ARS\" \\| \"COP\" \\| \"CLP\"",
+  "source": "@site/docs/api/type-aliases/Currency.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/Currency",
+  "permalink": "/katanakit-js/docs/api/type-aliases/Currency",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/Currency.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

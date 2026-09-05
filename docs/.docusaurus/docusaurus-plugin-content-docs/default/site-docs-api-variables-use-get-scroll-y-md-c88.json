@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetScrollY",
+  "title": "Variable: useGetScrollY",
+  "description": "useGetScrollY: () => number",
+  "source": "@site/docs/api/variables/useGetScrollY.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetScrollY",
+  "permalink": "/katanakit-js/docs/api/variables/useGetScrollY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetScrollY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

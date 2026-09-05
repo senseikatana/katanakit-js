@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ObserverConfig",
+  "title": "Interface: ObserverConfig",
+  "description": "Defined in26",
+  "source": "@site/docs/api/interfaces/ObserverConfig.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ObserverConfig",
+  "permalink": "/katanakit-js/docs/api/interfaces/ObserverConfig",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ObserverConfig.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

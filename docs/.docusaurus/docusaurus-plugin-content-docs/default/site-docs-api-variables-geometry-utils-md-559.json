@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/GeometryUtils",
+  "title": "Variable: GeometryUtils",
+  "description": "const GeometryUtils: object",
+  "source": "@site/docs/api/variables/GeometryUtils.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/GeometryUtils",
+  "permalink": "/katanakit-js/docs/api/variables/GeometryUtils",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/GeometryUtils.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

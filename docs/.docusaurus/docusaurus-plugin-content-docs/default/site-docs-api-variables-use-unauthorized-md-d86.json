@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useUnauthorized",
+  "title": "Variable: useUnauthorized",
+  "description": "useUnauthorized: (message) => AppError",
+  "source": "@site/docs/api/variables/useUnauthorized.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useUnauthorized",
+  "permalink": "/katanakit-js/docs/api/variables/useUnauthorized",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useUnauthorized.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

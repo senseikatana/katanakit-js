@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useThrottleTrailing",
+  "title": "Variable: useThrottleTrailing",
+  "description": "useThrottleTrailing: &lt;T&gt;(func, limitMs) => (...args) => void",
+  "source": "@site/docs/api/variables/useThrottleTrailing.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useThrottleTrailing",
+  "permalink": "/katanakit-js/docs/api/variables/useThrottleTrailing",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useThrottleTrailing.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

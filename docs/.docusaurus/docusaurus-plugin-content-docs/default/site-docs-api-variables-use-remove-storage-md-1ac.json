@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRemoveStorage",
+  "title": "Variable: useRemoveStorage",
+  "description": "useRemoveStorage: (key, target) => void",
+  "source": "@site/docs/api/variables/useRemoveStorage.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRemoveStorage",
+  "permalink": "/katanakit-js/docs/api/variables/useRemoveStorage",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRemoveStorage.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

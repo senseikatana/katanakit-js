@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useQuerySelectorAll",
+  "title": "Variable: useQuerySelectorAll",
+  "description": "useQuerySelectorAll HTMLElementTagNameMap\\K\\; &lt;E&gt;(selector): E[]; \\}",
+  "source": "@site/docs/api/variables/useQuerySelectorAll.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useQuerySelectorAll",
+  "permalink": "/katanakit-js/docs/api/variables/useQuerySelectorAll",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useQuerySelectorAll.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useExitFullscreen",
+  "title": "Variable: useExitFullscreen",
+  "description": "useExitFullscreen: () => Promise&lt;void&gt;",
+  "source": "@site/docs/api/variables/useExitFullscreen.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useExitFullscreen",
+  "permalink": "/katanakit-js/docs/api/variables/useExitFullscreen",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useExitFullscreen.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

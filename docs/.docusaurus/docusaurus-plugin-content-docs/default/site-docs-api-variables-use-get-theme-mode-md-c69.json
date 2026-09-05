@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetThemeMode",
+  "title": "Variable: useGetThemeMode",
+  "description": "useGetThemeMode: () => ThemeMode",
+  "source": "@site/docs/api/variables/useGetThemeMode.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetThemeMode",
+  "permalink": "/katanakit-js/docs/api/variables/useGetThemeMode",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetThemeMode.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetText",
+  "title": "Variable: useSetText",
+  "description": "useSetText: (target, text) => void",
+  "source": "@site/docs/api/variables/useSetText.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetText",
+  "permalink": "/katanakit-js/docs/api/variables/useSetText",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetText.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

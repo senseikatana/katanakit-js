@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useUuid",
+  "title": "Variable: useUuid",
+  "description": "useUuid: () => string",
+  "source": "@site/docs/api/variables/useUuid.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useUuid",
+  "permalink": "/katanakit-js/docs/api/variables/useUuid",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useUuid.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

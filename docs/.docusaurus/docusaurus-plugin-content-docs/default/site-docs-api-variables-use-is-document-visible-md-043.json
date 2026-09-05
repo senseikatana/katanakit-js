@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useIsDocumentVisible",
+  "title": "Variable: useIsDocumentVisible",
+  "description": "useIsDocumentVisible: () => boolean",
+  "source": "@site/docs/api/variables/useIsDocumentVisible.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useIsDocumentVisible",
+  "permalink": "/katanakit-js/docs/api/variables/useIsDocumentVisible",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useIsDocumentVisible.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

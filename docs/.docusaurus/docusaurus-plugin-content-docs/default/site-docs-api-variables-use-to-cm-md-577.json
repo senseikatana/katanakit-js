@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToCm",
+  "title": "Variable: useToCm",
+  "description": "useToCm: (inches, locale, digits) => string",
+  "source": "@site/docs/api/variables/useToCm.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToCm",
+  "permalink": "/katanakit-js/docs/api/variables/useToCm",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToCm.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useEncrypt",
+  "title": "Variable: useEncrypt",
+  "description": "useEncrypt: (plainText, salt?) => Promise&lt;string&gt;",
+  "source": "@site/docs/api/variables/useEncrypt.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useEncrypt",
+  "permalink": "/katanakit-js/docs/api/variables/useEncrypt",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useEncrypt.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/NumberFormatOptions",
+  "title": "Interface: NumberFormatOptions",
+  "description": "Defined in160",
+  "source": "@site/docs/api/interfaces/NumberFormatOptions.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/NumberFormatOptions",
+  "permalink": "/katanakit-js/docs/api/interfaces/NumberFormatOptions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/NumberFormatOptions.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

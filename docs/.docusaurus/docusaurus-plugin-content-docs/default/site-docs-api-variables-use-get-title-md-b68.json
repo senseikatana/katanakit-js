@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetTitle",
+  "title": "Variable: useGetTitle",
+  "description": "useGetTitle: () => string",
+  "source": "@site/docs/api/variables/useGetTitle.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetTitle",
+  "permalink": "/katanakit-js/docs/api/variables/useGetTitle",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetTitle.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

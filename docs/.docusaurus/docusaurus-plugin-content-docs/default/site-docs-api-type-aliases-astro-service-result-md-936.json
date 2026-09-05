@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/AstroServiceResult",
+  "title": "Type Alias: AstroServiceResult&lt;T&gt;",
+  "description": "AstroServiceResult&lt;T&gt; = \\{ data null; ok null; error false; \\}",
+  "source": "@site/docs/api/type-aliases/AstroServiceResult.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/AstroServiceResult",
+  "permalink": "/katanakit-js/docs/api/type-aliases/AstroServiceResult",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/AstroServiceResult.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

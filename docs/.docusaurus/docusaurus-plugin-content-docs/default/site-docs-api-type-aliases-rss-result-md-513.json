@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/RssResult",
+  "title": "Type Alias: RssResult",
+  "description": "RssResult = \\{ data null; ok null; error unknown; message false; \\}",
+  "source": "@site/docs/api/type-aliases/RssResult.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/RssResult",
+  "permalink": "/katanakit-js/docs/api/type-aliases/RssResult",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/RssResult.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

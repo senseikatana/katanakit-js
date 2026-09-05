@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/BatteryManager",
+  "title": "Interface: BatteryManager",
+  "description": "Defined in97",
+  "source": "@site/docs/api/interfaces/BatteryManager.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/BatteryManager",
+  "permalink": "/katanakit-js/docs/api/interfaces/BatteryManager",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/BatteryManager.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

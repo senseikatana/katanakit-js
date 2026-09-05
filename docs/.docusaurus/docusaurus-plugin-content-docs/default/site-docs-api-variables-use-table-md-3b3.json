@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useTable",
+  "title": "Variable: useTable",
+  "description": "useTable: (data) => void",
+  "source": "@site/docs/api/variables/useTable.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useTable",
+  "permalink": "/katanakit-js/docs/api/variables/useTable",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useTable.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

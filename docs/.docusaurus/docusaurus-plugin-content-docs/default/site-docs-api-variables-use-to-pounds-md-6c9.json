@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToPounds",
+  "title": "Variable: useToPounds",
+  "description": "useToPounds: (kilos, locale, digits) => string",
+  "source": "@site/docs/api/variables/useToPounds.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToPounds",
+  "permalink": "/katanakit-js/docs/api/variables/useToPounds",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToPounds.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

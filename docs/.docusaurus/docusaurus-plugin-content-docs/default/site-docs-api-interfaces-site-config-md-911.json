@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/SiteConfig",
+  "title": "Interface: SiteConfig",
+  "description": "Defined in15",
+  "source": "@site/docs/api/interfaces/SiteConfig.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/SiteConfig",
+  "permalink": "/katanakit-js/docs/api/interfaces/SiteConfig",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/SiteConfig.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ObserverEntry",
+  "title": "Interface: ObserverEntry",
+  "description": "Defined in33",
+  "source": "@site/docs/api/interfaces/ObserverEntry.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ObserverEntry",
+  "permalink": "/katanakit-js/docs/api/interfaces/ObserverEntry",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ObserverEntry.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

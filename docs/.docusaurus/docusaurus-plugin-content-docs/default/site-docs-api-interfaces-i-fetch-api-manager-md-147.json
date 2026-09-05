@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/IFetchApiManager",
+  "title": "Interface: IFetchApiManager",
+  "description": "Defined in259",
+  "source": "@site/docs/api/interfaces/IFetchApiManager.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/IFetchApiManager",
+  "permalink": "/katanakit-js/docs/api/interfaces/IFetchApiManager",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/IFetchApiManager.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

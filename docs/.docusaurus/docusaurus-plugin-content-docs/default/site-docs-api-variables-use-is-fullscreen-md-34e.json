@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useIsFullscreen",
+  "title": "Variable: useIsFullscreen",
+  "description": "useIsFullscreen: () => boolean",
+  "source": "@site/docs/api/variables/useIsFullscreen.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useIsFullscreen",
+  "permalink": "/katanakit-js/docs/api/variables/useIsFullscreen",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useIsFullscreen.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

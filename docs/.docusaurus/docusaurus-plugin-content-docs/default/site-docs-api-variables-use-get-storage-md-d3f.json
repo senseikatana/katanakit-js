@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetStorage",
+  "title": "Variable: useGetStorage",
+  "description": "useGetStorage: &lt;T&gt;(key, target) => T \\| null",
+  "source": "@site/docs/api/variables/useGetStorage.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetStorage",
+  "permalink": "/katanakit-js/docs/api/variables/useGetStorage",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetStorage.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

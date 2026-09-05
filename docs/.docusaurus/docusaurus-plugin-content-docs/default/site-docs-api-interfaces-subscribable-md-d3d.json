@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/Subscribable",
+  "title": "Interface: Subscribable&lt;T&gt;",
+  "description": "Defined in371",
+  "source": "@site/docs/api/interfaces/Subscribable.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/Subscribable",
+  "permalink": "/katanakit-js/docs/api/interfaces/Subscribable",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/Subscribable.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

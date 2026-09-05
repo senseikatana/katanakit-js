@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/AstroServiceError",
+  "title": "Interface: AstroServiceError",
+  "description": "Defined in530",
+  "source": "@site/docs/api/interfaces/AstroServiceError.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/AstroServiceError",
+  "permalink": "/katanakit-js/docs/api/interfaces/AstroServiceError",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/AstroServiceError.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,29 @@
+{
+  "id": "guides/roadmap",
+  "title": "Roadmap",
+  "description": "What is planned for KatanaKit. Contributions welcome.",
+  "source": "@site/docs/guides/roadmap.md",
+  "sourceDirName": "guides",
+  "slug": "/guides/roadmap",
+  "permalink": "/katanakit-js/docs/guides/roadmap",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/guides/roadmap.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Roadmap",
+    "sidebar_position": 3,
+    "description": "What is planned for KatanaKit. Contributions welcome."
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Architecture",
+    "permalink": "/katanakit-js/docs/guides/architecture"
+  },
+  "next": {
+    "title": "Changelog",
+    "permalink": "/katanakit-js/docs/changelog"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/SessionStorageStrategy",
+  "title": "Class: SessionStorageStrategy",
+  "description": "Defined in75",
+  "source": "@site/docs/api/classes/SessionStorageStrategy.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/SessionStorageStrategy",
+  "permalink": "/katanakit-js/docs/api/classes/SessionStorageStrategy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/SessionStorageStrategy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

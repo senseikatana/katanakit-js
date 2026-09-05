@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/StorageStrategy",
+  "title": "Interface: StorageStrategy",
+  "description": "Defined in125",
+  "source": "@site/docs/api/interfaces/StorageStrategy.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/StorageStrategy",
+  "permalink": "/katanakit-js/docs/api/interfaces/StorageStrategy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/StorageStrategy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/LocalStorageStrategy",
+  "title": "Class: LocalStorageStrategy",
+  "description": "Defined in66",
+  "source": "@site/docs/api/classes/LocalStorageStrategy.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/LocalStorageStrategy",
+  "permalink": "/katanakit-js/docs/api/classes/LocalStorageStrategy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/LocalStorageStrategy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

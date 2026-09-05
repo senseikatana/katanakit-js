@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/GeometryFormatOptions",
+  "title": "Interface: GeometryFormatOptions",
+  "description": "Defined in359",
+  "source": "@site/docs/api/interfaces/GeometryFormatOptions.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/GeometryFormatOptions",
+  "permalink": "/katanakit-js/docs/api/interfaces/GeometryFormatOptions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/GeometryFormatOptions.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

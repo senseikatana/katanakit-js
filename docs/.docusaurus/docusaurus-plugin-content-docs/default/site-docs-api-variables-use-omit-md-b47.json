@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useOmit",
+  "title": "Variable: useOmit",
+  "description": "useOmit: &lt;T, K&gt;(obj, keys) => Omit&lt;T, K&gt;",
+  "source": "@site/docs/api/variables/useOmit.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useOmit",
+  "permalink": "/katanakit-js/docs/api/variables/useOmit",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useOmit.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRepeat",
+  "title": "Variable: useRepeat",
+  "description": "useRepeat: (callback, iterations, delayMs) => Promise&lt;void&gt;",
+  "source": "@site/docs/api/variables/useRepeat.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRepeat",
+  "permalink": "/katanakit-js/docs/api/variables/useRepeat",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRepeat.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useOn",
+  "title": "Variable: useOn",
+  "description": "useOn: &lt;K&gt;(target, event, callback, options?) => (() => void) \\| null",
+  "source": "@site/docs/api/variables/useOn.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useOn",
+  "permalink": "/katanakit-js/docs/api/variables/useOn",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useOn.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

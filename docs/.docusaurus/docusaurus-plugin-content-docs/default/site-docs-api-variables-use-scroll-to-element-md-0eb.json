@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useScrollToElement",
+  "title": "Variable: useScrollToElement",
+  "description": "useScrollToElement: (target, options) => boolean",
+  "source": "@site/docs/api/variables/useScrollToElement.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useScrollToElement",
+  "permalink": "/katanakit-js/docs/api/variables/useScrollToElement",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useScrollToElement.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRssLinkTag",
+  "title": "Variable: useRssLinkTag",
+  "description": "useRssLinkTag: (config) => string",
+  "source": "@site/docs/api/variables/useRssLinkTag.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRssLinkTag",
+  "permalink": "/katanakit-js/docs/api/variables/useRssLinkTag",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRssLinkTag.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

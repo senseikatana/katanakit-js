@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetElementByClass",
+  "title": "Variable: useGetElementByClass",
+  "description": "useGetElementByClass: &lt;T&gt;(className) => T \\| null",
+  "source": "@site/docs/api/variables/useGetElementByClass.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetElementByClass",
+  "permalink": "/katanakit-js/docs/api/variables/useGetElementByClass",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetElementByClass.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

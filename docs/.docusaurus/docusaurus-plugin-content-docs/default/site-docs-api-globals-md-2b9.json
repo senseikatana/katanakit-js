@@ -1,0 +1,15 @@
+{
+  "id": "api/globals",
+  "title": "katanakit-js",
+  "description": "Classes",
+  "source": "@site/docs/api/globals.md",
+  "sourceDirName": "api",
+  "slug": "/api/globals",
+  "permalink": "/katanakit-js/docs/api/globals",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/globals.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

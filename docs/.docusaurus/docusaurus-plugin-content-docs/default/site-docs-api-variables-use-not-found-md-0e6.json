@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useNotFound",
+  "title": "Variable: useNotFound",
+  "description": "useNotFound: (message) => AppError",
+  "source": "@site/docs/api/variables/useNotFound.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useNotFound",
+  "permalink": "/katanakit-js/docs/api/variables/useNotFound",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useNotFound.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

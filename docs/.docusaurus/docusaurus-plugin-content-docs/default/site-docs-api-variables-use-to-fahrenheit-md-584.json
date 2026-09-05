@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToFahrenheit",
+  "title": "Variable: useToFahrenheit",
+  "description": "useToFahrenheit: (celsius, locale, digits) => string",
+  "source": "@site/docs/api/variables/useToFahrenheit.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToFahrenheit",
+  "permalink": "/katanakit-js/docs/api/variables/useToFahrenheit",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToFahrenheit.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

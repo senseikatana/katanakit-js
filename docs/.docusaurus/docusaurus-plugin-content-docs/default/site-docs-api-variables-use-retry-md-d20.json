@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useRetry",
+  "title": "Variable: useRetry",
+  "description": "useRetry: &lt;T&gt;(fn, retries, delayMs) => Promise&lt;T&gt;",
+  "source": "@site/docs/api/variables/useRetry.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useRetry",
+  "permalink": "/katanakit-js/docs/api/variables/useRetry",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useRetry.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

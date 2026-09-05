@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetDataAttribute",
+  "title": "Variable: useSetDataAttribute",
+  "description": "useSetDataAttribute: (target, key, value) => void",
+  "source": "@site/docs/api/variables/useSetDataAttribute.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetDataAttribute",
+  "permalink": "/katanakit-js/docs/api/variables/useSetDataAttribute",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetDataAttribute.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

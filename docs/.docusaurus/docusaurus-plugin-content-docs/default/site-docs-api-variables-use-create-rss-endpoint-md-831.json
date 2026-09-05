@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateRssEndpoint",
+  "title": "Variable: useCreateRssEndpoint",
+  "description": "useCreateRssEndpoint: (config) => (context) => Promise&lt;Response&gt;",
+  "source": "@site/docs/api/variables/useCreateRssEndpoint.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateRssEndpoint",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateRssEndpoint",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateRssEndpoint.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

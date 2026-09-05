@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/StorageTarget",
+  "title": "Type Alias: StorageTarget",
+  "description": "StorageTarget = \"localStorage\" \\| \"sessionStorage\"",
+  "source": "@site/docs/api/type-aliases/StorageTarget.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/StorageTarget",
+  "permalink": "/katanakit-js/docs/api/type-aliases/StorageTarget",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/StorageTarget.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

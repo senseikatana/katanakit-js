@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useBadRequest",
+  "title": "Variable: useBadRequest",
+  "description": "useBadRequest: (message) => AppError",
+  "source": "@site/docs/api/variables/useBadRequest.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useBadRequest",
+  "permalink": "/katanakit-js/docs/api/variables/useBadRequest",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useBadRequest.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

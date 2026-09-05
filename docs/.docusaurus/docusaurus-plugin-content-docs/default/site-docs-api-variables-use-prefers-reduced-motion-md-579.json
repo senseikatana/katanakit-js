@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/usePrefersReducedMotion",
+  "title": "Variable: usePrefersReducedMotion",
+  "description": "usePrefersReducedMotion: () => boolean",
+  "source": "@site/docs/api/variables/usePrefersReducedMotion.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/usePrefersReducedMotion",
+  "permalink": "/katanakit-js/docs/api/variables/usePrefersReducedMotion",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/usePrefersReducedMotion.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

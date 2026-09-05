@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/usePrefersDarkMode",
+  "title": "Variable: usePrefersDarkMode",
+  "description": "usePrefersDarkMode: () => boolean",
+  "source": "@site/docs/api/variables/usePrefersDarkMode.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/usePrefersDarkMode",
+  "permalink": "/katanakit-js/docs/api/variables/usePrefersDarkMode",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/usePrefersDarkMode.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

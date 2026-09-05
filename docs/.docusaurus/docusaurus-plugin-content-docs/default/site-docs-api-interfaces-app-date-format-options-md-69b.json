@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/AppDateFormatOptions",
+  "title": "Interface: AppDateFormatOptions",
+  "description": "Defined in178",
+  "source": "@site/docs/api/interfaces/AppDateFormatOptions.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/AppDateFormatOptions",
+  "permalink": "/katanakit-js/docs/api/interfaces/AppDateFormatOptions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/AppDateFormatOptions.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

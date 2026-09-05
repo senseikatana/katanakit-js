@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/PathParams",
+  "title": "Type Alias: PathParams",
+  "description": "PathParams = Record&lt;string, string \\| number&gt;",
+  "source": "@site/docs/api/type-aliases/PathParams.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/PathParams",
+  "permalink": "/katanakit-js/docs/api/type-aliases/PathParams",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/PathParams.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

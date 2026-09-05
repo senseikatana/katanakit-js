@@ -1,0 +1,1052 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/katanakit-js/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/katanakit-js/docs",
+          "mainDocId": "guides/getting-started",
+          "docs": [
+            {
+              "id": "api/classes/AppError",
+              "path": "/katanakit-js/docs/api/classes/AppError"
+            },
+            {
+              "id": "api/classes/AppUtils",
+              "path": "/katanakit-js/docs/api/classes/AppUtils"
+            },
+            {
+              "id": "api/classes/AstroService",
+              "path": "/katanakit-js/docs/api/classes/AstroService"
+            },
+            {
+              "id": "api/classes/ConsoleStrategy",
+              "path": "/katanakit-js/docs/api/classes/ConsoleStrategy"
+            },
+            {
+              "id": "api/classes/ConverterService",
+              "path": "/katanakit-js/docs/api/classes/ConverterService"
+            },
+            {
+              "id": "api/classes/DataUtils",
+              "path": "/katanakit-js/docs/api/classes/DataUtils"
+            },
+            {
+              "id": "api/classes/DomService",
+              "path": "/katanakit-js/docs/api/classes/DomService"
+            },
+            {
+              "id": "api/classes/ErrorFactoryService",
+              "path": "/katanakit-js/docs/api/classes/ErrorFactoryService"
+            },
+            {
+              "id": "api/classes/FetchApiManager",
+              "path": "/katanakit-js/docs/api/classes/FetchApiManager"
+            },
+            {
+              "id": "api/classes/FormatterService",
+              "path": "/katanakit-js/docs/api/classes/FormatterService"
+            },
+            {
+              "id": "api/classes/GeneratorService",
+              "path": "/katanakit-js/docs/api/classes/GeneratorService"
+            },
+            {
+              "id": "api/classes/GeometryArea",
+              "path": "/katanakit-js/docs/api/classes/GeometryArea"
+            },
+            {
+              "id": "api/classes/GeometryPerimeter",
+              "path": "/katanakit-js/docs/api/classes/GeometryPerimeter"
+            },
+            {
+              "id": "api/classes/GeometryVolume",
+              "path": "/katanakit-js/docs/api/classes/GeometryVolume"
+            },
+            {
+              "id": "api/classes/LazyLoaderService",
+              "path": "/katanakit-js/docs/api/classes/LazyLoaderService"
+            },
+            {
+              "id": "api/classes/LazyNodeCryptoStrategy",
+              "path": "/katanakit-js/docs/api/classes/LazyNodeCryptoStrategy"
+            },
+            {
+              "id": "api/classes/LocalStorageStrategy",
+              "path": "/katanakit-js/docs/api/classes/LocalStorageStrategy"
+            },
+            {
+              "id": "api/classes/LoggerService",
+              "path": "/katanakit-js/docs/api/classes/LoggerService"
+            },
+            {
+              "id": "api/classes/MemoryStorageStrategy",
+              "path": "/katanakit-js/docs/api/classes/MemoryStorageStrategy"
+            },
+            {
+              "id": "api/classes/NativeUuidStrategy",
+              "path": "/katanakit-js/docs/api/classes/NativeUuidStrategy"
+            },
+            {
+              "id": "api/classes/ObserverService",
+              "path": "/katanakit-js/docs/api/classes/ObserverService"
+            },
+            {
+              "id": "api/classes/ReactiveService",
+              "path": "/katanakit-js/docs/api/classes/ReactiveService"
+            },
+            {
+              "id": "api/classes/RssService",
+              "path": "/katanakit-js/docs/api/classes/RssService"
+            },
+            {
+              "id": "api/classes/SensorsUtils",
+              "path": "/katanakit-js/docs/api/classes/SensorsUtils"
+            },
+            {
+              "id": "api/classes/SessionStorageStrategy",
+              "path": "/katanakit-js/docs/api/classes/SessionStorageStrategy"
+            },
+            {
+              "id": "api/classes/StorageService",
+              "path": "/katanakit-js/docs/api/classes/StorageService"
+            },
+            {
+              "id": "api/classes/SystemUtils",
+              "path": "/katanakit-js/docs/api/classes/SystemUtils"
+            },
+            {
+              "id": "api/classes/ThemeService",
+              "path": "/katanakit-js/docs/api/classes/ThemeService"
+            },
+            {
+              "id": "api/classes/TimingService",
+              "path": "/katanakit-js/docs/api/classes/TimingService"
+            },
+            {
+              "id": "api/classes/ViewportService",
+              "path": "/katanakit-js/docs/api/classes/ViewportService"
+            },
+            {
+              "id": "api/classes/WorkerService",
+              "path": "/katanakit-js/docs/api/classes/WorkerService"
+            },
+            {
+              "id": "api/functions/useGenerateMetaTags",
+              "path": "/katanakit-js/docs/api/functions/useGenerateMetaTags"
+            },
+            {
+              "id": "api/functions/useHeadTags",
+              "path": "/katanakit-js/docs/api/functions/useHeadTags"
+            },
+            {
+              "id": "api/functions/useRssHeadLink",
+              "path": "/katanakit-js/docs/api/functions/useRssHeadLink"
+            },
+            {
+              "id": "api/functions/useTitle",
+              "path": "/katanakit-js/docs/api/functions/useTitle"
+            },
+            {
+              "id": "api/globals",
+              "path": "/katanakit-js/docs/api/globals"
+            },
+            {
+              "id": "api/index",
+              "path": "/katanakit-js/docs/api/"
+            },
+            {
+              "id": "api/interfaces/ApiEntry",
+              "path": "/katanakit-js/docs/api/interfaces/ApiEntry"
+            },
+            {
+              "id": "api/interfaces/ApiError",
+              "path": "/katanakit-js/docs/api/interfaces/ApiError"
+            },
+            {
+              "id": "api/interfaces/AppDateFormatOptions",
+              "path": "/katanakit-js/docs/api/interfaces/AppDateFormatOptions"
+            },
+            {
+              "id": "api/interfaces/AstroPath",
+              "path": "/katanakit-js/docs/api/interfaces/AstroPath"
+            },
+            {
+              "id": "api/interfaces/AstroServiceError",
+              "path": "/katanakit-js/docs/api/interfaces/AstroServiceError"
+            },
+            {
+              "id": "api/interfaces/BatteryManager",
+              "path": "/katanakit-js/docs/api/interfaces/BatteryManager"
+            },
+            {
+              "id": "api/interfaces/CollectionEntryLike",
+              "path": "/katanakit-js/docs/api/interfaces/CollectionEntryLike"
+            },
+            {
+              "id": "api/interfaces/CurrencyFormatOptions",
+              "path": "/katanakit-js/docs/api/interfaces/CurrencyFormatOptions"
+            },
+            {
+              "id": "api/interfaces/DatesServiceTypes",
+              "path": "/katanakit-js/docs/api/interfaces/DatesServiceTypes"
+            },
+            {
+              "id": "api/interfaces/FetchOptions",
+              "path": "/katanakit-js/docs/api/interfaces/FetchOptions"
+            },
+            {
+              "id": "api/interfaces/GeometryFormatOptions",
+              "path": "/katanakit-js/docs/api/interfaces/GeometryFormatOptions"
+            },
+            {
+              "id": "api/interfaces/GeoPosition",
+              "path": "/katanakit-js/docs/api/interfaces/GeoPosition"
+            },
+            {
+              "id": "api/interfaces/IAppUtils",
+              "path": "/katanakit-js/docs/api/interfaces/IAppUtils"
+            },
+            {
+              "id": "api/interfaces/IAstroService",
+              "path": "/katanakit-js/docs/api/interfaces/IAstroService"
+            },
+            {
+              "id": "api/interfaces/IConverterService",
+              "path": "/katanakit-js/docs/api/interfaces/IConverterService"
+            },
+            {
+              "id": "api/interfaces/ICryptoStrategy",
+              "path": "/katanakit-js/docs/api/interfaces/ICryptoStrategy"
+            },
+            {
+              "id": "api/interfaces/IDataUtils",
+              "path": "/katanakit-js/docs/api/interfaces/IDataUtils"
+            },
+            {
+              "id": "api/interfaces/IDomService",
+              "path": "/katanakit-js/docs/api/interfaces/IDomService"
+            },
+            {
+              "id": "api/interfaces/IErrorFactory",
+              "path": "/katanakit-js/docs/api/interfaces/IErrorFactory"
+            },
+            {
+              "id": "api/interfaces/IFetchApiManager",
+              "path": "/katanakit-js/docs/api/interfaces/IFetchApiManager"
+            },
+            {
+              "id": "api/interfaces/IFormatterService",
+              "path": "/katanakit-js/docs/api/interfaces/IFormatterService"
+            },
+            {
+              "id": "api/interfaces/IntervalControl",
+              "path": "/katanakit-js/docs/api/interfaces/IntervalControl"
+            },
+            {
+              "id": "api/interfaces/IReactiveService",
+              "path": "/katanakit-js/docs/api/interfaces/IReactiveService"
+            },
+            {
+              "id": "api/interfaces/IRssService",
+              "path": "/katanakit-js/docs/api/interfaces/IRssService"
+            },
+            {
+              "id": "api/interfaces/ISerializedError",
+              "path": "/katanakit-js/docs/api/interfaces/ISerializedError"
+            },
+            {
+              "id": "api/interfaces/ISystemUtils",
+              "path": "/katanakit-js/docs/api/interfaces/ISystemUtils"
+            },
+            {
+              "id": "api/interfaces/IThemeService",
+              "path": "/katanakit-js/docs/api/interfaces/IThemeService"
+            },
+            {
+              "id": "api/interfaces/IUuidStrategy",
+              "path": "/katanakit-js/docs/api/interfaces/IUuidStrategy"
+            },
+            {
+              "id": "api/interfaces/LazyLoaderEntry",
+              "path": "/katanakit-js/docs/api/interfaces/LazyLoaderEntry"
+            },
+            {
+              "id": "api/interfaces/LogStrategy",
+              "path": "/katanakit-js/docs/api/interfaces/LogStrategy"
+            },
+            {
+              "id": "api/interfaces/NumberFormatOptions",
+              "path": "/katanakit-js/docs/api/interfaces/NumberFormatOptions"
+            },
+            {
+              "id": "api/interfaces/ObserverConfig",
+              "path": "/katanakit-js/docs/api/interfaces/ObserverConfig"
+            },
+            {
+              "id": "api/interfaces/ObserverEntry",
+              "path": "/katanakit-js/docs/api/interfaces/ObserverEntry"
+            },
+            {
+              "id": "api/interfaces/PaginationProps",
+              "path": "/katanakit-js/docs/api/interfaces/PaginationProps"
+            },
+            {
+              "id": "api/interfaces/PathsOptions",
+              "path": "/katanakit-js/docs/api/interfaces/PathsOptions"
+            },
+            {
+              "id": "api/interfaces/RssConfig",
+              "path": "/katanakit-js/docs/api/interfaces/RssConfig"
+            },
+            {
+              "id": "api/interfaces/RssItem",
+              "path": "/katanakit-js/docs/api/interfaces/RssItem"
+            },
+            {
+              "id": "api/interfaces/ScrollOptions",
+              "path": "/katanakit-js/docs/api/interfaces/ScrollOptions"
+            },
+            {
+              "id": "api/interfaces/ScrollPosition",
+              "path": "/katanakit-js/docs/api/interfaces/ScrollPosition"
+            },
+            {
+              "id": "api/interfaces/SeoMeta",
+              "path": "/katanakit-js/docs/api/interfaces/SeoMeta"
+            },
+            {
+              "id": "api/interfaces/SignalGetter",
+              "path": "/katanakit-js/docs/api/interfaces/SignalGetter"
+            },
+            {
+              "id": "api/interfaces/SiteConfig",
+              "path": "/katanakit-js/docs/api/interfaces/SiteConfig"
+            },
+            {
+              "id": "api/interfaces/StorageStrategy",
+              "path": "/katanakit-js/docs/api/interfaces/StorageStrategy"
+            },
+            {
+              "id": "api/interfaces/Subscribable",
+              "path": "/katanakit-js/docs/api/interfaces/Subscribable"
+            },
+            {
+              "id": "api/interfaces/ThemeOptions",
+              "path": "/katanakit-js/docs/api/interfaces/ThemeOptions"
+            },
+            {
+              "id": "api/interfaces/TimeoutControl",
+              "path": "/katanakit-js/docs/api/interfaces/TimeoutControl"
+            },
+            {
+              "id": "api/interfaces/ToggleSignalSetter",
+              "path": "/katanakit-js/docs/api/interfaces/ToggleSignalSetter"
+            },
+            {
+              "id": "api/interfaces/UrlOptions",
+              "path": "/katanakit-js/docs/api/interfaces/UrlOptions"
+            },
+            {
+              "id": "api/interfaces/ViewportSize",
+              "path": "/katanakit-js/docs/api/interfaces/ViewportSize"
+            },
+            {
+              "id": "api/interfaces/WorkerPoolEntry",
+              "path": "/katanakit-js/docs/api/interfaces/WorkerPoolEntry"
+            },
+            {
+              "id": "api/type-aliases/ApisConfig",
+              "path": "/katanakit-js/docs/api/type-aliases/ApisConfig"
+            },
+            {
+              "id": "api/type-aliases/AstroServiceResult",
+              "path": "/katanakit-js/docs/api/type-aliases/AstroServiceResult"
+            },
+            {
+              "id": "api/type-aliases/Currency",
+              "path": "/katanakit-js/docs/api/type-aliases/Currency"
+            },
+            {
+              "id": "api/type-aliases/DateFormatOptions",
+              "path": "/katanakit-js/docs/api/type-aliases/DateFormatOptions"
+            },
+            {
+              "id": "api/type-aliases/FetchResult",
+              "path": "/katanakit-js/docs/api/type-aliases/FetchResult"
+            },
+            {
+              "id": "api/type-aliases/HttpMethod",
+              "path": "/katanakit-js/docs/api/type-aliases/HttpMethod"
+            },
+            {
+              "id": "api/type-aliases/Locale",
+              "path": "/katanakit-js/docs/api/type-aliases/Locale"
+            },
+            {
+              "id": "api/type-aliases/LogLevel",
+              "path": "/katanakit-js/docs/api/type-aliases/LogLevel"
+            },
+            {
+              "id": "api/type-aliases/ObserverCallback",
+              "path": "/katanakit-js/docs/api/type-aliases/ObserverCallback"
+            },
+            {
+              "id": "api/type-aliases/ObserverTarget",
+              "path": "/katanakit-js/docs/api/type-aliases/ObserverTarget"
+            },
+            {
+              "id": "api/type-aliases/PathParams",
+              "path": "/katanakit-js/docs/api/type-aliases/PathParams"
+            },
+            {
+              "id": "api/type-aliases/ProductType",
+              "path": "/katanakit-js/docs/api/type-aliases/ProductType"
+            },
+            {
+              "id": "api/type-aliases/QueryParams",
+              "path": "/katanakit-js/docs/api/type-aliases/QueryParams"
+            },
+            {
+              "id": "api/type-aliases/RssResult",
+              "path": "/katanakit-js/docs/api/type-aliases/RssResult"
+            },
+            {
+              "id": "api/type-aliases/SignalListener",
+              "path": "/katanakit-js/docs/api/type-aliases/SignalListener"
+            },
+            {
+              "id": "api/type-aliases/SignalSetter",
+              "path": "/katanakit-js/docs/api/type-aliases/SignalSetter"
+            },
+            {
+              "id": "api/type-aliases/StorageTarget",
+              "path": "/katanakit-js/docs/api/type-aliases/StorageTarget"
+            },
+            {
+              "id": "api/type-aliases/TemporalInput",
+              "path": "/katanakit-js/docs/api/type-aliases/TemporalInput"
+            },
+            {
+              "id": "api/type-aliases/ThemeMode",
+              "path": "/katanakit-js/docs/api/type-aliases/ThemeMode"
+            },
+            {
+              "id": "api/type-aliases/WorkerFunc",
+              "path": "/katanakit-js/docs/api/type-aliases/WorkerFunc"
+            },
+            {
+              "id": "api/variables/DOM_SERVICE",
+              "path": "/katanakit-js/docs/api/variables/DOM_SERVICE"
+            },
+            {
+              "id": "api/variables/GeometryUtils",
+              "path": "/katanakit-js/docs/api/variables/GeometryUtils"
+            },
+            {
+              "id": "api/variables/sensorsUtils",
+              "path": "/katanakit-js/docs/api/variables/sensorsUtils"
+            },
+            {
+              "id": "api/variables/siteConfig",
+              "path": "/katanakit-js/docs/api/variables/siteConfig"
+            },
+            {
+              "id": "api/variables/THEME_SERVICE",
+              "path": "/katanakit-js/docs/api/variables/THEME_SERVICE"
+            },
+            {
+              "id": "api/variables/useAddClass",
+              "path": "/katanakit-js/docs/api/variables/useAddClass"
+            },
+            {
+              "id": "api/variables/useAppend",
+              "path": "/katanakit-js/docs/api/variables/useAppend"
+            },
+            {
+              "id": "api/variables/useAverage",
+              "path": "/katanakit-js/docs/api/variables/useAverage"
+            },
+            {
+              "id": "api/variables/useBadRequest",
+              "path": "/katanakit-js/docs/api/variables/useBadRequest"
+            },
+            {
+              "id": "api/variables/useBlurActiveElement",
+              "path": "/katanakit-js/docs/api/variables/useBlurActiveElement"
+            },
+            {
+              "id": "api/variables/useBuildUrl",
+              "path": "/katanakit-js/docs/api/variables/useBuildUrl"
+            },
+            {
+              "id": "api/variables/useCapitalize",
+              "path": "/katanakit-js/docs/api/variables/useCapitalize"
+            },
+            {
+              "id": "api/variables/useChunk",
+              "path": "/katanakit-js/docs/api/variables/useChunk"
+            },
+            {
+              "id": "api/variables/useClear",
+              "path": "/katanakit-js/docs/api/variables/useClear"
+            },
+            {
+              "id": "api/variables/useClearStorage",
+              "path": "/katanakit-js/docs/api/variables/useClearStorage"
+            },
+            {
+              "id": "api/variables/useCopyToClipboard",
+              "path": "/katanakit-js/docs/api/variables/useCopyToClipboard"
+            },
+            {
+              "id": "api/variables/useCreateBatch",
+              "path": "/katanakit-js/docs/api/variables/useCreateBatch"
+            },
+            {
+              "id": "api/variables/useCreateDebouncedSignal",
+              "path": "/katanakit-js/docs/api/variables/useCreateDebouncedSignal"
+            },
+            {
+              "id": "api/variables/useCreateEffect",
+              "path": "/katanakit-js/docs/api/variables/useCreateEffect"
+            },
+            {
+              "id": "api/variables/useCreateElement",
+              "path": "/katanakit-js/docs/api/variables/useCreateElement"
+            },
+            {
+              "id": "api/variables/useCreateMemo",
+              "path": "/katanakit-js/docs/api/variables/useCreateMemo"
+            },
+            {
+              "id": "api/variables/useCreateRssEndpoint",
+              "path": "/katanakit-js/docs/api/variables/useCreateRssEndpoint"
+            },
+            {
+              "id": "api/variables/useCreateRssEndpointFromConfig",
+              "path": "/katanakit-js/docs/api/variables/useCreateRssEndpointFromConfig"
+            },
+            {
+              "id": "api/variables/useCreateSignal",
+              "path": "/katanakit-js/docs/api/variables/useCreateSignal"
+            },
+            {
+              "id": "api/variables/useCreateStorageSignal",
+              "path": "/katanakit-js/docs/api/variables/useCreateStorageSignal"
+            },
+            {
+              "id": "api/variables/useCreateToggle",
+              "path": "/katanakit-js/docs/api/variables/useCreateToggle"
+            },
+            {
+              "id": "api/variables/useCustom",
+              "path": "/katanakit-js/docs/api/variables/useCustom"
+            },
+            {
+              "id": "api/variables/useDebounce",
+              "path": "/katanakit-js/docs/api/variables/useDebounce"
+            },
+            {
+              "id": "api/variables/useDebounceImmediate",
+              "path": "/katanakit-js/docs/api/variables/useDebounceImmediate"
+            },
+            {
+              "id": "api/variables/useDeepClone",
+              "path": "/katanakit-js/docs/api/variables/useDeepClone"
+            },
+            {
+              "id": "api/variables/useDeepMerge",
+              "path": "/katanakit-js/docs/api/variables/useDeepMerge"
+            },
+            {
+              "id": "api/variables/useDelay",
+              "path": "/katanakit-js/docs/api/variables/useDelay"
+            },
+            {
+              "id": "api/variables/useDelete",
+              "path": "/katanakit-js/docs/api/variables/useDelete"
+            },
+            {
+              "id": "api/variables/useDestroyTheme",
+              "path": "/katanakit-js/docs/api/variables/useDestroyTheme"
+            },
+            {
+              "id": "api/variables/useEncrypt",
+              "path": "/katanakit-js/docs/api/variables/useEncrypt"
+            },
+            {
+              "id": "api/variables/useError",
+              "path": "/katanakit-js/docs/api/variables/useError"
+            },
+            {
+              "id": "api/variables/useExitFullscreen",
+              "path": "/katanakit-js/docs/api/variables/useExitFullscreen"
+            },
+            {
+              "id": "api/variables/useExtractUniqueValues",
+              "path": "/katanakit-js/docs/api/variables/useExtractUniqueValues"
+            },
+            {
+              "id": "api/variables/useFetch",
+              "path": "/katanakit-js/docs/api/variables/useFetch"
+            },
+            {
+              "id": "api/variables/useFindEntry",
+              "path": "/katanakit-js/docs/api/variables/useFindEntry"
+            },
+            {
+              "id": "api/variables/useFocusElement",
+              "path": "/katanakit-js/docs/api/variables/useFocusElement"
+            },
+            {
+              "id": "api/variables/useForbidden",
+              "path": "/katanakit-js/docs/api/variables/useForbidden"
+            },
+            {
+              "id": "api/variables/useFormatCurrency",
+              "path": "/katanakit-js/docs/api/variables/useFormatCurrency"
+            },
+            {
+              "id": "api/variables/useFormatNumber",
+              "path": "/katanakit-js/docs/api/variables/useFormatNumber"
+            },
+            {
+              "id": "api/variables/useGeneratePagination",
+              "path": "/katanakit-js/docs/api/variables/useGeneratePagination"
+            },
+            {
+              "id": "api/variables/useGenerateRss",
+              "path": "/katanakit-js/docs/api/variables/useGenerateRss"
+            },
+            {
+              "id": "api/variables/useGet",
+              "path": "/katanakit-js/docs/api/variables/useGet"
+            },
+            {
+              "id": "api/variables/useGetActiveElement",
+              "path": "/katanakit-js/docs/api/variables/useGetActiveElement"
+            },
+            {
+              "id": "api/variables/useGetApis",
+              "path": "/katanakit-js/docs/api/variables/useGetApis"
+            },
+            {
+              "id": "api/variables/useGetAttribute",
+              "path": "/katanakit-js/docs/api/variables/useGetAttribute"
+            },
+            {
+              "id": "api/variables/useGetBody",
+              "path": "/katanakit-js/docs/api/variables/useGetBody"
+            },
+            {
+              "id": "api/variables/useGetDataAttribute",
+              "path": "/katanakit-js/docs/api/variables/useGetDataAttribute"
+            },
+            {
+              "id": "api/variables/useGetElementByClass",
+              "path": "/katanakit-js/docs/api/variables/useGetElementByClass"
+            },
+            {
+              "id": "api/variables/useGetElementById",
+              "path": "/katanakit-js/docs/api/variables/useGetElementById"
+            },
+            {
+              "id": "api/variables/useGetResolved",
+              "path": "/katanakit-js/docs/api/variables/useGetResolved"
+            },
+            {
+              "id": "api/variables/useGetRoot",
+              "path": "/katanakit-js/docs/api/variables/useGetRoot"
+            },
+            {
+              "id": "api/variables/useGetScrollPosition",
+              "path": "/katanakit-js/docs/api/variables/useGetScrollPosition"
+            },
+            {
+              "id": "api/variables/useGetScrollProgress",
+              "path": "/katanakit-js/docs/api/variables/useGetScrollProgress"
+            },
+            {
+              "id": "api/variables/useGetScrollX",
+              "path": "/katanakit-js/docs/api/variables/useGetScrollX"
+            },
+            {
+              "id": "api/variables/useGetScrollY",
+              "path": "/katanakit-js/docs/api/variables/useGetScrollY"
+            },
+            {
+              "id": "api/variables/useGetStaticPaths",
+              "path": "/katanakit-js/docs/api/variables/useGetStaticPaths"
+            },
+            {
+              "id": "api/variables/useGetStorage",
+              "path": "/katanakit-js/docs/api/variables/useGetStorage"
+            },
+            {
+              "id": "api/variables/useGetThemeMode",
+              "path": "/katanakit-js/docs/api/variables/useGetThemeMode"
+            },
+            {
+              "id": "api/variables/useGetTitle",
+              "path": "/katanakit-js/docs/api/variables/useGetTitle"
+            },
+            {
+              "id": "api/variables/useGetUrlParams",
+              "path": "/katanakit-js/docs/api/variables/useGetUrlParams"
+            },
+            {
+              "id": "api/variables/useGetViewportSize",
+              "path": "/katanakit-js/docs/api/variables/useGetViewportSize"
+            },
+            {
+              "id": "api/variables/useGroupBy",
+              "path": "/katanakit-js/docs/api/variables/useGroupBy"
+            },
+            {
+              "id": "api/variables/useHasClass",
+              "path": "/katanakit-js/docs/api/variables/useHasClass"
+            },
+            {
+              "id": "api/variables/useInit",
+              "path": "/katanakit-js/docs/api/variables/useInit"
+            },
+            {
+              "id": "api/variables/useInitTheme",
+              "path": "/katanakit-js/docs/api/variables/useInitTheme"
+            },
+            {
+              "id": "api/variables/useInternal",
+              "path": "/katanakit-js/docs/api/variables/useInternal"
+            },
+            {
+              "id": "api/variables/useInterval",
+              "path": "/katanakit-js/docs/api/variables/useInterval"
+            },
+            {
+              "id": "api/variables/useIsAtBottom",
+              "path": "/katanakit-js/docs/api/variables/useIsAtBottom"
+            },
+            {
+              "id": "api/variables/useIsAtTop",
+              "path": "/katanakit-js/docs/api/variables/useIsAtTop"
+            },
+            {
+              "id": "api/variables/useIsBrowser",
+              "path": "/katanakit-js/docs/api/variables/useIsBrowser"
+            },
+            {
+              "id": "api/variables/useIsDocumentVisible",
+              "path": "/katanakit-js/docs/api/variables/useIsDocumentVisible"
+            },
+            {
+              "id": "api/variables/useIsFullscreen",
+              "path": "/katanakit-js/docs/api/variables/useIsFullscreen"
+            },
+            {
+              "id": "api/variables/useIsObject",
+              "path": "/katanakit-js/docs/api/variables/useIsObject"
+            },
+            {
+              "id": "api/variables/useJsonParse",
+              "path": "/katanakit-js/docs/api/variables/useJsonParse"
+            },
+            {
+              "id": "api/variables/useJsonStringify",
+              "path": "/katanakit-js/docs/api/variables/useJsonStringify"
+            },
+            {
+              "id": "api/variables/useLog",
+              "path": "/katanakit-js/docs/api/variables/useLog"
+            },
+            {
+              "id": "api/variables/useLowerCase",
+              "path": "/katanakit-js/docs/api/variables/useLowerCase"
+            },
+            {
+              "id": "api/variables/useMatchesMedia",
+              "path": "/katanakit-js/docs/api/variables/useMatchesMedia"
+            },
+            {
+              "id": "api/variables/useNotFound",
+              "path": "/katanakit-js/docs/api/variables/useNotFound"
+            },
+            {
+              "id": "api/variables/useNumericId",
+              "path": "/katanakit-js/docs/api/variables/useNumericId"
+            },
+            {
+              "id": "api/variables/useOmit",
+              "path": "/katanakit-js/docs/api/variables/useOmit"
+            },
+            {
+              "id": "api/variables/useOn",
+              "path": "/katanakit-js/docs/api/variables/useOn"
+            },
+            {
+              "id": "api/variables/useOnVisibilityChange",
+              "path": "/katanakit-js/docs/api/variables/useOnVisibilityChange"
+            },
+            {
+              "id": "api/variables/usePathsFrom",
+              "path": "/katanakit-js/docs/api/variables/usePathsFrom"
+            },
+            {
+              "id": "api/variables/usePathsFromValues",
+              "path": "/katanakit-js/docs/api/variables/usePathsFromValues"
+            },
+            {
+              "id": "api/variables/usePick",
+              "path": "/katanakit-js/docs/api/variables/usePick"
+            },
+            {
+              "id": "api/variables/usePost",
+              "path": "/katanakit-js/docs/api/variables/usePost"
+            },
+            {
+              "id": "api/variables/usePrefersColorScheme",
+              "path": "/katanakit-js/docs/api/variables/usePrefersColorScheme"
+            },
+            {
+              "id": "api/variables/usePrefersDarkMode",
+              "path": "/katanakit-js/docs/api/variables/usePrefersDarkMode"
+            },
+            {
+              "id": "api/variables/usePrefersReducedMotion",
+              "path": "/katanakit-js/docs/api/variables/usePrefersReducedMotion"
+            },
+            {
+              "id": "api/variables/usePrintPage",
+              "path": "/katanakit-js/docs/api/variables/usePrintPage"
+            },
+            {
+              "id": "api/variables/usePut",
+              "path": "/katanakit-js/docs/api/variables/usePut"
+            },
+            {
+              "id": "api/variables/useQuerySelector",
+              "path": "/katanakit-js/docs/api/variables/useQuerySelector"
+            },
+            {
+              "id": "api/variables/useQuerySelectorAll",
+              "path": "/katanakit-js/docs/api/variables/useQuerySelectorAll"
+            },
+            {
+              "id": "api/variables/useRace",
+              "path": "/katanakit-js/docs/api/variables/useRace"
+            },
+            {
+              "id": "api/variables/useRemove",
+              "path": "/katanakit-js/docs/api/variables/useRemove"
+            },
+            {
+              "id": "api/variables/useRemoveAttribute",
+              "path": "/katanakit-js/docs/api/variables/useRemoveAttribute"
+            },
+            {
+              "id": "api/variables/useRemoveClass",
+              "path": "/katanakit-js/docs/api/variables/useRemoveClass"
+            },
+            {
+              "id": "api/variables/useRemoveStorage",
+              "path": "/katanakit-js/docs/api/variables/useRemoveStorage"
+            },
+            {
+              "id": "api/variables/useRepeat",
+              "path": "/katanakit-js/docs/api/variables/useRepeat"
+            },
+            {
+              "id": "api/variables/useRequestFullscreen",
+              "path": "/katanakit-js/docs/api/variables/useRequestFullscreen"
+            },
+            {
+              "id": "api/variables/useResetTheme",
+              "path": "/katanakit-js/docs/api/variables/useResetTheme"
+            },
+            {
+              "id": "api/variables/useRetry",
+              "path": "/katanakit-js/docs/api/variables/useRetry"
+            },
+            {
+              "id": "api/variables/useRound",
+              "path": "/katanakit-js/docs/api/variables/useRound"
+            },
+            {
+              "id": "api/variables/useRssLinkTag",
+              "path": "/katanakit-js/docs/api/variables/useRssLinkTag"
+            },
+            {
+              "id": "api/variables/useScrollTo",
+              "path": "/katanakit-js/docs/api/variables/useScrollTo"
+            },
+            {
+              "id": "api/variables/useScrollToBottom",
+              "path": "/katanakit-js/docs/api/variables/useScrollToBottom"
+            },
+            {
+              "id": "api/variables/useScrollToElement",
+              "path": "/katanakit-js/docs/api/variables/useScrollToElement"
+            },
+            {
+              "id": "api/variables/useScrollToTop",
+              "path": "/katanakit-js/docs/api/variables/useScrollToTop"
+            },
+            {
+              "id": "api/variables/useSetAttribute",
+              "path": "/katanakit-js/docs/api/variables/useSetAttribute"
+            },
+            {
+              "id": "api/variables/useSetDataAttribute",
+              "path": "/katanakit-js/docs/api/variables/useSetDataAttribute"
+            },
+            {
+              "id": "api/variables/useSetHtml",
+              "path": "/katanakit-js/docs/api/variables/useSetHtml"
+            },
+            {
+              "id": "api/variables/useSetStorage",
+              "path": "/katanakit-js/docs/api/variables/useSetStorage"
+            },
+            {
+              "id": "api/variables/useSetStrategy",
+              "path": "/katanakit-js/docs/api/variables/useSetStrategy"
+            },
+            {
+              "id": "api/variables/useSetTempTitle",
+              "path": "/katanakit-js/docs/api/variables/useSetTempTitle"
+            },
+            {
+              "id": "api/variables/useSetText",
+              "path": "/katanakit-js/docs/api/variables/useSetText"
+            },
+            {
+              "id": "api/variables/useSetThemeMode",
+              "path": "/katanakit-js/docs/api/variables/useSetThemeMode"
+            },
+            {
+              "id": "api/variables/useSetTimeout",
+              "path": "/katanakit-js/docs/api/variables/useSetTimeout"
+            },
+            {
+              "id": "api/variables/useSetTitle",
+              "path": "/katanakit-js/docs/api/variables/useSetTitle"
+            },
+            {
+              "id": "api/variables/useSleep",
+              "path": "/katanakit-js/docs/api/variables/useSleep"
+            },
+            {
+              "id": "api/variables/useSlugify",
+              "path": "/katanakit-js/docs/api/variables/useSlugify"
+            },
+            {
+              "id": "api/variables/useTable",
+              "path": "/katanakit-js/docs/api/variables/useTable"
+            },
+            {
+              "id": "api/variables/useThrottle",
+              "path": "/katanakit-js/docs/api/variables/useThrottle"
+            },
+            {
+              "id": "api/variables/useThrottleTrailing",
+              "path": "/katanakit-js/docs/api/variables/useThrottleTrailing"
+            },
+            {
+              "id": "api/variables/useToCelsius",
+              "path": "/katanakit-js/docs/api/variables/useToCelsius"
+            },
+            {
+              "id": "api/variables/useToCm",
+              "path": "/katanakit-js/docs/api/variables/useToCm"
+            },
+            {
+              "id": "api/variables/useToFahrenheit",
+              "path": "/katanakit-js/docs/api/variables/useToFahrenheit"
+            },
+            {
+              "id": "api/variables/useToggleClass",
+              "path": "/katanakit-js/docs/api/variables/useToggleClass"
+            },
+            {
+              "id": "api/variables/useToggleTheme",
+              "path": "/katanakit-js/docs/api/variables/useToggleTheme"
+            },
+            {
+              "id": "api/variables/useToInches",
+              "path": "/katanakit-js/docs/api/variables/useToInches"
+            },
+            {
+              "id": "api/variables/useToken",
+              "path": "/katanakit-js/docs/api/variables/useToken"
+            },
+            {
+              "id": "api/variables/useToKilometers",
+              "path": "/katanakit-js/docs/api/variables/useToKilometers"
+            },
+            {
+              "id": "api/variables/useToKilos",
+              "path": "/katanakit-js/docs/api/variables/useToKilos"
+            },
+            {
+              "id": "api/variables/useToMiles",
+              "path": "/katanakit-js/docs/api/variables/useToMiles"
+            },
+            {
+              "id": "api/variables/useToPounds",
+              "path": "/katanakit-js/docs/api/variables/useToPounds"
+            },
+            {
+              "id": "api/variables/useUnauthorized",
+              "path": "/katanakit-js/docs/api/variables/useUnauthorized"
+            },
+            {
+              "id": "api/variables/useUnique",
+              "path": "/katanakit-js/docs/api/variables/useUnique"
+            },
+            {
+              "id": "api/variables/useUpperCase",
+              "path": "/katanakit-js/docs/api/variables/useUpperCase"
+            },
+            {
+              "id": "api/variables/useUuid",
+              "path": "/katanakit-js/docs/api/variables/useUuid"
+            },
+            {
+              "id": "changelog",
+              "path": "/katanakit-js/docs/changelog",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "guides/architecture",
+              "path": "/katanakit-js/docs/guides/architecture",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "guides/getting-started",
+              "path": "/katanakit-js/docs/guides/getting-started",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "guides/roadmap",
+              "path": "/katanakit-js/docs/guides/roadmap",
+              "sidebar": "docsSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "docsSidebar": {
+              "link": {
+                "path": "/katanakit-js/docs/guides/getting-started",
+                "label": "guides/getting-started"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

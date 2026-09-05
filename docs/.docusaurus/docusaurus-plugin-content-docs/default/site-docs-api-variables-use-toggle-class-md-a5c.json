@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToggleClass",
+  "title": "Variable: useToggleClass",
+  "description": "useToggleClass: (target, className, force?) => boolean \\| undefined",
+  "source": "@site/docs/api/variables/useToggleClass.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToggleClass",
+  "permalink": "/katanakit-js/docs/api/variables/useToggleClass",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToggleClass.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

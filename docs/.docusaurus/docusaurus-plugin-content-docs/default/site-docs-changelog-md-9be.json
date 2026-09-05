@@ -1,0 +1,25 @@
+{
+  "id": "changelog",
+  "title": "Changelog",
+  "description": "All notable changes to katanakit-js.",
+  "source": "@site/docs/changelog.md",
+  "sourceDirName": ".",
+  "slug": "/changelog",
+  "permalink": "/katanakit-js/docs/changelog",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/changelog.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Changelog",
+    "sidebar_position": 4,
+    "description": "All notable changes to katanakit-js."
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Roadmap",
+    "permalink": "/katanakit-js/docs/guides/roadmap"
+  }
+}

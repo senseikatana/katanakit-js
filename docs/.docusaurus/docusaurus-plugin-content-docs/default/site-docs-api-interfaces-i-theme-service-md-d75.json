@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/IThemeService",
+  "title": "Interface: IThemeService",
+  "description": "Defined in489",
+  "source": "@site/docs/api/interfaces/IThemeService.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/IThemeService",
+  "permalink": "/katanakit-js/docs/api/interfaces/IThemeService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/IThemeService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetScrollPosition",
+  "title": "Variable: useGetScrollPosition",
+  "description": "useGetScrollPosition: () => ScrollPosition",
+  "source": "@site/docs/api/variables/useGetScrollPosition.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetScrollPosition",
+  "permalink": "/katanakit-js/docs/api/variables/useGetScrollPosition",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetScrollPosition.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

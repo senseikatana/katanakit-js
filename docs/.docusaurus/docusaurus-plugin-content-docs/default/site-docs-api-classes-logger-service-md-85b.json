@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/LoggerService",
+  "title": "Class: LoggerService",
+  "description": "Defined in20",
+  "source": "@site/docs/api/classes/LoggerService.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/LoggerService",
+  "permalink": "/katanakit-js/docs/api/classes/LoggerService",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/LoggerService.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

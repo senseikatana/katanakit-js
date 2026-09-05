@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/PathsOptions",
+  "title": "Interface: PathsOptions&lt;T, TParam, TProps&gt;",
+  "description": "Defined in512",
+  "source": "@site/docs/api/interfaces/PathsOptions.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/PathsOptions",
+  "permalink": "/katanakit-js/docs/api/interfaces/PathsOptions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/PathsOptions.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

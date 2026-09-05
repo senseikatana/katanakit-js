@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useQuerySelector",
+  "title": "Variable: useQuerySelector",
+  "description": "useQuerySelector HTMLElementTagNameMap\\[K\\] \\| null; &lt;E&gt;(selector): E \\| null; \\}",
+  "source": "@site/docs/api/variables/useQuerySelector.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useQuerySelector",
+  "permalink": "/katanakit-js/docs/api/variables/useQuerySelector",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useQuerySelector.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

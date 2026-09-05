@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/WorkerPoolEntry",
+  "title": "Interface: WorkerPoolEntry&lt;TInput, TOutput&gt;",
+  "description": "Defined in112",
+  "source": "@site/docs/api/interfaces/WorkerPoolEntry.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/WorkerPoolEntry",
+  "permalink": "/katanakit-js/docs/api/interfaces/WorkerPoolEntry",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/WorkerPoolEntry.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

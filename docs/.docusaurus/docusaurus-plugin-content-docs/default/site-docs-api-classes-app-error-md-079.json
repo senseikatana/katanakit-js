@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/AppError",
+  "title": "Class: AppError",
+  "description": "Defined in6",
+  "source": "@site/docs/api/classes/AppError.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/AppError",
+  "permalink": "/katanakit-js/docs/api/classes/AppError",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/AppError.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

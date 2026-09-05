@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useIsBrowser",
+  "title": "Variable: useIsBrowser",
+  "description": "useIsBrowser: () => boolean",
+  "source": "@site/docs/api/variables/useIsBrowser.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useIsBrowser",
+  "permalink": "/katanakit-js/docs/api/variables/useIsBrowser",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useIsBrowser.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

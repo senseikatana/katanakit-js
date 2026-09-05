@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/SignalListener",
+  "title": "Type Alias: SignalListener&lt;T&gt;",
+  "description": "SignalListener&lt;T&gt; = (newValue, oldValue) => void",
+  "source": "@site/docs/api/type-aliases/SignalListener.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/SignalListener",
+  "permalink": "/katanakit-js/docs/api/type-aliases/SignalListener",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/SignalListener.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

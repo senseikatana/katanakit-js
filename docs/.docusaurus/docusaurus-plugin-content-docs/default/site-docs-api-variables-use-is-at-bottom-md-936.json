@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useIsAtBottom",
+  "title": "Variable: useIsAtBottom",
+  "description": "useIsAtBottom: (threshold) => boolean",
+  "source": "@site/docs/api/variables/useIsAtBottom.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useIsAtBottom",
+  "permalink": "/katanakit-js/docs/api/variables/useIsAtBottom",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useIsAtBottom.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

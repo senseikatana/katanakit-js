@@ -1,0 +1,15 @@
+{
+  "id": "api/classes/NativeUuidStrategy",
+  "title": "Class: NativeUuidStrategy",
+  "description": "Defined in28",
+  "source": "@site/docs/api/classes/NativeUuidStrategy.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/NativeUuidStrategy",
+  "permalink": "/katanakit-js/docs/api/classes/NativeUuidStrategy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/classes/NativeUuidStrategy.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

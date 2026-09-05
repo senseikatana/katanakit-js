@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateRssEndpointFromConfig",
+  "title": "Variable: useCreateRssEndpointFromConfig",
+  "description": "useCreateRssEndpointFromConfig: (siteConfig, items) => (context) => Promise&lt;Response&gt;",
+  "source": "@site/docs/api/variables/useCreateRssEndpointFromConfig.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateRssEndpointFromConfig",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateRssEndpointFromConfig",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateRssEndpointFromConfig.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useClear",
+  "title": "Variable: useClear",
+  "description": "useClear: () => void",
+  "source": "@site/docs/api/variables/useClear.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useClear",
+  "permalink": "/katanakit-js/docs/api/variables/useClear",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useClear.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useCreateToggle",
+  "title": "Variable: useCreateToggle",
+  "description": "useCreateToggle: (initialValue) => \\[SignalGetter&lt;boolean&gt;, ToggleSignalSetter\\]",
+  "source": "@site/docs/api/variables/useCreateToggle.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useCreateToggle",
+  "permalink": "/katanakit-js/docs/api/variables/useCreateToggle",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useCreateToggle.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

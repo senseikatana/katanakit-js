@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useAppend",
+  "title": "Variable: useAppend",
+  "description": "useAppend: (target, child) => void",
+  "source": "@site/docs/api/variables/useAppend.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useAppend",
+  "permalink": "/katanakit-js/docs/api/variables/useAppend",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useAppend.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

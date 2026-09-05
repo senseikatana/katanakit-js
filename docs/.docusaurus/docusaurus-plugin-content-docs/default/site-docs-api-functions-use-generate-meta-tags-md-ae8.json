@@ -1,0 +1,15 @@
+{
+  "id": "api/functions/useGenerateMetaTags",
+  "title": "Function: useGenerateMetaTags()",
+  "description": "useGenerateMetaTags(config, meta): string",
+  "source": "@site/docs/api/functions/useGenerateMetaTags.md",
+  "sourceDirName": "api/functions",
+  "slug": "/api/functions/useGenerateMetaTags",
+  "permalink": "/katanakit-js/docs/api/functions/useGenerateMetaTags",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/functions/useGenerateMetaTags.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

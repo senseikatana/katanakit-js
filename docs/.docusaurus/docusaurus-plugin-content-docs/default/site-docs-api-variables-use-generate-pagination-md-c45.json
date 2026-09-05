@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGeneratePagination",
+  "title": "Variable: useGeneratePagination",
+  "description": "useGeneratePagination: &lt;T, TParam&gt;(items, pageSize, param) => AstroPath&lt;TParam, PaginationProps&lt;T&gt;&gt;[]",
+  "source": "@site/docs/api/variables/useGeneratePagination.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGeneratePagination",
+  "permalink": "/katanakit-js/docs/api/variables/useGeneratePagination",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGeneratePagination.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

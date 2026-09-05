@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/ISerializedError",
+  "title": "Interface: ISerializedError",
+  "description": "Defined in297",
+  "source": "@site/docs/api/interfaces/ISerializedError.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ISerializedError",
+  "permalink": "/katanakit-js/docs/api/interfaces/ISerializedError",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/ISerializedError.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

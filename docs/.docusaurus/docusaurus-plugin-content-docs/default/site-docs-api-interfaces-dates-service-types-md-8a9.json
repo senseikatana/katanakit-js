@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/DatesServiceTypes",
+  "title": "Interface: DatesServiceTypes",
+  "description": "Defined in188",
+  "source": "@site/docs/api/interfaces/DatesServiceTypes.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/DatesServiceTypes",
+  "permalink": "/katanakit-js/docs/api/interfaces/DatesServiceTypes",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/DatesServiceTypes.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

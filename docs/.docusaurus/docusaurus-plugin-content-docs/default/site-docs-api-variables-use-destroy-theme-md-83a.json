@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useDestroyTheme",
+  "title": "Variable: useDestroyTheme",
+  "description": "useDestroyTheme: () => void",
+  "source": "@site/docs/api/variables/useDestroyTheme.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useDestroyTheme",
+  "permalink": "/katanakit-js/docs/api/variables/useDestroyTheme",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useDestroyTheme.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

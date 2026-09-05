@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useSetThemeMode",
+  "title": "Variable: useSetThemeMode",
+  "description": "useSetThemeMode: (mode) => void",
+  "source": "@site/docs/api/variables/useSetThemeMode.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useSetThemeMode",
+  "permalink": "/katanakit-js/docs/api/variables/useSetThemeMode",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useSetThemeMode.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

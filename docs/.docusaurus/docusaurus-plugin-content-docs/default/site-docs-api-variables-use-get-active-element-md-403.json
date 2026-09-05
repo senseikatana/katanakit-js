@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useGetActiveElement",
+  "title": "Variable: useGetActiveElement",
+  "description": "useGetActiveElement: () => Element \\| null",
+  "source": "@site/docs/api/variables/useGetActiveElement.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useGetActiveElement",
+  "permalink": "/katanakit-js/docs/api/variables/useGetActiveElement",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useGetActiveElement.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

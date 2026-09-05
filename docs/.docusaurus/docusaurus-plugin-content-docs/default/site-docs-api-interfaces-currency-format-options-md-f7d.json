@@ -1,0 +1,15 @@
+{
+  "id": "api/interfaces/CurrencyFormatOptions",
+  "title": "Interface: CurrencyFormatOptions",
+  "description": "Defined in153",
+  "source": "@site/docs/api/interfaces/CurrencyFormatOptions.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/CurrencyFormatOptions",
+  "permalink": "/katanakit-js/docs/api/interfaces/CurrencyFormatOptions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/interfaces/CurrencyFormatOptions.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useToKilos",
+  "title": "Variable: useToKilos",
+  "description": "useToKilos: (pounds, locale, digits) => string",
+  "source": "@site/docs/api/variables/useToKilos.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useToKilos",
+  "permalink": "/katanakit-js/docs/api/variables/useToKilos",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useToKilos.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

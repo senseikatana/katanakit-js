@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useDeepClone",
+  "title": "Variable: useDeepClone",
+  "description": "useDeepClone: &lt;T&gt;(value) => T",
+  "source": "@site/docs/api/variables/useDeepClone.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useDeepClone",
+  "permalink": "/katanakit-js/docs/api/variables/useDeepClone",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useDeepClone.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

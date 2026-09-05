@@ -1,0 +1,1042 @@
+{
+  "/katanakit-js/docs-71e": {
+    "__comp": "5e95c892",
+    "__context": {
+      "plugin": "aba21aa0"
+    }
+  },
+  "/katanakit-js/docs-a39": {
+    "__comp": "a7bd4aaa",
+    "__props": "2d3e5e23"
+  },
+  "/katanakit-js/docs-3cb": {
+    "__comp": "a94703ab"
+  },
+  "/katanakit-js/docs/api-150": {
+    "__comp": "17896441",
+    "content": "5e8c322a"
+  },
+  "/katanakit-js/docs/api/classes/AppError-816": {
+    "__comp": "17896441",
+    "content": "07950e36"
+  },
+  "/katanakit-js/docs/api/classes/AppUtils-40b": {
+    "__comp": "17896441",
+    "content": "29d89502"
+  },
+  "/katanakit-js/docs/api/classes/AstroService-8e6": {
+    "__comp": "17896441",
+    "content": "41d2c152"
+  },
+  "/katanakit-js/docs/api/classes/ConsoleStrategy-a44": {
+    "__comp": "17896441",
+    "content": "05b9453a"
+  },
+  "/katanakit-js/docs/api/classes/ConverterService-be0": {
+    "__comp": "17896441",
+    "content": "ab3cd983"
+  },
+  "/katanakit-js/docs/api/classes/DataUtils-8d0": {
+    "__comp": "17896441",
+    "content": "15682d3a"
+  },
+  "/katanakit-js/docs/api/classes/DomService-223": {
+    "__comp": "17896441",
+    "content": "1de582f4"
+  },
+  "/katanakit-js/docs/api/classes/ErrorFactoryService-276": {
+    "__comp": "17896441",
+    "content": "b840548d"
+  },
+  "/katanakit-js/docs/api/classes/FetchApiManager-abf": {
+    "__comp": "17896441",
+    "content": "50a3f2d8"
+  },
+  "/katanakit-js/docs/api/classes/FormatterService-fe0": {
+    "__comp": "17896441",
+    "content": "7edcf3e8"
+  },
+  "/katanakit-js/docs/api/classes/GeneratorService-145": {
+    "__comp": "17896441",
+    "content": "f93f082e"
+  },
+  "/katanakit-js/docs/api/classes/GeometryArea-33e": {
+    "__comp": "17896441",
+    "content": "c222032c"
+  },
+  "/katanakit-js/docs/api/classes/GeometryPerimeter-313": {
+    "__comp": "17896441",
+    "content": "a7b3ba8d"
+  },
+  "/katanakit-js/docs/api/classes/GeometryVolume-385": {
+    "__comp": "17896441",
+    "content": "2bf02711"
+  },
+  "/katanakit-js/docs/api/classes/LazyLoaderService-f7b": {
+    "__comp": "17896441",
+    "content": "b0589c10"
+  },
+  "/katanakit-js/docs/api/classes/LazyNodeCryptoStrategy-301": {
+    "__comp": "17896441",
+    "content": "70c4cdc2"
+  },
+  "/katanakit-js/docs/api/classes/LocalStorageStrategy-f0f": {
+    "__comp": "17896441",
+    "content": "26ab80b0"
+  },
+  "/katanakit-js/docs/api/classes/LoggerService-c76": {
+    "__comp": "17896441",
+    "content": "85bf66aa"
+  },
+  "/katanakit-js/docs/api/classes/MemoryStorageStrategy-36b": {
+    "__comp": "17896441",
+    "content": "a07bd5d8"
+  },
+  "/katanakit-js/docs/api/classes/NativeUuidStrategy-da6": {
+    "__comp": "17896441",
+    "content": "31410b0e"
+  },
+  "/katanakit-js/docs/api/classes/ObserverService-425": {
+    "__comp": "17896441",
+    "content": "365d3bd8"
+  },
+  "/katanakit-js/docs/api/classes/ReactiveService-ed2": {
+    "__comp": "17896441",
+    "content": "6ee519a2"
+  },
+  "/katanakit-js/docs/api/classes/RssService-fab": {
+    "__comp": "17896441",
+    "content": "fb01e27b"
+  },
+  "/katanakit-js/docs/api/classes/SensorsUtils-a94": {
+    "__comp": "17896441",
+    "content": "c6863e71"
+  },
+  "/katanakit-js/docs/api/classes/SessionStorageStrategy-6b7": {
+    "__comp": "17896441",
+    "content": "296c0e39"
+  },
+  "/katanakit-js/docs/api/classes/StorageService-918": {
+    "__comp": "17896441",
+    "content": "319e25bd"
+  },
+  "/katanakit-js/docs/api/classes/SystemUtils-dfa": {
+    "__comp": "17896441",
+    "content": "400b9b1f"
+  },
+  "/katanakit-js/docs/api/classes/ThemeService-b45": {
+    "__comp": "17896441",
+    "content": "d50ffe52"
+  },
+  "/katanakit-js/docs/api/classes/TimingService-44f": {
+    "__comp": "17896441",
+    "content": "906349b5"
+  },
+  "/katanakit-js/docs/api/classes/ViewportService-d42": {
+    "__comp": "17896441",
+    "content": "25d346fb"
+  },
+  "/katanakit-js/docs/api/classes/WorkerService-242": {
+    "__comp": "17896441",
+    "content": "6113d56f"
+  },
+  "/katanakit-js/docs/api/functions/useGenerateMetaTags-26f": {
+    "__comp": "17896441",
+    "content": "ae826319"
+  },
+  "/katanakit-js/docs/api/functions/useHeadTags-6fd": {
+    "__comp": "17896441",
+    "content": "1660a509"
+  },
+  "/katanakit-js/docs/api/functions/useRssHeadLink-a1b": {
+    "__comp": "17896441",
+    "content": "1672af2d"
+  },
+  "/katanakit-js/docs/api/functions/useTitle-3cd": {
+    "__comp": "17896441",
+    "content": "5534d302"
+  },
+  "/katanakit-js/docs/api/globals-29c": {
+    "__comp": "17896441",
+    "content": "2b9e9ebb"
+  },
+  "/katanakit-js/docs/api/interfaces/ApiEntry-171": {
+    "__comp": "17896441",
+    "content": "c74cffb7"
+  },
+  "/katanakit-js/docs/api/interfaces/ApiError-022": {
+    "__comp": "17896441",
+    "content": "906a686b"
+  },
+  "/katanakit-js/docs/api/interfaces/AppDateFormatOptions-09c": {
+    "__comp": "17896441",
+    "content": "69b36005"
+  },
+  "/katanakit-js/docs/api/interfaces/AstroPath-c60": {
+    "__comp": "17896441",
+    "content": "2834a8be"
+  },
+  "/katanakit-js/docs/api/interfaces/AstroServiceError-d9b": {
+    "__comp": "17896441",
+    "content": "8c852f87"
+  },
+  "/katanakit-js/docs/api/interfaces/BatteryManager-45b": {
+    "__comp": "17896441",
+    "content": "7a7542c8"
+  },
+  "/katanakit-js/docs/api/interfaces/CollectionEntryLike-97b": {
+    "__comp": "17896441",
+    "content": "9b42da1a"
+  },
+  "/katanakit-js/docs/api/interfaces/CurrencyFormatOptions-ca6": {
+    "__comp": "17896441",
+    "content": "f7d71966"
+  },
+  "/katanakit-js/docs/api/interfaces/DatesServiceTypes-854": {
+    "__comp": "17896441",
+    "content": "8a9aa069"
+  },
+  "/katanakit-js/docs/api/interfaces/FetchOptions-9fc": {
+    "__comp": "17896441",
+    "content": "c2c9a4c4"
+  },
+  "/katanakit-js/docs/api/interfaces/GeometryFormatOptions-1c7": {
+    "__comp": "17896441",
+    "content": "34cd74bf"
+  },
+  "/katanakit-js/docs/api/interfaces/GeoPosition-dc9": {
+    "__comp": "17896441",
+    "content": "7e702931"
+  },
+  "/katanakit-js/docs/api/interfaces/IAppUtils-021": {
+    "__comp": "17896441",
+    "content": "d652a280"
+  },
+  "/katanakit-js/docs/api/interfaces/IAstroService-5e2": {
+    "__comp": "17896441",
+    "content": "7959c611"
+  },
+  "/katanakit-js/docs/api/interfaces/IConverterService-070": {
+    "__comp": "17896441",
+    "content": "ed26200b"
+  },
+  "/katanakit-js/docs/api/interfaces/ICryptoStrategy-b8c": {
+    "__comp": "17896441",
+    "content": "a4ab7e7f"
+  },
+  "/katanakit-js/docs/api/interfaces/IDataUtils-ab7": {
+    "__comp": "17896441",
+    "content": "2bc8c415"
+  },
+  "/katanakit-js/docs/api/interfaces/IDomService-d71": {
+    "__comp": "17896441",
+    "content": "9d1059b3"
+  },
+  "/katanakit-js/docs/api/interfaces/IErrorFactory-c72": {
+    "__comp": "17896441",
+    "content": "3530b31d"
+  },
+  "/katanakit-js/docs/api/interfaces/IFetchApiManager-f61": {
+    "__comp": "17896441",
+    "content": "1474b118"
+  },
+  "/katanakit-js/docs/api/interfaces/IFormatterService-de9": {
+    "__comp": "17896441",
+    "content": "2971dd3b"
+  },
+  "/katanakit-js/docs/api/interfaces/IntervalControl-0f7": {
+    "__comp": "17896441",
+    "content": "86cd7ab9"
+  },
+  "/katanakit-js/docs/api/interfaces/IReactiveService-389": {
+    "__comp": "17896441",
+    "content": "857d983e"
+  },
+  "/katanakit-js/docs/api/interfaces/IRssService-090": {
+    "__comp": "17896441",
+    "content": "92f67089"
+  },
+  "/katanakit-js/docs/api/interfaces/ISerializedError-733": {
+    "__comp": "17896441",
+    "content": "16197551"
+  },
+  "/katanakit-js/docs/api/interfaces/ISystemUtils-c4a": {
+    "__comp": "17896441",
+    "content": "86e28d4d"
+  },
+  "/katanakit-js/docs/api/interfaces/IThemeService-dba": {
+    "__comp": "17896441",
+    "content": "d75c920a"
+  },
+  "/katanakit-js/docs/api/interfaces/IUuidStrategy-9f9": {
+    "__comp": "17896441",
+    "content": "7b667f77"
+  },
+  "/katanakit-js/docs/api/interfaces/LazyLoaderEntry-72f": {
+    "__comp": "17896441",
+    "content": "fb7173b0"
+  },
+  "/katanakit-js/docs/api/interfaces/LogStrategy-12d": {
+    "__comp": "17896441",
+    "content": "6890ba0e"
+  },
+  "/katanakit-js/docs/api/interfaces/NumberFormatOptions-04a": {
+    "__comp": "17896441",
+    "content": "7726b360"
+  },
+  "/katanakit-js/docs/api/interfaces/ObserverConfig-d96": {
+    "__comp": "17896441",
+    "content": "89a699bb"
+  },
+  "/katanakit-js/docs/api/interfaces/ObserverEntry-621": {
+    "__comp": "17896441",
+    "content": "0100f917"
+  },
+  "/katanakit-js/docs/api/interfaces/PaginationProps-956": {
+    "__comp": "17896441",
+    "content": "8c33bac7"
+  },
+  "/katanakit-js/docs/api/interfaces/PathsOptions-5f6": {
+    "__comp": "17896441",
+    "content": "8f4536d7"
+  },
+  "/katanakit-js/docs/api/interfaces/RssConfig-803": {
+    "__comp": "17896441",
+    "content": "50bb3853"
+  },
+  "/katanakit-js/docs/api/interfaces/RssItem-eff": {
+    "__comp": "17896441",
+    "content": "c626654b"
+  },
+  "/katanakit-js/docs/api/interfaces/ScrollOptions-d80": {
+    "__comp": "17896441",
+    "content": "5f513dbc"
+  },
+  "/katanakit-js/docs/api/interfaces/ScrollPosition-8f7": {
+    "__comp": "17896441",
+    "content": "f8507bc9"
+  },
+  "/katanakit-js/docs/api/interfaces/SeoMeta-031": {
+    "__comp": "17896441",
+    "content": "96aaa927"
+  },
+  "/katanakit-js/docs/api/interfaces/SignalGetter-4a7": {
+    "__comp": "17896441",
+    "content": "c9079696"
+  },
+  "/katanakit-js/docs/api/interfaces/SiteConfig-82a": {
+    "__comp": "17896441",
+    "content": "911cb557"
+  },
+  "/katanakit-js/docs/api/interfaces/StorageStrategy-771": {
+    "__comp": "17896441",
+    "content": "448f784d"
+  },
+  "/katanakit-js/docs/api/interfaces/Subscribable-bcd": {
+    "__comp": "17896441",
+    "content": "d3d8713e"
+  },
+  "/katanakit-js/docs/api/interfaces/ThemeOptions-d79": {
+    "__comp": "17896441",
+    "content": "d8aa75d3"
+  },
+  "/katanakit-js/docs/api/interfaces/TimeoutControl-809": {
+    "__comp": "17896441",
+    "content": "9e2a023e"
+  },
+  "/katanakit-js/docs/api/interfaces/ToggleSignalSetter-5e2": {
+    "__comp": "17896441",
+    "content": "7aca8c1c"
+  },
+  "/katanakit-js/docs/api/interfaces/UrlOptions-008": {
+    "__comp": "17896441",
+    "content": "e20f77a7"
+  },
+  "/katanakit-js/docs/api/interfaces/ViewportSize-dc9": {
+    "__comp": "17896441",
+    "content": "fd8d0285"
+  },
+  "/katanakit-js/docs/api/interfaces/WorkerPoolEntry-5f4": {
+    "__comp": "17896441",
+    "content": "32820916"
+  },
+  "/katanakit-js/docs/api/type-aliases/ApisConfig-401": {
+    "__comp": "17896441",
+    "content": "d605631c"
+  },
+  "/katanakit-js/docs/api/type-aliases/AstroServiceResult-3c6": {
+    "__comp": "17896441",
+    "content": "93623159"
+  },
+  "/katanakit-js/docs/api/type-aliases/Currency-353": {
+    "__comp": "17896441",
+    "content": "71388674"
+  },
+  "/katanakit-js/docs/api/type-aliases/DateFormatOptions-74e": {
+    "__comp": "17896441",
+    "content": "4b32af8b"
+  },
+  "/katanakit-js/docs/api/type-aliases/FetchResult-cd2": {
+    "__comp": "17896441",
+    "content": "192d901f"
+  },
+  "/katanakit-js/docs/api/type-aliases/HttpMethod-c3d": {
+    "__comp": "17896441",
+    "content": "f625d8a8"
+  },
+  "/katanakit-js/docs/api/type-aliases/Locale-927": {
+    "__comp": "17896441",
+    "content": "b50c9391"
+  },
+  "/katanakit-js/docs/api/type-aliases/LogLevel-2ce": {
+    "__comp": "17896441",
+    "content": "923154d7"
+  },
+  "/katanakit-js/docs/api/type-aliases/ObserverCallback-b21": {
+    "__comp": "17896441",
+    "content": "851003f5"
+  },
+  "/katanakit-js/docs/api/type-aliases/ObserverTarget-978": {
+    "__comp": "17896441",
+    "content": "119b47c6"
+  },
+  "/katanakit-js/docs/api/type-aliases/PathParams-4c3": {
+    "__comp": "17896441",
+    "content": "38538cf2"
+  },
+  "/katanakit-js/docs/api/type-aliases/ProductType-d4d": {
+    "__comp": "17896441",
+    "content": "a4e4054c"
+  },
+  "/katanakit-js/docs/api/type-aliases/QueryParams-419": {
+    "__comp": "17896441",
+    "content": "1d35dfa9"
+  },
+  "/katanakit-js/docs/api/type-aliases/RssResult-f46": {
+    "__comp": "17896441",
+    "content": "513affd6"
+  },
+  "/katanakit-js/docs/api/type-aliases/SignalListener-839": {
+    "__comp": "17896441",
+    "content": "b1193a27"
+  },
+  "/katanakit-js/docs/api/type-aliases/SignalSetter-20d": {
+    "__comp": "17896441",
+    "content": "ad566652"
+  },
+  "/katanakit-js/docs/api/type-aliases/StorageTarget-4dd": {
+    "__comp": "17896441",
+    "content": "759ad6c3"
+  },
+  "/katanakit-js/docs/api/type-aliases/TemporalInput-fe3": {
+    "__comp": "17896441",
+    "content": "29882b3f"
+  },
+  "/katanakit-js/docs/api/type-aliases/ThemeMode-c68": {
+    "__comp": "17896441",
+    "content": "c1436ed0"
+  },
+  "/katanakit-js/docs/api/type-aliases/WorkerFunc-351": {
+    "__comp": "17896441",
+    "content": "9a9f4b4f"
+  },
+  "/katanakit-js/docs/api/variables/DOM_SERVICE-bfe": {
+    "__comp": "17896441",
+    "content": "3676a817"
+  },
+  "/katanakit-js/docs/api/variables/GeometryUtils-011": {
+    "__comp": "17896441",
+    "content": "559bec4c"
+  },
+  "/katanakit-js/docs/api/variables/sensorsUtils-621": {
+    "__comp": "17896441",
+    "content": "6d93d330"
+  },
+  "/katanakit-js/docs/api/variables/siteConfig-ee6": {
+    "__comp": "17896441",
+    "content": "a21b1a58"
+  },
+  "/katanakit-js/docs/api/variables/THEME_SERVICE-503": {
+    "__comp": "17896441",
+    "content": "3552464d"
+  },
+  "/katanakit-js/docs/api/variables/useAddClass-1fd": {
+    "__comp": "17896441",
+    "content": "fb9311fd"
+  },
+  "/katanakit-js/docs/api/variables/useAppend-a8b": {
+    "__comp": "17896441",
+    "content": "ec9d8268"
+  },
+  "/katanakit-js/docs/api/variables/useAverage-531": {
+    "__comp": "17896441",
+    "content": "7dcc451d"
+  },
+  "/katanakit-js/docs/api/variables/useBadRequest-ccf": {
+    "__comp": "17896441",
+    "content": "33d055c7"
+  },
+  "/katanakit-js/docs/api/variables/useBlurActiveElement-670": {
+    "__comp": "17896441",
+    "content": "cf10691d"
+  },
+  "/katanakit-js/docs/api/variables/useBuildUrl-1f7": {
+    "__comp": "17896441",
+    "content": "26d4d129"
+  },
+  "/katanakit-js/docs/api/variables/useCapitalize-89e": {
+    "__comp": "17896441",
+    "content": "eac9baa1"
+  },
+  "/katanakit-js/docs/api/variables/useChunk-7c5": {
+    "__comp": "17896441",
+    "content": "86ba479e"
+  },
+  "/katanakit-js/docs/api/variables/useClear-5b3": {
+    "__comp": "17896441",
+    "content": "4c8b2aa6"
+  },
+  "/katanakit-js/docs/api/variables/useClearStorage-cc3": {
+    "__comp": "17896441",
+    "content": "c52d59f2"
+  },
+  "/katanakit-js/docs/api/variables/useCopyToClipboard-381": {
+    "__comp": "17896441",
+    "content": "f2c4943f"
+  },
+  "/katanakit-js/docs/api/variables/useCreateBatch-f3c": {
+    "__comp": "17896441",
+    "content": "4e998ec0"
+  },
+  "/katanakit-js/docs/api/variables/useCreateDebouncedSignal-367": {
+    "__comp": "17896441",
+    "content": "1baef003"
+  },
+  "/katanakit-js/docs/api/variables/useCreateEffect-3d8": {
+    "__comp": "17896441",
+    "content": "34fb5f2b"
+  },
+  "/katanakit-js/docs/api/variables/useCreateElement-c00": {
+    "__comp": "17896441",
+    "content": "428ccb43"
+  },
+  "/katanakit-js/docs/api/variables/useCreateMemo-60e": {
+    "__comp": "17896441",
+    "content": "933710ad"
+  },
+  "/katanakit-js/docs/api/variables/useCreateRssEndpoint-366": {
+    "__comp": "17896441",
+    "content": "83148a6c"
+  },
+  "/katanakit-js/docs/api/variables/useCreateRssEndpointFromConfig-1e4": {
+    "__comp": "17896441",
+    "content": "94405d96"
+  },
+  "/katanakit-js/docs/api/variables/useCreateSignal-eb1": {
+    "__comp": "17896441",
+    "content": "1d98729f"
+  },
+  "/katanakit-js/docs/api/variables/useCreateStorageSignal-4cb": {
+    "__comp": "17896441",
+    "content": "6e74f6ab"
+  },
+  "/katanakit-js/docs/api/variables/useCreateToggle-955": {
+    "__comp": "17896441",
+    "content": "04994540"
+  },
+  "/katanakit-js/docs/api/variables/useCustom-b24": {
+    "__comp": "17896441",
+    "content": "0c2c3648"
+  },
+  "/katanakit-js/docs/api/variables/useDebounce-dc8": {
+    "__comp": "17896441",
+    "content": "ecff53ad"
+  },
+  "/katanakit-js/docs/api/variables/useDebounceImmediate-5ce": {
+    "__comp": "17896441",
+    "content": "7b5bea3e"
+  },
+  "/katanakit-js/docs/api/variables/useDeepClone-d8d": {
+    "__comp": "17896441",
+    "content": "9ee091c8"
+  },
+  "/katanakit-js/docs/api/variables/useDeepMerge-9d8": {
+    "__comp": "17896441",
+    "content": "56a51f2e"
+  },
+  "/katanakit-js/docs/api/variables/useDelay-abf": {
+    "__comp": "17896441",
+    "content": "adf08db7"
+  },
+  "/katanakit-js/docs/api/variables/useDelete-4bc": {
+    "__comp": "17896441",
+    "content": "1455bac8"
+  },
+  "/katanakit-js/docs/api/variables/useDestroyTheme-be4": {
+    "__comp": "17896441",
+    "content": "83a4d8da"
+  },
+  "/katanakit-js/docs/api/variables/useEncrypt-3e2": {
+    "__comp": "17896441",
+    "content": "ae6f5840"
+  },
+  "/katanakit-js/docs/api/variables/useError-a65": {
+    "__comp": "17896441",
+    "content": "063fe1ec"
+  },
+  "/katanakit-js/docs/api/variables/useExitFullscreen-8a3": {
+    "__comp": "17896441",
+    "content": "d6918f3f"
+  },
+  "/katanakit-js/docs/api/variables/useExtractUniqueValues-91c": {
+    "__comp": "17896441",
+    "content": "eb851de6"
+  },
+  "/katanakit-js/docs/api/variables/useFetch-eb8": {
+    "__comp": "17896441",
+    "content": "5ac83816"
+  },
+  "/katanakit-js/docs/api/variables/useFindEntry-06a": {
+    "__comp": "17896441",
+    "content": "57f797ac"
+  },
+  "/katanakit-js/docs/api/variables/useFocusElement-9b7": {
+    "__comp": "17896441",
+    "content": "e86ac26f"
+  },
+  "/katanakit-js/docs/api/variables/useForbidden-331": {
+    "__comp": "17896441",
+    "content": "57cc18fb"
+  },
+  "/katanakit-js/docs/api/variables/useFormatCurrency-510": {
+    "__comp": "17896441",
+    "content": "e8882699"
+  },
+  "/katanakit-js/docs/api/variables/useFormatNumber-e44": {
+    "__comp": "17896441",
+    "content": "1b2f841d"
+  },
+  "/katanakit-js/docs/api/variables/useGeneratePagination-cfe": {
+    "__comp": "17896441",
+    "content": "c459bf16"
+  },
+  "/katanakit-js/docs/api/variables/useGenerateRss-04d": {
+    "__comp": "17896441",
+    "content": "d76c6f0a"
+  },
+  "/katanakit-js/docs/api/variables/useGet-39e": {
+    "__comp": "17896441",
+    "content": "e0f1417b"
+  },
+  "/katanakit-js/docs/api/variables/useGetActiveElement-580": {
+    "__comp": "17896441",
+    "content": "40368d12"
+  },
+  "/katanakit-js/docs/api/variables/useGetApis-d15": {
+    "__comp": "17896441",
+    "content": "88bade43"
+  },
+  "/katanakit-js/docs/api/variables/useGetAttribute-104": {
+    "__comp": "17896441",
+    "content": "d51777bc"
+  },
+  "/katanakit-js/docs/api/variables/useGetBody-18b": {
+    "__comp": "17896441",
+    "content": "bdf140f2"
+  },
+  "/katanakit-js/docs/api/variables/useGetDataAttribute-eb4": {
+    "__comp": "17896441",
+    "content": "1b27130c"
+  },
+  "/katanakit-js/docs/api/variables/useGetElementByClass-f0e": {
+    "__comp": "17896441",
+    "content": "fc6664e8"
+  },
+  "/katanakit-js/docs/api/variables/useGetElementById-b5d": {
+    "__comp": "17896441",
+    "content": "c5971d8f"
+  },
+  "/katanakit-js/docs/api/variables/useGetResolved-1e0": {
+    "__comp": "17896441",
+    "content": "9c5f35eb"
+  },
+  "/katanakit-js/docs/api/variables/useGetRoot-967": {
+    "__comp": "17896441",
+    "content": "e844c4ba"
+  },
+  "/katanakit-js/docs/api/variables/useGetScrollPosition-8f2": {
+    "__comp": "17896441",
+    "content": "1647b52e"
+  },
+  "/katanakit-js/docs/api/variables/useGetScrollProgress-f3f": {
+    "__comp": "17896441",
+    "content": "3f74893e"
+  },
+  "/katanakit-js/docs/api/variables/useGetScrollX-935": {
+    "__comp": "17896441",
+    "content": "d00fbeed"
+  },
+  "/katanakit-js/docs/api/variables/useGetScrollY-1e7": {
+    "__comp": "17896441",
+    "content": "c88c1a18"
+  },
+  "/katanakit-js/docs/api/variables/useGetStaticPaths-3a2": {
+    "__comp": "17896441",
+    "content": "ec00c60e"
+  },
+  "/katanakit-js/docs/api/variables/useGetStorage-cd4": {
+    "__comp": "17896441",
+    "content": "d3fe8caf"
+  },
+  "/katanakit-js/docs/api/variables/useGetThemeMode-d07": {
+    "__comp": "17896441",
+    "content": "c69d8b3a"
+  },
+  "/katanakit-js/docs/api/variables/useGetTitle-4eb": {
+    "__comp": "17896441",
+    "content": "b6822203"
+  },
+  "/katanakit-js/docs/api/variables/useGetUrlParams-c72": {
+    "__comp": "17896441",
+    "content": "4d44da55"
+  },
+  "/katanakit-js/docs/api/variables/useGetViewportSize-810": {
+    "__comp": "17896441",
+    "content": "90440b13"
+  },
+  "/katanakit-js/docs/api/variables/useGroupBy-73d": {
+    "__comp": "17896441",
+    "content": "58d0ca09"
+  },
+  "/katanakit-js/docs/api/variables/useHasClass-345": {
+    "__comp": "17896441",
+    "content": "560afd20"
+  },
+  "/katanakit-js/docs/api/variables/useInit-df4": {
+    "__comp": "17896441",
+    "content": "08c7af1c"
+  },
+  "/katanakit-js/docs/api/variables/useInitTheme-248": {
+    "__comp": "17896441",
+    "content": "475add7d"
+  },
+  "/katanakit-js/docs/api/variables/useInternal-5f9": {
+    "__comp": "17896441",
+    "content": "c1690c8a"
+  },
+  "/katanakit-js/docs/api/variables/useInterval-b39": {
+    "__comp": "17896441",
+    "content": "bef5ffb0"
+  },
+  "/katanakit-js/docs/api/variables/useIsAtBottom-64e": {
+    "__comp": "17896441",
+    "content": "936daa8d"
+  },
+  "/katanakit-js/docs/api/variables/useIsAtTop-783": {
+    "__comp": "17896441",
+    "content": "1e4b38b6"
+  },
+  "/katanakit-js/docs/api/variables/useIsBrowser-707": {
+    "__comp": "17896441",
+    "content": "4fca2926"
+  },
+  "/katanakit-js/docs/api/variables/useIsDocumentVisible-d5e": {
+    "__comp": "17896441",
+    "content": "0430c8da"
+  },
+  "/katanakit-js/docs/api/variables/useIsFullscreen-f2e": {
+    "__comp": "17896441",
+    "content": "34e27eb2"
+  },
+  "/katanakit-js/docs/api/variables/useIsObject-779": {
+    "__comp": "17896441",
+    "content": "b3e73761"
+  },
+  "/katanakit-js/docs/api/variables/useJsonParse-01a": {
+    "__comp": "17896441",
+    "content": "d0f50a8c"
+  },
+  "/katanakit-js/docs/api/variables/useJsonStringify-224": {
+    "__comp": "17896441",
+    "content": "4701bafe"
+  },
+  "/katanakit-js/docs/api/variables/useLog-102": {
+    "__comp": "17896441",
+    "content": "bd0fb9e4"
+  },
+  "/katanakit-js/docs/api/variables/useLowerCase-a5a": {
+    "__comp": "17896441",
+    "content": "c19361e7"
+  },
+  "/katanakit-js/docs/api/variables/useMatchesMedia-08d": {
+    "__comp": "17896441",
+    "content": "be2fe3b3"
+  },
+  "/katanakit-js/docs/api/variables/useNotFound-f33": {
+    "__comp": "17896441",
+    "content": "0e62c84c"
+  },
+  "/katanakit-js/docs/api/variables/useNumericId-f50": {
+    "__comp": "17896441",
+    "content": "a3f6e58e"
+  },
+  "/katanakit-js/docs/api/variables/useOmit-f9b": {
+    "__comp": "17896441",
+    "content": "b47158b7"
+  },
+  "/katanakit-js/docs/api/variables/useOn-81d": {
+    "__comp": "17896441",
+    "content": "e0cb191d"
+  },
+  "/katanakit-js/docs/api/variables/useOnVisibilityChange-417": {
+    "__comp": "17896441",
+    "content": "a5072a29"
+  },
+  "/katanakit-js/docs/api/variables/usePathsFrom-8ef": {
+    "__comp": "17896441",
+    "content": "1e4dd94b"
+  },
+  "/katanakit-js/docs/api/variables/usePathsFromValues-176": {
+    "__comp": "17896441",
+    "content": "04d4b8e2"
+  },
+  "/katanakit-js/docs/api/variables/usePick-e45": {
+    "__comp": "17896441",
+    "content": "bcdaecfe"
+  },
+  "/katanakit-js/docs/api/variables/usePost-3c7": {
+    "__comp": "17896441",
+    "content": "2ef03cf6"
+  },
+  "/katanakit-js/docs/api/variables/usePrefersColorScheme-6ed": {
+    "__comp": "17896441",
+    "content": "a2ae4260"
+  },
+  "/katanakit-js/docs/api/variables/usePrefersDarkMode-dc8": {
+    "__comp": "17896441",
+    "content": "35d65cc9"
+  },
+  "/katanakit-js/docs/api/variables/usePrefersReducedMotion-6ab": {
+    "__comp": "17896441",
+    "content": "579e8f44"
+  },
+  "/katanakit-js/docs/api/variables/usePrintPage-89f": {
+    "__comp": "17896441",
+    "content": "58a78dc7"
+  },
+  "/katanakit-js/docs/api/variables/usePut-d40": {
+    "__comp": "17896441",
+    "content": "d16a2c35"
+  },
+  "/katanakit-js/docs/api/variables/useQuerySelector-6e2": {
+    "__comp": "17896441",
+    "content": "626ef27b"
+  },
+  "/katanakit-js/docs/api/variables/useQuerySelectorAll-db9": {
+    "__comp": "17896441",
+    "content": "9a9ab9fe"
+  },
+  "/katanakit-js/docs/api/variables/useRace-5f8": {
+    "__comp": "17896441",
+    "content": "a69a6f00"
+  },
+  "/katanakit-js/docs/api/variables/useRemove-2d8": {
+    "__comp": "17896441",
+    "content": "2257f8ff"
+  },
+  "/katanakit-js/docs/api/variables/useRemoveAttribute-7f6": {
+    "__comp": "17896441",
+    "content": "4cfd131b"
+  },
+  "/katanakit-js/docs/api/variables/useRemoveClass-44a": {
+    "__comp": "17896441",
+    "content": "95acc8a2"
+  },
+  "/katanakit-js/docs/api/variables/useRemoveStorage-708": {
+    "__comp": "17896441",
+    "content": "1ac7c62e"
+  },
+  "/katanakit-js/docs/api/variables/useRepeat-585": {
+    "__comp": "17896441",
+    "content": "7f8a58de"
+  },
+  "/katanakit-js/docs/api/variables/useRequestFullscreen-5dd": {
+    "__comp": "17896441",
+    "content": "793251ea"
+  },
+  "/katanakit-js/docs/api/variables/useResetTheme-aa6": {
+    "__comp": "17896441",
+    "content": "e12142bb"
+  },
+  "/katanakit-js/docs/api/variables/useRetry-34d": {
+    "__comp": "17896441",
+    "content": "d20bc7e8"
+  },
+  "/katanakit-js/docs/api/variables/useRound-eaf": {
+    "__comp": "17896441",
+    "content": "7397de3e"
+  },
+  "/katanakit-js/docs/api/variables/useRssLinkTag-23e": {
+    "__comp": "17896441",
+    "content": "3ad5d781"
+  },
+  "/katanakit-js/docs/api/variables/useScrollTo-e4f": {
+    "__comp": "17896441",
+    "content": "26b0c72c"
+  },
+  "/katanakit-js/docs/api/variables/useScrollToBottom-953": {
+    "__comp": "17896441",
+    "content": "ff41820e"
+  },
+  "/katanakit-js/docs/api/variables/useScrollToElement-a7f": {
+    "__comp": "17896441",
+    "content": "0eb011c6"
+  },
+  "/katanakit-js/docs/api/variables/useScrollToTop-dca": {
+    "__comp": "17896441",
+    "content": "71d21546"
+  },
+  "/katanakit-js/docs/api/variables/useSetAttribute-02f": {
+    "__comp": "17896441",
+    "content": "941bb053"
+  },
+  "/katanakit-js/docs/api/variables/useSetDataAttribute-f43": {
+    "__comp": "17896441",
+    "content": "1d0f235f"
+  },
+  "/katanakit-js/docs/api/variables/useSetHtml-62d": {
+    "__comp": "17896441",
+    "content": "a5b6e8d5"
+  },
+  "/katanakit-js/docs/api/variables/useSetStorage-152": {
+    "__comp": "17896441",
+    "content": "497a35b0"
+  },
+  "/katanakit-js/docs/api/variables/useSetStrategy-8bb": {
+    "__comp": "17896441",
+    "content": "b1e997e4"
+  },
+  "/katanakit-js/docs/api/variables/useSetTempTitle-160": {
+    "__comp": "17896441",
+    "content": "50048744"
+  },
+  "/katanakit-js/docs/api/variables/useSetText-d9d": {
+    "__comp": "17896441",
+    "content": "c2ad6ad7"
+  },
+  "/katanakit-js/docs/api/variables/useSetThemeMode-0a9": {
+    "__comp": "17896441",
+    "content": "4f39f777"
+  },
+  "/katanakit-js/docs/api/variables/useSetTimeout-e4d": {
+    "__comp": "17896441",
+    "content": "2c141206"
+  },
+  "/katanakit-js/docs/api/variables/useSetTitle-ced": {
+    "__comp": "17896441",
+    "content": "13fd28e7"
+  },
+  "/katanakit-js/docs/api/variables/useSleep-d97": {
+    "__comp": "17896441",
+    "content": "3cee2661"
+  },
+  "/katanakit-js/docs/api/variables/useSlugify-d19": {
+    "__comp": "17896441",
+    "content": "be63f6ab"
+  },
+  "/katanakit-js/docs/api/variables/useTable-568": {
+    "__comp": "17896441",
+    "content": "3b3e316f"
+  },
+  "/katanakit-js/docs/api/variables/useThrottle-f27": {
+    "__comp": "17896441",
+    "content": "77272e6f"
+  },
+  "/katanakit-js/docs/api/variables/useThrottleTrailing-683": {
+    "__comp": "17896441",
+    "content": "4d374455"
+  },
+  "/katanakit-js/docs/api/variables/useToCelsius-a32": {
+    "__comp": "17896441",
+    "content": "f2b760f3"
+  },
+  "/katanakit-js/docs/api/variables/useToCm-d4a": {
+    "__comp": "17896441",
+    "content": "577fced8"
+  },
+  "/katanakit-js/docs/api/variables/useToFahrenheit-f91": {
+    "__comp": "17896441",
+    "content": "584b0f3e"
+  },
+  "/katanakit-js/docs/api/variables/useToggleClass-6b9": {
+    "__comp": "17896441",
+    "content": "a5cfafb5"
+  },
+  "/katanakit-js/docs/api/variables/useToggleTheme-6a7": {
+    "__comp": "17896441",
+    "content": "0c7fe15d"
+  },
+  "/katanakit-js/docs/api/variables/useToInches-607": {
+    "__comp": "17896441",
+    "content": "5b28e5e7"
+  },
+  "/katanakit-js/docs/api/variables/useToken-29e": {
+    "__comp": "17896441",
+    "content": "666ffbca"
+  },
+  "/katanakit-js/docs/api/variables/useToKilometers-72b": {
+    "__comp": "17896441",
+    "content": "c978b2e4"
+  },
+  "/katanakit-js/docs/api/variables/useToKilos-5ef": {
+    "__comp": "17896441",
+    "content": "1b9a6f2e"
+  },
+  "/katanakit-js/docs/api/variables/useToMiles-a59": {
+    "__comp": "17896441",
+    "content": "1991d873"
+  },
+  "/katanakit-js/docs/api/variables/useToPounds-7a4": {
+    "__comp": "17896441",
+    "content": "6c93ab43"
+  },
+  "/katanakit-js/docs/api/variables/useUnauthorized-cf6": {
+    "__comp": "17896441",
+    "content": "d86275db"
+  },
+  "/katanakit-js/docs/api/variables/useUnique-8b2": {
+    "__comp": "17896441",
+    "content": "db035a3a"
+  },
+  "/katanakit-js/docs/api/variables/useUpperCase-e83": {
+    "__comp": "17896441",
+    "content": "c0980d0e"
+  },
+  "/katanakit-js/docs/api/variables/useUuid-3b4": {
+    "__comp": "17896441",
+    "content": "55b950ca"
+  },
+  "/katanakit-js/docs/changelog-316": {
+    "__comp": "17896441",
+    "content": "9beb87c2"
+  },
+  "/katanakit-js/docs/guides/architecture-262": {
+    "__comp": "17896441",
+    "content": "db16b467"
+  },
+  "/katanakit-js/docs/guides/getting-started-bc7": {
+    "__comp": "17896441",
+    "content": "c9ea0dcf"
+  },
+  "/katanakit-js/docs/guides/roadmap-4e0": {
+    "__comp": "17896441",
+    "content": "742ef2dd"
+  },
+  "/katanakit-js/-2e6": {
+    "__comp": "1df93b7f",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
+  }
+}

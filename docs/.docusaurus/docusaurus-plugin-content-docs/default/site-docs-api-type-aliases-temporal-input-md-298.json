@@ -1,0 +1,15 @@
+{
+  "id": "api/type-aliases/TemporalInput",
+  "title": "Type Alias: TemporalInput",
+  "description": "TemporalInput = string \\| number \\| Date \\| Temporal.PlainDate \\| Temporal.PlainDateTime \\| Temporal.ZonedDateTime \\| Temporal.Instant",
+  "source": "@site/docs/api/type-aliases/TemporalInput.md",
+  "sourceDirName": "api/type-aliases",
+  "slug": "/api/type-aliases/TemporalInput",
+  "permalink": "/katanakit-js/docs/api/type-aliases/TemporalInput",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/type-aliases/TemporalInput.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

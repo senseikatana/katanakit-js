@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/useIsAtTop",
+  "title": "Variable: useIsAtTop",
+  "description": "useIsAtTop: (threshold) => boolean",
+  "source": "@site/docs/api/variables/useIsAtTop.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/useIsAtTop",
+  "permalink": "/katanakit-js/docs/api/variables/useIsAtTop",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/useIsAtTop.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

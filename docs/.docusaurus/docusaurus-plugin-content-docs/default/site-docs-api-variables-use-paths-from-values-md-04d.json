@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/usePathsFromValues",
+  "title": "Variable: usePathsFromValues",
+  "description": "usePathsFromValues: &lt;TParam&gt;(values, param) => AstroPath&lt;TParam, string \\| number&gt;[]",
+  "source": "@site/docs/api/variables/usePathsFromValues.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/usePathsFromValues",
+  "permalink": "/katanakit-js/docs/api/variables/usePathsFromValues",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/usePathsFromValues.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

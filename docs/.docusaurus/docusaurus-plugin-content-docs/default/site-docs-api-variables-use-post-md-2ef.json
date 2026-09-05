@@ -1,0 +1,15 @@
+{
+  "id": "api/variables/usePost",
+  "title": "Variable: usePost",
+  "description": "usePost: &lt;T&gt;(apiName, endpointName, body?, urlOptions?) => Promise&lt;FetchResult&lt;T&gt;&gt;",
+  "source": "@site/docs/api/variables/usePost.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/usePost",
+  "permalink": "/katanakit-js/docs/api/variables/usePost",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/docs/api/variables/usePost.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}
