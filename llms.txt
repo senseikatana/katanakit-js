@@ -1,0 +1,22 @@
+# KatanaKit
+
+> A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.
+
+## Getting Started
+
+- [Getting Started](https://senseikatana.github.io/getting-started.md): Install and configure KatanaKit, then use its core services.
+- [Architecture](https://senseikatana.github.io/architecture.md): Hexagonal architecture, layer breakdown, design patterns and conventions.
+
+## Guides
+
+- [Deploy](https://senseikatana.github.io/guides/deploy.md): How to deploy applications using KatanaKit.
+
+## Reference
+
+- [API Overview](https://senseikatana.github.io/api-overview.md): Complete reference for katanakit-js services and adapters.
+- [Changelog](https://senseikatana.github.io/changelog.md): All notable changes to katanakit-js.
+- [Roadmap](https://senseikatana.github.io/roadmap.md): What is planned for KatanaKit. Contributions welcome.
+
+## Other
+
+- [KatanaKit](https://senseikatana.github.io/index.md): A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.

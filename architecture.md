@@ -1,0 +1,121 @@
+# Architecture
+
+Hexagonal architecture, layer breakdown, design patterns and conventions.
+
+KatanaKit follows **hexagonal architecture** (ports and adapters). The goal is a
+pure, framework-agnostic core surrounded by adapters that talk to the outside
+world (browser APIs, HTTP, frameworks) and a shared kernel of contracts.
+
+```
+               src/
+               │
+   ┌───────────▼───────────┐
+   │        index.ts       │   main barrel — the public API surface
+   └───────────┬───────────┘
+               │
+   ┌───────────▼───────────┐
+   │        types/         │   shared kernel — contracts, domain types
+   └───────────┬───────────┘
+               │
+   ┌───────────▼──────────────────────────────────────┐
+   │                   core/services/                 │  pure domain services
+   │  logger · http · formatter · converter · error   │  (no I/O)
+   │  generator · dates · geometry · timing · utils   │
+   │  reactive                                         │
+   └───────────┬──────────────────────────────────────┘
+               │
+   ┌───────────▼──────────────────────────────────────┐
+   │              infrastructure/                      │  browser/runtime adapters
+   │  dom · storage · viewport · sensors              │  (SSR-safe)
+   │  observer · worker · theme                        │
+   └───────────┬──────────────────────────────────────┘
+               │
+   ┌───────────▼──────────────────────────────────────┐
+   │                  adapters/                       │  framework adapters
+   │   astro/  express/  nuxt/  vue/                  │
+   └──────────────────────────────────────────────────┘
+   │
+   ├── config/   siteConfig + SEO helpers
+   ├── prisma/   Prisma schema, contract types, db client
+```
+
+## Layer-by-layer
+
+### `types/` — the shared kernel
+
+`src/types/index.ts` is the single source of truth for every contract and domain
+type in the library. It contains strategy contracts (`LogStrategy`,
+`StorageStrategy`, `ICryptoStrategy`, `IUuidStrategy`), facade interfaces
+(`IFetchApiManager`, `IFormatterService`, `IConverterService`, `IErrorFactory`,
+`IReactiveService`, `IDomService`, `IThemeService`, `IAstroService`,
+`IRssService`) and every shared type (`LogLevel`, `Locale`, `Currency`,
+`HttpMethod`, `QueryParams`, `FetchResult`, `ApiError`, `RssConfig`,
+`ObserverConfig`, `ThemeOptions`).
+
+### `core/services/` — the pure layer
+
+Ten service modules with pure logic. This layer never touches `window`,
+`document`, `fetch`, the filesystem or any framework.
+
+| File | Exports |
+|------|---------|
+| `logger.service.ts` | `LoggerService`, `ConsoleStrategy` |
+| `http.service.ts` | `FetchApiManager` |
+| `formatter.service.ts` | `FormatterService`, `ConverterService` |
+| `error.service.ts` | `ErrorFactoryService`, `AppError` |
+| `generator.service.ts` | `GeneratorService` |
+| `dates.service.ts` | `DatesService` |
+| `geometry.service.ts` | `GeometryUtils` |
+| `timing.service.ts` | `TimingService` |
+| `utils.service.ts` | `DataUtils`, `SystemUtils`, `AppUtils` |
+| `reactive.service.ts` | `ReactiveService` |
+
+### `infrastructure/` — the adapter layer
+
+Adapters that own browser/runtime I/O. Each is SSR-safe.
+
+- `dom/` — `DomService` (query, classes, attributes, events)
+- `storage/` — `StorageService` with `LocalStorageStrategy`, `SessionStorageStrategy`, `MemoryStorageStrategy`
+- `viewport/` — `ViewportService` (dimensions, scroll, media queries)
+- `sensors/` — `SensorsUtils` (geolocation, motion, battery)
+- `observer/` — `ObserverService` and `LazyLoaderService`
+- `worker/` — `WorkerService` (pools with SSR fallback)
+- `theme/` — `ThemeService` (mode switching)
+
+### `adapters/` — the framework layer
+
+- `astro/` — `AstroService` + `RssService` (re-exported from main barrel)
+- `express/` — `ServerExpress` reference (subpath only)
+- `nuxt/` — `useUnwrap`, `useSafeResponse`, `useEventResponse` (subpath only)
+- `vue/` — `useKatanaFetch` composable (subpath only)
+
+### `config/` — site configuration and SEO
+
+- `site.config.ts` — `SiteConfig` interface and default instance
+- `seo.service.ts` — `useGenerateMetaTags`, `useTitle`, `useRssHeadLink`, `useHeadTags`
+
+### `prisma/` — database layer (optional)
+
+- `schema.prisma` — Prisma schema
+- `schema.json` / `schema.d.ts` — generated contract artifacts
+- `db.ts` — typed database client
+
+## Design patterns
+
+| Pattern | Where |
+|---------|-------|
+| Singleton | every service (`FetchApiManager`, `LoggerService`, ...) |
+| Facade | `FetchApiManager`, `DomService`, `AstroService`, `RssService` |
+| Strategy | logger output, storage backends, generator crypto/UUID |
+| Factory | `ErrorFactoryService`; debounce/throttle in `TimingService` |
+| Observer | `ReactiveService` signals, `ObserverService`, theme media query |
+| Decorator | `ConverterService` decorating `FormatterService` |
+| Adapter | `DatesService` (Temporal), infrastructure layer, framework adapters |
+
+## Conventions
+
+- **`use*` methods** — every public method (except `getInstance()`) uses the `use` prefix.
+- **Destructured exports** — services re-export methods destructured for tree-shaking.
+- **Safe Result** — fallible operations return `{ data, error, ok }` instead of throwing.
+- **Single source of truth** — all contracts live in `src/types/`.
+- **Pure ESM** — relative imports with explicit `.js` extensions, `module: nodenext`.
