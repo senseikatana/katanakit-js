@@ -1,6 +1,6 @@
 # Class: DomService
 
-Defined in: [src/infrastructure/dom/dom.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L6)
+Defined in: [src/infrastructure/dom/dom.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L6)
 
 Contract of the DOM facade.
 
@@ -14,7 +14,7 @@ Contract of the DOM facade.
 
 > **useQuerySelector**: \{&lt;`K`&gt;(`selector`): `HTMLElementTagNameMap`\[`K`\] \| `null`; &lt;`E`&gt;(`selector`): `E` \| `null`; \}
 
-Defined in: [src/infrastructure/dom/dom.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L48)
+Defined in: [src/infrastructure/dom/dom.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L48)
 
 #### Call Signature
 
@@ -66,7 +66,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:48](https://github.com/sensei
 
 > **useQuerySelectorAll**: \{&lt;`K`&gt;(`selector`): `HTMLElementTagNameMap`\[`K`\][]; &lt;`E`&gt;(`selector`): `E`[]; \}
 
-Defined in: [src/infrastructure/dom/dom.service.ts:56](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L56)
+Defined in: [src/infrastructure/dom/dom.service.ts:56](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L56)
 
 #### Call Signature
 
@@ -118,7 +118,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:56](https://github.com/sensei
 
 > **useAddClass**(`target`, `className`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:64](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L64)
+Defined in: [src/infrastructure/dom/dom.service.ts:64](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L64)
 
 #### Parameters
 
@@ -144,7 +144,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:64](https://github.com/sensei
 
 > **useAppend**(`target`, `child`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:155](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L155)
+Defined in: [src/infrastructure/dom/dom.service.ts:155](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L155)
 
 #### Parameters
 
@@ -170,7 +170,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:155](https://github.com/sense
 
 > **useCreateElement**&lt;`T`&gt;(`tagName`, `options?`): `HTMLElementTagNameMap`\[`T`\]
 
-Defined in: [src/infrastructure/dom/dom.service.ts:130](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L130)
+Defined in: [src/infrastructure/dom/dom.service.ts:130](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L130)
 
 #### Type Parameters
 
@@ -202,7 +202,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:130](https://github.com/sense
 
 > **useGetAttribute**(`target`, `attr`): `string` \| `null`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L90)
+Defined in: [src/infrastructure/dom/dom.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L90)
 
 #### Parameters
 
@@ -228,7 +228,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:90](https://github.com/sensei
 
 > **useGetBody**(): `HTMLBodyElement` \| `null`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L26)
+Defined in: [src/infrastructure/dom/dom.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L26)
 
 #### Returns
 
@@ -244,7 +244,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:26](https://github.com/sensei
 
 > **useGetDataAttribute**(`target`, `key`): `string` \| `undefined`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:106](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L106)
+Defined in: [src/infrastructure/dom/dom.service.ts:106](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L106)
 
 #### Parameters
 
@@ -270,7 +270,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:106](https://github.com/sense
 
 > **useGetElementByClass**&lt;`T`&gt;(`className`): `T` \| `null`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L40)
+Defined in: [src/infrastructure/dom/dom.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L40)
 
 #### Type Parameters
 
@@ -298,7 +298,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:40](https://github.com/sensei
 
 > **useGetElementById**&lt;`T`&gt;(`id`): `T` \| `null`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L35)
+Defined in: [src/infrastructure/dom/dom.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L35)
 
 #### Type Parameters
 
@@ -326,7 +326,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:35](https://github.com/sensei
 
 > **useGetRoot**(): `HTMLElement` \| `null`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:21](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L21)
+Defined in: [src/infrastructure/dom/dom.service.ts:21](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L21)
 
 #### Returns
 
@@ -342,7 +342,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:21](https://github.com/sensei
 
 > **useHasClass**(`target`, `className`): `boolean`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L86)
+Defined in: [src/infrastructure/dom/dom.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L86)
 
 #### Parameters
 
@@ -368,7 +368,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:86](https://github.com/sensei
 
 > **useIsBrowser**(): `boolean`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L18)
+Defined in: [src/infrastructure/dom/dom.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L18)
 
 #### Returns
 
@@ -384,7 +384,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:18](https://github.com/sensei
 
 > **useOn**&lt;`K`&gt;(`target`, `event`, `callback`, `options?`): (() => `void`) \| `null`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L115)
+Defined in: [src/infrastructure/dom/dom.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L115)
 
 #### Type Parameters
 
@@ -424,7 +424,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:115](https://github.com/sense
 
 > **useRemove**(`target`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:161](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L161)
+Defined in: [src/infrastructure/dom/dom.service.ts:161](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L161)
 
 #### Parameters
 
@@ -446,7 +446,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:161](https://github.com/sense
 
 > **useRemoveAttribute**(`target`, `attr`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L102)
+Defined in: [src/infrastructure/dom/dom.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L102)
 
 #### Parameters
 
@@ -472,7 +472,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:102](https://github.com/sense
 
 > **useRemoveClass**(`target`, `className`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L68)
+Defined in: [src/infrastructure/dom/dom.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L68)
 
 #### Parameters
 
@@ -498,7 +498,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:68](https://github.com/sensei
 
 > **useSetAttribute**(`target`, `attr`, `value`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:94](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L94)
+Defined in: [src/infrastructure/dom/dom.service.ts:94](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L94)
 
 #### Parameters
 
@@ -528,7 +528,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:94](https://github.com/sensei
 
 > **useSetDataAttribute**(`target`, `key`, `value`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:110](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L110)
+Defined in: [src/infrastructure/dom/dom.service.ts:110](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L110)
 
 #### Parameters
 
@@ -558,7 +558,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:110](https://github.com/sense
 
 > **useSetHtml**(`target`, `html`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:145](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L145)
+Defined in: [src/infrastructure/dom/dom.service.ts:145](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L145)
 
 Sets innerHTML on the target element.
 WARNING: this is an XSS sink. Only pass trusted HTML. For user-supplied
@@ -588,7 +588,7 @@ content, use `useSetText` (textContent) instead, or sanitize with DOMPurify.
 
 > **useSetText**(`target`, `text`): `void`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:150](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L150)
+Defined in: [src/infrastructure/dom/dom.service.ts:150](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L150)
 
 #### Parameters
 
@@ -614,7 +614,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:150](https://github.com/sense
 
 > **useToggleClass**(`target`, `className`, `force?`): `boolean` \| `undefined`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:78](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L78)
+Defined in: [src/infrastructure/dom/dom.service.ts:78](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L78)
 
 #### Parameters
 
@@ -644,7 +644,7 @@ Defined in: [src/infrastructure/dom/dom.service.ts:78](https://github.com/sensei
 
 > `static` **getInstance**(): `DomService`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L11)
+Defined in: [src/infrastructure/dom/dom.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L11)
 
 #### Returns
 

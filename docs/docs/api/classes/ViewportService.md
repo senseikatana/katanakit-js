@@ -1,6 +1,6 @@
 # Class: ViewportService
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L6)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L6)
 
 Viewport, scroll and window utilities. All methods are SSR-safe.
 
@@ -10,7 +10,7 @@ Viewport, scroll and window utilities. All methods are SSR-safe.
 
 > **useBlurActiveElement**(): `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:117](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L117)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:117](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L117)
 
 #### Returns
 
@@ -22,7 +22,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:117](https://github
 
 > **useExitFullscreen**(): `Promise`&lt;`void`&gt;
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L134)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L134)
 
 #### Returns
 
@@ -34,7 +34,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:134](https://github
 
 > **useFocusElement**(`target`): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:106](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L106)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:106](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L106)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:106](https://github
 
 > **useGetActiveElement**(): `Element` \| `null`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:122](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L122)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:122](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L122)
 
 #### Returns
 
@@ -64,7 +64,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:122](https://github
 
 > **useGetScrollPosition**(): [`ScrollPosition`](../interfaces/ScrollPosition.md)
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L40)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L40)
 
 #### Returns
 
@@ -76,7 +76,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:40](https://github.
 
 > **useGetScrollProgress**(): `number`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L45)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L45)
 
 #### Returns
 
@@ -88,7 +88,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:45](https://github.
 
 > **useGetScrollX**(): `number`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:38](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L38)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:38](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L38)
 
 #### Returns
 
@@ -100,7 +100,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:38](https://github.
 
 > **useGetScrollY**(): `number`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L36)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L36)
 
 #### Returns
 
@@ -112,7 +112,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:36](https://github.
 
 > **useGetTitle**(): `string`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:155](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L155)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:155](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L155)
 
 #### Returns
 
@@ -124,7 +124,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:155](https://github
 
 > **useGetViewportSize**(): [`ViewportSize`](../interfaces/ViewportSize.md)
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:21](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L21)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:21](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L21)
 
 #### Returns
 
@@ -136,7 +136,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:21](https://github.
 
 > **useIsAtBottom**(`threshold?`): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:54](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L54)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:54](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L54)
 
 #### Parameters
 
@@ -154,7 +154,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:54](https://github.
 
 > **useIsAtTop**(`threshold?`): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:52](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L52)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:52](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L52)
 
 #### Parameters
 
@@ -172,7 +172,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:52](https://github.
 
 > **useIsDocumentVisible**(): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:141](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L141)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:141](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L141)
 
 #### Returns
 
@@ -184,7 +184,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:141](https://github
 
 > **useIsFullscreen**(): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:139](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L139)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:139](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L139)
 
 #### Returns
 
@@ -196,7 +196,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:139](https://github
 
 > **useMatchesMedia**(`query`): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L26)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L26)
 
 #### Parameters
 
@@ -214,7 +214,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:26](https://github.
 
 > **useOnVisibilityChange**(`callback`): () => `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L146)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L146)
 
 #### Parameters
 
@@ -232,7 +232,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:146](https://github
 
 > **usePrefersDarkMode**(): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L34)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L34)
 
 #### Returns
 
@@ -244,7 +244,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:34](https://github.
 
 > **usePrefersReducedMotion**(): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L31)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L31)
 
 #### Returns
 
@@ -256,7 +256,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:31](https://github.
 
 > **usePrintPage**(): `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L102)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L102)
 
 #### Returns
 
@@ -268,7 +268,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:102](https://github
 
 > **useRequestFullscreen**(`target?`): `Promise`&lt;`void`&gt;
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:125](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L125)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:125](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L125)
 
 #### Parameters
 
@@ -286,7 +286,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:125](https://github
 
 > **useScrollTo**(`x?`, `y?`, `behavior?`): `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:60](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L60)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:60](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L60)
 
 #### Parameters
 
@@ -312,7 +312,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:60](https://github.
 
 > **useScrollToBottom**(`smooth?`): `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:72](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L72)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:72](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L72)
 
 #### Parameters
 
@@ -330,7 +330,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:72](https://github.
 
 > **useScrollToElement**(`target`, `options?`): `boolean`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:79](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L79)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:79](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L79)
 
 #### Parameters
 
@@ -352,7 +352,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:79](https://github.
 
 > **useScrollToTop**(`smooth?`): `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L66)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L66)
 
 #### Parameters
 
@@ -370,7 +370,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:66](https://github.
 
 > **useSetTempTitle**(`tempTitle`, `durationMs?`): `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:161](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L161)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:161](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L161)
 
 #### Parameters
 
@@ -392,7 +392,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:161](https://github
 
 > **useSetTitle**(`title`): `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:157](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L157)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:157](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L157)
 
 #### Parameters
 
@@ -410,7 +410,7 @@ Defined in: [src/infrastructure/viewport/viewport.service.ts:157](https://github
 
 > `static` **getInstance**(): `ViewportService`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/viewport/viewport.service.ts#L11)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L11)
 
 #### Returns
 

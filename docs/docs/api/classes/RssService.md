@@ -1,6 +1,6 @@
 # Class: RssService
 
-Defined in: [src/adapters/astro/rss.service.ts:85](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/rss.service.ts#L85)
+Defined in: [src/adapters/astro/rss.service.ts:85](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L85)
 
 RSS service (Singleton + Facade). Generates RSS 2.0 feeds for Astro projects.
 Pure implementation — no external dependencies required.
@@ -19,7 +19,7 @@ to get the raw XML string.
 
 > **useCreateRssEndpoint**(`config`): (`context`) => `Promise`&lt;`Response`&gt;
 
-Defined in: [src/adapters/astro/rss.service.ts:184](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/rss.service.ts#L184)
+Defined in: [src/adapters/astro/rss.service.ts:184](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L184)
 
 Creates an Astro-compatible GET endpoint handler for the RSS feed.
 Use this in `src/pages/rss.xml.ts` to serve the feed.
@@ -72,7 +72,7 @@ export const GET = useCreateRssEndpoint({
 
 > **useCreateRssEndpointFromConfig**(`siteConfig`, `items`): (`context`) => `Promise`&lt;`Response`&gt;
 
-Defined in: [src/adapters/astro/rss.service.ts:254](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/rss.service.ts#L254)
+Defined in: [src/adapters/astro/rss.service.ts:254](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L254)
 
 Convenience method: creates an RSS endpoint from a SiteConfig.
 Reads title, description, site, and rss settings from the config.
@@ -122,7 +122,7 @@ export const GET = useCreateRssEndpointFromConfig(siteConfig, async () => {
 
 > **useGenerateRss**(`config`): [`RssResult`](../type-aliases/RssResult.md)
 
-Defined in: [src/adapters/astro/rss.service.ts:113](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/rss.service.ts#L113)
+Defined in: [src/adapters/astro/rss.service.ts:113](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L113)
 
 Generates the RSS XML string from a config.
 Returns a Safe Result (no throwing).
@@ -160,7 +160,7 @@ if (result.ok) console.log(result.data); // XML string
 
 > **useRssLinkTag**(`config`): `string`
 
-Defined in: [src/adapters/astro/rss.service.ts:148](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/rss.service.ts#L148)
+Defined in: [src/adapters/astro/rss.service.ts:148](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L148)
 
 Generates an HTML `<link>` tag for the RSS feed.
 Paste this into your Astro layout's `<head>`.
@@ -193,7 +193,7 @@ const tag = useRssLinkTag({ title: "My Blog" });
 
 > `static` **getInstance**(): `RssService`
 
-Defined in: [src/adapters/astro/rss.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/rss.service.ts#L90)
+Defined in: [src/adapters/astro/rss.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L90)
 
 #### Returns
 

@@ -1,6 +1,6 @@
 # Interface: ScrollOptions
 
-Defined in: [src/types/index.ts:468](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L468)
+Defined in: [src/types/index.ts:468](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L468)
 
 Options for scrolling operations.
 
@@ -10,7 +10,7 @@ Options for scrolling operations.
 
 > `optional` **behavior?**: `ScrollBehavior`
 
-Defined in: [src/types/index.ts:469](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L469)
+Defined in: [src/types/index.ts:469](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L469)
 
 ***
 
@@ -18,7 +18,7 @@ Defined in: [src/types/index.ts:469](https://github.com/senseikatana/katanakit-j
 
 > `optional` **block?**: `ScrollLogicalPosition`
 
-Defined in: [src/types/index.ts:470](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L470)
+Defined in: [src/types/index.ts:470](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L470)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [src/types/index.ts:470](https://github.com/senseikatana/katanakit-j
 
 > `optional` **inline?**: `ScrollLogicalPosition`
 
-Defined in: [src/types/index.ts:471](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L471)
+Defined in: [src/types/index.ts:471](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L471)

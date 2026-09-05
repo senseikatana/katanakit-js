@@ -1,6 +1,6 @@
 # Class: ErrorFactoryService
 
-Defined in: [src/core/services/error.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L26)
+Defined in: [src/core/services/error.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L26)
 
 Error factory implemented as a singleton (Factory Method pattern).
 
@@ -14,7 +14,7 @@ Error factory implemented as a singleton (Factory Method pattern).
 
 > **useBadRequest**(`message?`): [`AppError`](AppError.md)
 
-Defined in: [src/core/services/error.service.ts:38](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L38)
+Defined in: [src/core/services/error.service.ts:38](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L38)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/core/services/error.service.ts:38](https://github.com/senseikat
 
 > **useCustom**(`message`, `code`): [`AppError`](AppError.md)
 
-Defined in: [src/core/services/error.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L48)
+Defined in: [src/core/services/error.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L48)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/core/services/error.service.ts:48](https://github.com/senseikat
 
 > **useForbidden**(`message?`): [`AppError`](AppError.md)
 
-Defined in: [src/core/services/error.service.ts:42](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L42)
+Defined in: [src/core/services/error.service.ts:42](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L42)
 
 #### Parameters
 
@@ -84,7 +84,7 @@ Defined in: [src/core/services/error.service.ts:42](https://github.com/senseikat
 
 > **useInternal**(`message?`): [`AppError`](AppError.md)
 
-Defined in: [src/core/services/error.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L46)
+Defined in: [src/core/services/error.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L46)
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/core/services/error.service.ts:46](https://github.com/senseikat
 
 > **useNotFound**(`message?`): [`AppError`](AppError.md)
 
-Defined in: [src/core/services/error.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L44)
+Defined in: [src/core/services/error.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L44)
 
 #### Parameters
 
@@ -128,7 +128,7 @@ Defined in: [src/core/services/error.service.ts:44](https://github.com/senseikat
 
 > **useUnauthorized**(`message?`): [`AppError`](AppError.md)
 
-Defined in: [src/core/services/error.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L40)
+Defined in: [src/core/services/error.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L40)
 
 #### Parameters
 
@@ -150,7 +150,7 @@ Defined in: [src/core/services/error.service.ts:40](https://github.com/senseikat
 
 > `static` **getInstance**(): `ErrorFactoryService`
 
-Defined in: [src/core/services/error.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/error.service.ts#L31)
+Defined in: [src/core/services/error.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L31)
 
 #### Returns
 

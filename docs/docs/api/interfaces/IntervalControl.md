@@ -1,6 +1,6 @@
 # Interface: IntervalControl
 
-Defined in: [src/types/index.ts:412](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L412)
+Defined in: [src/types/index.ts:412](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L412)
 
 Control object returned by interval operations.
 
@@ -10,7 +10,7 @@ Control object returned by interval operations.
 
 > **isRunning**: () => `boolean`
 
-Defined in: [src/types/index.ts:416](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L416)
+Defined in: [src/types/index.ts:416](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L416)
 
 #### Returns
 
@@ -22,7 +22,7 @@ Defined in: [src/types/index.ts:416](https://github.com/senseikatana/katanakit-j
 
 > **pause**: () => `void`
 
-Defined in: [src/types/index.ts:413](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L413)
+Defined in: [src/types/index.ts:413](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L413)
 
 #### Returns
 
@@ -34,7 +34,7 @@ Defined in: [src/types/index.ts:413](https://github.com/senseikatana/katanakit-j
 
 > **resume**: () => `void`
 
-Defined in: [src/types/index.ts:414](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L414)
+Defined in: [src/types/index.ts:414](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L414)
 
 #### Returns
 
@@ -46,7 +46,7 @@ Defined in: [src/types/index.ts:414](https://github.com/senseikatana/katanakit-j
 
 > **stop**: () => `void`
 
-Defined in: [src/types/index.ts:415](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L415)
+Defined in: [src/types/index.ts:415](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L415)
 
 #### Returns
 

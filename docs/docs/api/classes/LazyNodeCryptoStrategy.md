@@ -1,6 +1,6 @@
 # Class: LazyNodeCryptoStrategy
 
-Defined in: [src/core/services/generator.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/generator.service.ts#L9)
+Defined in: [src/core/services/generator.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L9)
 
 Loads the Node.js `crypto` module lazily, only when `useEncrypt` is invoked.
 
@@ -27,7 +27,7 @@ fixed default salt for real password hashing; prefer scrypt/argon2id instead.
 
 > **useEncrypt**(`plainText`, `salt?`): `Promise`&lt;`string`&gt;
 
-Defined in: [src/core/services/generator.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/generator.service.ts#L10)
+Defined in: [src/core/services/generator.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L10)
 
 #### Parameters
 

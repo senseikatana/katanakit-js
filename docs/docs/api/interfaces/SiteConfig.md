@@ -1,6 +1,6 @@
 # Interface: SiteConfig
 
-Defined in: [src/config/site.config.ts:15](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L15)
+Defined in: [src/config/site.config.ts:15](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L15)
 
 Site-wide configuration for KatanaKit-powered Astro projects.
 
@@ -21,7 +21,7 @@ export default defineConfig({ site: siteConfig.site });
 
 > **author**: `string`
 
-Defined in: [src/config/site.config.ts:25](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L25)
+Defined in: [src/config/site.config.ts:25](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L25)
 
 Author name for RSS and meta tags.
 
@@ -31,7 +31,7 @@ Author name for RSS and meta tags.
 
 > **description**: `string`
 
-Defined in: [src/config/site.config.ts:21](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L21)
+Defined in: [src/config/site.config.ts:21](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L21)
 
 Default meta description.
 
@@ -41,7 +41,7 @@ Default meta description.
 
 > **lang**: `string`
 
-Defined in: [src/config/site.config.ts:23](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L23)
+Defined in: [src/config/site.config.ts:23](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L23)
 
 Language code (e.g. "en", "es").
 
@@ -51,7 +51,7 @@ Language code (e.g. "en", "es").
 
 > `optional` **nav?**: `object`[]
 
-Defined in: [src/config/site.config.ts:57](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L57)
+Defined in: [src/config/site.config.ts:57](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L57)
 
 Navigation links (optional, for header/footer).
 
@@ -73,7 +73,7 @@ Navigation links (optional, for header/footer).
 
 > `optional` **ogImage?**: `string`
 
-Defined in: [src/config/site.config.ts:27](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L27)
+Defined in: [src/config/site.config.ts:27](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L27)
 
 Social/OG image URL (absolute or relative to public/).
 
@@ -83,7 +83,7 @@ Social/OG image URL (absolute or relative to public/).
 
 > **rss**: `object`
 
-Defined in: [src/config/site.config.ts:31](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L31)
+Defined in: [src/config/site.config.ts:31](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L31)
 
 RSS feed configuration.
 
@@ -123,7 +123,7 @@ Feed title (defaults to site title).
 
 > **seo**: `object`
 
-Defined in: [src/config/site.config.ts:44](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L44)
+Defined in: [src/config/site.config.ts:44](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L44)
 
 Default SEO settings.
 
@@ -163,7 +163,7 @@ Whether to add Twitter Card tags (default: true).
 
 > **site**: `string`
 
-Defined in: [src/config/site.config.ts:17](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L17)
+Defined in: [src/config/site.config.ts:17](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L17)
 
 Base URL of the site (no trailing slash).
 
@@ -173,7 +173,7 @@ Base URL of the site (no trailing slash).
 
 > **title**: `string`
 
-Defined in: [src/config/site.config.ts:19](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L19)
+Defined in: [src/config/site.config.ts:19](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L19)
 
 Site title (used in `<title>`, RSS, Open Graph).
 
@@ -183,6 +183,6 @@ Site title (used in `<title>`, RSS, Open Graph).
 
 > `optional` **twitter?**: `string`
 
-Defined in: [src/config/site.config.ts:29](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/site.config.ts#L29)
+Defined in: [src/config/site.config.ts:29](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L29)
 
 Twitter handle (without @).

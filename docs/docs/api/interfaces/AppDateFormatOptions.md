@@ -1,6 +1,6 @@
 # Interface: AppDateFormatOptions
 
-Defined in: [src/types/index.ts:178](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L178)
+Defined in: [src/types/index.ts:178](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L178)
 
 ## Properties
 
@@ -8,7 +8,7 @@ Defined in: [src/types/index.ts:178](https://github.com/senseikatana/katanakit-j
 
 > `optional` **day?**: `"numeric"` \| `"2-digit"`
 
-Defined in: [src/types/index.ts:181](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L181)
+Defined in: [src/types/index.ts:181](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L181)
 
 ***
 
@@ -16,7 +16,7 @@ Defined in: [src/types/index.ts:181](https://github.com/senseikatana/katanakit-j
 
 > `optional` **month?**: `"numeric"` \| `"2-digit"` \| `"long"` \| `"short"` \| `"narrow"`
 
-Defined in: [src/types/index.ts:180](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L180)
+Defined in: [src/types/index.ts:180](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L180)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [src/types/index.ts:180](https://github.com/senseikatana/katanakit-j
 
 > `optional` **year?**: `"numeric"` \| `"2-digit"`
 
-Defined in: [src/types/index.ts:179](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L179)
+Defined in: [src/types/index.ts:179](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L179)

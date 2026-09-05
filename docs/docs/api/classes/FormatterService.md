@@ -1,6 +1,6 @@
 # Class: FormatterService
 
-Defined in: [src/core/services/formatter.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L11)
+Defined in: [src/core/services/formatter.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L11)
 
 Number/currency/string formatter (Adapter + Singleton) over `Intl`.
 
@@ -14,7 +14,7 @@ Number/currency/string formatter (Adapter + Singleton) over `Intl`.
 
 > **useCapitalize**(`text`, `locale?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L36)
+Defined in: [src/core/services/formatter.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L36)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/core/services/formatter.service.ts:36](https://github.com/sense
 
 > **useFormatCurrency**(`options`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:42](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L42)
+Defined in: [src/core/services/formatter.service.ts:42](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L42)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/core/services/formatter.service.ts:42](https://github.com/sense
 
 > **useFormatNumber**(`value`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:23](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L23)
+Defined in: [src/core/services/formatter.service.ts:23](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L23)
 
 #### Parameters
 
@@ -92,7 +92,7 @@ Defined in: [src/core/services/formatter.service.ts:23](https://github.com/sense
 
 > **useJsonParse**&lt;`T`&gt;(`json`): `T`
 
-Defined in: [src/core/services/formatter.service.ts:53](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L53)
+Defined in: [src/core/services/formatter.service.ts:53](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L53)
 
 #### Type Parameters
 
@@ -120,7 +120,7 @@ Defined in: [src/core/services/formatter.service.ts:53](https://github.com/sense
 
 > **useJsonStringify**(`data`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:51](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L51)
+Defined in: [src/core/services/formatter.service.ts:51](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L51)
 
 #### Parameters
 
@@ -142,7 +142,7 @@ Defined in: [src/core/services/formatter.service.ts:51](https://github.com/sense
 
 > **useLowerCase**(`text`, `locale?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L33)
+Defined in: [src/core/services/formatter.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L33)
 
 #### Parameters
 
@@ -168,7 +168,7 @@ Defined in: [src/core/services/formatter.service.ts:33](https://github.com/sense
 
 > **useUpperCase**(`text`, `locale?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L30)
+Defined in: [src/core/services/formatter.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L30)
 
 #### Parameters
 
@@ -194,7 +194,7 @@ Defined in: [src/core/services/formatter.service.ts:30](https://github.com/sense
 
 > `static` **getInstance**(): `FormatterService`
 
-Defined in: [src/core/services/formatter.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L16)
+Defined in: [src/core/services/formatter.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L16)
 
 #### Returns
 

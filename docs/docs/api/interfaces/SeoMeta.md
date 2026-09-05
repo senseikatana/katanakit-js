@@ -1,6 +1,6 @@
 # Interface: SeoMeta
 
-Defined in: [src/config/seo.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L6)
+Defined in: [src/config/seo.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L6)
 
 SEO meta tag configuration for a single page.
 
@@ -10,7 +10,7 @@ SEO meta tag configuration for a single page.
 
 > `optional` **author?**: `string`
 
-Defined in: [src/config/seo.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L24)
+Defined in: [src/config/seo.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L24)
 
 Article author (for og:type=article).
 
@@ -20,7 +20,7 @@ Article author (for og:type=article).
 
 > `optional` **canonical?**: `string`
 
-Defined in: [src/config/seo.service.ts:12](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L12)
+Defined in: [src/config/seo.service.ts:12](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L12)
 
 Canonical URL (absolute). If omitted, derived from `url`.
 
@@ -30,7 +30,7 @@ Canonical URL (absolute). If omitted, derived from `url`.
 
 > `optional` **description?**: `string`
 
-Defined in: [src/config/seo.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L10)
+Defined in: [src/config/seo.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L10)
 
 Page description (falls back to site description).
 
@@ -40,7 +40,7 @@ Page description (falls back to site description).
 
 > `optional` **modifiedTime?**: `string`
 
-Defined in: [src/config/seo.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L22)
+Defined in: [src/config/seo.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L22)
 
 Article modified date (ISO string, for og:type=article).
 
@@ -50,7 +50,7 @@ Article modified date (ISO string, for og:type=article).
 
 > `optional` **noindex?**: `boolean`
 
-Defined in: [src/config/seo.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L28)
+Defined in: [src/config/seo.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L28)
 
 Whether to add noindex (default: false).
 
@@ -60,7 +60,7 @@ Whether to add noindex (default: false).
 
 > `optional` **ogImage?**: `string`
 
-Defined in: [src/config/seo.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L16)
+Defined in: [src/config/seo.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L16)
 
 OG image URL (absolute). Falls back to site config.
 
@@ -70,7 +70,7 @@ OG image URL (absolute). Falls back to site config.
 
 > `optional` **ogType?**: `"article"` \| `"website"` \| `"profile"`
 
-Defined in: [src/config/seo.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L18)
+Defined in: [src/config/seo.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L18)
 
 Content type: "website" | "article" | "profile" (default: "website").
 
@@ -80,7 +80,7 @@ Content type: "website" | "article" | "profile" (default: "website").
 
 > `optional` **publishedTime?**: `string`
 
-Defined in: [src/config/seo.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L20)
+Defined in: [src/config/seo.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L20)
 
 Article published date (ISO string, for og:type=article).
 
@@ -90,7 +90,7 @@ Article published date (ISO string, for og:type=article).
 
 > `optional` **tags?**: `string`[]
 
-Defined in: [src/config/seo.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L26)
+Defined in: [src/config/seo.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L26)
 
 Article tags (for og:type=article).
 
@@ -100,7 +100,7 @@ Article tags (for og:type=article).
 
 > **title**: `string`
 
-Defined in: [src/config/seo.service.ts:8](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L8)
+Defined in: [src/config/seo.service.ts:8](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L8)
 
 Page title (will be suffixed with site title).
 
@@ -110,6 +110,6 @@ Page title (will be suffixed with site title).
 
 > `optional` **url?**: `string`
 
-Defined in: [src/config/seo.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/config/seo.service.ts#L14)
+Defined in: [src/config/seo.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L14)
 
 Page URL (absolute, e.g. "https://example.com/blog/post/").

@@ -2,7 +2,7 @@
 
 > **useGetAttribute**: (`target`, `attr`) => `string` \| `null`
 
-Defined in: [src/infrastructure/dom/dom.service.ts:181](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/dom/dom.service.ts#L181)
+Defined in: [src/infrastructure/dom/dom.service.ts:181](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/dom/dom.service.ts#L181)
 
 ## Parameters
 

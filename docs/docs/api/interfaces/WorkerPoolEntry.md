@@ -1,6 +1,6 @@
 # Interface: WorkerPoolEntry&lt;TInput, TOutput&gt;
 
-Defined in: [src/types/index.ts:112](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L112)
+Defined in: [src/types/index.ts:112](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L112)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [src/types/index.ts:112](https://github.com/senseikatana/katanakit-j
 
 > **func**: [`WorkerFunc`](../type-aliases/WorkerFunc.md)&lt;`TInput`, `TOutput`&gt;
 
-Defined in: [src/types/index.ts:115](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L115)
+Defined in: [src/types/index.ts:115](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L115)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [src/types/index.ts:115](https://github.com/senseikatana/katanakit-j
 
 > **worker**: `Worker`
 
-Defined in: [src/types/index.ts:113](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L113)
+Defined in: [src/types/index.ts:113](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L113)
 
 ***
 
@@ -34,4 +34,4 @@ Defined in: [src/types/index.ts:113](https://github.com/senseikatana/katanakit-j
 
 > **workerUrl**: `string`
 
-Defined in: [src/types/index.ts:114](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L114)
+Defined in: [src/types/index.ts:114](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L114)

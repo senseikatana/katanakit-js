@@ -1,6 +1,6 @@
 # Class: WorkerService
 
-Defined in: [src/infrastructure/worker/worker.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L7)
+Defined in: [src/infrastructure/worker/worker.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L7)
 
 Worker facade (Singleton + Pool pattern) for running pure functions off the
 main thread, with an SSR/main-thread fallback when Worker is unavailable.
@@ -11,7 +11,7 @@ main thread, with an SSR/main-thread fallback when Worker is unavailable.
 
 > **useCreatePool**&lt;`TInput`, `TOutput`&gt;(`key`, `workerFunc`): `this`
 
-Defined in: [src/infrastructure/worker/worker.service.ts:83](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L83)
+Defined in: [src/infrastructure/worker/worker.service.ts:83](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L83)
 
 Creates a reusable Worker pool under a unique key.
 
@@ -45,7 +45,7 @@ Creates a reusable Worker pool under a unique key.
 
 > **useHasWorker**(`key`): `boolean`
 
-Defined in: [src/infrastructure/worker/worker.service.ts:169](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L169)
+Defined in: [src/infrastructure/worker/worker.service.ts:169](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L169)
 
 Checks whether a pool exists.
 
@@ -65,7 +65,7 @@ Checks whether a pool exists.
 
 > **useKeys**(): `string`[]
 
-Defined in: [src/infrastructure/worker/worker.service.ts:176](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L176)
+Defined in: [src/infrastructure/worker/worker.service.ts:176](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L176)
 
 Lists all active pool keys.
 
@@ -79,7 +79,7 @@ Lists all active pool keys.
 
 > **useRun**&lt;`TInput`, `TOutput`&gt;(`workerFunc`, `data`): `Promise`&lt;`TOutput`&gt;
 
-Defined in: [src/infrastructure/worker/worker.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L27)
+Defined in: [src/infrastructure/worker/worker.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L27)
 
 Runs a pure function in a one-shot Worker and destroys it afterwards.
 
@@ -113,7 +113,7 @@ Runs a pure function in a one-shot Worker and destroys it afterwards.
 
 > **useRunPool**&lt;`TInput`, `TOutput`&gt;(`key`, `data`): `Promise`&lt;`TOutput`&gt;
 
-Defined in: [src/infrastructure/worker/worker.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L112)
+Defined in: [src/infrastructure/worker/worker.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L112)
 
 Runs a task on an existing pool. Tasks are queued to prevent race conditions
 when multiple calls target the same pool key concurrently.
@@ -148,7 +148,7 @@ when multiple calls target the same pool key concurrently.
 
 > **useTerminate**(`key`): `this`
 
-Defined in: [src/infrastructure/worker/worker.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L146)
+Defined in: [src/infrastructure/worker/worker.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L146)
 
 Terminates a specific pool.
 
@@ -168,7 +168,7 @@ Terminates a specific pool.
 
 > **useTerminateAll**(): `this`
 
-Defined in: [src/infrastructure/worker/worker.service.ts:159](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L159)
+Defined in: [src/infrastructure/worker/worker.service.ts:159](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L159)
 
 Terminates all active pools.
 
@@ -182,7 +182,7 @@ Terminates all active pools.
 
 > `static` **getInstance**(): `WorkerService`
 
-Defined in: [src/infrastructure/worker/worker.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L13)
+Defined in: [src/infrastructure/worker/worker.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L13)
 
 #### Returns
 
@@ -194,7 +194,7 @@ Defined in: [src/infrastructure/worker/worker.service.ts:13](https://github.com/
 
 > `static` **useIsSupported**(): `boolean`
 
-Defined in: [src/infrastructure/worker/worker.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/worker/worker.service.ts#L20)
+Defined in: [src/infrastructure/worker/worker.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/worker/worker.service.ts#L20)
 
 #### Returns
 

@@ -1,6 +1,6 @@
 # Interface: IDomService
 
-Defined in: [src/types/index.ts:46](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L46)
+Defined in: [src/types/index.ts:46](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L46)
 
 Contract of the DOM facade.
 
@@ -10,7 +10,7 @@ Contract of the DOM facade.
 
 > **useAddClass**(`target`, `className`): `void`
 
-Defined in: [src/types/index.ts:60](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L60)
+Defined in: [src/types/index.ts:60](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L60)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/types/index.ts:60](https://github.com/senseikatana/katanakit-js
 
 > **useAppend**(`target`, `child`): `void`
 
-Defined in: [src/types/index.ts:81](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L81)
+Defined in: [src/types/index.ts:81](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L81)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [src/types/index.ts:81](https://github.com/senseikatana/katanakit-js
 
 > **useCreateElement**&lt;`T`&gt;(`tagName`, `options?`): `HTMLElementTagNameMap`\[`T`\]
 
-Defined in: [src/types/index.ts:75](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L75)
+Defined in: [src/types/index.ts:75](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L75)
 
 #### Type Parameters
 
@@ -82,7 +82,7 @@ Defined in: [src/types/index.ts:75](https://github.com/senseikatana/katanakit-js
 
 > **useGetAttribute**(`target`, `attr`): `string` \| `null`
 
-Defined in: [src/types/index.ts:64](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L64)
+Defined in: [src/types/index.ts:64](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L64)
 
 #### Parameters
 
@@ -104,7 +104,7 @@ Defined in: [src/types/index.ts:64](https://github.com/senseikatana/katanakit-js
 
 > **useGetBody**(): `HTMLBodyElement` \| `null`
 
-Defined in: [src/types/index.ts:49](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L49)
+Defined in: [src/types/index.ts:49](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L49)
 
 #### Returns
 
@@ -116,7 +116,7 @@ Defined in: [src/types/index.ts:49](https://github.com/senseikatana/katanakit-js
 
 > **useGetDataAttribute**(`target`, `key`): `string` \| `undefined`
 
-Defined in: [src/types/index.ts:67](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L67)
+Defined in: [src/types/index.ts:67](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L67)
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Defined in: [src/types/index.ts:67](https://github.com/senseikatana/katanakit-js
 
 > **useGetElementByClass**&lt;`T`&gt;(`className`): `T` \| `null`
 
-Defined in: [src/types/index.ts:51](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L51)
+Defined in: [src/types/index.ts:51](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L51)
 
 #### Type Parameters
 
@@ -162,7 +162,7 @@ Defined in: [src/types/index.ts:51](https://github.com/senseikatana/katanakit-js
 
 > **useGetElementById**&lt;`T`&gt;(`id`): `T` \| `null`
 
-Defined in: [src/types/index.ts:50](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L50)
+Defined in: [src/types/index.ts:50](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L50)
 
 #### Type Parameters
 
@@ -186,7 +186,7 @@ Defined in: [src/types/index.ts:50](https://github.com/senseikatana/katanakit-js
 
 > **useGetRoot**(): `HTMLElement` \| `null`
 
-Defined in: [src/types/index.ts:48](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L48)
+Defined in: [src/types/index.ts:48](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L48)
 
 #### Returns
 
@@ -198,7 +198,7 @@ Defined in: [src/types/index.ts:48](https://github.com/senseikatana/katanakit-js
 
 > **useHasClass**(`target`, `className`): `boolean`
 
-Defined in: [src/types/index.ts:63](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L63)
+Defined in: [src/types/index.ts:63](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L63)
 
 #### Parameters
 
@@ -220,7 +220,7 @@ Defined in: [src/types/index.ts:63](https://github.com/senseikatana/katanakit-js
 
 > **useIsBrowser**(): `boolean`
 
-Defined in: [src/types/index.ts:47](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L47)
+Defined in: [src/types/index.ts:47](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L47)
 
 #### Returns
 
@@ -232,7 +232,7 @@ Defined in: [src/types/index.ts:47](https://github.com/senseikatana/katanakit-js
 
 > **useOn**&lt;`K`&gt;(`target`, `event`, `callback`, `options?`): (() => `void`) \| `null`
 
-Defined in: [src/types/index.ts:69](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L69)
+Defined in: [src/types/index.ts:69](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L69)
 
 #### Type Parameters
 
@@ -270,7 +270,7 @@ Defined in: [src/types/index.ts:69](https://github.com/senseikatana/katanakit-js
 
 > **useQuerySelector**&lt;`K`&gt;(`selector`): `HTMLElementTagNameMap`\[`K`\] \| `null`
 
-Defined in: [src/types/index.ts:52](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L52)
+Defined in: [src/types/index.ts:52](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L52)
 
 ##### Type Parameters
 
@@ -292,7 +292,7 @@ Defined in: [src/types/index.ts:52](https://github.com/senseikatana/katanakit-js
 
 > **useQuerySelector**&lt;`E`&gt;(`selector`): `E` \| `null`
 
-Defined in: [src/types/index.ts:55](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L55)
+Defined in: [src/types/index.ts:55](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L55)
 
 ##### Type Parameters
 
@@ -318,7 +318,7 @@ Defined in: [src/types/index.ts:55](https://github.com/senseikatana/katanakit-js
 
 > **useQuerySelectorAll**&lt;`K`&gt;(`selector`): `HTMLElementTagNameMap`\[`K`\][]
 
-Defined in: [src/types/index.ts:56](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L56)
+Defined in: [src/types/index.ts:56](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L56)
 
 ##### Type Parameters
 
@@ -340,7 +340,7 @@ Defined in: [src/types/index.ts:56](https://github.com/senseikatana/katanakit-js
 
 > **useQuerySelectorAll**&lt;`E`&gt;(`selector`): `E`[]
 
-Defined in: [src/types/index.ts:59](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L59)
+Defined in: [src/types/index.ts:59](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L59)
 
 ##### Type Parameters
 
@@ -364,7 +364,7 @@ Defined in: [src/types/index.ts:59](https://github.com/senseikatana/katanakit-js
 
 > **useRemove**(`target`): `void`
 
-Defined in: [src/types/index.ts:82](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L82)
+Defined in: [src/types/index.ts:82](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L82)
 
 #### Parameters
 
@@ -382,7 +382,7 @@ Defined in: [src/types/index.ts:82](https://github.com/senseikatana/katanakit-js
 
 > **useRemoveAttribute**(`target`, `attr`): `void`
 
-Defined in: [src/types/index.ts:66](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L66)
+Defined in: [src/types/index.ts:66](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L66)
 
 #### Parameters
 
@@ -404,7 +404,7 @@ Defined in: [src/types/index.ts:66](https://github.com/senseikatana/katanakit-js
 
 > **useRemoveClass**(`target`, `className`): `void`
 
-Defined in: [src/types/index.ts:61](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L61)
+Defined in: [src/types/index.ts:61](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L61)
 
 #### Parameters
 
@@ -426,7 +426,7 @@ Defined in: [src/types/index.ts:61](https://github.com/senseikatana/katanakit-js
 
 > **useSetAttribute**(`target`, `attr`, `value`): `void`
 
-Defined in: [src/types/index.ts:65](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L65)
+Defined in: [src/types/index.ts:65](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L65)
 
 #### Parameters
 
@@ -452,7 +452,7 @@ Defined in: [src/types/index.ts:65](https://github.com/senseikatana/katanakit-js
 
 > **useSetDataAttribute**(`target`, `key`, `value`): `void`
 
-Defined in: [src/types/index.ts:68](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L68)
+Defined in: [src/types/index.ts:68](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L68)
 
 #### Parameters
 
@@ -478,7 +478,7 @@ Defined in: [src/types/index.ts:68](https://github.com/senseikatana/katanakit-js
 
 > **useSetHtml**(`target`, `html`): `void`
 
-Defined in: [src/types/index.ts:79](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L79)
+Defined in: [src/types/index.ts:79](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L79)
 
 #### Parameters
 
@@ -500,7 +500,7 @@ Defined in: [src/types/index.ts:79](https://github.com/senseikatana/katanakit-js
 
 > **useSetText**(`target`, `text`): `void`
 
-Defined in: [src/types/index.ts:80](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L80)
+Defined in: [src/types/index.ts:80](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L80)
 
 #### Parameters
 
@@ -522,7 +522,7 @@ Defined in: [src/types/index.ts:80](https://github.com/senseikatana/katanakit-js
 
 > **useToggleClass**(`target`, `className`, `force?`): `boolean` \| `undefined`
 
-Defined in: [src/types/index.ts:62](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L62)
+Defined in: [src/types/index.ts:62](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L62)
 
 #### Parameters
 

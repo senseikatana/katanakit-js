@@ -1,6 +1,6 @@
 # Class: ConverterService
 
-Defined in: [src/core/services/formatter.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L59)
+Defined in: [src/core/services/formatter.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L59)
 
 Unit converter facade (Facade + Adapter + Singleton) built on FormatterService.
 
@@ -14,7 +14,7 @@ Unit converter facade (Facade + Adapter + Singleton) built on FormatterService.
 
 > **useToCelsius**(`fahrenheit`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:74](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L74)
+Defined in: [src/core/services/formatter.service.ts:74](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L74)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/core/services/formatter.service.ts:74](https://github.com/sense
 
 > **useToCm**(`inches`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:89](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L89)
+Defined in: [src/core/services/formatter.service.ts:89](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L89)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/core/services/formatter.service.ts:89](https://github.com/sense
 
 > **useToFahrenheit**(`celsius`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:77](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L77)
+Defined in: [src/core/services/formatter.service.ts:77](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L77)
 
 #### Parameters
 
@@ -104,7 +104,7 @@ Defined in: [src/core/services/formatter.service.ts:77](https://github.com/sense
 
 > **useToInches**(`cm`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L86)
+Defined in: [src/core/services/formatter.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L86)
 
 #### Parameters
 
@@ -134,7 +134,7 @@ Defined in: [src/core/services/formatter.service.ts:86](https://github.com/sense
 
 > **useToKilometers**(`miles`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:80](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L80)
+Defined in: [src/core/services/formatter.service.ts:80](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L80)
 
 #### Parameters
 
@@ -164,7 +164,7 @@ Defined in: [src/core/services/formatter.service.ts:80](https://github.com/sense
 
 > **useToKilos**(`pounds`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:92](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L92)
+Defined in: [src/core/services/formatter.service.ts:92](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L92)
 
 #### Parameters
 
@@ -194,7 +194,7 @@ Defined in: [src/core/services/formatter.service.ts:92](https://github.com/sense
 
 > **useToMiles**(`km`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:83](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L83)
+Defined in: [src/core/services/formatter.service.ts:83](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L83)
 
 #### Parameters
 
@@ -224,7 +224,7 @@ Defined in: [src/core/services/formatter.service.ts:83](https://github.com/sense
 
 > **useToPounds**(`kilos`, `locale?`, `digits?`): `string`
 
-Defined in: [src/core/services/formatter.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L95)
+Defined in: [src/core/services/formatter.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L95)
 
 #### Parameters
 
@@ -254,7 +254,7 @@ Defined in: [src/core/services/formatter.service.ts:95](https://github.com/sense
 
 > `static` **getInstance**(): `ConverterService`
 
-Defined in: [src/core/services/formatter.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/formatter.service.ts#L67)
+Defined in: [src/core/services/formatter.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/formatter.service.ts#L67)
 
 #### Returns
 

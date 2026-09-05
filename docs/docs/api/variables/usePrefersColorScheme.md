@@ -2,7 +2,7 @@
 
 > **usePrefersColorScheme**: () => `boolean`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/theme/theme.service.ts#L136)
+Defined in: [src/infrastructure/theme/theme.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L136)
 
 ## Returns
 

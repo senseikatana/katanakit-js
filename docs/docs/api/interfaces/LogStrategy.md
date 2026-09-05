@@ -1,6 +1,6 @@
 # Interface: LogStrategy
 
-Defined in: [src/types/index.ts:11](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L11)
+Defined in: [src/types/index.ts:11](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L11)
 
 Strategy contract: defines the output using type-safe levels.
 
@@ -10,7 +10,7 @@ Strategy contract: defines the output using type-safe levels.
 
 > **useOutput**(`level`, `message`, `data?`): `void`
 
-Defined in: [src/types/index.ts:12](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L12)
+Defined in: [src/types/index.ts:12](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L12)
 
 #### Parameters
 

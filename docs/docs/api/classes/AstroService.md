@@ -1,6 +1,6 @@
 # Class: AstroService
 
-Defined in: [src/adapters/astro/astro.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L14)
+Defined in: [src/adapters/astro/astro.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L14)
 
 Astro adapter (Facade + Adapter + Singleton). Converts arbitrary collections
 into the `getStaticPaths` format Astro expects, wrapped in a Safe Result.
@@ -15,7 +15,7 @@ into the `getStaticPaths` format Astro expects, wrapped in a Safe Result.
 
 > **useExtractUniqueValues**&lt;`T`, `V`&gt;(`items`, `keyFrom`): `V`[]
 
-Defined in: [src/adapters/astro/astro.service.ts:125](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L125)
+Defined in: [src/adapters/astro/astro.service.ts:125](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L125)
 
 #### Type Parameters
 
@@ -51,7 +51,7 @@ Defined in: [src/adapters/astro/astro.service.ts:125](https://github.com/senseik
 
 > **useFindEntry**&lt;`T`&gt;(`items`, `value`, `keyFrom?`): `T` \| `null`
 
-Defined in: [src/adapters/astro/astro.service.ts:79](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L79)
+Defined in: [src/adapters/astro/astro.service.ts:79](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L79)
 
 #### Type Parameters
 
@@ -87,7 +87,7 @@ Defined in: [src/adapters/astro/astro.service.ts:79](https://github.com/senseika
 
 > **useGeneratePagination**&lt;`T`, `TParam`&gt;(`items`, `pageSize?`, `param?`): [`AstroPath`](../interfaces/AstroPath.md)&lt;`TParam`, [`PaginationProps`](../interfaces/PaginationProps.md)&lt;`T`&gt;&gt;[]
 
-Defined in: [src/adapters/astro/astro.service.ts:93](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L93)
+Defined in: [src/adapters/astro/astro.service.ts:93](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L93)
 
 #### Type Parameters
 
@@ -127,7 +127,7 @@ Defined in: [src/adapters/astro/astro.service.ts:93](https://github.com/senseika
 
 > **useGetStaticPaths**&lt;`TData`, `TParam`, `TProps`&gt;(`getCollectionFn`, `collectionName`, `options?`): `Promise`&lt;[`AstroServiceResult`](../type-aliases/AstroServiceResult.md)&lt;[`AstroPath`](../interfaces/AstroPath.md)&lt;`TParam`, `TProps`&gt;[]&gt;&gt;
 
-Defined in: [src/adapters/astro/astro.service.ts:49](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L49)
+Defined in: [src/adapters/astro/astro.service.ts:49](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L49)
 
 #### Type Parameters
 
@@ -171,7 +171,7 @@ Defined in: [src/adapters/astro/astro.service.ts:49](https://github.com/senseika
 
 > **usePathsFrom**&lt;`T`, `TParam`, `TProps`&gt;(`items`, `options?`): [`AstroPath`](../interfaces/AstroPath.md)&lt;`TParam`, `TProps`&gt;[]
 
-Defined in: [src/adapters/astro/astro.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L26)
+Defined in: [src/adapters/astro/astro.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L26)
 
 #### Type Parameters
 
@@ -211,7 +211,7 @@ Defined in: [src/adapters/astro/astro.service.ts:26](https://github.com/senseika
 
 > **usePathsFromValues**&lt;`TParam`&gt;(`values`, `param?`): [`AstroPath`](../interfaces/AstroPath.md)&lt;`TParam`, `string` \| `number`&gt;[]
 
-Defined in: [src/adapters/astro/astro.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L115)
+Defined in: [src/adapters/astro/astro.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L115)
 
 #### Type Parameters
 
@@ -243,7 +243,7 @@ Defined in: [src/adapters/astro/astro.service.ts:115](https://github.com/senseik
 
 > `static` **getInstance**(): `AstroService`
 
-Defined in: [src/adapters/astro/astro.service.ts:19](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/astro.service.ts#L19)
+Defined in: [src/adapters/astro/astro.service.ts:19](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L19)
 
 #### Returns
 

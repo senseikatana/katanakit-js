@@ -1,6 +1,6 @@
 # Interface: ObserverConfig
 
-Defined in: [src/types/index.ts:26](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L26)
+Defined in: [src/types/index.ts:26](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L26)
 
 Configuration for a registered IntersectionObserver.
 
@@ -10,7 +10,7 @@ Configuration for a registered IntersectionObserver.
 
 > **autoUnobserve**: `boolean`
 
-Defined in: [src/types/index.ts:29](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L29)
+Defined in: [src/types/index.ts:29](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L29)
 
 ***
 
@@ -18,7 +18,7 @@ Defined in: [src/types/index.ts:29](https://github.com/senseikatana/katanakit-js
 
 > **callback**: [`ObserverCallback`](../type-aliases/ObserverCallback.md)
 
-Defined in: [src/types/index.ts:27](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L27)
+Defined in: [src/types/index.ts:27](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L27)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [src/types/index.ts:27](https://github.com/senseikatana/katanakit-js
 
 > **options**: `IntersectionObserverInit`
 
-Defined in: [src/types/index.ts:28](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L28)
+Defined in: [src/types/index.ts:28](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L28)

@@ -1,6 +1,6 @@
 # Class: GeometryVolume
 
-Defined in: [src/core/services/geometry.service.ts:108](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/geometry.service.ts#L108)
+Defined in: [src/core/services/geometry.service.ts:108](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L108)
 
 Volume calculations for 3D geometric shapes.
 
@@ -10,7 +10,7 @@ Volume calculations for 3D geometric shapes.
 
 > `static` **useBox**(`length`, `width`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/geometry.service.ts#L115)
+Defined in: [src/core/services/geometry.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L115)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/core/services/geometry.service.ts:115](https://github.com/sense
 
 > `static` **useCone**(`radius`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:132](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/geometry.service.ts#L132)
+Defined in: [src/core/services/geometry.service.ts:132](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L132)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/core/services/geometry.service.ts:132](https://github.com/sense
 
 > `static` **useCube**(`side`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:111](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/geometry.service.ts#L111)
+Defined in: [src/core/services/geometry.service.ts:111](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L111)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [src/core/services/geometry.service.ts:111](https://github.com/sense
 
 > `static` **useCylinder**(`radius`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:128](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/geometry.service.ts#L128)
+Defined in: [src/core/services/geometry.service.ts:128](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L128)
 
 #### Parameters
 
@@ -114,7 +114,7 @@ Defined in: [src/core/services/geometry.service.ts:128](https://github.com/sense
 
 > `static` **usePyramid**(`baseArea`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/geometry.service.ts#L136)
+Defined in: [src/core/services/geometry.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L136)
 
 #### Parameters
 
@@ -140,7 +140,7 @@ Defined in: [src/core/services/geometry.service.ts:136](https://github.com/sense
 
 > `static` **useSphere**(`radius`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/geometry.service.ts#L124)
+Defined in: [src/core/services/geometry.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L124)
 
 #### Parameters
 

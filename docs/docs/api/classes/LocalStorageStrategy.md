@@ -1,6 +1,6 @@
 # Class: LocalStorageStrategy
 
-Defined in: [src/infrastructure/storage/storage.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/storage/storage.service.ts#L66)
+Defined in: [src/infrastructure/storage/storage.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/storage/storage.service.ts#L66)
 
 Concrete strategy backed by `window.localStorage`.
 
@@ -14,7 +14,7 @@ Concrete strategy backed by `window.localStorage`.
 
 > **new LocalStorageStrategy**(): `LocalStorageStrategy`
 
-Defined in: [src/infrastructure/storage/storage.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/storage/storage.service.ts#L67)
+Defined in: [src/infrastructure/storage/storage.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/storage/storage.service.ts#L67)
 
 #### Returns
 
@@ -30,7 +30,7 @@ Defined in: [src/infrastructure/storage/storage.service.ts:67](https://github.co
 
 > **useClear**(): `void`
 
-Defined in: [src/infrastructure/storage/storage.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/storage/storage.service.ts#L27)
+Defined in: [src/infrastructure/storage/storage.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/storage/storage.service.ts#L27)
 
 #### Returns
 
@@ -46,7 +46,7 @@ Defined in: [src/infrastructure/storage/storage.service.ts:27](https://github.co
 
 > **useGetItem**&lt;`T`&gt;(`key`): `T` \| `null`
 
-Defined in: [src/infrastructure/storage/storage.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/storage/storage.service.ts#L9)
+Defined in: [src/infrastructure/storage/storage.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/storage/storage.service.ts#L9)
 
 #### Type Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/infrastructure/storage/storage.service.ts:9](https://github.com
 
 > **useRemoveItem**(`key`): `void`
 
-Defined in: [src/infrastructure/storage/storage.service.ts:23](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/storage/storage.service.ts#L23)
+Defined in: [src/infrastructure/storage/storage.service.ts:23](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/storage/storage.service.ts#L23)
 
 #### Parameters
 
@@ -96,7 +96,7 @@ Defined in: [src/infrastructure/storage/storage.service.ts:23](https://github.co
 
 > **useSetItem**(`key`, `value`): `void`
 
-Defined in: [src/infrastructure/storage/storage.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/infrastructure/storage/storage.service.ts#L18)
+Defined in: [src/infrastructure/storage/storage.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/storage/storage.service.ts#L18)
 
 #### Parameters
 

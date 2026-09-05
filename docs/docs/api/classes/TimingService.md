@@ -1,6 +1,6 @@
 # Class: TimingService
 
-Defined in: [src/core/services/timing.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L10)
+Defined in: [src/core/services/timing.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L10)
 
 Timing utilities: delays, debouncing, throttling and timeouts.
 Implemented as a Singleton facade with factory methods.
@@ -11,7 +11,7 @@ Implemented as a Singleton facade with factory methods.
 
 > **useDebounce**&lt;`T`&gt;(`func`, `delayMs`): (...`args`) => `void`
 
-Defined in: [src/core/services/timing.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L118)
+Defined in: [src/core/services/timing.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L118)
 
 #### Type Parameters
 
@@ -39,7 +39,7 @@ Defined in: [src/core/services/timing.service.ts:118](https://github.com/senseik
 
 > **useDebounceImmediate**&lt;`T`&gt;(`func`, `delayMs`): (...`args`) => `void`
 
-Defined in: [src/core/services/timing.service.ts:140](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L140)
+Defined in: [src/core/services/timing.service.ts:140](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L140)
 
 #### Type Parameters
 
@@ -67,7 +67,7 @@ Defined in: [src/core/services/timing.service.ts:140](https://github.com/senseik
 
 > **useDelay**(`ms`): `Promise`&lt;`void`&gt;
 
-Defined in: [src/core/services/timing.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L22)
+Defined in: [src/core/services/timing.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L22)
 
 #### Parameters
 
@@ -85,7 +85,7 @@ Defined in: [src/core/services/timing.service.ts:22](https://github.com/senseika
 
 > **useInterval**(`callback`, `ms`, `immediate?`): [`IntervalControl`](../interfaces/IntervalControl.md)
 
-Defined in: [src/core/services/timing.service.ts:52](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L52)
+Defined in: [src/core/services/timing.service.ts:52](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L52)
 
 #### Parameters
 
@@ -111,7 +111,7 @@ Defined in: [src/core/services/timing.service.ts:52](https://github.com/senseika
 
 > **useRace**&lt;`T`&gt;(`promise`, `timeoutMs`, `errorMessage?`): `Promise`&lt;`T`&gt;
 
-Defined in: [src/core/services/timing.service.ts:251](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L251)
+Defined in: [src/core/services/timing.service.ts:251](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L251)
 
 #### Type Parameters
 
@@ -143,7 +143,7 @@ Defined in: [src/core/services/timing.service.ts:251](https://github.com/senseik
 
 > **useRepeat**(`callback`, `iterations`, `delayMs?`): `Promise`&lt;`void`&gt;
 
-Defined in: [src/core/services/timing.service.ts:233](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L233)
+Defined in: [src/core/services/timing.service.ts:233](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L233)
 
 #### Parameters
 
@@ -169,7 +169,7 @@ Defined in: [src/core/services/timing.service.ts:233](https://github.com/senseik
 
 > **useSetTimeout**&lt;`T`&gt;(`callback`, `ms`): [`TimeoutControl`](../interfaces/TimeoutControl.md)&lt;`T`&gt;
 
-Defined in: [src/core/services/timing.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L27)
+Defined in: [src/core/services/timing.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L27)
 
 #### Type Parameters
 
@@ -197,7 +197,7 @@ Defined in: [src/core/services/timing.service.ts:27](https://github.com/senseika
 
 > **useSleep**(`ms`): `Promise`&lt;`void`&gt;
 
-Defined in: [src/core/services/timing.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L25)
+Defined in: [src/core/services/timing.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L25)
 
 Alias for delay, more semantic for sleep operations.
 
@@ -217,7 +217,7 @@ Alias for delay, more semantic for sleep operations.
 
 > **useThrottle**&lt;`T`&gt;(`func`, `limitMs`): (...`args`) => `void`
 
-Defined in: [src/core/services/timing.service.ts:179](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L179)
+Defined in: [src/core/services/timing.service.ts:179](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L179)
 
 #### Type Parameters
 
@@ -245,7 +245,7 @@ Defined in: [src/core/services/timing.service.ts:179](https://github.com/senseik
 
 > **useThrottleTrailing**&lt;`T`&gt;(`func`, `limitMs`): (...`args`) => `void`
 
-Defined in: [src/core/services/timing.service.ts:200](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L200)
+Defined in: [src/core/services/timing.service.ts:200](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L200)
 
 #### Type Parameters
 
@@ -273,7 +273,7 @@ Defined in: [src/core/services/timing.service.ts:200](https://github.com/senseik
 
 > `static` **getInstance**(): `TimingService`
 
-Defined in: [src/core/services/timing.service.ts:15](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/timing.service.ts#L15)
+Defined in: [src/core/services/timing.service.ts:15](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/timing.service.ts#L15)
 
 #### Returns
 

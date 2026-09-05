@@ -1,6 +1,6 @@
 # Interface: IReactiveService
 
-Defined in: [src/types/index.ts:387](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L387)
+Defined in: [src/types/index.ts:387](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L387)
 
 Contract of the reactive facade.
 
@@ -10,7 +10,7 @@ Contract of the reactive facade.
 
 > **useCreateBatch**(): (`callback`) => `void`
 
-Defined in: [src/types/index.ts:398](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L398)
+Defined in: [src/types/index.ts:398](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L398)
 
 #### Returns
 
@@ -22,7 +22,7 @@ Defined in: [src/types/index.ts:398](https://github.com/senseikatana/katanakit-j
 
 > **useCreateDebouncedSignal**&lt;`T`&gt;(`initialValue`, `delayMs?`): \[[`SignalGetter`](SignalGetter.md)&lt;`T`&gt;, [`SignalSetter`](../type-aliases/SignalSetter.md)&lt;`T`&gt;\]
 
-Defined in: [src/types/index.ts:397](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L397)
+Defined in: [src/types/index.ts:397](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L397)
 
 #### Type Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/types/index.ts:397](https://github.com/senseikatana/katanakit-j
 
 > **useCreateEffect**(`callback`, `signals`): () => `void`
 
-Defined in: [src/types/index.ts:389](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L389)
+Defined in: [src/types/index.ts:389](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L389)
 
 #### Parameters
 
@@ -72,7 +72,7 @@ Defined in: [src/types/index.ts:389](https://github.com/senseikatana/katanakit-j
 
 > **useCreateMemo**&lt;`T`&gt;(`computation`, `signals`): [`SignalGetter`](SignalGetter.md)&lt;`T`&gt;
 
-Defined in: [src/types/index.ts:390](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L390)
+Defined in: [src/types/index.ts:390](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L390)
 
 #### Type Parameters
 
@@ -100,7 +100,7 @@ Defined in: [src/types/index.ts:390](https://github.com/senseikatana/katanakit-j
 
 > **useCreateSignal**&lt;`T`&gt;(`initialValue`): \[[`SignalGetter`](SignalGetter.md)&lt;`T`&gt;, [`SignalSetter`](../type-aliases/SignalSetter.md)&lt;`T`&gt;\]
 
-Defined in: [src/types/index.ts:388](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L388)
+Defined in: [src/types/index.ts:388](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L388)
 
 #### Type Parameters
 
@@ -124,7 +124,7 @@ Defined in: [src/types/index.ts:388](https://github.com/senseikatana/katanakit-j
 
 > **useCreateStorageSignal**&lt;`T`&gt;(`key`, `fallbackValue`, `target?`): \[[`SignalGetter`](SignalGetter.md)&lt;`T`&gt;, [`SignalSetter`](../type-aliases/SignalSetter.md)&lt;`T`&gt;\]
 
-Defined in: [src/types/index.ts:392](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L392)
+Defined in: [src/types/index.ts:392](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L392)
 
 #### Type Parameters
 
@@ -156,7 +156,7 @@ Defined in: [src/types/index.ts:392](https://github.com/senseikatana/katanakit-j
 
 > **useCreateToggle**(`initialValue?`): \[[`SignalGetter`](SignalGetter.md)&lt;`boolean`&gt;, [`ToggleSignalSetter`](ToggleSignalSetter.md)\]
 
-Defined in: [src/types/index.ts:391](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L391)
+Defined in: [src/types/index.ts:391](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L391)
 
 #### Parameters
 

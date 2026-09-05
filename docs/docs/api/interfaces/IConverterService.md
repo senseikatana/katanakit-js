@@ -1,6 +1,6 @@
 # Interface: IConverterService
 
-Defined in: [src/types/index.ts:329](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L329)
+Defined in: [src/types/index.ts:329](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L329)
 
 Contract of the unit converter facade.
 
@@ -10,7 +10,7 @@ Contract of the unit converter facade.
 
 > **useToCelsius**(`fahrenheit`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:330](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L330)
+Defined in: [src/types/index.ts:330](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L330)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/types/index.ts:330](https://github.com/senseikatana/katanakit-j
 
 > **useToCm**(`inches`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:335](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L335)
+Defined in: [src/types/index.ts:335](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L335)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/types/index.ts:335](https://github.com/senseikatana/katanakit-j
 
 > **useToFahrenheit**(`celsius`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:331](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L331)
+Defined in: [src/types/index.ts:331](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L331)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [src/types/index.ts:331](https://github.com/senseikatana/katanakit-j
 
 > **useToInches**(`cm`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:334](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L334)
+Defined in: [src/types/index.ts:334](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L334)
 
 #### Parameters
 
@@ -114,7 +114,7 @@ Defined in: [src/types/index.ts:334](https://github.com/senseikatana/katanakit-j
 
 > **useToKilometers**(`miles`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:332](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L332)
+Defined in: [src/types/index.ts:332](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L332)
 
 #### Parameters
 
@@ -140,7 +140,7 @@ Defined in: [src/types/index.ts:332](https://github.com/senseikatana/katanakit-j
 
 > **useToKilos**(`pounds`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:336](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L336)
+Defined in: [src/types/index.ts:336](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L336)
 
 #### Parameters
 
@@ -166,7 +166,7 @@ Defined in: [src/types/index.ts:336](https://github.com/senseikatana/katanakit-j
 
 > **useToMiles**(`km`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:333](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L333)
+Defined in: [src/types/index.ts:333](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L333)
 
 #### Parameters
 
@@ -192,7 +192,7 @@ Defined in: [src/types/index.ts:333](https://github.com/senseikatana/katanakit-j
 
 > **useToPounds**(`kilos`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:337](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L337)
+Defined in: [src/types/index.ts:337](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L337)
 
 #### Parameters
 

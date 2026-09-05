@@ -2,7 +2,7 @@
 
 > **useCreateBatch**: () => (`callback`) => `void`
 
-Defined in: [src/core/services/reactive.service.ts:221](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/core/services/reactive.service.ts#L221)
+Defined in: [src/core/services/reactive.service.ts:221](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L221)
 
 ## Returns
 

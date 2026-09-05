@@ -1,6 +1,6 @@
 # Interface: IDataUtils
 
-Defined in: [src/types/index.ts:424](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L424)
+Defined in: [src/types/index.ts:424](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L424)
 
 Contract of the data utilities.
 
@@ -10,7 +10,7 @@ Contract of the data utilities.
 
 > **useChunk**&lt;`T`&gt;(`array`, `size`): `T`[][]
 
-Defined in: [src/types/index.ts:426](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L426)
+Defined in: [src/types/index.ts:426](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L426)
 
 #### Type Parameters
 
@@ -38,7 +38,7 @@ Defined in: [src/types/index.ts:426](https://github.com/senseikatana/katanakit-j
 
 > **useDeepClone**&lt;`T`&gt;(`value`): `T`
 
-Defined in: [src/types/index.ts:429](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L429)
+Defined in: [src/types/index.ts:429](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L429)
 
 #### Type Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/types/index.ts:429](https://github.com/senseikatana/katanakit-j
 
 > **useDeepMerge**&lt;`T`&gt;(`target`, `source`): `T`
 
-Defined in: [src/types/index.ts:430](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L430)
+Defined in: [src/types/index.ts:430](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L430)
 
 #### Type Parameters
 
@@ -90,7 +90,7 @@ Defined in: [src/types/index.ts:430](https://github.com/senseikatana/katanakit-j
 
 > **useGroupBy**&lt;`T`&gt;(`array`, `key`): `Record`&lt;`string`, `T`[]&gt;
 
-Defined in: [src/types/index.ts:427](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L427)
+Defined in: [src/types/index.ts:427](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L427)
 
 #### Type Parameters
 
@@ -118,7 +118,7 @@ keyof `T` \| ((`item`) => `string`)
 
 > **useIsObject**(`item`): `item is Record<string, unknown>`
 
-Defined in: [src/types/index.ts:428](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L428)
+Defined in: [src/types/index.ts:428](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L428)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: [src/types/index.ts:428](https://github.com/senseikatana/katanakit-j
 
 > **useOmit**&lt;`T`, `K`&gt;(`obj`, `keys`): `Omit`&lt;`T`, `K`&gt;
 
-Defined in: [src/types/index.ts:432](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L432)
+Defined in: [src/types/index.ts:432](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L432)
 
 #### Type Parameters
 
@@ -168,7 +168,7 @@ Defined in: [src/types/index.ts:432](https://github.com/senseikatana/katanakit-j
 
 > **usePick**&lt;`T`, `K`&gt;(`obj`, `keys`): `Pick`&lt;`T`, `K`&gt;
 
-Defined in: [src/types/index.ts:431](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L431)
+Defined in: [src/types/index.ts:431](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L431)
 
 #### Type Parameters
 
@@ -200,7 +200,7 @@ Defined in: [src/types/index.ts:431](https://github.com/senseikatana/katanakit-j
 
 > **useUnique**&lt;`T`&gt;(`array`): `T`[]
 
-Defined in: [src/types/index.ts:425](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/types/index.ts#L425)
+Defined in: [src/types/index.ts:425](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L425)
 
 #### Type Parameters
 

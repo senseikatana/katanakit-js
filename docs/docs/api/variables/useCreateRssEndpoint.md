@@ -2,7 +2,7 @@
 
 > **useCreateRssEndpoint**: (`config`) => (`context`) => `Promise`&lt;`Response`&gt;
 
-Defined in: [src/adapters/astro/rss.service.ts:273](https://github.com/senseikatana/katanakit-js/blob/5e558a8367455e6129bb2647b2f6a540281bfea4/src/adapters/astro/rss.service.ts#L273)
+Defined in: [src/adapters/astro/rss.service.ts:273](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L273)
 
 Creates an Astro-compatible GET endpoint handler for the RSS feed.
 Use this in `src/pages/rss.xml.ts` to serve the feed.
