@@ -1,9 +1,9 @@
-import { docsSchema } from "@astrojs/starlight/schema";
-import { docsLoader } from "@astrojs/starlight/loaders";
-import { docsVersionsLoader } from "starlight-versions/loader";
 import { defineCollection } from "astro:content";
+import { docsLoader, docsSchema } from "@prosefly/astro-theme-lotus/content";
 
-export const collections = {
-	docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
-	versions: defineCollection({ loader: docsVersionsLoader() }),
-};
+const docs = defineCollection({
+	loader: docsLoader(),
+	schema: docsSchema(),
+});
+
+export const collections = { docs };

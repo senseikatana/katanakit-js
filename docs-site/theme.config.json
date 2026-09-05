@@ -1,0 +1,125 @@
+{
+	"$schema": "https://prosefly.dev/schema/lotus.json",
+	"name": "KatanaKit",
+	"description": "A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
+	"favicon": "/favicon.svg",
+	"docsBase": "/",
+	"siteNav": [
+		{
+			"label": "Docs",
+			"href": "/getting-started/"
+		},
+		{
+			"label": "API Reference",
+			"href": "/api-overview/"
+		},
+		{
+			"label": "GitHub",
+			"href": "https://github.com/senseikatana/katanakit-js",
+			"external": true,
+			"trailingIcon": "lucide:arrow-up-right"
+		}
+	],
+	"socials": [
+		{
+			"label": "GitHub",
+			"href": "https://github.com/senseikatana/katanakit-js",
+			"external": true,
+			"icon": "github"
+		}
+	],
+	"search": {
+		"provider": "local"
+	},
+	"source": {
+		"github": "senseikatana/katanakit-js",
+		"branch": "dev"
+	},
+	"editLink": true,
+	"docsNav": [
+		{
+			"label": "Getting Started",
+			"icon": "lucide:rocket",
+			"items": [
+				"getting-started",
+				"architecture"
+			]
+		},
+		{
+			"label": "Guides",
+			"icon": "lucide:book-open",
+			"items": [
+				{
+					"autogenerate": {
+						"directory": "guides"
+					}
+				}
+			]
+		},
+		{
+			"label": "Reference",
+			"icon": "lucide:code",
+			"items": [
+				"api-overview",
+				"changelog",
+				"roadmap"
+			]
+		}
+	],
+	"footer": {
+		"copyright": "Copyright © 2026 Sergio Jurado (senseikatana). MIT License.",
+		"sections": [
+			{
+				"title": "Project",
+				"links": [
+					{
+						"label": "Documentation",
+						"href": "https://senseikatana.github.io/katanakit-js/"
+					},
+					{
+						"label": "npm Package",
+						"href": "https://www.npmjs.com/package/katanakit-js",
+						"external": true
+					},
+					{
+						"label": "GitHub",
+						"href": "https://github.com/senseikatana/katanakit-js",
+						"external": true
+					}
+				]
+			},
+			{
+				"title": "Resources",
+				"links": [
+					{
+						"label": "Getting Started",
+						"href": "/getting-started/"
+					},
+					{
+						"label": "API Reference",
+						"href": "/api-overview/"
+					},
+					{
+						"label": "Changelog",
+						"href": "/changelog/"
+					}
+				]
+			},
+			{
+				"title": "Community",
+				"links": [
+					{
+						"label": "Issues",
+						"href": "https://github.com/senseikatana/katanakit-js/issues",
+						"external": true
+					},
+					{
+						"label": "Discussions",
+						"href": "https://github.com/senseikatana/katanakit-js/discussions",
+						"external": true
+					}
+				]
+			}
+		]
+	}
+}

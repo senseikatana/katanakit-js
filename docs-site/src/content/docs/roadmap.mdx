@@ -1,0 +1,57 @@
+---
+title: Roadmap
+description: What is planned for KatanaKit. Contributions welcome.
+sidebar:
+  order: 5
+---
+
+A living list of what is planned for KatanaKit (`katanakit-js`). Contributions
+are welcome — pick something and open a pull request.
+
+Legend: `[x]` done · `[ ]` planned.
+
+## Shipped (as of 2.2.1)
+
+### Architecture and packaging
+
+- [x] Hexagonal reorganization into `types/`, `core/services/`,
+      `infrastructure/`, `adapters/`, `config/` and `prisma/`.
+- [x] Pure ESM with explicit `.js` extensions and `exports` map with subpaths.
+- [x] `use*` method convention across every service.
+- [x] Destructured, tree-shakeable exports from Singleton facades.
+- [x] Single source of truth for contracts in `src/types/`.
+- [x] No side effects on import; SSR-safe infrastructure adapters.
+- [x] Optional peer dependencies for heavy/framework deps.
+
+### Services and adapters
+
+- [x] Core services: HTTP, logger, formatter, converter, errors, generator,
+      dates, geometry, timing, utilities, reactive signals.
+- [x] Infrastructure: DOM, storage, viewport, sensors, observer, worker, theme.
+- [x] Astro adapter, RSS service, site config + SEO module.
+- [x] Nuxt adapter, Vue adapter, Express reference server.
+- [x] Prisma integration with contract pattern.
+
+### Quality and tooling
+
+- [x] Vitest suite: 60 tests across 8 files.
+- [x] Biome 2 lint + format.
+- [x] `release:*` scripts with `validate` gate.
+- [x] English documentation.
+
+## Next
+
+- [ ] HTTP client: interceptors, retry with backoff, AbortSignal, caching.
+- [ ] Reactive: automatic dependency tracking.
+- [ ] More adapters: React hooks, Svelte stores.
+- [ ] Structured/JSON logger strategy.
+- [ ] Prisma migrations and seed scripts.
+- [ ] Vitest coverage reporting + CI pipeline.
+
+## Later
+
+- [ ] Deno / Cloudflare Workers compatibility.
+- [ ] More geometry and unit conversions.
+- [ ] i18n and relative-time for `DatesService.useDiff`.
+- [ ] E2E tests for Express adapter.
+- [ ] AbortController in `useInterval`/timeout helpers.

@@ -1,23 +1,22 @@
 {
 	"name": "katanakit-docs",
+	"version": "0.1.0",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro build",
-		"preview": "astro preview"
+		"preview": "astro preview",
+		"check": "astro check"
 	},
 	"dependencies": {
-		"@astrojs/starlight": "^0.39.0",
-		"@astrojs/starlight-tailwind": "^5.0.0",
-		"@tailwindcss/vite": "^4.3.3",
-		"astro": "^6.0.0",
-		"sharp": "^0.33.0",
-		"starlight-typedoc": "^0.23.0",
-		"starlight-versions": "^0.8.0",
-		"tailwindcss": "^4.3.3",
-		"typedoc": "^0.28.0",
-		"typedoc-plugin-markdown": "^4.13.0",
-		"typescript": "~5.8.0"
+		"@astrojs/check": "latest",
+		"@astrojs/mdx": "latest",
+		"@prosefly/astro-components": "^0.6.2",
+		"@prosefly/astro-theme-lotus": "^0.7.2",
+		"@tailwindcss/vite": "latest",
+		"astro": "^7.2.10",
+		"tailwindcss": "latest",
+		"typescript": "^6.0.3"
 	}
 }
