@@ -1,6 +1,6 @@
 # Class: GeometryArea
 
-Defined in: [src/core/services/geometry.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L14)
+Defined in: [src/core/services/geometry.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L14)
 
 Area calculations for geometric shapes.
 
@@ -10,7 +10,7 @@ Area calculations for geometric shapes.
 
 > `static` **useCircle**(`radius`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L29)
+Defined in: [src/core/services/geometry.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L29)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/core/services/geometry.service.ts:29](https://github.com/sensei
 
 > `static` **useEllipse**(`semiMajor`, `semiMinor`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L46)
+Defined in: [src/core/services/geometry.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L46)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [src/core/services/geometry.service.ts:46](https://github.com/sensei
 
 > `static` **useHexagon**(`side`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:42](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L42)
+Defined in: [src/core/services/geometry.service.ts:42](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L42)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [src/core/services/geometry.service.ts:42](https://github.com/sensei
 
 > `static` **useParallelogram**(`base`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:50](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L50)
+Defined in: [src/core/services/geometry.service.ts:50](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L50)
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/core/services/geometry.service.ts:50](https://github.com/sensei
 
 > `static` **useRectangle**(`width`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L17)
+Defined in: [src/core/services/geometry.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L17)
 
 #### Parameters
 
@@ -132,7 +132,7 @@ Defined in: [src/core/services/geometry.service.ts:17](https://github.com/sensei
 
 > `static` **useSquare**(`side`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:21](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L21)
+Defined in: [src/core/services/geometry.service.ts:21](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L21)
 
 #### Parameters
 
@@ -154,7 +154,7 @@ Defined in: [src/core/services/geometry.service.ts:21](https://github.com/sensei
 
 > `static` **useTrapezoid**(`parallelSide1`, `parallelSide2`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L33)
+Defined in: [src/core/services/geometry.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L33)
 
 #### Parameters
 
@@ -184,7 +184,7 @@ Defined in: [src/core/services/geometry.service.ts:33](https://github.com/sensei
 
 > `static` **useTriangle**(`base`, `height`, `options?`): `string`
 
-Defined in: [src/core/services/geometry.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/geometry.service.ts#L25)
+Defined in: [src/core/services/geometry.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/geometry.service.ts#L25)
 
 #### Parameters
 

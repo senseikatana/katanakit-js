@@ -1,120 +1,36 @@
-# Dashboard Empresa Plana
+# katanakit-js
 
-A modern, framework-agnostic dashboard built with Astro and KatanaKit.
+A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.
 
-## Overview
+## Installation
 
-This project is a responsive dashboard designed for enterprise dashboards, leveraging the KatanaKit service toolkit. It provides a robust foundation for building data-driven interfaces with support for multiple frameworks (Astro, Nuxt, Vue) and a clean, modular architecture.
-
-## Features
-
-- **Framework Agnostic** – Built with Astro, supporting Vue, Nuxt, and Express adapters
-- **KatanaKit Integration** – Uses the powerful `useKatanaFetch` composable for safe data fetching
-- **Hexagonal Architecture** – Clean separation of concerns with core services, infrastructure adapters, and configuration
-- **Site Configuration & SEO** – Centralized `SiteConfig` for metadata, RSS, and SEO optimization
-- **Multiple Adapters** – Ready-to-use adapters for Astro, Nuxt, and Express
-- **Testing** – Comprehensive Vitest suite (60 tests across 8 files)
-- **Modern Tooling** – Pure ESM imports, automatic type safety, and zero runtime dependencies beyond core
-
-## Project Structure
-
+```bash
+npm install katanakit-js
+# or
+bun add katanakit-js
+# or
+yarn add katanakit-js
 ```
-katanakit-js/
-├── src/
-│   ├── index.ts                 # Main barrel (public API)
-│   ├── types/                   # Shared types and contracts
-│   ├── core/
-│   │   └── services/            # Pure business logic services
-│   ├── infrastructure/
-│   │   ├── dom/                 # DOM-related utilities
-│   │   ├── storage/             # Local storage management
-│   │   ├── viewport/            # Viewport detection
-│   │   ├── sensors/             # Device sensor integration
-│   │   ├── observer/            # Observer pattern implementations
-│   │   └── worker/              # Worker pool management
-│   ├── adapters/
-│   │   ├── astro/               # Astro integration
-│   │   ├── nuxt/               # Nuxt integration
-│   │   ├── express/             # Express reference adapter
-│   │   └── vue/                # Vue 3 composable
-│   ├── config/
-│   │   └── site.config.ts      # Site configuration and SEO
-│   └── prisma/                 # Prisma ORM schema
-├── tests/                       # Vitest test suite
-├── docs/                        # Documentation
-├── examples/                    # Runnable demos
-└── package.json                 # Package manifest
+
+### CDN (ESM)
+
+```html
+<script type="module">
+  import { useGet, useInit } from "https://cdn.jsdelivr.net/npm/katanakit-js@latest/dist/index.js";
+</script>
 ```
+
+| CDN | URL |
+|-----|-----|
+| **jsDelivr** | `https://cdn.jsdelivr.net/npm/katanakit-js@latest/dist/index.js` |
+| **unpkg** | `https://unpkg.com/katanakit-js@latest/dist/index.js` |
 
 ## Quick Start
 
-### Prerequisites
-
-- Node.js >= 22.18.0
-- TypeScript 7+ (strict mode recommended)
-- Bun (optional, for faster development)
-
-### Installation
-
-```bash
-npm install
-```
-
-### Setup
-
-```bash
-# Copy the site configuration
-cp src/config/site.config.ts ./site.config.ts
-
-# Initialize the project
-npm run build
-```
-
-### Running the Application
-
-```bash
-# Development mode (Hot Module Replacement)
-npm run dev
-
-# Production build
-npm run build
-```
-
-## Documentation
-
-- [Getting Started](https://senseikatana.github.io/katanakit-js/docs/guides/getting-started)
-- [Architecture](https://senseikatana.github.io/katanakit-js/docs/guides/architecture)
-- [API Reference](https://senseikatana.github.io/katanakit-js/docs/api)
-- [Roadmap](https://senseikatana.github.io/katanakit-js/docs/guides/roadmap)
-- [Security](https://github.com/senseikatana/katanakit-js/blob/dev/SECURITY.md)
-
-## Adapting to Your Needs
-
-### Framework-Specific Usage
-
-#### Astro
-
 ```ts
-import { useInit, useGet, usePost } from "katanakit-js";
+import { useInit, useGet } from "katanakit-js";
 
-useInit({
-  api: {
-    baseUri: "https://api.example.com",
-    endpoints: {
-      users: "/users/",
-      orders: "/orders/",
-    },
-  },
-});
-
-const users = await useGet("api", "users");
-```
-
-#### Nuxt
-
-```ts
-import { useInit, useGet } from "katanakit-js/adapters/nuxt";
-
+// Register your APIs once
 useInit({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
@@ -122,22 +38,42 @@ useInit({
   },
 });
 
-const pokemon = await useGet("pokeapi", "pokemonById", { params: { id: 25 } });
+// Fetch with Safe Result — no try/catch needed
+const result = await useGet<{ name: string }>("pokeapi", "pokemonById", {
+  params: { id: 25 },
+});
+
+if (result.ok) {
+  console.log(result.data.name); // "pikachu"
+} else {
+  console.error(result.error.message);
+}
 ```
 
-#### Express
+## Features
 
-```ts
-import { ServerExpress } from "katanakit-js/adapters/express";
+- **Safe Results** — every async operation returns `{ data, error, ok }` instead of throwing
+- **Zero side effects** — importing any module is safe. No `fetch` calls, no `console.log`, no storage writes
+- **Hexagonal architecture** — pure core, infrastructure adapters, framework adapters
+- **Tree-shakeable** — destructured re-exports from Singleton facades
+- **SSR-safe** — all infrastructure adapters guard or fall back gracefully in server environments
 
-ServerExpress.getInstance().useStart();
-```
+## Framework Adapters
 
-## Resources
+| Adapter | Import | Description |
+|---------|--------|-------------|
+| **Express** | `katanakit-js/adapters/express` | Reference server with CORS and hardened headers |
+| **Nuxt** | `katanakit-js/adapters/nuxt` | `useUnwrap`, `useSafeResponse`, `useEventResponse` |
+| **Vue** | `katanakit-js/adapters/vue` | `useKatanaFetch` composable with reactivity |
+| **Astro** | `katanakit-js` (main barrel) | `AstroService`, `RssService` |
 
-- [KatanaKit Documentation](https://senseikatana.github.io/katanakit-js)
-- [Astro Template Starter](https://github.com/prosefly/astro-template-lotus-starter)
-- [KatanaKit GitHub](https://github.com/senseikatana/katanakit-js)
+## Documentation
+
+- [Getting Started](https://senseikatana.github.io/katanakit-js/docs/guides/getting-started)
+- [Architecture](https://senseikatana.github.io/katanakit-js/docs/guides/architecture)
+- [API Reference](https://senseikatana.github.io/katanakit-js/docs/api)
+- [Roadmap](https://senseikatana.github.io/katanakit-js/docs/guides/roadmap)
+- [Changelog](https://senseikatana.github.io/katanakit-js/docs/changelog)
 
 ## License
 

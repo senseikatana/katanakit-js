@@ -1,6 +1,6 @@
 # Interface: BatteryManager
 
-Defined in: [src/types/index.ts:97](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L97)
+Defined in: [src/types/index.ts:97](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L97)
 
 Type for the experimental Battery API.
 
@@ -14,7 +14,7 @@ Type for the experimental Battery API.
 
 > **charging**: `boolean`
 
-Defined in: [src/types/index.ts:98](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L98)
+Defined in: [src/types/index.ts:98](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L98)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/types/index.ts:98](https://github.com/senseikatana/katanakit-js
 
 > **chargingTime**: `number`
 
-Defined in: [src/types/index.ts:99](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L99)
+Defined in: [src/types/index.ts:99](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L99)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/types/index.ts:99](https://github.com/senseikatana/katanakit-js
 
 > **dischargingTime**: `number`
 
-Defined in: [src/types/index.ts:100](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L100)
+Defined in: [src/types/index.ts:100](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L100)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/types/index.ts:100](https://github.com/senseikatana/katanakit-j
 
 > **level**: `number`
 
-Defined in: [src/types/index.ts:101](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L101)
+Defined in: [src/types/index.ts:101](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L101)
 
 ## Methods
 

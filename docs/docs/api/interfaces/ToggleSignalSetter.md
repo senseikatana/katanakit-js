@@ -1,6 +1,6 @@
 # Interface: ToggleSignalSetter
 
-Defined in: [src/types/index.ts:381](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L381)
+Defined in: [src/types/index.ts:381](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L381)
 
 ## Properties
 
@@ -8,7 +8,7 @@ Defined in: [src/types/index.ts:381](https://github.com/senseikatana/katanakit-j
 
 > **useSet**: (`value`) => `void`
 
-Defined in: [src/types/index.ts:382](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L382)
+Defined in: [src/types/index.ts:382](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L382)
 
 #### Parameters
 
@@ -26,7 +26,7 @@ Defined in: [src/types/index.ts:382](https://github.com/senseikatana/katanakit-j
 
 > **useToggle**: () => `void`
 
-Defined in: [src/types/index.ts:383](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L383)
+Defined in: [src/types/index.ts:383](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L383)
 
 #### Returns
 

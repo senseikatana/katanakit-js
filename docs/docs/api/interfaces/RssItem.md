@@ -1,6 +1,6 @@
 # Interface: RssItem
 
-Defined in: [src/types/index.ts:574](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L574)
+Defined in: [src/types/index.ts:574](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L574)
 
 A single item in an RSS feed.
 
@@ -10,7 +10,7 @@ A single item in an RSS feed.
 
 > `optional` **author?**: `string`
 
-Defined in: [src/types/index.ts:588](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L588)
+Defined in: [src/types/index.ts:588](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L588)
 
 Optional author name.
 
@@ -20,7 +20,7 @@ Optional author name.
 
 > `optional` **categories?**: `string`[]
 
-Defined in: [src/types/index.ts:586](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L586)
+Defined in: [src/types/index.ts:586](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L586)
 
 Optional categories/tags.
 
@@ -30,7 +30,7 @@ Optional categories/tags.
 
 > `optional` **content?**: `string`
 
-Defined in: [src/types/index.ts:584](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L584)
+Defined in: [src/types/index.ts:584](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L584)
 
 Optional full content (HTML allowed).
 
@@ -40,7 +40,7 @@ Optional full content (HTML allowed).
 
 > `optional` **customData?**: `string`
 
-Defined in: [src/types/index.ts:590](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L590)
+Defined in: [src/types/index.ts:590](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L590)
 
 Optional custom data (e.g. enclosure for podcasts).
 
@@ -50,7 +50,7 @@ Optional custom data (e.g. enclosure for podcasts).
 
 > `optional` **description?**: `string`
 
-Defined in: [src/types/index.ts:582](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L582)
+Defined in: [src/types/index.ts:582](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L582)
 
 Optional description or excerpt.
 
@@ -60,7 +60,7 @@ Optional description or excerpt.
 
 > **link**: `string`
 
-Defined in: [src/types/index.ts:580](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L580)
+Defined in: [src/types/index.ts:580](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L580)
 
 URL of the item (relative to site, e.g. "/blog/my-post/").
 
@@ -70,7 +70,7 @@ URL of the item (relative to site, e.g. "/blog/my-post/").
 
 > **pubDate**: `string` \| `Date`
 
-Defined in: [src/types/index.ts:578](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L578)
+Defined in: [src/types/index.ts:578](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L578)
 
 Publication date (Date object or ISO string).
 
@@ -80,6 +80,6 @@ Publication date (Date object or ISO string).
 
 > **title**: `string`
 
-Defined in: [src/types/index.ts:576](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L576)
+Defined in: [src/types/index.ts:576](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L576)
 
 Title of the item.

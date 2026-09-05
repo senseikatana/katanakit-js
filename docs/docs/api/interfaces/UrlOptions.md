@@ -1,6 +1,6 @@
 # Interface: UrlOptions
 
-Defined in: [src/types/index.ts:212](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L212)
+Defined in: [src/types/index.ts:212](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L212)
 
 ## Properties
 
@@ -8,7 +8,7 @@ Defined in: [src/types/index.ts:212](https://github.com/senseikatana/katanakit-j
 
 > `optional` **ignoreDefaultQuery?**: `boolean`
 
-Defined in: [src/types/index.ts:215](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L215)
+Defined in: [src/types/index.ts:215](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L215)
 
 ***
 
@@ -16,7 +16,7 @@ Defined in: [src/types/index.ts:215](https://github.com/senseikatana/katanakit-j
 
 > `optional` **params?**: [`PathParams`](../type-aliases/PathParams.md)
 
-Defined in: [src/types/index.ts:213](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L213)
+Defined in: [src/types/index.ts:213](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L213)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [src/types/index.ts:213](https://github.com/senseikatana/katanakit-j
 
 > `optional` **query?**: [`QueryParams`](../type-aliases/QueryParams.md)
 
-Defined in: [src/types/index.ts:214](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L214)
+Defined in: [src/types/index.ts:214](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L214)

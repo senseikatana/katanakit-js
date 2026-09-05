@@ -1,6 +1,6 @@
 # Class: DataUtils
 
-Defined in: [src/core/services/utils.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L6)
+Defined in: [src/core/services/utils.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L6)
 
 Data utilities implemented as a Singleton.
 
@@ -14,7 +14,7 @@ Data utilities implemented as a Singleton.
 
 > **useChunk**&lt;`T`&gt;(`array`, `size`): `T`[][]
 
-Defined in: [src/core/services/utils.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L20)
+Defined in: [src/core/services/utils.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L20)
 
 #### Type Parameters
 
@@ -46,7 +46,7 @@ Defined in: [src/core/services/utils.service.ts:20](https://github.com/senseikat
 
 > **useDeepClone**&lt;`T`&gt;(`value`): `T`
 
-Defined in: [src/core/services/utils.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L44)
+Defined in: [src/core/services/utils.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L44)
 
 #### Type Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/core/services/utils.service.ts:44](https://github.com/senseikat
 
 > **useDeepMerge**&lt;`T`&gt;(`target`, `source`): `T`
 
-Defined in: [src/core/services/utils.service.ts:51](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L51)
+Defined in: [src/core/services/utils.service.ts:51](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L51)
 
 #### Type Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/core/services/utils.service.ts:51](https://github.com/senseikat
 
 > **useGroupBy**&lt;`T`&gt;(`array`, `key`): `Record`&lt;`string`, `T`[]&gt;
 
-Defined in: [src/core/services/utils.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L27)
+Defined in: [src/core/services/utils.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L27)
 
 #### Type Parameters
 
@@ -138,7 +138,7 @@ keyof `T` \| ((`item`) => `string`)
 
 > **useIsObject**(`item`): `item is Record<string, unknown>`
 
-Defined in: [src/core/services/utils.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L41)
+Defined in: [src/core/services/utils.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L41)
 
 #### Parameters
 
@@ -160,7 +160,7 @@ Defined in: [src/core/services/utils.service.ts:41](https://github.com/senseikat
 
 > **useOmit**&lt;`T`, `K`&gt;(`obj`, `keys`): `Omit`&lt;`T`, `K`&gt;
 
-Defined in: [src/core/services/utils.service.ts:81](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L81)
+Defined in: [src/core/services/utils.service.ts:81](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L81)
 
 #### Type Parameters
 
@@ -196,7 +196,7 @@ Defined in: [src/core/services/utils.service.ts:81](https://github.com/senseikat
 
 > **usePick**&lt;`T`, `K`&gt;(`obj`, `keys`): `Pick`&lt;`T`, `K`&gt;
 
-Defined in: [src/core/services/utils.service.ts:71](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L71)
+Defined in: [src/core/services/utils.service.ts:71](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L71)
 
 #### Type Parameters
 
@@ -232,7 +232,7 @@ Defined in: [src/core/services/utils.service.ts:71](https://github.com/senseikat
 
 > **useUnique**&lt;`T`&gt;(`array`): `T`[]
 
-Defined in: [src/core/services/utils.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L18)
+Defined in: [src/core/services/utils.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L18)
 
 #### Type Parameters
 
@@ -260,7 +260,7 @@ Defined in: [src/core/services/utils.service.ts:18](https://github.com/senseikat
 
 > `static` **getInstance**(): `DataUtils`
 
-Defined in: [src/core/services/utils.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L11)
+Defined in: [src/core/services/utils.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L11)
 
 #### Returns
 

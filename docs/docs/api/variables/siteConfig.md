@@ -2,7 +2,7 @@
 
 > `const` **siteConfig**: [`SiteConfig`](../interfaces/SiteConfig.md)
 
-Defined in: [src/config/site.config.ts:90](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/site.config.ts#L90)
+Defined in: [src/config/site.config.ts:90](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/config/site.config.ts#L90)
 
 Default site configuration. Override in your project.
 

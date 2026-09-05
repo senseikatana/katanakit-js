@@ -2,14 +2,9 @@ name: Release
 
 on:
   push:
-    branches: [dev]
+    branches: [main]
+    paths: ['package.json']
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Version to release (e.g. v2.3.0). Leave empty to auto-detect."
-        required: false
-        type: string
-        default: ""
 
 permissions:
   contents: write
@@ -19,16 +14,73 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release:
+  prepare:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      should_release: ${{ steps.check.outputs.should_release }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Create tag and GitHub release
+      - id: tag
+        run: echo "tag=v$(jq -r .version package.json)" >> "$GITHUB_OUTPUT"
+
+      - id: check
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          if git rev-parse --verify "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "Tag ${TAG} already exists — skipping release."
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    needs: prepare
+    if: needs.prepare.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn validate
+
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  release:
+    needs: [prepare, publish]
+    if: needs.prepare.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create tag
+        run: |
+          TAG="${{ needs.prepare.outputs.tag }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${TAG}" -m "Release ${TAG}"
+          git push origin "${TAG}"
+
+      - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: bash .github/scripts/release.sh "${{ inputs.version }}"
+        run: |
+          TAG="${{ needs.prepare.outputs.tag }}"
+          gh release create "${TAG}" \
+            --title "katanakit-js - release-${TAG}" \
+            --generate-release-notes \
+            --latest

@@ -21,6 +21,21 @@ bun add katanakit-js
 Only `@js-temporal/polyfill` is a runtime dependency. `express`, `cors`,
 `dotenv` and `@prisma/orm-postgres` are optional peer dependencies.
 
+### CDN (ESM)
+
+You can also load KatanaKit directly from a CDN without a bundler:
+
+```html
+<script type="module">
+  import { useGet, useInit } from "https://cdn.jsdelivr.net/npm/katanakit-js@latest/dist/index.js";
+</script>
+```
+
+| CDN | URL |
+|-----|-----|
+| **jsDelivr** | `https://cdn.jsdelivr.net/npm/katanakit-js@latest/dist/index.js` |
+| **unpkg** | `https://unpkg.com/katanakit-js@latest/dist/index.js` |
+
 ## Import entry points
 
 ```ts

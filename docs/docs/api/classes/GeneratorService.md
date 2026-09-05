@@ -1,6 +1,6 @@
 # Class: GeneratorService
 
-Defined in: [src/core/services/generator.service.ts:47](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L47)
+Defined in: [src/core/services/generator.service.ts:47](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/generator.service.ts#L47)
 
 Generator facade (Singleton + Strategy) for ids, slugs, tokens and hashing.
 
@@ -10,7 +10,7 @@ Generator facade (Singleton + Strategy) for ids, slugs, tokens and hashing.
 
 > **useEncrypt**(`plainText`, `salt?`): `Promise`&lt;`string`&gt;
 
-Defined in: [src/core/services/generator.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L95)
+Defined in: [src/core/services/generator.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/generator.service.ts#L95)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/core/services/generator.service.ts:95](https://github.com/sense
 
 > **useNumericId**(): `number`
 
-Defined in: [src/core/services/generator.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L66)
+Defined in: [src/core/services/generator.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/generator.service.ts#L66)
 
 #### Returns
 
@@ -44,7 +44,7 @@ Defined in: [src/core/services/generator.service.ts:66](https://github.com/sense
 
 > **useSlugify**(`text`): `string`
 
-Defined in: [src/core/services/generator.service.ts:70](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L70)
+Defined in: [src/core/services/generator.service.ts:70](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/generator.service.ts#L70)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/core/services/generator.service.ts:70](https://github.com/sense
 
 > **useToken**(): `number`
 
-Defined in: [src/core/services/generator.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L86)
+Defined in: [src/core/services/generator.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/generator.service.ts#L86)
 
 #### Returns
 
@@ -74,7 +74,7 @@ Defined in: [src/core/services/generator.service.ts:86](https://github.com/sense
 
 > **useUuid**(): `string`
 
-Defined in: [src/core/services/generator.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L68)
+Defined in: [src/core/services/generator.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/generator.service.ts#L68)
 
 #### Returns
 
@@ -86,7 +86,7 @@ Defined in: [src/core/services/generator.service.ts:68](https://github.com/sense
 
 > `static` **getInstance**(): `GeneratorService`
 
-Defined in: [src/core/services/generator.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/generator.service.ts#L59)
+Defined in: [src/core/services/generator.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/generator.service.ts#L59)
 
 #### Returns
 

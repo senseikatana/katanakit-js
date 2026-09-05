@@ -1,6 +1,6 @@
 # Class: AppError
 
-Defined in: [src/core/services/error.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L6)
+Defined in: [src/core/services/error.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/error.service.ts#L6)
 
 Decoupled application error. Carries an HTTP-style status code.
 
@@ -14,7 +14,7 @@ Decoupled application error. Carries an HTTP-style status code.
 
 > **new AppError**(`message?`, `code?`): `AppError`
 
-Defined in: [src/core/services/error.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L7)
+Defined in: [src/core/services/error.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/error.service.ts#L7)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ The cause of the error.
 
 > `readonly` **code**: `number` = `400`
 
-Defined in: [src/core/services/error.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L9)
+Defined in: [src/core/services/error.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/error.service.ts#L9)
 
 ***
 
@@ -120,7 +120,7 @@ not capture any frames.
 
 > **useToJson**(): [`ISerializedError`](../interfaces/ISerializedError.md)
 
-Defined in: [src/core/services/error.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/error.service.ts#L16)
+Defined in: [src/core/services/error.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/error.service.ts#L16)
 
 #### Returns
 

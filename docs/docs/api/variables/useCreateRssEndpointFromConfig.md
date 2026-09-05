@@ -2,7 +2,7 @@
 
 > **useCreateRssEndpointFromConfig**: (`siteConfig`, `items`) => (`context`) => `Promise`&lt;`Response`&gt;
 
-Defined in: [src/adapters/astro/rss.service.ts:274](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L274)
+Defined in: [src/adapters/astro/rss.service.ts:274](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/adapters/astro/rss.service.ts#L274)
 
 Convenience method: creates an RSS endpoint from a SiteConfig.
 Reads title, description, site, and rss settings from the config.

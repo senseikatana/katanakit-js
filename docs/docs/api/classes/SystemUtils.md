@@ -1,6 +1,6 @@
 # Class: SystemUtils
 
-Defined in: [src/core/services/utils.service.ts:91](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L91)
+Defined in: [src/core/services/utils.service.ts:91](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L91)
 
 System utilities implemented as a Singleton.
 
@@ -14,7 +14,7 @@ System utilities implemented as a Singleton.
 
 > **useAverage**(`numbers`): `number`
 
-Defined in: [src/core/services/utils.service.ts:140](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L140)
+Defined in: [src/core/services/utils.service.ts:140](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L140)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/core/services/utils.service.ts:140](https://github.com/senseika
 
 > **useCopyToClipboard**(`text`): `Promise`&lt;`boolean`&gt;
 
-Defined in: [src/core/services/utils.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L115)
+Defined in: [src/core/services/utils.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L115)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [src/core/services/utils.service.ts:115](https://github.com/senseika
 
 > **useGetUrlParams**(`urlString`): `Record`&lt;`string`, `string`&gt;
 
-Defined in: [src/core/services/utils.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L124)
+Defined in: [src/core/services/utils.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L124)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [src/core/services/utils.service.ts:124](https://github.com/senseika
 
 > **useRetry**&lt;`T`&gt;(`fn`, `retries?`, `delayMs?`): `Promise`&lt;`T`&gt;
 
-Defined in: [src/core/services/utils.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L105)
+Defined in: [src/core/services/utils.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L105)
 
 #### Type Parameters
 
@@ -116,7 +116,7 @@ Defined in: [src/core/services/utils.service.ts:105](https://github.com/senseika
 
 > **useRound**(`value`, `decimals?`): `number`
 
-Defined in: [src/core/services/utils.service.ts:133](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L133)
+Defined in: [src/core/services/utils.service.ts:133](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L133)
 
 #### Parameters
 
@@ -142,7 +142,7 @@ Defined in: [src/core/services/utils.service.ts:133](https://github.com/senseika
 
 > **useSleep**(`ms`): `Promise`&lt;`void`&gt;
 
-Defined in: [src/core/services/utils.service.ts:103](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L103)
+Defined in: [src/core/services/utils.service.ts:103](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L103)
 
 #### Parameters
 
@@ -164,7 +164,7 @@ Defined in: [src/core/services/utils.service.ts:103](https://github.com/senseika
 
 > `static` **getInstance**(): `SystemUtils`
 
-Defined in: [src/core/services/utils.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/utils.service.ts#L96)
+Defined in: [src/core/services/utils.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/utils.service.ts#L96)
 
 #### Returns
 

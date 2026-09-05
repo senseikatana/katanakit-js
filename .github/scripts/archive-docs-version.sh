@@ -9,7 +9,7 @@ set -euo pipefail
 #
 # The script:
 #   1. Strips leading "v" from the version tag if present
-#   2. Runs `yarn docusaurus docs:version <version>` in docs-site/
+#   2. Runs `yarn docusaurus docs:version <version>` in docs/
 #   3. This creates versioned_docs/<version>/ and versioned_sidebars/<version>-sidebars.json
 
 VERSION="${1:?Usage: archive-docs-version.sh <version>}"
@@ -19,7 +19,7 @@ VERSION="${VERSION#v}"
 
 echo "Archiving current docs as version ${VERSION}..."
 
-cd docs-site
+cd docs
 yarn docusaurus docs:version "${VERSION}"
 
 echo "✅ Docs archived as version ${VERSION}"

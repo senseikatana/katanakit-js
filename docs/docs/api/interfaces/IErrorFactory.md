@@ -1,6 +1,6 @@
 # Interface: IErrorFactory
 
-Defined in: [src/types/index.ts:304](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L304)
+Defined in: [src/types/index.ts:304](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L304)
 
 Contract of the error factory.
 
@@ -10,7 +10,7 @@ Contract of the error factory.
 
 > **useBadRequest**(`message?`): [`AppError`](../classes/AppError.md)
 
-Defined in: [src/types/index.ts:305](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L305)
+Defined in: [src/types/index.ts:305](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L305)
 
 #### Parameters
 
@@ -28,7 +28,7 @@ Defined in: [src/types/index.ts:305](https://github.com/senseikatana/katanakit-j
 
 > **useCustom**(`message`, `code`): [`AppError`](../classes/AppError.md)
 
-Defined in: [src/types/index.ts:310](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L310)
+Defined in: [src/types/index.ts:310](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L310)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/types/index.ts:310](https://github.com/senseikatana/katanakit-j
 
 > **useForbidden**(`message?`): [`AppError`](../classes/AppError.md)
 
-Defined in: [src/types/index.ts:307](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L307)
+Defined in: [src/types/index.ts:307](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L307)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ Defined in: [src/types/index.ts:307](https://github.com/senseikatana/katanakit-j
 
 > **useInternal**(`message?`): [`AppError`](../classes/AppError.md)
 
-Defined in: [src/types/index.ts:309](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L309)
+Defined in: [src/types/index.ts:309](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L309)
 
 #### Parameters
 
@@ -86,7 +86,7 @@ Defined in: [src/types/index.ts:309](https://github.com/senseikatana/katanakit-j
 
 > **useNotFound**(`message?`): [`AppError`](../classes/AppError.md)
 
-Defined in: [src/types/index.ts:308](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L308)
+Defined in: [src/types/index.ts:308](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L308)
 
 #### Parameters
 
@@ -104,7 +104,7 @@ Defined in: [src/types/index.ts:308](https://github.com/senseikatana/katanakit-j
 
 > **useUnauthorized**(`message?`): [`AppError`](../classes/AppError.md)
 
-Defined in: [src/types/index.ts:306](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L306)
+Defined in: [src/types/index.ts:306](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L306)
 
 #### Parameters
 

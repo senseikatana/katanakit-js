@@ -1,6 +1,6 @@
 # Interface: ThemeOptions
 
-Defined in: [src/types/index.ts:480](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L480)
+Defined in: [src/types/index.ts:480](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L480)
 
 ## Properties
 
@@ -8,7 +8,7 @@ Defined in: [src/types/index.ts:480](https://github.com/senseikatana/katanakit-j
 
 > `optional` **attribute?**: `string`
 
-Defined in: [src/types/index.ts:483](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L483)
+Defined in: [src/types/index.ts:483](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L483)
 
 ***
 
@@ -16,7 +16,7 @@ Defined in: [src/types/index.ts:483](https://github.com/senseikatana/katanakit-j
 
 > `optional` **defaultMode?**: [`ThemeMode`](../type-aliases/ThemeMode.md)
 
-Defined in: [src/types/index.ts:481](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L481)
+Defined in: [src/types/index.ts:481](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L481)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/types/index.ts:481](https://github.com/senseikatana/katanakit-j
 
 > `optional` **onChange?**: (`mode`, `resolved`) => `void`
 
-Defined in: [src/types/index.ts:485](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L485)
+Defined in: [src/types/index.ts:485](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L485)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [src/types/index.ts:485](https://github.com/senseikatana/katanakit-j
 
 > `optional` **storageKey?**: `string`
 
-Defined in: [src/types/index.ts:482](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L482)
+Defined in: [src/types/index.ts:482](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L482)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/types/index.ts:482](https://github.com/senseikatana/katanakit-j
 
 > `optional` **target?**: `HTMLElement`
 
-Defined in: [src/types/index.ts:484](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L484)
+Defined in: [src/types/index.ts:484](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L484)

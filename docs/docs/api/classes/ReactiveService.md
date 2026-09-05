@@ -1,6 +1,6 @@
 # Class: ReactiveService
 
-Defined in: [src/core/services/reactive.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L17)
+Defined in: [src/core/services/reactive.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L17)
 
 Minimal reactive kernel (Observer / Publisher-Subscriber) implemented as a
 Facade + Singleton. Signals are closures with explicit dependency tracking.
@@ -15,7 +15,7 @@ Facade + Singleton. Signals are closures with explicit dependency tracking.
 
 > **useCreateBatch**(): (`callback`) => `void`
 
-Defined in: [src/core/services/reactive.service.ts:194](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L194)
+Defined in: [src/core/services/reactive.service.ts:194](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L194)
 
 #### Returns
 
@@ -31,7 +31,7 @@ Defined in: [src/core/services/reactive.service.ts:194](https://github.com/sense
 
 > **useCreateDebouncedSignal**&lt;`T`&gt;(`initialValue`, `delayMs?`): \[[`SignalGetter`](../interfaces/SignalGetter.md)&lt;`T`&gt;, [`SignalSetter`](../type-aliases/SignalSetter.md)&lt;`T`&gt;\]
 
-Defined in: [src/core/services/reactive.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L173)
+Defined in: [src/core/services/reactive.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L173)
 
 #### Type Parameters
 
@@ -63,7 +63,7 @@ Defined in: [src/core/services/reactive.service.ts:173](https://github.com/sense
 
 > **useCreateEffect**(`callback`, `signals`): () => `void`
 
-Defined in: [src/core/services/reactive.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L73)
+Defined in: [src/core/services/reactive.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L73)
 
 #### Parameters
 
@@ -89,7 +89,7 @@ Defined in: [src/core/services/reactive.service.ts:73](https://github.com/sensei
 
 > **useCreateMemo**&lt;`T`&gt;(`computation`, `signals`): [`SignalGetter`](../interfaces/SignalGetter.md)&lt;`T`&gt;
 
-Defined in: [src/core/services/reactive.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L118)
+Defined in: [src/core/services/reactive.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L118)
 
 #### Type Parameters
 
@@ -121,7 +121,7 @@ Defined in: [src/core/services/reactive.service.ts:118](https://github.com/sense
 
 > **useCreateSignal**&lt;`T`&gt;(`initialValue`): \[[`SignalGetter`](../interfaces/SignalGetter.md)&lt;`T`&gt;, [`SignalSetter`](../type-aliases/SignalSetter.md)&lt;`T`&gt;\]
 
-Defined in: [src/core/services/reactive.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L40)
+Defined in: [src/core/services/reactive.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L40)
 
 #### Type Parameters
 
@@ -149,7 +149,7 @@ Defined in: [src/core/services/reactive.service.ts:40](https://github.com/sensei
 
 > **useCreateStorageSignal**&lt;`T`&gt;(`key`, `fallbackValue`, `target?`): \[[`SignalGetter`](../interfaces/SignalGetter.md)&lt;`T`&gt;, [`SignalSetter`](../type-aliases/SignalSetter.md)&lt;`T`&gt;\]
 
-Defined in: [src/core/services/reactive.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L138)
+Defined in: [src/core/services/reactive.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L138)
 
 #### Type Parameters
 
@@ -185,7 +185,7 @@ Defined in: [src/core/services/reactive.service.ts:138](https://github.com/sense
 
 > **useCreateToggle**(`initialValue?`): \[[`SignalGetter`](../interfaces/SignalGetter.md)&lt;`boolean`&gt;, [`ToggleSignalSetter`](../interfaces/ToggleSignalSetter.md)\]
 
-Defined in: [src/core/services/reactive.service.ts:131](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L131)
+Defined in: [src/core/services/reactive.service.ts:131](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L131)
 
 #### Parameters
 
@@ -207,7 +207,7 @@ Defined in: [src/core/services/reactive.service.ts:131](https://github.com/sense
 
 > `static` **getInstance**(): `ReactiveService`
 
-Defined in: [src/core/services/reactive.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/reactive.service.ts#L25)
+Defined in: [src/core/services/reactive.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/reactive.service.ts#L25)
 
 #### Returns
 

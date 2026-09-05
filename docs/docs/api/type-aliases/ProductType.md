@@ -2,7 +2,7 @@
 
 > **ProductType** = `object`
 
-Defined in: [src/types/index.ts:643](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L643)
+Defined in: [src/types/index.ts:643](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L643)
 
 ## Properties
 
@@ -10,7 +10,7 @@ Defined in: [src/types/index.ts:643](https://github.com/senseikatana/katanakit-j
 
 > **id**: `number`
 
-Defined in: [src/types/index.ts:644](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L644)
+Defined in: [src/types/index.ts:644](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L644)
 
 ***
 
@@ -18,7 +18,7 @@ Defined in: [src/types/index.ts:644](https://github.com/senseikatana/katanakit-j
 
 > **name**: `string`
 
-Defined in: [src/types/index.ts:645](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L645)
+Defined in: [src/types/index.ts:645](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L645)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [src/types/index.ts:645](https://github.com/senseikatana/katanakit-j
 
 > **price**: `number`
 
-Defined in: [src/types/index.ts:646](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L646)
+Defined in: [src/types/index.ts:646](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L646)

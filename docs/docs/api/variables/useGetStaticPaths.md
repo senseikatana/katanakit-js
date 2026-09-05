@@ -2,7 +2,7 @@
 
 > **useGetStaticPaths**: &lt;`TData`, `TParam`, `TProps`&gt;(`getCollectionFn`, `collectionName`, `options`) => `Promise`&lt;[`AstroServiceResult`](../type-aliases/AstroServiceResult.md)&lt;[`AstroPath`](../interfaces/AstroPath.md)&lt;`TParam`, `TProps`&gt;[]&gt;&gt;
 
-Defined in: [src/adapters/astro/astro.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/astro.service.ts#L134)
+Defined in: [src/adapters/astro/astro.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/adapters/astro/astro.service.ts#L134)
 
 ## Type Parameters
 

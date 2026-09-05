@@ -1,6 +1,6 @@
 # Interface: IThemeService
 
-Defined in: [src/types/index.ts:489](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L489)
+Defined in: [src/types/index.ts:489](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L489)
 
 Contract of the theme facade.
 
@@ -10,7 +10,7 @@ Contract of the theme facade.
 
 > **useDestroyTheme**(): `void`
 
-Defined in: [src/types/index.ts:497](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L497)
+Defined in: [src/types/index.ts:497](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L497)
 
 #### Returns
 
@@ -22,7 +22,7 @@ Defined in: [src/types/index.ts:497](https://github.com/senseikatana/katanakit-j
 
 > **useGetResolved**(): `"light"` \| `"dark"`
 
-Defined in: [src/types/index.ts:493](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L493)
+Defined in: [src/types/index.ts:493](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L493)
 
 #### Returns
 
@@ -34,7 +34,7 @@ Defined in: [src/types/index.ts:493](https://github.com/senseikatana/katanakit-j
 
 > **useGetThemeMode**(): [`ThemeMode`](../type-aliases/ThemeMode.md)
 
-Defined in: [src/types/index.ts:492](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L492)
+Defined in: [src/types/index.ts:492](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L492)
 
 #### Returns
 
@@ -46,7 +46,7 @@ Defined in: [src/types/index.ts:492](https://github.com/senseikatana/katanakit-j
 
 > **useInitTheme**(`options?`): `void`
 
-Defined in: [src/types/index.ts:490](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L490)
+Defined in: [src/types/index.ts:490](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L490)
 
 #### Parameters
 
@@ -64,7 +64,7 @@ Defined in: [src/types/index.ts:490](https://github.com/senseikatana/katanakit-j
 
 > **usePrefersColorScheme**(): `boolean`
 
-Defined in: [src/types/index.ts:494](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L494)
+Defined in: [src/types/index.ts:494](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L494)
 
 #### Returns
 
@@ -76,7 +76,7 @@ Defined in: [src/types/index.ts:494](https://github.com/senseikatana/katanakit-j
 
 > **useResetTheme**(): `void`
 
-Defined in: [src/types/index.ts:496](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L496)
+Defined in: [src/types/index.ts:496](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L496)
 
 #### Returns
 
@@ -88,7 +88,7 @@ Defined in: [src/types/index.ts:496](https://github.com/senseikatana/katanakit-j
 
 > **useSetThemeMode**(`mode`): `void`
 
-Defined in: [src/types/index.ts:491](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L491)
+Defined in: [src/types/index.ts:491](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L491)
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/types/index.ts:491](https://github.com/senseikatana/katanakit-j
 
 > **useToggleTheme**(): `void`
 
-Defined in: [src/types/index.ts:495](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L495)
+Defined in: [src/types/index.ts:495](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L495)
 
 #### Returns
 

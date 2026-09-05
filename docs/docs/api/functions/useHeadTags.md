@@ -2,7 +2,7 @@
 
 > **useHeadTags**(`config`, `meta`): `string`
 
-Defined in: [src/config/seo.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/config/seo.service.ts#L185)
+Defined in: [src/config/seo.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/config/seo.service.ts#L185)
 
 Generates all default `<head>` meta tags for a page (title, description,
 canonical, OG, Twitter, JSON-LD, RSS link).

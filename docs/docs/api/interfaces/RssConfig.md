@@ -1,6 +1,6 @@
 # Interface: RssConfig
 
-Defined in: [src/types/index.ts:594](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L594)
+Defined in: [src/types/index.ts:594](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L594)
 
 Configuration for generating an RSS feed.
 
@@ -10,7 +10,7 @@ Configuration for generating an RSS feed.
 
 > `optional` **customData?**: `string`
 
-Defined in: [src/types/index.ts:608](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L608)
+Defined in: [src/types/index.ts:608](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L608)
 
 Custom XML to inject into the `<channel>` element.
 
@@ -20,7 +20,7 @@ Custom XML to inject into the `<channel>` element.
 
 > **description**: `string`
 
-Defined in: [src/types/index.ts:598](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L598)
+Defined in: [src/types/index.ts:598](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L598)
 
 Description of the feed.
 
@@ -30,7 +30,7 @@ Description of the feed.
 
 > **items**: [`RssItem`](RssItem.md)[]
 
-Defined in: [src/types/index.ts:602](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L602)
+Defined in: [src/types/index.ts:602](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L602)
 
 Feed items.
 
@@ -40,7 +40,7 @@ Feed items.
 
 > `optional` **language?**: `string`
 
-Defined in: [src/types/index.ts:606](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L606)
+Defined in: [src/types/index.ts:606](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L606)
 
 Language code (default: "en").
 
@@ -50,7 +50,7 @@ Language code (default: "en").
 
 > `optional` **lastBuildDate?**: `boolean`
 
-Defined in: [src/types/index.ts:612](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L612)
+Defined in: [src/types/index.ts:612](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L612)
 
 Whether to include the `<lastBuildDate>` (default: true).
 
@@ -60,7 +60,7 @@ Whether to include the `<lastBuildDate>` (default: true).
 
 > **site**: `string`
 
-Defined in: [src/types/index.ts:600](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L600)
+Defined in: [src/types/index.ts:600](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L600)
 
 Base URL of the site (e.g. "https://example.com").
 
@@ -70,7 +70,7 @@ Base URL of the site (e.g. "https://example.com").
 
 > **title**: `string`
 
-Defined in: [src/types/index.ts:596](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L596)
+Defined in: [src/types/index.ts:596](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L596)
 
 Title of the feed (e.g. "My Blog").
 
@@ -80,7 +80,7 @@ Title of the feed (e.g. "My Blog").
 
 > `optional` **trailingSlash?**: `boolean`
 
-Defined in: [src/types/index.ts:614](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L614)
+Defined in: [src/types/index.ts:614](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L614)
 
 Trailing slash behavior for item links (default: true).
 
@@ -90,7 +90,7 @@ Trailing slash behavior for item links (default: true).
 
 > `optional` **xmlPath?**: `string`
 
-Defined in: [src/types/index.ts:604](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L604)
+Defined in: [src/types/index.ts:604](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L604)
 
 Output path (default: "/rss.xml").
 
@@ -100,6 +100,6 @@ Output path (default: "/rss.xml").
 
 > `optional` **xslUrl?**: `string`
 
-Defined in: [src/types/index.ts:610](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L610)
+Defined in: [src/types/index.ts:610](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L610)
 
 XSL stylesheet URL for browser rendering (optional).

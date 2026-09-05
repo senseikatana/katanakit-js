@@ -2,7 +2,7 @@
 
 > **useRssLinkTag**: (`config`) => `string`
 
-Defined in: [src/adapters/astro/rss.service.ts:272](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/adapters/astro/rss.service.ts#L272)
+Defined in: [src/adapters/astro/rss.service.ts:272](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/adapters/astro/rss.service.ts#L272)
 
 Generates an HTML `<link>` tag for the RSS feed.
 Paste this into your Astro layout's `<head>`.

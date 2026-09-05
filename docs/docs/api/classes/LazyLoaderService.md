@@ -1,6 +1,6 @@
 # Class: LazyLoaderService
 
-Defined in: [src/infrastructure/observer/observer.service.ts:128](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/observer/observer.service.ts#L128)
+Defined in: [src/infrastructure/observer/observer.service.ts:128](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/observer/observer.service.ts#L128)
 
 Singleton service for lazy loading images using IntersectionObserver.
 
@@ -10,7 +10,7 @@ Singleton service for lazy loading images using IntersectionObserver.
 
 > **useHas**(`key`): `boolean`
 
-Defined in: [src/infrastructure/observer/observer.service.ts:186](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/observer/observer.service.ts#L186)
+Defined in: [src/infrastructure/observer/observer.service.ts:186](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/observer/observer.service.ts#L186)
 
 #### Parameters
 
@@ -28,7 +28,7 @@ Defined in: [src/infrastructure/observer/observer.service.ts:186](https://github
 
 > **useInit**(`key?`, `selector?`, `rootMargin?`): `this`
 
-Defined in: [src/infrastructure/observer/observer.service.ts:141](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/observer/observer.service.ts#L141)
+Defined in: [src/infrastructure/observer/observer.service.ts:141](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/observer/observer.service.ts#L141)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [src/infrastructure/observer/observer.service.ts:141](https://github
 
 > **useStop**(`key`): `this`
 
-Defined in: [src/infrastructure/observer/observer.service.ts:170](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/observer/observer.service.ts#L170)
+Defined in: [src/infrastructure/observer/observer.service.ts:170](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/observer/observer.service.ts#L170)
 
 #### Parameters
 
@@ -72,7 +72,7 @@ Defined in: [src/infrastructure/observer/observer.service.ts:170](https://github
 
 > **useStopAll**(): `this`
 
-Defined in: [src/infrastructure/observer/observer.service.ts:179](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/observer/observer.service.ts#L179)
+Defined in: [src/infrastructure/observer/observer.service.ts:179](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/observer/observer.service.ts#L179)
 
 #### Returns
 
@@ -84,7 +84,7 @@ Defined in: [src/infrastructure/observer/observer.service.ts:179](https://github
 
 > `static` **getInstance**(): `LazyLoaderService`
 
-Defined in: [src/infrastructure/observer/observer.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/observer/observer.service.ts#L134)
+Defined in: [src/infrastructure/observer/observer.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/observer/observer.service.ts#L134)
 
 #### Returns
 

@@ -1,6 +1,6 @@
 # Interface: PathsOptions&lt;T, TParam, TProps&gt;
 
-Defined in: [src/types/index.ts:512](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L512)
+Defined in: [src/types/index.ts:512](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L512)
 
 ## Type Parameters
 
@@ -22,7 +22,7 @@ Defined in: [src/types/index.ts:512](https://github.com/senseikatana/katanakit-j
 
 > `optional` **param?**: `TParam`
 
-Defined in: [src/types/index.ts:513](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L513)
+Defined in: [src/types/index.ts:513](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L513)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/types/index.ts:513](https://github.com/senseikatana/katanakit-j
 
 > `optional` **paramsFrom?**: (`item`) => `Record`&lt;`string`, `string`&gt;
 
-Defined in: [src/types/index.ts:516](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L516)
+Defined in: [src/types/index.ts:516](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L516)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [src/types/index.ts:516](https://github.com/senseikatana/katanakit-j
 
 > `optional` **propsFrom?**: (`item`) => `TProps`
 
-Defined in: [src/types/index.ts:515](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L515)
+Defined in: [src/types/index.ts:515](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L515)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/types/index.ts:515](https://github.com/senseikatana/katanakit-j
 
 > `optional` **valueFrom?**: (`item`) => `string` \| `number`
 
-Defined in: [src/types/index.ts:514](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L514)
+Defined in: [src/types/index.ts:514](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L514)
 
 #### Parameters
 

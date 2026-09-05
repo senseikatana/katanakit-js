@@ -1,6 +1,6 @@
 # Interface: StorageStrategy
 
-Defined in: [src/types/index.ts:125](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L125)
+Defined in: [src/types/index.ts:125](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L125)
 
 Strategy contract: homogeneous storage without `any`.
 
@@ -10,7 +10,7 @@ Strategy contract: homogeneous storage without `any`.
 
 > **useClear**(): `void`
 
-Defined in: [src/types/index.ts:129](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L129)
+Defined in: [src/types/index.ts:129](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L129)
 
 #### Returns
 
@@ -22,7 +22,7 @@ Defined in: [src/types/index.ts:129](https://github.com/senseikatana/katanakit-j
 
 > **useGetItem**&lt;`T`&gt;(`key`): `T` \| `null`
 
-Defined in: [src/types/index.ts:126](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L126)
+Defined in: [src/types/index.ts:126](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L126)
 
 #### Type Parameters
 
@@ -46,7 +46,7 @@ Defined in: [src/types/index.ts:126](https://github.com/senseikatana/katanakit-j
 
 > **useRemoveItem**(`key`): `void`
 
-Defined in: [src/types/index.ts:128](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L128)
+Defined in: [src/types/index.ts:128](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L128)
 
 #### Parameters
 
@@ -64,7 +64,7 @@ Defined in: [src/types/index.ts:128](https://github.com/senseikatana/katanakit-j
 
 > **useSetItem**(`key`, `value`): `void`
 
-Defined in: [src/types/index.ts:127](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L127)
+Defined in: [src/types/index.ts:127](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L127)
 
 #### Parameters
 

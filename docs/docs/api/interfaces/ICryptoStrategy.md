@@ -1,6 +1,6 @@
 # Interface: ICryptoStrategy
 
-Defined in: [src/types/index.ts:345](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L345)
+Defined in: [src/types/index.ts:345](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L345)
 
 Contract for a crypto strategy.
 
@@ -10,7 +10,7 @@ Contract for a crypto strategy.
 
 > **useEncrypt**(`plainText`, `salt?`): `Promise`&lt;`string`&gt;
 
-Defined in: [src/types/index.ts:346](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L346)
+Defined in: [src/types/index.ts:346](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L346)
 
 #### Parameters
 

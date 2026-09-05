@@ -1,6 +1,6 @@
 # Class: LoggerService
 
-Defined in: [src/core/services/logger.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L20)
+Defined in: [src/core/services/logger.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L20)
 
 Singleton context: holds the active strategy and keeps `this` bound through
 arrow-function methods so destructured exports remain safe.
@@ -11,7 +11,7 @@ arrow-function methods so destructured exports remain safe.
 
 > **useLog**: \{(`message`, `data?`): `void`; (`level`, `message`, `data?`): `void`; \}
 
-Defined in: [src/core/services/logger.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L45)
+Defined in: [src/core/services/logger.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L45)
 
 Overloads allow:
 - message only: `useLog("message")`
@@ -64,7 +64,7 @@ Overloads allow:
 
 > **useClear**(): `void`
 
-Defined in: [src/core/services/logger.service.ts:65](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L65)
+Defined in: [src/core/services/logger.service.ts:65](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L65)
 
 #### Returns
 
@@ -76,7 +76,7 @@ Defined in: [src/core/services/logger.service.ts:65](https://github.com/senseika
 
 > **useError**(`message`, `data?`): `void`
 
-Defined in: [src/core/services/logger.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L61)
+Defined in: [src/core/services/logger.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L61)
 
 #### Parameters
 
@@ -98,7 +98,7 @@ Defined in: [src/core/services/logger.service.ts:61](https://github.com/senseika
 
 > **useSetStrategy**(`strategy`): `void`
 
-Defined in: [src/core/services/logger.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L35)
+Defined in: [src/core/services/logger.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L35)
 
 #### Parameters
 
@@ -116,7 +116,7 @@ Defined in: [src/core/services/logger.service.ts:35](https://github.com/senseika
 
 > **useTable**(`data`): `void`
 
-Defined in: [src/core/services/logger.service.ts:69](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L69)
+Defined in: [src/core/services/logger.service.ts:69](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L69)
 
 #### Parameters
 
@@ -134,7 +134,7 @@ Defined in: [src/core/services/logger.service.ts:69](https://github.com/senseika
 
 > `static` **getInstance**(): `LoggerService`
 
-Defined in: [src/core/services/logger.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L28)
+Defined in: [src/core/services/logger.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L28)
 
 #### Returns
 

@@ -1,6 +1,6 @@
 # Class: ThemeService
 
-Defined in: [src/infrastructure/theme/theme.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L14)
+Defined in: [src/infrastructure/theme/theme.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L14)
 
 Theme facade (Singleton) over the DOM and Storage, with a media-query listener.
 
@@ -14,7 +14,7 @@ Theme facade (Singleton) over the DOM and Storage, with a media-query listener.
 
 > **useDestroyTheme**(): `void`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:85](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L85)
+Defined in: [src/infrastructure/theme/theme.service.ts:85](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L85)
 
 #### Returns
 
@@ -30,7 +30,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:85](https://github.com/se
 
 > **useGetResolved**(): `"light"` \| `"dark"`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L63)
+Defined in: [src/infrastructure/theme/theme.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L63)
 
 #### Returns
 
@@ -46,7 +46,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:63](https://github.com/se
 
 > **useGetThemeMode**(): [`ThemeMode`](../type-aliases/ThemeMode.md)
 
-Defined in: [src/infrastructure/theme/theme.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L61)
+Defined in: [src/infrastructure/theme/theme.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L61)
 
 #### Returns
 
@@ -62,7 +62,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:61](https://github.com/se
 
 > **useInitTheme**(`options?`): `void`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:38](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L38)
+Defined in: [src/infrastructure/theme/theme.service.ts:38](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L38)
 
 #### Parameters
 
@@ -84,7 +84,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:38](https://github.com/se
 
 > **usePrefersColorScheme**(): `boolean`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L68)
+Defined in: [src/infrastructure/theme/theme.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L68)
 
 #### Returns
 
@@ -100,7 +100,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:68](https://github.com/se
 
 > **useResetTheme**(): `void`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:78](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L78)
+Defined in: [src/infrastructure/theme/theme.service.ts:78](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L78)
 
 #### Returns
 
@@ -116,7 +116,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:78](https://github.com/se
 
 > **useSetThemeMode**(`mode`): `void`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:53](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L53)
+Defined in: [src/infrastructure/theme/theme.service.ts:53](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L53)
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:53](https://github.com/se
 
 > **useToggleTheme**(): `void`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L73)
+Defined in: [src/infrastructure/theme/theme.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L73)
 
 #### Returns
 
@@ -154,7 +154,7 @@ Defined in: [src/infrastructure/theme/theme.service.ts:73](https://github.com/se
 
 > `static` **getInstance**(): `ThemeService`
 
-Defined in: [src/infrastructure/theme/theme.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/theme/theme.service.ts#L27)
+Defined in: [src/infrastructure/theme/theme.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/theme/theme.service.ts#L27)
 
 #### Returns
 

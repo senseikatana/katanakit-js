@@ -1,6 +1,6 @@
 # Interface: IFormatterService
 
-Defined in: [src/types/index.ts:318](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L318)
+Defined in: [src/types/index.ts:318](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L318)
 
 Contract of the formatter facade.
 
@@ -10,7 +10,7 @@ Contract of the formatter facade.
 
 > **useCapitalize**(`text`, `locale?`): `string`
 
-Defined in: [src/types/index.ts:319](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L319)
+Defined in: [src/types/index.ts:319](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L319)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/types/index.ts:319](https://github.com/senseikatana/katanakit-j
 
 > **useFormatCurrency**(`options`): `string`
 
-Defined in: [src/types/index.ts:320](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L320)
+Defined in: [src/types/index.ts:320](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L320)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/types/index.ts:320](https://github.com/senseikatana/katanakit-j
 
 > **useFormatNumber**(`value`, `locale?`, `digits?`): `string`
 
-Defined in: [src/types/index.ts:321](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L321)
+Defined in: [src/types/index.ts:321](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L321)
 
 #### Parameters
 
@@ -76,7 +76,7 @@ Defined in: [src/types/index.ts:321](https://github.com/senseikatana/katanakit-j
 
 > **useJsonParse**&lt;`T`&gt;(`json`): `T`
 
-Defined in: [src/types/index.ts:322](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L322)
+Defined in: [src/types/index.ts:322](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L322)
 
 #### Type Parameters
 
@@ -100,7 +100,7 @@ Defined in: [src/types/index.ts:322](https://github.com/senseikatana/katanakit-j
 
 > **useJsonStringify**(`data`): `string`
 
-Defined in: [src/types/index.ts:323](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L323)
+Defined in: [src/types/index.ts:323](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L323)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [src/types/index.ts:323](https://github.com/senseikatana/katanakit-j
 
 > **useLowerCase**(`text`, `locale?`): `string`
 
-Defined in: [src/types/index.ts:324](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L324)
+Defined in: [src/types/index.ts:324](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L324)
 
 #### Parameters
 
@@ -140,7 +140,7 @@ Defined in: [src/types/index.ts:324](https://github.com/senseikatana/katanakit-j
 
 > **useUpperCase**(`text`, `locale?`): `string`
 
-Defined in: [src/types/index.ts:325](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L325)
+Defined in: [src/types/index.ts:325](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L325)
 
 #### Parameters
 

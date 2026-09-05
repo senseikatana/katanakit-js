@@ -44,7 +44,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/senseikatana/katanakit-js/edit/dev/docs-site/',
+            'https://github.com/senseikatana/katanakit-js/edit/dev/docs/',
         },
         blog: false,
         theme: {

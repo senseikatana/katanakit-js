@@ -1,6 +1,6 @@
 # Class: SensorsUtils
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L9)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L9)
 
 Device sensors and hardware APIs: camera, microphone, geolocation,
 gyroscope and vibration.
@@ -11,7 +11,7 @@ gyroscope and vibration.
 
 > **useGetBackCamera**(): `Promise`&lt;`MediaStream` \| `null`&gt;
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:53](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L53)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:53](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L53)
 
 #### Returns
 
@@ -23,7 +23,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:53](https://github.co
 
 > **useGetBattery**(): `Promise`&lt;[`BatteryManager`](../interfaces/BatteryManager.md) \| `null`&gt;
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:155](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L155)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:155](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L155)
 
 #### Returns
 
@@ -35,7 +35,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:155](https://github.c
 
 > **useGetFrontCamera**(): `Promise`&lt;`MediaStream` \| `null`&gt;
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:49](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L49)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:49](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L49)
 
 #### Returns
 
@@ -47,7 +47,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:49](https://github.co
 
 > **useGetGeolocation**(`options?`): `Promise`&lt;[`GeoPosition`](../interfaces/GeoPosition.md) \| `null`&gt;
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L57)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L57)
 
 #### Parameters
 
@@ -65,7 +65,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:57](https://github.co
 
 > **useGetMediaStream**(`constraints?`): `Promise`&lt;`MediaStream` \| `null`&gt;
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L25)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:25](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L25)
 
 #### Parameters
 
@@ -83,7 +83,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:25](https://github.co
 
 > **useOnDeviceMotion**(`callback`): (() => `void`) \| `null`
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L134)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L134)
 
 #### Parameters
 
@@ -101,7 +101,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:134](https://github.c
 
 > **useOnDeviceOrientation**(`callback`): (() => `void`) \| `null`
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L124)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L124)
 
 #### Parameters
 
@@ -119,7 +119,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:124](https://github.c
 
 > **useRequestMotionPermission**(): `Promise`&lt;`boolean`&gt;
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:101](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L101)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:101](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L101)
 
 #### Returns
 
@@ -131,7 +131,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:101](https://github.c
 
 > **useStopMediaStream**(`stream`): `void`
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L41)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L41)
 
 #### Parameters
 
@@ -149,7 +149,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:41](https://github.co
 
 > **useStopVibration**(): `boolean`
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:151](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L151)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:151](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L151)
 
 #### Returns
 
@@ -161,7 +161,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:151](https://github.c
 
 > **useVibrate**(`pattern`): `boolean`
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:144](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L144)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:144](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L144)
 
 #### Parameters
 
@@ -179,7 +179,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:144](https://github.c
 
 > **useWatchGeolocation**(`callback`, `options?`): (() => `void`) \| `null`
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:78](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L78)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:78](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L78)
 
 #### Parameters
 
@@ -201,7 +201,7 @@ Defined in: [src/infrastructure/sensors/sensors.service.ts:78](https://github.co
 
 > `static` **getInstance**(): `SensorsUtils`
 
-Defined in: [src/infrastructure/sensors/sensors.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/sensors/sensors.service.ts#L14)
+Defined in: [src/infrastructure/sensors/sensors.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/sensors/sensors.service.ts#L14)
 
 #### Returns
 

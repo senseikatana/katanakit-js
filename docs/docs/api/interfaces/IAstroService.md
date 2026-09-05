@@ -1,6 +1,6 @@
 # Interface: IAstroService
 
-Defined in: [src/types/index.ts:542](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L542)
+Defined in: [src/types/index.ts:542](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L542)
 
 Contract of the Astro facade.
 
@@ -10,7 +10,7 @@ Contract of the Astro facade.
 
 > **useExtractUniqueValues**&lt;`T`, `V`&gt;(`items`, `keyFrom`): `V`[]
 
-Defined in: [src/types/index.ts:566](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L566)
+Defined in: [src/types/index.ts:566](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L566)
 
 #### Type Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/types/index.ts:566](https://github.com/senseikatana/katanakit-j
 
 > **useFindEntry**&lt;`T`&gt;(`items`, `value`, `keyFrom?`): `T` \| `null`
 
-Defined in: [src/types/index.ts:556](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L556)
+Defined in: [src/types/index.ts:556](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L556)
 
 #### Type Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/types/index.ts:556](https://github.com/senseikatana/katanakit-j
 
 > **useGeneratePagination**&lt;`T`, `TParam`&gt;(`items`, `pageSize?`, `param?`): [`AstroPath`](AstroPath.md)&lt;`TParam`, [`PaginationProps`](PaginationProps.md)&lt;`T`&gt;&gt;[]
 
-Defined in: [src/types/index.ts:557](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L557)
+Defined in: [src/types/index.ts:557](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L557)
 
 #### Type Parameters
 
@@ -110,7 +110,7 @@ Defined in: [src/types/index.ts:557](https://github.com/senseikatana/katanakit-j
 
 > **useGetStaticPaths**&lt;`TData`, `TParam`, `TProps`&gt;(`getCollectionFn`, `collectionName`, `options?`): `Promise`&lt;[`AstroServiceResult`](../type-aliases/AstroServiceResult.md)&lt;[`AstroPath`](AstroPath.md)&lt;`TParam`, `TProps`&gt;[]&gt;&gt;
 
-Defined in: [src/types/index.ts:547](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L547)
+Defined in: [src/types/index.ts:547](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L547)
 
 #### Type Parameters
 
@@ -150,7 +150,7 @@ Defined in: [src/types/index.ts:547](https://github.com/senseikatana/katanakit-j
 
 > **usePathsFrom**&lt;`T`, `TParam`, `TProps`&gt;(`items`, `options?`): [`AstroPath`](AstroPath.md)&lt;`TParam`, `TProps`&gt;[]
 
-Defined in: [src/types/index.ts:543](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L543)
+Defined in: [src/types/index.ts:543](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L543)
 
 #### Type Parameters
 
@@ -186,7 +186,7 @@ Defined in: [src/types/index.ts:543](https://github.com/senseikatana/katanakit-j
 
 > **usePathsFromValues**&lt;`TParam`&gt;(`values`, `param?`): [`AstroPath`](AstroPath.md)&lt;`TParam`, `string` \| `number`&gt;[]
 
-Defined in: [src/types/index.ts:562](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L562)
+Defined in: [src/types/index.ts:562](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L562)
 
 #### Type Parameters
 

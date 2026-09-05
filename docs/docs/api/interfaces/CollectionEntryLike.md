@@ -1,6 +1,6 @@
 # Interface: CollectionEntryLike&lt;TData&gt;
 
-Defined in: [src/types/index.ts:505](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L505)
+Defined in: [src/types/index.ts:505](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L505)
 
 Minimal shape of an Astro content collection entry.
 
@@ -20,7 +20,7 @@ Minimal shape of an Astro content collection entry.
 
 > `optional` **data?**: `TData`
 
-Defined in: [src/types/index.ts:508](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L508)
+Defined in: [src/types/index.ts:508](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L508)
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: [src/types/index.ts:508](https://github.com/senseikatana/katanakit-j
 
 > **id**: `string`
 
-Defined in: [src/types/index.ts:506](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L506)
+Defined in: [src/types/index.ts:506](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L506)
 
 ***
 
@@ -36,4 +36,4 @@ Defined in: [src/types/index.ts:506](https://github.com/senseikatana/katanakit-j
 
 > `optional` **slug?**: `string`
 
-Defined in: [src/types/index.ts:507](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L507)
+Defined in: [src/types/index.ts:507](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L507)

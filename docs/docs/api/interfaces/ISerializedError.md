@@ -1,6 +1,6 @@
 # Interface: ISerializedError
 
-Defined in: [src/types/index.ts:297](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L297)
+Defined in: [src/types/index.ts:297](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L297)
 
 Serialized shape returned by [AppError.useToJson](../classes/AppError.md#usetojson).
 
@@ -10,7 +10,7 @@ Serialized shape returned by [AppError.useToJson](../classes/AppError.md#usetojs
 
 > **code**: `number`
 
-Defined in: [src/types/index.ts:300](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L300)
+Defined in: [src/types/index.ts:300](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L300)
 
 ***
 
@@ -18,7 +18,7 @@ Defined in: [src/types/index.ts:300](https://github.com/senseikatana/katanakit-j
 
 > **message**: `string`
 
-Defined in: [src/types/index.ts:299](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L299)
+Defined in: [src/types/index.ts:299](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L299)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [src/types/index.ts:299](https://github.com/senseikatana/katanakit-j
 
 > **name**: `string`
 
-Defined in: [src/types/index.ts:298](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L298)
+Defined in: [src/types/index.ts:298](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L298)

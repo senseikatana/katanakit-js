@@ -1,6 +1,6 @@
 # Interface: AstroPath&lt;TParam, TProps&gt;
 
-Defined in: [src/types/index.ts:519](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L519)
+Defined in: [src/types/index.ts:519](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L519)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [src/types/index.ts:519](https://github.com/senseikatana/katanakit-j
 
 > **params**: `Record`&lt;`TParam`, `string` \| `undefined`&gt;
 
-Defined in: [src/types/index.ts:520](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L520)
+Defined in: [src/types/index.ts:520](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L520)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [src/types/index.ts:520](https://github.com/senseikatana/katanakit-j
 
 > **props**: `TProps`
 
-Defined in: [src/types/index.ts:521](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/types/index.ts#L521)
+Defined in: [src/types/index.ts:521](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/types/index.ts#L521)

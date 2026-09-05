@@ -1,6 +1,6 @@
 # Class: ConsoleStrategy
 
-Defined in: [src/core/services/logger.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L6)
+Defined in: [src/core/services/logger.service.ts:6](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L6)
 
 Concrete strategy: native console output.
 
@@ -24,7 +24,7 @@ Concrete strategy: native console output.
 
 > **useOutput**(`level`, `message`, `data?`): `void`
 
-Defined in: [src/core/services/logger.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/core/services/logger.service.ts#L7)
+Defined in: [src/core/services/logger.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/core/services/logger.service.ts#L7)
 
 #### Parameters
 

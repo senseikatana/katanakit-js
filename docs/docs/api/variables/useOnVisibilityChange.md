@@ -2,7 +2,7 @@
 
 > **useOnVisibilityChange**: (`callback`) => () => `void`
 
-Defined in: [src/infrastructure/viewport/viewport.service.ts:199](https://github.com/senseikatana/katanakit-js/blob/671263249d5f5da09ae01d788489a7d1f8f3c5fc/src/infrastructure/viewport/viewport.service.ts#L199)
+Defined in: [src/infrastructure/viewport/viewport.service.ts:199](https://github.com/senseikatana/katanakit-js/blob/7b860163683b97d645cfebc80bef622aba3bde3a/src/infrastructure/viewport/viewport.service.ts#L199)
 
 ## Parameters
 
