@@ -12,7 +12,8 @@ operation returns a **Safe Result** instead of throwing.
 
 - **Version:** 2.2.1
 - **npm package:** `katanakit-js`
-- **Repository:** [senseikatana/katanakit](https://github.com/senseikatana/katanakit)
+- **Documentation:** [senseikatana.github.io/katanakit-js](https://senseikatana.github.io/katanakit-js)
+- **Repository:** [senseikatana/katanakit-js](https://github.com/senseikatana/katanakit-js)
   (development happens on the `dev` branch)
 - **License:** MIT
 
@@ -481,12 +482,14 @@ for the test suite and the examples.
 
 ## Documentation
 
-- [Getting Started](docs/Getting-Started.md)
-- [Architecture](docs/Architecture.md)
-- [API Reference](docs/API-Reference.md)
-- [Roadmap](docs/Roadmap.md)
+The full documentation is available at **[senseikatana.github.io/katanakit-js](https://senseikatana.github.io/katanakit-js)**.
+
+- [Getting Started](https://senseikatana.github.io/katanakit-js/guides/getting-started/)
+- [Architecture](https://senseikatana.github.io/katanakit-js/guides/architecture/)
+- [API Reference](https://senseikatana.github.io/katanakit-js/api/) (auto-generated from source)
+- [Changelog](https://senseikatana.github.io/katanakit-js/changelog/)
+- [Roadmap](https://senseikatana.github.io/katanakit-js/guides/roadmap/)
 - [Security](SECURITY.md)
-- [Changelog](CHANGELOG.md)
 
 ## Contributing
 

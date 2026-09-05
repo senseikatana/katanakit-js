@@ -86,7 +86,7 @@
 	"bugs": {
 		"url": "https://github.com/senseikatana/katanakit-js.git/issues"
 	},
-	"homepage": "https://github.com/senseikatana/katanakit-js.git#readme",
+	"homepage": "https://senseikatana.github.io/katanakit-js",
 	"dependencies": {
 		"@js-temporal/polyfill": "^0.5.1"
 	},
