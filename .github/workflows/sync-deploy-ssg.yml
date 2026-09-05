@@ -1,0 +1,31 @@
+name: Sync deploy-ssg
+
+on:
+  push:
+    branches: [dev]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: deploy-ssg
+          fetch-depth: 0
+
+      - name: Merge dev into deploy-ssg
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Fast-forward merge only -- fails if branches have diverged
+          git merge --ff-only origin/dev
+
+      - name: Push deploy-ssg
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: git push origin deploy-ssg

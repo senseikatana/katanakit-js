@@ -9,12 +9,15 @@
 	},
 	"dependencies": {
 		"@astrojs/starlight": "^0.39.0",
+		"@astrojs/starlight-tailwind": "^5.0.0",
+		"@tailwindcss/vite": "^4.3.3",
 		"astro": "^6.0.0",
-		"starlight-versions": "^0.8.0",
+		"sharp": "^0.33.0",
 		"starlight-typedoc": "^0.23.0",
+		"starlight-versions": "^0.8.0",
+		"tailwindcss": "^4.3.3",
 		"typedoc": "^0.28.0",
 		"typedoc-plugin-markdown": "^4.13.0",
-		"typescript": "~5.8.0",
-		"sharp": "^0.33.0"
+		"typescript": "~5.8.0"
 	}
 }

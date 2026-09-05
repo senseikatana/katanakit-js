@@ -9,7 +9,7 @@ set -euo pipefail
 #
 # The script:
 #   1. Copies current docs (excluding existing version dirs) into docs-site/src/content/docs/<version>/
-#   2. Updates docs-site/versions.config.mjs with the new entry
+#   2. Updates docs-site/src/config/versions.config.ts with the new entry
 
 VERSION="${1:?Usage: archive-docs-version.sh <version>}"
 
@@ -45,17 +45,14 @@ for dir in "${DOCS_DIR}"/*/; do
   cp -r "$dir" "${VERSION_DIR}/${dir_name}"
 done
 
-# Update versions.config.mjs
-VERSIONS_FILE="docs-site/versions.config.mjs"
-if [[ ! -f "$VERSIONS_FILE" ]]; then
-  echo 'export default []' > "$VERSIONS_FILE"
-fi
+# Update versions.config.ts (TypeScript with typed array)
+VERSIONS_FILE="docs-site/src/config/versions.config.ts"
 
 # Add version to the array if not already present
 if ! grep -q "slug: '${VERSION}'" "$VERSIONS_FILE"; then
-  # Insert new version before the closing bracket of the default array
-  sed -i "s|export default \[|export default [\n  { slug: '${VERSION}', label: 'v${VERSION}' },|" "$VERSIONS_FILE"
-  echo "Added v${VERSION} to versions.config.mjs"
+  # Insert new version entry before the closing bracket
+  sed -i "s|export const versions: readonly VersionEntry\[\] = \[|export const versions: readonly VersionEntry[] = [\n\t{ slug: '${VERSION}', label: 'v${VERSION}' },|" "$VERSIONS_FILE"
+  echo "Added v${VERSION} to versions.config.ts"
 fi
 
 echo "✅ Docs archived as version ${VERSION}"
