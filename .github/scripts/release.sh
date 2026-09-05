@@ -92,7 +92,7 @@ fi
 notes_file="$(mktemp)"
 printf '%s\n' "${release_notes:-Release $tag_name}" >"$notes_file"
 
-gh release create "$tag_name" --title "$tag_name" --notes-file "$notes_file" --latest || status=$?
+gh release create "$tag_name" --title "katanakit-js - release-${tag_name}" --notes-file "$notes_file" --latest || status=$?
 rm -f "$notes_file"
 if [[ -z "${status:-}" ]]; then
 	echo "Created GitHub release ${tag_name}."
