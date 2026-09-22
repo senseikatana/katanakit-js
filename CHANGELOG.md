@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [4.0.2]
+## [4.0.3]
 
 ### Changed
 
@@ -21,6 +21,10 @@ All notable changes to this project are documented in this file.
 - `useSafeQueryFn` now throws a real `Error` carrying only `message` + `status`; the upstream response body (`ApiError.details`) is no longer attached to the error or persisted in the query cache.
 - `useInitQueryClient` clears the previous client's caches before swapping the singleton.
 - `@tanstack/query-core` is pinned to an exact version.
+
+## [4.0.2] - 2026-09-22
+
+Version-only re-release. No functional changes vs 4.0.1.
 
 ## [4.0.1]
 
