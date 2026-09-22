@@ -7,6 +7,7 @@ TypeScript service toolkit (ESM, hexagonal). Bun for package management and scri
 - `bun run check` — gate: `eslint ./src` + `tsc6 --noEmit` + `vitest run`. Must pass before any PR.
 - `bun run fix` — same with `eslint --fix`.
 - `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`.
+- `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`; run `bun run build` first.
 - `bun run guides:build` — Docusaurus build (separate; CI does NOT build docs).
 - `bun run playground:dev` — launches the Vue playground (Vite dev server on port 5173).
 - One test file: `vitest run <path>`. Tests live in `tests/`, import via `@/` alias, node env.
@@ -35,7 +36,7 @@ TypeScript service toolkit (ESM, hexagonal). Bun for package management and scri
 ## CI (.github/workflows/ci.yml + release.yml)
 
 - Triggers: push/PR to `main` and `dev`. Matrix node 22/24, `fail-fast: false` (both versions always report).
-- Steps: `bun install --frozen-lockfile` → `bun run check` → `bun run guides:check` → `bun run examples:check` → `bun run build`.
+- Steps: `bun install --frozen-lockfile` → `bun run check` → `bun run guides:check` → `bun run build` → `bun run examples:check`.
 - `bun install --frozen-lockfile` fails if `bun.lock` is out of sync — commit lockfile changes.
 - `simple-import-sort` fails CI on unsorted imports — run `bun run fix`.
 
