@@ -293,7 +293,7 @@ observer.destroy();
 ```
 
 The framework adapters are exactly this plus a reactivity bridge. See
-[`examples/query/`](https://github.com/senseikatana/katanakit/tree/dev/katanakit-js/examples/query)
+[`examples/query/`](https://github.com/senseikatana/katanakit-js/tree/dev/examples/query)
 for a runnable vanilla walkthrough plus React, Vue, Solid, Svelte and Angular demos.
 
 ## The engine, re-exported

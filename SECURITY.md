@@ -121,6 +121,6 @@ Dependabot to keep dependencies reviewed.
 
 ## Reporting a vulnerability
 
-Please open a [security issue](https://github.com/senseikatana/katanakit/issues)
+Please open a [security issue](https://github.com/senseikatana/katanakit-js/issues)
 or contact the maintainer privately. Do not disclose sensitive details publicly
 before a fix is available.
