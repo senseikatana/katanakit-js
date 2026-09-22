@@ -849,8 +849,8 @@ if (users.ok) users.data.results.forEach((u) => console.log(u.name));
 
 #### Framework examples
 
-| Framework   | Example                                                                                                                        | Description                                  |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| Framework   | Example                                                                                                                           | Description                                  |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
 | **Vue 3**   | [`examples/notion/vue-blog.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/vue-blog.vue)             | Blog listing with `useQuery` composable      |
 | **Vue 3**   | [`examples/notion/vue-post.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/vue-post.vue)             | Single post view                             |
 | **Nuxt 3**  | [`examples/notion/nuxt-blog.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/nuxt-blog.vue)           | SSR blog listing with `useAsyncData`         |
@@ -1205,8 +1205,8 @@ const full = await useWpGetPosts({
 
 #### Framework examples
 
-| Framework   | Example                                                                                                                              | Description                                                        |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Framework   | Example                                                                                                                                 | Description                                                        |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | **Vue 3**   | [`examples/wordpress/vue-blog.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/wordpress/vue-blog.vue)             | Blog listing with categories, featured images, `_embed`            |
 | **Vue 3**   | [`examples/wordpress/vue-post.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/wordpress/vue-post.vue)             | Single post view with embedded author                              |
 | **Nuxt 3**  | [`examples/wordpress/nuxt-blog.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/wordpress/nuxt-blog.vue)           | SSR blog listing with `useAsyncData`                               |
