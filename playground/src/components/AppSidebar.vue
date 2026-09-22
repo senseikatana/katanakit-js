@@ -32,7 +32,7 @@ const links = [
 		</nav>
 		<div class="sidebar-footer">
 			<a
-				href="https://senseikatana.com/katanakit-js/docs/api"
+				href="https://docs.senseikatana.com/docs/api"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="footer-link"

@@ -8,7 +8,7 @@ repository.
 ## The development contract
 
 These rules keep the codebase consistent and maintainable. Please read
-[Architecture](https://senseikatana.com/katanakit-js/docs/guides/architecture/) for the full context behind each rule.
+[Architecture](https://docs.senseikatana.com/docs/guides/architecture/) for the full context behind each rule.
 
 1. **Hexagonal layering** — keep the pure `core` layer (`src/core/services/`)
    free of browser/runtime I/O. Adapters that own I/O live in
@@ -63,7 +63,7 @@ These rules keep the codebase consistent and maintainable. Please read
 ## Getting started
 
 ```bash
-# Prerequisites: Node.js >= 22.18, bun >= 12
+# Prerequisites: Node.js >= 22.18, Bun >= 1.2
 git clone https://github.com/senseikatana/katanakit-js.git
 cd katanakit-js
 git checkout dev
@@ -80,8 +80,8 @@ Useful scripts:
 | `bun run release`       | `build` → version bump → publish to npm                |
 | `bun run release:minor` | Same for minor release                                 |
 | `bun run release:major` | Same for major release                                 |
-| `bun run docs:dev`      | Docs site dev server                                   |
-| `bun run docs:build`    | Docs site build                                        |
+| `bun run guides:dev`    | Docs site dev server                                   |
+| `bun run guides:build` | Docs site build                                        |
 | `bun run dev`           | Express example server                                 |
 
 `build` and `release` never compile or publish unless `check` passes.
@@ -99,13 +99,13 @@ Useful scripts:
 - `src/index.ts` — main barrel (public API surface).
 - `tests/` — Vitest unit tests (import from `src/` via the `@/` alias).
 - `examples/` — runnable demos for all adapters and frameworks.
-- `docs/` — user documentation (keep in sync with code changes).
+- `guides/` — user documentation (keep in sync with code changes).
 
 ## Updating documentation
 
 The public documentation site lives at
-**[senseikatana.com/katanakit-js](https://senseikatana.com/katanakit-js/)** and
-is built with Docusaurus. The source is in `docs/`.
+**[docs.senseikatana.com](https://docs.senseikatana.com/)** and
+is built with Docusaurus. The source is in `guides/`.
 
 When you change a public API:
 
@@ -119,15 +119,15 @@ When you change a public API:
 ### Running the docs locally
 
 ```bash
-bun run docs:dev    # starts Docusaurus dev server
-bun run docs:build  # builds the static site (runs sync + clear first)
+bun run guides:dev   # starts Docusaurus dev server
+bun run guides:build # builds the static site (runs sync + clear first)
 ```
 
 ## Versioning and changelog
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
-`CHANGELOG.md`. The current version is **3.2.2**. Use the `release` script to
+`CHANGELOG.md`. The current version is tracked in `package.json`. Use the `release` script to
 cut a release:
 
 ```bash
@@ -164,7 +164,6 @@ git tag --sort=-creatordate     # check tags
 - [ ] Documentation and `CHANGELOG.md` updated if the public API changed.
 - [ ] Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/).
 - [ ] Feature merged into `dev` first (`git checkout dev && git merge <branch>`); PRs to `main` come only from `dev`.
-- [ ] Pre-commit hook ran clean (Husky + lint-staged autofixes staged files on commit).
 
 ## Code of Conduct
 
@@ -176,4 +175,4 @@ not be tolerated.
 
 - [Open an issue](https://github.com/senseikatana/katanakit-js/issues) for bugs
 - [Start a discussion](https://github.com/senseikatana/katanakit-js/discussions) for questions
-- [Read the docs](https://senseikatana.com/katanakit-js/) for guides and API reference
+- [Read the docs](https://docs.senseikatana.com/) for guides and API reference
