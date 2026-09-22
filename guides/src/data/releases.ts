@@ -18,8 +18,53 @@ export interface Release {
 
 export const releases: Release[] = [
   {
-    version: '4.0.2',
+    version: '5.0.1',
     kind: 'latest',
+    date: 'September 22, 2026',
+    tag: 'v5.0.1',
+    summary: '**guides:** Update dependencies or build settings in 2 files',
+    highlights: [
+      '**guides:** Update dependencies or build settings in 2 files',
+    ],
+  },
+  {
+    version: '5.0.0',
+    kind: 'major',
+    date: 'September 22, 2026',
+    tag: 'v5.0.0',
+    summary: 'Release 5.0.0 — see the release notes for details.',
+    highlights: [
+      'See the full release notes on GitHub for details.',
+    ],
+  },
+  {
+    version: '4.0.4',
+    kind: 'minor',
+    date: 'September 22, 2026',
+    tag: 'v4.0.4',
+    summary: 'Release 4.0.4 — see the release notes for details.',
+    highlights: [
+      'See the full release notes on GitHub for details.',
+    ],
+  },
+  {
+    version: '4.0.3',
+    kind: 'minor',
+    date: 'September 22, 2026',
+    tag: 'v4.0.3',
+    summary: '**katanakit-js:** Add framework-free vanilla query adapter and examples',
+    highlights: [
+      '**katanakit-js:** Add framework-free vanilla query adapter and examples',
+      '**katanakit-js:** Run the query layer on TanStack Query Core',
+      'Add interactive playground (Vue 3 + Vite + Vue Router)',
+      '**wordpress:** Add _fields, _embed, ACF support + Vue/Nuxt examples',
+      '**adapters:** Add Notion and WordPress REST API adapters with framework examples',
+      '**vue:** Add generic useKatanaWatch/useWatch with native watch props',
+    ],
+  },
+  {
+    version: '4.0.2',
+    kind: 'minor',
     date: 'September 22, 2026',
     tag: 'v4.0.2',
     summary: 'Release 4.0.2 — see the release notes for details.',
@@ -65,50 +110,6 @@ export const releases: Release[] = [
     summary: 'Improve useBuildUrl, Kitt, and contribution guide',
     highlights: [
       'Improve useBuildUrl, Kitt, and contribution guide',
-    ],
-  },
-  {
-    version: '3.2.2',
-    kind: 'minor',
-    date: 'September 18, 2026',
-    tag: 'v3.2.2',
-    summary: 'Release 3.2.2 — see the release notes for details.',
-    highlights: [
-      'See the full release notes on GitHub for details.',
-    ],
-  },
-  {
-    version: '3.2.1',
-    kind: 'minor',
-    date: 'September 18, 2026',
-    tag: 'v3.2.1',
-    summary: '**wordpress:** Add _fields, _embed, ACF support + Vue/Nuxt examples',
-    highlights: [
-      '**wordpress:** Add _fields, _embed, ACF support + Vue/Nuxt examples',
-      '**adapters:** Add Notion and WordPress REST API adapters with framework examples',
-      '**readme:** Add Notion/WordPress adapter documentation with _fields, _embed, ACF',
-      '**changelog:** Add _fields, _embed, ACF and Vue/Nuxt entries',
-    ],
-  },
-  {
-    version: '3.1.4',
-    kind: 'minor',
-    date: 'September 18, 2026',
-    tag: 'v3.1.4',
-    summary: '**README.md:** Update documentation in 14 files',
-    highlights: [
-      '**README.md:** Update documentation in 14 files',
-      '**wordpress:** Update 2 files',
-    ],
-  },
-  {
-    version: '3.1.3',
-    kind: 'minor',
-    date: 'September 16, 2026',
-    tag: 'v3.1.3',
-    summary: 'Release 3.1.3 — see the release notes for details.',
-    highlights: [
-      'See the full release notes on GitHub for details.',
     ],
   },
 ];

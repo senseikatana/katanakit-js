@@ -1,6 +1,7 @@
 # AGENTS.md — katanakit-js
 
 TypeScript service toolkit (ESM, hexagonal). Bun for package management and scripts.
+Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fallback; Prisma is the local ORM.
 
 ## Commands (order matters: lint → typecheck → test)
 
@@ -40,13 +41,16 @@ TypeScript service toolkit (ESM, hexagonal). Bun for package management and scri
 - `bun install --frozen-lockfile` fails if `bun.lock` is out of sync — commit lockfile changes.
 - `simple-import-sort` fails CI on unsorted imports — run `bun run fix`.
 
-## Cloudflare Pages deployment
+## Cloudflare (only hosting/storage provider)
 
-- **Docs:** `katanakit-guides` project → `docs.senseikatana.com`
+- **Docs:** `katanakit-docs` project → `docs.senseikatana.com` (the `guides/` workspace is named `katanakit-guides`)
 - **Playground:** `katanakit-playground` project → `play.senseikatana.com`
-- Deploy manually: `bun run guides:build` → `wrangler pages deploy guides/build --project-name katanakit-guides --branch main`
-- Deploy playground: `bun run playground:build` → `wrangler pages deploy playground/dist --project-name katanakit-playground --branch main`
-- Custom domains via Cloudflare API: `POST /accounts/{id}/pages/projects/{name}/domains`
+- Deploy: `bun run guides:deploy`, `bun run playground:deploy`, or `bun run cf:deploy`. Wrangler is pinned in devDeps. The playground resolves `katanakit-js` from `dist/`, so deploy scripts build the package first.
+- CI: `.github/workflows/deploy.yml` deploys both on push to `main` (GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`).
+- Provision/verify projects, custom domains and CI secrets: `node scripts/setup-cloudflare.mjs [--apply] [--github-secrets]`.
+- Storage: R2 for objects; database pending (Cloudflare D1, INSForge as fallback). Local ORM is Prisma (`prisma.config.ts`).
+- `.env` gotcha: a non-empty `CLOUDFLARE_API_TOKEN` overrides the `wrangler login` OAuth session; leave it empty locally to use OAuth.
+- Never add non-Cloudflare hosting/deploy providers; the only allowed exception is INSForge for the database fallback.
 - Cloudflare Account ID: `d84658746e925afe768db13e48a136a7`
 
 ## npm security
