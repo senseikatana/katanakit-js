@@ -82,6 +82,11 @@
 			"import": "./dist/adapters/angular/index.js",
 			"default": "./dist/adapters/angular/index.js"
 		},
+		"./adapters/vanilla": {
+			"types": "./dist/adapters/vanilla/index.d.ts",
+			"import": "./dist/adapters/vanilla/index.js",
+			"default": "./dist/adapters/vanilla/index.js"
+		},
 		"./prisma": {
 			"types": "./dist/prisma/index.d.ts",
 			"import": "./dist/prisma/index.js",
@@ -113,6 +118,7 @@
 		"whatsapp:dev": "tsx src/adapters/whatsapp/main.ts",
 		"clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
 		"check": "eslint ./src && tsc6 --noEmit && vitest run",
+		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"fix": "eslint --fix ./src && tsc6 --noEmit && vitest run",
 		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json",
 		"release": "bun run build && bun run bump:patch && npm publish --access public && git push && git push --tags && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" | gh release create \"v$(node -p \"require('./package.json').version\")\" --notes-file -",
@@ -132,7 +138,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:senseikatana/katanakit-js.git"
+		"url": "git+https://github.com/senseikatana/katanakit-js.git"
 	},
 	"keywords": [
 		"api",
@@ -165,6 +171,7 @@
 	"dependencies": {
 		"@js-temporal/polyfill": "0.5.1",
 		"@prisma/orm-postgres": "8.0.0-rc.8",
+		"@tanstack/query-core": "5.103.2",
 		"express-rate-limit": "8.7.0"
 	},
 	"peerDependencies": {

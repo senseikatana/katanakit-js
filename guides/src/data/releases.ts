@@ -18,8 +18,18 @@ export interface Release {
 
 export const releases: Release[] = [
   {
-    version: '4.0.1',
+    version: '4.0.2',
     kind: 'latest',
+    date: 'September 22, 2026',
+    tag: 'v4.0.2',
+    summary: 'Release 4.0.2 — see the release notes for details.',
+    highlights: [
+      'See the full release notes on GitHub for details.',
+    ],
+  },
+  {
+    version: '4.0.1',
+    kind: 'minor',
     date: 'September 22, 2026',
     tag: 'v4.0.1',
     summary: '**katanakit-js:** Add Bun server adapter with dummyjson demo routes',
@@ -58,6 +68,16 @@ export const releases: Release[] = [
     ],
   },
   {
+    version: '3.2.2',
+    kind: 'minor',
+    date: 'September 18, 2026',
+    tag: 'v3.2.2',
+    summary: 'Release 3.2.2 — see the release notes for details.',
+    highlights: [
+      'See the full release notes on GitHub for details.',
+    ],
+  },
+  {
     version: '3.2.1',
     kind: 'minor',
     date: 'September 18, 2026',
@@ -82,37 +102,13 @@ export const releases: Release[] = [
     ],
   },
   {
-    version: '3.1.1',
+    version: '3.1.3',
     kind: 'minor',
     date: 'September 16, 2026',
-    tag: 'v3.1.1',
-    summary: 'Sync release cards for v3.1.0',
+    tag: 'v3.1.3',
+    summary: 'Release 3.1.3 — see the release notes for details.',
     highlights: [
-      'Sync release cards for v3.1.0',
-    ],
-  },
-  {
-    version: '3.1.0',
-    kind: 'minor',
-    date: 'September 14, 2026',
-    tag: 'v3.1.0',
-    summary: '**vue:** Add generic useKatanaWatch/useWatch with native watch props',
-    highlights: [
-      '**vue:** Add generic useKatanaWatch/useWatch with native watch props',
-      'Sync release cards for v3.0.1',
-    ],
-  },
-  {
-    version: '3.0.1',
-    kind: 'minor',
-    date: 'September 13, 2026',
-    tag: 'v3.0.1',
-    summary: 'Address v3.0.0 audit findings',
-    highlights: [
-      'Address v3.0.0 audit findings',
-      '**changelog:** Fold unreleased 2.15.1 entry into 3.0.0',
-      'Sync release cards for v3.0.0',
-      '**BREAKING** Migrate from Yarn 4 to pnpm 12',
+      'See the full release notes on GitHub for details.',
     ],
   },
 ];

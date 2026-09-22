@@ -182,8 +182,8 @@ function renderConfig(cards) {
 }
 
 const all = JSON.parse(run("generate-release-notes.mjs", "--all", "--json"));
-// Tags with no parseable Conventional Commits carry no card content, skip them.
-const cards = all.filter((release) => release.sections.length > 0).slice(0, LIMIT).map(toCard);
+// Every tag gets a card; tags without parseable Conventional Commits fall back to a generic summary.
+const cards = all.slice(0, LIMIT).map(toCard);
 
 const outputs = [
 	{ path: RELEASES_TS, content: renderReleasesTs(cards) },
