@@ -4,8 +4,8 @@ sidebar_position: 3
 description: TanStack Query Core, bundled with KatanaKit. Cache, deduplicate, retry, invalidate and refetch server state with the Safe Result pattern.
 ---
 
-import Tabs from '@docusaurus/Tabs';
-import TabItem from '@docusaurus/TabItem';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 KatanaKit bundles [TanStack Query Core](https://tanstack.com/query) as a dependency — you install `katanakit-js` and the engine comes with it, no extra install. KatanaKit re-exports the full `@tanstack/query-core` API and adds:
 

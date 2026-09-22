@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+ push:
+  branches: [main]
+  paths:
+   - "guides/**"
+   - "playground/**"
+   - "src/**"
+   - "package.json"
+   - "bun.lock"
+   - ".github/workflows/deploy.yml"
+ workflow_dispatch:
+
+permissions:
+ contents: read
+
+jobs:
+ pages:
+  runs-on: ubuntu-latest
+  steps:
+   - uses: actions/checkout@v4
+     with:
+      fetch-depth: 0
+
+   - uses: oven-sh/setup-bun@v2
+
+   - uses: actions/setup-node@v4
+     with:
+      node-version: 22
+
+   - run: bun install --frozen-lockfile
+
+   - run: bun run build
+
+   - run: bun run guides:build
+
+   - run: bun run playground:build
+
+   - name: Deploy guides
+     uses: cloudflare/wrangler-action@v3
+     with:
+      apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      wranglerVersion: "4.124.0"
+      command: pages deploy guides/build --project-name katanakit-docs --branch main --commit-dirty=true
+
+   - name: Deploy playground
+     uses: cloudflare/wrangler-action@v3
+     with:
+      apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      wranglerVersion: "4.124.0"
+      command: pages deploy playground/dist --project-name katanakit-playground --branch main --commit-dirty=true

@@ -134,7 +134,10 @@
 		"guides:check": "node scripts/sync-docs-releases.mjs --limit=8 --check",
 		"guides:serve": "bun run --filter katanakit-guides serve",
 		"playground:dev": "bun run --filter katanakit-playground dev",
-		"playground:build": "bun run --filter katanakit-playground build"
+		"playground:build": "bun run --filter katanakit-playground build",
+		"guides:deploy": "bun run guides:build && wrangler pages deploy guides/build --project-name katanakit-docs --branch main",
+		"playground:deploy": "bun run build && bun run playground:build && wrangler pages deploy playground/dist --project-name katanakit-playground --branch main",
+		"cf:deploy": "bun run build && bun run guides:build && bun run playground:build && wrangler pages deploy guides/build --project-name katanakit-docs --branch main && wrangler pages deploy playground/dist --project-name katanakit-playground --branch main"
 	},
 	"repository": {
 		"type": "git",
@@ -248,6 +251,7 @@
 		"vite": "8.3.0",
 		"vitest": "5.0.1",
 		"vue": "3.5.43",
+		"wrangler": "4.124.0",
 		"zone.js": "^0.16.3"
 	}
 }

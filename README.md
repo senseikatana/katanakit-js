@@ -7,7 +7,7 @@ A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal 
 ```bash
 npm install katanakit-js
 # or
-bun add katanakit-js
+pnpm add katanakit-js
 # or
 bun add katanakit-js
 ```

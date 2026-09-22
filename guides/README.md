@@ -55,5 +55,5 @@ checkbox switch while keeping Docusaurus' color mode state:
 - Colors: gray track in light mode, cyan track in dark mode.
 - Keyboard focus renders a ring; `prefers-reduced-motion` disables transitions.
 
-To restore the default component, delete `docs/src/theme/ColorModeToggle/` —
+To restore the default component, delete `guides/src/theme/ColorModeToggle/` —
 Docusaurus falls back to its own implementation.
