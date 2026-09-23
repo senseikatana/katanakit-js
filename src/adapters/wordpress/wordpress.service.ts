@@ -1,3 +1,39 @@
+import type { z } from "zod";
+
+import { useValidate } from "../../core/services/validation.service.js";
+import {
+	WordPressConfigSchema,
+	WpBatchOperationSchema,
+	WpBatchResultSchema,
+	WpCategoryCreateSchema,
+	WpCategoryListSchema,
+	WpCategoryResponseSchema,
+	WpCategoryUpdateSchema,
+	WpCommentCreateSchema,
+	WpCommentListSchema,
+	WpCommentResponseSchema,
+	WpCommentUpdateSchema,
+	WpMediaListSchema,
+	WpMediaMetaSchema,
+	WpMediaResponseSchema,
+	WpMediaUpdateSchema,
+	WpPageCreateSchema,
+	WpPageListSchema,
+	WpPageResponseSchema,
+	WpPageUpdateSchema,
+	WpPostCreateSchema,
+	WpPostListSchema,
+	WpPostResponseSchema,
+	WpPostUpdateSchema,
+	WpTagCreateSchema,
+	WpTagListSchema,
+	WpTagResponseSchema,
+	WpTagUpdateSchema,
+	WpUserCreateSchema,
+	WpUserListSchema,
+	WpUserResponseSchema,
+	WpUserUpdateSchema,
+} from "../../schemas/wordpress.schema.js";
 import type {
 	FetchResult,
 	WordPressConfig,
@@ -123,10 +159,41 @@ function buildQueryParams(options?: WpQueryParams): string {
 }
 
 /**
+ * Maps a failed input validation into a 400 Safe Result without fetching.
+ * @internal
+ */
+function invalidInput(parsed: FetchResult<unknown>): FetchResult<never> {
+	if (parsed.ok) {
+		return {
+			data: null as never,
+			error: { message: "Validation Error: invalid input", status: 400 },
+			url: "",
+			status: 400,
+			ok: false,
+		};
+	}
+	return {
+		data: null as never,
+		error: {
+			message: parsed.error.message,
+			status: 400,
+			details: parsed.error.details,
+		},
+		url: "",
+		status: 400,
+		ok: false,
+	};
+}
+
+/**
  * Internal helper to make requests to the WordPress REST API.
  * @internal
  */
-async function wpFetch<T>(endpoint: string, options: RequestInit = {}): Promise<FetchResult<T>> {
+async function wpFetch<T>(
+	endpoint: string,
+	options: RequestInit = {},
+	schema?: z.ZodType<unknown>,
+): Promise<FetchResult<T>> {
 	let url = "";
 
 	try {
@@ -165,8 +232,26 @@ async function wpFetch<T>(endpoint: string, options: RequestInit = {}): Promise<
 			};
 		}
 
-		const data = (await response.json()) as T;
-		return { data, error: null, url, status: response.status, ok: true };
+		const raw = (await response.json()) as unknown;
+		if (schema) {
+			const parsed = useValidate(schema, raw);
+			if (!parsed.ok) {
+				return {
+					data: null,
+					error: {
+						message: "WordPress Validation Error: " + parsed.error.message,
+						status: 502,
+						details: parsed.error.details,
+					},
+					url,
+					status: 502,
+					ok: false,
+				};
+			}
+			// WP may return partials via `_fields`, so the schema guarantees present fields are well-typed.
+			return { data: parsed.data as T, error: null, url, status: response.status, ok: true };
+		}
+		return { data: raw as T, error: null, url, status: response.status, ok: true };
 	} catch (err: unknown) {
 		const message = err instanceof Error ? err.message : String(err);
 		return {
@@ -187,6 +272,7 @@ async function wpUpload<T>(
 	endpoint: string,
 	file: File | Blob | Buffer,
 	meta?: Record<string, unknown>,
+	schema?: z.ZodType<unknown>,
 ): Promise<FetchResult<T>> {
 	let url = "";
 
@@ -235,8 +321,26 @@ async function wpUpload<T>(
 			};
 		}
 
-		const data = (await response.json()) as T;
-		return { data, error: null, url, status: response.status, ok: true };
+		const raw = (await response.json()) as unknown;
+		if (schema) {
+			const parsed = useValidate(schema, raw);
+			if (!parsed.ok) {
+				return {
+					data: null,
+					error: {
+						message: "WordPress Validation Error: " + parsed.error.message,
+						status: 502,
+						details: parsed.error.details,
+					},
+					url,
+					status: 502,
+					ok: false,
+				};
+			}
+			// WP may return partials via `_fields`, so the schema guarantees present fields are well-typed.
+			return { data: parsed.data as T, error: null, url, status: response.status, ok: true };
+		}
+		return { data: raw as T, error: null, url, status: response.status, ok: true };
 	} catch (err: unknown) {
 		const message = err instanceof Error ? err.message : String(err);
 		return {
@@ -280,7 +384,11 @@ async function wpUpload<T>(
  * ```
  */
 export function useInitWordPress(cfg: WordPressConfig): void {
-	config = { ...cfg };
+	const parsed = useValidate(WordPressConfigSchema, cfg);
+	if (!parsed.ok) {
+		throw new Error("[WordPress] Invalid config: " + parsed.error.message);
+	}
+	config = { ...parsed.data };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -310,7 +418,7 @@ export function useInitWordPress(cfg: WordPressConfig): void {
  * ```
  */
 export async function useWpGetPosts(options?: WpQueryParams): Promise<FetchResult<WpPost[]>> {
-	return wpFetch<WpPost[]>(`/posts${buildQueryParams(options)}`);
+	return wpFetch<WpPost[]>(`/posts${buildQueryParams(options)}`, {}, WpPostListSchema);
 }
 
 /**
@@ -330,7 +438,7 @@ export async function useWpGetPost(
 	id: number,
 	options?: WpQueryParams,
 ): Promise<FetchResult<WpPost>> {
-	return wpFetch<WpPost>(`/posts/${id}${buildQueryParams(options)}`);
+	return wpFetch<WpPost>(`/posts/${id}${buildQueryParams(options)}`, {}, WpPostResponseSchema);
 }
 
 /**
@@ -358,10 +466,16 @@ export async function useWpGetPost(
  * ```
  */
 export async function useWpCreatePost(data: WpPostCreate): Promise<FetchResult<WpPost>> {
-	return wpFetch<WpPost>("/posts", {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpPostCreateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpPost>(
+		"/posts",
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpPostResponseSchema,
+	);
 }
 
 /**
@@ -380,10 +494,16 @@ export async function useWpUpdatePost(
 	id: number,
 	data: WpPostUpdate,
 ): Promise<FetchResult<WpPost>> {
-	return wpFetch<WpPost>(`/posts/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpPostUpdateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpPost>(
+		`/posts/${id}`,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpPostResponseSchema,
+	);
 }
 
 /**
@@ -400,9 +520,13 @@ export async function useWpUpdatePost(
  * ```
  */
 export async function useWpDeletePost(id: number, force = false): Promise<FetchResult<WpPost>> {
-	return wpFetch<WpPost>(`/posts/${id}?force=${force}`, {
-		method: "DELETE",
-	});
+	return wpFetch<WpPost>(
+		`/posts/${id}?force=${force}`,
+		{
+			method: "DELETE",
+		},
+		WpPostResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -421,7 +545,7 @@ export async function useWpDeletePost(id: number, force = false): Promise<FetchR
  * ```
  */
 export async function useWpGetPages(options?: WpQueryParams): Promise<FetchResult<WpPage[]>> {
-	return wpFetch<WpPage[]>(`/pages${buildQueryParams(options)}`);
+	return wpFetch<WpPage[]>(`/pages${buildQueryParams(options)}`, {}, WpPageListSchema);
 }
 
 /**
@@ -441,7 +565,7 @@ export async function useWpGetPage(
 	id: number,
 	options?: WpQueryParams,
 ): Promise<FetchResult<WpPage>> {
-	return wpFetch<WpPage>(`/pages/${id}${buildQueryParams(options)}`);
+	return wpFetch<WpPage>(`/pages/${id}${buildQueryParams(options)}`, {}, WpPageResponseSchema);
 }
 
 /**
@@ -460,10 +584,16 @@ export async function useWpGetPage(
  * ```
  */
 export async function useWpCreatePage(data: WpPageCreate): Promise<FetchResult<WpPage>> {
-	return wpFetch<WpPage>("/pages", {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpPageCreateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpPage>(
+		"/pages",
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpPageResponseSchema,
+	);
 }
 
 /**
@@ -482,10 +612,16 @@ export async function useWpUpdatePage(
 	id: number,
 	data: WpPageUpdate,
 ): Promise<FetchResult<WpPage>> {
-	return wpFetch<WpPage>(`/pages/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpPageUpdateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpPage>(
+		`/pages/${id}`,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpPageResponseSchema,
+	);
 }
 
 /**
@@ -501,9 +637,13 @@ export async function useWpUpdatePage(
  * ```
  */
 export async function useWpDeletePage(id: number, force = false): Promise<FetchResult<WpPage>> {
-	return wpFetch<WpPage>(`/pages/${id}?force=${force}`, {
-		method: "DELETE",
-	});
+	return wpFetch<WpPage>(
+		`/pages/${id}?force=${force}`,
+		{
+			method: "DELETE",
+		},
+		WpPageResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -522,7 +662,7 @@ export async function useWpDeletePage(id: number, force = false): Promise<FetchR
  * ```
  */
 export async function useWpGetMedia(options?: WpQueryParams): Promise<FetchResult<WpMedia[]>> {
-	return wpFetch<WpMedia[]>(`/media${buildQueryParams(options)}`);
+	return wpFetch<WpMedia[]>(`/media${buildQueryParams(options)}`, {}, WpMediaListSchema);
 }
 
 /**
@@ -538,7 +678,7 @@ export async function useWpGetMedia(options?: WpQueryParams): Promise<FetchResul
  * ```
  */
 export async function useWpGetMediaItem(id: number): Promise<FetchResult<WpMedia>> {
-	return wpFetch<WpMedia>(`/media/${id}`);
+	return wpFetch<WpMedia>(`/media/${id}`, {}, WpMediaResponseSchema);
 }
 
 /**
@@ -571,7 +711,11 @@ export async function useWpUploadMedia(
 	file: File | Blob | Buffer,
 	meta?: WpMediaMeta,
 ): Promise<FetchResult<WpMedia>> {
-	return wpUpload<WpMedia>("/media", file, meta as Record<string, unknown>);
+	if (meta !== undefined) {
+		const parsed = useValidate(WpMediaMetaSchema, meta);
+		if (!parsed.ok) return invalidInput(parsed);
+	}
+	return wpUpload<WpMedia>("/media", file, meta as Record<string, unknown>, WpMediaResponseSchema);
 }
 
 /**
@@ -590,10 +734,16 @@ export async function useWpUpdateMedia(
 	id: number,
 	data: WpMediaUpdate,
 ): Promise<FetchResult<WpMedia>> {
-	return wpFetch<WpMedia>(`/media/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpMediaUpdateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpMedia>(
+		`/media/${id}`,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpMediaResponseSchema,
+	);
 }
 
 /**
@@ -609,9 +759,13 @@ export async function useWpUpdateMedia(
  * ```
  */
 export async function useWpDeleteMedia(id: number, force = false): Promise<FetchResult<WpMedia>> {
-	return wpFetch<WpMedia>(`/media/${id}?force=${force}`, {
-		method: "DELETE",
-	});
+	return wpFetch<WpMedia>(
+		`/media/${id}?force=${force}`,
+		{
+			method: "DELETE",
+		},
+		WpMediaResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -633,7 +787,7 @@ export async function useWpDeleteMedia(id: number, force = false): Promise<Fetch
 export async function useWpGetCategories(
 	options?: WpQueryParams,
 ): Promise<FetchResult<WpCategory[]>> {
-	return wpFetch<WpCategory[]>(`/categories${buildQueryParams(options)}`);
+	return wpFetch<WpCategory[]>(`/categories${buildQueryParams(options)}`, {}, WpCategoryListSchema);
 }
 
 /**
@@ -649,7 +803,7 @@ export async function useWpGetCategories(
  * ```
  */
 export async function useWpGetCategory(id: number): Promise<FetchResult<WpCategory>> {
-	return wpFetch<WpCategory>(`/categories/${id}`);
+	return wpFetch<WpCategory>(`/categories/${id}`, {}, WpCategoryResponseSchema);
 }
 
 /**
@@ -666,10 +820,16 @@ export async function useWpGetCategory(id: number): Promise<FetchResult<WpCatego
 export async function useWpCreateCategory(
 	data: WpCategoryCreate,
 ): Promise<FetchResult<WpCategory>> {
-	return wpFetch<WpCategory>("/categories", {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpCategoryCreateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpCategory>(
+		"/categories",
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpCategoryResponseSchema,
+	);
 }
 
 /**
@@ -688,10 +848,16 @@ export async function useWpUpdateCategory(
 	id: number,
 	data: WpCategoryUpdate,
 ): Promise<FetchResult<WpCategory>> {
-	return wpFetch<WpCategory>(`/categories/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpCategoryUpdateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpCategory>(
+		`/categories/${id}`,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpCategoryResponseSchema,
+	);
 }
 
 /**
@@ -710,9 +876,13 @@ export async function useWpDeleteCategory(
 	id: number,
 	force = false,
 ): Promise<FetchResult<WpCategory>> {
-	return wpFetch<WpCategory>(`/categories/${id}?force=${force}`, {
-		method: "DELETE",
-	});
+	return wpFetch<WpCategory>(
+		`/categories/${id}?force=${force}`,
+		{
+			method: "DELETE",
+		},
+		WpCategoryResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -731,7 +901,7 @@ export async function useWpDeleteCategory(
  * ```
  */
 export async function useWpGetTags(options?: WpQueryParams): Promise<FetchResult<WpTag[]>> {
-	return wpFetch<WpTag[]>(`/tags${buildQueryParams(options)}`);
+	return wpFetch<WpTag[]>(`/tags${buildQueryParams(options)}`, {}, WpTagListSchema);
 }
 
 /**
@@ -746,7 +916,7 @@ export async function useWpGetTags(options?: WpQueryParams): Promise<FetchResult
  * ```
  */
 export async function useWpGetTag(id: number): Promise<FetchResult<WpTag>> {
-	return wpFetch<WpTag>(`/tags/${id}`);
+	return wpFetch<WpTag>(`/tags/${id}`, {}, WpTagResponseSchema);
 }
 
 /**
@@ -761,10 +931,16 @@ export async function useWpGetTag(id: number): Promise<FetchResult<WpTag>> {
  * ```
  */
 export async function useWpCreateTag(data: WpTagCreate): Promise<FetchResult<WpTag>> {
-	return wpFetch<WpTag>("/tags", {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpTagCreateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpTag>(
+		"/tags",
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpTagResponseSchema,
+	);
 }
 
 /**
@@ -780,10 +956,16 @@ export async function useWpCreateTag(data: WpTagCreate): Promise<FetchResult<WpT
  * ```
  */
 export async function useWpUpdateTag(id: number, data: WpTagUpdate): Promise<FetchResult<WpTag>> {
-	return wpFetch<WpTag>(`/tags/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpTagUpdateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpTag>(
+		`/tags/${id}`,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpTagResponseSchema,
+	);
 }
 
 /**
@@ -799,9 +981,13 @@ export async function useWpUpdateTag(id: number, data: WpTagUpdate): Promise<Fet
  * ```
  */
 export async function useWpDeleteTag(id: number, force = false): Promise<FetchResult<WpTag>> {
-	return wpFetch<WpTag>(`/tags/${id}?force=${force}`, {
-		method: "DELETE",
-	});
+	return wpFetch<WpTag>(
+		`/tags/${id}?force=${force}`,
+		{
+			method: "DELETE",
+		},
+		WpTagResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -821,7 +1007,7 @@ export async function useWpDeleteTag(id: number, force = false): Promise<FetchRe
  * ```
  */
 export async function useWpGetComments(options?: WpQueryParams): Promise<FetchResult<WpComment[]>> {
-	return wpFetch<WpComment[]>(`/comments${buildQueryParams(options)}`);
+	return wpFetch<WpComment[]>(`/comments${buildQueryParams(options)}`, {}, WpCommentListSchema);
 }
 
 /**
@@ -836,7 +1022,7 @@ export async function useWpGetComments(options?: WpQueryParams): Promise<FetchRe
  * ```
  */
 export async function useWpGetComment(id: number): Promise<FetchResult<WpComment>> {
-	return wpFetch<WpComment>(`/comments/${id}`);
+	return wpFetch<WpComment>(`/comments/${id}`, {}, WpCommentResponseSchema);
 }
 
 /**
@@ -856,10 +1042,16 @@ export async function useWpGetComment(id: number): Promise<FetchResult<WpComment
  * ```
  */
 export async function useWpCreateComment(data: WpCommentCreate): Promise<FetchResult<WpComment>> {
-	return wpFetch<WpComment>("/comments", {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpCommentCreateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpComment>(
+		"/comments",
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpCommentResponseSchema,
+	);
 }
 
 /**
@@ -878,10 +1070,16 @@ export async function useWpUpdateComment(
 	id: number,
 	data: WpCommentUpdate,
 ): Promise<FetchResult<WpComment>> {
-	return wpFetch<WpComment>(`/comments/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpCommentUpdateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpComment>(
+		`/comments/${id}`,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpCommentResponseSchema,
+	);
 }
 
 /**
@@ -900,9 +1098,13 @@ export async function useWpDeleteComment(
 	id: number,
 	force = false,
 ): Promise<FetchResult<WpComment>> {
-	return wpFetch<WpComment>(`/comments/${id}?force=${force}`, {
-		method: "DELETE",
-	});
+	return wpFetch<WpComment>(
+		`/comments/${id}?force=${force}`,
+		{
+			method: "DELETE",
+		},
+		WpCommentResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -921,7 +1123,7 @@ export async function useWpDeleteComment(
  * ```
  */
 export async function useWpGetUsers(options?: WpQueryParams): Promise<FetchResult<WpUser[]>> {
-	return wpFetch<WpUser[]>(`/users${buildQueryParams(options)}`);
+	return wpFetch<WpUser[]>(`/users${buildQueryParams(options)}`, {}, WpUserListSchema);
 }
 
 /**
@@ -937,7 +1139,7 @@ export async function useWpGetUsers(options?: WpQueryParams): Promise<FetchResul
  * ```
  */
 export async function useWpGetUser(id: number): Promise<FetchResult<WpUser>> {
-	return wpFetch<WpUser>(`/users/${id}`);
+	return wpFetch<WpUser>(`/users/${id}`, {}, WpUserResponseSchema);
 }
 
 /**
@@ -952,7 +1154,7 @@ export async function useWpGetUser(id: number): Promise<FetchResult<WpUser>> {
  * ```
  */
 export async function useWpGetCurrentUser(): Promise<FetchResult<WpUser>> {
-	return wpFetch<WpUser>("/users/me");
+	return wpFetch<WpUser>("/users/me", {}, WpUserResponseSchema);
 }
 
 /**
@@ -972,10 +1174,16 @@ export async function useWpGetCurrentUser(): Promise<FetchResult<WpUser>> {
  * ```
  */
 export async function useWpCreateUser(data: WpUserCreate): Promise<FetchResult<WpUser>> {
-	return wpFetch<WpUser>("/users", {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpUserCreateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpUser>(
+		"/users",
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpUserResponseSchema,
+	);
 }
 
 /**
@@ -994,10 +1202,16 @@ export async function useWpUpdateUser(
 	id: number,
 	data: WpUserUpdate,
 ): Promise<FetchResult<WpUser>> {
-	return wpFetch<WpUser>(`/users/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	const parsed = useValidate(WpUserUpdateSchema, data);
+	if (!parsed.ok) return invalidInput(parsed);
+	return wpFetch<WpUser>(
+		`/users/${id}`,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		},
+		WpUserResponseSchema,
+	);
 }
 
 /**
@@ -1014,9 +1228,13 @@ export async function useWpUpdateUser(
  */
 export async function useWpDeleteUser(id: number, reassign?: number): Promise<FetchResult<WpUser>> {
 	const qs = reassign ? `?reassign=${reassign}` : "";
-	return wpFetch<WpUser>(`/users/${id}${qs}`, {
-		method: "DELETE",
-	});
+	return wpFetch<WpUser>(
+		`/users/${id}${qs}`,
+		{
+			method: "DELETE",
+		},
+		WpUserResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -1158,10 +1376,18 @@ export async function useWpDeleteCustomPost(
 export async function useWpBatch(
 	operations: WpBatchOperation[],
 ): Promise<FetchResult<WpBatchResult>> {
-	return wpFetch<WpBatchResult>("/batch/v1", {
-		method: "POST",
-		body: JSON.stringify({ requests: operations }),
-	});
+	for (const operation of operations) {
+		const parsed = useValidate(WpBatchOperationSchema, operation);
+		if (!parsed.ok) return invalidInput(parsed);
+	}
+	return wpFetch<WpBatchResult>(
+		"/batch/v1",
+		{
+			method: "POST",
+			body: JSON.stringify({ requests: operations }),
+		},
+		WpBatchResultSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */

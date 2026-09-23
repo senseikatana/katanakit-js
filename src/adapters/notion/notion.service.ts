@@ -1,3 +1,19 @@
+import type { z } from "zod";
+
+import { useValidate } from "../../core/services/validation.service.js";
+import {
+	NotionBlockListSchema,
+	NotionBlockResponseSchema,
+	NotionConfigSchema,
+	NotionDatabaseQuerySchema,
+	NotionDatabaseResponseSchema,
+	NotionPageListSchema,
+	NotionPageResponseSchema,
+	NotionSearchQuerySchema,
+	NotionSearchResultSchema,
+	NotionUserListSchema,
+	NotionUserResponseSchema,
+} from "../../schemas/notion.schema.js";
 import type {
 	FetchResult,
 	NotionBlock,
@@ -46,6 +62,7 @@ function getConfig(): NotionConfig {
 async function notionFetch<T>(
 	endpoint: string,
 	options: RequestInit = {},
+	schema?: z.ZodType<unknown>,
 ): Promise<FetchResult<T>> {
 	let cfg: NotionConfig;
 	try {
@@ -96,8 +113,25 @@ async function notionFetch<T>(
 			};
 		}
 
-		const data = (await response.json()) as T;
-		return { data, error: null, url, status: response.status, ok: true };
+		const data = (await response.json()) as unknown;
+		if (schema) {
+			const parsed = useValidate(schema, data);
+			if (!parsed.ok) {
+				return {
+					data: null,
+					error: {
+						message: "Notion Validation Error: " + parsed.error.message,
+						status: 502,
+						details: parsed.error.details,
+					},
+					url,
+					status: 502,
+					ok: false,
+				};
+			}
+			return { data: parsed.data as T, error: null, url, status: response.status, ok: true };
+		}
+		return { data: data as T, error: null, url, status: response.status, ok: true };
 	} catch (err: unknown) {
 		const message = err instanceof Error ? err.message : String(err);
 		return {
@@ -129,7 +163,11 @@ async function notionFetch<T>(
  * ```
  */
 export function useInitNotion(cfg: NotionConfig): void {
-	config = { ...cfg };
+	const parsed = useValidate(NotionConfigSchema, cfg);
+	if (!parsed.ok) {
+		throw new Error("[Notion] Invalid config: " + parsed.error.message);
+	}
+	config = { ...parsed.data };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -152,7 +190,7 @@ export function useInitNotion(cfg: NotionConfig): void {
  * ```
  */
 export async function useNotionGetPage(pageId: string): Promise<FetchResult<NotionPage>> {
-	return notionFetch<NotionPage>(`/pages/${pageId}`);
+	return notionFetch<NotionPage>(`/pages/${pageId}`, {}, NotionPageResponseSchema);
 }
 
 /**
@@ -188,10 +226,15 @@ export async function useNotionCreatePage(
 	properties: Record<string, unknown>,
 	children?: unknown[],
 ): Promise<FetchResult<NotionPage>> {
-	return notionFetch<NotionPage>("/pages", {
-		method: "POST",
-		body: JSON.stringify({ parent, properties, children }),
-	});
+	// Payload is Record<string, unknown>: no strict shape possible, skip input validation.
+	return notionFetch<NotionPage>(
+		"/pages",
+		{
+			method: "POST",
+			body: JSON.stringify({ parent, properties, children }),
+		},
+		NotionPageResponseSchema,
+	);
 }
 
 /**
@@ -222,10 +265,15 @@ export async function useNotionUpdatePage(
 	pageId: string,
 	properties: Record<string, unknown>,
 ): Promise<FetchResult<NotionPage>> {
-	return notionFetch<NotionPage>(`/pages/${pageId}`, {
-		method: "PATCH",
-		body: JSON.stringify({ properties }),
-	});
+	// Payload is Record<string, unknown>: no strict shape possible, skip input validation.
+	return notionFetch<NotionPage>(
+		`/pages/${pageId}`,
+		{
+			method: "PATCH",
+			body: JSON.stringify({ properties }),
+		},
+		NotionPageResponseSchema,
+	);
 }
 
 /**
@@ -241,10 +289,14 @@ export async function useNotionUpdatePage(
  * ```
  */
 export async function useNotionArchivePage(pageId: string): Promise<FetchResult<NotionPage>> {
-	return notionFetch<NotionPage>(`/pages/${pageId}`, {
-		method: "PATCH",
-		body: JSON.stringify({ archived: true }),
-	});
+	return notionFetch<NotionPage>(
+		`/pages/${pageId}`,
+		{
+			method: "PATCH",
+			body: JSON.stringify({ archived: true }),
+		},
+		NotionPageResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -267,7 +319,7 @@ export async function useNotionArchivePage(pageId: string): Promise<FetchResult<
  * ```
  */
 export async function useNotionGetBlock(blockId: string): Promise<FetchResult<NotionBlock>> {
-	return notionFetch<NotionBlock>(`/blocks/${blockId}`);
+	return notionFetch<NotionBlock>(`/blocks/${blockId}`, {}, NotionBlockResponseSchema);
 }
 
 /**
@@ -300,7 +352,11 @@ export async function useNotionGetBlockChildren(
 	if (options?.start_cursor) params.set("start_cursor", options.start_cursor);
 	if (options?.page_size) params.set("page_size", String(options.page_size));
 	const qs = params.toString();
-	return notionFetch<NotionBlockList>(`/blocks/${blockId}/children${qs ? `?${qs}` : ""}`);
+	return notionFetch<NotionBlockList>(
+		`/blocks/${blockId}/children${qs ? `?${qs}` : ""}`,
+		{},
+		NotionBlockListSchema,
+	);
 }
 
 /**
@@ -331,10 +387,15 @@ export async function useNotionAppendBlocks(
 	blockId: string,
 	children: unknown[],
 ): Promise<FetchResult<NotionBlock>> {
-	return notionFetch<NotionBlock>(`/blocks/${blockId}/children`, {
-		method: "PATCH",
-		body: JSON.stringify({ children }),
-	});
+	// Payload is unknown[]: no strict shape possible, skip input validation.
+	return notionFetch<NotionBlock>(
+		`/blocks/${blockId}/children`,
+		{
+			method: "PATCH",
+			body: JSON.stringify({ children }),
+		},
+		NotionBlockResponseSchema,
+	);
 }
 
 /**
@@ -358,10 +419,15 @@ export async function useNotionUpdateBlock(
 	blockId: string,
 	content: Record<string, unknown>,
 ): Promise<FetchResult<NotionBlock>> {
-	return notionFetch<NotionBlock>(`/blocks/${blockId}`, {
-		method: "PATCH",
-		body: JSON.stringify(content),
-	});
+	// Payload is Record<string, unknown>: no strict shape possible, skip input validation.
+	return notionFetch<NotionBlock>(
+		`/blocks/${blockId}`,
+		{
+			method: "PATCH",
+			body: JSON.stringify(content),
+		},
+		NotionBlockResponseSchema,
+	);
 }
 
 /**
@@ -377,9 +443,13 @@ export async function useNotionUpdateBlock(
  * ```
  */
 export async function useNotionDeleteBlock(blockId: string): Promise<FetchResult<NotionBlock>> {
-	return notionFetch<NotionBlock>(`/blocks/${blockId}`, {
-		method: "DELETE",
-	});
+	return notionFetch<NotionBlock>(
+		`/blocks/${blockId}`,
+		{
+			method: "DELETE",
+		},
+		NotionBlockResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -409,7 +479,7 @@ export async function useNotionDeleteBlock(blockId: string): Promise<FetchResult
 export async function useNotionGetDatabase(
 	databaseId: string,
 ): Promise<FetchResult<NotionDatabase>> {
-	return notionFetch<NotionDatabase>(`/databases/${databaseId}`);
+	return notionFetch<NotionDatabase>(`/databases/${databaseId}`, {}, NotionDatabaseResponseSchema);
 }
 
 /**
@@ -440,10 +510,20 @@ export async function useNotionQueryDatabase(
 	databaseId: string,
 	query?: NotionDatabaseQuery,
 ): Promise<FetchResult<NotionPageList>> {
-	return notionFetch<NotionPageList>(`/databases/${databaseId}/query`, {
-		method: "POST",
-		body: JSON.stringify(query ?? {}),
-	});
+	if (query !== undefined) {
+		const parsed = useValidate(NotionDatabaseQuerySchema, query);
+		if (!parsed.ok) {
+			return { data: null, error: parsed.error, url: "", status: parsed.status, ok: false };
+		}
+	}
+	return notionFetch<NotionPageList>(
+		`/databases/${databaseId}/query`,
+		{
+			method: "POST",
+			body: JSON.stringify(query ?? {}),
+		},
+		NotionPageListSchema,
+	);
 }
 
 /**
@@ -475,10 +555,15 @@ export async function useNotionCreateDatabase(
 	title: NotionRichText[],
 	properties: Record<string, NotionPropertySchema>,
 ): Promise<FetchResult<NotionDatabase>> {
-	return notionFetch<NotionDatabase>("/databases", {
-		method: "POST",
-		body: JSON.stringify({ parent, title, properties }),
-	});
+	// Payload properties are Record<string, NotionPropertySchema>: free-form, skip input validation.
+	return notionFetch<NotionDatabase>(
+		"/databases",
+		{
+			method: "POST",
+			body: JSON.stringify({ parent, title, properties }),
+		},
+		NotionDatabaseResponseSchema,
+	);
 }
 
 /**
@@ -505,10 +590,15 @@ export async function useNotionUpdateDatabase(
 ): Promise<FetchResult<NotionDatabase>> {
 	const body: Record<string, unknown> = { title };
 	if (properties) body.properties = properties;
-	return notionFetch<NotionDatabase>(`/databases/${databaseId}`, {
-		method: "PATCH",
-		body: JSON.stringify(body),
-	});
+	// Payload properties are Record<string, NotionPropertySchema>: free-form, skip input validation.
+	return notionFetch<NotionDatabase>(
+		`/databases/${databaseId}`,
+		{
+			method: "PATCH",
+			body: JSON.stringify(body),
+		},
+		NotionDatabaseResponseSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -531,7 +621,7 @@ export async function useNotionUpdateDatabase(
  * ```
  */
 export async function useNotionGetUser(userId: string): Promise<FetchResult<NotionUser>> {
-	return notionFetch<NotionUser>(`/users/${userId}`);
+	return notionFetch<NotionUser>(`/users/${userId}`, {}, NotionUserResponseSchema);
 }
 
 /**
@@ -557,7 +647,7 @@ export async function useNotionListUsers(options?: {
 	if (options?.start_cursor) params.set("start_cursor", options.start_cursor);
 	if (options?.page_size) params.set("page_size", String(options.page_size));
 	const qs = params.toString();
-	return notionFetch<NotionUserList>(`/users${qs ? `?${qs}` : ""}`);
+	return notionFetch<NotionUserList>(`/users${qs ? `?${qs}` : ""}`, {}, NotionUserListSchema);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -595,10 +685,18 @@ export async function useNotionListUsers(options?: {
 export async function useNotionSearchContent(
 	query: NotionSearchQuery,
 ): Promise<FetchResult<NotionSearchResult>> {
-	return notionFetch<NotionSearchResult>("/search", {
-		method: "POST",
-		body: JSON.stringify(query),
-	});
+	const parsed = useValidate(NotionSearchQuerySchema, query);
+	if (!parsed.ok) {
+		return { data: null, error: parsed.error, url: "", status: parsed.status, ok: false };
+	}
+	return notionFetch<NotionSearchResult>(
+		"/search",
+		{
+			method: "POST",
+			body: JSON.stringify(query),
+		},
+		NotionSearchResultSchema,
+	);
 }
 
 /* -------------------------------------------------------------------------- */
