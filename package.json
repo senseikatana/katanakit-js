@@ -92,6 +92,11 @@
 			"import": "./dist/prisma/index.js",
 			"default": "./dist/prisma/index.js"
 		},
+		"./schemas": {
+			"types": "./dist/schemas/index.d.ts",
+			"import": "./dist/schemas/index.js",
+			"default": "./dist/schemas/index.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"files": [
@@ -175,7 +180,8 @@
 		"@js-temporal/polyfill": "0.5.1",
 		"@prisma/orm-postgres": "8.0.0-rc.8",
 		"@tanstack/query-core": "5.103.2",
-		"express-rate-limit": "8.7.0"
+		"express-rate-limit": "8.7.0",
+		"zod": "^4.6.5"
 	},
 	"peerDependencies": {
 		"@angular/core": ">=16.0.0",

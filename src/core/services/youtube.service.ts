@@ -1,15 +1,18 @@
+import {
+	YoutubeChannelsResponseSchema,
+	YoutubePlaylistItemsResponseSchema,
+	YoutubeVideosResponseSchema,
+} from "../../schemas/youtube.schema.js";
 import type {
 	FetchResult,
 	YoutubeApiConfig,
-	YoutubeChannelsResponse,
 	YoutubeListParams,
-	YoutubePlaylistItemsResponse,
 	YoutubeVideoNormalized,
 	YoutubeVideoPage,
-	YoutubeVideosResponse,
 } from "../../types/index.js";
 import { useGet, useInitApis } from "./http.service.js";
 import { useBuildYoutubeEmbedUrl, useBuildYoutubeThumbnail } from "./media.service.js";
+import { useValidate } from "./validation.service.js";
 
 /** Registry key for the YouTube Data API v3. */
 const YOUTUBE_API_NAME = "youtube";
@@ -195,13 +198,27 @@ export async function useGetUploadsPlaylistId(
 			"Config Error: channelId is missing. Pass it explicitly or via useInitYoutube.",
 		);
 	}
-	const result = await useGet<YoutubeChannelsResponse>(YOUTUBE_API_NAME, "channels", {
+	const result = await useGet<unknown>(YOUTUBE_API_NAME, "channels", {
 		query: { part: "contentDetails", id: channelId },
 	});
 	if (!result.ok) {
 		return { data: null, error: result.error, url: result.url, status: result.status, ok: false };
 	}
-	const playlistId = result.data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads ?? "";
+	const parsed = useValidate(YoutubeChannelsResponseSchema, result.data);
+	if (!parsed.ok) {
+		return {
+			data: null,
+			error: {
+				message: "YouTube Error: unexpected channels.list shape.",
+				status: 502,
+				details: parsed.error.details,
+			},
+			url: result.url,
+			status: 502,
+			ok: false,
+		};
+	}
+	const playlistId = parsed.data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads ?? "";
 	if (!playlistId) {
 		return {
 			data: null,
@@ -252,14 +269,28 @@ export async function useGetChannelVideos(
 		maxResults,
 		pageToken: params.pageToken,
 	};
-	const result = await useGet<YoutubePlaylistItemsResponse>(YOUTUBE_API_NAME, "playlistItems", {
+	const result = await useGet<unknown>(YOUTUBE_API_NAME, "playlistItems", {
 		query,
 	});
 	if (!result.ok) {
 		return { data: null, error: result.error, url: result.url, status: result.status, ok: false };
 	}
+	const parsed = useValidate(YoutubePlaylistItemsResponseSchema, result.data);
+	if (!parsed.ok) {
+		return {
+			data: null,
+			error: {
+				message: "YouTube Error: unexpected playlistItems.list shape.",
+				status: 502,
+				details: parsed.error.details,
+			},
+			url: result.url,
+			status: 502,
+			ok: false,
+		};
+	}
 	const videos: YoutubeVideoNormalized[] = [];
-	for (const item of result.data.items ?? []) {
+	for (const item of parsed.data.items ?? []) {
 		const id = item.snippet?.resourceId?.videoId ?? item.contentDetails?.videoId ?? "";
 		if (!id) continue;
 		videos.push(
@@ -280,9 +311,9 @@ export async function useGetChannelVideos(
 	return {
 		data: {
 			videos,
-			nextPageToken: result.data.nextPageToken,
-			prevPageToken: result.data.prevPageToken,
-			totalResults: result.data.pageInfo?.totalResults,
+			nextPageToken: parsed.data.nextPageToken,
+			prevPageToken: parsed.data.prevPageToken,
+			totalResults: parsed.data.pageInfo?.totalResults,
 		},
 		error: null,
 		url: result.url,
@@ -314,13 +345,27 @@ export async function useGetVideoDetails(
 			ok: false,
 		};
 	}
-	const result = await useGet<YoutubeVideosResponse>(YOUTUBE_API_NAME, "videos", {
+	const result = await useGet<unknown>(YOUTUBE_API_NAME, "videos", {
 		query: { part: "snippet,contentDetails,statistics", id: ids.join(",") },
 	});
 	if (!result.ok) {
 		return { data: null, error: result.error, url: result.url, status: result.status, ok: false };
 	}
-	const videos = (result.data.items ?? [])
+	const parsed = useValidate(YoutubeVideosResponseSchema, result.data);
+	if (!parsed.ok) {
+		return {
+			data: null,
+			error: {
+				message: "YouTube Error: unexpected videos.list shape.",
+				status: 502,
+				details: parsed.error.details,
+			},
+			url: result.url,
+			status: 502,
+			ok: false,
+		};
+	}
+	const videos = (parsed.data.items ?? [])
 		.filter((item) => Boolean(item.id))
 		.map((item) =>
 			hydrateVideo({

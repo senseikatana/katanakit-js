@@ -8,6 +8,7 @@ All notable changes to this project are documented in this file.
 
 - **SmartVideo media service** (`useParseMediaSource`, `useBuildVideoEmbed`, `useGetYoutubeVideoId`, nocookie embed + thumbnail builders) — one `src` renders native `<video>` for direct files or a click-to-play facade `<figure>` for YouTube/Vimeo, plus `useEnhanceVideoFacades` hydration in infrastructure.
 - **YouTube channel service** (`useInitYoutube`, `useGetChannelVideos`, `useGetVideoDetails`, `useGetUploadsPlaylistId`) — quota-cheap listing via `channels` → `playlistItems` (never `search.list`), and keyless RSS fallback (`useGetChannelVideosRss`, `useParseYoutubeRss`). One GCP project serves every repo; call server/build-time and cache.
+- **Zod validation, framework-agnostic** (`zod` dependency, `katanakit-js/schemas` subpath) — runtime schemas for media, YouTube, RSS, AI wire shapes and common unions/errors; `src/types/` now infers via `z.infer` so consumer imports don't change. New `useValidate()` returns a Safe Result instead of throwing, and the YouTube service validates every API response at the boundary (malformed payloads → typed `502`, not garbage data).
 
 ## [4.0.3]
 

@@ -1,9 +1,12 @@
+import { SmartVideoOptionsSchema } from "../../schemas/media.schema.js";
 import type {
+	FetchResult,
 	MediaSource,
 	SmartVideoOptions,
 	YoutubeEmbedOptions,
 	YoutubeThumbnailQuality,
 } from "../../types/index.js";
+import { useValidate } from "./validation.service.js";
 
 const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 const VIMEO_ID_PATTERN = /^\d{6,12}$/;
@@ -165,6 +168,23 @@ export function useBuildYoutubeThumbnail(
 	quality: YoutubeThumbnailQuality = "hqdefault",
 ): string {
 	return `https://i.ytimg.com/vi/${videoId}/${quality}.jpg`;
+}
+
+/**
+ * Validates unknown input (parsed JSON, frontmatter, CMS payloads) against
+ * the `SmartVideoOptions` schema. Returns a Safe Result instead of throwing.
+ *
+ * @param input - Unknown value to validate.
+ * @returns `FetchResult<SmartVideoOptions>` with typed options or a `Validation Error`.
+ *
+ * @example
+ * ```ts
+ * const result = useParseSmartVideoOptions(JSON.parse(raw));
+ * if (result.ok) useBuildVideoEmbed(result.data);
+ * ```
+ */
+export function useParseSmartVideoOptions(input: unknown): FetchResult<SmartVideoOptions> {
+	return useValidate(SmartVideoOptionsSchema, input);
 }
 
 /**

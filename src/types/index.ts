@@ -5,13 +5,49 @@ import type {
 	WatchSource as VueWatchSource,
 	WatchStopHandle as VueWatchStopHandle,
 } from "vue";
+import type { z } from "zod";
+
+import {
+	AiFunctionCallSchema,
+	AiMessageSchema,
+	AiProviderConfigSchema,
+	AiRoleSchema,
+	AiToolCallSchema,
+} from "../schemas/ai.schema.js";
+import {
+	ApiErrorSchema,
+	HttpMethodSchema,
+	LocaleSchema,
+	LogLevelSchema,
+	SerializedErrorSchema,
+	StorageTargetSchema,
+	ThemeModeSchema,
+} from "../schemas/common.schema.js";
+import {
+	MediaProviderSchema,
+	MediaSourceSchema,
+	SmartVideoOptionsSchema,
+	YoutubeEmbedOptionsSchema,
+	YoutubeThumbnailQualitySchema,
+} from "../schemas/media.schema.js";
+import { RssConfigSchema, RssItemSchema } from "../schemas/rss.schema.js";
+import {
+	YoutubeApiConfigSchema,
+	YoutubeChannelsResponseSchema,
+	YoutubeListParamsSchema,
+	YoutubePlaylistItemsResponseSchema,
+	YoutubeVideoNormalizedSchema,
+	YoutubeVideoPageSchema,
+	YoutubeVideosResponseSchema,
+	YoutubeVideoThumbnailsSchema,
+} from "../schemas/youtube.schema.js";
 
 /* -------------------------------------------------------------------------- */
 /* Logging                                                                    */
 /* -------------------------------------------------------------------------- */
 
 /** Native console methods used as log levels. */
-export type LogLevel = "log" | "warn" | "error";
+export type LogLevel = z.infer<typeof LogLevelSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* DOM / Observers                                                            */
@@ -121,7 +157,7 @@ export interface WorkerPoolEntry<TInput = unknown, TOutput = unknown> {
 /* Storage                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export type StorageTarget = "localStorage" | "sessionStorage";
+export type StorageTarget = z.infer<typeof StorageTargetSchema>;
 
 /** Strategy contract: homogeneous storage without `any`. */
 export interface StorageStrategy {
@@ -135,7 +171,7 @@ export interface StorageStrategy {
 /* Locale / Currency                                                          */
 /* -------------------------------------------------------------------------- */
 
-export type Locale = "en" | "es" | "fr" | "de" | "it" | "pt" | "ja" | "zh";
+export type Locale = z.infer<typeof LocaleSchema>;
 
 export type Currency =
 	| "EUR"
@@ -209,7 +245,7 @@ export interface DatesServiceTypes {
 /* HTTP / Fetch                                                               */
 /* -------------------------------------------------------------------------- */
 
-export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+export type HttpMethod = z.infer<typeof HttpMethodSchema>;
 
 export type QueryParams = Record<string, string | number | boolean | undefined | null>;
 
@@ -235,11 +271,7 @@ export interface FetchOptions extends RequestInit {
 }
 
 /** Structure of the safe error returned on non-2xx or network failures. */
-export interface ApiError {
-	message: string;
-	status: number;
-	details?: unknown;
-}
+export type ApiError = z.infer<typeof ApiErrorSchema>;
 
 /**
  * Safe result, discriminated union (Astro Actions style) without throwing.
@@ -319,10 +351,7 @@ export interface IFetchApiManager {
 /* -------------------------------------------------------------------------- */
 
 /** Serialized error shape. */
-export interface ISerializedError {
-	message: string;
-	code: number;
-}
+export type ISerializedError = z.infer<typeof SerializedErrorSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* Formatter / Converter                                                      */
@@ -494,7 +523,7 @@ export interface ScrollOptions {
 /* Theme                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type ThemeMode = "light" | "dark" | "system";
+export type ThemeMode = z.infer<typeof ThemeModeSchema>;
 
 export interface ThemeOptions {
 	defaultMode?: ThemeMode;
@@ -589,48 +618,10 @@ export interface IAstroService {
 /* -------------------------------------------------------------------------- */
 
 /** A single item in an RSS feed. */
-export interface RssItem {
-	/** Title of the item. */
-	title: string;
-	/** Publication date (Date object or ISO string). */
-	pubDate: Date | string;
-	/** URL of the item (relative to site, e.g. "/blog/my-post/"). */
-	link: string;
-	/** Optional description or excerpt. */
-	description?: string;
-	/** Optional full content (HTML allowed). */
-	content?: string;
-	/** Optional categories/tags. */
-	categories?: string[];
-	/** Optional author name. */
-	author?: string;
-	/** Optional custom data (e.g. enclosure for podcasts). */
-	customData?: string;
-}
+export type RssItem = z.infer<typeof RssItemSchema>;
 
 /** Configuration for generating an RSS feed. */
-export interface RssConfig {
-	/** Title of the feed (e.g. "My Blog"). */
-	title: string;
-	/** Description of the feed. */
-	description: string;
-	/** Base URL of the site (e.g. "https://example.com"). */
-	site: string;
-	/** Feed items. */
-	items: RssItem[];
-	/** Output path (default: "/rss.xml"). */
-	xmlPath?: string;
-	/** Language code (default: "en"). */
-	language?: string;
-	/** Custom XML to inject into the `<channel>` element. */
-	customData?: string;
-	/** XSL stylesheet URL for browser rendering (optional). */
-	xslUrl?: string;
-	/** Whether to include the `<lastBuildDate>` (default: true). */
-	lastBuildDate?: boolean;
-	/** Trailing slash behavior for item links (default: true). */
-	trailingSlash?: boolean;
-}
+export type RssConfig = z.infer<typeof RssConfigSchema>;
 
 /** Result of an RSS generation attempt. */
 export type RssResult =
@@ -659,41 +650,22 @@ export interface IRssService {
 /* -------------------------------------------------------------------------- */
 
 /** Role of a chat message in the OpenAI-compatible protocol. */
-export type AiRole = "system" | "user" | "assistant" | "tool";
+export type AiRole = z.infer<typeof AiRoleSchema>;
 
 /** Function invocation requested by the model when using tools. */
-export interface AiFunctionCall {
-	name: string;
-	arguments: string;
-}
+export type AiFunctionCall = z.infer<typeof AiFunctionCallSchema>;
 
 /** A single tool call emitted by the model (OpenAI-compatible wire shape). */
-export interface AiToolCall {
-	id: string;
-	type: "function";
-	function: AiFunctionCall;
-}
+export type AiToolCall = z.infer<typeof AiToolCallSchema>;
 
 /**
  * A chat message. `tool_calls` and `tool_call_id` use snake_case on purpose:
  * they mirror the OpenAI-compatible protocol so messages pass through unchanged.
  */
-export interface AiMessage {
-	role: AiRole;
-	content: string | null;
-	tool_calls?: AiToolCall[];
-	tool_call_id?: string;
-	name?: string;
-}
+export type AiMessage = z.infer<typeof AiMessageSchema>;
 
 /** Provider configuration for an OpenAI-compatible chat/agent endpoint. */
-export interface AiProviderConfig {
-	apiKey: string;
-	baseUrl: string;
-	model: string;
-	/** Default system prompt. Falls back to {@link KITT_SYSTEM_PROMPT}. */
-	systemPrompt?: string;
-}
+export type AiProviderConfig = z.infer<typeof AiProviderConfigSchema>;
 
 /** Options for a single chat completion. */
 export interface AiChatOptions {
@@ -1700,154 +1672,44 @@ export interface IWordPressService {
 /* -------------------------------------------------------------------------- */
 
 /** Where a media source comes from. `file` = direct mp4/webm (native `<video>`). */
-export type MediaProvider = "youtube" | "vimeo" | "file" | "unknown";
+export type MediaProvider = z.infer<typeof MediaProviderSchema>;
 
 /** Normalized media source: provider + stable id or direct src. */
-export interface MediaSource {
-	provider: MediaProvider;
-	/** Video id for youtube/vimeo, full URL for `file`. */
-	id: string;
-	/** Original input (URL or bare id). */
-	raw: string;
-}
+export type MediaSource = z.infer<typeof MediaSourceSchema>;
 
 /** Options for the YouTube nocookie embed URL. */
-export interface YoutubeEmbedOptions {
-	/** Start time in seconds. */
-	start?: number;
-	/** End time in seconds. */
-	end?: number;
-	/** Autoplay on iframe creation (facade clicks pass `1`). */
-	autoplay?: boolean;
-	/** Extra `playerVars` merged into the query string. */
-	params?: Record<string, string | number | boolean>;
-}
+export type YoutubeEmbedOptions = z.infer<typeof YoutubeEmbedOptionsSchema>;
 
 /** Thumbnail quality for `i.ytimg.com`. */
-export type YoutubeThumbnailQuality =
-	"default" | "mqdefault" | "hqdefault" | "sddefault" | "maxresdefault";
+export type YoutubeThumbnailQuality = z.infer<typeof YoutubeThumbnailQualitySchema>;
 
 /** Input for {@link useBuildVideoEmbed} (core) — one `src`, unified output. */
-export interface SmartVideoOptions {
-	/** YouTube URL/id, Vimeo URL/id, or direct `.mp4`/`.webm` URL. */
-	src: string;
-	/** Accessible title. Used as `<iframe title>` / `<video aria-label>`. */
-	title: string;
-	/** Optional `<figcaption>` text. */
-	caption?: string;
-	/** Poster for native `<video>` or facade thumbnail override. */
-	poster?: string;
-	/** Extra CSS class on the `<figure>` wrapper. */
-	className?: string;
-	/** Aspect ratio box: `16/9` (default) or `4/3`, `1/1`, `9/16`. */
-	aspect?: string;
-	/** Render the click-to-play facade for embeds (no heavy iframe on load). */
-	facade?: boolean;
-	/** YouTube player options (only for `youtube` provider). */
-	youtube?: YoutubeEmbedOptions;
-}
+export type SmartVideoOptions = z.infer<typeof SmartVideoOptionsSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* YouTube Data API / channel listing                                         */
 /* -------------------------------------------------------------------------- */
 
 /** Config for the YouTube service. One GCP project serves all repos. */
-export interface YoutubeApiConfig {
-	/** YouTube Data API v3 key (server/build-time only, never public). */
-	apiKey: string;
-	/** Default channel id (`UC…`). Per-call params can override it. */
-	channelId: string;
-}
+export type YoutubeApiConfig = z.infer<typeof YoutubeApiConfigSchema>;
 
 /** Params for {@link useGetChannelVideos}. */
-export interface YoutubeListParams {
-	/** Channel id (defaults to the one from `useInitYoutube`). */
-	channelId?: string;
-	/** Skip the channels lookup when the uploads playlist id is known. */
-	playlistId?: string;
-	/** Items per page (1–50, defaults to `12`). */
-	maxResults?: number;
-	/** Opaque page token from a previous response. */
-	pageToken?: string;
-}
+export type YoutubeListParams = z.infer<typeof YoutubeListParamsSchema>;
 
 /** Resolution-keyed thumbnails (all derivable without an API key). */
-export interface YoutubeVideoThumbnails {
-	default: string;
-	medium: string;
-	high: string;
-}
+export type YoutubeVideoThumbnails = z.infer<typeof YoutubeVideoThumbnailsSchema>;
 
 /** Normalized video, enriched with player-ready URLs. */
-export interface YoutubeVideoNormalized {
-	id: string;
-	title: string;
-	description: string;
-	publishedAt: string;
-	channelTitle?: string;
-	thumbnails: YoutubeVideoThumbnails;
-	/** `hqdefault` shortcut for posters/facades. */
-	thumbnail: string;
-	/** Watch URL. */
-	url: string;
-	/** Privacy-enhanced (`youtube-nocookie`) embed URL. */
-	embedUrl: string;
-	/** From `videos.list` (`contentDetails.duration`), in seconds. */
-	durationSeconds?: number;
-	/** From `videos.list` (`statistics.viewCount`). */
-	viewCount?: number;
-}
+export type YoutubeVideoNormalized = z.infer<typeof YoutubeVideoNormalizedSchema>;
 
 /** Paginated channel listing result. */
-export interface YoutubeVideoPage {
-	videos: YoutubeVideoNormalized[];
-	nextPageToken?: string;
-	prevPageToken?: string;
-	totalResults?: number;
-}
+export type YoutubeVideoPage = z.infer<typeof YoutubeVideoPageSchema>;
 
 /** Minimal `channels.list` shape (only what the service reads). */
-export interface YoutubeChannelsResponse {
-	items?: Array<{
-		contentDetails?: {
-			relatedPlaylists?: { uploads?: string };
-		};
-	}>;
-}
+export type YoutubeChannelsResponse = z.infer<typeof YoutubeChannelsResponseSchema>;
 
 /** Minimal `playlistItems.list` shape (only what the service reads). */
-export interface YoutubePlaylistItemsResponse {
-	nextPageToken?: string;
-	prevPageToken?: string;
-	pageInfo?: { totalResults?: number };
-	items?: Array<{
-		snippet?: {
-			title?: string;
-			description?: string;
-			publishedAt?: string;
-			channelTitle?: string;
-			resourceId?: { videoId?: string };
-			thumbnails?: {
-				default?: { url?: string };
-				medium?: { url?: string };
-				high?: { url?: string };
-			};
-		};
-		contentDetails?: { videoId?: string };
-	}>;
-}
+export type YoutubePlaylistItemsResponse = z.infer<typeof YoutubePlaylistItemsResponseSchema>;
 
 /** Minimal `videos.list` shape (only what the service reads). */
-export interface YoutubeVideosResponse {
-	items?: Array<{
-		id?: string;
-		snippet?: {
-			title?: string;
-			description?: string;
-			publishedAt?: string;
-			channelTitle?: string;
-		};
-		contentDetails?: { duration?: string };
-		statistics?: { viewCount?: string };
-	}>;
-}
+export type YoutubeVideosResponse = z.infer<typeof YoutubeVideosResponseSchema>;
