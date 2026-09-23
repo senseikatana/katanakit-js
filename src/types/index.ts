@@ -8,6 +8,12 @@ import type {
 import type { z } from "zod";
 
 import {
+	AccessCapabilitySchema,
+	AccessRoleDefinitionSchema,
+	AccessRoleSchema,
+	AccessSubjectSchema,
+} from "../schemas/access.schema.js";
+import {
 	AiFunctionCallSchema,
 	AiMessageSchema,
 	AiProviderConfigSchema,
@@ -24,13 +30,95 @@ import {
 	ThemeModeSchema,
 } from "../schemas/common.schema.js";
 import {
+	AgentDataSchema,
+	AgentStepSchema,
+	AiErrorSchema,
+	AppDateFormatOptionsSchema,
+	AssistantReplySchema,
+	AstroServiceErrorSchema,
+	CurrencyFormatOptionsSchema,
+	CurrencySchema,
+	FieldErrorsSchema,
+	GeometryFormatOptionsSchema,
+	GeoPositionSchema,
+	LazyLoaderEntrySchema,
+	NumberFormatOptionsSchema,
+	ProductTypeSchema,
+	ScrollPositionSchema,
+	ValidationIssueSchema,
+	ViewportSizeSchema,
+} from "../schemas/core.schema.js";
+import {
+	IfConfigSchema,
+	IfInsertRowsSchema,
+	IfInvokeOptionsSchema,
+	IfListOptionsSchema,
+	IfOrderSchema,
+	IfRpcCallSchema,
+	IfStorageRefSchema,
+	IfTableQuerySchema,
+	IfUpdatePatchSchema,
+	IfWriteQuerySchema,
+} from "../schemas/insforge.schema.js";
+import {
 	MediaProviderSchema,
 	MediaSourceSchema,
 	SmartVideoOptionsSchema,
 	YoutubeEmbedOptionsSchema,
 	YoutubeThumbnailQualitySchema,
 } from "../schemas/media.schema.js";
+import {
+	NotionBlockListSchema,
+	NotionBlockSchema,
+	NotionConfigSchema,
+	NotionCoverSchema,
+	NotionDatabaseQuerySchema,
+	NotionDatabaseSchema,
+	NotionIconSchema,
+	NotionPageListSchema,
+	NotionPageSchema,
+	NotionParentSchema,
+	NotionPropertySchemaSchema,
+	NotionPropertyValueSchema,
+	NotionRichTextSchema,
+	NotionSearchQuerySchema,
+	NotionSearchResultSchema,
+	NotionSortSchema,
+	NotionUserListSchema,
+	NotionUserSchema,
+} from "../schemas/notion.schema.js";
 import { RssConfigSchema, RssItemSchema } from "../schemas/rss.schema.js";
+import {
+	WordPressAuthSchema,
+	WordPressConfigSchema,
+	WpAcfFieldsSchema,
+	WpBaseEntitySchema,
+	WpBatchOperationSchema,
+	WpBatchResultSchema,
+	WpCategoryCreateSchema,
+	WpCategorySchema,
+	WpCategoryUpdateSchema,
+	WpCommentCreateSchema,
+	WpCommentSchema,
+	WpCommentUpdateSchema,
+	WpEmbeddedSchema,
+	WpMediaMetaSchema,
+	WpMediaSchema,
+	WpMediaUpdateSchema,
+	WpPageCreateSchema,
+	WpPageSchema,
+	WpPageUpdateSchema,
+	WpPostCreateSchema,
+	WpPostSchema,
+	WpPostUpdateSchema,
+	WpQueryParamsSchema,
+	WpTagCreateSchema,
+	WpTagSchema,
+	WpTagUpdateSchema,
+	WpUserCreateSchema,
+	WpUserSchema,
+	WpUserUpdateSchema,
+} from "../schemas/wordpress.schema.js";
 import {
 	YoutubeApiConfigSchema,
 	YoutubeChannelsResponseSchema,
@@ -74,10 +162,7 @@ export interface ObserverEntry {
 }
 
 /** Internal registry entry for lazy loading configurations. */
-export interface LazyLoaderEntry {
-	selector: string;
-	observerKey: string;
-}
+export type LazyLoaderEntry = z.infer<typeof LazyLoaderEntrySchema>;
 
 /** Contract of the DOM facade. */
 export interface IDomService {
@@ -124,11 +209,7 @@ export interface IDomService {
 /* -------------------------------------------------------------------------- */
 
 /** Represents a geographic position with latitude, longitude and accuracy. */
-export interface GeoPosition {
-	lat: number;
-	lng: number;
-	accuracy: number;
-}
+export type GeoPosition = z.infer<typeof GeoPositionSchema>;
 
 /** Type for the experimental Battery API. */
 export interface BatteryManager extends EventTarget {
@@ -173,36 +254,11 @@ export interface StorageStrategy {
 
 export type Locale = z.infer<typeof LocaleSchema>;
 
-export type Currency =
-	| "EUR"
-	| "USD"
-	| "GBP"
-	| "JPY"
-	| "CAD"
-	| "MXN"
-	| "CHF"
-	| "AUD"
-	| "BRL"
-	| "CNY"
-	| "ARS"
-	| "COP"
-	| "CLP";
+export type Currency = z.infer<typeof CurrencySchema>;
 
-export interface CurrencyFormatOptions {
-	amount: number;
-	currency?: Currency;
-	/**
-	 * Tax rate: percentage when `> 1` (e.g. `21` → 21%), or decimal fraction
-	 * when in `(0, 1]` (e.g. `0.21` → 21%). Prefer a fraction for rates ≤ 1%.
-	 */
-	taxes?: number;
-	locale?: Locale;
-}
+export type CurrencyFormatOptions = z.infer<typeof CurrencyFormatOptionsSchema>;
 
-export interface NumberFormatOptions {
-	locale?: Locale;
-	digits?: number;
-}
+export type NumberFormatOptions = z.infer<typeof NumberFormatOptionsSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* Dates                                                                      */
@@ -217,11 +273,7 @@ export type TemporalInput =
 	| Temporal.ZonedDateTime
 	| Temporal.Instant;
 
-export interface AppDateFormatOptions {
-	year?: "numeric" | "2-digit";
-	month?: "numeric" | "2-digit" | "long" | "short" | "narrow";
-	day?: "numeric" | "2-digit";
-}
+export type AppDateFormatOptions = z.infer<typeof AppDateFormatOptionsSchema>;
 
 /** Backwards-compatible alias for {@link AppDateFormatOptions}. */
 export type DateFormatOptions = AppDateFormatOptions;
@@ -401,11 +453,7 @@ export interface IUuidStrategy {
 /* -------------------------------------------------------------------------- */
 
 /** Options for number formatting in geometry calculations. */
-export interface GeometryFormatOptions {
-	locale?: string;
-	digits?: number;
-	unit?: string;
-}
+export type GeometryFormatOptions = z.infer<typeof GeometryFormatOptionsSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* Reactive                                                                   */
@@ -501,16 +549,10 @@ export interface IAppUtils {
 /* -------------------------------------------------------------------------- */
 
 /** Represents viewport dimensions. */
-export interface ViewportSize {
-	width: number;
-	height: number;
-}
+export type ViewportSize = z.infer<typeof ViewportSizeSchema>;
 
 /** Represents scroll position. */
-export interface ScrollPosition {
-	x: number;
-	y: number;
-}
+export type ScrollPosition = z.infer<typeof ScrollPositionSchema>;
 
 /** Options for scrolling operations. */
 export interface ScrollOptions {
@@ -575,11 +617,7 @@ export interface PaginationProps<T> {
 	totalPages: number;
 }
 
-export interface AstroServiceError {
-	message: string;
-	collectionName?: string;
-	details?: unknown;
-}
+export type AstroServiceError = z.infer<typeof AstroServiceErrorSchema>;
 
 /** Safe Result (discriminated union without throwing). */
 export type AstroServiceResult<T> =
@@ -678,11 +716,7 @@ export interface AiChatOptions {
 }
 
 /** Safe error returned on non-2xx or network failures. */
-export interface AiError {
-	message: string;
-	status: number;
-	details?: unknown;
-}
+export type AiError = z.infer<typeof AiErrorSchema>;
 
 /** Safe result (discriminated union) without throwing. */
 export type AiResult<T = string> =
@@ -700,16 +734,10 @@ export interface AiTool {
 }
 
 /** One round of tool execution inside the agent loop. */
-export interface AgentStep {
-	toolCalls: AiToolCall[];
-	toolResults: unknown[];
-}
+export type AgentStep = z.infer<typeof AgentStepSchema>;
 
 /** Payload returned by a successful {@link useRunAgent} call. */
-export interface AgentData {
-	finalMessage: string;
-	steps: AgentStep[];
-}
+export type AgentData = z.infer<typeof AgentDataSchema>;
 
 /** Safe result of an agent run. */
 export type AgentResult = AiResult<AgentData>;
@@ -752,10 +780,7 @@ export interface AssistantReplyOptions extends AiChatOptions {
 }
 
 /** Payload returned by a successful assistant reply. */
-export interface AssistantReply {
-	reply: string;
-	sessionId: string;
-}
+export type AssistantReply = z.infer<typeof AssistantReplySchema>;
 
 /** Safe result of an assistant reply. */
 export type AssistantResult = AiResult<AssistantReply>;
@@ -789,41 +814,23 @@ export interface IAssistantService {
  * - `member` — registered account; can use the assistant and read content.
  * - `guest` — anonymous default; read-only, never persisted.
  */
-export type AccessRole = "owner" | "admin" | "editor" | "author" | "member" | "guest";
+export type AccessRole = z.infer<typeof AccessRoleSchema>;
 
 /**
  * Namespaced capabilities derived from the project domain.
  * Format: `<domain>:<action>[:<scope>]`.
  */
-export type AccessCapability =
-	| "content:create"
-	| "content:publish"
-	| "content:edit:own"
-	| "content:edit:any"
-	| "content:delete:own"
-	| "content:delete:any"
-	| "conversations:use"
-	| "conversations:moderate"
-	| "members:manage"
-	| "roles:assign"
-	| "system:admin";
+export type AccessCapability = z.infer<typeof AccessCapabilitySchema>;
 
 /** A role definition: slug, human label and the capabilities it grants. */
-export interface AccessRoleDefinition {
-	slug: AccessRole;
-	label: string;
-	capabilities: AccessCapability[];
-}
+export type AccessRoleDefinition = z.infer<typeof AccessRoleDefinitionSchema>;
 
 /**
  * Structural subject for access checks. Decoupled from the persistence layer:
  * any object with an id and a role list can be checked (e.g. a Prisma
  * `Account` row, a JWT payload, or a test fixture).
  */
-export interface AccessSubject {
-	id: string | number;
-	roles: AccessRole[];
-}
+export type AccessSubject = z.infer<typeof AccessSubjectSchema>;
 
 /** Contract of the access-control facade. Pure, no I/O. */
 export interface IAccessService {
@@ -865,13 +872,10 @@ export type WatchStopHandle = VueWatchStopHandle;
 /* -------------------------------------------------------------------------- */
 
 /** A single field-level validation message keyed by field name. */
-export type FieldErrors = Record<string, string>;
+export type FieldErrors = z.infer<typeof FieldErrorsSchema>;
 
-/** Minimal Zod-like issue shape (`error.issues` entries). */
-export interface ValidationIssue {
-	path: (string | number)[];
-	message: string;
-}
+/** Minimal issue shape (`error.issues` entries). */
+export type ValidationIssue = z.infer<typeof ValidationIssueSchema>;
 
 /** Minimal Zod-like success/failure result (`schema.safeParse`). */
 export type ValidationParseResult<T> =
@@ -897,137 +901,44 @@ export interface ValidationSchema<T = unknown> {
 /* Express                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export type ProductType = {
-	id: number;
-	name: string;
-	price: number;
-};
+export type ProductType = z.infer<typeof ProductTypeSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* Notion API                                                                 */
 /* -------------------------------------------------------------------------- */
 
 /** Configuration for the Notion API integration. */
-export interface NotionConfig {
-	/** Notion integration token (starts with "ntn_" or "secret_"). */
-	token: string;
-	/** API version header (default: "2022-06-28"). */
-	apiVersion?: string;
-	/** Custom base URL (default: "https://api.notion.com/v1"). */
-	apiBaseUrl?: string;
-}
+export type NotionConfig = z.infer<typeof NotionConfigSchema>;
 
 /** Rich text object used in Notion blocks and properties. */
-export interface NotionRichText {
-	type: "text";
-	text: { content: string; link?: { url: string } | null };
-	annotations?: {
-		bold?: boolean;
-		italic?: boolean;
-		strikethrough?: boolean;
-		underline?: boolean;
-		code?: boolean;
-		color?: string;
-	};
-	plain_text?: string;
-	href?: string | null;
-}
+export type NotionRichText = z.infer<typeof NotionRichTextSchema>;
 
 /** A Notion page object. */
-export interface NotionPage {
-	object: "page";
-	id: string;
-	created_time: string;
-	last_edited_time: string;
-	created_by: { object: "user"; id: string };
-	last_edited_by: { object: "user"; id: string };
-	parent: NotionParent;
-	archived: boolean;
-	url: string;
-	properties: Record<string, NotionProperty>;
-	icon?: NotionIcon | null;
-	cover?: NotionCover | null;
-}
+export type NotionPage = z.infer<typeof NotionPageSchema>;
 
 /** Parent reference for pages and databases. */
-export type NotionParent =
-	| { type: "database_id"; database_id: string }
-	| { type: "page_id"; page_id: string }
-	| { type: "workspace"; workspace: true };
+export type NotionParent = z.infer<typeof NotionParentSchema>;
 
 /** Property value on a Notion page. */
-export interface NotionProperty {
-	id?: string;
-	type: string;
-	title?: NotionRichText[];
-	rich_text?: NotionRichText[];
-	number?: number;
-	select?: { id: string; name: string; color?: string } | null;
-	multi_select?: Array<{ id: string; name: string; color?: string }>;
-	date?: { start: string; end?: string | null } | null;
-	checkbox?: boolean;
-	url?: string | null;
-	email?: string | null;
-	phone_number?: string | null;
-	formula?: { type: string; string?: string; number?: number; boolean?: boolean };
-	relation?: Array<{ id: string }>;
-	rollup?: { type: string; number?: number };
-	status?: { id: string; name: string; color?: string } | null;
-	[key: string]: unknown;
-}
+export type NotionProperty = z.infer<typeof NotionPropertyValueSchema>;
 
 /** Icon on a page or database (emoji or file). */
-export type NotionIcon = { type: "emoji"; emoji: string } | { type: "file"; file: { url: string } };
+export type NotionIcon = z.infer<typeof NotionIconSchema>;
 
 /** Cover image on a page. */
-export type NotionCover =
-	{ type: "external"; external: { url: string } } | { type: "file"; file: { url: string } };
+export type NotionCover = z.infer<typeof NotionCoverSchema>;
 
 /** A Notion block object. */
-export interface NotionBlock {
-	object: "block";
-	id: string;
-	type: string;
-	created_time?: string;
-	last_edited_time?: string;
-	has_children?: boolean;
-	archived?: boolean;
-	[key: string]: unknown;
-}
+export type NotionBlock = z.infer<typeof NotionBlockSchema>;
 
 /** Result of listing block children (paginated). */
-export interface NotionBlockList {
-	object: "list";
-	results: NotionBlock[];
-	has_more: boolean;
-	next_cursor: string | null;
-	type: "block";
-	block: Record<string, unknown>;
-}
+export type NotionBlockList = z.infer<typeof NotionBlockListSchema>;
 
 /** A Notion database object. */
-export interface NotionDatabase {
-	object: "database";
-	id: string;
-	created_time: string;
-	last_edited_time: string;
-	title: NotionRichText[];
-	description: NotionRichText[];
-	parent: NotionParent;
-	url: string;
-	icon?: NotionIcon | null;
-	cover?: NotionCover | null;
-	properties: Record<string, NotionPropertySchema>;
-	archived?: boolean;
-}
+export type NotionDatabase = z.infer<typeof NotionDatabaseSchema>;
 
 /** Schema definition for a database property. */
-export interface NotionPropertySchema {
-	id?: string;
-	name?: string;
-	type: string;
-	[key: string]: unknown;
-}
+export type NotionPropertySchema = z.infer<typeof NotionPropertySchemaSchema>;
 
 /** Filter for querying a Notion database. */
 export interface NotionFilter {
@@ -1038,65 +949,25 @@ export interface NotionFilter {
 }
 
 /** Sort option for querying a Notion database. */
-export interface NotionSort {
-	property?: string;
-	timestamp?: "created_time" | "last_edited_time";
-	direction: "ascending" | "descending";
-}
+export type NotionSort = z.infer<typeof NotionSortSchema>;
 
 /** Query options for a Notion database. */
-export interface NotionDatabaseQuery {
-	filter?: NotionFilter;
-	sorts?: NotionSort[];
-	start_cursor?: string;
-	page_size?: number;
-}
+export type NotionDatabaseQuery = z.infer<typeof NotionDatabaseQuerySchema>;
 
 /** Result of querying a Notion database (paginated). */
-export interface NotionPageList {
-	object: "list";
-	results: NotionPage[];
-	has_more: boolean;
-	next_cursor: string | null;
-	type: "page";
-	page: Record<string, unknown>;
-}
+export type NotionPageList = z.infer<typeof NotionPageListSchema>;
 
 /** A Notion user object. */
-export interface NotionUser {
-	object: "user";
-	id: string;
-	type: "person" | "bot";
-	name?: string;
-	avatar_url?: string;
-	person?: { email?: string };
-	bot?: { owner: { type: string } };
-}
+export type NotionUser = z.infer<typeof NotionUserSchema>;
 
 /** Paginated list of Notion users. */
-export interface NotionUserList {
-	object: "list";
-	results: NotionUser[];
-	has_more: boolean;
-	next_cursor: string | null;
-}
+export type NotionUserList = z.infer<typeof NotionUserListSchema>;
 
 /** Search query options for the Notion API. */
-export interface NotionSearchQuery {
-	query?: string;
-	filter?: { value: "database" | "page"; property: "object" };
-	sort?: { direction: "ascending" | "descending"; timestamp: "last_edited_time" };
-	start_cursor?: string;
-	page_size?: number;
-}
+export type NotionSearchQuery = z.infer<typeof NotionSearchQuerySchema>;
 
 /** Result of a Notion search (paginated). */
-export interface NotionSearchResult {
-	object: "list";
-	results: Array<NotionPage | NotionDatabase>;
-	has_more: boolean;
-	next_cursor: string | null;
-}
+export type NotionSearchResult = z.infer<typeof NotionSearchResultSchema>;
 
 /** Contract of the Notion adapter facade. */
 export interface INotionService {
@@ -1157,358 +1028,84 @@ export interface INotionService {
 /* -------------------------------------------------------------------------- */
 
 /** Configuration for the WordPress REST API integration. */
-export interface WordPressConfig {
-	/** WordPress site base URL (e.g. "https://mysite.com"). */
-	baseUrl: string;
-	/** Authentication credentials (choose one method). */
-	auth?: WordPressAuth;
-	/** Custom API namespace (default: "wp/v2"). */
-	apiNamespace?: string;
-}
+export type WordPressConfig = z.infer<typeof WordPressConfigSchema>;
 
 /** Authentication methods for WordPress. */
-export type WordPressAuth =
-	| { type: "application-passwords"; username: string; password: string }
-	| { type: "jwt"; token: string }
-	| { type: "basic"; username: string; password: string }
-	| { type: "nonce"; nonce: string; cookie: string };
+export type WordPressAuth = z.infer<typeof WordPressAuthSchema>;
 
 /** Base fields shared by all WordPress entities. */
-export interface WpBaseEntity {
-	id: number;
-	date: string;
-	date_gmt: string;
-	modified: string;
-	modified_gmt: string;
-	slug: string;
-	status: string;
-	link: string;
-}
+export type WpBaseEntity = z.infer<typeof WpBaseEntitySchema>;
 
 /** A WordPress post. */
-export interface WpPost extends WpBaseEntity {
-	title: { rendered: string };
-	content: { rendered: string; protected: boolean };
-	excerpt: { rendered: string; protected: boolean };
-	author: number;
-	featured_media: number;
-	comment_status: string;
-	ping_status: string;
-	sticky: boolean;
-	template: string;
-	format: string;
-	categories: number[];
-	tags: number[];
-	meta: Record<string, unknown>;
-	/** ACF (Advanced Custom Fields) data. Available when using ACF plugin. */
-	acf?: WpAcfFields;
-	/** Embedded resources (author, featured media, terms). Available when using `_embed`. */
-	_embedded?: WpEmbedded;
-}
+export type WpPost = z.infer<typeof WpPostSchema>;
 
 /** Payload for creating a WordPress post. */
-export interface WpPostCreate {
-	title: string;
-	content?: string;
-	excerpt?: string;
-	author?: number;
-	featured_media?: number;
-	comment_status?: "open" | "closed";
-	ping_status?: "open" | "closed";
-	sticky?: boolean;
-	format?: string;
-	categories?: number[];
-	tags?: number[];
-	meta?: Record<string, unknown>;
-	status?: "publish" | "future" | "draft" | "pending" | "private";
-	slug?: string;
-	date?: string;
-	template?: string;
-}
+export type WpPostCreate = z.infer<typeof WpPostCreateSchema>;
 
 /** Payload for updating a WordPress post. */
-export type WpPostUpdate = Partial<WpPostCreate>;
+export type WpPostUpdate = z.infer<typeof WpPostUpdateSchema>;
 
 /** A WordPress page. */
-export interface WpPage extends WpBaseEntity {
-	title: { rendered: string };
-	content: { rendered: string; protected: boolean };
-	excerpt: { rendered: string; protected: boolean };
-	author: number;
-	featured_media: number;
-	parent: number;
-	menu_order: number;
-	comment_status: string;
-	ping_status: string;
-	template: string;
-	meta: Record<string, unknown>;
-	/** ACF (Advanced Custom Fields) data. Available when using ACF plugin. */
-	acf?: WpAcfFields;
-	/** Embedded resources (author, featured media). Available when using `_embed`. */
-	_embedded?: WpEmbedded;
-}
+export type WpPage = z.infer<typeof WpPageSchema>;
 
 /** Payload for creating a WordPress page. */
-export interface WpPageCreate {
-	title: string;
-	content?: string;
-	excerpt?: string;
-	author?: number;
-	featured_media?: number;
-	parent?: number;
-	menu_order?: number;
-	comment_status?: "open" | "closed";
-	ping_status?: "open" | "closed";
-	status?: "publish" | "future" | "draft" | "pending" | "private";
-	slug?: string;
-	date?: string;
-	template?: string;
-	meta?: Record<string, unknown>;
-}
+export type WpPageCreate = z.infer<typeof WpPageCreateSchema>;
 
 /** Payload for updating a WordPress page. */
-export type WpPageUpdate = Partial<WpPageCreate>;
+export type WpPageUpdate = z.infer<typeof WpPageUpdateSchema>;
 
 /** A WordPress media item (attachment). */
-export interface WpMedia extends WpBaseEntity {
-	title: { rendered: string };
-	author: number;
-	media_type: string;
-	mime_type: string;
-	media_details: {
-		width?: number;
-		height?: number;
-		file?: string;
-		/** File size in bytes. */
-		filesize?: number;
-		/** Image metadata from EXIF data. */
-		image_meta?: {
-			aperture?: string;
-			credit?: string;
-			camera?: string;
-			caption?: string;
-			created_timestamp?: string;
-			copyright?: string;
-			focal_length?: string;
-			iso?: string;
-			orientation?: string;
-			shutter_speed?: string;
-			title?: string;
-			[key: string]: unknown;
-		};
-		sizes?: Record<
-			string,
-			{
-				source_url: string;
-				file: string;
-				width: number;
-				height: number;
-				mime_type: string;
-				filesize?: number;
-			}
-		>;
-	};
-	source_url: string;
-	alt_text: string;
-	caption: { rendered: string };
-	description: { rendered: string };
-	post: number | null;
-	meta: Record<string, unknown>;
-	/** ACF (Advanced Custom Fields) data. Available when using ACF plugin. */
-	acf?: WpAcfFields;
-	/** Embedded resources (author, post). Available when using `_embed`. */
-	_embedded?: WpEmbedded;
-}
+export type WpMedia = z.infer<typeof WpMediaSchema>;
 
 /** Metadata for a media upload. */
-export interface WpMediaMeta {
-	title?: string;
-	alt_text?: string;
-	caption?: string;
-	description?: string;
-	post?: number;
-	slug?: string;
-}
+export type WpMediaMeta = z.infer<typeof WpMediaMetaSchema>;
 
 /** Payload for updating a WordPress media item. */
-export interface WpMediaUpdate extends Partial<WpMediaMeta> {
-	status?: string;
-}
+export type WpMediaUpdate = z.infer<typeof WpMediaUpdateSchema>;
 
 /** A WordPress category. */
-export interface WpCategory {
-	id: number;
-	count: number;
-	description: string;
-	link: string;
-	name: string;
-	slug: string;
-	parent: number;
-	meta: Record<string, unknown>;
-}
+export type WpCategory = z.infer<typeof WpCategorySchema>;
 
 /** Payload for creating a WordPress category. */
-export interface WpCategoryCreate {
-	name: string;
-	description?: string;
-	slug?: string;
-	parent?: number;
-	meta?: Record<string, unknown>;
-}
+export type WpCategoryCreate = z.infer<typeof WpCategoryCreateSchema>;
 
 /** Payload for updating a WordPress category. */
-export type WpCategoryUpdate = Partial<WpCategoryCreate>;
+export type WpCategoryUpdate = z.infer<typeof WpCategoryUpdateSchema>;
 
 /** A WordPress tag. */
-export interface WpTag {
-	id: number;
-	count: number;
-	description: string;
-	link: string;
-	name: string;
-	slug: string;
-	meta: Record<string, unknown>;
-}
+export type WpTag = z.infer<typeof WpTagSchema>;
 
 /** Payload for creating a WordPress tag. */
-export interface WpTagCreate {
-	name: string;
-	description?: string;
-	slug?: string;
-	meta?: Record<string, unknown>;
-}
+export type WpTagCreate = z.infer<typeof WpTagCreateSchema>;
 
 /** Payload for updating a WordPress tag. */
-export type WpTagUpdate = Partial<WpTagCreate>;
+export type WpTagUpdate = z.infer<typeof WpTagUpdateSchema>;
 
 /** A WordPress comment. */
-export interface WpComment {
-	id: number;
-	post: number;
-	parent: number;
-	author: number;
-	author_name: string;
-	author_email: string;
-	author_url: string;
-	date: string;
-	date_gmt: string;
-	content: { rendered: string };
-	link: string;
-	status: string;
-	type: string;
-	author_avatar_urls: Record<string, string>;
-	meta: Record<string, unknown>;
-}
+export type WpComment = z.infer<typeof WpCommentSchema>;
 
 /** Payload for creating a WordPress comment. */
-export interface WpCommentCreate {
-	post: number;
-	parent?: number;
-	content: string;
-	author?: number;
-	author_name?: string;
-	author_email?: string;
-	author_url?: string;
-	status?: string;
-	meta?: Record<string, unknown>;
-}
+export type WpCommentCreate = z.infer<typeof WpCommentCreateSchema>;
 
 /** Payload for updating a WordPress comment. */
-export type WpCommentUpdate = Partial<WpCommentCreate>;
+export type WpCommentUpdate = z.infer<typeof WpCommentUpdateSchema>;
 
 /** A WordPress user. */
-export interface WpUser {
-	id: number;
-	username: string;
-	name: string;
-	first_name: string;
-	last_name: string;
-	email: string;
-	url: string;
-	description: string;
-	link: string;
-	locale: string;
-	nickname: string;
-	slug: string;
-	roles: string[];
-	avatar_urls: Record<string, string>;
-	meta: Record<string, unknown>;
-}
+export type WpUser = z.infer<typeof WpUserSchema>;
 
 /** Payload for creating a WordPress user. */
-export interface WpUserCreate {
-	username: string;
-	name?: string;
-	first_name?: string;
-	last_name?: string;
-	email: string;
-	url?: string;
-	description?: string;
-	locale?: string;
-	nickname?: string;
-	slug?: string;
-	roles?: string[];
-	password?: string;
-	meta?: Record<string, unknown>;
-}
+export type WpUserCreate = z.infer<typeof WpUserCreateSchema>;
 
 /** Payload for updating a WordPress user. */
-export type WpUserUpdate = Partial<WpUserCreate>;
+export type WpUserUpdate = z.infer<typeof WpUserUpdateSchema>;
 
-/** Common query parameters for WordPress REST API list endpoints. */
-export interface WpQueryParams {
-	/** Current page (default: 1). */
-	page?: number;
-	/** Items per page (default: 10, max: 100). */
-	per_page?: number;
-	/** Search term. */
-	search?: string;
-	/** Sort order. */
-	order?: "asc" | "desc";
-	/** Order by field. */
-	orderby?: string;
-	/** Offset for pagination. */
-	offset?: number;
-	/** Include specific IDs. */
-	include?: number[];
-	/** Exclude specific IDs. */
-	exclude?: number[];
-	/** Filter by slug. */
-	slug?: string;
-	/** Filter by status. */
-	status?: string | string[];
-	/** Filter by author. */
-	author?: number | number[];
-	/** Filter by categories. */
-	categories?: number | number[];
-	/** Filter by tags. */
-	tags?: number | number[];
-	/**
-	 * Limit response fields to reduce payload size.
-	 * Use comma-separated field names: "id,title,link" or nested: "id,title.rendered,acf.custom_field".
-	 * Reduces response size by 60-80% — essential for list views.
-	 *
-	 * @example
-	 * ```ts
-	 * useWpGetPosts({ _fields: "id,title,link,slug,date" });
-	 * useWpGetPosts({ _fields: "id,title.rendered,acf.hero_image,acf.subtitle" }); // with ACF
-	 * ```
-	 */
-	_fields?: string;
-	/**
-	 * Embed related resources in the response (author, featured media, terms, replies).
-	 * Accepts `true` to embed all, or comma-separated resource names.
-	 *
-	 * @example
-	 * ```ts
-	 * useWpGetPosts({ _embed: true }); // embed all
-	 * useWpGetPosts({ _embed: "author,wp:featuredmedia" }); // embed specific
-	 * ```
-	 */
-	_embed?: boolean | string;
-	/** Custom query params. */
-	[key: string]: unknown;
-}
+/**
+ * Common query parameters for WordPress REST API list endpoints.
+ *
+ * Includes field limiting (`_fields: "id,title,link"`) and resource
+ * embedding (`_embed: true | "author,wp:featuredmedia"`).
+ */
+export type WpQueryParams = z.infer<typeof WpQueryParamsSchema>;
 
 /**
  * Container for ACF (Advanced Custom Fields) fields on a WordPress entity.
@@ -1526,9 +1123,7 @@ export interface WpQueryParams {
  * }
  * ```
  */
-export interface WpAcfFields {
-	[key: string]: unknown;
-}
+export type WpAcfFields = z.infer<typeof WpAcfFieldsSchema>;
 
 /**
  * Embedded resources returned by WordPress when `_embed` is used.
@@ -1547,60 +1142,13 @@ export interface WpAcfFields {
  * }
  * ```
  */
-export interface WpEmbedded {
-	author?: Array<{
-		id: number;
-		name: string;
-		url: string;
-		description: string;
-		link: string;
-		slug: string;
-		avatar_urls: Record<string, string>;
-		acf?: WpAcfFields;
-		[key: string]: unknown;
-	}>;
-	"wp:featuredmedia"?: WpMedia[];
-	"wp:term"?: Array<
-		Array<{
-			id: number;
-			name: string;
-			slug: string;
-			_taxonomy: string;
-			link: string;
-			count?: number;
-			[key: string]: unknown;
-		}>
-	>;
-	replies?: Array<
-		Array<{
-			id: number;
-			parent: number;
-			author: number;
-			author_name: string;
-			content: { rendered: string };
-			date: string;
-			[key: string]: unknown;
-		}>
-	>;
-	[key: string]: unknown;
-}
+export type WpEmbedded = z.infer<typeof WpEmbeddedSchema>;
 
 /** A batch operation for the WordPress REST API. */
-export interface WpBatchOperation {
-	method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-	path: string;
-	body?: Record<string, unknown>;
-}
+export type WpBatchOperation = z.infer<typeof WpBatchOperationSchema>;
 
 /** Result of a WordPress batch operation. */
-export interface WpBatchResult {
-	/** Responses for each operation in the batch. */
-	responses: Array<{
-		status: number;
-		body: unknown;
-		headers: Record<string, string>;
-	}>;
-}
+export type WpBatchResult = z.infer<typeof WpBatchResultSchema>;
 
 /** Contract of the WordPress adapter facade. */
 export interface IWordPressService {
@@ -1666,6 +1214,44 @@ export interface IWordPressService {
 	useWpSearchAllPosts(query: string, options?: WpQueryParams): Promise<FetchResult<WpPost[]>>;
 	useWpFindPostBySlug(slug: string): Promise<FetchResult<WpPost | null>>;
 }
+
+/* -------------------------------------------------------------------------- */
+/* InsForge (database fallback / storage / edge functions)                    */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Config for the InsForge adapter. InsForge is the database fallback
+ * (primary data layer is Cloudflare); storage and edge functions
+ * are also available through the same client.
+ */
+export type IfConfig = z.infer<typeof IfConfigSchema>;
+
+/** Sort clause for table queries. */
+export type IfOrder = z.infer<typeof IfOrderSchema>;
+
+/** Options for a table read. Filters map to equality clauses. */
+export type IfTableQuery = z.infer<typeof IfTableQuerySchema>;
+
+/** Rows for insert (one or many). */
+export type IfInsertRows = z.infer<typeof IfInsertRowsSchema>;
+
+/** Patch for update (must be paired with filters — mass updates are refused). */
+export type IfUpdatePatch = z.infer<typeof IfUpdatePatchSchema>;
+
+/** Options for an update or delete. Filters are REQUIRED (no mass writes). */
+export type IfWriteQuery = z.infer<typeof IfWriteQuerySchema>;
+
+/** Postgres function (RPC) call. */
+export type IfRpcCall = z.infer<typeof IfRpcCallSchema>;
+
+/** Bucket + object key reference for storage operations. */
+export type IfStorageRef = z.infer<typeof IfStorageRefSchema>;
+
+/** Options for listing bucket objects. */
+export type IfListOptions = z.infer<typeof IfListOptionsSchema>;
+
+/** Edge function invocation. */
+export type IfInvokeOptions = z.infer<typeof IfInvokeOptionsSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* Media / SmartVideo                                                         */
