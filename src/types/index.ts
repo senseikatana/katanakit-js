@@ -1694,3 +1694,160 @@ export interface IWordPressService {
 	useWpSearchAllPosts(query: string, options?: WpQueryParams): Promise<FetchResult<WpPost[]>>;
 	useWpFindPostBySlug(slug: string): Promise<FetchResult<WpPost | null>>;
 }
+
+/* -------------------------------------------------------------------------- */
+/* Media / SmartVideo                                                         */
+/* -------------------------------------------------------------------------- */
+
+/** Where a media source comes from. `file` = direct mp4/webm (native `<video>`). */
+export type MediaProvider = "youtube" | "vimeo" | "file" | "unknown";
+
+/** Normalized media source: provider + stable id or direct src. */
+export interface MediaSource {
+	provider: MediaProvider;
+	/** Video id for youtube/vimeo, full URL for `file`. */
+	id: string;
+	/** Original input (URL or bare id). */
+	raw: string;
+}
+
+/** Options for the YouTube nocookie embed URL. */
+export interface YoutubeEmbedOptions {
+	/** Start time in seconds. */
+	start?: number;
+	/** End time in seconds. */
+	end?: number;
+	/** Autoplay on iframe creation (facade clicks pass `1`). */
+	autoplay?: boolean;
+	/** Extra `playerVars` merged into the query string. */
+	params?: Record<string, string | number | boolean>;
+}
+
+/** Thumbnail quality for `i.ytimg.com`. */
+export type YoutubeThumbnailQuality =
+	"default" | "mqdefault" | "hqdefault" | "sddefault" | "maxresdefault";
+
+/** Input for {@link useBuildVideoEmbed} (core) — one `src`, unified output. */
+export interface SmartVideoOptions {
+	/** YouTube URL/id, Vimeo URL/id, or direct `.mp4`/`.webm` URL. */
+	src: string;
+	/** Accessible title. Used as `<iframe title>` / `<video aria-label>`. */
+	title: string;
+	/** Optional `<figcaption>` text. */
+	caption?: string;
+	/** Poster for native `<video>` or facade thumbnail override. */
+	poster?: string;
+	/** Extra CSS class on the `<figure>` wrapper. */
+	className?: string;
+	/** Aspect ratio box: `16/9` (default) or `4/3`, `1/1`, `9/16`. */
+	aspect?: string;
+	/** Render the click-to-play facade for embeds (no heavy iframe on load). */
+	facade?: boolean;
+	/** YouTube player options (only for `youtube` provider). */
+	youtube?: YoutubeEmbedOptions;
+}
+
+/* -------------------------------------------------------------------------- */
+/* YouTube Data API / channel listing                                         */
+/* -------------------------------------------------------------------------- */
+
+/** Config for the YouTube service. One GCP project serves all repos. */
+export interface YoutubeApiConfig {
+	/** YouTube Data API v3 key (server/build-time only, never public). */
+	apiKey: string;
+	/** Default channel id (`UC…`). Per-call params can override it. */
+	channelId: string;
+}
+
+/** Params for {@link useGetChannelVideos}. */
+export interface YoutubeListParams {
+	/** Channel id (defaults to the one from `useInitYoutube`). */
+	channelId?: string;
+	/** Skip the channels lookup when the uploads playlist id is known. */
+	playlistId?: string;
+	/** Items per page (1–50, defaults to `12`). */
+	maxResults?: number;
+	/** Opaque page token from a previous response. */
+	pageToken?: string;
+}
+
+/** Resolution-keyed thumbnails (all derivable without an API key). */
+export interface YoutubeVideoThumbnails {
+	default: string;
+	medium: string;
+	high: string;
+}
+
+/** Normalized video, enriched with player-ready URLs. */
+export interface YoutubeVideoNormalized {
+	id: string;
+	title: string;
+	description: string;
+	publishedAt: string;
+	channelTitle?: string;
+	thumbnails: YoutubeVideoThumbnails;
+	/** `hqdefault` shortcut for posters/facades. */
+	thumbnail: string;
+	/** Watch URL. */
+	url: string;
+	/** Privacy-enhanced (`youtube-nocookie`) embed URL. */
+	embedUrl: string;
+	/** From `videos.list` (`contentDetails.duration`), in seconds. */
+	durationSeconds?: number;
+	/** From `videos.list` (`statistics.viewCount`). */
+	viewCount?: number;
+}
+
+/** Paginated channel listing result. */
+export interface YoutubeVideoPage {
+	videos: YoutubeVideoNormalized[];
+	nextPageToken?: string;
+	prevPageToken?: string;
+	totalResults?: number;
+}
+
+/** Minimal `channels.list` shape (only what the service reads). */
+export interface YoutubeChannelsResponse {
+	items?: Array<{
+		contentDetails?: {
+			relatedPlaylists?: { uploads?: string };
+		};
+	}>;
+}
+
+/** Minimal `playlistItems.list` shape (only what the service reads). */
+export interface YoutubePlaylistItemsResponse {
+	nextPageToken?: string;
+	prevPageToken?: string;
+	pageInfo?: { totalResults?: number };
+	items?: Array<{
+		snippet?: {
+			title?: string;
+			description?: string;
+			publishedAt?: string;
+			channelTitle?: string;
+			resourceId?: { videoId?: string };
+			thumbnails?: {
+				default?: { url?: string };
+				medium?: { url?: string };
+				high?: { url?: string };
+			};
+		};
+		contentDetails?: { videoId?: string };
+	}>;
+}
+
+/** Minimal `videos.list` shape (only what the service reads). */
+export interface YoutubeVideosResponse {
+	items?: Array<{
+		id?: string;
+		snippet?: {
+			title?: string;
+			description?: string;
+			publishedAt?: string;
+			channelTitle?: string;
+		};
+		contentDetails?: { duration?: string };
+		statistics?: { viewCount?: string };
+	}>;
+}

@@ -1,4 +1,5 @@
 export * from "./dom/dom.service.js";
+export * from "./media/media.service.js";
 export * from "./observer/observer.service.js";
 export * from "./sensors/sensors.service.js";
 export * from "./storage/storage.service.js";

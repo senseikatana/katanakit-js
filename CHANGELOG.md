@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- **SmartVideo media service** (`useParseMediaSource`, `useBuildVideoEmbed`, `useGetYoutubeVideoId`, nocookie embed + thumbnail builders) — one `src` renders native `<video>` for direct files or a click-to-play facade `<figure>` for YouTube/Vimeo, plus `useEnhanceVideoFacades` hydration in infrastructure.
+- **YouTube channel service** (`useInitYoutube`, `useGetChannelVideos`, `useGetVideoDetails`, `useGetUploadsPlaylistId`) — quota-cheap listing via `channels` → `playlistItems` (never `search.list`), and keyless RSS fallback (`useGetChannelVideosRss`, `useParseYoutubeRss`). One GCP project serves every repo; call server/build-time and cache.
+
 ## [4.0.3]
 
 ### Changed
