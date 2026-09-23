@@ -324,6 +324,7 @@ const stop = useKatanaWatch(newProduct, () => checkValidations(), { deep: true }
 ## Features
 
 - **Safe Results** — HTTP (and other fallible) operations return `{ data, error, ok }` instead of throwing
+- **Zod validation everywhere** — `types/` is the single source of truth, inferred from Zod schemas via `z.infer`; `useValidate()` turns any schema into a Safe Result and API adapters validate every response at the boundary
 - **Zero side effects** — importing any module is safe. No `fetch` calls, no `console.log`, no storage writes
 - **Hexagonal architecture** — pure core, infrastructure adapters, framework adapters
 - **Tree-shakeable** — destructured re-exports from Singleton facades
@@ -652,6 +653,11 @@ All functions return `FetchResult<T>` — the same Safe Result pattern used by t
 | ------------- | --------------------------------- | ----------------------------------------------------------------- |
 | **Notion**    | `katanakit-js/adapters/notion`    | Pages, databases, blocks, search with cursor pagination           |
 | **WordPress** | `katanakit-js/adapters/wordpress` | Posts, pages, media, categories, tags, comments, users, batch ops |
+| **InsForge**  | `katanakit-js/adapters/insforge`  | Database fallback, storage buckets and edge functions             |
+
+All REST adapters validate responses with Zod: malformed payloads return a typed `502`
+Safe Result instead of untyped garbage, and invalid inputs are rejected with `400`
+before any network call.
 
 ### Notion
 
@@ -1216,6 +1222,34 @@ const full = await useWpGetPosts({
 | **Next.js** | [`examples/wordpress/next-blog.tsx`](https://github.com/senseikatana/katanakit-js/tree/main/examples/wordpress/next-blog.tsx)           | Server component blog listing                                      |
 | **Next.js** | [`examples/wordpress/next-[slug].tsx`](https://github.com/senseikatana/katanakit-js/tree/main/examples/wordpress/next-[slug].tsx)       | Dynamic `[slug]` page                                              |
 | **Node.js** | [`examples/wordpress/demo.ts`](https://github.com/senseikatana/katanakit-js/tree/main/examples/wordpress/demo.ts)                       | Runnable demo covering all WP operations, `_fields`, `_embed`, ACF |
+
+### InsForge (database fallback)
+
+InsForge is supported as the **database fallback** (the primary data layer is Cloudflare),
+plus object storage and edge functions. The adapter wraps the official SDK in the same
+Safe Result contract, validates every input, and refuses mass writes (update/delete
+require non-empty filters).
+
+```ts
+import { useInitInsforge, useIfSelect, useIfInsert } from "katanakit-js/adapters/insforge";
+
+// Server-only admin client (apiKey), or browser-safe client (anonKey)
+useInitInsforge({ baseUrl: process.env.INSFORGE_URL!, apiKey: process.env.INSFORGE_API_KEY! });
+
+const posts = await useIfSelect<{ id: number; title: string }>({
+	table: "posts",
+	filters: { author_id: 7 },
+	order: { column: "created_at", ascending: false },
+	limit: 10,
+});
+if (posts.ok) console.log(posts.data);
+
+const created = await useIfInsert("posts", [{ title: "Hello" }]);
+```
+
+Storage (`useIfUpload`, `useIfDownload`, `useIfRemove`, `useIfListObjects`,
+`useIfGetPublicUrl`) and edge functions (`useIfInvokeFunction`) follow the same pattern.
+Install the optional peer with `bun add @insforge/sdk`.
 
 ## Contributing
 

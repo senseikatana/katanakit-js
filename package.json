@@ -87,6 +87,11 @@
 			"import": "./dist/adapters/vanilla/index.js",
 			"default": "./dist/adapters/vanilla/index.js"
 		},
+		"./adapters/insforge": {
+			"types": "./dist/adapters/insforge/index.d.ts",
+			"import": "./dist/adapters/insforge/index.js",
+			"default": "./dist/adapters/insforge/index.js"
+		},
 		"./prisma": {
 			"types": "./dist/prisma/index.d.ts",
 			"import": "./dist/prisma/index.js",
@@ -185,6 +190,7 @@
 	},
 	"peerDependencies": {
 		"@angular/core": ">=16.0.0",
+		"@insforge/sdk": ">=1.5.0",
 		"cors": ">=2.8.0",
 		"dotenv": ">=16.0.0",
 		"express": ">=5.0.0",
@@ -196,6 +202,9 @@
 	},
 	"peerDependenciesMeta": {
 		"@angular/core": {
+			"optional": true
+		},
+		"@insforge/sdk": {
 			"optional": true
 		},
 		"cors": {
@@ -226,6 +235,7 @@
 	"devDependencies": {
 		"@angular/core": "^22.1.7",
 		"@eslint/js": "^10.0.1",
+		"@insforge/sdk": "^1.5.2",
 		"@testing-library/react": "^16.3.3",
 		"@types/cors": "2.8.19",
 		"@types/express": "5.0.6",
