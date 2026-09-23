@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 /**
  * Bumps the version in package.json (and mirrors it to guides/package.json),
- * commits, and tags the release.
+ * commits, and creates the annotated release tag.
  *
  * Usage:
- *   node scripts/bump-version.mjs patch|minor|major
+ *   node scripts/bump-version.mjs patch|minor|major ["release message"]
  *   node scripts/bump-version.mjs --sync   # mirror the latest git tag, no commit
+ *
+ * The optional message becomes the annotated tag subject:
+ *   v1.2.3 — feat: add Zod validation everywhere
  */
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -17,6 +20,7 @@ const MANIFESTS = [join(ROOT, "package.json"), join(ROOT, "guides/package.json")
 
 const args = process.argv.slice(2);
 const kind = args[0];
+const message = (args[1] ?? "").trim();
 
 function readVersion(manifest) {
 	return JSON.parse(readFileSync(manifest, "utf8")).version;
@@ -60,5 +64,6 @@ for (const manifest of MANIFESTS) {
 const git = (...gitArgs) => execFileSync("git", gitArgs, { cwd: ROOT, stdio: "inherit" });
 git("add", "-u");
 git("commit", "-m", `chore: release v${version}`);
-git("tag", `v${version}`);
-console.log(`Released v${version}`);
+const tagSubject = message ? `v${version} — ${message}` : `v${version}`;
+git("tag", "-a", `v${version}`, "-m", tagSubject);
+console.log(`Released ${tagSubject}`);

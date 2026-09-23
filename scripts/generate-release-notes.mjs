@@ -7,11 +7,16 @@
  * Usage:
  *   node scripts/generate-release-notes.mjs v2.14.1
  *   node scripts/generate-release-notes.mjs v2.14.1 --json
+ *   node scripts/generate-release-notes.mjs v2.14.1 --changelog   # prefer CHANGELOG section
  *   node scripts/generate-release-notes.mjs --all --json
  */
 import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const REPO = "senseikatana/katanakit-js";
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const SECTIONS = [
 	{ type: "feat", title: "🚀 Features" },
@@ -96,18 +101,56 @@ function renderMarkdown(release) {
 	return `${lines.join("\n").trimEnd()}\n`;
 }
 
+/**
+ * Extracts the newest non-empty section from CHANGELOG.md, preferring
+ * `[Unreleased]`. Used when tags already captured the commits (e.g. manual
+ * GitHub releases without an npm publish), so commit diffing yields nothing.
+ */
+function changelogBody() {
+	const lines = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8").split("\n");
+	const sections = [];
+	let current;
+
+	for (const line of lines) {
+		if (/^## \[/.test(line)) {
+			if (current) sections.push(current);
+			current = { heading: line, lines: [] };
+		} else if (current) {
+			current.lines.push(line);
+		}
+	}
+	if (current) sections.push(current);
+
+	const hasBody = (section) => section.lines.join("").trim().length > 0;
+	const preferred =
+		sections.find((section) => /\[Unreleased\]/.test(section.heading) && hasBody(section)) ??
+		sections.find(hasBody);
+
+	return preferred ? `${preferred.lines.join("\n").trim()}\n` : undefined;
+}
+
 const args = process.argv.slice(2);
 const asJson = args.includes("--json");
 const all = args.includes("--all");
+const preferChangelog = args.includes("--changelog");
 const tag = args.find((arg) => !arg.startsWith("--"));
 
 if (all) {
 	const releases = allTags().map(collect);
 	process.stdout.write(`${JSON.stringify(releases, null, 2)}\n`);
 } else if (tag) {
+	if (preferChangelog) {
+		const body = changelogBody();
+		if (body) {
+			process.stdout.write(body);
+			process.exit(0);
+		}
+	}
 	const release = collect(tag);
 	process.stdout.write(asJson ? `${JSON.stringify(release, null, 2)}\n` : renderMarkdown(release));
 } else {
-	console.error("Usage: node scripts/generate-release-notes.mjs <tag> [--json] | --all [--json]");
+	console.error(
+		"Usage: node scripts/generate-release-notes.mjs <tag> [--json] [--changelog] | --all [--json]",
+	);
 	process.exit(1);
 }

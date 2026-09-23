@@ -3,6 +3,10 @@
 #   npmjs.com → Package Settings → Publishing access → Trusted publishing
 #   → Add: repo=senseikatana/katanakit-js, workflow=release.yml, environment=(none)
 # Without this, `npm publish --provenance` fails with 401/403.
+#
+# The workflow is the only path that bumps package.json, publishes to npm and
+# creates the GitHub release + annotated tag. Manual `useGit release create`
+# only creates a GitHub tag/release and does NOT publish to npm.
 name: Release
 
 on:
@@ -16,6 +20,10 @@ on:
      - patch
      - minor
      - major
+   release-message:
+    description: "Release message — becomes the tag and release title: 'vX.Y.Z — <message>'"
+    required: false
+    type: string
 
 permissions:
  contents: write
@@ -40,21 +48,30 @@ jobs:
 
    - run: bun run build
 
-   - run: bun run bump:${{ inputs.release-type }}
+   - name: Bump version and tag
+     env:
+      RELEASE_MESSAGE: ${{ inputs.release-message }}
+     run: node scripts/bump-version.mjs "${{ inputs.release-type }}" "$RELEASE_MESSAGE"
 
    - run: npm publish --provenance --access public
 
    - run: git push && git push --tags
 
-   - run: |
+   - name: Generate release notes
+     run: |
       VERSION=$(node -p "require('./package.json').version")
-      NOTES=$(node scripts/generate-release-notes.mjs "v${VERSION}")
-      echo "$NOTES" > /tmp/release-notes.md
+      node scripts/generate-release-notes.mjs "v${VERSION}" --changelog > /tmp/release-notes.md
 
-   - run: |
-      VERSION=$(node -p "require('./package.json').version")
-      gh release create "v${VERSION}" \
-        --title "v${VERSION}" \
-        --notes-file /tmp/release-notes.md
+   - name: Create GitHub release
      env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      RELEASE_MESSAGE: ${{ inputs.release-message }}
+     run: |
+      VERSION=$(node -p "require('./package.json').version")
+      TITLE="v${VERSION}"
+      if [ -n "$RELEASE_MESSAGE" ]; then
+        TITLE="v${VERSION} — ${RELEASE_MESSAGE}"
+      fi
+      gh release create "v${VERSION}" \
+        --title "$TITLE" \
+        --notes-file /tmp/release-notes.md
