@@ -11,6 +11,21 @@ description: Release history for KatanaKit JS
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- **SmartVideo media service** (`useParseMediaSource`, `useBuildVideoEmbed`, `useGetYoutubeVideoId`, nocookie embed + thumbnail builders) — one `src` renders native `<video>` for direct files or a click-to-play facade `<figure>` for YouTube/Vimeo, plus `useEnhanceVideoFacades` hydration in infrastructure.
+- **YouTube channel service** (`useInitYoutube`, `useGetChannelVideos`, `useGetVideoDetails`, `useGetUploadsPlaylistId`) — quota-cheap listing via `channels` → `playlistItems` (never `search.list`), and keyless RSS fallback (`useGetChannelVideosRss`, `useParseYoutubeRss`). One GCP project serves every repo; call server/build-time and cache.
+- **Zod validation, framework-agnostic** (`zod` dependency, `katanakit-js/schemas` subpath) — runtime schemas for media, YouTube, RSS, AI wire shapes and common unions/errors; `src/types/` now infers via `z.infer` so consumer imports don't change. New `useValidate()` returns a Safe Result instead of throwing, and the YouTube service validates every API response at the boundary (malformed payloads → typed `502`, not garbage data).
+- **Zod coverage across the whole library** — schemas now also cover core data shapes (geometry, viewport, currency, dates, agent/assistant payloads), access control (roles, capabilities, subjects) and both REST adapters. Every inferable data type in `src/types/` is now derived from a schema; contracts with methods, generics and callbacks intentionally stay as interfaces.
+- **WordPress and Notion runtime validation** — responses are validated with loose schemas (extra keys like `_links`/`_embedded` are preserved), inputs are validated before any network call (`400`), malformed payloads return a typed `502` with per-field `details`, and update payloads support WP partial responses via response variants.
+- **InsForge adapter** (`katanakit-js/adapters/insforge`, optional `@insforge/sdk` peer) — database fallback with `useIfSelect`/`useIfInsert`/`useIfUpdate`/`useIfDelete`/`useIfRpc`, storage (`useIfUpload`, `useIfDownload`, `useIfRemove`, `useIfListObjects`, `useIfGetPublicUrl`) and edge functions (`useIfInvokeFunction`). Mass writes are refused (update/delete require non-empty filters), inputs are Zod-validated, and the whole surface returns Safe Results.
+
+### Changed
+
+- **WordPress `WpEmbedded["wp:featuredmedia"]`** is now a loose partial shape instead of `WpMedia[]` (embedded media never nests `_embedded`); this breaks the runtime Zod schema cycle while keeping `source_url`/`id`/`title` typed.
+
 ## [4.0.3]
 
 ### Changed
