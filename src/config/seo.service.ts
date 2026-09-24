@@ -112,14 +112,50 @@ export function useSeoMeta<OmitKeys extends keyof UseSeoMetaBase = never>(
  * Legacy: `useSeoTag(siteConfig, { title, description, ... })`.
  */
 export function useSeoTag(config: SiteConfig, meta: SeoMeta): SeoTagResult {
-	return useSeoMeta({ ...siteConfigToOpts(config), ...legacySeoMetaToInput(meta) });
+	assertSiteConfigSeo(config, "useSeoTag");
+	return useSeoMeta({ ...siteConfigToOpts(config, "useSeoTag"), ...legacySeoMetaToInput(meta) });
 }
 
 /** @deprecated Prefer {@link useSeoMeta}. */
 export const useSeoTags = useSeoTag;
 
+/**
+ * Fail-fast guard for legacy `SiteConfig` inputs.
+ *
+ * `SiteConfig.seo` / `SiteConfig.rss` are required by the type, but JS
+ * consumers can omit them at runtime — without this the code crashes later
+ * with `Cannot read properties of undefined (reading 'noindex')`.
+ * `nav` stays optional on purpose (copied by reference, never dereferenced).
+ */
+function assertSiteConfigSeo(config: SiteConfig, caller: string): void {
+	if (config == null || typeof config !== "object") {
+		throw new Error(
+			`[Seo] SiteConfig is required (${caller} received ${config === null ? "null" : typeof config}).`,
+		);
+	}
+	if ((config as SiteConfig).seo == null) {
+		throw new Error(
+			`[Seo] SiteConfig.seo is required (${caller}). Pass seo: { noindex, canonical, openGraph, jsonLd }.`,
+		);
+	}
+}
+
+function assertSiteConfigRss(config: SiteConfig, caller: string): void {
+	if (config == null || typeof config !== "object") {
+		throw new Error(
+			`[Seo] SiteConfig is required (${caller} received ${config === null ? "null" : typeof config}).`,
+		);
+	}
+	if ((config as SiteConfig).rss == null) {
+		throw new Error(
+			`[Seo] SiteConfig.rss is required (${caller}). Pass rss: { enabled, path, limit }.`,
+		);
+	}
+}
+
 /** Maps a {@link SiteConfig} into unified {@link UseSeoMetaOptions} site fields. */
-function siteConfigToOpts(config: SiteConfig): UseSeoMetaOptions {
+function siteConfigToOpts(config: SiteConfig, caller = "siteConfigToOpts"): UseSeoMetaOptions {
+	assertSiteConfigSeo(config, caller);
 	return {
 		site: config.site,
 		siteTitle: config.title,
@@ -142,6 +178,8 @@ function splitUseSeoMetaOptions(
 	opts: UseSeoMetaOptions,
 	defaults: SiteConfig,
 ): { config: SiteConfig; meta: SeoMetaInput } {
+	assertSiteConfigSeo(defaults, "useSeoMeta(defaults)");
+	assertSiteConfigRss(defaults, "useSeoMeta(defaults)");
 	const { site, siteTitle, lang, rss, seo, nav, ...metaRest } = opts;
 
 	const brand =
@@ -211,14 +249,19 @@ export function useApplySeoTag(
 
 /** HTML string of meta tags (no RSS). Prefer {@link useSeoMeta}. */
 export function useGenerateMetaTags(config: SiteConfig, meta: SeoMeta): string {
+	assertSiteConfigSeo(config, "useGenerateMetaTags");
+	assertSiteConfigRss(config, "useGenerateMetaTags");
 	const { tags } = useSeoMeta({
-		...siteConfigToOpts({ ...config, rss: { ...config.rss, enabled: false } }),
+		...siteConfigToOpts({ ...config, rss: { ...config.rss, enabled: false } }, "useGenerateMetaTags"),
 		...legacySeoMetaToInput(meta),
 	});
 	return serializeSeoTags(tags.filter((t) => !(t.tag === "link" && t.attrs?.rel === "alternate")));
 }
 
 export function useTitle(config: SiteConfig, pageTitle?: string): string {
+	if (config == null || typeof config !== "object") {
+		throw new Error("[Seo] SiteConfig is required (useTitle received empty config).");
+	}
 	if (!pageTitle || pageTitle === config.title) {
 		return `<title>${escapeHtml(config.title)}</title>`;
 	}
@@ -226,6 +269,7 @@ export function useTitle(config: SiteConfig, pageTitle?: string): string {
 }
 
 export function useRssHeadLink(config: SiteConfig): string {
+	assertSiteConfigRss(config, "useRssHeadLink");
 	const node = buildRssTagNode(config);
 	return node ? serializeSeoTag(node) : "";
 }
@@ -235,7 +279,7 @@ export function useHeadTags(config: SiteConfig, meta: SeoMeta | SeoMetaInput): s
 	if (isLegacySeoMeta(meta)) {
 		return useSeoTag(config, meta).html;
 	}
-	return useSeoMeta({ ...siteConfigToOpts(config), ...meta }).html;
+	return useSeoMeta({ ...siteConfigToOpts(config, "useHeadTags"), ...meta }).html;
 }
 
 function isLegacySeoMeta(meta: SeoMeta | SeoMetaInput): meta is SeoMeta {
@@ -520,6 +564,7 @@ function camelToMetaProperty(key: string): string {
 }
 
 function buildRssTagNode(config: SiteConfig): SeoTagNode | null {
+	assertSiteConfigRss(config, "buildRssTagNode");
 	if (!config.rss.enabled) return null;
 	const path = config.rss.path ?? "/rss.xml";
 	const title = config.rss.title ?? config.title;

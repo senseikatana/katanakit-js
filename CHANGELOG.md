@@ -17,6 +17,10 @@ All notable changes to this project are documented in this file.
 
 - **WordPress `WpEmbedded["wp:featuredmedia"]`** is now a loose partial shape instead of `WpMedia[]` (embedded media never nests `_embedded`); this breaks the runtime Zod schema cycle while keeping `source_url`/`id`/`title` typed.
 
+### Fixed
+
+- **SEO `SiteConfig` errors name the missing field** — `useSeoTag`, `useGenerateMetaTags`, `useHeadTags`, `useRssHeadLink` and `useSeoMeta` defaults now throw `[Seo] SiteConfig.seo is required` / `[Seo] SiteConfig.rss is required` (with the caller name) instead of `Cannot read properties of undefined (reading 'noindex')`. `nav` stays optional.
+
 ## [4.0.3]
 
 ### Changed

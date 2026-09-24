@@ -261,6 +261,48 @@ describe("seo.service", () => {
 		});
 	});
 
+	describe("SiteConfig validation (IG008)", () => {
+		it("useSeoTag names the missing seo field instead of a TypeError", () => {
+			const broken = { ...config, seo: undefined as unknown as SiteConfig["seo"] };
+			expect(() => useSeoTag(broken, { title: "Post" })).toThrow("SiteConfig.seo is required");
+		});
+
+		it("useGenerateMetaTags names the missing seo field", () => {
+			const broken = { ...config, seo: undefined as unknown as SiteConfig["seo"] };
+			expect(() => useGenerateMetaTags(broken, { title: "Post" })).toThrow(
+				"SiteConfig.seo is required",
+			);
+		});
+
+		it("useGenerateMetaTags names the missing rss field", () => {
+			const broken = { ...config, rss: undefined as unknown as SiteConfig["rss"] };
+			expect(() => useGenerateMetaTags(broken, { title: "Post" })).toThrow(
+				"SiteConfig.rss is required",
+			);
+		});
+
+		it("useRssHeadLink names the missing rss field", () => {
+			const broken = { ...config, rss: undefined as unknown as SiteConfig["rss"] };
+			expect(() => useRssHeadLink(broken)).toThrow("SiteConfig.rss is required");
+		});
+
+		it("useHeadTags names the missing seo field", () => {
+			const broken = { ...config, seo: undefined as unknown as SiteConfig["seo"] };
+			expect(() => useHeadTags(broken, { title: "Post" })).toThrow("SiteConfig.seo is required");
+		});
+
+		it("useSeoMeta names the missing seo/rss in defaults", () => {
+			const broken = { ...config, seo: undefined as unknown as SiteConfig["seo"] };
+			expect(() => useSeoMeta({ title: "Post" }, broken)).toThrow("SiteConfig.seo is required");
+		});
+
+		it("nav stays optional and does not throw", () => {
+			const withoutNav = { ...config };
+			delete withoutNav.nav;
+			expect(() => useSeoTag(withoutNav, { title: "Post" })).not.toThrow();
+		});
+	});
+
 	describe("siteConfig defaults", () => {
 		it("has sensible defaults", () => {
 			expect(siteConfig.site).toBeDefined();
