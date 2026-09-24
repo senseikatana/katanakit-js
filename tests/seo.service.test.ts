@@ -296,6 +296,24 @@ describe("seo.service", () => {
 			expect(() => useSeoMeta({ title: "Post" }, broken)).toThrow("SiteConfig.seo is required");
 		});
 
+		it("useSeoMeta rejects null opts with an explicit error", () => {
+			expect(() => useSeoMeta(null as unknown as Parameters<typeof useSeoMeta>[0])).toThrow(
+				"useSeoMeta(opts) is required",
+			);
+		});
+
+		it("useSeoTag rejects a null config with an explicit error", () => {
+			expect(() => useSeoTag(null as unknown as SiteConfig, { title: "Post" })).toThrow(
+				"SiteConfig is required",
+			);
+		});
+
+		it("useRssHeadLink rejects a null config with an explicit error", () => {
+			expect(() => useRssHeadLink(null as unknown as SiteConfig)).toThrow(
+				"SiteConfig is required",
+			);
+		});
+
 		it("nav stays optional and does not throw", () => {
 			const withoutNav = { ...config };
 			delete withoutNav.nav;

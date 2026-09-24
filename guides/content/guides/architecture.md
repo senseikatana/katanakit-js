@@ -139,12 +139,19 @@ to the default-exported classes (`StorageService`, `ViewportService`,
 
 - `site.config.ts` — the `SiteConfig` interface and a default `siteConfig`
   instance (site URL, title, description, language, author, RSS options, SEO
-  toggles and optional nav).
+  toggles and optional nav). Required vs optional at a glance:
+  `seo` required · `rss` required · `nav?` optional · `ogImage?` optional.
+  (`UseSeoMetaOptions` keeps `seo`/`rss` partial because the `defaults`
+  fill the gaps; a full `SiteConfig` must carry them.)
 - `seo.service.ts` — pure Nuxt-inspired `useSeoMeta(input, config?)` flat object
   API (`SeoMetaInput` / `SeoMetaFlat`: OG, Twitter, article, robots, canonical,
   …), plus `useApplySeoTag` (Vanilla), legacy `useSeoTag`, and helpers
   `useGenerateMetaTags`, `useTitle`, `useRssHeadLink`, `useHeadTags`. Prefer
-  Nuxt's own head APIs inside Nuxt.
+  Nuxt's own head APIs inside Nuxt. `SiteConfig` inputs are validated
+  fail-fast (`assertSiteConfigSeo` / `assertSiteConfigRss`): a missing
+  `seo`/`rss` throws `[Seo] SiteConfig.seo is required (caller)` /
+  `[Seo] SiteConfig.rss is required (caller)`; `nav` is copied by
+  reference and never dereferenced, so it stays optional.
 
 Both are re-exported from the main barrel (`import { siteConfig, type
 SiteConfig, useSeoMeta } from "katanakit-js"`) and from

@@ -61,6 +61,9 @@ export function useSeoMeta<OmitKeys extends keyof UseSeoMetaBase = never>(
 	opts: UseSeoMetaOptions<OmitKeys>,
 	defaults: SiteConfig = defaultSiteConfig,
 ): SeoTagResult {
+	if (opts == null || typeof opts !== "object") {
+		throw new Error("[Seo] useSeoMeta(opts) is required (received empty options).");
+	}
 	const { config, meta } = splitUseSeoMetaOptions(opts as UseSeoMetaOptions, defaults);
 	const merged = mergeSeoDefaults(meta, config);
 	const tags = flattenSeoMetaToTags(merged, config);

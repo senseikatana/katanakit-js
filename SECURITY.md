@@ -37,6 +37,13 @@ verified during the 2.2.1 development cycle:
   class of DOM XSS vectors.
 - **JSON-LD escaping** (`useGenerateMetaTags`) escapes `<`, `>` and `&` inside
   the serialized `application/ld+json` script, preventing `</script>` breakout.
+- **SEO config fail-fast** (`seo.service.ts` `assertSiteConfigSeo`/`assertSiteConfigRss`)
+  — `SiteConfig.seo`/`rss` are validated before use and missing fields throw
+  `[Seo] SiteConfig.seo is required (caller)` /
+  `[Seo] SiteConfig.rss is required (caller)`. Messages name only the field and
+  the caller, never config values. The throw is synchronous, so a config built
+  from dynamic JS that may be incomplete should be validated or wrapped in
+  try/catch at the SSR boundary to avoid a 500.
 - **Random-salt hashing** (`GeneratorService.useEncrypt`) generates a fresh
   128-bit random salt when none is provided; output is `"salt:hash"`.
   `useUuid` prefers `crypto.randomUUID()` and `useToken` prefers
