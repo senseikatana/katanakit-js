@@ -48,6 +48,15 @@ import {
 	ValidationIssueSchema,
 	ViewportSizeSchema,
 } from "../schemas/core.schema.js";
+import { FakeVehicleSchema } from "../schemas/faker.schema.js";
+import {
+	FileEncodingSchema,
+	FileStatsSchema,
+	FilesystemErrorSchema,
+	ReadDirEntrySchema,
+	ReadDirOptionsSchema,
+	WriteFileOptionsSchema,
+} from "../schemas/filesystem.schema.js";
 import {
 	IfConfigSchema,
 	IfInsertRowsSchema,
@@ -249,6 +258,32 @@ export interface StorageStrategy {
 }
 
 /* -------------------------------------------------------------------------- */
+/* Filesystem                                                                 */
+/* -------------------------------------------------------------------------- */
+
+/** Text encodings accepted by the filesystem helpers. */
+export type FileEncoding = z.infer<typeof FileEncodingSchema>;
+
+/** Safe error from a filesystem operation (`NodeJS.ErrnoException`-shaped). */
+export type FilesystemError = z.infer<typeof FilesystemErrorSchema>;
+
+/** Safe Result for filesystem operations: `{ data, error, ok }`, never throws. */
+export type FilesystemResult<T> =
+	{ data: T; error: null; ok: true } | { data: null; error: FilesystemError; ok: false };
+
+/** Portable stats subset returned by `useGetFileStats`. */
+export type FileStats = z.infer<typeof FileStatsSchema>;
+
+/** A single directory entry returned by `useReadDir`. */
+export type ReadDirEntry = z.infer<typeof ReadDirEntrySchema>;
+
+/** Options for `useReadDir`. */
+export type ReadDirOptions = z.infer<typeof ReadDirOptionsSchema>;
+
+/** Options for `useWriteFile` / `useAppendFile`. */
+export type WriteFileOptions = z.infer<typeof WriteFileOptionsSchema>;
+
+/* -------------------------------------------------------------------------- */
 /* Locale / Currency                                                          */
 /* -------------------------------------------------------------------------- */
 
@@ -447,6 +482,13 @@ export interface ICryptoStrategy {
 export interface IUuidStrategy {
 	useGenerate(): string;
 }
+
+/* -------------------------------------------------------------------------- */
+/* Faker (optional peer: @faker-js/faker)                                     */
+/* -------------------------------------------------------------------------- */
+
+/** Generic fake vehicle returned by `useFakeVehicle`. */
+export type FakeVehicle = z.infer<typeof FakeVehicleSchema>;
 
 /* -------------------------------------------------------------------------- */
 /* Geometry                                                                   */

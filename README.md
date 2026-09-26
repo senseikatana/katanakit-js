@@ -329,6 +329,145 @@ const stop = useKatanaWatch(newProduct, () => checkValidations(), { deep: true }
 - **Hexagonal architecture** — pure core, infrastructure adapters, framework adapters
 - **Tree-shakeable** — destructured re-exports from Singleton facades
 - **SSR-safe** — all infrastructure adapters guard or fall back gracefully in server environments
+- **Filesystem (Node/Bun)** — `useReadFile`, `useWriteFile`, `useReadJsonFile`, `useReadModuleJson` and friends return Safe Results with native errno codes, loaded lazily through dynamic `import()` and guarded by `useIsNode()`
+- **Fake data (optional)** — `useFakeVehicle`, `useFakeEmail`, `useFakeList`, … via an optional, lazy-loaded `@faker-js/faker` peer
+
+## Filesystem (Node/Bun)
+
+Node-only helpers that wrap `node:fs/promises` and `node:path` with the Safe
+Result contract. Built-ins load through dynamic `import()`, so importing them is
+browser-safe; outside Node/Bun every fallible call returns `ERR_FS_UNAVAILABLE`
+instead of throwing.
+
+```ts
+import {
+  useEnsureDir,
+  useReadDir,
+  useReadJsonFile,
+  useReadModuleJson,
+  useWriteJsonFile,
+} from "katanakit-js";
+import { z } from "zod";
+
+const BooksSchema = z.array(z.object({ title: z.string() }));
+
+// Read relative to the current module (the __dirname pattern, without __dirname)
+const result = await useReadModuleJson(import.meta.url, "../data/books.json", BooksSchema);
+
+if (result.ok) {
+  console.log(result.data);
+} else {
+  console.error(result.error.code, result.error.message); // ENOENT | ERR_VALIDATION | ...
+}
+
+// Or with an explicit path (relative paths resolve against process.cwd())
+await useEnsureDir("data/cache");
+await useWriteJsonFile("data/cache/books.json", [{ title: "Kata" }]);
+const books = await useReadJsonFile("data/cache/books.json", BooksSchema);
+const files = await useReadDir("data/cache", { recursive: true });
+```
+
+| Group | Helpers |
+| ----- | ------- |
+| Read | `useReadFile`, `useReadFileBuffer`, `useReadJsonFile`, `useReadModuleFile`, `useReadModuleJson` |
+| Write | `useWriteFile`, `useAppendFile`, `useWriteJsonFile`, `useEnsureDir` |
+| Inspect | `useFileExists`, `useGetFileStats`, `useReadDir` |
+| Move / delete | `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir` |
+| Paths | `useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`, `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode` |
+
+## Fake data (optional)
+
+`@faker-js/faker` is an **optional peer dependency**: these helpers load it
+through dynamic `import()` on first call, so install it only if you use them
+(`bun add @faker-js/faker` / `npm install @faker-js/faker`).
+
+| Group             | Helpers                                                                                                        |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| People / internet | `useFakeFullName`, `useFakeFirstName`, `useFakeLastName`, `useFakeEmail`, `useFakePhone`, `useFakeCompanyName`, `useFakeUrl` |
+| Values            | `useFakeUuid`, `useFakeText`, `useFakeNumber`, `useFakeBoolean`, `useFakeDate`, `useFakeVehicle`                |
+| Collections       | `useFakeList(factory, count)` — the factory receives the zero-based index                                       |
+| Reproducibility   | `useFakeSeed(seed?)`, `useFakeSetDefaultRefDate(refDate?)`                                                      |
+
+### Reproducible seeds
+
+`useFakeSeed(42)` sets the seed **and returns it**. Call it with no arguments to
+roll a fresh random seed (also returned) — log it in CI and pass it back later
+to replay the exact run. `useFakeSetDefaultRefDate("2026-01-01")` pins the
+reference date used by date helpers. Same seed + same reference date + same
+call order + same faker major = identical output.
+
+```ts
+import { useFakeSeed, useFakeSetDefaultRefDate, useFakeUuid } from "katanakit-js";
+
+const seed = await useFakeSeed(); // e.g. 1696121567592875 — log it in CI
+await useFakeSetDefaultRefDate("2026-01-01");
+
+await useFakeSeed(seed); // replay the exact same sequence
+const id = await useFakeUuid();
+```
+
+### Seed data (users, products, orders)
+
+Compose the helpers with `useFakeList` to build realistic fixtures, then write
+them anywhere with the [filesystem helpers](#filesystem-nodebun):
+
+```ts
+import {
+  useEnsureDir,
+  useFakeDate,
+  useFakeEmail,
+  useFakeFullName,
+  useFakeList,
+  useFakeNumber,
+  useFakeSeed,
+  useFakeSetDefaultRefDate,
+  useFakeText,
+  useFakeUuid,
+  useWriteJsonFile,
+} from "katanakit-js";
+
+await useFakeSeed(42);
+await useFakeSetDefaultRefDate("2026-01-01");
+
+const users = await useFakeList(
+  async () => ({
+    id: await useFakeUuid(),
+    fullName: await useFakeFullName(),
+    email: await useFakeEmail(),
+    createdAt: (await useFakeDate("2024-01-01")).toISOString(),
+  }),
+  5,
+);
+
+const products = await useFakeList(
+  async () => ({
+    id: await useFakeUuid(),
+    name: await useFakeText(3),
+    price: await useFakeNumber(5, 250),
+    stock: await useFakeNumber(0, 120),
+  }),
+  8,
+);
+
+// Relations: the factory receives the index
+const orders = await useFakeList(
+  async (index) => ({
+    id: await useFakeUuid(),
+    userId: users[index % users.length].id,
+    productId: products[index % products.length].id,
+    quantity: await useFakeNumber(1, 6),
+    placedAt: (await useFakeDate("2025-01-01")).toISOString(),
+  }),
+  12,
+);
+
+await useEnsureDir("data/seed");
+await useWriteJsonFile("data/seed/users.json", users);
+// feed the arrays to your seeder: prisma.user.createMany({ data: users }), ...
+```
+
+A runnable version (users, products and orders with relations, written as JSON)
+lives in [`examples/seed/`](./examples/seed/README.md).
 
 ## AI assistant (Kitt)
 

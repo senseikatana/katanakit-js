@@ -65,7 +65,7 @@ reach for concrete `window`/`fetch` globals directly.
 
 ### `core/services/` — the pure layer
 
-Ten service modules with pure logic. This layer never touches `window`,
+Eleven service modules with pure logic. This layer never touches `window`,
 `document`, `fetch`, the filesystem or any framework, with two pragmatic
 exceptions that are clearly documented in code: `http.service.ts` wraps the
 global `fetch` (available in Node 18+/Bun/browsers) and `reactive.service.ts`
@@ -78,6 +78,7 @@ persists via injected storage functions from `infrastructure`.
 | `formatter.service.ts` | `FormatterService`, `ConverterService`      |
 | `error.service.ts`     | `ErrorFactoryService`, `AppError`           |
 | `generator.service.ts` | `GeneratorService`, `LazyNodeCryptoStrategy`, `NativeUuidStrategy` |
+| `faker.service.ts`     | `useFakeUuid`, `useFakeEmail`, `useFakeFullName`, `useFakeText`, `useFakeNumber`, `useFakeDate`, `useFakeVehicle`, `useFakeList`, `useFakeSeed`, `useFakeSetDefaultRefDate` (optional `@faker-js/faker` peer, lazy-loaded) |
 | `dates.service.ts`     | `DatesService` (Temporal polyfill adapter)  |
 | `geometry.service.ts`  | `GeometryUtils` (`area`/`perimeter`/`volume`) |
 | `timing.service.ts`    | `TimingService`                             |
@@ -99,6 +100,16 @@ gracefully when `window`/`document`/`navigator` is absent.
 - `storage/` — `StorageService` over `localStorage`/`sessionStorage` with
   `LocalStorageStrategy`, `SessionStorageStrategy` and an in-memory
   `MemoryStorageStrategy` SSR fallback.
+- `filesystem/` — Node/Bun helpers over `node:fs/promises` (`useReadFile`,
+  `useWriteFile`, `useAppendFile`, `useReadJsonFile`, `useWriteJsonFile`,
+  `useReadDir`, `useEnsureDir`, `useFileExists`, `useGetFileStats`,
+  `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir`,
+  `useReadModuleFile`, `useReadModuleJson`) and `path.service.ts`
+  (`useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`,
+  `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode`). Built-ins
+  load through dynamic `import()`; every fallible call returns a Safe Result
+  with the native errno `code`, and non-Node runtimes get `ERR_FS_UNAVAILABLE`.
+  `useReadJsonFile`/`useReadModuleJson` accept an optional Zod schema.
 - `viewport/` — `ViewportService` (dimensions, scroll, media queries,
   fullscreen, visibility, title).
 - `sensors/` — `SensorsUtils` (camera/microphone, geolocation, motion,

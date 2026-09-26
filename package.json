@@ -190,6 +190,7 @@
 	},
 	"peerDependencies": {
 		"@angular/core": ">=16.0.0",
+		"@faker-js/faker": ">=9.0.0",
 		"@insforge/sdk": ">=1.5.0",
 		"cors": ">=2.8.0",
 		"dotenv": ">=16.0.0",
@@ -202,6 +203,9 @@
 	},
 	"peerDependenciesMeta": {
 		"@angular/core": {
+			"optional": true
+		},
+		"@faker-js/faker": {
 			"optional": true
 		},
 		"@insforge/sdk": {
@@ -235,6 +239,7 @@
 	"devDependencies": {
 		"@angular/core": "^22.1.7",
 		"@eslint/js": "^10.0.1",
+		"@faker-js/faker": "^10.6.0",
 		"@insforge/sdk": "^1.5.2",
 		"@testing-library/react": "^16.3.3",
 		"@types/cors": "2.8.19",

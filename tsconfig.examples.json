@@ -5,6 +5,11 @@
 		"rootDir": ".",
 		"jsx": "react-jsx"
 	},
-	"include": ["examples/query/vanilla.ts", "examples/query/react.tsx", "examples/query/angular.ts"],
+	"include": [
+		"examples/query/vanilla.ts",
+		"examples/query/react.tsx",
+		"examples/query/angular.ts",
+		"examples/seed/seed-data.ts"
+	],
 	"exclude": ["node_modules", "dist"]
 }

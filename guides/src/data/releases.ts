@@ -18,8 +18,23 @@ export interface Release {
 
 export const releases: Release[] = [
   {
-    version: '5.0.1',
+    version: '5.1.0',
     kind: 'latest',
+    date: 'September 24, 2026',
+    tag: 'v5.1.0',
+    summary: '**insforge:** Add database fallback, storage and functions adapter',
+    highlights: [
+      '**insforge:** Add database fallback, storage and functions adapter',
+      '**wordpress,notion:** Validate API responses and inputs with Zod',
+      '**validation:** Cover core, access, WordPress and Notion with Zod',
+      '**notion:** Add changes to 3 files',
+      '**validation:** Add Zod schemas with inferred types library-wide',
+      '**media:** Add SmartVideo and YouTube channel services',
+    ],
+  },
+  {
+    version: '5.0.1',
+    kind: 'minor',
     date: 'September 22, 2026',
     tag: 'v5.0.1',
     summary: '**guides:** Update dependencies or build settings in 2 files',
@@ -100,16 +115,6 @@ export const releases: Release[] = [
       'Subcarpetas como archivos normales',
       '**katanakit-js:** Update dependencies or build settings in 2 files',
       '**katanakit-js:** Bump to v4.0.0 and point repo refs to the katanakit monorepo',
-    ],
-  },
-  {
-    version: '3.2.4',
-    kind: 'minor',
-    date: 'September 18, 2026',
-    tag: 'v3.2.4',
-    summary: 'Improve useBuildUrl, Kitt, and contribution guide',
-    highlights: [
-      'Improve useBuildUrl, Kitt, and contribution guide',
     ],
   },
 ];
