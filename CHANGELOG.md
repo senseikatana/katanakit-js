@@ -4,6 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [5.2.0] - 2026-09-26
+
 ### Added
 
 - **File hash helpers** (`useHashFile`, `useVerifyFileHash`) — streaming md5/sha1/sha256/sha512 checksums with Safe Results, plus the Zod-inferred `FileHashAlgorithm` type.
