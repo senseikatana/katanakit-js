@@ -31,10 +31,10 @@ row.append(
 | `label`   | `string`                                                    | `""`        | Badge text.        |
 | `variant` | `"neutral" \| "info" \| "success" \| "warning" \| "danger"` | `"neutral"` | Semantic color.    |
 
-!!! tip "Dark mode"
-
-    Variants use katanakit-css palette tokens, so they invert automatically with
-    `data-theme="dark"` (toggle the site theme to see it).
+::: tip Dark mode
+Variants use katanakit-css palette tokens, so they invert automatically with
+`data-theme="dark"` (toggle the site theme to see it).
+:::
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";

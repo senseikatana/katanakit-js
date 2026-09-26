@@ -7,7 +7,8 @@ description: Inline alert with semantic variants, title/message and accessible d
 
 `useAlert(options)` creates a `.kk-alert` with `role="alert"` for
 `warning`/`danger` and `role="status"` for `info`/`success`. Dismissible alerts get
-a button with `aria-label="Dismiss"`.
+a button with `aria-label="Dismiss"`. `useAlertClass(options)` returns the classes
+for SSR markup.
 
 ## Variants
 
@@ -46,6 +47,11 @@ useAlert({
 | `message`     | `string`                                      | —        | Body text.                              |
 | `dismissible` | `boolean`                                     | `false`  | Adds the accessible close button.       |
 | `onDismiss`   | `() => void`                                  | —        | Called after the alert is removed.      |
+
+::: info SSR
+The factory needs a DOM. On the server use `useAlertClass()` and render the
+markup yourself — the classes are stable strings.
+:::
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";

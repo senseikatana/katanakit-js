@@ -50,11 +50,11 @@ useInput({ label: "Email", type: "email", error: "Enter a valid email." });
 | `disabled`    | `boolean`                                                  | `false`  | Native disabled state.                        |
 | `onInput`     | `(value: string) => void`                                  | —        | Fired on every `input` event.                 |
 
-!!! tip "Validation"
-
-    Pair the field with `useValidate()` from `katanakit-js`: run the Safe Result
-    and pass `error.issues[0].message` to `useInput` — or rebuild the field when
-    the state changes.
+::: tip Validation
+Pair the field with `useValidate()` from `katanakit-js`: run the Safe Result
+and pass `error.issues[0].message` to `useInput` — or rebuild the field when
+the state changes.
+:::
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";

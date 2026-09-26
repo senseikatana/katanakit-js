@@ -77,6 +77,6 @@ if (result.ok) {
 | Filesystem (Node/Bun)                  | [Filesystem](/guides/filesystem)           |
 | Fake data and seed fixtures            | [Faker](/guides/faker)                     |
 | Hexagonal architecture                 | [Architecture](/guides/architecture)       |
-| Planned UI kit                         | [Katana UI](/ui-kit/)                      |
+| UI kit foundations (Katana UI)          | [Katana UI](/ui-kit/)                      |
 | Every release                          | [Releases](/changelog)                     |
 | Every export, generated from source    | [API Reference](/api/)                     |

@@ -5,7 +5,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 
 ## Commands (order matters: lint → typecheck → test)
 
-- `bun run check` — gate: `eslint ./src` + `tsc6 --noEmit` + `vitest run`. Must pass before any PR.
+- `bun run check` — gate: `eslint ./src packages/ui/src` + `tsc6 --noEmit` (+ `tsc6 -p packages/ui/tsconfig.json --noEmit`) + `vitest run`. Must pass before any PR.
 - `bun run fix` — same with `eslint --fix`.
 - `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`.
 - `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`; run `bun run build` first.

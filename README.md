@@ -29,7 +29,7 @@ In the browser, use jsDelivr **`/+esm`** so named exports and dependencies resol
 | **esm.sh**                         | `https://esm.sh/katanakit-js`                                                           |
 | **Raw ESM file**                   | `https://cdn.jsdelivr.net/npm/katanakit-js/dist/index.js` (needs bundler or import map) |
 
-Pin a version in production (e.g. `@2.14.2/+esm`). There is no IIFE/UMD build.
+Pin a version in production (e.g. `@5.2.0/+esm`). There is no IIFE/UMD build.
 
 ## Quick Start
 
@@ -329,8 +329,9 @@ const stop = useKatanaWatch(newProduct, () => checkValidations(), { deep: true }
 - **Hexagonal architecture** — pure core, infrastructure adapters, framework adapters
 - **Tree-shakeable** — destructured re-exports from Singleton facades
 - **SSR-safe** — all infrastructure adapters guard or fall back gracefully in server environments
-- **Filesystem (Node/Bun)** — `useReadFile`, `useWriteFile`, `useReadJsonFile`, `useReadModuleJson` and friends return Safe Results with native errno codes, loaded lazily through dynamic `import()` and guarded by `useIsNode()`
+- **Filesystem (Node/Bun)** — `useReadFile`, `useWriteFile`, `useReadJsonFile`, `useReadModuleJson`, `useHashFile` and friends return Safe Results with native errno codes, loaded lazily through dynamic `import()` and guarded by `useIsNode()`
 - **Fake data (optional)** — `useFakeVehicle`, `useFakeEmail`, `useFakeList`, … via an optional, lazy-loaded `@faker-js/faker` peer
+- **Katana UI** — framework-agnostic component foundations (`useButton`, `useInput`, `useCard`, `useBadge`, `useAlert`) live in the private `@katanakit/ui` workspace, styled with `katanakit-css` (see [UI Kit](https://docs.senseikatana.com/ui-kit/))
 
 ## Filesystem (Node/Bun)
 
@@ -372,6 +373,7 @@ const files = await useReadDir("data/cache", { recursive: true });
 | Read | `useReadFile`, `useReadFileBuffer`, `useReadJsonFile`, `useReadModuleFile`, `useReadModuleJson` |
 | Write | `useWriteFile`, `useAppendFile`, `useWriteJsonFile`, `useEnsureDir` |
 | Inspect | `useFileExists`, `useGetFileStats`, `useReadDir` |
+| Checksums | `useHashFile`, `useVerifyFileHash` — streaming `md5`/`sha1`/`sha256`/`sha512` digests (`sha256` by default) and case-insensitive verification |
 | Move / delete | `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir` |
 | Paths | `useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`, `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode` |
 

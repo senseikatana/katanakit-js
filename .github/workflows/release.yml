@@ -4,9 +4,11 @@
 #   → Add: repo=senseikatana/katanakit-js, workflow=release.yml, environment=(none)
 # Without this, `npm publish --provenance` fails with 401/403.
 #
-# The workflow is the only path that bumps package.json, publishes to npm and
-# creates the GitHub release + annotated tag. Manual `useGit release create`
-# only creates a GitHub tag/release and does NOT publish to npm.
+# The preferred path: it bumps package.json, publishes to npm with provenance
+# and creates the GitHub release + annotated tag. The local scripts
+# (`bun run release[:minor|:major]`) are a manual fallback that publishes from
+# your machine instead. Manual `gh release create` only creates a GitHub
+# tag/release and does NOT publish to npm.
 name: Release
 
 on:

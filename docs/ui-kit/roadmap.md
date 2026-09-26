@@ -10,11 +10,17 @@ independently; the kit never blocks core releases.
 
 ## Phase 0 — Foundations
 
-- [ ] Token contract (`--kt-*` variables) with light and dark values.
+- [x] Foundation components: `useButton`, `useInput`, `useCard`, `useBadge`,
+      `useAlert` (+ `*Class` SSR helpers) in the private `@katanakit/ui` workspace.
+- [x] Stylesheet build: `@katanakit/ui/styles.css` (self-contained `katanakit-css`
+      framework + dark tokens + `.kk-*` classes).
+- [x] Docs skeleton: UI Kit section with component pages and live demos.
+- [x] Theming: dark tokens compiled in and driven by the `data-theme` contract
+      (`ThemeService` owns the attribute).
+- [ ] Token contract: a namespaced, documented override surface on top of the
+      `katanakit-css` palette.
 - [ ] Headless primitives: disclosure, focus trap, popover positioning, roving tabindex.
-- [ ] Theming bridge over `ThemeService`.
-- [ ] Foundation component example end to end.
-- [ ] Docs skeleton and a11y checklist.
+- [ ] Full a11y checklist pass (keyboard map per component).
 
 **Exit criteria:** a themed button and modal work in vanilla, Vue/Nuxt and Astro with
 keyboard support and no SSR errors.

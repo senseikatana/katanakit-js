@@ -287,7 +287,7 @@ This means you never need `try/catch` for HTTP errors. The `ok` field
 discriminates the result, and TypeScript narrows the type automatically.
 
 The generic contract and its helpers (`useAttempt()`, `useTryJsonParse()`,
-`useErrorNormalize()`) are documented in [Error Handling](errors.md#the-safe-result-contract).
+`useErrorNormalize()`) are documented in [Error Handling](errors.md).
 
 ---
 
@@ -450,24 +450,29 @@ useToInches(2.54);       // cm → inches
 
 ---
 
-## ErrorFactory — `ErrorFactoryService`
+## Error helpers — `error.service`
 
 ```ts
 import {
-  useBadRequest, useUnauthorized, useForbidden,
-  useNotFound, useInternal, useCustom,
-  type AppError,
+  useErrorSerialize, useErrorCustom,
+  useErrorNormalize, useAttempt, useLogger,
 } from "katanakit-js";
 
-const err: AppError = useNotFound("User not found");
-// { status: 404, message: "User not found", ... }
+// Serialize a plain error object (defaults come from the status code)
+useErrorSerialize("User not found", 404); // { message: "User not found", code: 404 }
+useErrorSerialize("", 500);               // { message: "Internal Server Error", code: 500 }
 
-useBadRequest("Invalid email");
-useUnauthorized("Token expired");
-useForbidden("Insufficient permissions");
-useInternal("Database error");
-useCustom("Validation failed", 422);
+// Alias with the same shape, handy for logging
+const err = useErrorCustom("Validation failed", 422);
+useLogger(err.message, err, "error");
+
+// Normalize any thrown value into the shared ApiError shape
+const result = await useAttempt(() => sdk.call());
+if (!result.ok) console.error(result.error.status, result.error.message);
 ```
+
+`useErrorNormalize()` is the default mapper behind `useAttempt()`; see
+[Error Handling](errors.md) for the full Safe Result contract.
 
 ---
 

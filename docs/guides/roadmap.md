@@ -8,7 +8,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 2.2.1)
+## Shipped (as of 5.2.0)
 
 ### Architecture and packaging
 
@@ -52,34 +52,34 @@ Legend: `[x]` done · `[ ]` planned.
 
 ### Quality and tooling
 
-- [x] Vitest suite: 60 tests across 8 files (http, logger, storage, core, rss,
-      nuxt, seo, vue) with the `@/` alias.
-- [x] ESLint + Prettier lint + format wired (`lint`, `check`, `format` scripts).
-- [x] `release:patch|minor|major|beta` scripts with a `validate` gate
-      (check + test + build).
+- [x] Vitest suite (36+ files, 270+ tests) with the `@/` alias; jsdom coverage
+      for the UI kit foundations.
+- [x] ESLint gate (`check` = eslint + `tsc6` typecheck + vitest; `fix` auto-fixes).
+- [x] Releases through GitHub Actions with npm OIDC trusted publishing
+      (`.github/workflows/release.yml`) plus local `release[:minor|:major]` fallback.
 - [x] English documentation: README, Getting Started, Architecture, API
       Reference, Roadmap, CONTRIBUTING, SECURITY, CHANGELOG.
 - [x] Security fixes applied: URL scheme validation, DOM `on*` attribute block,
       JSON-LD `</script>` escaping, worker cleanup, generic server errors.
+- [x] CI pipeline (GitHub Actions) running `check`, `build` and `examples:check`
+      on push/PR to `main` and `dev`, plus a docs deploy workflow to Cloudflare.
+- [x] `QueryClient` (TanStack Query Core): cache with GC, stale-while-revalidate,
+      retry with backoff, deduplication, invalidation and prefetch.
 
 ## Next
 
-- [ ] **Publish `katanakit-js` 2.2.1 to npm** (the package is renamed and
-      versioned but not yet released).
-- [ ] HTTP client: request interceptors, retry with backoff, request
-      cancellation (`AbortSignal`) and a caching layer (stale-while-revalidate).
+- [ ] HTTP client: request interceptors and per-request cancellation plumbing
+      in `FetchApiManager` (the query layer already forwards `AbortSignal`).
 - [ ] Reactive: automatic dependency tracking for
-      `useCreateEffect`/`useCreateMemo`.
-- [ ] More framework adapters: React hooks (`useApi`, `useSignal`) and Svelte
-      stores.
+      `useCreateEffect`/`useCreateMemo` (today signals are listed explicitly).
 - [ ] Structured/JSON logger strategy.
-- [ ] Add Vitest coverage reporting and a CI pipeline (GitHub Actions) running
-      `check`, `test` and `build` on the `dev` branch.
+- [ ] Add Vitest coverage reporting to CI.
 
 ## Later
 
-- [ ] UI kit (Katana UI) — tokens, headless primitives, layouts and app pages.
-      See the [UI Kit section](../ui-kit/index.md).
+- [ ] UI kit (Katana UI): foundations shipped (button, input, card, badge,
+      alert); shells, blocks, layouts and app pages remain.
+      See the [UI Kit roadmap](../ui-kit/roadmap.md).
 - [ ] Deno / Cloudflare Workers compatibility pass.
 - [ ] More geometry (3D solids) and unit-system conversions.
 - [ ] i18n and relative-time output for `DatesService.useDiff`.

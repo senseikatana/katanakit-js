@@ -117,7 +117,9 @@ When you change a public API:
   the public API docs automatically.
 - Update the matching entry in the README Features list and the docs page that
   covers the API (`docs/guides/*.md`).
-- Note user-visible changes in `CHANGELOG.md` under `[Unreleased]`.
+- Note user-visible changes in `CHANGELOG.md` under `[Unreleased]` **in the same
+  commit** as the change. `scripts/bump-version.mjs` promotes the section to
+  `[X.Y.Z] - date` on release and refuses to release an empty section.
 - Always use `katanakit-js` in example imports.
 
 ### Writing docs pages
@@ -158,14 +160,28 @@ exclusive lock and fails fast with that guidance; if a process was killed,
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
-`CHANGELOG.md`. The current version is tracked in `package.json`. Use the `release` script to
-cut a release:
+`CHANGELOG.md`. The current version is tracked in `package.json`.
+
+### Releasing (CI, preferred)
+
+Releases run through GitHub Actions (`.github/workflows/release.yml`,
+`workflow_dispatch` → pick `patch`/`minor`/`major`). The workflow bumps
+`package.json`, publishes to npm with provenance via **OIDC trusted publishing**
+(no `NPM_TOKEN` secret) and creates the GitHub release + annotated tag.
+
+One-time setup (already configured for this repo): npmjs.com → Package Settings →
+Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`,
+workflow `release.yml`, environment (none).
+
+### Releasing (local fallback)
 
 ```bash
 bun run release        # build (check + compile) + bump patch + publish
 bun run release:minor  # same for minor
 bun run release:major  # same for major
 ```
+
+These publish from your machine with your npm credentials. Prefer the CI path.
 
 ### Version synchronization
 

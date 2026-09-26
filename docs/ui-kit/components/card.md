@@ -30,10 +30,10 @@ grid.append(
 | `footer`   | `string`              | —       | Renders `.kk-card__footer`.               |
 | `elevated` | `boolean`             | `false` | Replaces the border with a shadow.        |
 
-!!! note "Composition"
-
-    Cards are plain containers: put any node (table, form, chart) in `children`.
-    The kit never owns the data — bind it to Safe Results from `katanakit-js`.
+::: info Composition
+Cards are plain containers: put any node (table, form, chart) in `children`.
+The kit never owns the data — bind it to Safe Results from `katanakit-js`.
+:::
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";

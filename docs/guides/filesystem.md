@@ -47,6 +47,7 @@ const files = await useReadDir("data/cache", { recursive: true });
 | Read           | `useReadFile`, `useReadFileBuffer`, `useReadJsonFile`, `useReadModuleFile`, `useReadModuleJson`                             |
 | Write          | `useWriteFile`, `useAppendFile`, `useWriteJsonFile`, `useEnsureDir`                                                         |
 | Inspect        | `useFileExists`, `useGetFileStats`, `useReadDir`                                                                            |
+| Checksums      | `useHashFile`, `useVerifyFileHash`                                                                                          |
 | Move / delete  | `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir`                                                               |
 | Paths          | `useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`, `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode` |
 
@@ -70,6 +71,28 @@ const files = await useReadDir("data/cache", { recursive: true });
 | `useMoveFile(src, dest)` | `FilesystemResult<string>` | Rename/move. |
 | `useRemoveFile(path)` | `FilesystemResult<string>` | `unlink`. |
 | `useRemoveDir(path, { recursive?, force? })` | `FilesystemResult<string>` | Recursive by default; `force` defaults to `false` so `ENOENT` surfaces. |
+
+## Checksums
+
+`useHashFile` streams the file (never loads it fully into memory) and returns a
+lowercase hex digest; `useVerifyFileHash` compares a digest case-insensitively,
+so a sidecar `.sha256` written by another tool verifies without reformatting.
+Both take an optional algorithm typed by `FileHashAlgorithm`:
+`"md5" | "sha1" | "sha256" | "sha512"` (default `"sha256"`).
+
+```ts
+import { useHashFile, useVerifyFileHash } from "katanakit-js";
+
+const digest = await useHashFile("releases/katanakit-5.2.0.tgz"); // sha256
+if (digest.ok) console.log(digest.data);
+
+// Pick an algorithm explicitly (e.g. an md5 checksum file)
+const md5 = await useHashFile("releases/katanakit-5.2.0.tgz", "md5");
+
+// Verify against a published checksum (case-insensitive)
+const check = await useVerifyFileHash("releases/katanakit-5.2.0.tgz", "e3b0c442…");
+if (check.ok && check.data) console.log("checksum matches");
+```
 
 ## Safe Results and error codes
 

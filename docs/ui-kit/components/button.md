@@ -46,10 +46,10 @@ useButton({ label: "Disabled", disabled: true });
 | `disabled` | `boolean`                                        | `false`     | Native disabled state.                              |
 | `onClick`  | `(event: MouseEvent) => void`                     | —           | Attached with `addEventListener`.                   |
 
-!!! note "SSR"
-
-    The factories need a DOM. On the server use `useButtonClass()` and render the
-    markup yourself — the classes are stable strings.
+::: info SSR
+The factories need a DOM. On the server use `useButtonClass()` and render the
+markup yourself — the classes are stable strings.
+:::
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";

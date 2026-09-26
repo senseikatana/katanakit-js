@@ -9,10 +9,31 @@ description: Katana UI — the planned framework-agnostic UI kit built on top of
 
 **Foundations available.** The first components (button, input, card, badge, alert)
 live in the private `packages/ui` workspace (`@katanakit/ui`) and are styled with
-`katanakit-css`. The rest of the kit is still planned; the name **Katana UI** is
-provisional.
+`katanakit-css`. The package is **not published to npm yet** — inside this repo you
+import it by name, outside it you cannot install it. The rest of the kit is still
+planned; the name **Katana UI** is provisional.
 
 :::
+
+## Install and styles
+
+Import the stylesheet once (it ships the full `katanakit-css` framework, dark-theme
+tokens and the `.kk-*` component classes) before using any factory:
+
+```ts
+import "@katanakit/ui/styles.css";
+import { useButton, useInput, useCard, useBadge, useAlert } from "@katanakit/ui";
+
+document.body.append(
+	useButton({ label: "Save" }),
+	useInput({ label: "Email", type: "email" }).root,
+);
+```
+
+Every snippet below assumes that CSS import — without it the components render as
+unstyled markup. Dark mode follows the katanakit-css contract: set
+`data-theme="dark"` on the root element (the `ThemeService` in `katanakit-js`
+owns that attribute).
 
 Katana UI is the planned UI kit for KatanaKit: design tokens, headless primitives,
 components, blocks, layouts and full application pages that reuse the toolkit's core

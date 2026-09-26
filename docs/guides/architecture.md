@@ -52,7 +52,7 @@ world (browser APIs, HTTP, frameworks) and a shared kernel of contracts.
 `src/types/index.ts` is the single source of truth for every contract and domain
 type in the library. It contains the strategy contracts (`StorageStrategy`,
 `ICryptoStrategy`, `IUuidStrategy`), the facade interfaces
-(`IFetchApiManager`, `IFormatterService`, `IConverterService`, `IErrorFactory`,
+(`IFetchApiManager`, `IFormatterService`, `IConverterService`,
 `IReactiveService`, `IDomService`, `IThemeService`, `IAstroService`,
 `IRssService`, `DatesServiceTypes`, `IDataUtils`, `ISystemUtils`,
 `IAppUtils`) and every shared type (`LogLevel`, `Locale`, `Currency`,
@@ -75,7 +75,7 @@ persists via injected storage functions from `infrastructure`.
 | `logger.service.ts`    | `useLogger`, `useLoggerTable`, `useLoggerClear` |
 | `http.service.ts`      | `FetchApiManager`                           |
 | `formatter.service.ts` | `FormatterService`, `ConverterService`      |
-| `error.service.ts`     | `ErrorFactoryService`, `AppError`, `useErrorNormalize` |
+| `error.service.ts`     | `useErrorNormalize`, `useErrorSerialize`, `useErrorCustom`     |
 | `result.service.ts`    | `useAttempt`, `useTryJsonParse`             |
 | `generator.service.ts` | `GeneratorService`, `LazyNodeCryptoStrategy`, `NativeUuidStrategy` |
 | `faker.service.ts`     | `useFakeUuid`, `useFakeEmail`, `useFakeFullName`, `useFakeText`, `useFakeNumber`, `useFakeDate`, `useFakeVehicle`, `useFakeList`, `useFakeSeed`, `useFakeSetDefaultRefDate` (optional `@faker-js/faker` peer, lazy-loaded) |
@@ -104,7 +104,8 @@ gracefully when `window`/`document`/`navigator` is absent.
   `useWriteFile`, `useAppendFile`, `useReadJsonFile`, `useWriteJsonFile`,
   `useReadDir`, `useEnsureDir`, `useFileExists`, `useGetFileStats`,
   `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir`,
-  `useReadModuleFile`, `useReadModuleJson`) and `path.service.ts`
+  `useReadModuleFile`, `useReadModuleJson`, `useHashFile`, `useVerifyFileHash`)
+  and `path.service.ts`
   (`useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`,
   `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode`). Built-ins
   load through dynamic `import()`; every fallible call returns a Safe Result
@@ -211,7 +212,7 @@ and the client is not exported from the main barrel.
 | Singleton  | every service (`FetchApiManager`, `LoggerService`, ...)            |
 | Facade     | `FetchApiManager`, `DomService`, `AstroService`, `RssService`, `AppUtils` |
 | Strategy   | logger output, storage backends, generator crypto/UUID, worker     |
-| Factory    | `ErrorFactoryService`; debounce/throttle/timeout factories in `TimingService` |
+| Factory    | debounce/throttle/timeout factories in `TimingService`; crypto strategies in `GeneratorService` |
 | Observer   | `ReactiveService` signals, `ObserverService`, theme media query    |
 | Decorator  | `ConverterService` decorating `FormatterService`                   |
 | Adapter    | `DatesService` (Temporal), infrastructure layer, framework adapters |
@@ -237,11 +238,17 @@ and the client is not exported from the main barrel.
 
 ## Development tooling
 
-- `bun run check` — ESLint + Prettier + typecheck + tests (gate before build/publish).
-- `bun run fix` — same as `check` with ESLint + Prettier auto-fix.
-- `bun run build` — `check` then `tsc` → `dist/`.
-- `bun run release -- <patch|minor|major>` — `build` → version bump → publish.
-- `bun run docs -- <dev|build|serve>` — docs site (`build` runs `check` + clear first).
-- `bun run dev` — the bundled Express example server.
+- `bun run check` — the gate: `eslint ./src packages/ui/src` + `tsc6 --noEmit` (+ `packages/ui`) + `vitest run`. Must pass before any PR.
+- `bun run fix` — same as `check` with ESLint auto-fix.
+- `bun run build` — `clean` → `check` → `tsc6 -p tsconfig.json` → `dist/`.
+- `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`.
+- `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass`).
+- `bun run release[:minor|:major]` — local fallback; releases normally run through CI (`.github/workflows/release.yml`, trusted OIDC publishing to npm).
+- `bun run docs:dev` / `docs:build` — VitePress site (`build` runs `docs:prepare`, which generates the TypeDoc API reference and the changelog page).
+- `bun run cf:deploy` — build + docs build + `wrangler pages deploy` to Cloudflare.
+- `bun run dev:all` — the Express, assistant, Telegram and WhatsApp dev servers concurrently (`bun run dev` for Express alone).
+
+There is no Prettier in the gate: formatting comes from ESLint (`eslint --fix`).
+`tsc6` is the aliased TypeScript 6 binary (`typescript` devDep → `@typescript/typescript6`).
 
 See [CONTRIBUTING.md](https://github.com/senseikatana/katanakit-js/blob/dev/CONTRIBUTING.md) for the full development contract.

@@ -9,6 +9,11 @@ Katana UI is designed as a separate package that consumes `katanakit-js` from th
 outside. The toolkit stays a pure service library; the kit adds presentation on top
 without reaching into the core.
 
+**Today** the kit is the foundations layer only: five components (`button`,
+`input`, `card`, `badge`, `alert`) in the private `packages/ui` workspace,
+styled with `katanakit-css`. Everything else on this page marked "planned" is the
+target design, not the current state.
+
 ## Layers
 
 ```
@@ -29,7 +34,7 @@ pages       full screens (dashboards, storefront, apps, account flows)
 
 | Layer | Responsibility | Examples |
 | --- | --- | --- |
-| Tokens | Single source of visual truth | `--kt-color-primary`, `--kt-space-4`, `--kt-radius-md` |
+| Tokens | Single source of visual truth | `--neutral-500`, `--spacing-4`, `--radius-md` (from `katanakit-css`) |
 | Primitives | Behavior without markup opinions | `createDisclosure`, `createFocusTrap`, `createPopover` |
 | Bindings | Lifecycle, reactivity and hydration | `vanilla`, `vue`, `astro`, `react`, `svelte` |
 | Components | Accessible, themed markup | Button, Input, Table, Modal, Toast |
@@ -42,37 +47,48 @@ pages       full screens (dashboards, storefront, apps, account flows)
 Theming is token-first. The kit never hardcodes a color, radius or size; it reads CSS
 custom properties and lets the host application override them.
 
+The tokens come from `katanakit-css` and are **not namespaced**: the kit consumes
+the shared palette (`--neutral-*`, `--danger-*`, `--success-*`, `--warning-*`,
+`--info-*`), spacing (`--spacing-1…6`), radii (`--radius-sm|md|lg|full`) and
+typography tokens directly. Components are namespaced at the class level
+(`.kk-btn`, `.kk-card`, `.kk-alert`, …).
+
 ```css
+/* Override a token for the whole app */
 :root {
-  --kt-color-primary: oklch(62% 0.19 260);
-  --kt-color-surface: oklch(98% 0 0);
-  --kt-space-4: 1rem;
-  --kt-radius-md: 0.5rem;
+  --neutral-500: oklch(62% 0.19 260);
 }
 
-[data-theme="dark"] {
-  --kt-color-surface: oklch(18% 0.01 260);
+/* Dark mode: the same contract the ThemeService drives */
+:root[data-theme="dark"] {
+  --neutral-50: oklch(18% 0.01 260);
 }
 ```
 
 - `ThemeService` owns the `data-theme` attribute, persistence and the system
-  preference listener. The kit only consumes the attribute.
+  preference listener. The kit only consumes the attribute; the dark tokens are
+  compiled into `@katanakit/ui/styles.css` via the upstream `theme("dark")` mixin.
 - A theme is a plain stylesheet. Six curated themes are planned; any theme that
   defines the token contract works.
-- **Tailwind CSS 4 and daisyUI are optional presets**, published as separate entry
-  points. Neither is a dependency of the core kit.
+- **Tailwind CSS 4 and daisyUI are optional presets** — planned, not shipped yet.
+  Neither will be a dependency of the core kit.
 
 ## Distribution
 
+Current state of `packages/ui` (private workspace, not published to npm):
+
 | Concern | Decision |
 | --- | --- |
-| Location | Separate workspace package (`packages/ui`) published independently. |
-| Package name | Provisional `@katanakit/ui`. |
-| Runtime dependencies | None beyond `katanakit-js`. |
-| Peer dependencies | `vue`, `react`, `svelte` and `apexcharts` — all optional, loaded only by their binding. |
-| Entry points | `/tokens`, `/vanilla`, `/vue`, `/nuxt`, `/astro`, `/charts`, plus per-component subpaths. |
-| Styling | Plain stylesheet by default; `tailwind` and `daisyui` presets as opt-in subpaths. |
-| CSS isolation | Tokens are namespaced (`--kt-*`); component selectors never target host markup. |
+| Location | Workspace package `packages/ui` inside this repo. **Private** (`"private": true`, version `0.0.0`). |
+| Package name | `@katanakit/ui` (provisional). |
+| Entry points (today) | `.` → `dist/index.js` (the five component factories + `*Class` helpers) and `./styles.css` → `dist/styles.css`. Nothing else is exported. |
+| Peer dependencies | `katanakit-css` `>=0.12.5` (optional peer; the built stylesheet embeds it, so runtime consumers need no extra CSS). |
+| Build | `bun run ui:build` — `tsc6` to `dist/` + `sass` → `dist/styles.css`. |
+| Styling | One self-contained stylesheet (`@katanakit/ui/styles.css`) that emits the full `katanakit-css` framework, dark tokens and the `.kk-*` classes. |
+| CSS isolation | Component selectors are namespaced (`.kk-*`); they never target host markup. Palette tokens are shared with `katanakit-css` (unprefixed). |
+
+Planned, not yet implemented: per-component subpaths, `/tokens`, framework
+bindings (`/vue`, `/nuxt`, `/astro`, …) and the `/charts` entry point.
 
 ## Charts
 

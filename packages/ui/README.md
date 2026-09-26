@@ -1,7 +1,7 @@
 # @katanakit/ui
 
 Katana UI foundations — framework-agnostic components styled with
-[`katanakit-css`](../..) design tokens.
+[`katanakit-css`](https://github.com/senseikatana/katanakit-css) design tokens.
 
 > **Status:** experimental workspace package (`private`). Not published yet.
 
