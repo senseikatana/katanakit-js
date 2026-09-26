@@ -82,6 +82,7 @@ Useful scripts:
 | `bun run release:major` | Same for major release                                 |
 | `bun run docs:dev`      | Docs site dev server (VitePress)                       |
 | `bun run docs:build`    | Builds the docs site into `docs/.vitepress/dist/`      |
+| `bun run ui:build`      | Builds `@katanakit/ui` (components + katanakit-css CSS) |
 | `bun run dev`           | Express example server                                 |
 
 `build` and `release` never compile or publish unless `check` passes.
@@ -100,6 +101,7 @@ Useful scripts:
 - `tests/` — Vitest unit tests (import from `src/` via the `@/` alias).
 - `examples/` — runnable demos for all adapters and frameworks.
 - `docs/` — VitePress documentation site (keep in sync with code changes).
+- `packages/ui/` — private `@katanakit/ui` workspace: Katana UI foundations (button, input, card, badge, alert) styled with `katanakit-css`.
 
 ## Updating documentation
 

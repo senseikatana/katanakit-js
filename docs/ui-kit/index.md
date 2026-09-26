@@ -7,8 +7,10 @@ description: Katana UI — the planned framework-agnostic UI kit built on top of
 
 ::: warning Status
 
-**Planned — design phase.** This section describes an upcoming UI layer. No UI code
-ships in `katanakit-js` yet. The name **Katana UI** is provisional.
+**Foundations available.** The first components (button, input, card, badge, alert)
+live in the private `packages/ui` workspace (`@katanakit/ui`) and are styled with
+`katanakit-css`. The rest of the kit is still planned; the name **Katana UI** is
+provisional.
 
 :::
 
@@ -68,6 +70,7 @@ the same primitives the toolkit already guarantees.
 
 ## Read next
 
+- [Components](./components/button.md) — button, input, card, badge and alert foundations.
 - [Architecture](./architecture.md) — layers, theming, distribution and patterns.
 - [Inventory](./inventory.md) — every planned page, block, layout and interaction.
 - [LLM files](./llm-files.md) — machine-readable artifacts for AI agents.

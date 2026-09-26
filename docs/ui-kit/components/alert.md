@@ -1,0 +1,73 @@
+---
+title: Alert
+description: Inline alert with semantic variants, title/message and accessible dismissal.
+---
+
+# Alert
+
+`useAlert(options)` creates a `.kk-alert` with `role="alert"` for
+`warning`/`danger` and `role="status"` for `info`/`success`. Dismissible alerts get
+a button with `aria-label="Dismiss"`.
+
+## Variants
+
+<div ref="alerts" class="kk-demo-stack"></div>
+
+```ts
+import { useAlert } from "@katanakit/ui";
+
+stack.append(
+  useAlert({ variant: "info", title: "Heads up", message: "Deploy starts in 10 minutes." }),
+  useAlert({ variant: "success", message: "Backup finished." }),
+  useAlert({ variant: "warning", message: "Quota at 90%." }),
+  useAlert({ variant: "danger", title: "Build failed", message: "Check the logs." }),
+);
+```
+
+## Dismissible
+
+<div ref="dismissible" class="kk-demo-stack"></div>
+
+```ts
+useAlert({
+  variant: "info",
+  message: "This one can be dismissed.",
+  dismissible: true,
+  onDismiss: () => console.log("closed"),
+});
+```
+
+## Options
+
+| Option        | Type                                          | Default  | Notes                                  |
+| ------------- | --------------------------------------------- | -------- | -------------------------------------- |
+| `variant`     | `"info" \| "success" \| "warning" \| "danger"` | `"info"` | Colors and ARIA role.                   |
+| `title`       | `string`                                      | —        | Bold title line.                        |
+| `message`     | `string`                                      | —        | Body text.                              |
+| `dismissible` | `boolean`                                     | `false`  | Adds the accessible close button.       |
+| `onDismiss`   | `() => void`                                  | —        | Called after the alert is removed.      |
+
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+
+import { useAlert } from "@katanakit/ui";
+
+const alerts = ref<HTMLElement>();
+const dismissible = ref<HTMLElement>();
+
+onMounted(() => {
+	alerts.value?.append(
+		useAlert({ variant: "info", title: "Heads up", message: "Deploy starts in 10 minutes." }),
+		useAlert({ variant: "success", message: "Backup finished." }),
+		useAlert({ variant: "warning", message: "Quota at 90%." }),
+		useAlert({ variant: "danger", title: "Build failed", message: "Check the logs." }),
+	);
+	dismissible.value?.append(
+		useAlert({
+			variant: "info",
+			message: "This one can be dismissed.",
+			dismissible: true,
+		}),
+	);
+});
+</script>

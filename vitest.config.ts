@@ -28,7 +28,7 @@ export default defineConfig({
 	base: "/",
 	test: {
 		environment: "node",
-		include: ["tests/**/*.test.ts"],
+		include: ["tests/**/*.test.ts", "packages/**/tests/**/*.test.ts"],
 	},
 	root: process.cwd(),
 });

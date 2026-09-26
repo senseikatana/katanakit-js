@@ -9,6 +9,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 - `bun run fix` — same with `eslint --fix`.
 - `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`.
 - `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`; run `bun run build` first.
+- `bun run ui:build` — builds `@katanakit/ui` (`tsc` + `sass` → `packages/ui/dist`); `docs:dev`/`docs:build`/`docs:gh` run it first.
 - Docs: VitePress in `docs/` (`bun run docs:dev`, `bun run docs:build` → `docs/.vitepress/dist`). `scripts/docs-prepare.mjs` generates the TypeDoc API reference and the changelog page; CI does NOT build docs (deploy workflow does).
 - `bun run dev:all` — runs the Express, assistant, Telegram and WhatsApp dev servers concurrently.
 - One test file: `vitest run <path>`. Tests live in `tests/`, import via `@/` alias, node env.
@@ -16,7 +17,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 
 ## Architecture
 
-- `src/types/` single source of truth; `src/core/services/` pure (no I/O); `src/infrastructure/` runtime I/O (browser + Node/Bun, SSR-safe); `src/adapters/*` framework entry points published as package subpaths — never import them from the main barrel. `@faker-js/faker` is an optional peer loaded lazily by `core/services/faker.service.ts`.
+- `src/types/` single source of truth; `src/core/services/` pure (no I/O); `src/infrastructure/` runtime I/O (browser + Node/Bun, SSR-safe); `src/adapters/*` framework entry points published as package subpaths — never import them from the main barrel. `@faker-js/faker` is an optional peer loaded lazily by `core/services/faker.service.ts`. `packages/ui/` is the private `@katanakit/ui` workspace (Katana UI foundations) styled with `katanakit-css`; the docs consume its built `dist/` through Vite aliases.
 - All relative imports inside `src/` MUST use explicit `.js` extension (nodenext). `@/` alias only in `tests/` and `examples/`.
 - `use*` prefix on every public method (except `getInstance()`); English only; no side effects on import; SSR guards where `window`/`document` touched; fallible async returns Safe Result `{ data, error, ok }`.
 - Services are Singleton facades with destructured re-exports; `adapters/nuxt` exports pure functions (exception).

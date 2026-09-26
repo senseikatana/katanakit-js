@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- **Katana UI foundations (`@katanakit/ui`, private workspace)** — framework-agnostic `useButton`/`useButtonClass`, `useInput`, `useCard`, `useBadge` and `useAlert` (variants, sizes, loading state, accessible label/help/error wiring and dismissal) styled with `katanakit-css` tokens and `data-theme` dark mode. The package ships a self-contained `@katanakit/ui/styles.css` build, VitePress pages with live demos under UI Kit → Components, and jsdom tests. Not published to npm yet.
+
 ### Changed
 
 - **Docs site migrated to VitePress** — sources live in `docs/` and are served at `docs.senseikatana.com/*` (old `/docs/*` links redirect via `_redirects`). The API reference is TypeDoc-generated (`docs/api/` + sidebar JSON) and the changelog page is materialized from `CHANGELOG.md` by `scripts/docs-prepare.mjs`, which skips TypeDoc when `src/` is unchanged. Pages keep YAML frontmatter (`title`, `description`) so Obsidian reads them as properties; JS/TS is embedded with `<script setup lang="ts">` (Vue-in-Markdown — VitePress has no MDX).

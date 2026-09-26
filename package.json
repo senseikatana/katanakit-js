@@ -111,6 +111,9 @@
 	"engines": {
 		"node": ">=22.18.0"
 	},
+	"workspaces": [
+		"packages/ui"
+	],
 	"publishConfig": {
 		"access": "public"
 	},
@@ -122,9 +125,9 @@
 		"telegram:dev": "tsx src/adapters/telegram/main.ts",
 		"whatsapp:dev": "tsx src/adapters/whatsapp/main.ts",
 		"clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
-		"check": "eslint ./src && tsc6 --noEmit && vitest run",
+		"check": "eslint ./src packages/ui/src && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
-		"fix": "eslint --fix ./src && tsc6 --noEmit && vitest run",
+		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
 		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json",
 		"release": "bun run build && bun run bump:patch && npm publish --access public && git push && git push --tags && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" | gh release create \"v$(node -p \"require('./package.json').version\")\" --notes-file -",
 		"release:minor": "bun run build && bun run bump:minor && npm publish --access public && git push && git push --tags && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" | gh release create \"v$(node -p \"require('./package.json').version\")\" --notes-file -",
@@ -133,11 +136,12 @@
 		"bump:minor": "node scripts/bump-version.mjs minor",
 		"bump:major": "node scripts/bump-version.mjs major",
 		"bump:sync": "node scripts/bump-version.mjs --sync",
+		"ui:build": "bun run --filter @katanakit/ui build",
 		"docs:prepare": "node scripts/docs-prepare.mjs",
-		"docs:dev": "bun run docs:prepare && vitepress dev docs",
-		"docs:build": "bun run docs:prepare && vitepress build docs",
+		"docs:dev": "bun run ui:build && bun run docs:prepare && vitepress dev docs",
+		"docs:build": "bun run ui:build && bun run docs:prepare && vitepress build docs",
 		"docs:preview": "vitepress preview docs",
-		"docs:gh": "bun run docs:prepare && vitepress build docs --base /katanakit-js/ && node scripts/docs-publish.mjs",
+		"docs:gh": "bun run ui:build && bun run docs:prepare && vitepress build docs --base /katanakit-js/ && node scripts/docs-publish.mjs",
 		"cf:deploy": "bun run build && bun run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
 	},
 	"repository": {

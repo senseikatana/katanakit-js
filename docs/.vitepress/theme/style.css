@@ -1,0 +1,24 @@
+/* Demo helpers for the Katana UI component pages. */
+
+.kk-demo-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--spacing-3);
+	margin: var(--spacing-4) 0;
+}
+
+.kk-demo-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--spacing-4);
+	margin: var(--spacing-4) 0;
+}
+
+.kk-demo-stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+	max-width: 420px;
+	margin: var(--spacing-4) 0;
+}

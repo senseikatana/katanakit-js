@@ -25,10 +25,19 @@ export default defineConfig({
 	sitemap: { hostname: "https://docs.senseikatana.com" },
 	head: [["meta", { name: "theme-color", content: "#0a0a0a" }]],
 	vite: {
+		resolve: {
+			alias: {
+				"@katanakit/ui/styles.css": fileURLToPath(
+					new URL("../../packages/ui/dist/styles.css", import.meta.url),
+				),
+				"@katanakit/ui": fileURLToPath(new URL("../../packages/ui/dist/index.js", import.meta.url)),
+			},
+		},
 		build: {
-			// The bundled Vue runtime + search index exceed Vite's 500 kB default; the
-			// limit is only bumped to keep the build output warning-free.
-			chunkSizeWarningLimit: 1500,
+			// The largest chunk is the lazily-loaded local search index (full-text of
+			// ~780 pages, API reference included); the limit only keeps the build
+			// output warning-free.
+			chunkSizeWarningLimit: 2048,
 		},
 	},
 	themeConfig: {
@@ -60,6 +69,17 @@ export default defineConfig({
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/ui-kit/" },
+					{
+						text: "Components",
+						collapsed: false,
+						items: [
+							{ text: "Button", link: "/ui-kit/components/button" },
+							{ text: "Input", link: "/ui-kit/components/input" },
+							{ text: "Card", link: "/ui-kit/components/card" },
+							{ text: "Badge", link: "/ui-kit/components/badge" },
+							{ text: "Alert", link: "/ui-kit/components/alert" },
+						],
+					},
 					{ text: "Architecture", link: "/ui-kit/architecture" },
 					{ text: "Inventory", link: "/ui-kit/inventory" },
 					{ text: "LLM Files", link: "/ui-kit/llm-files" },
