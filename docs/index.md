@@ -70,6 +70,7 @@ if (result.ok) {
 | Area                                   | Start here                                |
 | -------------------------------------- | ----------------------------------------- |
 | HTTP client, Safe Results, Zod         | [Getting Started](/guides/getting-started) |
+| Error handling (Safe Result + helpers) | [Error Handling](/guides/errors)           |
 | Query cache (TanStack Query Core)      | [Query Client](/guides/query-client)       |
 | React / Vue / Solid / Svelte / Angular | [Framework Adapters](/guides/framework-adapters) |
 | Bun server adapter                     | [Bun Adapter](/guides/bun-adapter)         |

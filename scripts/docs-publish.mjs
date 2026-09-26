@@ -9,7 +9,7 @@
  * Run via `bun run docs:gh`, which builds with the GitHub Pages base first.
  */
 import { execFileSync } from "node:child_process";
-import { cpSync, mkdtempSync, readdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdtempSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,24 +18,34 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "docs", ".vitepress", "dist");
 const BRANCH = "gh-pages";
 
-const git = (args, cwd) => execFileSync("git", args, { cwd, stdio: "inherit" });
-const output = (args, cwd) => execFileSync("git", args, { cwd, encoding: "utf8" }).trim();
+const ENV = { ...process.env, GIT_TERMINAL_PROMPT: "0" };
+const git = (args, cwd) => execFileSync("git", args, { cwd, stdio: "inherit", env: ENV });
+const output = (args, cwd) => execFileSync("git", args, { cwd, encoding: "utf8", env: ENV }).trim();
+
+if (!existsSync(DIST)) {
+	console.error(`docs: ${DIST} does not exist — run the VitePress build before publishing.`);
+	process.exit(1);
+}
 
 const remote = output(["remote", "get-url", "origin"], ROOT);
 const sha = output(["rev-parse", "--short", "HEAD"], ROOT);
 const work = mkdtempSync(join(tmpdir(), "katanakit-gh-pages-"));
 
 try {
+	// Distinguish "branch does not exist yet" from auth/network failures.
+	let hasBranch = true;
 	try {
-		git(["clone", "--branch", BRANCH, "--single-branch", "--depth", "1", remote, work], ROOT);
+		output(["ls-remote", "--exit-code", "--heads", "origin", BRANCH], ROOT);
 	} catch {
+		hasBranch = false;
+	}
+
+	if (hasBranch) {
+		git(["clone", "--branch", BRANCH, "--single-branch", "--depth", "1", remote, work], ROOT);
+	} else {
 		// First publish: start an orphan branch instead of failing.
 		git(["init", "-b", BRANCH], work);
-		try {
-			git(["remote", "add", "origin", remote], work);
-		} catch {
-			git(["remote", "set-url", "origin", remote], work);
-		}
+		git(["remote", "add", "origin", remote], work);
 	}
 
 	for (const entry of readdirSync(work)) {
@@ -48,7 +58,18 @@ try {
 	}
 
 	git(["add", "-A"], work);
-	git(["commit", "-m", `docs: publish preview ${sha}`], work);
+	git(
+		[
+			"-c",
+			"user.name=docs-publish",
+			"-c",
+			"user.email=docs-publish@users.noreply.github.com",
+			"commit",
+			"-m",
+			`docs: publish preview ${sha}`,
+		],
+		work,
+	);
 	git(["push", "origin", `HEAD:${BRANCH}`], work);
 	console.log(`Published docs/.vitepress/dist to ${BRANCH} (${sha}).`);
 } finally {

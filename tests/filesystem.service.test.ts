@@ -12,6 +12,7 @@ import {
 	useEnsureDir,
 	useFileExists,
 	useGetFileStats,
+	useHashFile,
 	useMoveFile,
 	useReadDir,
 	useReadFile,
@@ -21,6 +22,7 @@ import {
 	useReadModuleJson,
 	useRemoveDir,
 	useRemoveFile,
+	useVerifyFileHash,
 	useWriteFile,
 	useWriteJsonFile,
 } from "@/infrastructure/filesystem/filesystem.service";
@@ -85,6 +87,28 @@ describe("filesystem.service", () => {
 		const result = await useReadFile(file);
 
 		expect(result).toMatchObject({ data: "line 1\nline 2\n", ok: true });
+	});
+
+	it("hashes files and verifies checksums", async () => {
+		const dir = await scopedDir("hash");
+		const file = join(dir, "hello.txt");
+		await useWriteFile(file, "hello");
+
+		const sha256 = await useHashFile(file);
+		const md5 = await useHashFile(file, "md5");
+		const valid = await useVerifyFileHash(
+			file,
+			"2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824",
+		);
+		const invalid = await useVerifyFileHash(file, "deadbeef");
+
+		expect(sha256).toMatchObject({
+			data: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+			ok: true,
+		});
+		expect(md5.data).toBe("5d41402abc4b2a76b9719d911017c592");
+		expect(valid).toMatchObject({ data: true, ok: true });
+		expect(invalid).toMatchObject({ data: false, ok: true });
 	});
 
 	it("returns an ENOENT Safe Result for a missing file", async () => {

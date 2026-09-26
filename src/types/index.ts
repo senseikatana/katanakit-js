@@ -51,6 +51,7 @@ import {
 import { FakeVehicleSchema } from "../schemas/faker.schema.js";
 import {
 	FileEncodingSchema,
+	FileHashAlgorithmSchema,
 	FileStatsSchema,
 	FilesystemErrorSchema,
 	ReadDirEntrySchema,
@@ -263,6 +264,9 @@ export interface StorageStrategy {
 
 /** Text encodings accepted by the filesystem helpers. */
 export type FileEncoding = z.infer<typeof FileEncodingSchema>;
+
+/** Hash algorithms supported by `useHashFile` / `useVerifyFileHash`. */
+export type FileHashAlgorithm = z.infer<typeof FileHashAlgorithmSchema>;
 
 /** Safe error from a filesystem operation (`NodeJS.ErrnoException`-shaped). */
 export type FilesystemError = z.infer<typeof FilesystemErrorSchema>;

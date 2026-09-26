@@ -137,11 +137,12 @@
 		"bump:major": "node scripts/bump-version.mjs major",
 		"bump:sync": "node scripts/bump-version.mjs --sync",
 		"ui:build": "bun run --filter @katanakit/ui build",
+		"docs:clean": "node scripts/docs.mjs clean",
 		"docs:prepare": "node scripts/docs-prepare.mjs",
-		"docs:dev": "bun run ui:build && bun run docs:prepare && vitepress dev docs",
-		"docs:build": "bun run ui:build && bun run docs:prepare && vitepress build docs",
+		"docs:dev": "node scripts/docs.mjs dev",
+		"docs:build": "node scripts/docs.mjs build",
 		"docs:preview": "vitepress preview docs",
-		"docs:gh": "bun run ui:build && bun run docs:prepare && vitepress build docs --base /katanakit-js/ && node scripts/docs-publish.mjs",
+		"docs:gh": "node scripts/docs.mjs gh",
 		"cf:deploy": "bun run build && bun run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
 	},
 	"repository": {

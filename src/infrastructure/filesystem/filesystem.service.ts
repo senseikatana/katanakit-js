@@ -2,6 +2,7 @@ import type { ZodType } from "zod";
 
 import type {
 	FileEncoding,
+	FileHashAlgorithm,
 	FileStats,
 	FilesystemError,
 	FilesystemResult,
@@ -153,6 +154,64 @@ export async function useReadFile(
  */
 export async function useReadFileBuffer(path: string): Promise<FilesystemResult<Uint8Array>> {
 	return runFs(path, (fs) => fs.readFile(path));
+}
+
+/**
+ * Streams a file and returns its checksum as a lowercase hex digest.
+ *
+ * @param path - File path.
+ * @param algorithm - `"md5" | "sha1" | "sha256" | "sha512"` (default: `"sha256"`).
+ * @returns Safe Result with the hex digest.
+ *
+ * @example
+ * ```ts
+ * const result = await useHashFile("image.iso"); // sha256
+ * const md5 = await useHashFile("image.iso", "md5");
+ * ```
+ */
+export async function useHashFile(
+	path: string,
+	algorithm: FileHashAlgorithm = "sha256",
+): Promise<FilesystemResult<string>> {
+	return runFs(path, async () => {
+		const [{ createHash }, { createReadStream }] = await Promise.all([
+			import("node:crypto"),
+			import("node:fs"),
+		]);
+		const hash = createHash(algorithm);
+		for await (const chunk of createReadStream(path)) {
+			hash.update(chunk as Uint8Array);
+		}
+		return hash.digest("hex");
+	});
+}
+
+/**
+ * Verifies a file checksum against an expected value (case-insensitive).
+ *
+ * @param path - File path.
+ * @param expected - Expected hex digest (from a `.sha256` sidecar, release page, …).
+ * @param algorithm - Algorithm used for both values (default: `"sha256"`).
+ * @returns Safe Result with `true` when the digests match.
+ *
+ * @example
+ * ```ts
+ * const check = await useVerifyFileHash("image.iso", "e3b0c442…");
+ * if (check.ok && !check.data) throw new Error("checksum mismatch");
+ * ```
+ */
+export async function useVerifyFileHash(
+	path: string,
+	expected: string,
+	algorithm: FileHashAlgorithm = "sha256",
+): Promise<FilesystemResult<boolean>> {
+	const hashed = await useHashFile(path, algorithm);
+	if (!hashed.ok) return hashed;
+	return {
+		data: hashed.data.toLowerCase() === expected.trim().toLowerCase(),
+		error: null,
+		ok: true,
+	};
 }
 
 /**

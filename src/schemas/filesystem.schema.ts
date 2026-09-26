@@ -16,6 +16,9 @@ export const FileEncodingSchema = z.enum([
 	"utf-16le",
 ]);
 
+/** Hash algorithms supported by `useHashFile` / `useVerifyFileHash`. */
+export const FileHashAlgorithmSchema = z.enum(["md5", "sha1", "sha256", "sha512"]);
+
 /** Safe error from a filesystem operation (`NodeJS.ErrnoException`-shaped). */
 export const FilesystemErrorSchema = z.object({
 	code: z.string(),

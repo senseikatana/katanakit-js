@@ -54,6 +54,8 @@ const files = await useReadDir("data/cache", { recursive: true });
 | ------ | ------- | ----- |
 | `useReadFile(path, encoding?)` | `FilesystemResult<string>` | UTF-8 by default. |
 | `useReadFileBuffer(path)` | `FilesystemResult<Uint8Array>` | Raw bytes. |
+| `useHashFile(path, algorithm?)` | `FilesystemResult<string>` | Streaming `md5`/`sha1`/`sha256`/`sha512` digest (lowercase hex; default `sha256`). |
+| `useVerifyFileHash(path, expected, algorithm?)` | `FilesystemResult<boolean>` | Case-insensitive checksum comparison (ISO sidecars, release pages). |
 | `useReadJsonFile<T>(path, schema?)` | `FilesystemResult<T>` | Optional Zod schema; failures are `ERR_INVALID_JSON` / `ERR_VALIDATION`. |
 | `useReadModuleFile(importMetaUrl, relativePath, encoding?)` | `FilesystemResult<string>` | Path resolved from the caller's module. |
 | `useReadModuleJson<T>(importMetaUrl, relativePath, schema?)` | `FilesystemResult<T>` | Same, for JSON. |

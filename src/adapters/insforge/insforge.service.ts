@@ -71,12 +71,21 @@ interface IfDatabaseModule {
  */
 function errorFrom(error: unknown): ApiError {
 	if (error && typeof error === "object" && "message" in error) {
-		const record = error as { message?: unknown; statusCode?: unknown };
+		const record = error as { message?: unknown; name?: unknown; statusCode?: unknown };
 		const message = typeof record.message === "string" ? record.message : "InsForge error";
 		const status = typeof record.statusCode === "number" ? record.statusCode : 0;
-		return { message, status, details: error };
+		// Never attach the live SDK error object (it can carry request/header internals).
+		return {
+			message,
+			status,
+			details: {
+				name: typeof record.name === "string" ? record.name : "InsForgeError",
+				message,
+				statusCode: status,
+			},
+		};
 	}
-	return { message: String(error), status: 0, details: error };
+	return { message: String(error), status: 0, details: { message: String(error) } };
 }
 
 /**

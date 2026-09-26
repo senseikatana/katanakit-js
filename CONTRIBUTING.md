@@ -115,7 +115,8 @@ When you change a public API:
   TypeDoc (`bun run docs:prepare` writes `docs/api/` and the VitePress sidebar).
   Write good doc comments on your exported functions and types — they become
   the public API docs automatically.
-- Update the matching entry in the "Services at a glance" table in `README.md`.
+- Update the matching entry in the README Features list and the docs page that
+  covers the API (`docs/guides/*.md`).
 - Note user-visible changes in `CHANGELOG.md` under `[Unreleased]`.
 - Always use `katanakit-js` in example imports.
 
@@ -142,7 +143,16 @@ bun run docs:dev       # generate API + changelog, then live-reloading server
 bun run docs:build     # static build into docs/.vitepress/dist/
 bun run docs:preview   # preview the last build
 bun run docs:gh        # manual preview on the gh-pages branch (no Actions)
+bun run docs:clean     # purge .vitepress/.temp and cache
 ```
+
+::: warning Never run docs:dev and docs:build/docs:gh at the same time
+VitePress shares `docs/.vitepress/.temp` between the dev server and the build,
+so running both corrupts it and the build fails with
+`Cannot find module '…/.vitepress/.temp/…'`. `scripts/docs.mjs` enforces an
+exclusive lock and fails fast with that guidance; if a process was killed,
+`bun run docs:clean` resets the temp state.
+:::
 
 ## Versioning and changelog
 

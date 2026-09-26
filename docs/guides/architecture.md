@@ -64,7 +64,7 @@ reach for concrete `window`/`fetch` globals directly.
 
 ### `core/services/` — the pure layer
 
-Eleven service modules with pure logic. This layer never touches `window`,
+Nineteen service modules with pure logic. This layer never touches `window`,
 `document`, `fetch`, the filesystem or any framework, with two pragmatic
 exceptions that are clearly documented in code: `http.service.ts` wraps the
 global `fetch` (available in Node 18+/Bun/browsers) and `reactive.service.ts`
@@ -75,7 +75,8 @@ persists via injected storage functions from `infrastructure`.
 | `logger.service.ts`    | `useLogger`, `useLoggerTable`, `useLoggerClear` |
 | `http.service.ts`      | `FetchApiManager`                           |
 | `formatter.service.ts` | `FormatterService`, `ConverterService`      |
-| `error.service.ts`     | `ErrorFactoryService`, `AppError`           |
+| `error.service.ts`     | `ErrorFactoryService`, `AppError`, `useErrorNormalize` |
+| `result.service.ts`    | `useAttempt`, `useTryJsonParse`             |
 | `generator.service.ts` | `GeneratorService`, `LazyNodeCryptoStrategy`, `NativeUuidStrategy` |
 | `faker.service.ts`     | `useFakeUuid`, `useFakeEmail`, `useFakeFullName`, `useFakeText`, `useFakeNumber`, `useFakeDate`, `useFakeVehicle`, `useFakeList`, `useFakeSeed`, `useFakeSetDefaultRefDate` (optional `@faker-js/faker` peer, lazy-loaded) |
 | `dates.service.ts`     | `DatesService` (Temporal polyfill adapter)  |
@@ -227,8 +228,9 @@ and the client is not exported from the main barrel.
   you call through an instance (`ObserverService.getInstance()` or the exported
   `sensorsUtils`).
 - **Safe Result** — fallible operations return a discriminated union
-  `{ data, error, ok }` instead of throwing: `FetchResult<T>`,
-  `AstroServiceResult<T>`, `RssResult`.
+  `{ data, error, ok }` instead of throwing. The generic `SafeResult<T, E>` is
+  the base of `FetchResult<T>`, `FilesystemResult<T>`, `AstroServiceResult<T>`,
+  `AiResult<T>` and `RssResult`; see [Error Handling](../guides/errors.md).
 - **Single source of truth** — all contracts and shared types live in
   `src/types/`.
 - **English only** — comments, identifiers and messages are written in English.

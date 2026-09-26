@@ -286,6 +286,9 @@ type FetchResult<T> =
 This means you never need `try/catch` for HTTP errors. The `ok` field
 discriminates the result, and TypeScript narrows the type automatically.
 
+The generic contract and its helpers (`useAttempt()`, `useTryJsonParse()`,
+`useErrorNormalize()`) are documented in [Error Handling](errors.md#the-safe-result-contract).
+
 ---
 
 ## Logger — `LoggerService`

@@ -13,14 +13,16 @@
  */
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API_DIR = join(ROOT, "docs", "api");
 const API_INDEX = join(API_DIR, "index.md");
+const API_SIDEBAR = join(API_DIR, "typedoc-sidebar.json");
 const API_HASH = join(API_DIR, ".cache-hash");
+const TYPEDOC_BIN = join(ROOT, "node_modules", ".bin", "typedoc");
 
 /** Hashes `src/**` + the TypeDoc/TS config so TypeDoc only runs when needed. */
 function sourcesHash() {
@@ -50,12 +52,26 @@ function sourcesHash() {
 
 const hash = sourcesHash();
 const isCached =
-	existsSync(API_INDEX) && existsSync(API_HASH) && readFileSync(API_HASH, "utf8").trim() === hash;
+	existsSync(API_INDEX) &&
+	existsSync(API_SIDEBAR) &&
+	existsSync(API_HASH) &&
+	readFileSync(API_HASH, "utf8").trim() === hash;
 
 if (isCached) {
 	console.log("docs: docs/api/ is up to date (TypeDoc skipped)");
 } else {
-	execFileSync("bunx", ["typedoc"], { cwd: ROOT, stdio: "inherit" });
+	if (!existsSync(TYPEDOC_BIN)) {
+		console.error("docs: TypeDoc is not installed — run `bun install` first.");
+		process.exit(1);
+	}
+	try {
+		execFileSync(TYPEDOC_BIN, [], { cwd: ROOT, stdio: "inherit" });
+	} catch {
+		console.error(
+			"docs: TypeDoc failed. If it mentions docs/.vitepress/.temp, stop `bun run docs:dev` and retry.",
+		);
+		process.exit(1);
+	}
 	writeFileSync(API_HASH, hash);
 	console.log("docs: generated docs/api/");
 }
@@ -73,5 +89,7 @@ const page = [
 	changelog,
 ].join("\n");
 
-writeFileSync(join(ROOT, "docs", "changelog.md"), page);
+const tempPage = `${join(ROOT, "docs", ".changelog.md.tmp")}`;
+writeFileSync(tempPage, page);
+renameSync(tempPage, join(ROOT, "docs", "changelog.md"));
 console.log("docs: wrote docs/changelog.md");

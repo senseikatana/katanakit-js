@@ -1,5 +1,6 @@
 import type { z } from "zod";
 
+import { useAttempt } from "../../core/services/result.service.js";
 import { useValidate } from "../../core/services/validation.service.js";
 import {
 	NotionBlockListSchema,
@@ -51,6 +52,11 @@ function getConfig(): NotionConfig | null {
 	return config;
 }
 
+/** Builds a throwable error carrying `status`/`details` for `useAttempt`. */
+function apiError(message: string, status: number, details?: unknown): Error {
+	return Object.assign(new Error(message), { status, details });
+}
+
 /**
  * Internal helper to make authenticated requests to the Notion API.
  * Handles Authorization header, Notion-Version, and JSON serialization.
@@ -77,7 +83,7 @@ async function notionFetch<T>(
 	const version = apiVersion ?? NOTION_API_VERSION;
 	const url = `${base}${endpoint}`;
 
-	try {
+	const attempt = await useAttempt(async () => {
 		const response = await fetch(url, {
 			...options,
 			headers: {
@@ -90,58 +96,35 @@ async function notionFetch<T>(
 
 		if (!response.ok) {
 			const errorBody = await response.text().catch(() => null);
-			return {
-				data: null,
-				error: {
-					message: `Notion API Error: ${response.statusText}`,
-					status: response.status,
-					details: errorBody,
-				},
-				url,
-				status: response.status,
-				ok: false,
-			};
+			throw apiError(`Notion API Error: ${response.statusText}`, response.status, errorBody);
 		}
 
 		if (response.status === 204) {
-			return {
-				data: null as T,
-				error: null,
-				url,
-				status: 204,
-				ok: true,
-			};
+			return { data: null as T, status: 204 };
 		}
 
 		const data = (await response.json()) as unknown;
 		if (schema) {
 			const parsed = useValidate(schema, data);
 			if (!parsed.ok) {
-				return {
-					data: null,
-					error: {
-						message: "Notion Validation Error: " + parsed.error.message,
-						status: 502,
-						details: parsed.error.details,
-					},
-					url,
-					status: 502,
-					ok: false,
-				};
+				throw apiError("Notion Validation Error: " + parsed.error.message, 502, parsed.error.details);
 			}
-			return { data: parsed.data as T, error: null, url, status: response.status, ok: true };
+			return { data: parsed.data as T, status: response.status };
 		}
-		return { data: data as T, error: null, url, status: response.status, ok: true };
-	} catch (err: unknown) {
-		const message = err instanceof Error ? err.message : String(err);
+		return { data: data as T, status: response.status };
+	});
+
+	if (!attempt.ok) {
+		const { message, status, details } = attempt.error;
 		return {
 			data: null,
-			error: { message: `Network Error: ${message}`, status: 0 },
+			error: { message: status === 0 ? `Network Error: ${message}` : message, status, details },
 			url,
-			status: 0,
+			status,
 			ok: false,
 		};
 	}
+	return { data: attempt.data.data, error: null, url, status: attempt.data.status, ok: true };
 }
 
 /* -------------------------------------------------------------------------- */

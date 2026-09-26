@@ -323,7 +323,7 @@ const stop = useKatanaWatch(newProduct, () => checkValidations(), { deep: true }
 
 ## Features
 
-- **Safe Results** — HTTP (and other fallible) operations return `{ data, error, ok }` instead of throwing
+- **Safe Results + helpers** — HTTP (and other fallible) operations return `{ data, error, ok }` instead of throwing; `useAttempt()`, `useTryJsonParse()` and `useErrorNormalize()` standardize boundaries and error shapes (see [Error Handling](https://docs.senseikatana.com/guides/errors))
 - **Zod validation everywhere** — `types/` is the single source of truth, inferred from Zod schemas via `z.infer`; `useValidate()` turns any schema into a Safe Result and API adapters validate every response at the boundary
 - **Zero side effects** — importing any module is safe. No `fetch` calls, no `console.log`, no storage writes
 - **Hexagonal architecture** — pure core, infrastructure adapters, framework adapters
@@ -1429,6 +1429,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development contract.
 The docs site is built with **VitePress** from [`docs/`](./docs) and deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/). Run it locally with `bun run docs:dev`.
 
 - [Getting Started](https://docs.senseikatana.com/guides/getting-started)
+- [Error Handling](https://docs.senseikatana.com/guides/errors)
 - [Architecture](https://docs.senseikatana.com/guides/architecture)
 - [UI Kit (Katana UI)](https://docs.senseikatana.com/ui-kit/)
 - [API Reference](https://docs.senseikatana.com/api/)

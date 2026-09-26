@@ -54,6 +54,7 @@ export default defineConfig({
 				text: "Guides",
 				collapsed: false,
 				items: [
+					{ text: "Error Handling", link: "/guides/errors" },
 					{ text: "Query Client", link: "/guides/query-client" },
 					{ text: "Framework Adapters", link: "/guides/framework-adapters" },
 					{ text: "Bun Adapter", link: "/guides/bun-adapter" },

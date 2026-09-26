@@ -89,7 +89,8 @@ export function useErrorNormalize(error: unknown, fallbackStatus = 0): ApiError 
 		return {
 			message: typeof record.message === "string" ? record.message : "Unknown error",
 			status,
-			details: record.details,
+			// Bound string details so a huge upstream body can't be persisted verbatim.
+			details: typeof record.details === "string" ? record.details.slice(0, 2000) : record.details,
 		};
 	}
 	return {

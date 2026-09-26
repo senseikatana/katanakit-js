@@ -24,7 +24,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 
 ## Docs
 
-- Docs: VitePress (`docs/`, base `/`) served at `docs.senseikatana.com/*`. `bun run docs:prepare` generates `docs/api/` (TypeDoc + sidebar JSON) and `docs/changelog.md` from `CHANGELOG.md`; both are gitignored — never hand-edit them. Every page starts with YAML frontmatter (`title`, `description`) so Obsidian reads them as properties. JS/TS inside `.md` goes through `<script setup lang="ts">` (Vue-in-Markdown); VitePress does NOT support MDX.
+- Docs: VitePress (`docs/`, base `/`) served at `docs.senseikatana.com/*`. `bun run docs:prepare` generates `docs/api/` (TypeDoc + sidebar JSON) and `docs/changelog.md` from `CHANGELOG.md`; both are gitignored — never hand-edit them. Every page starts with YAML frontmatter (`title`, `description`) so Obsidian reads them as properties. JS/TS inside `.md` goes through `<script setup lang="ts">` (Vue-in-Markdown); VitePress does NOT support MDX. `docs:dev` and `docs:build`/`docs:gh` are mutually exclusive (shared `docs/.vitepress/.temp`): `scripts/docs.mjs` enforces a lock, cleans stale state and fails with guidance.
 
 ## Git workflow
 

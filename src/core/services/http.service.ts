@@ -31,9 +31,16 @@ function getApiEntry(apiName: string): ApiEntry {
  * @param response - The fetch Response to read.
  * @returns The parsed body or `null` for empty responses.
  */
-async function readBody(response: Response): Promise<unknown> {
+/** Error bodies are truncated so a hostile response cannot exhaust memory. */
+const MAX_ERROR_BODY_CHARS = 32 * 1024;
+
+async function readBody(response: Response, maxChars?: number): Promise<unknown> {
 	const text = await response.text();
 	if (!text) return null;
+
+	if (maxChars !== undefined && text.length > maxChars) {
+		return `${text.slice(0, maxChars)}… [truncated]`;
+	}
 
 	// JSON first; non-JSON bodies fall back to the raw text.
 	const parsed = useTryJsonParse(text);
@@ -302,7 +309,7 @@ export async function useFetch<T = unknown>(
 		const response = await fetch(url, { redirect: "error", ...init });
 
 		if (!response.ok) {
-			const errorDetails = await readBody(response);
+			const errorDetails = await readBody(response, MAX_ERROR_BODY_CHARS);
 
 			return {
 				data: null,

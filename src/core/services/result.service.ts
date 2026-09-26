@@ -53,12 +53,10 @@ export function useTryJsonParse<T = unknown>(text: string): SafeResult<T> {
 	try {
 		return { data: JSON.parse(text) as T, error: null, ok: true };
 	} catch (error) {
+		const raw = error instanceof Error ? error.message : "Invalid JSON";
 		return {
 			data: null,
-			error: {
-				message: error instanceof Error ? error.message : "Invalid JSON",
-				status: 0,
-			},
+			error: { message: raw.slice(0, 300), status: 0 },
 			ok: false,
 		};
 	}
