@@ -28,7 +28,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API = "https://api.cloudflare.com/client/v4";
 
 const PROJECTS = [
-	{ name: "katanakit-docs", domain: "docs.senseikatana.com", build: "bun run guides:deploy" },
+	{ name: "katanakit-docs", domain: "docs.senseikatana.com", build: "mkdocs build --strict" },
 	{ name: "katanakit-playground", domain: "play.senseikatana.com", build: "bun run playground:deploy" },
 ];
 

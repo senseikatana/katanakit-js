@@ -4,7 +4,10 @@ on:
  push:
   branches: [main]
   paths:
-   - "guides/**"
+   - "content/**"
+   - "hooks/**"
+   - "mkdocs.yml"
+   - "typedoc.json"
    - "playground/**"
    - "src/**"
    - "package.json"
@@ -29,21 +32,27 @@ jobs:
      with:
       node-version: 22
 
+   - uses: actions/setup-python@v5
+     with:
+      python-version: "3.12"
+
    - run: bun install --frozen-lockfile
+
+   - run: python -m pip install mkdocs-material
 
    - run: bun run build
 
-   - run: bun run guides:build
+   - run: mkdocs build --strict
 
    - run: bun run playground:build
 
-   - name: Deploy guides
+   - name: Deploy docs
      uses: cloudflare/wrangler-action@v3
      with:
       apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       wranglerVersion: "4.124.0"
-      command: pages deploy guides/build --project-name katanakit-docs --branch main --commit-dirty=true
+      command: pages deploy site --project-name katanakit-docs --branch main --commit-dirty=true
 
    - name: Deploy playground
      uses: cloudflare/wrangler-action@v3

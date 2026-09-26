@@ -80,8 +80,8 @@ Useful scripts:
 | `bun run release`       | `build` → version bump → publish to npm                |
 | `bun run release:minor` | Same for minor release                                 |
 | `bun run release:major` | Same for major release                                 |
-| `bun run guides:dev`    | Docs site dev server                                   |
-| `bun run guides:build` | Docs site build                                        |
+| `mkdocs serve`          | Docs site dev server (MkDocs Material)                 |
+| `mkdocs build --strict` | Builds the docs site into `site/`                      |
 | `bun run dev`           | Express example server                                 |
 
 `build` and `release` never compile or publish unless `check` passes.
@@ -99,19 +99,20 @@ Useful scripts:
 - `src/index.ts` — main barrel (public API surface).
 - `tests/` — Vitest unit tests (import from `src/` via the `@/` alias).
 - `examples/` — runnable demos for all adapters and frameworks.
-- `guides/` — user documentation (keep in sync with code changes).
+- `content/` — MkDocs source (landing + `docs/` tree; `/docs/**` routes, keep in sync with code changes).
 
 ## Updating documentation
 
 The public documentation site lives at
 **[docs.senseikatana.com](https://docs.senseikatana.com/)** and
-is built with Docusaurus. The source is in `guides/`.
+is built with MkDocs Material. The source is in `content/`.
 
 When you change a public API:
 
 - **API Reference is auto-generated** from JSDoc/TSDoc comments in `src/` by
-  TypeDoc. Write good doc comments on your exported functions and types — they
-  become the public API docs automatically on each build.
+  TypeDoc (`hooks/generate_api.py` runs it on `mkdocs build/serve` when
+  `content/docs/api/` is missing). Write good doc comments on your exported
+  functions and types — they become the public API docs automatically.
 - Update the matching entry in the "Services at a glance" table in `README.md`.
 - Note user-visible changes in `CHANGELOG.md` under `[Unreleased]`.
 - Always use `katanakit-js` in example imports.
@@ -119,8 +120,10 @@ When you change a public API:
 ### Running the docs locally
 
 ```bash
-bun run guides:dev   # starts Docusaurus dev server
-bun run guides:build # builds the static site (runs sync + clear first)
+mkdocs serve               # live-reloading dev server
+mkdocs build --strict      # static build into site/
+bunx typedoc               # regenerate content/docs/api/ manually
+mkdocs gh-deploy --force   # temporary preview on the gh-pages branch
 ```
 
 ## Versioning and changelog

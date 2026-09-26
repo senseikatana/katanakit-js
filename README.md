@@ -1426,7 +1426,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development contract.
 
 ## Documentation
 
-The docs site is deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/).
+The docs site is built with **MkDocs Material** from [`content/`](./content) and deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/). Run it locally with `mkdocs serve`.
 
 - [Getting Started](https://docs.senseikatana.com/docs/guides/getting-started/)
 - [Architecture](https://docs.senseikatana.com/docs/guides/architecture/)

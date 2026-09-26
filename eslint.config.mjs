@@ -11,7 +11,7 @@ export default defineConfig(
 	{
 		ignores: [
 			"dist/**",
-			"guides/**",
+			"site/**",
 			"node_modules/**",
 			"**/*.js",
 			"**/*.cjs",

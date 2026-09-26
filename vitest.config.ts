@@ -21,7 +21,6 @@ export default defineConfig({
 				find: /^solid-js\/store$/,
 				replacement: resolve(ROOT_DIR, "node_modules/solid-js/store/dist/store.js"),
 			},
-			{ find: "@/guides", replacement: resolve(ROOT_DIR, "guides/") },
 			{ find: "@", replacement: resolve(ROOT_DIR, "src") },
 		],
 		tsconfigPaths: true,

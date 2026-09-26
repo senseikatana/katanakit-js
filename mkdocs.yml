@@ -1,1 +1,102 @@
-site_name: My Docs
+# KatanaKit documentation — MkDocs Material.
+#
+# Folder layout is intentional: `content/docs/**` maps 1:1 to the current URLs
+# (`/docs/guides/...`, `/docs/ui-kit/...`, `/docs/changelog/`, `/docs/api/`).
+#
+# To add locales later, move each tree under `content/<lang>/` (keeping the
+# `docs/` folder inside it) and enable `mkdocs-static-i18n` with
+# `docs_structure: folder` → `senseikatana.com/[lang]/docs/*`.
+
+site_name: KatanaKit
+site_description: A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.
+site_url: https://docs.senseikatana.com/
+repo_url: https://github.com/senseikatana/katanakit-js
+repo_name: senseikatana/katanakit-js
+edit_uri: edit/dev/content/
+copyright: Copyright © Sergio Jurado
+
+docs_dir: content
+site_dir: site
+
+theme:
+  name: material
+  logo: img/logo.svg
+  favicon: img/favicon.ico
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: red
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: red
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - content.code.annotate
+    - content.code.copy
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+    - toc.follow
+
+plugins:
+  - search
+
+hooks:
+  - hooks/generate_api.py
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# TypeDoc generates hundreds of files under api/ that are intentionally not in
+# the nav; keep --strict focused on real problems.
+validation:
+  nav:
+    omitted_files: ignore
+
+nav:
+  - Home: index.md
+  - Docs:
+      - Overview: docs/index.md
+      - Getting Started: docs/guides/getting-started.md
+      - Guides:
+          - Query Client: docs/guides/query-client.md
+          - Framework Adapters: docs/guides/framework-adapters.md
+          - Bun Adapter: docs/guides/bun-adapter.md
+          - Watch: docs/guides/watch.md
+          - Filesystem: docs/guides/filesystem.md
+          - Faker: docs/guides/faker.md
+          - Architecture: docs/guides/architecture.md
+          - Roadmap: docs/guides/roadmap.md
+      - UI Kit:
+          - Overview: docs/ui-kit/index.md
+          - Architecture: docs/ui-kit/architecture.md
+          - Inventory: docs/ui-kit/inventory.md
+          - LLM Files: docs/ui-kit/llm-files.md
+          - Roadmap: docs/ui-kit/roadmap.md
+      - Changelog: docs/changelog.md
+      - API Reference: docs/api/index.md
