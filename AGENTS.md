@@ -56,9 +56,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 ## npm security
 
 - `.npmrc` disables dependency lifecycle scripts (`allow-scripts=`). If a new dependency needs scripts, add it explicitly.
-- Release workflow uses OIDC trusted publishing — no long-lived NPM_TOKEN secret. Requires npmjs.com trusted publisher config (see Git workflow section).
-- Token docs: https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website
-- **Pending (npm account suspended):**
-  1. Create `katanakit-publish` token on npmjs.com (bypass-2FA unchecked, scoped to `katanakit-js`, read-write)
-  2. Revoke old `NPM_TOKEN` (id: `1e997c`, has bypass-2FA=true)
-  3. Configure Trusted Publishers: npmjs.com → Package Settings → Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`, workflow `release.yml`
+- Releases publish through `.github/workflows/release.yml` with **OIDC trusted publishing** — no `NPM_TOKEN` secret and no long-lived token. One-time npmjs.com config: `katanakit-js` → Settings → Publishing access → Trusted Publisher → GitHub Actions (`senseikatana/katanakit-js`, workflow `release.yml`, no environment).
+- Keep **“Allow npm publish”** enabled on that trusted publisher: `release.yml` runs `npm publish --provenance` directly. Without it, versions are **staged** and require `npm stage approve` (npm CLI 12+) or approval in the npm UI.
+- Publishing access is set to **“Require two-factor authentication and disallow bypass 2fa tokens”**; OIDC publishers keep working with it. Never create bypass-2FA tokens for publishing.
+- Docs: https://docs.npmjs.com/trusted-publishers
