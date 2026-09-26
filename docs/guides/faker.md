@@ -41,10 +41,12 @@ await useFakeSeed(seed); // replay the exact same sequence
 const id = await useFakeUuid();
 ```
 
-!!! warning "Determinism is not security"
+::: warning Determinism is not security
 
-    A seeded UUID is predictable. For real identifiers use `useUuid()`
-    (`crypto.randomUUID`), never `useFakeUuid()` with a fixed seed.
+A seeded UUID is predictable. For real identifiers use `useUuid()`
+(`crypto.randomUUID`), never `useFakeUuid()` with a fixed seed.
+
+:::
 
 ## Seed data (users, products, orders)
 

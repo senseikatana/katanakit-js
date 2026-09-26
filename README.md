@@ -769,7 +769,7 @@ import { useUnwrap } from "katanakit-js/adapters/nuxt"; // Nuxt only
 </script>
 ```
 
-See [Getting Started](https://docs.senseikatana.com/docs/guides/getting-started/) for full recipes.
+See [Getting Started](https://docs.senseikatana.com/guides/getting-started) for full recipes.
 
 ## Framework Adapters
 
@@ -1426,14 +1426,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development contract.
 
 ## Documentation
 
-The docs site is built with **MkDocs Material** from [`content/`](./content) and deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/). Run it locally with `mkdocs serve`.
+The docs site is built with **VitePress** from [`docs/`](./docs) and deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/). Run it locally with `bun run docs:dev`.
 
-- [Getting Started](https://docs.senseikatana.com/docs/guides/getting-started/)
-- [Architecture](https://docs.senseikatana.com/docs/guides/architecture/)
-- [UI Kit (Katana UI)](https://docs.senseikatana.com/docs/ui-kit/)
-- [API Reference](https://docs.senseikatana.com/docs/api/)
-- [Roadmap](https://docs.senseikatana.com/docs/guides/roadmap/)
-- [Changelog](https://docs.senseikatana.com/docs/changelog/)
+- [Getting Started](https://docs.senseikatana.com/guides/getting-started)
+- [Architecture](https://docs.senseikatana.com/guides/architecture)
+- [UI Kit (Katana UI)](https://docs.senseikatana.com/ui-kit/)
+- [API Reference](https://docs.senseikatana.com/api/)
+- [Roadmap](https://docs.senseikatana.com/guides/roadmap)
+- [Changelog](https://docs.senseikatana.com/changelog)
 
 ## License
 

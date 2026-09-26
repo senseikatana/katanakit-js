@@ -8,7 +8,7 @@ repository.
 ## The development contract
 
 These rules keep the codebase consistent and maintainable. Please read
-[Architecture](https://docs.senseikatana.com/docs/guides/architecture/) for the full context behind each rule.
+[Architecture](https://docs.senseikatana.com/guides/architecture) for the full context behind each rule.
 
 1. **Hexagonal layering** — keep the pure `core` layer (`src/core/services/`)
    free of browser/runtime I/O. Adapters that own I/O live in
@@ -80,8 +80,8 @@ Useful scripts:
 | `bun run release`       | `build` → version bump → publish to npm                |
 | `bun run release:minor` | Same for minor release                                 |
 | `bun run release:major` | Same for major release                                 |
-| `mkdocs serve`          | Docs site dev server (MkDocs Material)                 |
-| `mkdocs build --strict` | Builds the docs site into `site/`                      |
+| `bun run docs:dev`      | Docs site dev server (VitePress)                       |
+| `bun run docs:build`    | Builds the docs site into `docs/.vitepress/dist/`      |
 | `bun run dev`           | Express example server                                 |
 
 `build` and `release` never compile or publish unless `check` passes.
@@ -99,31 +99,47 @@ Useful scripts:
 - `src/index.ts` — main barrel (public API surface).
 - `tests/` — Vitest unit tests (import from `src/` via the `@/` alias).
 - `examples/` — runnable demos for all adapters and frameworks.
-- `content/` — MkDocs source (landing + `docs/` tree; `/docs/**` routes, keep in sync with code changes).
+- `docs/` — VitePress documentation site (keep in sync with code changes).
 
 ## Updating documentation
 
 The public documentation site lives at
 **[docs.senseikatana.com](https://docs.senseikatana.com/)** and
-is built with MkDocs Material. The source is in `content/`.
+is built with VitePress. The source is in `docs/`.
 
 When you change a public API:
 
 - **API Reference is auto-generated** from JSDoc/TSDoc comments in `src/` by
-  TypeDoc (`hooks/generate_api.py` runs it on `mkdocs build/serve` when
-  `content/docs/api/` is missing). Write good doc comments on your exported
-  functions and types — they become the public API docs automatically.
+  TypeDoc (`bun run docs:prepare` writes `docs/api/` and the VitePress sidebar).
+  Write good doc comments on your exported functions and types — they become
+  the public API docs automatically.
 - Update the matching entry in the "Services at a glance" table in `README.md`.
 - Note user-visible changes in `CHANGELOG.md` under `[Unreleased]`.
 - Always use `katanakit-js` in example imports.
 
+### Writing docs pages
+
+Every page starts with YAML frontmatter so both VitePress and Obsidian read it:
+
+```md
+---
+title: Query Client
+description: Cache, retry and invalidate server state.
+---
+```
+
+- JS/TS inside a page goes in a `<script setup lang="ts">` block after the
+  frontmatter (Vue-in-Markdown). VitePress does **not** support MDX.
+- Use `::: code-group` for tabbed code samples and `::: warning` for callouts.
+- `docs/api/` and `docs/changelog.md` are generated — never hand-edit them.
+
 ### Running the docs locally
 
 ```bash
-mkdocs serve               # live-reloading dev server
-mkdocs build --strict      # static build into site/
-bunx typedoc               # regenerate content/docs/api/ manually
-mkdocs gh-deploy --force   # temporary preview on the gh-pages branch
+bun run docs:dev       # generate API + changelog, then live-reloading server
+bun run docs:build     # static build into docs/.vitepress/dist/
+bun run docs:preview   # preview the last build
+bun run docs:gh        # manual preview on the gh-pages branch (no Actions)
 ```
 
 ## Versioning and changelog

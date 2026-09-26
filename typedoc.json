@@ -2,8 +2,9 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"entryPoints": ["src/index.ts"],
 	"tsconfig": "tsconfig.json",
-	"plugin": ["typedoc-plugin-markdown"],
-	"out": "content/docs/api",
+	"plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
+	"out": "docs/api",
+	"docsRoot": "./docs",
 	"entryFileName": "index.md",
 	"readme": "none",
 	"hidePageHeader": true,
@@ -15,5 +16,9 @@
 	"enumMembersFormat": "table",
 	"indexFormat": "table",
 	"excludePrivate": true,
-	"excludeInternal": true
+	"excludeInternal": true,
+	"sidebar": {
+		"autoConfiguration": true,
+		"pretty": true
+	}
 }

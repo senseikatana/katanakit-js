@@ -17,7 +17,8 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
-- **Docs site migrated from Docusaurus to MkDocs Material** — sources now live in `content/` (`content/docs/**` maps 1:1 to the existing `/docs/**` URLs, so no links break), the TypeDoc API reference is generated into `content/docs/api/` by `hooks/generate_api.py`, and the Docusaurus `guides/` workspace, its sync script and its package scripts were removed. Deployment stays on Cloudflare Pages (`site/`), with `mkdocs gh-deploy` available as a temporary gh-pages preview.
+- **Docs site migrated from Docusaurus to VitePress** — sources live in `docs/` and are served at `docs.senseikatana.com/*` (old `/docs/*` links redirect via `_redirects`). The API reference is TypeDoc-generated (`docs/api/` + sidebar JSON) and the changelog page is materialized from `CHANGELOG.md`, both by `scripts/docs-prepare.mjs` (no Python). Pages keep YAML frontmatter (`title`, `description`) so Obsidian reads them as properties; JS/TS is embedded with `<script setup lang="ts">` (Vue-in-Markdown — VitePress has no MDX).
+- **Repository cleanup** — removed the `playground/` workspace and its scripts, the MkDocs tooling (`mkdocs.yml`, `hooks/`, Python) and the stale `content/` tree; the repo now has a single docs site and no extra workspaces. Deploy, CI, `setup-cloudflare.mjs` and docs were updated accordingly; the manual `bun run docs:gh` command keeps a gh-pages preview without GitHub Actions.
 - **WordPress `WpEmbedded["wp:featuredmedia"]`** is now a loose partial shape instead of `WpMedia[]` (embedded media never nests `_embedded`); this breaks the runtime Zod schema cycle while keeping `source_url`/`id`/`title` typed.
 
 ### Fixed

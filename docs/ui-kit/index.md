@@ -5,10 +5,12 @@ description: Katana UI — the planned framework-agnostic UI kit built on top of
 
 # Katana UI
 
-!!! warning "Status"
+::: warning Status
 
-    **Planned — design phase.** This section describes an upcoming UI layer. No UI code
-    ships in `katanakit-js` yet. The name **Katana UI** is provisional.
+**Planned — design phase.** This section describes an upcoming UI layer. No UI code
+ships in `katanakit-js` yet. The name **Katana UI** is provisional.
+
+:::
 
 Katana UI is the planned UI kit for KatanaKit: design tokens, headless primitives,
 components, blocks, layouts and full application pages that reuse the toolkit's core

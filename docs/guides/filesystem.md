@@ -106,9 +106,12 @@ const result = await useReadModuleJson<Book[]>(import.meta.url, "../data/books.j
 Because `src/` compiles to `dist/`, prefer module-relative helpers or an explicit
 config/env path for assets that live next to source files.
 
-!!! note "Why async?"
+::: note Why async?
 
-    `node:fs/promises`, `node:path` and `node:url` load through dynamic `import()`
-    so the main bundle stays browser-safe. That is why every helper returns a
-    promise — including the path utilities. `useGetCwd()` is the only synchronous
-    helper because it needs no Node module.
+`node:fs/promises`, `node:path` and `node:url` load through dynamic `import()`
+so the main bundle stays browser-safe. That is why every helper returns a
+promise — including the path utilities. `useGetCwd()` is the only synchronous
+helper because it needs no Node module.
+
+:::
+

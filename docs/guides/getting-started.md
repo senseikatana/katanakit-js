@@ -700,16 +700,18 @@ useSeoMeta({ title: "Home" } as UseSeoMetaOptions<"rss" | "nav">);
 
 `title` = page title · `siteTitle` = brand.
 
-!!! warning "`SiteConfig` is fail-fast: `seo` and `rss` are required"
+::: warning `SiteConfig` is fail-fast: `seo` and `rss` are required
 
-    `UseSeoMetaOptions` accepts partial `seo`/`rss` because the `defaults`
-    fill the gaps — but a full `SiteConfig` (your config or the `defaults`
-    you pass to `useSeoMeta`) must include `seo` and `rss`. `nav` stays
-    optional. When they are missing, `useSeoTag`, `useGenerateMetaTags`,
-    `useHeadTags`, `useRssHeadLink` and the `useSeoMeta` defaults throw
-    `[Seo] SiteConfig.seo is required (caller)` /
-    `[Seo] SiteConfig.rss is required (caller)` instead of a cryptic
-    `TypeError`.
+`UseSeoMetaOptions` accepts partial `seo`/`rss` because the `defaults`
+fill the gaps — but a full `SiteConfig` (your config or the `defaults`
+you pass to `useSeoMeta`) must include `seo` and `rss`. `nav` stays
+optional. When they are missing, `useSeoTag`, `useGenerateMetaTags`,
+`useHeadTags`, `useRssHeadLink` and the `useSeoMeta` defaults throw
+`[Seo] SiteConfig.seo is required (caller)` /
+`[Seo] SiteConfig.rss is required (caller)` instead of a cryptic
+`TypeError`.
+
+:::
 
 ```ts
 import { siteConfig, type SiteConfig } from "katanakit-js";

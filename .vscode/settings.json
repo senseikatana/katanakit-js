@@ -19,5 +19,6 @@
 	},
 	"[markdown]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"vue.server.includeLanguages": ["vue", "markdown"]
 }

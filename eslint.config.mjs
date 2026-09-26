@@ -11,7 +11,7 @@ export default defineConfig(
 	{
 		ignores: [
 			"dist/**",
-			"site/**",
+			"docs/**",
 			"node_modules/**",
 			"**/*.js",
 			"**/*.cjs",

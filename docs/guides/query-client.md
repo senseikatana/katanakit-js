@@ -95,154 +95,142 @@ The returned object is TanStack's native `QueryObserverResult`:
 
 Use `isPending` for "no data yet" and `isFetching` for "a background refetch is running" — that's what makes stale-while-revalidate work without blanking your UI.
 
-=== "React"
+::: code-group
 
-    ```tsx
-    import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/react";
+```tsx [React]
+import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/react";
 
-    const query = useQuery({
-      queryKey: ["pokemon", id],
-      queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
-    });
-    // query.data, query.isPending, query.isError, query.error, query.status…
-    ```
+const query = useQuery({
+  queryKey: ["pokemon", id],
+  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
+});
+// query.data, query.isPending, query.isError, query.error, query.status…
+```
 
-=== "Vue"
+```vue [Vue]
+<script setup>
+import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/vue";
 
-    ```vue
-    <script setup>
-    import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/vue";
+const query = useQuery({
+  queryKey: ["pokemon", id],
+  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
+});
+// query.data, query.isPending, query.isError, query.status (reactive)
+</script>
+```
 
-    const query = useQuery({
-      queryKey: ["pokemon", id],
-      queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
-    });
-    // query.data, query.isPending, query.isError, query.status (reactive)
-    </script>
-    ```
+```tsx [Solid]
+import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/solid";
 
-=== "Solid"
+const query = useQuery(() => ({
+  queryKey: ["pokemon", id()],
+  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: id() } })),
+}));
+// query.data, query.isPending, query.isError… (reactive store)
+```
 
-    ```tsx
-    import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/solid";
+```svelte [Svelte]
+<script lang="ts">
+  import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/svelte";
 
-    const query = useQuery(() => ({
-      queryKey: ["pokemon", id()],
-      queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: id() } })),
-    }));
-    // query.data, query.isPending, query.isError… (reactive store)
-    ```
+  const query = useQuery({
+    queryKey: ["pokemon", 25],
+    queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+  });
+</script>
 
-=== "Svelte"
+{#if $query.isPending}
+  <div>Loading…</div>
+{:else}
+  <div>{$query.data?.name}</div>
+{/if}
+```
 
-    ```svelte
-    <script lang="ts">
-      import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/svelte";
+```ts [Angular]
+import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/angular";
 
-      const query = useQuery({
-        queryKey: ["pokemon", 25],
-        queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
-      });
-    </script>
+readonly query = useQuery({
+  queryKey: ["pokemon", 25],
+  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+});
+// query.data(), query.isPending(), query.isError()… (signals)
+```
 
-    {#if $query.isPending}
-      <div>Loading…</div>
-    {:else}
-      <div>{$query.data?.name}</div>
-    {/if}
-    ```
-
-=== "Angular"
-
-    ```ts
-    import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/angular";
-
-    readonly query = useQuery({
-      queryKey: ["pokemon", 25],
-      queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
-    });
-    // query.data(), query.isPending(), query.isError()… (signals)
-    ```
+:::
 
 ## useMutation
 
 Mutations run a `mutationFn` and expose `isPending`, `data`, `error`, `mutate`, `reset`:
 
-=== "React"
+::: code-group
 
-    ```tsx
-    import { useMutation, useQueryClient } from "katanakit-js/adapters/react";
-    import { usePost } from "katanakit-js";
+```tsx [React]
+import { useMutation, useQueryClient } from "katanakit-js/adapters/react";
+import { usePost } from "katanakit-js";
 
-    function CreateUser() {
-      const qc = useQueryClient();
-      const { mutate, isPending } = useMutation({
-        mutationFn: (name: string) => usePost("api", "createUser", { name }),
-        onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
-      });
+function CreateUser() {
+  const qc = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
+  });
 
-      return <button disabled={isPending} onClick={() => mutate("Ada")}>Create</button>;
-    }
-    ```
+  return <button disabled={isPending} onClick={() => mutate("Ada")}>Create</button>;
+}
+```
 
-=== "Vue"
+```vue [Vue]
+<script setup>
+import { useMutation, useQueryClient } from "katanakit-js/adapters/vue";
+import { usePost } from "katanakit-js";
 
-    ```vue
-    <script setup>
-    import { useMutation, useQueryClient } from "katanakit-js/adapters/vue";
-    import { usePost } from "katanakit-js";
+const qc = useQueryClient();
+const mutation = useMutation({
+  mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
+});
+</script>
 
-    const qc = useQueryClient();
-    const mutation = useMutation({
-      mutationFn: (name: string) => usePost("api", "createUser", { name }),
-      onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
-    });
-    </script>
+<template>
+  <button :disabled="mutation.isPending" @click="mutation.mutate('Ada')">Create</button>
+</template>
+```
 
-    <template>
-      <button :disabled="mutation.isPending" @click="mutation.mutate('Ada')">Create</button>
-    </template>
-    ```
+```tsx [Solid]
+import { useMutation, useQueryClient } from "katanakit-js/adapters/solid";
 
-=== "Solid"
+const qc = useQueryClient();
+const mutation = useMutation(() => ({
+  mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
+}));
+```
 
-    ```tsx
-    import { useMutation, useQueryClient } from "katanakit-js/adapters/solid";
+```svelte [Svelte]
+<script lang="ts">
+  import { useMutation, useQueryClient } from "katanakit-js/adapters/svelte";
 
-    const qc = useQueryClient();
-    const mutation = useMutation(() => ({
-      mutationFn: (name: string) => usePost("api", "createUser", { name }),
-      onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
-    }));
-    ```
+  const qc = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
+  });
+</script>
 
-=== "Svelte"
+<button disabled={$mutation.isPending} on:click={() => $mutation.mutate("Ada")}>Create</button>
+```
 
-    ```svelte
-    <script lang="ts">
-      import { useMutation, useQueryClient } from "katanakit-js/adapters/svelte";
+```ts [Angular]
+import { useMutation, useQueryClient } from "katanakit-js/adapters/angular";
 
-      const qc = useQueryClient();
-      const mutation = useMutation({
-        mutationFn: (name: string) => usePost("api", "createUser", { name }),
-        onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
-      });
-    </script>
+private readonly qc = useQueryClient();
+readonly mutation = useMutation({
+  mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  onSuccess: () => this.qc.invalidateQueries({ queryKey: ["users"] }),
+});
+```
 
-    <button disabled={$mutation.isPending} on:click={() => $mutation.mutate("Ada")}>Create</button>
-    ```
-
-=== "Angular"
-
-    ```ts
-    import { useMutation, useQueryClient } from "katanakit-js/adapters/angular";
-
-    private readonly qc = useQueryClient();
-    readonly mutation = useMutation({
-      mutationFn: (name: string) => usePost("api", "createUser", { name }),
-      onSuccess: () => this.qc.invalidateQueries({ queryKey: ["users"] }),
-    });
-    ```
+:::
 
 ## Framework-free (vanilla TS)
 
