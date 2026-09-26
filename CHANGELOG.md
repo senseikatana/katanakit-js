@@ -4,6 +4,20 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- **Docs site migrated to VitePress** — sources live in `docs/` and are served at `docs.senseikatana.com/*` (old `/docs/*` links redirect via `_redirects`). The API reference is TypeDoc-generated (`docs/api/` + sidebar JSON) and the changelog page is materialized from `CHANGELOG.md` by `scripts/docs-prepare.mjs`, which skips TypeDoc when `src/` is unchanged. Pages keep YAML frontmatter (`title`, `description`) so Obsidian reads them as properties; JS/TS is embedded with `<script setup lang="ts">` (Vue-in-Markdown — VitePress has no MDX).
+- **Repository cleanup** — removed the `playground/` workspace, the intermediate MkDocs tooling (`mkdocs.yml`, `hooks/`, Python) and the stale `content/` tree; the repo now has a single docs site and no extra workspaces. Deploy, CI, `setup-cloudflare.mjs` and docs were updated accordingly; the manual `bun run docs:gh` command keeps an Action-free gh-pages preview.
+
+## [5.1.1] - 2026-09-26
+
+### Added
+
+- **Filesystem service (Node/Bun)** (`useReadFile`, `useReadFileBuffer`, `useWriteFile`, `useAppendFile`, `useReadJsonFile`, `useWriteJsonFile`, `useReadDir`, `useEnsureDir`, `useFileExists`, `useGetFileStats`, `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir`) plus path helpers (`useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`, `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode`) and module-relative readers (`useReadModuleFile`, `useReadModuleJson`, the `__dirname` pattern without `__dirname`). `node:fs/promises`/`node:path` load through dynamic `import()`, every fallible call returns a Safe Result with the native errno `code` (`ENOENT`, `EACCES`, …), and browsers/Workers get `ERR_FS_UNAVAILABLE` instead of a crash. `useReadJsonFile`/`useReadModuleJson` accept an optional Zod schema for boundary validation.
+- **Faker service** (`useFakeUuid`, `useFakeEmail`, `useFakeFullName`, `useFakeFirstName`, `useFakeLastName`, `useFakePhone`, `useFakeCompanyName`, `useFakeUrl`, `useFakeText`, `useFakeNumber`, `useFakeBoolean`, `useFakeDate`, `useFakeVehicle`, `useFakeList`, `useFakeSeed`, `useFakeSetDefaultRefDate`) — generic fake data for tests, seeds and forms. `useFakeSeed(seed?)` sets (or rolls and returns) a seed, `useFakeSetDefaultRefDate()` pins relative dates, and `useFakeList(factory, count)` passes the index for relations. `@faker-js/faker` is an **optional peer dependency** loaded through dynamic `import()`, so it never enters the initial bundle.
+
+## [5.1.0] - 2026-09-24
+
 ### Added
 
 - **SmartVideo media service** (`useParseMediaSource`, `useBuildVideoEmbed`, `useGetYoutubeVideoId`, nocookie embed + thumbnail builders) — one `src` renders native `<video>` for direct files or a click-to-play facade `<figure>` for YouTube/Vimeo, plus `useEnhanceVideoFacades` hydration in infrastructure.
@@ -12,18 +26,28 @@ All notable changes to this project are documented in this file.
 - **Zod coverage across the whole library** — schemas now also cover core data shapes (geometry, viewport, currency, dates, agent/assistant payloads), access control (roles, capabilities, subjects) and both REST adapters. Every inferable data type in `src/types/` is now derived from a schema; contracts with methods, generics and callbacks intentionally stay as interfaces.
 - **WordPress and Notion runtime validation** — responses are validated with loose schemas (extra keys like `_links`/`_embedded` are preserved), inputs are validated before any network call (`400`), malformed payloads return a typed `502` with per-field `details`, and update payloads support WP partial responses via response variants.
 - **InsForge adapter** (`katanakit-js/adapters/insforge`, optional `@insforge/sdk` peer) — database fallback with `useIfSelect`/`useIfInsert`/`useIfUpdate`/`useIfDelete`/`useIfRpc`, storage (`useIfUpload`, `useIfDownload`, `useIfRemove`, `useIfListObjects`, `useIfGetPublicUrl`) and edge functions (`useIfInvokeFunction`). Mass writes are refused (update/delete require non-empty filters), inputs are Zod-validated, and the whole surface returns Safe Results.
-- **Filesystem service (Node/Bun)** (`useReadFile`, `useReadFileBuffer`, `useWriteFile`, `useAppendFile`, `useReadJsonFile`, `useWriteJsonFile`, `useReadDir`, `useEnsureDir`, `useFileExists`, `useGetFileStats`, `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir`) plus path helpers (`useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`, `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode`) and module-relative readers (`useReadModuleFile`, `useReadModuleJson`, the `__dirname` pattern without `__dirname`). `node:fs/promises`/`node:path` load through dynamic `import()`, every fallible call returns a Safe Result with the native errno `code` (`ENOENT`, `EACCES`, …), and browsers/Workers get `ERR_FS_UNAVAILABLE` instead of a crash. `useReadJsonFile`/`useReadModuleJson` accept an optional Zod schema for boundary validation.
-- **Faker service** (`useFakeUuid`, `useFakeEmail`, `useFakeFullName`, `useFakeFirstName`, `useFakeLastName`, `useFakePhone`, `useFakeCompanyName`, `useFakeUrl`, `useFakeText`, `useFakeNumber`, `useFakeBoolean`, `useFakeDate`, `useFakeVehicle`, `useFakeList`, `useFakeSeed`, `useFakeSetDefaultRefDate`) — generic fake data for tests, seeds and forms. `useFakeSeed(seed?)` sets (or rolls and returns) a seed, `useFakeSetDefaultRefDate()` pins relative dates, and `useFakeList(factory, count)` passes the index for relations. `@faker-js/faker` is an **optional peer dependency** loaded through dynamic `import()`, so it never enters the initial bundle.
 
 ### Changed
 
-- **Docs site migrated from Docusaurus to VitePress** — sources live in `docs/` and are served at `docs.senseikatana.com/*` (old `/docs/*` links redirect via `_redirects`). The API reference is TypeDoc-generated (`docs/api/` + sidebar JSON) and the changelog page is materialized from `CHANGELOG.md`, both by `scripts/docs-prepare.mjs` (no Python). Pages keep YAML frontmatter (`title`, `description`) so Obsidian reads them as properties; JS/TS is embedded with `<script setup lang="ts">` (Vue-in-Markdown — VitePress has no MDX).
-- **Repository cleanup** — removed the `playground/` workspace and its scripts, the MkDocs tooling (`mkdocs.yml`, `hooks/`, Python) and the stale `content/` tree; the repo now has a single docs site and no extra workspaces. Deploy, CI, `setup-cloudflare.mjs` and docs were updated accordingly; the manual `bun run docs:gh` command keeps a gh-pages preview without GitHub Actions.
 - **WordPress `WpEmbedded["wp:featuredmedia"]`** is now a loose partial shape instead of `WpMedia[]` (embedded media never nests `_embedded`); this breaks the runtime Zod schema cycle while keeping `source_url`/`id`/`title` typed.
 
 ### Fixed
 
 - **SEO `SiteConfig` errors name the missing field** — `useSeoTag`, `useGenerateMetaTags`, `useHeadTags`, `useRssHeadLink` and `useSeoMeta` defaults now throw `[Seo] SiteConfig.seo is required` / `[Seo] SiteConfig.rss is required` (with the caller name) instead of `Cannot read properties of undefined (reading 'noindex')`. `nav` stays optional.
+
+## [5.0.1] - 2026-09-22
+
+### Changed
+
+- **Docs build maintenance** — dependency/build update in the docs workspace; published to npm as 5.0.1.
+
+## [5.0.0] - 2026-09-22
+
+Version alignment release (GitHub tag only; superseded by 5.0.1).
+
+## [4.0.4] - 2026-09-22
+
+Version-only release. No functional changes vs 4.0.3.
 
 ## [4.0.3]
 

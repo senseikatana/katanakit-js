@@ -23,17 +23,20 @@ export default defineConfig({
 	cleanUrls: true,
 	lastUpdated: true,
 	sitemap: { hostname: "https://docs.senseikatana.com" },
-	head: [
-		["link", { rel: "icon", href: "/img/favicon.ico" }],
-		["meta", { name: "theme-color", content: "#0a0a0a" }],
-	],
+	head: [["meta", { name: "theme-color", content: "#0a0a0a" }]],
+	vite: {
+		build: {
+			// The bundled Vue runtime + search index exceed Vite's 500 kB default; the
+			// limit is only bumped to keep the build output warning-free.
+			chunkSizeWarningLimit: 1500,
+		},
+	},
 	themeConfig: {
-		logo: "/img/logo.svg",
 		nav: [
 			{ text: "Home", link: "/" },
 			{ text: "Guides", link: "/guides/getting-started", activeMatch: "/guides/" },
 			{ text: "UI Kit", link: "/ui-kit/", activeMatch: "/ui-kit/" },
-			{ text: "Changelog", link: "/changelog" },
+			{ text: "Releases", link: "/changelog" },
 			{ text: "API Reference", link: "/api/" },
 		],
 		sidebar: [
@@ -63,7 +66,7 @@ export default defineConfig({
 					{ text: "Roadmap", link: "/ui-kit/roadmap" },
 				],
 			},
-			{ text: "Changelog", link: "/changelog" },
+			{ text: "Releases", link: "/changelog" },
 			{ text: "API Reference", collapsed: true, items: apiSidebar },
 		],
 		search: { provider: "local" },

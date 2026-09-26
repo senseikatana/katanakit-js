@@ -30,7 +30,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 - Branch from `dev` (conventional commits). Never PR `feature` → `main` directly.
 - Before any PR: `git checkout dev && git merge <branch>` — features land in `dev` first.
 - PRs to `main` come only from `dev`. Merge only green. Delete branches after merge.
-- CHANGELOG `[Unreleased]` entry for user-visible changes; README + docs updated with features.
+- CHANGELOG `[Unreleased]` entry for **every user-visible change, in the same commit**. `scripts/bump-version.mjs` promotes it to `[X.Y.Z] - date` on release and refuses to release an empty section. README + docs updated with features.
 - Release via CI: trigger `.github/workflows/release.yml` (workflow_dispatch, pick patch/minor/major). Manual fallback: `bun run release[:minor|:major]`.
 - **PREREQUISITE**: Trusted publishing must be configured on npmjs.com (Package Settings → Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`, workflow `release.yml`).
 

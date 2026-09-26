@@ -77,5 +77,5 @@ if (result.ok) {
 | Fake data and seed fixtures            | [Faker](/guides/faker)                     |
 | Hexagonal architecture                 | [Architecture](/guides/architecture)       |
 | Planned UI kit                         | [Katana UI](/ui-kit/)                      |
-| Every release                          | [Changelog](/changelog)                    |
+| Every release                          | [Releases](/changelog)                     |
 | Every export, generated from source    | [API Reference](/api/)                     |

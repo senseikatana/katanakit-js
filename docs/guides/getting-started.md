@@ -799,5 +799,5 @@ ServerExpress.getInstance().useStart(); // http://localhost:3000
 
 - [Architecture](architecture.md) — understand the hexagonal layout
 - [API Reference](../api/index.md) — auto-generated from source
-- [Changelog](../changelog.md) — what changed in each version
+- [Releases](../changelog.md) — what changed in each version
 - [Roadmap](roadmap.md) — what's coming next

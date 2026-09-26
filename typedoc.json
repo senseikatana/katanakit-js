@@ -17,6 +17,11 @@
 	"indexFormat": "table",
 	"excludePrivate": true,
 	"excludeInternal": true,
+	"externalSymbolLinkMappings": {
+		"@tanstack/query-core": {
+			"functionalUpdate": "#"
+		}
+	},
 	"sidebar": {
 		"autoConfiguration": true,
 		"pretty": true

@@ -3,7 +3,8 @@
  * Prepares generated docs content before VitePress runs:
  *
  * 1. Generates the TypeDoc API reference into `docs/api/` (with the
- *    VitePress sidebar JSON used by `docs/.vitepress/config.ts`).
+ *    VitePress sidebar JSON used by `docs/.vitepress/config.ts`). The run is
+ *    skipped when `src/`, `typedoc.json` and `tsconfig.json` are unchanged.
  * 2. Copies `CHANGELOG.md` to `docs/changelog.md` with YAML frontmatter so
  *    both VitePress and Obsidian read it as a proper page/property.
  *
@@ -11,13 +12,53 @@
  * `bun run docs:build`.
  */
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { createHash } from "node:crypto";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const API_DIR = join(ROOT, "docs", "api");
+const API_INDEX = join(API_DIR, "index.md");
+const API_HASH = join(API_DIR, ".cache-hash");
 
-execFileSync("bunx", ["typedoc"], { cwd: ROOT, stdio: "inherit" });
+/** Hashes `src/**` + the TypeDoc/TS config so TypeDoc only runs when needed. */
+function sourcesHash() {
+	const hash = createHash("sha256");
+	for (const file of ["typedoc.json", "tsconfig.json"]) {
+		hash.update(readFileSync(join(ROOT, file)));
+	}
+
+	const walk = (dir) => {
+		const entries = readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
+			a.name.localeCompare(b.name),
+		);
+		for (const entry of entries) {
+			const full = join(dir, entry.name);
+			if (entry.isDirectory()) {
+				walk(full);
+			} else if (entry.name.endsWith(".ts")) {
+				hash.update(relative(ROOT, full));
+				hash.update(readFileSync(full));
+			}
+		}
+	};
+	walk(join(ROOT, "src"));
+
+	return hash.digest("hex");
+}
+
+const hash = sourcesHash();
+const isCached =
+	existsSync(API_INDEX) && existsSync(API_HASH) && readFileSync(API_HASH, "utf8").trim() === hash;
+
+if (isCached) {
+	console.log("docs: docs/api/ is up to date (TypeDoc skipped)");
+} else {
+	execFileSync("bunx", ["typedoc"], { cwd: ROOT, stdio: "inherit" });
+	writeFileSync(API_HASH, hash);
+	console.log("docs: generated docs/api/");
+}
 
 const changelog = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8").replace(/^# Changelog\n+/, "");
 
@@ -33,4 +74,4 @@ const page = [
 ].join("\n");
 
 writeFileSync(join(ROOT, "docs", "changelog.md"), page);
-console.log("docs: generated docs/api/ and docs/changelog.md");
+console.log("docs: wrote docs/changelog.md");

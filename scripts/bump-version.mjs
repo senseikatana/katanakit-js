@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Bumps the version in package.json, commits, and creates the annotated release tag.
+ * Bumps the version in package.json, promotes the CHANGELOG `[Unreleased]`
+ * section to `[X.Y.Z] - date`, commits, and creates the annotated release tag.
  *
  * Usage:
  *   node scripts/bump-version.mjs patch|minor|major ["release message"]
@@ -38,6 +39,41 @@ function bump(current, release) {
 	return `${major}.${minor}.${patch + 1}`;
 }
 
+/**
+ * Moves the `[Unreleased]` entries into a `[X.Y.Z] - date` section and leaves a
+ * fresh empty `[Unreleased]` on top. Refuses to release an empty section, so a
+ * release always ships a changelog.
+ */
+function promoteChangelog(version) {
+	const file = join(ROOT, "CHANGELOG.md");
+	const content = readFileSync(file, "utf8");
+	const marker = "## [Unreleased]";
+	const start = content.indexOf(marker);
+	if (start === -1) {
+		console.error("CHANGELOG.md is missing the '## [Unreleased]' section.");
+		process.exit(1);
+	}
+
+	const rest = content.slice(start + marker.length);
+	const next = rest.search(/\n## /);
+	const body = (next === -1 ? rest : rest.slice(0, next)).trim();
+	if (!body) {
+		console.error(
+			"CHANGELOG.md [Unreleased] is empty — add an entry for every user-visible change before releasing.",
+		);
+		process.exit(1);
+	}
+
+	const date = new Date().toISOString().slice(0, 10);
+	const tail = next === -1 ? "" : rest.slice(next + 1);
+	const updated = (
+		content.slice(0, start) + `${marker}\n\n## [${version}] - ${date}\n\n${body}\n\n${tail}`
+	).replace(/\n{3,}/g, "\n\n");
+
+	writeFileSync(file, updated);
+	console.log(`Changelog: [Unreleased] promoted to [${version}]`);
+}
+
 if (kind === "--sync") {
 	const tag = execFileSync("git", ["tag", "--sort=-v:refname"], { cwd: ROOT, encoding: "utf8" })
 		.split("\n")[0]
@@ -59,6 +95,7 @@ const version = bump(readVersion(MANIFESTS[0]), kind);
 for (const manifest of MANIFESTS) {
 	writeVersion(manifest, version);
 }
+promoteChangelog(version);
 
 const git = (...gitArgs) => execFileSync("git", gitArgs, { cwd: ROOT, stdio: "inherit" });
 git("add", "-u");
