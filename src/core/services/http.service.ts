@@ -5,6 +5,7 @@ import type {
 	FetchResult,
 	UrlOptions,
 } from "../../types/index.js";
+import { useTryJsonParse } from "./result.service.js";
 
 /** Module-level API registry. */
 let apis: ApisConfig = {};
@@ -34,20 +35,9 @@ async function readBody(response: Response): Promise<unknown> {
 	const text = await response.text();
 	if (!text) return null;
 
-	const contentType = response.headers.get("content-type") ?? "";
-	if (contentType.includes("application/json")) {
-		try {
-			return JSON.parse(text) as unknown;
-		} catch {
-			return text;
-		}
-	}
-
-	try {
-		return JSON.parse(text) as unknown;
-	} catch {
-		return text;
-	}
+	// JSON first; non-JSON bodies fall back to the raw text.
+	const parsed = useTryJsonParse(text);
+	return parsed.ok ? parsed.data : text;
 }
 
 /**

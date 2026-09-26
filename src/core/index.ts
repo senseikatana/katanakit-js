@@ -12,6 +12,7 @@ export * from "./services/logger.service.js";
 export * from "./services/media.service.js";
 export * from "./services/query.service.js";
 export * from "./services/reactive.service.js";
+export * from "./services/result.service.js";
 export * from "./services/timing.service.js";
 export * from "./services/utils.service.js";
 export * from "./services/validation.service.js";

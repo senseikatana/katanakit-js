@@ -1,4 +1,4 @@
-import type { ISerializedError } from "../../types/index.js";
+import type { ApiError, ISerializedError } from "../../types/index.js";
 
 /** Default error messages by HTTP status code. */
 const ERROR_DEFAULTS: Record<number, string> = {
@@ -51,4 +51,49 @@ export function useErrorSerialize(message = "", code = 400): ISerializedError {
  */
 export function useErrorCustom(msg: string, code: number): ISerializedError {
 	return useErrorSerialize(msg, code);
+}
+
+/**
+ * Normalizes any thrown value into the shared {@link ApiError} shape.
+ *
+ * Reads `message`, numeric `status` (or `statusCode`, used by some SDKs) and
+ * `details` when present; every other value becomes a generic error. This is
+ * the canonical mapper for `useAttempt()` at service boundaries.
+ *
+ * @param error - The caught value (`Error`, SDK error object, string, …).
+ * @param fallbackStatus - Status used when the value has none (default: `0`).
+ * @returns A serializable `{ message, status, details? }` error.
+ *
+ * @example
+ * ```ts
+ * import { useAttempt, useErrorNormalize } from "katanakit-js";
+ *
+ * const result = await useAttempt(() => sdk.call(), useErrorNormalize);
+ * if (!result.ok) console.error(result.error.status, result.error.message);
+ * ```
+ */
+export function useErrorNormalize(error: unknown, fallbackStatus = 0): ApiError {
+	if (error && typeof error === "object") {
+		const record = error as {
+			message?: unknown;
+			status?: unknown;
+			statusCode?: unknown;
+			details?: unknown;
+		};
+		const status =
+			typeof record.status === "number"
+				? record.status
+				: typeof record.statusCode === "number"
+					? record.statusCode
+					: fallbackStatus;
+		return {
+			message: typeof record.message === "string" ? record.message : "Unknown error",
+			status,
+			details: record.details,
+		};
+	}
+	return {
+		message: typeof error === "string" ? error : "Unknown error",
+		status: fallbackStatus,
+	};
 }

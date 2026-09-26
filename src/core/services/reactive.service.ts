@@ -233,13 +233,10 @@ export function useCreateStorageSignal<T>(
 ): [SignalGetter<T>, SignalSetter<T>] {
 	let initial: T = fallbackValue;
 
-	try {
-		const stored = useGetStorage<T>(key, target);
-		if (stored !== null && stored !== undefined) {
-			initial = stored;
-		}
-	} catch (error) {
-		useLogger(`[createStorageSignal] Error reading from ${target}:`, error, "error");
+	// StorageStrategy implementations never throw: unavailable backends return null.
+	const stored = useGetStorage<T>(key, target);
+	if (stored !== null && stored !== undefined) {
+		initial = stored;
 	}
 
 	const [get, set] = useCreateSignal<T>(initial);
@@ -248,11 +245,7 @@ export function useCreateStorageSignal<T>(
 		set((prev) => {
 			const newValue = typeof nextValue === "function" ? (nextValue as (p: T) => T)(prev) : nextValue;
 
-			try {
-				useSetStorage(key, newValue, target);
-			} catch (error) {
-				useLogger(`[createStorageSignal] Error writing to ${target}:`, error, "error");
-			}
+			useSetStorage(key, newValue, target);
 
 			return newValue;
 		});

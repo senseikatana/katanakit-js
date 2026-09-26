@@ -91,6 +91,22 @@ function fail<T>(error: unknown): FetchResult<T> {
 }
 
 /**
+ * Runs an InsForge operation, mapping thrown values and awaited SDK outcomes
+ * into a `FetchResult`. This is the single `try/catch` for the adapter.
+ *
+ * @param operation - Operation returning the success value; throw SDK errors.
+ * @param status - HTTP-like status for the success branch (default: `200`).
+ * @returns Safe Result with the normalized error on failure.
+ */
+async function run<T>(operation: () => Promise<T>, status = 200): Promise<FetchResult<T>> {
+	try {
+		return { data: await operation(), error: null, url: "", status, ok: true };
+	} catch (err: unknown) {
+		return fail<T>(err);
+	}
+}
+
+/**
  * Builds a 400 Safe Result from a failed input validation.
  *
  * @param parsed - Failed validation result.
@@ -205,8 +221,9 @@ export async function useIfSelect<T = Record<string, unknown>>(
 	if (!parsed.ok) return invalidInput<T[]>(parsed);
 	if (!client) return notConfigured<T[]>();
 
-	try {
-		const database = scopedDatabase(client.database, parsed.data.schema);
+	const db = client;
+	return run<T[]>(async () => {
+		const database = scopedDatabase(db.database, parsed.data.schema);
 		let builder = database.from(parsed.data.table).select(parsed.data.columns ?? "*");
 		builder = applyFilters(builder, parsed.data.filters);
 		if (parsed.data.order) {
@@ -220,11 +237,9 @@ export async function useIfSelect<T = Record<string, unknown>>(
 			builder = builder.range(from, from + (parsed.data.limit ?? 100) - 1);
 		}
 		const outcome = await builder;
-		if (outcome.error) return fail<T[]>(outcome.error);
-		return { data: (outcome.data ?? []) as T[], error: null, url: "", status: 200, ok: true };
-	} catch (err: unknown) {
-		return fail<T[]>(err);
-	}
+		if (outcome.error) throw outcome.error;
+		return (outcome.data ?? []) as T[];
+	});
 }
 
 /**
@@ -246,15 +261,14 @@ export async function useIfInsert<T = Record<string, unknown>>(
 	if (!rowsParsed.ok) return invalidInput<T[]>(rowsParsed);
 	if (!client) return notConfigured<T[]>();
 
-	try {
-		const database = scopedDatabase(client.database, schema);
+	const db = client;
+	return run<T[]>(async () => {
+		const database = scopedDatabase(db.database, schema);
 		const builder = database.from(tableParsed.data).insert(rowsParsed.data);
 		const outcome = await builder.select("*");
-		if (outcome.error) return fail<T[]>(outcome.error);
-		return { data: (outcome.data ?? []) as T[], error: null, url: "", status: 201, ok: true };
-	} catch (err: unknown) {
-		return fail<T[]>(err);
-	}
+		if (outcome.error) throw outcome.error;
+		return (outcome.data ?? []) as T[];
+	}, 201);
 }
 
 /**
@@ -284,16 +298,15 @@ export async function useIfUpdate<T = Record<string, unknown>>(
 	}
 	if (!client) return notConfigured<T[]>();
 
-	try {
-		const database = scopedDatabase(client.database, queryParsed.data.schema);
+	const db = client;
+	return run<T[]>(async () => {
+		const database = scopedDatabase(db.database, queryParsed.data.schema);
 		const updateBuilder = database.from(queryParsed.data.table).update(patchParsed.data);
 		const filtered = applyFilters(updateBuilder, queryParsed.data.filters);
 		const outcome = await filtered.select("*");
-		if (outcome.error) return fail<T[]>(outcome.error);
-		return { data: (outcome.data ?? []) as T[], error: null, url: "", status: 200, ok: true };
-	} catch (err: unknown) {
-		return fail<T[]>(err);
-	}
+		if (outcome.error) throw outcome.error;
+		return (outcome.data ?? []) as T[];
+	});
 }
 
 /**
@@ -310,16 +323,15 @@ export async function useIfDelete<T = Record<string, unknown>>(
 	if (!parsed.ok) return invalidInput<T[]>(parsed);
 	if (!client) return notConfigured<T[]>();
 
-	try {
-		const database = scopedDatabase(client.database, parsed.data.schema);
+	const db = client;
+	return run<T[]>(async () => {
+		const database = scopedDatabase(db.database, parsed.data.schema);
 		const deleteBuilder = database.from(parsed.data.table).delete();
 		const filtered = applyFilters(deleteBuilder, parsed.data.filters);
 		const outcome = await filtered.select("*");
-		if (outcome.error) return fail<T[]>(outcome.error);
-		return { data: (outcome.data ?? []) as T[], error: null, url: "", status: 200, ok: true };
-	} catch (err: unknown) {
-		return fail<T[]>(err);
-	}
+		if (outcome.error) throw outcome.error;
+		return (outcome.data ?? []) as T[];
+	});
 }
 
 /**
@@ -333,14 +345,13 @@ export async function useIfRpc<T = unknown>(call: IfRpcCall): Promise<FetchResul
 	if (!parsed.ok) return invalidInput<T>(parsed);
 	if (!client) return notConfigured<T>();
 
-	try {
-		const database = scopedDatabase(client.database, parsed.data.schema);
+	const db = client;
+	return run<T>(async () => {
+		const database = scopedDatabase(db.database, parsed.data.schema);
 		const outcome = await database.rpc(parsed.data.name, parsed.data.params ?? {});
-		if (outcome.error) return fail<T>(outcome.error);
-		return { data: outcome.data as T, error: null, url: "", status: 200, ok: true };
-	} catch (err: unknown) {
-		return fail<T>(err);
-	}
+		if (outcome.error) throw outcome.error;
+		return outcome.data as T;
+	});
 }
 
 /**
@@ -358,21 +369,12 @@ export async function useIfUpload(
 	if (!parsed.ok) return invalidInput<Record<string, unknown>>(parsed);
 	if (!client) return notConfigured<Record<string, unknown>>();
 
-	try {
-		const { data, error } = await client.storage
-			.from(parsed.data.bucket)
-			.upload(parsed.data.path, file);
-		if (error) return fail<Record<string, unknown>>(error);
-		return {
-			data: (data ?? {}) as unknown as Record<string, unknown>,
-			error: null,
-			url: "",
-			status: 200,
-			ok: true,
-		};
-	} catch (err: unknown) {
-		return fail<Record<string, unknown>>(err);
-	}
+	const db = client;
+	return run<Record<string, unknown>>(async () => {
+		const { data, error } = await db.storage.from(parsed.data.bucket).upload(parsed.data.path, file);
+		if (error) throw error;
+		return (data ?? {}) as unknown as Record<string, unknown>;
+	});
 }
 
 /**
@@ -386,22 +388,23 @@ export async function useIfDownload(ref: IfStorageRef): Promise<FetchResult<Blob
 	if (!parsed.ok) return invalidInput<Blob>(parsed);
 	if (!client) return notConfigured<Blob>();
 
-	try {
-		const { data, error } = await client.storage.from(parsed.data.bucket).download(parsed.data.path);
-		if (error) return fail<Blob>(error);
-		if (!data) {
-			return {
-				data: null,
-				error: { message: "InsForge Error: object not found", status: 404 },
-				url: "",
-				status: 404,
-				ok: false,
-			};
-		}
-		return { data, error: null, url: "", status: 200, ok: true };
-	} catch (err: unknown) {
-		return fail<Blob>(err);
+	const db = client;
+	const result = await run<Blob | null>(async () => {
+		const { data, error } = await db.storage.from(parsed.data.bucket).download(parsed.data.path);
+		if (error) throw error;
+		return data;
+	});
+	if (!result.ok) return result;
+	if (!result.data) {
+		return {
+			data: null,
+			error: { message: "InsForge Error: object not found", status: 404 },
+			url: "",
+			status: 404,
+			ok: false,
+		};
 	}
+	return { data: result.data, error: null, url: "", status: 200, ok: true };
 }
 
 /**
@@ -417,19 +420,12 @@ export async function useIfRemove(
 	if (!parsed.ok) return invalidInput<Record<string, unknown>>(parsed);
 	if (!client) return notConfigured<Record<string, unknown>>();
 
-	try {
-		const { data, error } = await client.storage.from(parsed.data.bucket).remove(parsed.data.path);
-		if (error) return fail<Record<string, unknown>>(error);
-		return {
-			data: (data ?? {}) as unknown as Record<string, unknown>,
-			error: null,
-			url: "",
-			status: 200,
-			ok: true,
-		};
-	} catch (err: unknown) {
-		return fail<Record<string, unknown>>(err);
-	}
+	const db = client;
+	return run<Record<string, unknown>>(async () => {
+		const { data, error } = await db.storage.from(parsed.data.bucket).remove(parsed.data.path);
+		if (error) throw error;
+		return (data ?? {}) as unknown as Record<string, unknown>;
+	});
 }
 
 /**
@@ -449,19 +445,12 @@ export async function useIfListObjects(
 	if (!optionsParsed.ok) return invalidInput<Record<string, unknown>>(optionsParsed);
 	if (!client) return notConfigured<Record<string, unknown>>();
 
-	try {
-		const { data, error } = await client.storage.from(bucketParsed.data).list(optionsParsed.data);
-		if (error) return fail<Record<string, unknown>>(error);
-		return {
-			data: (data ?? {}) as unknown as Record<string, unknown>,
-			error: null,
-			url: "",
-			status: 200,
-			ok: true,
-		};
-	} catch (err: unknown) {
-		return fail<Record<string, unknown>>(err);
-	}
+	const db = client;
+	return run<Record<string, unknown>>(async () => {
+		const { data, error } = await db.storage.from(bucketParsed.data).list(optionsParsed.data);
+		if (error) throw error;
+		return (data ?? {}) as unknown as Record<string, unknown>;
+	});
 }
 
 /**
@@ -502,13 +491,12 @@ export async function useIfInvokeFunction<T = unknown>(
 	if (!parsed.ok) return invalidInput<T>(parsed);
 	if (!client) return notConfigured<T>();
 
-	try {
-		const { data, error } = await client.functions.invoke<T>(parsed.data.name, {
+	const db = client;
+	return run<T>(async () => {
+		const { data, error } = await db.functions.invoke<T>(parsed.data.name, {
 			body: parsed.data.body,
 		});
-		if (error) return fail<T>(error);
-		return { data: data as T, error: null, url: "", status: 200, ok: true };
-	} catch (err: unknown) {
-		return fail<T>(err);
-	}
+		if (error) throw error;
+		return data as T;
+	});
 }

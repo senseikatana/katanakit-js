@@ -1,3 +1,4 @@
+import { useTryJsonParse } from "../../core/services/result.service.js";
 import type { StorageStrategy, StorageTarget } from "../../types/index.js";
 
 // ============================================================
@@ -14,16 +15,18 @@ import type { StorageStrategy, StorageTarget } from "../../types/index.js";
 function createWebStorageStrategy(storage: Storage): StorageStrategy {
 	return {
 		useGetItem<T = unknown>(key: string): T | null {
+			let raw: string | null;
 			try {
-				const raw = storage.getItem(key);
-				return raw ? (JSON.parse(raw) as T) : null;
+				raw = storage.getItem(key);
 			} catch {
-				try {
-					return storage.getItem(key) as unknown as T;
-				} catch {
-					return null;
-				}
+				// Unavailable storage.
+				return null;
 			}
+			if (!raw) return null;
+
+			// Non-JSON values fall back to the raw string (legacy contract).
+			const parsed = useTryJsonParse<T>(raw);
+			return parsed.ok ? parsed.data : (raw as unknown as T);
 		},
 
 		useSetItem(key: string, value: unknown): void {

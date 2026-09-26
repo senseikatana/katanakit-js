@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- **Safe Result helpers** — generic `SafeResult<T, E>` type (now the base of `FilesystemResult`, `AstroServiceResult`, `AiResult` and `RssResult`), plus `useAttempt()` (runs sync/async operations and normalizes any throw into `{ data, error, ok }`), `useTryJsonParse()` (non-throwing JSON) and `useErrorNormalize()` (coerces SDK errors, `Error` instances and strings into `ApiError`, reading `status`/`statusCode`). Ad-hoc `try/catch` was replaced across the library: the nested storage `getItem` guard, the duplicated HTTP body reader, the dead guards in reactive storage signals, the Notion config throw and all ten InsForge boundaries (now one internal `run()` catcher each).
 - **Katana UI foundations (`@katanakit/ui`, private workspace)** — framework-agnostic `useButton`/`useButtonClass`, `useInput`, `useCard`, `useBadge` and `useAlert` (variants, sizes, loading state, accessible label/help/error wiring and dismissal) styled with `katanakit-css` tokens and `data-theme` dark mode. The package ships a self-contained `@katanakit/ui/styles.css` build, VitePress pages with live demos under UI Kit → Components, and jsdom tests. Not published to npm yet.
 
 ### Changed

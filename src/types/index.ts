@@ -268,8 +268,7 @@ export type FileEncoding = z.infer<typeof FileEncodingSchema>;
 export type FilesystemError = z.infer<typeof FilesystemErrorSchema>;
 
 /** Safe Result for filesystem operations: `{ data, error, ok }`, never throws. */
-export type FilesystemResult<T> =
-	{ data: T; error: null; ok: true } | { data: null; error: FilesystemError; ok: false };
+export type FilesystemResult<T> = SafeResult<T, FilesystemError>;
 
 /** Portable stats subset returned by `useGetFileStats`. */
 export type FileStats = z.infer<typeof FileStatsSchema>;
@@ -359,6 +358,15 @@ export interface FetchOptions extends RequestInit {
 
 /** Structure of the safe error returned on non-2xx or network failures. */
 export type ApiError = z.infer<typeof ApiErrorSchema>;
+
+/**
+ * Generic Safe Result discriminated union (Astro Actions style): the `ok` flag
+ * narrows between the success and error branches and nothing is thrown.
+ *
+ * Domain results below are aliases of this shape with a specific error type.
+ */
+export type SafeResult<T, E = ApiError> =
+	{ data: T; error: null; ok: true } | { data: null; error: E; ok: false };
 
 /**
  * Safe result, discriminated union (Astro Actions style) without throwing.
@@ -662,8 +670,7 @@ export interface PaginationProps<T> {
 export type AstroServiceError = z.infer<typeof AstroServiceErrorSchema>;
 
 /** Safe Result (discriminated union without throwing). */
-export type AstroServiceResult<T> =
-	{ data: T; error: null; ok: true } | { data: null; error: AstroServiceError; ok: false };
+export type AstroServiceResult<T> = SafeResult<T, AstroServiceError>;
 
 /** Contract of the Astro facade. */
 export interface IAstroService {
@@ -704,9 +711,7 @@ export type RssItem = z.infer<typeof RssItemSchema>;
 export type RssConfig = z.infer<typeof RssConfigSchema>;
 
 /** Result of an RSS generation attempt. */
-export type RssResult =
-	| { data: string; error: null; ok: true }
-	| { data: null; error: { message: string; details?: unknown }; ok: false };
+export type RssResult = SafeResult<string, { message: string; details?: unknown }>;
 
 /** Contract of the RSS facade. */
 export interface IRssService {
@@ -761,8 +766,7 @@ export interface AiChatOptions {
 export type AiError = z.infer<typeof AiErrorSchema>;
 
 /** Safe result (discriminated union) without throwing. */
-export type AiResult<T = string> =
-	{ data: T; error: null; ok: true } | { data: null; error: AiError; ok: false };
+export type AiResult<T = string> = SafeResult<T, AiError>;
 
 /**
  * A tool the agent can invoke. `parameters` is a JSON Schema object

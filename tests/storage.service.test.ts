@@ -58,4 +58,18 @@ describe("StorageService (SSR in-memory fallback)", () => {
 		useSetStorage("ephemeral", "value");
 		expect(useGetStorage("ephemeral")).toBeNull();
 	});
+
+	it("falls back to the raw string for malformed JSON", async () => {
+		await useRunStorageScope(() => {
+			useSetStorage("raw", "{ broken");
+			expect(useGetStorage("raw")).toBe("{ broken");
+		});
+	});
+
+	it("returns null for empty values", async () => {
+		await useRunStorageScope(() => {
+			useSetStorage("empty", "");
+			expect(useGetStorage("empty")).toBeNull();
+		});
+	});
 });

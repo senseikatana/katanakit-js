@@ -44,13 +44,10 @@ const NOTION_API_VERSION = "2022-06-28";
 let config: NotionConfig | null = null;
 
 /**
- * Retrieves the registered Notion config or throws.
+ * Retrieves the registered Notion config, or `null` when not configured.
  * @internal
  */
-function getConfig(): NotionConfig {
-	if (!config) {
-		throw new Error("[Notion] Not configured. Call useInitNotion() first.");
-	}
+function getConfig(): NotionConfig | null {
 	return config;
 }
 
@@ -64,12 +61,15 @@ async function notionFetch<T>(
 	options: RequestInit = {},
 	schema?: z.ZodType<unknown>,
 ): Promise<FetchResult<T>> {
-	let cfg: NotionConfig;
-	try {
-		cfg = getConfig();
-	} catch (err: unknown) {
-		const message = err instanceof Error ? err.message : String(err);
-		return { data: null, error: { message, status: 0 }, url: "", status: 0, ok: false };
+	const cfg = getConfig();
+	if (!cfg) {
+		return {
+			data: null,
+			error: { message: "[Notion] Not configured. Call useInitNotion() first.", status: 0 },
+			url: "",
+			status: 0,
+			ok: false,
+		};
 	}
 
 	const { token, apiVersion, apiBaseUrl } = cfg;
