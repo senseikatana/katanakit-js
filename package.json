@@ -137,7 +137,7 @@
 		"docs:dev": "bun run docs:prepare && vitepress dev docs",
 		"docs:build": "bun run docs:prepare && vitepress build docs",
 		"docs:preview": "vitepress preview docs",
-		"docs:gh": "bun run docs:prepare && vitepress build docs --base /katanakit-js/ && gh-pages -d docs/.vitepress/dist -t -m \"docs: preview\"",
+		"docs:gh": "bun run docs:prepare && vitepress build docs --base /katanakit-js/ && node scripts/docs-publish.mjs",
 		"cf:deploy": "bun run build && bun run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
 	},
 	"repository": {
@@ -247,7 +247,6 @@
 		"eslint-plugin-prettier": "^5.5.6",
 		"eslint-plugin-simple-import-sort": "^14.0.0",
 		"express": "5.2.1",
-		"gh-pages": "^6.3.0",
 		"globals": "^17.12.0",
 		"jsdom": "^30.1.0",
 		"prettier": "^3.9.8",
