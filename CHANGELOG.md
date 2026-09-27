@@ -4,6 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [5.2.1] - 2026-09-27
+
 ### Added
 
 - **`define*Config` config-file entry points** — every service that takes configuration can now be declared in one call that registers it and hands it back, Nuxt/Astro `defineNuxtConfig`-style, with no second `useInit*` step:
