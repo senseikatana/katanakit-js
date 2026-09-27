@@ -9,9 +9,13 @@ description: Katana UI — the planned framework-agnostic UI kit built on top of
 
 **Foundations available.** The first components (button, input, card, badge, alert)
 live in the private `packages/ui` workspace (`@katanakit/ui`) and are styled with
-`katanakit-css`. The package is **not published to npm yet** — inside this repo you
-import it by name, outside it you cannot install it. The rest of the kit is still
-planned; the name **Katana UI** is provisional.
+[`katanakit-css`](./css/index.md). The package is **not published to npm yet** — inside
+this repo you import it by name, outside it you cannot install it. The rest of the kit
+is still planned; the name **Katana UI** is provisional.
+
+The full **katanakit-css reference** lives in this section too: design tokens, colors,
+breakpoints, dark mode, `@apply`, layout mixins, every utility class and the complete
+API reference.
 
 :::
 
@@ -92,6 +96,7 @@ the same primitives the toolkit already guarantees.
 ## Read next
 
 - [Components](./components/button.md) — button, input, card, badge and alert foundations.
+- [katanakit-css](./css/index.md) — the SCSS framework behind the kit: tokens, utilities, mixins and API reference.
 - [Architecture](./architecture.md) — layers, theming, distribution and patterns.
 - [Inventory](./inventory.md) — every planned page, block, layout and interaction.
 - [LLM files](./llm-files.md) — machine-readable artifacts for AI agents.
