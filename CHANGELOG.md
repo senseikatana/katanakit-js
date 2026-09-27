@@ -66,16 +66,13 @@ All notable changes to this project are documented in this file.
   - For `defineApiConfig` only entries shaped like `{ baseUri, endpoints }` reach the registry — boolean flags stay on `config` for your methods to read, and any other object throws a typed error instead of registering garbage.
   - Shared types `ConfigFacade`/`ConfigData`/`ConfigMethod`/`ConfigValues`/`ApiConfigValue` and the runtime helper `useSplitConfig` live in `src/types/index.ts` and `src/core/services/utils.service.ts`. No new files were added; each `define*Config` sits next to the `useInit*` it replaces.
 
-### Changed
+### Breaking
 
-- **`useInit*` deprecated in favour of `define*Config`** — `useInit`, `useInitApis`, `useInitNotion`, `useInitWordPress`, `useInitTelegram`, `useInitWhatsApp` and `useInitInsforge` are marked `@deprecated` in their JSDoc and in the `IFetchApiManager`/`INotionService`/`IWordPressService` contracts. They keep working unchanged, so this is a non-breaking, gradual migration: every existing call site still compiles and runs. Their "not configured" error messages now point at the `define*Config` replacement.
+- **`useInit*` replaced by `define*Config` as the public configuration API** — this is the 5.2.0 → 6.0.0 jump. Every config entry point (`useInit`, `useInitApis`, `useInitNotion`, `useInitWordPress`, `useInitTelegram`, `useInitWhatsApp`, `useInitInsforge`) now has a `define*Config` counterpart that registers the config **and** returns it in one call, so a whole file can be `export default define*Config({ … })` with no second step.
 
-## [5.2.1] - 2026-09-27
+  The old names are still exported and marked `@deprecated`, so existing call sites keep compiling — but they are no longer the documented API, and their "not configured" errors now point at the `define*Config` replacement. Code written against 5.2.x should move to `define*Config` before the aliases are removed in the next major.
 
-Tag-only release with no GitHub release and no npm publish: `bump-version.mjs` read its
-base from a stale `package.json` (5.2.0) while tags were already at v6.0.2, so it cut a
-patch *below* the line it came from. Nothing shipped here — the entries it originally
-carried belong to v6.0.0/v6.0.1/v6.0.2 above.
+  - `IFetchApiManager`, `INotionService` and `IWordPressService` carry the same `@deprecated` marks on their `useInit*` members.
 
 ## [5.2.0] - 2026-09-26
 
