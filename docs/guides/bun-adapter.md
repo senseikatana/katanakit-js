@@ -31,9 +31,10 @@ bun run bun:dev
 ```
 
 ```ts
-import { useInitDummyJson, useBunStart } from "katanakit-js/adapters/bun";
+import { defineApiConfig } from "katanakit-js";
+import { dummyJsonApiConfig, useBunStart } from "katanakit-js/adapters/bun";
 
-useInitDummyJson();
+defineApiConfig(dummyJsonApiConfig);
 
 const server = useBunStart(3000);
 console.log(`Server running at ${server.url}`);
@@ -71,9 +72,10 @@ Bun.serve({
 You can use the handlers anywhere a `Response` is expected — no Bun router required:
 
 ```ts
-import { useInitDummyJson, useDummyJsonProducts } from "katanakit-js/adapters/bun";
+import { defineApiConfig } from "katanakit-js";
+import { dummyJsonApiConfig, useDummyJsonProducts } from "katanakit-js/adapters/bun";
 
-useInitDummyJson();
+defineApiConfig(dummyJsonApiConfig);
 const response = await useDummyJsonProducts(); // Response with the product list
 ```
 

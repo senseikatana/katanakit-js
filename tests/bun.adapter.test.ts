@@ -1,10 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+	dummyJsonApiConfig,
+	useDummyJsonPostById,
 	useDummyJsonProductById,
 	useDummyJsonProducts,
-	useInitDummyJson,
+	useDummyJsonProductsByCategory,
+	useDummyJsonProductSearch,
+	useDummyJsonUserById,
 } from "@/adapters/bun/dummyjson.service.js";
+import { defineApiConfig } from "@/core/services/http.service.js";
 import { useBuildDummyJsonRoutes } from "@/adapters/bun/routes.js";
 import { dummyJsonSeed, useGetDummyJsonSeed } from "@/adapters/bun/seed.js";
 
@@ -21,7 +26,7 @@ function jsonResponse(body: unknown, status = 200): Response {
 
 describe("bun/dummyjson.service", () => {
 	it("lists products from the dummyjson API", async () => {
-		useInitDummyJson();
+		defineApiConfig(dummyJsonApiConfig);
 		vi.stubGlobal(
 			"fetch",
 			vi.fn().mockResolvedValue(jsonResponse({ products: [{ id: 1, title: "iPhone X" }] })),
@@ -34,7 +39,7 @@ describe("bun/dummyjson.service", () => {
 	});
 
 	it("fetches a product by id using the right URL", async () => {
-		useInitDummyJson();
+		defineApiConfig(dummyJsonApiConfig);
 		const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ id: 42, title: "Widget" }));
 		vi.stubGlobal("fetch", fetchMock);
 
@@ -42,11 +47,11 @@ describe("bun/dummyjson.service", () => {
 
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual({ id: 42, title: "Widget" });
-		expect(String(fetchMock.mock.calls[0][0])).toContain("/products/42");
+		expect(String(fetchMock.mock.calls[0][0])).toBe("https://dummyjson.com/products/42");
 	});
 
 	it("returns a safe error response on failure", async () => {
-		useInitDummyJson();
+		defineApiConfig(dummyJsonApiConfig);
 		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ message: "nope" }, 404)));
 
 		const response = await useDummyJsonProductById("999");
@@ -80,4 +85,39 @@ describe("bun/routes", () => {
 		expect(routes).toHaveProperty("/api/seed");
 		expect(routes).toHaveProperty("/api/*");
 	});
+});
+
+describe("bun/dummyjson URL building", () => {
+	/** Every endpoint whose path or query is filled in at call time. */
+	const cases: Array<
+		[name: string, call: (arg: string) => Promise<Response>, arg: string, expected: string]
+	> = [
+		["productById", useDummyJsonProductById, "42", "https://dummyjson.com/products/42"],
+		[
+			"productSearch",
+			useDummyJsonProductSearch,
+			"iphone",
+			"https://dummyjson.com/products/search?q=iphone",
+		],
+		[
+			"productByCategory",
+			useDummyJsonProductsByCategory,
+			"smartphones",
+			"https://dummyjson.com/products/category/smartphones",
+		],
+		["userById", useDummyJsonUserById, "7", "https://dummyjson.com/users/7"],
+		["postById", useDummyJsonPostById, "3", "https://dummyjson.com/posts/3"],
+	];
+
+	for (const [name, call, arg, expected] of cases) {
+		it(`builds the ${name} URL`, async () => {
+			defineApiConfig(dummyJsonApiConfig);
+			const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ ok: true }));
+			vi.stubGlobal("fetch", fetchMock);
+
+			await call(arg);
+
+			expect(String(fetchMock.mock.calls[0][0])).toBe(expected);
+		});
+	}
 });

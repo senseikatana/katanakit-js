@@ -1,4 +1,4 @@
-import { useFetch, useInitApis } from "../../core/services/http.service.js";
+import { useFetch } from "../../core/services/http.service.js";
 import type { FetchResult } from "../../types/index.js";
 
 /** Base URL of the public dummyjson.com REST API. */
@@ -20,24 +20,28 @@ const DUMMYJSON_ENDPOINTS = {
 };
 
 /**
- * Registers the dummyjson.com API in the HTTP manager under the `dummyjson`
- * key. Call once before any {@link useDummyJsonProducts}-style handler.
+ * The dummyjson.com API definition — plain data, so importing this module runs
+ * nothing and hits no network.
+ *
+ * Register it once with `defineApiConfig` before any {@link useDummyJsonProducts}-style
+ * handler; there is no separate init call to remember.
  *
  * @example
  * ```ts
- * import { useInitDummyJson } from "katanakit-js/adapters/bun";
+ * import { defineApiConfig } from "katanakit-js";
+ * import { dummyJsonApiConfig, useDummyJsonProducts } from "katanakit-js/adapters/bun";
  *
- * useInitDummyJson();
+ * defineApiConfig(dummyJsonApiConfig);
+ *
+ * const response = await useDummyJsonProducts();
  * ```
  */
-export function useInitDummyJson(): void {
-	useInitApis({
-		dummyjson: {
-			baseUri: DUMMYJSON_BASE_URL,
-			endpoints: DUMMYJSON_ENDPOINTS,
-		},
-	});
-}
+export const dummyJsonApiConfig = {
+	dummyjson: {
+		baseUri: DUMMYJSON_BASE_URL,
+		endpoints: DUMMYJSON_ENDPOINTS,
+	},
+};
 
 /**
  * Converts a Safe Result into a JSON {@link Response}.

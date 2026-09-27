@@ -34,6 +34,7 @@ All notable changes to this project are documented in this file.
   ```
 
   The old `urlOptions: { … }` nest keeps working; when both are given the flat keys override it **key by key**, so a flat `params` and a legacy `query` combine instead of one replacing the other. `FetchOptions` did gain a type parameter for `transform`: it defaults to `any` (not `unknown`) precisely so a bare `FetchOptions` — or one stored in a variable and passed through a wrapper — stays assignable to `FetchOptions<T>` and existing callers keep compiling.
+- **`dummyJsonApiConfig`** — the dummyjson.com API definition exported as plain data, so importing the module runs nothing. Register it with `defineApiConfig(dummyJsonApiConfig)` before any `useDummyJson*` handler.
 - **`useFetch` `transform` option** — maps the parsed response body to `T` before it is returned (`(input) => T | Promise<T>`). It runs on successful responses only, and a failing transform comes back as a `Transform Error` Safe Result instead of escaping `useFetch`, so the never-throws contract holds.
 
 ### Changed
@@ -41,6 +42,19 @@ All notable changes to this project are documented in this file.
 - **`useInit*` deprecated in favour of `define*Config`** — `useInit`, `useInitApis`, `useInitNotion`, `useInitWordPress`, `useInitTelegram`, `useInitWhatsApp` and `useInitInsforge` are marked `@deprecated` in their JSDoc and in the `IFetchApiManager`/`INotionService`/`IWordPressService` contracts. They keep working unchanged, so this is a non-breaking, gradual migration: every existing call site still compiles and runs. Their "not configured" error messages now point at the `define*Config` replacement.
 - **`FetchOptions.urlOptions` deprecated** — pass `params`/`query`/`ignoreDefaultQuery` at the top level instead. The nest is now only a compatibility shim and is scheduled for removal in the next major; every call site inside the library (adapters, DummyJson, `useGet`/`usePost`/…) already uses the flat form.
 - **`useBuildApiUrl` deprecated in favour of `useBuildUrl`** — it was a behaviourally identical wrapper with zero real usage, and the Getting Started guide had its deprecation comment backwards (it marked `useBuildUrl` as legacy while the README, the examples and all three tests use it). The guide now teaches `useBuildUrl`, and its JSDoc was rewritten to lead with the answer to *when do I use this*: it is `useFetch` minus the fetch — same registry, same `:param` and `query` handling, but it returns a string instead of requesting. It also documents why it throws rather than returning a Safe Result (it is synchronous and never leaves the process).
+
+### Breaking
+
+- **`useInitDummyJson()` removed** — it took no arguments and did exactly one thing: call `useInitApis` with a fixed preset. A function you configure by calling it with nothing was noise, and it delegated to an already-deprecated API. The definition is now data you pass to `defineApiConfig`, which is the pattern the rest of the library uses:
+
+  ```ts
+  import { defineApiConfig } from "katanakit-js";
+  import { dummyJsonApiConfig, useDummyJsonProducts } from "katanakit-js/adapters/bun";
+
+  defineApiConfig(dummyJsonApiConfig);
+  ```
+
+  Migration is a rename: `useInitDummyJson()` → `defineApiConfig(dummyJsonApiConfig)`. Updated in `src/adapters/bun/main.ts`, `server.ts` JSDoc, `tests/bun.adapter.test.ts` and the Bun adapter guide.
 
 ## [5.2.0] - 2026-09-26
 

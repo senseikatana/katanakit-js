@@ -28,9 +28,10 @@ export interface BunServerOptions {
  *
  * @example
  * ```ts
- * import { useInitDummyJson, useBunCreate } from "katanakit-js/adapters/bun";
+ * import { dummyJsonApiConfig, useBunCreate } from "katanakit-js/adapters/bun";
+ * import { defineApiConfig } from "katanakit-js";
  *
- * useInitDummyJson();
+ * defineApiConfig(dummyJsonApiConfig);
  * const server = useBunCreate({ port: 3000 });
  * console.log(`Server running at ${server.url}`);
  * ```
