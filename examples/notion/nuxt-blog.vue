@@ -13,13 +13,13 @@
  *   3. Add NOTION_TOKEN and NOTION_DATABASE_ID to nuxt.config.ts runtimeConfig
  */
 
-import { useInitNotion, useNotionListAllDatabasePages } from "katanakit-js/adapters/notion";
+import { defineNotionConfig, useNotionListAllDatabasePages } from "katanakit-js/adapters/notion";
 import type { NotionPage } from "katanakit-js/adapters/notion";
 
 const config = useRuntimeConfig();
 
 // Init Notion on server side
-useInitNotion({ token: config.notionToken as string });
+defineNotionConfig({ token: config.notionToken as string });
 
 // Fetch posts with SSR support
 const { data: posts, status } = await useAsyncData("notion-blog", () =>

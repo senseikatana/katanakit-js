@@ -18,7 +18,7 @@ In the browser, use jsDelivr **`/+esm`** so named exports and dependencies resol
 
 ```html
 <script type="module">
-	import { useLogger, useGetApi, useInitApis } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
+	import { useLogger, useGetApi, defineApiConfig } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
 	useLogger("ready");
 </script>
 ```
@@ -34,12 +34,13 @@ Pin a version in production (e.g. `@5.2.0/+esm`). There is no IIFE/UMD build.
 ## Quick Start
 
 ```ts
-import { useInitApis, useGetApi, useLogger } from "katanakit-js";
+import { defineApiConfig, useGetApi, useLogger } from "katanakit-js";
 
 useLogger("boot");
 
-// Register your APIs once
-useInitApis({
+// Register your APIs once — returns the config, so you can also
+// `export default defineApiConfig({ … })` from a config file.
+defineApiConfig({
 	pokeapi: {
 		baseUri: "https://pokeapi.co/api/v2",
 		endpoints: { pokemonById: "/pokemon/:id/" },
@@ -58,6 +59,39 @@ if (result.ok) {
 }
 ```
 
+## Configuration files
+
+Every service that takes config exposes a **`define*Config`** entry point. One call
+registers it and hands it back, so a whole file can be just this:
+
+```ts
+// katanakit.config.ts
+export default defineApiConfig({
+  pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
+  debug: true, // boolean flags stay off the registry, on `config`
+  getPokemon: async function () {
+    //            ^^^^^^^^ `function`, never an arrow
+    if (this.config.debug) console.log("fetching…");
+    return useFetch("pokeapi", "byId", { urlOptions: { params: { id: 25 } } });
+  },
+});
+```
+
+```ts
+import api from "./katanakit.config.js";
+
+api.config.pokeapi; // your props and flags
+await api.getPokemon(); // your methods
+```
+
+Only `{ baseUri, endpoints }` objects reach the API registry. **Declare methods
+with `function`** — arrows have no `this`, so `this.config` inside one is
+`undefined` and TypeScript reports it.
+
+The old `useInit*` calls still work; they are deprecated and map one-for-one onto
+`define*Config`. Full table of which services accept methods in
+[Getting Started](https://docs.senseikatana.com/guides/getting-started).
+
 ## HTTP Client — API Manager
 
 The core of KatanaKit is a **typed, registry-based HTTP client**. You register
@@ -67,9 +101,9 @@ and returns a **Safe Result** (`{ ok, data, error }`) that never throws on HTTP 
 ### 1. Register your APIs
 
 ```ts
-import { useInitApis } from "katanakit-js";
+import { defineApiConfig } from "katanakit-js";
 
-useInitApis({
+defineApiConfig({
 	// A public REST API
 	jsonplaceholder: {
 		baseUri: "https://jsonplaceholder.typicode.com",
@@ -652,9 +686,9 @@ app.use(
 Long polling does not need a public URL. Session ids are `telegram:<chatId>`.
 
 ```ts
-import { useInitTelegram, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
+import { defineTelegramConfig, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
 
-useInitTelegram({ token: process.env.TELEGRAM_BOT_TOKEN });
+defineTelegramConfig({ token: process.env.TELEGRAM_BOT_TOKEN });
 await useStartTelegramPolling();
 ```
 
@@ -670,9 +704,9 @@ await useStartTelegramPolling();
 Webhook: `GET` / `POST` `/whatsapp/webhook`. Session ids are `wa:<phone>`.
 
 ```ts
-import { useInitWhatsApp, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
+import { defineWhatsAppConfig, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
 
-useInitWhatsApp({
+defineWhatsAppConfig({
 	token: process.env.WHATSAPP_TOKEN,
 	phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID,
 	verifyToken: process.env.WHATSAPP_VERIFY_TOKEN,
@@ -729,15 +763,15 @@ product FAQ, CRM, or ticket system. Keep the `{ name, description, parameters, e
 
 ## Framework usage
 
-All common `use*` helpers (`useLogger`, `useInitApis`, `useGetApi`, formatter, dates, utils, theme, …) are on the **main barrel** `katanakit-js`.
+All common `use*` helpers (`useLogger`, `useGetApi`, formatter, dates, utils, theme, …) plus the `define*Config` entry points (`defineApiConfig`, …) are on the **main barrel** `katanakit-js`.
 
 ### Astro (npm)
 
 ```astro
 ---
 // Frontmatter = server
-import { useLogger, useGetApi, useInitApis } from "katanakit-js";
-useInitApis({ /* ... */ });
+import { useLogger, useGetApi, defineApiConfig } from "katanakit-js";
+defineApiConfig({ /* ... */ });
 const result = await useGetApi("pokeapi", "pokemonById", { params: { id: 25 } });
 ---
 <script>
@@ -759,7 +793,7 @@ const result = await useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })
 ### Vue / Nuxt / vanilla
 
 ```ts
-import { useLogger, useInitApis, useGetApi } from "katanakit-js";
+import { useLogger, defineApiConfig, useGetApi } from "katanakit-js";
 import { useRequest } from "katanakit-js/adapters/vue"; // Vue only
 import { useUnwrap } from "katanakit-js/adapters/nuxt"; // Nuxt only
 ```
@@ -782,8 +816,8 @@ See [Getting Started](https://docs.senseikatana.com/guides/getting-started) for 
 | **Vue**       | `katanakit-js/adapters/vue`                     | `useRequest` composable with reactivity                      |
 | **Astro**     | `katanakit-js` or `katanakit-js/adapters/astro` | `AstroService`, `RssService`                                 |
 | **Assistant** | `katanakit-js/adapters/assistant`               | REST digital assistant (`useStartAssistant`)                 |
-| **Telegram**  | `katanakit-js/adapters/telegram`                | BotFather bot (`useInitTelegram`, `useStartTelegramPolling`) |
-| **WhatsApp**  | `katanakit-js/adapters/whatsapp`                | Meta Cloud API (`useInitWhatsApp`, `useStartWhatsApp`)       |
+| **Telegram**  | `katanakit-js/adapters/telegram`                | BotFather bot (`defineTelegramConfig`, `useStartTelegramPolling`) |
+| **WhatsApp**  | `katanakit-js/adapters/whatsapp`                | Meta Cloud API (`defineWhatsAppConfig`, `useStartWhatsApp`)  |
 
 ## REST API Adapters
 
@@ -808,10 +842,10 @@ full TypeScript types, cursor-based auto-pagination, and Safe Results.
 #### Setup
 
 ```ts
-import { useInitNotion } from "katanakit-js/adapters/notion";
+import { defineNotionConfig } from "katanakit-js/adapters/notion";
 
 // Token starts with "ntn_" or "secret_" — get one at https://www.notion.so/my-integrations
-useInitNotion({ token: process.env.NOTION_TOKEN });
+defineNotionConfig({ token: process.env.NOTION_TOKEN });
 ```
 
 #### Pages — read, create, update, archive
@@ -1017,22 +1051,22 @@ and batch operations. All functions return `FetchResult<T>`.
 #### Setup
 
 ```ts
-import { useInitWordPress } from "katanakit-js/adapters/wordpress";
+import { defineWordPressConfig } from "katanakit-js/adapters/wordpress";
 
 // Application Passwords (recommended) — WP Admin → Users → Your Profile → Application Passwords
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: "https://mysite.com",
 	auth: { type: "application-passwords", username: "admin", password: "xxxx xxxx xxxx" },
 });
 
 // JWT tokens
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: "https://mysite.com",
 	auth: { type: "jwt", token: "eyJhbGci..." },
 });
 
 // Nonce-based (for WP themes)
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: "https://mysite.com",
 	auth: { type: "nonce", nonce: "abc123" },
 });
@@ -1372,10 +1406,10 @@ Safe Result contract, validates every input, and refuses mass writes (update/del
 require non-empty filters).
 
 ```ts
-import { useInitInsforge, useIfSelect, useIfInsert } from "katanakit-js/adapters/insforge";
+import { defineInsforgeConfig, useIfSelect, useIfInsert } from "katanakit-js/adapters/insforge";
 
 // Server-only admin client (apiKey), or browser-safe client (anonKey)
-useInitInsforge({ baseUrl: process.env.INSFORGE_URL!, apiKey: process.env.INSFORGE_API_KEY! });
+defineInsforgeConfig({ baseUrl: process.env.INSFORGE_URL!, apiKey: process.env.INSFORGE_API_KEY! });
 
 const posts = await useIfSelect<{ id: number; title: string }>({
 	table: "posts",

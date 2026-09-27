@@ -7,12 +7,12 @@
  */
 
 import {
-	useInitNotion,
+	defineNotionConfig,
 	useNotionListAllDatabasePages,
 	useNotionListAllBlockChildren,
 } from "katanakit-js/adapters/notion";
 
-useInitNotion({ token: process.env.NOTION_TOKEN! });
+defineNotionConfig({ token: process.env.NOTION_TOKEN! });
 
 // Generate static params for SSG
 export async function generateStaticParams() {

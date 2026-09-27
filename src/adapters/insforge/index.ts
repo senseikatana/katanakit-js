@@ -11,6 +11,7 @@ export type {
 	IfWriteQuery,
 } from "../../types/index.js";
 export {
+	defineInsforgeConfig,
 	useGetInsforgeClient,
 	useIfDelete,
 	useIfDownload,

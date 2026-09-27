@@ -4,6 +4,7 @@ export type {
 	TelegramReplyFn,
 } from "./telegram.service.js";
 export {
+	defineTelegramConfig,
 	TELEGRAM_API_BASE,
 	useHandleTelegramUpdate,
 	useInitTelegram,

@@ -10,7 +10,7 @@
 import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import {
-	useInitNotion,
+	defineNotionConfig,
 	useNotionListAllDatabasePages,
 	useNotionGetPage,
 	useNotionListAllBlockChildren,
@@ -18,7 +18,7 @@ import {
 import type { NotionBlock, NotionPage } from "katanakit-js/adapters/notion";
 
 // Init once
-useInitNotion({ token: import.meta.env.VITE_NOTION_TOKEN });
+defineNotionConfig({ token: import.meta.env.VITE_NOTION_TOKEN });
 
 const route = useRoute();
 const slug = computed(() => route.params.slug as string);

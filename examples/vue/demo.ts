@@ -9,7 +9,7 @@
  */
 
 import { useRequest } from "@/adapters/vue";
-import { useGet, useInit } from "@/core/services/http.service";
+import { defineApiConfig, useGet } from "@/core/services/http.service";
 
 interface Pokemon {
 	name: string;
@@ -17,7 +17,7 @@ interface Pokemon {
 }
 
 async function main(): Promise<void> {
-	useInit({
+	defineApiConfig({
 		pokeapi: {
 			baseUri: "https://pokeapi.co/api/v2",
 			endpoints: { pokemonById: "/pokemon/:id/" },

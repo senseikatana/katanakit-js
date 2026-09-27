@@ -11,8 +11,8 @@ npm install katanakit-js express dotenv
 ```ts
 import { useInitAssistant, useReply } from "katanakit-js";
 import { useStartAssistant } from "katanakit-js/adapters/assistant";
-import { useInitTelegram, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
-import { useInitWhatsApp, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
+import { defineTelegramConfig, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
+import { defineWhatsAppConfig, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
 ```
 
 ## 2. Environment

@@ -12,7 +12,7 @@
  */
 
 import {
-	useInitWordPress,
+	defineWordPressConfig,
 	useWpGetPosts,
 	useWpGetCategories,
 } from "katanakit-js/adapters/wordpress";
@@ -21,7 +21,7 @@ import type { WpPost, WpCategory } from "katanakit-js/adapters/wordpress";
 const config = useRuntimeConfig();
 
 // Init WordPress on server side
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: config.wpBaseUrl as string,
 	auth: {
 		type: "application-passwords",

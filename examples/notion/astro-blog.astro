@@ -14,14 +14,14 @@
  */
 
 import {
-	useInitNotion,
+	defineNotionConfig,
 	useNotionQueryDatabase,
 	useNotionListAllDatabasePages,
 	useNotionGetDatabase,
 } from "katanakit-js/adapters/notion";
 
 // 1. Init once
-useInitNotion({ token: import.meta.env.NOTION_TOKEN });
+defineNotionConfig({ token: import.meta.env.NOTION_TOKEN });
 
 // 2. Query the database — filter by Status = Published, sort by Date
 const posts = await useNotionListAllDatabasePages(

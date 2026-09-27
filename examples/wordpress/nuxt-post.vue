@@ -8,7 +8,7 @@
  */
 
 import {
-	useInitWordPress,
+	defineWordPressConfig,
 	useWpFindPostBySlug,
 	useWpGetComments,
 } from "katanakit-js/adapters/wordpress";
@@ -19,7 +19,7 @@ const route = useRoute();
 const slug = route.params.slug as string;
 
 // Init WordPress
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: config.wpBaseUrl as string,
 	auth: {
 		type: "application-passwords",

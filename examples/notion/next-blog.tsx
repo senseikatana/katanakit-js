@@ -9,10 +9,10 @@
  *   3. Add NOTION_TOKEN and NOTION_DATABASE_ID to .env.local
  */
 
-import { useInitNotion, useNotionListAllDatabasePages } from "katanakit-js/adapters/notion";
+import { defineNotionConfig, useNotionListAllDatabasePages } from "katanakit-js/adapters/notion";
 
 // Init once at module level
-useInitNotion({ token: process.env.NOTION_TOKEN! });
+defineNotionConfig({ token: process.env.NOTION_TOKEN! });
 
 export default async function BlogPage() {
 	// Fetch all published posts from Notion

@@ -11,7 +11,7 @@
  */
 
 import {
-	useInitNotion,
+	defineNotionConfig,
 	useNotionGetPage,
 	useNotionCreatePage,
 	useNotionUpdatePage,
@@ -33,7 +33,7 @@ import {
 /* 1. Init — register your token once                                  */
 /* ------------------------------------------------------------------ */
 
-useInitNotion({
+defineNotionConfig({
 	token: process.env.NOTION_TOKEN ?? "",
 	// apiVersion: "2022-06-28",  // optional, this is the default
 });

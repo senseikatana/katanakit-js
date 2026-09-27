@@ -1,14 +1,28 @@
 import type {
+	ApiConfigValue,
 	ApiEntry,
 	ApisConfig,
+	ConfigFacade,
+	ConfigValues,
 	FetchOptions,
 	FetchResult,
 	UrlOptions,
 } from "../../types/index.js";
 import { useTryJsonParse } from "./result.service.js";
+import { useSplitConfig } from "./utils.service.js";
 
 /** Module-level API registry. */
 let apis: ApisConfig = {};
+
+/**
+ * Internal: narrows an unknown literal entry to an {@link ApiEntry}.
+ *
+ * @param value - A non-method value from a `defineApiConfig` literal.
+ * @returns `true` when the value looks like a registered API entry.
+ */
+function isApiEntry(value: unknown): value is ApiEntry {
+	return typeof value === "object" && value !== null && "baseUri" in value && "endpoints" in value;
+}
 
 /**
  * Internal: retrieves a registered API entry or throws.
@@ -79,8 +93,65 @@ function serializeBody(body: unknown): { body?: BodyInit; headers?: HeadersInit 
 }
 
 /**
+ * Declares the API registry in a single call — the config-file entry point.
+ *
+ * Registers every {@link ApiEntry} you list and returns them alongside the
+ * props, flags and methods declared on the same literal, so one `export default`
+ * is the whole setup: no second `useInitApis(...)` step.
+ *
+ * Only object entries shaped like `{ baseUri, endpoints }` reach the registry;
+ * boolean flags are kept on `config` for your own methods to read.
+ *
+ * @typeParam T - The literal passed in.
+ * @param input - API entries, flags and methods in one object literal.
+ * @returns The registered config plus the declared methods (see {@link ConfigFacade}).
+ * @throws {Error} If a non-method value is an object that is not an API entry.
+ *
+ * @example
+ * ```ts
+ * import { defineApiConfig } from "katanakit-js";
+ *
+ * export default defineApiConfig({
+ *   pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
+ *   debug: true,
+ *   getPokemon: async function () {
+ *     return useFetch("pokeapi", "byId", { urlOptions: { params: { id: 25 } } });
+ *   },
+ * });
+ * ```
+ *
+ * @remarks Methods must be written with `function`, not as arrows — `this.config`
+ * is undefined inside an arrow function.
+ */
+export function defineApiConfig<T extends object>(
+	input: T & ThisType<ConfigFacade<T>> & ConfigValues<NoInfer<T>, ApiConfigValue>,
+): ConfigFacade<T> {
+	const { config, methods } = useSplitConfig(input);
+
+	const registered: ApisConfig = {};
+	for (const [name, value] of Object.entries(config)) {
+		if (isApiEntry(value)) {
+			registered[name] = value;
+			continue;
+		}
+		if (typeof value === "object" && value !== null) {
+			throw new Error(
+				`[FetchApiManager] defineApiConfig: "${name}" is not an API entry ` +
+					`(expected an object with baseUri and endpoints).`,
+			);
+		}
+	}
+	useInitApis(registered);
+
+	// `methods` is a generic spread, so TS cannot prove the exact facade shape.
+	return { config, ...methods } as ConfigFacade<T>;
+}
+
+/**
  * Registers (merges) API definitions into the client registry.
- * Prefer the clearer alias {@link useInitApis}.
+ *
+ * @deprecated Use {@link defineApiConfig}, which registers the config and
+ * returns it with any methods declared on the same literal.
  *
  * @param apisConfig - The API definitions to merge into the registry.
  *
@@ -102,6 +173,9 @@ export function useInit(apisConfig: ApisConfig): void {
 
 /**
  * Registers (merges) API definitions into the client registry.
+ *
+ * @deprecated Use {@link defineApiConfig}, which registers the config and
+ * returns it with any methods declared on the same literal.
  *
  * @param apisConfig - The API definitions to merge into the registry.
  *

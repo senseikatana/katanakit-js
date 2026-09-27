@@ -29,6 +29,7 @@ export type {
 	WpUserUpdate,
 } from "../../types/index.js";
 export {
+	defineWordPressConfig,
 	useInitWordPress,
 	useWpBatch,
 	useWpCreateCategory,

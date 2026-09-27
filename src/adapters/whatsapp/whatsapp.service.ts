@@ -5,7 +5,7 @@ import rateLimit from "express-rate-limit";
 
 import { useReply } from "../../core/services/assistant.service.js";
 import { useLogger } from "../../core/services/logger.service.js";
-import type { AssistantResult } from "../../types/index.js";
+import type { AssistantResult, ConfigFacade } from "../../types/index.js";
 import { useExpressGetApp, useExpressStart, useGetRawBody } from "../express/server.js";
 
 /** Default WhatsApp Cloud API (Graph) base URL. */
@@ -37,13 +37,46 @@ let config: WhatsAppConfig | null = null;
 /** Retrieves the configured integration or throws. */
 function getConfig(): WhatsAppConfig {
 	if (!config) {
-		throw new Error("[WhatsApp] Not configured. Call useInitWhatsApp() first.");
+		throw new Error("[WhatsApp] Not configured. Call defineWhatsAppConfig() first.");
 	}
 	return config;
 }
 
 /**
+ * Registers the WhatsApp Cloud API configuration — the config-file entry point.
+ *
+ * One call is the whole setup: the literal is registered and handed back on
+ * `config`, so `export default defineWhatsAppConfig({ … })` is enough.
+ *
+ * Config-only service: it accepts {@link WhatsAppConfig} and nothing else, so
+ * declaring methods here is a compile error (use the API, Notion, WordPress or
+ * InsForge `define*Config` when you need them).
+ *
+ * @param input - Access token, phone number id and webhook verify token.
+ * @returns The registered config as a {@link ConfigFacade}.
+ *
+ * @example
+ * ```ts
+ * import { defineWhatsAppConfig } from "katanakit-js/adapters/whatsapp";
+ *
+ * export default defineWhatsAppConfig({
+ *   token: process.env.WHATSAPP_TOKEN,
+ *   phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID,
+ *   verifyToken: process.env.WHATSAPP_VERIFY_TOKEN,
+ *   appSecret: process.env.WHATSAPP_APP_SECRET,
+ * });
+ * ```
+ */
+export function defineWhatsAppConfig(input: WhatsAppConfig): ConfigFacade<WhatsAppConfig> {
+	useInitWhatsApp(input);
+	return { config: input };
+}
+
+/**
  * Registers the WhatsApp Cloud API configuration.
+ *
+ * @deprecated Use {@link defineWhatsAppConfig}, which registers and returns
+ * the config in one call.
  *
  * @param cfg - Access token, phone number id and webhook verify token.
  *

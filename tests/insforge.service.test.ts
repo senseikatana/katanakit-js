@@ -9,6 +9,7 @@ vi.mock("@insforge/sdk", () => ({
 }));
 
 import {
+	defineInsforgeConfig,
 	useIfDelete,
 	useIfGetPublicUrl,
 	useIfInsert,
@@ -104,6 +105,29 @@ describe("insforge.service", () => {
 				baseUrl: "https://x.insforge.app",
 				apiKey: "secret",
 			});
+		});
+	});
+
+	describe("defineInsforgeConfig", () => {
+		it("registers the config and returns declared methods bound to `this.config`", () => {
+			const facade = defineInsforgeConfig({
+				baseUrl: "https://x.insforge.app",
+				anonKey: "anon",
+				readKey: function () {
+					return this.config.anonKey;
+				},
+			});
+
+			expect(createClientMock).toHaveBeenCalledWith({
+				baseUrl: "https://x.insforge.app",
+				anonKey: "anon",
+			});
+			expect(facade.config.baseUrl).toBe("https://x.insforge.app");
+			expect(facade.readKey()).toBe("anon");
+		});
+
+		it("validates the config", () => {
+			expect(() => defineInsforgeConfig({ baseUrl: "" })).toThrow(/Invalid config/);
 		});
 	});
 

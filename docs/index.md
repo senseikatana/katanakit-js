@@ -41,12 +41,12 @@ bun add katanakit-js
 ## Quick start
 
 ```ts
-import { useInitApis, useGetApi, useLogger } from "katanakit-js";
+import { defineApiConfig, useGetApi, useLogger } from "katanakit-js";
 
 useLogger("boot");
 
 // Register your APIs once
-useInitApis({
+defineApiConfig({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
     endpoints: { pokemonById: "/pokemon/:id/" },

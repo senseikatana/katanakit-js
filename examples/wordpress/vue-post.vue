@@ -10,14 +10,14 @@
 import { ref, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import {
-	useInitWordPress,
+	defineWordPressConfig,
 	useWpFindPostBySlug,
 	useWpGetComments,
 } from "katanakit-js/adapters/wordpress";
 import type { WpPost, WpComment } from "katanakit-js/adapters/wordpress";
 
 // Init once
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: import.meta.env.VITE_WP_BASE_URL,
 	auth: {
 		type: "application-passwords",

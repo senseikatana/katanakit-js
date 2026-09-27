@@ -4,6 +4,33 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- **`define*Config` config-file entry points** — every service that takes configuration can now be declared in one call that registers it and hands it back, Nuxt/Astro `defineNuxtConfig`-style, with no second `useInit*` step:
+
+  ```ts
+  // katanakit.config.ts
+  export default defineApiConfig({
+    pokeapi: { baseUri: "…", endpoints: { users: "/users" } }, // props
+    debug: true, // booleans
+    getPokemon: async function () {
+      // methods — `function`, never arrows
+      return useFetch("pokeapi", "byId", { urlOptions: { params: { id: 25 } } });
+    },
+  });
+  ```
+
+  The call returns a facade — `config` carries the props and flags, and your methods sit next to it, so `import api from "./katanakit.config.js"` registers the config on import and `await api.getPokemon()` chains your methods. Inside them `this.config` resolves to the same object (declare them with `function`: arrow functions have no `this`, and TypeScript reports it).
+
+  - `defineApiConfig` (main barrel), `defineNotionConfig`, `defineWordPressConfig`, `defineInsforgeConfig` also accept consumer-declared methods.
+  - `defineTelegramConfig`, `defineWhatsAppConfig` are config-only: they accept their config type and nothing else, so a method there is a compile error.
+  - For `defineApiConfig` only entries shaped like `{ baseUri, endpoints }` reach the registry — boolean flags stay on `config` for your methods to read, and any other object throws a typed error instead of registering garbage.
+  - Shared types `ConfigFacade`/`ConfigData`/`ConfigMethod`/`ConfigValues`/`ApiConfigValue` and the runtime helper `useSplitConfig` live in `src/types/index.ts` and `src/core/services/utils.service.ts`. No new files were added; each `define*Config` sits next to the `useInit*` it replaces.
+
+### Changed
+
+- **`useInit*` deprecated in favour of `define*Config`** — `useInit`, `useInitApis`, `useInitNotion`, `useInitWordPress`, `useInitTelegram`, `useInitWhatsApp` and `useInitInsforge` are marked `@deprecated` in their JSDoc and in the `IFetchApiManager`/`INotionService`/`IWordPressService` contracts. They keep working unchanged, so this is a non-breaking, gradual migration: every existing call site still compiles and runs. Their "not configured" error messages now point at the `define*Config` replacement.
+
 ## [5.2.0] - 2026-09-26
 
 ### Added

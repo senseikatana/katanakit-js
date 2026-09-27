@@ -27,12 +27,12 @@ bundler or import map:
 <script type="module">
   import {
     useLogger,
-    useInitApis,
+    defineApiConfig,
     useGetApi,
   } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
 
   useLogger("KatanaKit loaded from CDN");
-  useInitApis({
+  defineApiConfig({
     pokeapi: {
       baseUri: "https://pokeapi.co/api/v2",
       endpoints: { pokemonById: "/pokemon/:id/" },
@@ -59,7 +59,7 @@ There is **no IIFE/UMD** build — only ESM (`"type": "module"`).
 // Main barrel — core helpers + Astro/RSS + SEO (tree-shakeable named exports)
 import {
   useLogger,
-  useInitApis,
+  defineApiConfig,
   useGetApi,
   useFormatCurrency,
   useNow,
@@ -86,11 +86,11 @@ Nuxt, and Vue adapters stay on their subpaths because they pull optional peers.
 ```astro
 ---
 // src/pages/index.astro
-import { useLogger, useInitApis, useGetApi, AstroService } from "katanakit-js";
+import { useLogger, defineApiConfig, useGetApi, AstroService } from "katanakit-js";
 
 useLogger("Building index page");
 
-useInitApis({
+defineApiConfig({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
     endpoints: { pokemonById: "/pokemon/:id/" },
@@ -131,9 +131,9 @@ script as external so Astro does not rewrite it:
 <button id="cdn-btn">Log via CDN</button>
 
 <script is:inline type="module">
-  import { useLogger, useInitApis, useGetApi } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
+  import { useLogger, defineApiConfig, useGetApi } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
 
-  useInitApis({
+  defineApiConfig({
     pokeapi: {
       baseUri: "https://pokeapi.co/api/v2",
       endpoints: { pokemonById: "/pokemon/:id/" },
@@ -154,14 +154,14 @@ In a Vue/React/Svelte island, import from npm like any other dependency:
 
 ```ts
 // src/components/Pokemon.vue (used as <Pokemon client:load />)
-import { useInitApis, useGetApi, useLogger } from "katanakit-js";
+import { defineApiConfig, useGetApi, useLogger } from "katanakit-js";
 ```
 
 ### Vue / Nuxt (brief)
 
 ```ts
 // Vue SFC or Nuxt plugin / server route — main barrel
-import { useLogger, useInitApis, useGetApi } from "katanakit-js";
+import { useLogger, defineApiConfig, useGetApi } from "katanakit-js";
 
 // Nuxt-only helpers
 import { useUnwrap } from "katanakit-js/adapters/nuxt";
@@ -181,6 +181,83 @@ import { useRequest } from "katanakit-js/adapters/vue";
 
 ---
 
+## Configuration files — `define*Config`
+
+Every service that takes configuration exposes a **`define*Config`** entry point.
+One call registers the config and hands it back — there is no second
+`useInit*` step, so a whole file can be nothing but:
+
+```ts
+// katanakit.config.ts
+import { defineApiConfig } from "katanakit-js";
+
+export default defineApiConfig({
+  pokeapi: {
+    baseUri: "https://pokeapi.co/api/v2",
+    endpoints: { pokemonById: "/pokemon/:id/" },
+  },
+  debug: true, // boolean flag
+  getPokemon: async function () {
+    //            ^^^^^^^^ `function`, never an arrow
+    return useFetch("pokeapi", "pokemonById", { urlOptions: { params: { id: 25 } } });
+  },
+});
+```
+
+Importing that file registers the config, and the default export is a facade
+carrying both halves:
+
+```ts
+import api from "./katanakit.config.js";
+
+api.config.pokeapi.baseUri; // the config you declared
+api.config.debug; // your flags
+await api.getPokemon(); // your methods
+```
+
+Inside a method, `this.config` is the same object:
+
+```ts
+getPokemon: async function () {
+  if (this.config.debug) console.log("fetching…");
+  return useFetch("pokeapi", "pokemonById", { urlOptions: { params: { id: 25 } } });
+},
+```
+
+::: warning Use `function`, not an arrow
+Arrow functions have no `this` of their own, so `this.config` inside an arrow
+is `undefined`. The compiler catches it — write `async function () { … }`.
+:::
+
+Only object entries shaped like `{ baseUri, endpoints }` reach the API registry;
+boolean flags stay on `config` for your methods to read.
+
+### Which services
+
+| Service | Import | Methods on the facade |
+|---------|--------|----------------------|
+| API registry | `defineApiConfig` | yes |
+| Notion | `defineNotionConfig` | yes |
+| WordPress | `defineWordPressConfig` | yes |
+| InsForge | `defineInsforgeConfig` | yes |
+| Telegram | `defineTelegramConfig` | no (config only) |
+| WhatsApp | `defineWhatsAppConfig` | no (config only) |
+
+The config-only services accept their config type and nothing else, so declaring
+a method there is a compile error.
+
+### Migration
+
+The old `useInit*` functions still work and are marked `@deprecated` — nothing
+breaks. They are a one-for-one rename of the config half:
+
+```ts
+useInitApis({ pokeapi: { … } }); // deprecated
+defineApiConfig({ pokeapi: { … } }); // same call, plus methods and `config`
+```
+
+---
+
 ## HTTP Client — `FetchApiManager`
 
 The HTTP client registers your APIs once, then builds safe URLs and fetches
@@ -189,10 +266,9 @@ data with a discriminated union result.
 ### Register APIs
 
 ```ts
-import { useInitApis } from "katanakit-js";
-// Legacy alias: useInit (deprecated)
+import { defineApiConfig } from "katanakit-js";
 
-useInitApis({
+defineApiConfig({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
     endpoints: {
@@ -737,11 +813,11 @@ useSeoTag({ ...config, seo: undefined as unknown as SiteConfig["seo"] }, { title
 ## Nuxt Adapter
 
 ```ts
-import { useInitApis, useGetApi } from "katanakit-js";
+import { defineApiConfig, useGetApi } from "katanakit-js";
 import { useUnwrap, useSafeResponse, useEventResponse } from "katanakit-js/adapters/nuxt";
 
 // server/plugins/api.ts
-useInitApis({
+defineApiConfig({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
     endpoints: { pokemonById: "/pokemon/:id/" },
@@ -761,10 +837,10 @@ export default defineEventHandler(async (event) => {
 ## Vue Adapter
 
 ```ts
-import { useInitApis } from "katanakit-js";
+import { defineApiConfig } from "katanakit-js";
 import { useRequest } from "katanakit-js/adapters/vue";
 
-useInitApis({
+defineApiConfig({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
     endpoints: { pokemonById: "/pokemon/:id/" },

@@ -13,7 +13,7 @@
  */
 
 import {
-	useInitWordPress,
+	defineWordPressConfig,
 	useWpGetPosts,
 	useWpGetPost,
 	useWpCreatePost,
@@ -65,7 +65,7 @@ import {
 /* 1. Init — register credentials once                                 */
 /* ------------------------------------------------------------------ */
 
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: process.env.WP_BASE_URL ?? "https://mysite.com",
 	auth: {
 		type: "application-passwords",

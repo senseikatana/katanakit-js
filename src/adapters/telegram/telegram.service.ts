@@ -1,7 +1,7 @@
 import { useReply } from "../../core/services/assistant.service.js";
 import { useLogger } from "../../core/services/logger.service.js";
 import { useSleep } from "../../core/services/utils.service.js";
-import type { AssistantResult } from "../../types/index.js";
+import type { AssistantResult, ConfigFacade } from "../../types/index.js";
 
 /** Default Telegram Bot API base URL. */
 export const TELEGRAM_API_BASE = "https://api.telegram.org";
@@ -21,13 +21,41 @@ let config: TelegramConfig | null = null;
 /** Retrieves the configured bot or throws. */
 function getConfig(): TelegramConfig {
 	if (!config) {
-		throw new Error("[Telegram] Not configured. Call useInitTelegram() first.");
+		throw new Error("[Telegram] Not configured. Call defineTelegramConfig() first.");
 	}
 	return config;
 }
 
 /**
+ * Registers the Telegram bot configuration — the config-file entry point.
+ *
+ * One call is the whole setup: the literal is registered and handed back on
+ * `config`, so `export default defineTelegramConfig({ … })` is enough.
+ *
+ * Config-only service: it accepts {@link TelegramConfig} and nothing else, so
+ * declaring methods here is a compile error (use the API, Notion, WordPress or
+ * InsForge `define*Config` when you need them).
+ *
+ * @param input - Bot token (from BotFather) and optional API base URL.
+ * @returns The registered config as a {@link ConfigFacade}.
+ *
+ * @example
+ * ```ts
+ * import { defineTelegramConfig } from "katanakit-js/adapters/telegram";
+ *
+ * export default defineTelegramConfig({ token: process.env.TELEGRAM_BOT_TOKEN });
+ * ```
+ */
+export function defineTelegramConfig(input: TelegramConfig): ConfigFacade<TelegramConfig> {
+	useInitTelegram(input);
+	return { config: input };
+}
+
+/**
  * Registers the Telegram bot configuration.
+ *
+ * @deprecated Use {@link defineTelegramConfig}, which registers and returns
+ * the config in one call.
  *
  * @param cfg - Bot token (from BotFather) and optional API base URL.
  *

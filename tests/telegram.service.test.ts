@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
+	defineTelegramConfig,
 	TELEGRAM_API_BASE,
 	useHandleTelegramUpdate,
 	useInitTelegram,
@@ -59,5 +60,23 @@ describe("Telegram adapter", () => {
 
 		expect(reply).not.toHaveBeenCalled();
 		expect(fetchMock).not.toHaveBeenCalled();
+	});
+});
+
+describe("defineTelegramConfig", () => {
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	it("registers the config and returns it on `config`", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(new Response("{}", { status: 200 }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		const facade = defineTelegramConfig({ token: "define-token" });
+
+		expect(facade.config.token).toBe("define-token");
+		await useTelegramSendMessage(1, "hi");
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toContain("/botdefine-token/sendMessage");
 	});
 });

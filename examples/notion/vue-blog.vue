@@ -14,11 +14,11 @@
  */
 
 import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/vue";
-import { useInitNotion, useNotionListAllDatabasePages } from "katanakit-js/adapters/notion";
+import { defineNotionConfig, useNotionListAllDatabasePages } from "katanakit-js/adapters/notion";
 import type { NotionPage } from "katanakit-js/adapters/notion";
 
 // Init once at module level
-useInitNotion({ token: import.meta.env.VITE_NOTION_TOKEN });
+defineNotionConfig({ token: import.meta.env.VITE_NOTION_TOKEN });
 
 // Reactive query — cached with stale-while-revalidate
 const blog = useQuery({

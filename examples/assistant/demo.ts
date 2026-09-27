@@ -4,8 +4,8 @@
  * In a consumer app:
  *   import { useInitAssistant, useReply } from "katanakit-js";
  *   import { useStartAssistant } from "katanakit-js/adapters/assistant";
- *   import { useInitTelegram, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
- *   import { useInitWhatsApp, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
+ *   import { defineTelegramConfig, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
+ *   import { defineWhatsAppConfig, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
  *
  * Run from this repo:
  *   DASHSCOPE_API_KEY=... pnpm assistant:demo
@@ -19,10 +19,10 @@ import { fileURLToPath } from "node:url";
 
 import { useStartAssistant } from "../../src/adapters/assistant/assistant.service.js";
 import {
-	useInitTelegram,
+	defineTelegramConfig,
 	useStartTelegramPolling,
 } from "../../src/adapters/telegram/telegram.service.js";
-import { useInitWhatsApp, useStartWhatsApp } from "../../src/adapters/whatsapp/whatsapp.service.js";
+import { defineWhatsAppConfig, useStartWhatsApp } from "../../src/adapters/whatsapp/whatsapp.service.js";
 import { useInitAssistant } from "../../src/core/services/assistant.service.js";
 import type { AiTool } from "../../src/types/index.js";
 
@@ -90,7 +90,7 @@ const channel = process.env.KITT_CHANNEL ?? "rest";
 if (channel === "telegram") {
 	const token = process.env.TELEGRAM_BOT_TOKEN;
 	if (!token) throw new Error("TELEGRAM_BOT_TOKEN is required for KITT_CHANNEL=telegram");
-	useInitTelegram({ token });
+	defineTelegramConfig({ token });
 	await useStartTelegramPolling();
 } else if (channel === "whatsapp") {
 	const token = process.env.WHATSAPP_TOKEN;
@@ -102,7 +102,7 @@ if (channel === "telegram") {
 			"WHATSAPP_TOKEN, WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_VERIFY_TOKEN and WHATSAPP_APP_SECRET are required",
 		);
 	}
-	useInitWhatsApp({ token, phoneNumberId, verifyToken, appSecret });
+	defineWhatsAppConfig({ token, phoneNumberId, verifyToken, appSecret });
 	useStartWhatsApp(Number(process.env.PORT ?? 3000), process.env.HOST ?? "localhost");
 } else {
 	console.log(`Kitt REST demo. Knowledge base: ${knowledgePath}`);

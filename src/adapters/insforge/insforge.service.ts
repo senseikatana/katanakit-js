@@ -1,5 +1,6 @@
 import { createAdminClient, createClient, type InsForgeClient } from "@insforge/sdk";
 
+import { useSplitConfig } from "../../core/services/utils.service.js";
 import { useValidate } from "../../core/services/validation.service.js";
 import {
 	IfBucketSchema,
@@ -16,6 +17,7 @@ import {
 } from "../../schemas/insforge.schema.js";
 import type {
 	ApiError,
+	ConfigFacade,
 	FetchResult,
 	IfConfig,
 	IfInsertRows,
@@ -133,7 +135,7 @@ function invalidInput<T>(parsed: { error: ApiError }): FetchResult<T> {
 function notConfigured<T>(): FetchResult<T> {
 	return {
 		data: null,
-		error: { message: "[InsForge] Not configured. Call useInitInsforge() first.", status: 0 },
+		error: { message: "[InsForge] Not configured. Call defineInsforgeConfig() first.", status: 0 },
 		url: "",
 		status: 0,
 		ok: false,
@@ -173,8 +175,47 @@ function scopedDatabase(database: unknown, schema?: string): IfDatabaseModule {
 }
 
 /**
+ * Registers the InsForge client and returns your methods alongside it — the
+ * config-file entry point. One call is the whole setup: no separate
+ * `useInitInsforge(...)` step.
+ *
+ * Prefer `apiKey` (server-only, admin) or `anonKey` (browser-safe) depending
+ * on the runtime. Declare methods with `function` (never arrows) so
+ * `this.config` resolves to the config you declared.
+ *
+ * @typeParam T - The literal passed in: InsForge config plus any methods.
+ * @param input - Backend URL + credentials + optional schema, plus your methods.
+ * @returns The declared config plus your methods (see {@link ConfigFacade}).
+ * @throws {Error} If the config fails validation.
+ *
+ * @example
+ * ```ts
+ * import { defineInsforgeConfig } from "katanakit-js/adapters/insforge";
+ *
+ * export default defineInsforgeConfig({
+ *   baseUrl: "https://app.insforge.app",
+ *   anonKey: "…",
+ *   listUsers: async function () {
+ *     return useIfSelect("users");
+ *   },
+ * });
+ * ```
+ */
+export function defineInsforgeConfig<T extends IfConfig>(
+	input: T & ThisType<ConfigFacade<T>>,
+): ConfigFacade<T> {
+	const { config, methods } = useSplitConfig(input);
+	// Zod strips the method entries, so the whole literal is safe to validate.
+	useInitInsforge(input);
+	return { config, ...methods } as ConfigFacade<T>;
+}
+
+/**
  * Registers the InsForge client. Call once per app. Prefer `apiKey`
  * (server-only, admin) or `anonKey` (browser-safe) depending on the runtime.
+ *
+ * @deprecated Use {@link defineInsforgeConfig}, which registers the config and
+ * returns it with any methods declared on the same literal.
  *
  * @param config - Backend URL + credentials + optional schema.
  * @throws {Error} If the config fails validation.

@@ -8,14 +8,14 @@
  */
 
 import {
-	useInitNotion,
+	defineNotionConfig,
 	useNotionListAllDatabasePages,
 	useNotionGetPage,
 	useNotionListAllBlockChildren,
 } from "katanakit-js/adapters/notion";
 
 // 1. Init once
-useInitNotion({ token: import.meta.env.NOTION_TOKEN });
+defineNotionConfig({ token: import.meta.env.NOTION_TOKEN });
 
 // 2. Generate static paths from the database
 export async function getStaticPaths() {

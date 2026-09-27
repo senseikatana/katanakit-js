@@ -10,14 +10,14 @@
  */
 
 import {
-	useInitWordPress,
+	defineWordPressConfig,
 	useWpGetPosts,
 	useWpGetCategories,
 	useWpListAllPosts,
 } from "katanakit-js/adapters/wordpress";
 
 // 1. Init once
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: import.meta.env.WP_BASE_URL,
 	auth: {
 		type: "application-passwords",

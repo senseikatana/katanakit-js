@@ -8,7 +8,7 @@
  */
 
 import {
-	useInitNotion,
+	defineNotionConfig,
 	useNotionListAllDatabasePages,
 	useNotionListAllBlockChildren,
 } from "katanakit-js/adapters/notion";
@@ -19,7 +19,7 @@ const route = useRoute();
 const slug = route.params.slug as string;
 
 // Init Notion
-useInitNotion({ token: config.notionToken as string });
+defineNotionConfig({ token: config.notionToken as string });
 
 // Find the page by slug
 const { data: pageData, status } = await useAsyncData(`notion-post-${slug}`, async () => {

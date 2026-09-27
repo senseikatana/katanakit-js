@@ -1,3 +1,5 @@
+import type { ConfigData, ConfigMethodEntries } from "../../types/index.js";
+
 /**
  * Returns a new array with duplicate values removed, preserving first-seen order.
  *
@@ -341,4 +343,47 @@ export function useAverage(numbers: number[]): number {
 	if (numbers.length === 0) return 0;
 	const sum = numbers.reduce((acc, n) => acc + n, 0);
 	return sum / numbers.length;
+}
+
+/**
+ * Splits a `define*Config` literal into its config half (props and booleans)
+ * and its method half (values declared with `function`).
+ *
+ * Shared by every `define*Config` so they all read the same way: register
+ * `config`, then return `{ config, ...methods }` as a {@link ConfigFacade}.
+ *
+ * @typeParam T - The literal passed to a `define*Config` call.
+ * @param input - Object literal holding props, booleans and methods.
+ * @returns The config entries and the method entries, split apart.
+ *
+ * @example
+ * ```ts
+ * const { config, methods } = useSplitConfig({
+ *   token: "abc",
+ *   debug: true,
+ *   send: async function () {},
+ * });
+ * // config  → { token: "abc", debug: true }
+ * // methods → { send }
+ * ```
+ */
+export function useSplitConfig<T extends object>(
+	input: T,
+): {
+	config: ConfigData<T>;
+	methods: ConfigMethodEntries<T>;
+} {
+	const config: Record<string, unknown> = {};
+	const methods: Record<string, unknown> = {};
+
+	for (const [key, value] of Object.entries(input)) {
+		if (typeof value === "function") methods[key] = value;
+		else config[key] = value;
+	}
+
+	return {
+		// The split is structural, so TS cannot relate either half back to `T`.
+		config: config as ConfigData<T>,
+		methods: methods as ConfigMethodEntries<T>,
+	};
 }

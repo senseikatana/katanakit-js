@@ -8,7 +8,7 @@
  */
 
 import {
-	useInitApis,
+	defineApiConfig,
 	useGetApi,
 	usePost,
 	usePut,
@@ -22,7 +22,7 @@ import {
 /* 1. Register your APIs once at app entry                            */
 /* ------------------------------------------------------------------ */
 
-useInitApis({
+defineApiConfig({
 	/**
 	 * JSONPlaceholder — public fake REST API.
 	 * `baseUri` is the root; `endpoints` are named routes with `:param` placeholders.

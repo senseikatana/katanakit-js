@@ -1,5 +1,6 @@
 export type { WhatsAppConfig, WhatsAppReplyFn } from "./whatsapp.service.js";
 export {
+	defineWhatsAppConfig,
 	useCreateWhatsAppRouter,
 	useHandleWhatsAppMessage,
 	useInitWhatsApp,

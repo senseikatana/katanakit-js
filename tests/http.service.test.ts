@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+	defineApiConfig,
 	useBuildUrl,
 	useFetch,
 	useGetApis,
@@ -149,5 +150,81 @@ describe("FetchApiManager", () => {
 		expect(init.method).toBe("PATCH");
 		expect(init.body).toBe(JSON.stringify({ name: "x" }));
 		expect(init.headers).toEqual({ "Content-Type": "application/json" });
+	});
+});
+
+describe("defineApiConfig", () => {
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	it("registers API entries and hands them back on `config`", () => {
+		const facade = defineApiConfig({
+			defapi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
+		});
+
+		expect(facade.config.defapi.baseUri).toBe("https://example.com");
+		expect(useGetApis().defapi).toEqual({
+			baseUri: "https://example.com",
+			endpoints: { list: "/list" },
+		});
+	});
+
+	it("keeps boolean flags off the registry but on `config`", () => {
+		const facade = defineApiConfig({
+			flagapi: { baseUri: "https://example.com", endpoints: { a: "/a" } },
+			verbose: true,
+		});
+
+		expect(facade.config.verbose).toBe(true);
+		expect("verbose" in useGetApis()).toBe(false);
+		expect(useGetApis().flagapi).toBeDefined();
+	});
+
+	it("returns declared methods bound to `this.config`", () => {
+		const facade = defineApiConfig({
+			boundapi: { baseUri: "https://example.com", endpoints: { a: "/a" } },
+			verbose: false,
+			readFlag: function () {
+				return this.config.verbose;
+			},
+			readBase: function () {
+				return this.config.boundapi.baseUri;
+			},
+		});
+
+		expect(facade.readFlag()).toBe(false);
+		expect(facade.readBase()).toBe("https://example.com");
+		// the methods are not registered as APIs
+		expect("readFlag" in useGetApis()).toBe(false);
+	});
+
+	it("registers a declared method's API so it can fetch right away", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(
+			new Response(JSON.stringify({ ok: true }), {
+				status: 200,
+				headers: { "Content-Type": "application/json" },
+			}),
+		);
+		vi.stubGlobal("fetch", fetchMock);
+
+		const facade = defineApiConfig({
+			fetchapi: { baseUri: "https://example.com", endpoints: { ping: "/ping" } },
+			ping: async function () {
+				const { useFetch: run } = await import("@/core/services/http.service");
+				return run("fetchapi", "ping");
+			},
+		});
+
+		const result = await facade.ping();
+		expect(result.ok).toBe(true);
+		expect(fetchMock).toHaveBeenCalledOnce();
+	});
+
+	it("throws when a non-method object is not an API entry", () => {
+		// Bypass the type checker to exercise the runtime guard JS consumers hit.
+		const malformed = { bad: { nope: true } } as unknown as object;
+
+		expect(() => defineApiConfig(malformed)).toThrow(/not an API entry/);
 	});
 });

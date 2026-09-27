@@ -20,9 +20,9 @@ Every adapter exposes the same surface: `useQuery`, `useMutation`, `useRequest`,
 
 ```tsx [React]
 import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/react";
-import { useGetApi, useInitApis } from "katanakit-js";
+import { useGetApi, defineApiConfig } from "katanakit-js";
 
-useInitApis({
+defineApiConfig({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
     endpoints: { pokemonById: "/pokemon/:id/" },

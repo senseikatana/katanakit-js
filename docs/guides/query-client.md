@@ -14,9 +14,9 @@ Everything TanStack gives you is available: stale-while-revalidate, focus/reconn
 
 ```tsx
 import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/react";
-import { useGetApi, useInitApis } from "katanakit-js";
+import { useGetApi, defineApiConfig } from "katanakit-js";
 
-useInitApis({
+defineApiConfig({
   pokeapi: {
     baseUri: "https://pokeapi.co/api/v2",
     endpoints: { pokemonById: "/pokemon/:id/" },

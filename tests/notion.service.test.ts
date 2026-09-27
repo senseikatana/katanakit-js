@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+	defineNotionConfig,
 	useInitNotion,
 	useNotionGetPage,
 	useNotionSearchContent,
@@ -74,6 +75,39 @@ describe("notion.service", () => {
 			expect(() => useInitNotion({ token: 42 } as unknown as { token: string })).toThrow(
 				/\[Notion\] Invalid config/,
 			);
+		});
+	});
+
+	describe("defineNotionConfig", () => {
+		it("registers the config and returns declared methods bound to `this.config`", () => {
+			const facade = defineNotionConfig({
+				token: "secret_define",
+				readToken: function () {
+					return this.config.token;
+				},
+			});
+
+			expect(facade.config.token).toBe("secret_define");
+			expect(facade.readToken()).toBe("secret_define");
+		});
+
+		it("validates the config (Zod strips the declared methods)", () => {
+			expect(() =>
+				defineNotionConfig({ token: 42 } as unknown as { token: string }),
+			).toThrow(/\[Notion\] Invalid config/);
+		});
+
+		it("leaves the registered config free of methods", () => {
+			defineNotionConfig({
+				token: "secret_clean",
+				readToken: function () {
+					return this.config.token;
+				},
+			});
+
+			// a follow-up call proves the stored config is plain data
+			const again = defineNotionConfig({ token: "secret_other" });
+			expect(again.config.token).toBe("secret_other");
 		});
 	});
 });

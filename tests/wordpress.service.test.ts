@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+	defineWordPressConfig,
 	useInitWordPress,
 	useWpCreatePost,
 	useWpGetPosts,
@@ -57,5 +58,41 @@ describe("wordpress.service", () => {
 
 	it("throws on invalid init config", () => {
 		expect(() => useInitWordPress({} as never)).toThrow();
+	});
+});
+
+describe("defineWordPressConfig", () => {
+	it("registers the config and returns declared methods bound to `this.config`", () => {
+		const facade = defineWordPressConfig({
+			baseUrl: "https://example.com",
+			readBase: function () {
+				return this.config.baseUrl;
+			},
+		});
+
+		expect(facade.config.baseUrl).toBe("https://example.com");
+		expect(facade.readBase()).toBe("https://example.com");
+	});
+
+	it("validates the config", () => {
+		expect(() =>
+			defineWordPressConfig({ baseUrl: 42 } as unknown as { baseUrl: string }),
+		).toThrow(/\[WordPress\] Invalid config/);
+	});
+
+	it("registers so the rest of the service works without a separate init", async () => {
+		vi.stubGlobal(
+			"fetch",
+			vi.fn().mockResolvedValue(
+				new Response(JSON.stringify([{ id: 1, title: { rendered: "Hi" } }]), {
+					status: 200,
+					headers: { "Content-Type": "application/json" },
+				}),
+			),
+		);
+
+		defineWordPressConfig({ baseUrl: "https://example.com" });
+		const result = await useWpGetPosts();
+		expect(result.ok).toBe(true);
 	});
 });

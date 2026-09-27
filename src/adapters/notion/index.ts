@@ -17,6 +17,7 @@ export type {
 	NotionUserList,
 } from "../../types/index.js";
 export {
+	defineNotionConfig,
 	useInitNotion,
 	useNotionAppendBlocks,
 	useNotionArchivePage,

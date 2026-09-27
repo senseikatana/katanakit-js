@@ -3,6 +3,7 @@ import { createHmac } from "node:crypto";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
+	defineWhatsAppConfig,
 	useHandleWhatsAppMessage,
 	useInitWhatsApp,
 	useSendWhatsAppMessage,
@@ -103,5 +104,33 @@ describe("WhatsApp adapter", () => {
 		expect(JSON.parse((fetchMock.mock.calls[0][1] as RequestInit).body as string).text.body).toBe(
 			"got:precio?",
 		);
+	});
+});
+
+describe("defineWhatsAppConfig", () => {
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	it("registers the config and returns it on `config`", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(new Response("{}", { status: 200 }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		const facade = defineWhatsAppConfig({
+			token: "define-wa-token",
+			phoneNumberId: "999",
+			verifyToken: "verify",
+			appSecret: APP_SECRET,
+		});
+
+		expect(facade.config.phoneNumberId).toBe("999");
+		await useSendWhatsAppMessage("123", "hello");
+		const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+		expect(JSON.parse(init.body as string)).toEqual({
+			messaging_product: "whatsapp",
+			to: "123",
+			type: "text",
+			text: { body: "hello" },
+		});
 	});
 });

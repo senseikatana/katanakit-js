@@ -13,13 +13,13 @@
 
 import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/vue";
 import {
-	useInitWordPress,
+	defineWordPressConfig,
 	useWpGetPosts,
 	useWpGetCategories,
 } from "katanakit-js/adapters/wordpress";
 
 // Init once
-useInitWordPress({
+defineWordPressConfig({
 	baseUrl: import.meta.env.VITE_WP_BASE_URL,
 	auth: {
 		type: "application-passwords",

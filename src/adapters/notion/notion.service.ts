@@ -1,6 +1,7 @@
 import type { z } from "zod";
 
 import { useAttempt } from "../../core/services/result.service.js";
+import { useSplitConfig } from "../../core/services/utils.service.js";
 import { useValidate } from "../../core/services/validation.service.js";
 import {
 	NotionBlockListSchema,
@@ -16,6 +17,7 @@ import {
 	NotionUserResponseSchema,
 } from "../../schemas/notion.schema.js";
 import type {
+	ConfigFacade,
 	FetchResult,
 	NotionBlock,
 	NotionBlockList,
@@ -71,7 +73,7 @@ async function notionFetch<T>(
 	if (!cfg) {
 		return {
 			data: null,
-			error: { message: "[Notion] Not configured. Call useInitNotion() first.", status: 0 },
+			error: { message: "[Notion] Not configured. Call defineNotionConfig() first.", status: 0 },
 			url: "",
 			status: 0,
 			ok: false,
@@ -132,8 +134,45 @@ async function notionFetch<T>(
 /* -------------------------------------------------------------------------- */
 
 /**
+ * Registers the Notion configuration and returns your methods alongside it —
+ * the config-file entry point. One call is the whole setup: no separate
+ * `useInitNotion(...)` step.
+ *
+ * Declare methods with `function` (never arrows) so `this.config` resolves to
+ * the registered config.
+ *
+ * @typeParam T - The literal passed in: Notion config plus any methods.
+ * @param input - Notion config plus the methods you want on the facade.
+ * @returns The registered config plus your methods (see {@link ConfigFacade}).
+ * @throws {Error} If the config fails Zod validation.
+ *
+ * @example
+ * ```ts
+ * import { defineNotionConfig } from "katanakit-js/adapters/notion";
+ *
+ * export default defineNotionConfig({
+ *   token: process.env.NOTION_TOKEN,
+ *   getPage: async function (pageId: string) {
+ *     return useNotionGetPage(pageId);
+ *   },
+ * });
+ * ```
+ */
+export function defineNotionConfig<T extends NotionConfig>(
+	input: T & ThisType<ConfigFacade<T>>,
+): ConfigFacade<T> {
+	const { config: cfg, methods } = useSplitConfig(input);
+	// Zod strips the method entries, so the whole literal is safe to validate.
+	useInitNotion(input);
+	return { config: cfg, ...methods } as ConfigFacade<T>;
+}
+
+/**
  * Registers the Notion API configuration. Call this once before any other
  * Notion function.
+ *
+ * @deprecated Use {@link defineNotionConfig}, which registers the config and
+ * returns it with any methods declared on the same literal.
  *
  * @param cfg - Integration token (starts with "ntn_" or "secret_"), optional
  *   API version and base URL.
