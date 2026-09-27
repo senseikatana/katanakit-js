@@ -14,6 +14,9 @@ hero:
     - theme: alt
       text: API Reference
       link: /api/
+    - theme: alt
+      text: katanakit-css
+      link: /ui-kit/css/
 
 features:
   - title: Safe Results
@@ -78,5 +81,6 @@ if (result.ok) {
 | Fake data and seed fixtures            | [Faker](/guides/faker)                     |
 | Hexagonal architecture                 | [Architecture](/guides/architecture)       |
 | UI kit foundations (Katana UI)          | [Katana UI](/ui-kit/)                      |
+| SCSS framework (tokens and utilities)   | [katanakit-css](/ui-kit/css/)               |
 | Every release                          | [Releases](/changelog)                     |
 | Every export, generated from source    | [API Reference](/api/)                     |

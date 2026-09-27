@@ -44,7 +44,8 @@ export default defineConfig({
 		nav: [
 			{ text: "Home", link: "/" },
 			{ text: "Guides", link: "/guides/getting-started", activeMatch: "/guides/" },
-			{ text: "UI Kit", link: "/ui-kit/", activeMatch: "/ui-kit/" },
+			{ text: "UI Kit", link: "/ui-kit/", activeMatch: "^/ui-kit/(?!css)" },
+			{ text: "katanakit-css", link: "/ui-kit/css/", activeMatch: "^/ui-kit/css/" },
 			{ text: "Releases", link: "/changelog" },
 			{ text: "API Reference", link: "/api/" },
 		],
