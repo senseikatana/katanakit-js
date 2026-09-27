@@ -62,5 +62,9 @@ describe("Vue adapter — useRequest", () => {
 
 		// Changing the reactive options triggers a second fetch via `watch`.
 		await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+
+		// …and the reactive options actually reach the built URL, both times.
+		expect(fetchMock.mock.calls[0][0]).toBe("https://example.com/items/1");
+		expect(fetchMock.mock.calls[1][0]).toBe("https://example.com/items/2");
 	});
 });

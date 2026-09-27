@@ -5,10 +5,13 @@ import {
 	useBuildApiUrl,
 	useBuildUrl,
 	useFetch,
+	useGet,
 	useGetApis,
+	usePost,
 	useInit,
 	useInitApis,
 } from "@/core/services/http.service";
+import type { UrlOptions } from "@/types/index";
 
 describe("FetchApiManager", () => {
 	afterEach(() => {
@@ -354,6 +357,31 @@ describe("useFetch transform", () => {
 		expect(result.status).toBe(500);
 		expect(transform).not.toHaveBeenCalled();
 	});
+
+	it("still returns a Safe Result when the transform rejects asynchronously", async () => {
+		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(okJson({ any: true })));
+
+		const result = await useFetch("transformapi", "raw", {
+			transform: async () => {
+				throw new Error("async boom");
+			},
+		});
+
+		expect(result.ok).toBe(false);
+		expect(result.error?.message).toBe("Transform Error: async boom");
+	});
+
+	it("runs the transform on a 204 with a null body", async () => {
+		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 204 })));
+		const transform = vi.fn(() => ({ done: true }));
+
+		const result = await useFetch("transformapi", "raw", { transform });
+
+		expect(result.ok).toBe(true);
+		expect(result.data).toEqual({ done: true });
+		expect(transform).toHaveBeenCalledOnce();
+		expect(transform).toHaveBeenCalledWith(null);
+	});
 });
 
 describe("useBuildApiUrl", () => {
@@ -365,5 +393,116 @@ describe("useBuildApiUrl", () => {
 		expect(useBuildApiUrl("aliasapi", "byId", { params: { id: 4 } })).toBe(
 			useBuildUrl("aliasapi", "byId", { params: { id: 4 } }),
 		);
+	});
+});
+
+
+describe("useFetch URL option merge", () => {
+	const okJson = (payload: unknown): Response =>
+		new Response(JSON.stringify(payload), {
+			status: 200,
+			headers: { "Content-Type": "application/json" },
+		});
+
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	/** Registered with `defaultQueryParams` so the merge path is exercised. */
+	beforeEach(() => {
+		useInitApis({
+			mergeapi: {
+				baseUri: "https://example.com",
+				endpoints: { list: "/list", byId: "/items/:id", create: "/items" },
+				defaultQueryParams: { list: { apiKey: "secret", page: 1 } },
+			},
+		});
+	});
+
+	it("merges flat and legacy keys key-by-key, not object-by-object", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("mergeapi", "byId", {
+			urlOptions: { params: { id: 9 } }, // legacy supplies params
+			query: { limit: 3 }, // flat supplies query
+		});
+
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/items/9?limit=3");
+	});
+
+	it("merges flat query into the endpoint defaultQueryParams", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("mergeapi", "list", { query: { page: 2 } });
+
+		// defaults kept (apiKey), flat overrides just `page`
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/list?apiKey=secret&page=2");
+	});
+
+	it("applies defaultQueryParams when no query is given at all", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("mergeapi", "list");
+
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/list?apiKey=secret&page=1");
+	});
+
+	it("drops defaultQueryParams when flat `ignoreDefaultQuery` is true", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("mergeapi", "list", { ignoreDefaultQuery: true });
+
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/list");
+	});
+
+	it("lets flat `ignoreDefaultQuery: false` beat a legacy `true`", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("mergeapi", "list", {
+			ignoreDefaultQuery: false,
+			urlOptions: { ignoreDefaultQuery: true },
+		});
+
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/list?apiKey=secret&page=1");
+	});
+
+	it("forwards URL options from the useGet/usePost wrappers", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useGet("mergeapi", "byId", { params: { id: 5 }, query: { lang: "es" } });
+		await usePost("mergeapi", "create", { name: "x" }, { query: { dry: 1 } });
+
+		expect(fetchMock.mock.calls[0][0]).toBe("https://example.com/items/5?lang=es");
+		expect(fetchMock.mock.calls[1][0]).toBe("https://example.com/items?dry=1");
+
+		// serializeBody's JSON Content-Type must survive the URL options pass-through
+		const init = fetchMock.mock.calls[1][1] as RequestInit;
+		expect(init.headers).toEqual({ "Content-Type": "application/json" });
+	});
+
+	it("ignores stray non-URL keys a JS caller puts in urlOptions", async () => {
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		// JS callers have no excess-property checks — simulate one.
+		await usePost("mergeapi", "create", { name: "x" }, {
+			method: "PATCH",
+			headers: { Authorization: "Bearer nope" },
+		} as unknown as UrlOptions);
+
+		const init = fetchMock.mock.calls[0][1] as RequestInit;
+		expect(init.method).toBe("POST"); // the wrapper's verb wins
+		expect(init.headers).toEqual({ "Content-Type": "application/json" }); // not clobbered
 	});
 });

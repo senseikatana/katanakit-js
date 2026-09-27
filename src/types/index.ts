@@ -365,9 +365,12 @@ export type ApisConfig = Record<string, ApiEntry>;
  * useFetch("api", "byId", { method: "GET", params: { id: 25 }, query: { limit: 2 } });
  * ```
  *
- * @typeParam T - The type {@link FetchOptions.transform} resolves to.
+ * @typeParam T - The type {@link FetchOptions.transform} resolves to. Defaults
+ *   to `any` on purpose: with `unknown` a bare `FetchOptions` (or one stored in
+ *   a variable / passed through a wrapper) would no longer be assignable to
+ *   `FetchOptions<T>`, which is a type-level break for existing callers.
  */
-export interface FetchOptions<T = unknown> extends RequestInit {
+export interface FetchOptions<T = any> extends RequestInit {
 	/** Path params substituted into `:name` placeholders of the endpoint. */
 	params?: PathParams;
 	/** Query-string params appended to the URL. */

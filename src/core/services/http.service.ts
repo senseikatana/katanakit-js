@@ -229,11 +229,11 @@ export function useGetApisConfig(): ApisConfig {
 }
 
 /**
- * Returns the URL of a registered endpoint **without making the request**.
+ * Returns the URL of a registered endpoint **without calling `fetch`**.
  *
- * Think of it as `useFetch` minus the fetch: same registry, same `:param`
- * substitution, same `query` merge with `defaultQueryParams`, same http(s)
- * guard — but it returns a `string` instead of calling `fetch`.
+ * It builds the same URL {@link useFetch} would request — same registry, same
+ * `:param` substitution, same `query` merge with `defaultQueryParams`, same
+ * http(s) guard — then stops and hands you the string.
  *
  * Use it when you need the **address**, not the response:
  *
@@ -314,7 +314,7 @@ export function useBuildUrl(
 /**
  * Builds a safe http(s) URL from a registered API + endpoint.
  *
- * @deprecated Use {@link useBuildUrl}. This is a byte-for-byte alias of it and
+ * @deprecated Use {@link useBuildUrl}. This is a behaviourally identical wrapper around it and
  * exists only for backwards compatibility — scheduled for removal in the next major.
  *
  * @param apiName - The registered API key.
@@ -335,6 +335,27 @@ export function useBuildApiUrl(
 	options: UrlOptions = {},
 ): string {
 	return useBuildUrl(apiName, endpointName, options);
+}
+
+/**
+ * Picks the URL-building keys out of an options bag so nothing else leaks into
+ * the `RequestInit` handed to `fetch`.
+ *
+ * `useGet`/`usePost`/… accept `UrlOptions`, but JS callers can stuff arbitrary
+ * keys in there; spreading the whole bag would let a stray `method`, `headers`
+ * or `body` silently override what the wrapper already set.
+ *
+ * @param urlOptions - Legacy URL options, if any.
+ * @returns Only `params`, `query` and `ignoreDefaultQuery`, when defined.
+ */
+function pickUrl(urlOptions?: UrlOptions): UrlOptions {
+	if (!urlOptions) return {};
+	const { params, query, ignoreDefaultQuery } = urlOptions;
+	return {
+		...(params !== undefined && { params }),
+		...(query !== undefined && { query }),
+		...(ignoreDefaultQuery !== undefined && { ignoreDefaultQuery }),
+	};
 }
 
 /**
@@ -515,7 +536,7 @@ export async function useGet<T = unknown>(
 	endpointName: string,
 	urlOptions?: UrlOptions,
 ): Promise<FetchResult<T>> {
-	return useFetch<T>(apiName, endpointName, { method: "GET", ...urlOptions });
+	return useFetch<T>(apiName, endpointName, { method: "GET", ...pickUrl(urlOptions) });
 }
 
 /**
@@ -569,7 +590,7 @@ export async function usePost<T = unknown>(
 	return useFetch<T>(apiName, endpointName, {
 		method: "POST",
 		...serializeBody(body),
-		...urlOptions,
+		...pickUrl(urlOptions),
 	});
 }
 
@@ -598,7 +619,7 @@ export async function usePut<T = unknown>(
 	return useFetch<T>(apiName, endpointName, {
 		method: "PUT",
 		...serializeBody(body),
-		...urlOptions,
+		...pickUrl(urlOptions),
 	});
 }
 
@@ -627,7 +648,7 @@ export async function usePatch<T = unknown>(
 	return useFetch<T>(apiName, endpointName, {
 		method: "PATCH",
 		...serializeBody(body),
-		...urlOptions,
+		...pickUrl(urlOptions),
 	});
 }
 
@@ -653,6 +674,6 @@ export async function useDelete<T = unknown>(
 ): Promise<FetchResult<T>> {
 	return useFetch<T>(apiName, endpointName, {
 		method: "DELETE",
-		...urlOptions,
+		...pickUrl(urlOptions),
 	});
 }

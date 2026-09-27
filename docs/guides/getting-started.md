@@ -319,7 +319,7 @@ from `useFetch`.
 
 ```ts
 import { useGetApi } from "katanakit-js";
-// Legacy alias: useGet (deprecated)
+// Also exported as the shorter useGet
 
 interface Pokemon {
   name: string;
