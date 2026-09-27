@@ -27,9 +27,22 @@ All notable changes to this project are documented in this file.
   - For `defineApiConfig` only entries shaped like `{ baseUri, endpoints }` reach the registry — boolean flags stay on `config` for your methods to read, and any other object throws a typed error instead of registering garbage.
   - Shared types `ConfigFacade`/`ConfigData`/`ConfigMethod`/`ConfigValues`/`ApiConfigValue` and the runtime helper `useSplitConfig` live in `src/types/index.ts` and `src/core/services/utils.service.ts`. No new files were added; each `define*Config` sits next to the `useInit*` it replaces.
 
+### Added
+
+- **`useFetch` takes URL options at the top level** — `params`, `query` and `ignoreDefaultQuery` now sit next to `method`/`headers`/`body`, the same shape as `useGet`, `useRequest` and Nuxt's `useFetch`, so nothing has to be nested:
+
+  ```ts
+  useFetch("api", "byId", { method: "GET", params: { id: 25 }, query: { limit: 2 } });
+  ```
+
+  The old `urlOptions: { … }` nest keeps working and the flat form wins when both are given. `FetchOptions` extends `RequestInit`, which declares neither `params` nor `query`, so this is purely additive.
+- **`useFetch` `transform` option** — maps the parsed response body to `T` before it is returned (`(input) => T | Promise<T>`). It runs on successful responses only, and a failing transform comes back as a `Transform Error` Safe Result instead of escaping `useFetch`, so the never-throws contract holds.
+
 ### Changed
 
 - **`useInit*` deprecated in favour of `define*Config`** — `useInit`, `useInitApis`, `useInitNotion`, `useInitWordPress`, `useInitTelegram`, `useInitWhatsApp` and `useInitInsforge` are marked `@deprecated` in their JSDoc and in the `IFetchApiManager`/`INotionService`/`IWordPressService` contracts. They keep working unchanged, so this is a non-breaking, gradual migration: every existing call site still compiles and runs. Their "not configured" error messages now point at the `define*Config` replacement.
+- **`FetchOptions.urlOptions` deprecated** — pass `params`/`query`/`ignoreDefaultQuery` at the top level instead. The nest is now only a compatibility shim and is scheduled for removal in the next major; every call site inside the library (adapters, DummyJson, `useGet`/`usePost`/…) already uses the flat form.
+- **`useBuildApiUrl` deprecated in favour of `useBuildUrl`** — it was a byte-for-byte alias with zero real usage, and the Getting Started guide had its deprecation comment backwards (it marked `useBuildUrl` as legacy while the README, the examples and all three tests use it). The guide now teaches `useBuildUrl`, and its JSDoc was rewritten to lead with the answer to *when do I use this*: it is `useFetch` minus the fetch — same registry, same `:param` and `query` handling, but it returns a string instead of requesting. It also documents why it throws rather than returning a Safe Result (it is synchronous and never leaves the process).
 
 ## [5.2.0] - 2026-09-26
 

@@ -115,7 +115,7 @@ function serializeBody(body: unknown): { body?: BodyInit; headers?: HeadersInit 
  *   pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
  *   debug: true,
  *   getPokemon: async function () {
- *     return useFetch("pokeapi", "byId", { urlOptions: { params: { id: 25 } } });
+ *     return useFetch("pokeapi", "byId", { params: { id: 25 } });
  *   },
  * });
  * ```
@@ -229,41 +229,42 @@ export function useGetApisConfig(): ApisConfig {
 }
 
 /**
- * Builds a safe http(s) URL from a registered API + endpoint without making
- * a network request.
+ * Returns the URL of a registered endpoint **without making the request**.
  *
- * Use cases:
- * - **Navigation links** — generate `<a href>` URLs for download links, pagination, etc.
- * - **Image/file sources** — build `<img src>` or `<video src>` URLs from API endpoints.
- * - **Third-party libraries** — pass URLs to charting, mapping, or analytics libraries that
- *   handle their own fetching.
- * - **Debugging** — log the full URL before making a request to verify params and query strings.
- * - **SSR** — construct URLs server-side for pre-rendering or metadata generation.
+ * Think of it as `useFetch` minus the fetch: same registry, same `:param`
+ * substitution, same `query` merge with `defaultQueryParams`, same http(s)
+ * guard — but it returns a `string` instead of calling `fetch`.
  *
- * @param apiName - The registered API key (from `useInitApis`).
- * @param endpointName - The endpoint key within that API.
- * @param options - Optional URL building options (path params, query params, ignore defaults).
- * @returns The fully constructed URL string.
- * @throws {Error} If the API or endpoint is not registered, or the URL scheme is not http(s).
+ * Use it when you need the **address**, not the response:
+ *
+ * - `<a href>` / `<img src>` — links and media built from an endpoint name
+ * - libraries that fetch on their own (charts, maps, analytics)
+ * - logging the exact URL you are about to request
+ * - SSR / prerender, where nothing should be requested
+ *
+ * @param apiName - Registered API key (from {@link defineApiConfig}).
+ * @param endpointName - Endpoint key inside that API.
+ * @param options - `params` fills `:placeholders`, `query` becomes the search string.
+ * @returns The fully built URL.
+ * @throws {Error} Unknown API, unknown endpoint, or a scheme that is not http(s).
  *
  * @example
  * ```ts
  * import { useBuildUrl } from "katanakit-js";
  *
- * // Basic URL with path params
- * const url = useBuildUrl("pokeapi", "pokemonById", { params: { id: 25 } });
+ * useBuildUrl("pokeapi", "pokemonById", { params: { id: 25 } });
  * // → "https://pokeapi.co/api/v2/pokemon/25"
  *
- * // URL with query params
- * const download = useBuildUrl("myApi", "export", { query: { format: "pdf" } });
+ * useBuildUrl("myApi", "export", { query: { format: "pdf" } });
  * // → "https://api.myapp.com/v1/export?format=pdf"
  *
- * // Use in a template
  * <a href={useBuildUrl("myApi", "download", { params: { id: 42 } })}>Download</a>
- *
- * // Debug before fetching
- * console.log("Will fetch:", useBuildUrl("myApi", "users", { query: { page: 1 } }));
  * ```
+ *
+ * @remarks Synchronous, so it **throws** instead of returning a Safe Result —
+ * Safe Result covers fallible async work, and this never leaves the process.
+ * To see the URL a request actually used, read `result.url` off a `useFetch`
+ * result instead.
  */
 export function useBuildUrl(
 	apiName: string,
@@ -312,7 +313,9 @@ export function useBuildUrl(
 
 /**
  * Builds a safe http(s) URL from a registered API + endpoint.
- * Alias for {@link useBuildUrl}.
+ *
+ * @deprecated Use {@link useBuildUrl}. This is a byte-for-byte alias of it and
+ * exists only for backwards compatibility — scheduled for removal in the next major.
  *
  * @param apiName - The registered API key.
  * @param endpointName - The endpoint key within the API.
@@ -337,31 +340,49 @@ export function useBuildApiUrl(
 /**
  * Fetches a registered endpoint and returns a Safe Result.
  *
+ * URL options sit at the top level, next to `method`/`headers`/`body` — no
+ * nesting, same shape as `useGet` and Nuxt's `useFetch`.
+ *
  * @param apiName - The registered API key.
  * @param endpointName - The endpoint key within the API.
- * @param options - Optional fetch options (method, headers, body, urlOptions).
- * @returns A {@link FetchResult} with data or error.
+ * @param options - Fetch options: `params`, `query`, `transform` and any `RequestInit` field.
+ * @returns A {@link FetchResult} with data or error. Never throws — a failing
+ *   `transform` comes back as an error result too.
  *
  * @example
  * ```ts
  * import { useFetch } from "katanakit-js";
  *
- * const result = await useFetch("pokeapi", "pokemonById", {
+ * const result = await useFetch<{ results: unknown[] }>("pokeapi", "pokemons", {
  *   method: "GET",
- *   urlOptions: { params: { id: 25 } },
+ *   query: { limit: 2 },
+ *   transform: (body) => ({ results: (body as { results: unknown[] }).results }),
  * });
- * if (result.ok) console.log(result.data);
+ * if (result.ok) console.log(result.data.results);
+ * ```
+ *
+ * @example Legacy nested form (deprecated)
+ * ```ts
+ * useFetch("pokeapi", "pokemonById", { urlOptions: { params: { id: 25 } } });
  * ```
  */
 export async function useFetch<T = unknown>(
 	apiName: string,
 	endpointName: string,
-	{ urlOptions, ...init }: FetchOptions = {},
+	{ params, query, ignoreDefaultQuery, urlOptions, transform, ...init }: FetchOptions<T> = {},
 ): Promise<FetchResult<T>> {
 	let url = "";
 
+	// The flat keys and the deprecated `urlOptions` nest describe the same
+	// thing; the flat form wins. `undefined` means "not given", so it must not
+	// overwrite a value coming from the legacy nest.
+	const buildOptions: UrlOptions = { ...urlOptions };
+	if (params !== undefined) buildOptions.params = params;
+	if (query !== undefined) buildOptions.query = query;
+	if (ignoreDefaultQuery !== undefined) buildOptions.ignoreDefaultQuery = ignoreDefaultQuery;
+
 	try {
-		url = useBuildUrl(apiName, endpointName, urlOptions);
+		url = useBuildUrl(apiName, endpointName, buildOptions);
 	} catch (err: unknown) {
 		const message = err instanceof Error ? err.message : String(err);
 		return {
@@ -399,20 +420,31 @@ export async function useFetch<T = unknown>(
 		}
 
 		// 204 No Content and empty bodies are valid success responses.
-		if (response.status === 204) {
-			return {
-				data: null as T,
-				error: null,
-				url: response.url || url,
-				status: 204,
-				ok: true,
-			};
+		const body = response.status === 204 ? null : await readBody(response);
+
+		let data: unknown = body;
+		if (transform) {
+			try {
+				data = await transform(body);
+			} catch (err: unknown) {
+				// A failing transform is still a failed request — return it as a
+				// Safe Result instead of letting it escape `useFetch`.
+				const message = err instanceof Error ? err.message : String(err);
+				return {
+					data: null,
+					error: {
+						message: `Transform Error: ${message}`,
+						status: response.status,
+					},
+					url: response.url || url,
+					status: response.status,
+					ok: false,
+				};
+			}
 		}
 
-		const body = await readBody(response);
-
 		return {
-			data: body as T,
+			data: data as T,
 			error: null,
 			url: response.url || url,
 			status: response.status,
@@ -448,7 +480,7 @@ export async function useFetch<T = unknown>(
  *
  * const result = await useFetchApi("pokeapi", "pokemonById", {
  *   method: "GET",
- *   urlOptions: { params: { id: 25 } },
+ *   params: { id: 25 },
  * });
  * if (result.ok) console.log(result.data);
  * ```
@@ -456,7 +488,7 @@ export async function useFetch<T = unknown>(
 export async function useFetchApi<T = unknown>(
 	apiName: string,
 	endpointName: string,
-	options?: FetchOptions,
+	options?: FetchOptions<T>,
 ): Promise<FetchResult<T>> {
 	return useFetch<T>(apiName, endpointName, options);
 }
@@ -483,7 +515,7 @@ export async function useGet<T = unknown>(
 	endpointName: string,
 	urlOptions?: UrlOptions,
 ): Promise<FetchResult<T>> {
-	return useFetch<T>(apiName, endpointName, { method: "GET", urlOptions });
+	return useFetch<T>(apiName, endpointName, { method: "GET", ...urlOptions });
 }
 
 /**
@@ -537,7 +569,7 @@ export async function usePost<T = unknown>(
 	return useFetch<T>(apiName, endpointName, {
 		method: "POST",
 		...serializeBody(body),
-		urlOptions,
+		...urlOptions,
 	});
 }
 
@@ -566,7 +598,7 @@ export async function usePut<T = unknown>(
 	return useFetch<T>(apiName, endpointName, {
 		method: "PUT",
 		...serializeBody(body),
-		urlOptions,
+		...urlOptions,
 	});
 }
 
@@ -595,7 +627,7 @@ export async function usePatch<T = unknown>(
 	return useFetch<T>(apiName, endpointName, {
 		method: "PATCH",
 		...serializeBody(body),
-		urlOptions,
+		...urlOptions,
 	});
 }
 
@@ -621,6 +653,6 @@ export async function useDelete<T = unknown>(
 ): Promise<FetchResult<T>> {
 	return useFetch<T>(apiName, endpointName, {
 		method: "DELETE",
-		urlOptions,
+		...urlOptions,
 	});
 }

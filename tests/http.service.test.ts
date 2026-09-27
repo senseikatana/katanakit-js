@@ -1,7 +1,8 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
 	defineApiConfig,
+	useBuildApiUrl,
 	useBuildUrl,
 	useFetch,
 	useGetApis,
@@ -226,5 +227,143 @@ describe("defineApiConfig", () => {
 		const malformed = { bad: { nope: true } } as unknown as object;
 
 		expect(() => defineApiConfig(malformed)).toThrow(/not an API entry/);
+	});
+});
+
+describe("useFetch flat options", () => {
+	const okJson = (payload: unknown): Response =>
+		new Response(JSON.stringify(payload), {
+			status: 200,
+			headers: { "Content-Type": "application/json" },
+		});
+
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	it("builds the URL from top-level `params` and `query`", async () => {
+		useInitApis({ flatapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } } });
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("flatapi", "byId", {
+			method: "GET",
+			params: { id: 7 },
+			query: { limit: 2 },
+		});
+
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/items/7?limit=2");
+	});
+
+	it("still honours the legacy `urlOptions` nest", async () => {
+		useInitApis({ legacyapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } } });
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("legacyapi", "byId", {
+			urlOptions: { params: { id: 9 }, query: { limit: 1 } },
+		});
+
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/items/9?limit=1");
+	});
+
+	it("lets the flat form win when both are given", async () => {
+		useInitApis({ bothapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } } });
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("bothapi", "byId", {
+			params: { id: 1 },
+			query: { limit: 5 },
+			urlOptions: { params: { id: 2 }, query: { limit: 9 } },
+		});
+
+		const [url] = fetchMock.mock.calls[0] as [string];
+		expect(url).toBe("https://example.com/items/1?limit=5");
+	});
+
+	it("keeps its own options out of the RequestInit passed to fetch", async () => {
+		useInitApis({ cleanapi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("cleanapi", "list", {
+			method: "GET",
+			params: { a: 1 },
+			query: { b: 2 },
+			transform: (body) => body,
+		});
+
+		const init = fetchMock.mock.calls[0][1] as Record<string, unknown>;
+		for (const key of ["params", "query", "ignoreDefaultQuery", "urlOptions", "transform"]) {
+			expect(init).not.toHaveProperty(key);
+		}
+	});
+});
+
+describe("useFetch transform", () => {
+	const okJson = (payload: unknown): Response =>
+		new Response(JSON.stringify(payload), {
+			status: 200,
+			headers: { "Content-Type": "application/json" },
+		});
+
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	beforeEach(() => {
+		useInitApis({
+			transformapi: { baseUri: "https://example.com", endpoints: { raw: "/raw" } },
+		});
+	});
+
+	it("maps the parsed body before returning it", async () => {
+		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(okJson({ count: 3 })));
+
+		const result = await useFetch<{ total: number }>("transformapi", "raw", {
+			transform: (body) => ({ total: (body as { count: number }).count }),
+		});
+
+		expect(result.ok).toBe(true);
+		expect(result.data).toEqual({ total: 3 });
+	});
+
+	it("returns a Safe Result instead of throwing when the transform fails", async () => {
+		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(okJson({ any: true })));
+
+		const result = await useFetch("transformapi", "raw", {
+			transform: () => {
+				throw new Error("boom");
+			},
+		});
+
+		expect(result.ok).toBe(false);
+		expect(result.error?.message).toBe("Transform Error: boom");
+	});
+
+	it("does not run the transform on an HTTP error", async () => {
+		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("nope", { status: 500 })));
+		const transform = vi.fn((body: unknown) => body);
+
+		const result = await useFetch("transformapi", "raw", { transform });
+
+		expect(result.ok).toBe(false);
+		expect(result.status).toBe(500);
+		expect(transform).not.toHaveBeenCalled();
+	});
+});
+
+describe("useBuildApiUrl", () => {
+	it("is the deprecated alias of useBuildUrl", () => {
+		useInitApis({
+			aliasapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } },
+		});
+
+		expect(useBuildApiUrl("aliasapi", "byId", { params: { id: 4 } })).toBe(
+			useBuildUrl("aliasapi", "byId", { params: { id: 4 } }),
+		);
 	});
 });

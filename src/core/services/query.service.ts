@@ -106,7 +106,7 @@ export function useInitQueryClient(config: QueryClientConfig = {}): QueryClient 
  *
  * // With cancellation: forward TanStack's AbortSignal into the request.
  * queryFn: useSafeQueryFn(({ signal }) =>
- *   useFetch("pokeapi", "pokemonById", { method: "GET", urlOptions: { params: { id } }, signal }),
+ *   useFetch("pokeapi", "pokemonById", { method: "GET", params: { id }, signal }),
  * )
  * ```
  */

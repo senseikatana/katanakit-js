@@ -64,7 +64,7 @@ queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id
 
 // With cancellation: forward TanStack's signal into the request.
 queryFn: useSafeQueryFn(({ signal }) =>
-	useFetch("pokeapi", "pokemonById", { method: "GET", urlOptions: { params: { id } }, signal }),
+	useFetch("pokeapi", "pokemonById", { method: "GET", params: { id }, signal }),
 );
 ```
 

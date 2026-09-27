@@ -355,9 +355,35 @@ export interface ApiEntry {
 
 export type ApisConfig = Record<string, ApiEntry>;
 
-/** Options passed when executing a fetch request. */
-export interface FetchOptions extends RequestInit {
+/**
+ * Options passed when executing a fetch request.
+ *
+ * URL building lives **at the top level** — the same shape as `useGet`,
+ * `useRequest` and Nuxt's `useFetch` — so nothing has to be nested:
+ *
+ * ```ts
+ * useFetch("api", "byId", { method: "GET", params: { id: 25 }, query: { limit: 2 } });
+ * ```
+ *
+ * @typeParam T - The type {@link FetchOptions.transform} resolves to.
+ */
+export interface FetchOptions<T = unknown> extends RequestInit {
+	/** Path params substituted into `:name` placeholders of the endpoint. */
+	params?: PathParams;
+	/** Query-string params appended to the URL. */
+	query?: QueryParams;
+	/** Skip the endpoint's `defaultQueryParams` instead of merging them. */
+	ignoreDefaultQuery?: boolean;
+	/**
+	 * Nested form of {@link FetchOptions.params}, {@link FetchOptions.query} and
+	 * {@link FetchOptions.ignoreDefaultQuery}.
+	 *
+	 * @deprecated Pass them at the top level instead. Kept for backwards
+	 * compatibility and scheduled for removal in the next major.
+	 */
 	urlOptions?: UrlOptions;
+	/** Maps the parsed response body to `T` before it is returned. */
+	transform?: (input: unknown) => T | Promise<T>;
 }
 
 /** Structure of the safe error returned on non-2xx or network failures. */
@@ -401,16 +427,17 @@ export interface IFetchApiManager {
 	useGetApis(): ApisConfig;
 	useGetApisConfig(): ApisConfig;
 	useBuildUrl(apiName: string, endpointName: string, options?: UrlOptions): string;
+	/** @deprecated Use `useBuildUrl`. */
 	useBuildApiUrl(apiName: string, endpointName: string, options?: UrlOptions): string;
 	useFetch<T = unknown>(
 		apiName: string,
 		endpointName: string,
-		options?: FetchOptions,
+		options?: FetchOptions<T>,
 	): Promise<FetchResult<T>>;
 	useFetchApi<T = unknown>(
 		apiName: string,
 		endpointName: string,
-		options?: FetchOptions,
+		options?: FetchOptions<T>,
 	): Promise<FetchResult<T>>;
 	useGet<T = unknown>(
 		apiName: string,

@@ -72,7 +72,7 @@ export default defineApiConfig({
   getPokemon: async function () {
     //            ^^^^^^^^ `function`, never an arrow
     if (this.config.debug) console.log("fetching…");
-    return useFetch("pokeapi", "byId", { urlOptions: { params: { id: 25 } } });
+    return useFetch("pokeapi", "byId", { params: { id: 25 } });
   },
 });
 ```

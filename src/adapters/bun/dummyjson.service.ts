@@ -79,7 +79,7 @@ export async function useDummyJsonProducts(): Promise<Response> {
  * @returns A JSON `Response` wrapping the product.
  */
 export async function useDummyJsonProductById(id: string): Promise<Response> {
-	return toResponse(await useFetch("dummyjson", "productById", { urlOptions: { params: { id } } }));
+	return toResponse(await useFetch("dummyjson", "productById", { params: { id } }));
 }
 
 /**
@@ -89,9 +89,7 @@ export async function useDummyJsonProductById(id: string): Promise<Response> {
  * @returns A JSON `Response` wrapping the search results.
  */
 export async function useDummyJsonProductSearch(query: string): Promise<Response> {
-	return toResponse(
-		await useFetch("dummyjson", "productSearch", { urlOptions: { query: { q: query } } }),
-	);
+	return toResponse(await useFetch("dummyjson", "productSearch", { query: { q: query } }));
 }
 
 /**
@@ -110,9 +108,7 @@ export async function useDummyJsonProductCategories(): Promise<Response> {
  * @returns A JSON `Response` wrapping the products.
  */
 export async function useDummyJsonProductsByCategory(category: string): Promise<Response> {
-	return toResponse(
-		await useFetch("dummyjson", "productByCategory", { urlOptions: { params: { category } } }),
-	);
+	return toResponse(await useFetch("dummyjson", "productByCategory", { params: { category } }));
 }
 
 /**
@@ -131,7 +127,7 @@ export async function useDummyJsonUsers(): Promise<Response> {
  * @returns A JSON `Response` wrapping the user.
  */
 export async function useDummyJsonUserById(id: string): Promise<Response> {
-	return toResponse(await useFetch("dummyjson", "userById", { urlOptions: { params: { id } } }));
+	return toResponse(await useFetch("dummyjson", "userById", { params: { id } }));
 }
 
 /**
@@ -150,7 +146,7 @@ export async function useDummyJsonPosts(): Promise<Response> {
  * @returns A JSON `Response` wrapping the post.
  */
 export async function useDummyJsonPostById(id: string): Promise<Response> {
-	return toResponse(await useFetch("dummyjson", "postById", { urlOptions: { params: { id } } }));
+	return toResponse(await useFetch("dummyjson", "postById", { params: { id } }));
 }
 
 /**

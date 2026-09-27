@@ -71,7 +71,7 @@ export function useRequest<T>(
 
 		const result = await useFetch<T>(apiName, endpointName, {
 			method: "GET",
-			urlOptions: options,
+			...options,
 			signal: controller.signal,
 		});
 

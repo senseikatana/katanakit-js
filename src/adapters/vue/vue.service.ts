@@ -78,7 +78,7 @@ export function useRequest<T>(
 
 		const result: FetchResult<T> = await useFetch<T>(apiName, endpointName, {
 			method: "GET",
-			urlOptions: unref(options),
+			...unref(options),
 			signal: controller.signal,
 		});
 

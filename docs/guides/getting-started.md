@@ -199,7 +199,7 @@ export default defineApiConfig({
   debug: true, // boolean flag
   getPokemon: async function () {
     //            ^^^^^^^^ `function`, never an arrow
-    return useFetch("pokeapi", "pokemonById", { urlOptions: { params: { id: 25 } } });
+    return useFetch("pokeapi", "pokemonById", { params: { id: 25 } });
   },
 });
 ```
@@ -220,7 +220,7 @@ Inside a method, `this.config` is the same object:
 ```ts
 getPokemon: async function () {
   if (this.config.debug) console.log("fetching…");
-  return useFetch("pokeapi", "pokemonById", { urlOptions: { params: { id: 25 } } });
+  return useFetch("pokeapi", "pokemonById", { params: { id: 25 } });
 },
 ```
 
@@ -289,15 +289,31 @@ defineApiConfig({
 
 ### Build URLs
 
-```ts
-import { useBuildApiUrl } from "katanakit-js";
-// Legacy alias: useBuildUrl (deprecated)
+`useBuildUrl` gives you the URL **without making the request** — `useFetch`
+minus the fetch. Same registry, same `:param` substitution, same `query` merge,
+but it returns a `string`.
 
-const url = useBuildApiUrl("pokeapi", "pokemonById", {
+```ts
+import { useBuildUrl } from "katanakit-js";
+// Deprecated alias: useBuildApiUrl
+
+const url = useBuildUrl("pokeapi", "pokemonById", {
   params: { id: "pikachu" },
 });
 // => "https://pokeapi.co/api/v2/pokemon/pikachu/"
 ```
+
+Reach for it when you need the **address** rather than the response: an
+`<a href>` or `<img src>`, a library that fetches on its own, a log line before
+requesting, or an SSR/prerender pass where nothing should be fetched.
+
+```ts
+<a href={useBuildUrl("myApi", "download", { params: { id: 42 } })}>Download</a>
+```
+
+It is synchronous, so it throws on a bad API/endpoint instead of returning a
+Safe Result. If you only want the URL a request *did* use, read `result.url`
+from `useFetch`.
 
 ### GET with Safe Result
 
