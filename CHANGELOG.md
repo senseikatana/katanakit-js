@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.0.3] - 2026-09-27
+
+### Changed
+
+- **Release pipeline simplified** — `scripts/bump-version.mjs` and the `bump:patch|minor|major|sync` scripts are gone. Versioning is plain `npm version`, and `generate-release-notes.mjs` now carries the two things the old script did: `--write` inserts the `[X.Y.Z] - date` section from the commits since the previous tag, and `--sync-versions` refreshes every version pinned in prose.
+- **`bun run build` refreshes every version reference** — it ends in `--sync-versions`, so `package.json`, the CDN pins in the README and Getting Started, the roadmap heading and the filesystem guide always name the newest tag. The call is idempotent: unchanged files are not rewritten.
+- **`release:minor` and `release:major` removed** — `useGit release create` already computes the bump level from Conventional Commits, so one `release` script (build → changelog → publish) covers the whole path.
+- **`release.yml` rebuilt on `npm version`** — the workflow no longer needs the deleted script; it versions, writes the changelog, publishes with OIDC and creates the GitHub release.
+- **`.github/workflows/deploy.yml` untracked** — it kept failing with `Deploy failed`. Docs deploy locally with `bun run cf:deploy`; `ci.yml` and `release.yml` stay.
+
 ## [6.0.2] - 2026-09-27
 
 ### Added

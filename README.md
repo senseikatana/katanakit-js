@@ -29,7 +29,7 @@ In the browser, use jsDelivr **`/+esm`** so named exports and dependencies resol
 | **esm.sh**                         | `https://esm.sh/katanakit-js`                                                           |
 | **Raw ESM file**                   | `https://cdn.jsdelivr.net/npm/katanakit-js/dist/index.js` (needs bundler or import map) |
 
-Pin a version in production (e.g. `@6.0.2/+esm`). There is no IIFE/UMD build.
+Pin a version in production (e.g. `@6.0.3/+esm`). There is no IIFE/UMD build.
 
 ## Quick Start
 

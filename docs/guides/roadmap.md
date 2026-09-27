@@ -8,7 +8,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 6.0.2)
+## Shipped (as of 6.0.3)
 
 ### Architecture and packaging
 
@@ -56,7 +56,7 @@ Legend: `[x]` done · `[ ]` planned.
       for the UI kit foundations.
 - [x] ESLint gate (`check` = eslint + `tsc6` typecheck + vitest; `fix` auto-fixes).
 - [x] Releases through GitHub Actions with npm OIDC trusted publishing
-      (`.github/workflows/release.yml`) plus local `release[:minor|:major]` fallback.
+      (`.github/workflows/release.yml`) plus a local `bun run release` fallback.
 - [x] English documentation: README, Getting Started, Architecture, API
       Reference, Roadmap, CONTRIBUTING, SECURITY, CHANGELOG.
 - [x] Security fixes applied: URL scheme validation, DOM `on*` attribute block,

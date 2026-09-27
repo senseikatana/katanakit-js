@@ -7,7 +7,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 
 - `bun run check` — gate: `eslint ./src packages/ui/src` + `tsc6 --noEmit` (+ `tsc6 -p packages/ui/tsconfig.json --noEmit`) + `vitest run`. Must pass before any PR.
 - `bun run fix` — same with `eslint --fix`.
-- `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`.
+- `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`, then `generate-release-notes.mjs --sync-versions` so `package.json` and every version pinned in the README/guides always name the newest git tag (idempotent).
 - `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`; run `bun run build` first.
 - `bun run ui:build` — builds `@katanakit/ui` (`tsc` + `sass` → `packages/ui/dist`); `docs:dev`/`docs:build`/`docs:gh` run it first.
 - Docs: VitePress in `docs/` (`bun run docs:dev`, `bun run docs:build` → `docs/.vitepress/dist`). `scripts/docs-prepare.mjs` generates the TypeDoc API reference and the changelog page; CI does NOT build docs (deploy workflow does).
@@ -32,7 +32,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 - Before any PR: `git checkout dev && git merge <branch>` — features land in `dev` first.
 - PRs to `main` come only from `dev`. Merge only green. Delete branches after merge.
 - `CHANGELOG.md` holds **released versions only** — no `[Unreleased]` buffer, in the file or on the docs page. `scripts/generate-release-notes.mjs <tag> --write` writes the `[X.Y.Z] - date` section from the Conventional Commits since the previous tag (and refreshes the version pinned in README/docs), so the commit subject *is* the changelog entry: make it describe the user-visible change. `bun run release` runs it automatically; versioning itself is plain `npm version`.
-- Release via CI: trigger `.github/workflows/release.yml` (workflow_dispatch, pick patch/minor/major). Manual fallback: `bun run release[:minor|:major]`.
+- Release via CI: trigger `.github/workflows/release.yml` (workflow_dispatch, pick patch/minor/major). Manual fallback: `bun run release` (the bump level comes from `useGit release create`).
 - **PREREQUISITE**: Trusted publishing must be configured on npmjs.com (Package Settings → Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`, workflow `release.yml`).
 
 ## CI (.github/workflows/ci.yml + release.yml)

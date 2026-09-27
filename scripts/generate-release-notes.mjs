@@ -9,6 +9,7 @@
  *   node scripts/generate-release-notes.mjs v2.14.1 --json
  *   node scripts/generate-release-notes.mjs v2.14.1 --changelog   # prefer CHANGELOG section
  *   node scripts/generate-release-notes.mjs v2.14.1 --write       # write the section into CHANGELOG.md
+ *   node scripts/generate-release-notes.mjs --sync-versions       # refresh version refs in README/docs
  *   node scripts/generate-release-notes.mjs --all --json
  *
  * `--write` also refreshes the version pinned in README/docs prose, so the
@@ -139,6 +140,7 @@ const asJson = args.includes("--json");
 const all = args.includes("--all");
 const preferChangelog = args.includes("--changelog");
 const write = args.includes("--write");
+const syncVersions = args.includes("--sync-versions");
 const tag = args.find((arg) => !arg.startsWith("--"));
 
 /**
@@ -164,6 +166,19 @@ const VERSIONED_DOCS = [
 ];
 
 function syncVersionRefs(version) {
+	// package.json first: it is the version npm publishes, so a tag created
+	// outside this script (`useGit release create`) must be mirrored back.
+	const manifest = join(ROOT, "package.json");
+	const manifestBefore = readFileSync(manifest, "utf8");
+	const manifestAfter = manifestBefore.replace(
+		/("version":\s*)"\d+\.\d+\.\d+"/,
+		`$1"${version}"`,
+	);
+	if (manifestAfter !== manifestBefore) {
+		writeFileSync(manifest, manifestAfter);
+		console.log(`Version refs: package.json → ${version}`);
+	}
+
 	const patterns = [
 		[/(katanakit-js@)\d+\.\d+\.\d+/g, `$1${version}`],
 		[/(@)\d+\.\d+\.\d+(\/\+esm)/g, `$1${version}$2`],
@@ -229,7 +244,16 @@ function writeChangelog(release) {
 	console.log(`Changelog: wrote [${release.version}]`);
 }
 
-if (all) {
+if (syncVersions) {
+	// Runs on every `bun run build`, so README/docs can never pin a stale
+	// version. Idempotent: unchanged files are not rewritten.
+	const tags = allTags();
+	if (tags.length === 0) {
+		console.error("sync-versions: no v*.*.* tag found");
+		process.exit(1);
+	}
+	syncVersionRefs(tags[0].replace(/^v/, ""));
+} else if (all) {
 	const releases = allTags().map(collect);
 	process.stdout.write(`${JSON.stringify(releases, null, 2)}\n`);
 } else if (write) {
@@ -261,7 +285,7 @@ if (all) {
 	process.stdout.write(asJson ? `${JSON.stringify(release, null, 2)}\n` : renderMarkdown(release));
 } else {
 	console.error(
-		"Usage: node scripts/generate-release-notes.mjs <tag> [--json] [--changelog] [--write] | --all [--json]",
+		"Usage: node scripts/generate-release-notes.mjs <tag> [--json] [--changelog] [--write] | --sync-versions | --all [--json]",
 	);
 	process.exit(1);
 }

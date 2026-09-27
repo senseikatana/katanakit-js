@@ -76,10 +76,8 @@ Useful scripts:
 | ----------------------- | ------------------------------------------------------ |
 | `bun run check`         | ESLint + typecheck + tests (gate before build/publish) |
 | `bun run fix`           | Same as `check` with ESLint auto-fix                   |
-| `bun run build`         | `check` then compile to `dist/`                        |
-| `bun run release`       | `build` → version bump → publish to npm                |
-| `bun run release:minor` | Same for minor release                                 |
-| `bun run release:major` | Same for major release                                 |
+| `bun run build`         | `check`, compile to `dist/`, sync version references   |
+| `bun run release`       | `build` → write CHANGELOG section → publish to npm      |
 | `bun run docs:dev`      | Docs site dev server (VitePress)                       |
 | `bun run docs:build`    | Builds the docs site into `docs/.vitepress/dist/`      |
 | `bun run ui:build`      | Builds `@katanakit/ui` (components + katanakit-css CSS) |
@@ -178,9 +176,7 @@ workflow `release.yml`, environment (none).
 ### Releasing (local fallback)
 
 ```bash
-bun run release        # build (check + compile) + bump patch + publish
-bun run release:minor  # same for minor
-bun run release:major  # same for major
+bun run release   # build + write CHANGELOG section + publish to npm
 ```
 
 These publish from your machine with your npm credentials. Prefer the CI path.
