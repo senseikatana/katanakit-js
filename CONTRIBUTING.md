@@ -117,9 +117,11 @@ When you change a public API:
   the public API docs automatically.
 - Update the matching entry in the README Features list and the docs page that
   covers the API (`docs/guides/*.md`).
-- Note user-visible changes in `CHANGELOG.md` under `[Unreleased]` **in the same
-  commit** as the change. `scripts/bump-version.mjs` promotes the section to
-  `[X.Y.Z] - date` on release and refuses to release an empty section.
+- Describe user-visible changes in the **Conventional Commit subject** — that
+  subject is what `scripts/generate-release-notes.mjs <tag> --write` turns into
+  the release's `CHANGELOG.md` entry when the version is cut. `CHANGELOG.md`
+  only ever lists released versions (there is no `[Unreleased]` buffer), so
+  nothing appears there until it actually ships.
 - Always use `katanakit-js` in example imports.
 
 ### Writing docs pages

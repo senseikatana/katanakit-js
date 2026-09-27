@@ -8,10 +8,14 @@
  *   node scripts/generate-release-notes.mjs v2.14.1
  *   node scripts/generate-release-notes.mjs v2.14.1 --json
  *   node scripts/generate-release-notes.mjs v2.14.1 --changelog   # prefer CHANGELOG section
+ *   node scripts/generate-release-notes.mjs v2.14.1 --write       # write the section into CHANGELOG.md
  *   node scripts/generate-release-notes.mjs --all --json
+ *
+ * `--write` also refreshes the version pinned in README/docs prose, so the
+ * published docs always name the version that just shipped.
  */
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -63,7 +67,9 @@ function collect(tag) {
 		.filter(Boolean)
 		.map(parseCommit)
 		.filter(Boolean)
-		.filter((commit) => !(commit.type === "chore" && /^release v/.test(commit.message)));
+		.filter((commit) => !(commit.type === "chore" && /^release v/.test(commit.message)))
+		// Bot-generated placeholder: describes the commit, not the change.
+		.filter((commit) => !/^update documentation in \d+ files$/.test(commit.message));
 
 	const sections = SECTIONS.map((section) => ({
 		title: section.title,
@@ -102,9 +108,10 @@ function renderMarkdown(release) {
 }
 
 /**
- * Extracts the newest non-empty section from CHANGELOG.md, preferring
- * `[Unreleased]`. Used when tags already captured the commits (e.g. manual
- * GitHub releases without an npm publish), so commit diffing yields nothing.
+ * Extracts the newest non-empty section from CHANGELOG.md. Used when tags
+ * already captured the commits (e.g. manual GitHub releases without an npm
+ * publish), so commit diffing yields nothing. CHANGELOG.md lists released
+ * versions only, so the newest section *is* the release being described.
  */
 function changelogBody() {
 	const lines = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8").split("\n");
@@ -122,9 +129,7 @@ function changelogBody() {
 	if (current) sections.push(current);
 
 	const hasBody = (section) => section.lines.join("").trim().length > 0;
-	const preferred =
-		sections.find((section) => /\[Unreleased\]/.test(section.heading) && hasBody(section)) ??
-		sections.find(hasBody);
+	const preferred = sections.find(hasBody);
 
 	return preferred ? `${preferred.lines.join("\n").trim()}\n` : undefined;
 }
@@ -133,11 +138,117 @@ const args = process.argv.slice(2);
 const asJson = args.includes("--json");
 const all = args.includes("--all");
 const preferChangelog = args.includes("--changelog");
+const write = args.includes("--write");
 const tag = args.find((arg) => !arg.startsWith("--"));
+
+/**
+ * Release-notes heading → `CHANGELOG.md` section. Tooling-only categories
+ * (tests, build, ci, chores) are deliberately absent: they never reach a
+ * consumer, and listing them is what made the file read like a commit log.
+ */
+const CHANGELOG_SECTION = {
+	"🚀 Features": "Added",
+	"🔧 Fixes": "Fixed",
+	"⚡ Performance": "Changed",
+	"♻️ Refactors": "Changed",
+	"📝 Documentation": "Changed",
+};
+const SECTION_ORDER = ["Added", "Changed", "Fixed", "Removed", "Security", "Breaking"];
+
+/** Files whose prose pins a version number; refreshed so docs never go stale. */
+const VERSIONED_DOCS = [
+	"README.md",
+	"docs/guides/getting-started.md",
+	"docs/guides/roadmap.md",
+	"docs/guides/filesystem.md",
+];
+
+function syncVersionRefs(version) {
+	const patterns = [
+		[/(katanakit-js@)\d+\.\d+\.\d+/g, `$1${version}`],
+		[/(@)\d+\.\d+\.\d+(\/\+esm)/g, `$1${version}$2`],
+		[/(as of )\d+\.\d+\.\d+/g, `$1${version}`],
+		[/(katanakit-)\d+\.\d+\.\d+(\.tgz)/g, `$1${version}$2`],
+	];
+
+	for (const file of VERSIONED_DOCS) {
+		const path = join(ROOT, file);
+		if (!existsSync(path)) continue;
+		const before = readFileSync(path, "utf8");
+		const after = patterns.reduce((text, [re, rep]) => text.replace(re, rep), before);
+		if (after !== before) {
+			writeFileSync(path, after);
+			console.log(`Version refs: ${file} → ${version}`);
+		}
+	}
+}
+
+/**
+ * Inserts `## [X.Y.Z] - date` at the top of CHANGELOG.md, built from the
+ * commits between the previous tag and this one. The file only ever lists
+ * released versions — there is no `[Unreleased]` buffer to promote.
+ */
+function writeChangelog(release) {
+	const file = join(ROOT, "CHANGELOG.md");
+	const content = readFileSync(file, "utf8");
+	if (new RegExp(`^## \\[${release.version.replace(/\./g, "\\.")}\\]`, "m").test(content)) {
+		console.log(`Changelog: [${release.version}] already present — skipped`);
+		return;
+	}
+
+	const bySection = new Map();
+	const breaking = [];
+
+	for (const section of release.sections) {
+		const title = CHANGELOG_SECTION[section.title];
+		if (!title) continue;
+		for (const item of section.items) {
+			const line = `- ${item.scope ? `**${item.scope}:** ` : ""}${item.message}`;
+			if (item.breaking) breaking.push(line);
+			else bySection.set(title, [...(bySection.get(title) ?? []), line]);
+		}
+	}
+
+	const body = [
+		...SECTION_ORDER.filter((t) => t !== "Breaking").flatMap((title) => {
+			const items = bySection.get(title);
+			return items?.length ? [`### ${title}`, "", ...items, ""] : [];
+		}),
+		...(breaking.length ? ["### Breaking", "", ...breaking, ""] : []),
+	];
+	if (body.length === 0) {
+		body.push("### Changed", "", "- Tooling, documentation and test updates.", "");
+	}
+
+	const section = `## [${release.version}] - ${release.date}\n\n${body.join("\n").trimEnd()}\n\n`;
+	const at = content.search(/^## \[/m);
+	const updated =
+		at === -1 ? `${content.trimEnd()}\n\n${section}` : content.slice(0, at) + section + content.slice(at);
+
+	writeFileSync(file, updated);
+	console.log(`Changelog: wrote [${release.version}]`);
+}
 
 if (all) {
 	const releases = allTags().map(collect);
 	process.stdout.write(`${JSON.stringify(releases, null, 2)}\n`);
+} else if (write) {
+	if (!tag) {
+		console.error("Usage: node scripts/generate-release-notes.mjs <tag> --write");
+		process.exit(1);
+	}
+	try {
+		execFileSync("git", ["rev-parse", "-q", "--verify", `refs/tags/${tag}`], { cwd: ROOT });
+	} catch {
+		// Never block a publish because the tag is missing.
+		console.warn(`write: tag ${tag} not found — changelog skipped`);
+		process.exit(0);
+	}
+	const release = collect(tag);
+	writeChangelog(release);
+	// Docs must name the newest release, even when backfilling an older tag —
+	// syncing against `release.version` would silently downgrade them.
+	syncVersionRefs(allTags()[0].replace(/^v/, ""));
 } else if (tag) {
 	if (preferChangelog) {
 		const body = changelogBody();
@@ -150,7 +261,7 @@ if (all) {
 	process.stdout.write(asJson ? `${JSON.stringify(release, null, 2)}\n` : renderMarkdown(release));
 } else {
 	console.error(
-		"Usage: node scripts/generate-release-notes.mjs <tag> [--json] [--changelog] | --all [--json]",
+		"Usage: node scripts/generate-release-notes.mjs <tag> [--json] [--changelog] [--write] | --all [--json]",
 	);
 	process.exit(1);
 }

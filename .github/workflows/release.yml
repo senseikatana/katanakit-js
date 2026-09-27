@@ -4,81 +4,98 @@
 #   → Add: repo=senseikatana/katanakit-js, workflow=release.yml, environment=(none)
 # Without this, `npm publish --provenance` fails with 401/403.
 #
-# The preferred path: it bumps package.json, publishes to npm with provenance
-# and creates the GitHub release + annotated tag. The local scripts
-# (`bun run release[:minor|:major]`) are a manual fallback that publishes from
-# your machine instead. Manual `gh release create` only creates a GitHub
-# tag/release and does NOT publish to npm.
+# Versioning uses npm's own `npm version` — there is no bump script: the tag is
+# the source of truth, and `generate-release-notes.mjs --write` turns the
+# commits since the previous tag into the CHANGELOG section.
 name: Release
 
 on:
- workflow_dispatch:
-  inputs:
-   release-type:
-    description: "Release type"
-    required: true
-    type: choice
-    options:
-     - patch
-     - minor
-     - major
-   release-message:
-    description: "Release message — becomes the tag and release title: 'vX.Y.Z — <message>'"
-    required: false
-    type: string
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: "Release type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      release-message:
+        description: "Release message — becomes the tag and release title: 'vX.Y.Z — <message>'"
+        required: false
+        type: string
 
 permissions:
- contents: write
- id-token: write
+  contents: write
+  id-token: write
 
 jobs:
- release:
-  runs-on: ubuntu-latest
-  steps:
-   - uses: actions/checkout@v7
-     with:
-      fetch-depth: 0
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
-   - name: Configure git identity
-     run: |
-      git config user.name "github-actions[bot]"
-      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-   - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
 
-   - uses: actions/setup-node@v7
-     with:
-      node-version: 24
-      registry-url: "https://registry.npmjs.org"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
 
-   - run: bun install --frozen-lockfile
+      - run: bun install --frozen-lockfile
 
-   - run: bun run build
+      - name: Bump version and tag
+        env:
+          RELEASE_MESSAGE: ${{ inputs.release-message }}
+          RELEASE_TYPE: ${{ inputs.release-type }}
+        run: |
+          if [ -n "$RELEASE_MESSAGE" ]; then
+            npm version "$RELEASE_TYPE" -m "v%s — $RELEASE_MESSAGE"
+          else
+            npm version "$RELEASE_TYPE" -m "chore: release v%s"
+          fi
 
-   - name: Bump version and tag
-     env:
-      RELEASE_MESSAGE: ${{ inputs.release-message }}
-     run: node scripts/bump-version.mjs "${{ inputs.release-type }}" "$RELEASE_MESSAGE"
+      - run: bun run build
 
-   - run: npm publish --provenance --access public
+      - name: Write CHANGELOG section and sync version refs
+        run: node scripts/generate-release-notes.mjs "v$(node -p "require('./package.json').version")" --write
 
-   - run: git push && git push --tags
+      - run: npm publish --provenance --access public
 
-   - name: Generate release notes
-     run: |
-      VERSION=$(node -p "require('./package.json').version")
-      node scripts/generate-release-notes.mjs "v${VERSION}" --changelog > /tmp/release-notes.md
+      - name: Commit changelog
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if git diff --quiet -- CHANGELOG.md README.md docs/guides; then
+            echo "No changelog changes."
+          else
+            git add CHANGELOG.md README.md docs/guides
+            git commit -m "docs: changelog for v${VERSION}"
+          fi
 
-   - name: Create GitHub release
-     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      RELEASE_MESSAGE: ${{ inputs.release-message }}
-     run: |
-      VERSION=$(node -p "require('./package.json').version")
-      TITLE="v${VERSION}"
-      if [ -n "$RELEASE_MESSAGE" ]; then
-        TITLE="v${VERSION} — ${RELEASE_MESSAGE}"
-      fi
-      gh release create "v${VERSION}" \
-        --title "$TITLE" \
-        --notes-file /tmp/release-notes.md
+      - run: git push && git push --tags
+
+      - name: Generate release notes
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          node scripts/generate-release-notes.mjs "v${VERSION}" --changelog > /tmp/release-notes.md
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_MESSAGE: ${{ inputs.release-message }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TITLE="v${VERSION}"
+          if [ -n "$RELEASE_MESSAGE" ]; then
+            TITLE="v${VERSION} — ${RELEASE_MESSAGE}"
+          fi
+          gh release create "v${VERSION}" \
+            --title "$TITLE" \
+            --notes-file /tmp/release-notes.md

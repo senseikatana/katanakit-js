@@ -45,6 +45,10 @@ docs/api/
 docs/changelog.md
 docs/.changelog.md.tmp
 
+# Docs deploy runs locally (`bun run cf:deploy`) — the GitHub Actions copy
+# kept failing with "Deploy failed", so it stays untracked.
+.github/workflows/deploy.yml
+
 # caches
 .eslintcache
 .cache

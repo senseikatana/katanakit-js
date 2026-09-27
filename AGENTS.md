@@ -31,7 +31,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 - Branch from `dev` (conventional commits). Never PR `feature` → `main` directly.
 - Before any PR: `git checkout dev && git merge <branch>` — features land in `dev` first.
 - PRs to `main` come only from `dev`. Merge only green. Delete branches after merge.
-- CHANGELOG `[Unreleased]` entry for **every user-visible change, in the same commit**. `scripts/bump-version.mjs` promotes it to `[X.Y.Z] - date` on release and refuses to release an empty section. README + docs updated with features.
+- `CHANGELOG.md` holds **released versions only** — no `[Unreleased]` buffer, in the file or on the docs page. `scripts/generate-release-notes.mjs <tag> --write` writes the `[X.Y.Z] - date` section from the Conventional Commits since the previous tag (and refreshes the version pinned in README/docs), so the commit subject *is* the changelog entry: make it describe the user-visible change. `bun run release` runs it automatically; versioning itself is plain `npm version`.
 - Release via CI: trigger `.github/workflows/release.yml` (workflow_dispatch, pick patch/minor/major). Manual fallback: `bun run release[:minor|:major]`.
 - **PREREQUISITE**: Trusted publishing must be configured on npmjs.com (Package Settings → Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`, workflow `release.yml`).
 
@@ -46,7 +46,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 
 - **Docs:** `katanakit-docs` project → `docs.senseikatana.com` (VitePress build output `docs/.vitepress/dist/`; the old `guides/` and `playground/` workspaces are gone)
 - Deploy: `bun run cf:deploy` (builds the package, then the docs, then deploys with wrangler). Wrangler is pinned in devDeps.
-- CI: `.github/workflows/deploy.yml` deploys the docs on push to `main` (GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`).
+- CI: `.github/workflows/deploy.yml` is **not tracked** (gitignored — it kept failing with `Deploy failed`). Docs deploy locally with `bun run cf:deploy`; `scripts/setup-cloudflare.mjs` provisions the project and secrets.
 - Provision/verify projects, custom domains and CI secrets: `node scripts/setup-cloudflare.mjs [--apply] [--github-secrets]`.
 - Storage: R2 for objects; database pending (Cloudflare D1, INSForge as fallback). Local ORM is Prisma (`prisma.config.ts`).
 - `.env` gotcha: a non-empty `CLOUDFLARE_API_TOKEN` overrides the `wrangler login` OAuth session; leave it empty locally to use OAuth.
