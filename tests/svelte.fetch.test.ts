@@ -25,6 +25,16 @@ describe("svelte/useRequest", () => {
 
 		await vi.waitFor(() => expect(get(data)).toEqual({ name: "pikachu" }));
 	});
+	it("forwards URL options to the built request URL", async () => {
+		useInit({ api: { baseUri: "https://example.com", endpoints: { item: "/items/:id" } } });
+		const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ id: 7 }));
+		vi.stubGlobal("fetch", fetchMock);
+
+		const { data } = useRequest<{ id: number }>("api", "item", { params: { id: 7 } });
+
+		await vi.waitFor(() => expect(get(data)).toEqual({ id: 7 }));
+		expect(fetchMock.mock.calls[0][0]).toBe("https://example.com/items/7");
+	});
 });
 
 describe("svelte/useWatch", () => {
