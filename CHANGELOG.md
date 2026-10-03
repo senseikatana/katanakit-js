@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.2.0] - 2026-10-03
+
+### Changed
+- ci(release): drop the dist-tag job OIDC cannot authenticate$'
+'- ci(release): add a remove-dist-tag maintenance job$'
+'- ci(release): retry backfill publishes without provenance on tlog conflicts$'
+'- ci(release): normalize legacy package metadata for backfill publishes$'
+'- ci(release): unblock backfill publishes on legacy tags$'
+'- ci(release): pin backfill publishes to the tag name$'
+'- ci(release): backfill an existing tag through the publish-tag input$'
+'- chore(release): sync version refs to v6.1.0$'
+'- docs(.vitepress): merge UI Kit and katanakit-css into one nav dropdown
+
 ## [6.1.0] - 2026-10-03
 
 ### Changed
