@@ -6,8 +6,13 @@
  * The glob keeps the site buildable when the file is absent (fresh clone
  * before `docs:prepare`): everything degrades to "no data".
  */
-export type ChangelogSection = { title: string; items: string[] };
-export type ChangelogEntry = { version: string; date: string; sections: ChangelogSection[] };
+export type ChangelogItem = { emoji: string; html: string };
+export type ChangelogRelease = { version: string; date: string; items: ChangelogItem[] };
+export type ChangelogEntry = {
+	version: string;
+	date: string;
+	releases: ChangelogRelease[];
+};
 
 export type SiteSignals = {
 	version?: string;
