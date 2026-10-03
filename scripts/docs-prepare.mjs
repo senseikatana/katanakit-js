@@ -131,10 +131,87 @@ const EMOJI_BY_TYPE = {
 	revert: "\u21A9\uFE0F",
 };
 
-/** `feat(scope): …` / `chore: …` → emoji; unknown or scoped-only prose falls back. */
+/** `**scope:** …` bullets (writeChangelog format) → emoji by scope. */
+const EMOJI_BY_SCOPE = {
+	docs: "\u{1F4DA}",
+	guides: "\u{1F4DA}",
+	readme: "\u{1F4D6}",
+	agents: "\u{1F9E0}",
+	changelog: "\u{1F4DD}",
+	contributing: "\u{1F4DD}",
+	ci: "\u{1F916}",
+	workflows: "\u{1F4E1}",
+	scripts: "\u{1F4E1}",
+	release: "\u{1F389}",
+	test: "\u{1F9EA}",
+	tests: "\u{1F9EA}",
+	ui: "\u{1F3A8}",
+	css: "\u{1F3A8}",
+	theme: "\u{1F3A8}",
+	vitepress: "\u{1F4D9}",
+	".vitepress": "\u{1F4D9}",
+	deps: "\u2B06\uFE0F",
+	"bun.lock": "\u2B06\uFE0F",
+	lock: "\u2B06\uFE0F",
+	security: "\u{1F512}",
+	faker: "\u{1F3B2}",
+	photoswipe: "\u{1F5BC}\uFE0F",
+	adapters: "\u{1F9E9}",
+	astro: "\u2604\uFE0F",
+	express: "\u{1F310}",
+	nuxt: "\u{1F310}",
+	vue: "\u{1F310}",
+	react: "\u{1F310}",
+	http: "\u{1F310}",
+	query: "\u{1F9E9}",
+	core: "\u2699\uFE0F",
+	config: "\u2699\uFE0F",
+	infrastructure: "\u{1F527}",
+	types: "\u{1F4DC}",
+	katanakit: "\u{1F4E6}",
+	"katanakit-js": "\u{1F4E6}",
+	"katanakit-css": "\u{1F3A8}",
+};
+
+/** Last-resort read of the sentence when neither the type nor the scope helps. */
+const KEYWORD_EMOJI = [
+	[/\b(fix(es|ed)?|bug|patch|typo)\b/i, "\u{1F41B}"],
+	[/\b(remove|drop|delet|deprecat)\b/i, "\u{1F5D1}\uFE0F"],
+	[/\b(security|secret|token|csrf|xss)\b/i, "\u{1F512}"],
+	[/\b(perf(ormance)?|faster|speed|optimi)\b/i, "\u26A1"],
+	[/\b(deps?|dependenc(?:y|ies)?|bump|upgrade|lock(?:file)?|install)\b/i, "\u2B06\uFE0F"],
+	[/\b(test|vitest|spec|coverage)\b/i, "\u{1F9EA}"],
+	[/\b(docs?|guides?|readme|changelog)\b/i, "\u{1F4DA}"],
+	[/\b(ci|workflow|pipeline|actions)\b/i, "\u{1F916}"],
+	[/\b(release|publish|version)\b/i, "\u{1F389}"],
+	[/\b(lint|prettier|format|eslint)\b/i, "\u{1F9F9}"],
+	[/\b(hook|husky|lint-staged|commit)\b/i, "\u{1F511}"],
+	[/\b(add(s|ed)?|new|introduc|support)\b/i, "\u2728"],
+];
+
+/**
+ * Emoji for one changelog bullet, resolved in three passes so the panel never
+ * renders a bare `✨` when the sentence says what happened:
+ * conventional type → `**scope:**`/`type(scope)` scope → keyword read.
+ */
 function emojiFor(text) {
-	const match = /^(\w+)(?:\([^)]*\))?!?:/.exec(text);
-	return EMOJI_BY_TYPE[match?.[1] ?? ""] ?? "\u2728";
+	const type = /^(\w+)(?:\([^)]*\))?!?:/.exec(text)?.[1];
+	if (type && EMOJI_BY_TYPE[type]) return EMOJI_BY_TYPE[type];
+
+	const scope = (
+		// matches both `**scope:**` (writeChangelog) and `**scope**:` variants
+		/^\*\*([^*]+?)(?::\*\*|\*\*:)/.exec(text)?.[1] ??
+		/^[a-z][\w-]*\(([^)]+)\)/.exec(text)?.[1] ??
+		""
+	)
+		.trim()
+		.toLowerCase();
+	if (EMOJI_BY_SCOPE[scope]) return EMOJI_BY_SCOPE[scope];
+
+	for (const [pattern, emoji] of KEYWORD_EMOJI) {
+		if (pattern.test(text)) return emoji;
+	}
+	return "\u2728";
 }
 
 /**
