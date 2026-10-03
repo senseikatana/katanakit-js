@@ -118,6 +118,7 @@
 		"access": "public"
 	},
 	"scripts": {
+		"prepare": "husky",
 		"dev": "tsx src/adapters/express/main.ts",
 		"bun:dev": "bun run src/adapters/bun/main.ts",
 		"dev:all": "concurrently --names api,assistant,tg,wa \"bun run dev\" \"bun run assistant:dev\" \"bun run telegram:dev\" \"bun run whatsapp:dev\"",
@@ -125,6 +126,9 @@
 		"telegram:dev": "tsx src/adapters/telegram/main.ts",
 		"whatsapp:dev": "tsx src/adapters/whatsapp/main.ts",
 		"clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+		"lint": "eslint ./src packages/ui/src",
+		"lint:fix": "eslint --fix ./src packages/ui/src",
+		"lint:staged": "lint-staged",
 		"check": "eslint ./src packages/ui/src && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
@@ -138,6 +142,9 @@
 		"docs:preview": "vitepress preview docs",
 		"docs:gh": "node scripts/docs.mjs gh",
 		"cf:deploy": "bun run build && bun run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
+	},
+	"lint-staged": {
+		"**/*.{ts,tsx}": "eslint --fix --quiet"
 	},
 	"repository": {
 		"type": "git",
@@ -247,7 +254,9 @@
 		"eslint-plugin-simple-import-sort": "^14.0.0",
 		"express": "5.2.1",
 		"globals": "^17.12.0",
+		"husky": "^9.1.7",
 		"jsdom": "^30.1.0",
+		"lint-staged": "^17.6.0",
 		"prettier": "^3.9.8",
 		"prisma": "8.0.0-rc.13",
 		"react": "^19.3.0",

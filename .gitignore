@@ -84,7 +84,7 @@ docs/.changelog.md.tmp
 .roomodes
 .agents
 .atl
-.husky
+# `.husky/_` self-ignores (generated shims); `.husky/pre-commit` must be tracked.
 # MacOS
 .DS_Store
 
