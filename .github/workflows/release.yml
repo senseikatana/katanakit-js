@@ -7,14 +7,18 @@
 # Versioning uses npm's own `npm version` — there is no bump script: the tag is
 # the source of truth, and `generate-release-notes.mjs --write` turns the
 # commits since the previous tag into the CHANGELOG section.
+#
+# Backfill: dispatch with `publish-tag=vX.Y.Z` to publish a tag that already
+# exists (release already created) without bumping, tagging or re-releasing.
 name: Release
 
 on:
   workflow_dispatch:
     inputs:
       release-type:
-        description: "Release type"
-        required: true
+        description: "Release type (ignored when publish-tag is set)"
+        required: false
+        default: patch
         type: choice
         options:
           - patch
@@ -22,6 +26,10 @@ on:
           - major
       release-message:
         description: "Release message — becomes the tag and release title: 'vX.Y.Z — <message>'"
+        required: false
+        type: string
+      publish-tag:
+        description: "Backfill: publish an existing tag to npm (e.g. v6.1.0) without bumping, tagging or creating a release"
         required: false
         type: string
 
@@ -49,13 +57,37 @@ jobs:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
 
+      - name: Checkout the tag to backfill
+        if: inputs.publish-tag != ''
+        run: |
+          git checkout --detach "${{ inputs.publish-tag }}"
+
+      - name: Check the tag before building
+        if: inputs.publish-tag != ''
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [ "v$VERSION" != "${{ inputs.publish-tag }}" ]; then
+            echo "::error::package.json ($VERSION) does not match tag ${{ inputs.publish-tag }}"
+            exit 1
+          fi
+          if npm view "katanakit-js@$VERSION" version >/dev/null 2>&1; then
+            echo "::error::katanakit-js@$VERSION is already on npm"
+            exit 1
+          fi
+          echo "Backfilling katanakit-js@$VERSION"
+
       - run: bun install --frozen-lockfile
 
       - name: Bump version and tag
+        if: inputs.publish-tag == ''
         env:
           RELEASE_MESSAGE: ${{ inputs.release-message }}
           RELEASE_TYPE: ${{ inputs.release-type }}
         run: |
+          if [ -z "$RELEASE_TYPE" ]; then
+            echo "::error::release-type is required when publish-tag is not set"
+            exit 1
+          fi
           if [ -n "$RELEASE_MESSAGE" ]; then
             npm version "$RELEASE_TYPE" -m "v%s — $RELEASE_MESSAGE"
           else
@@ -64,12 +96,34 @@ jobs:
 
       - run: bun run build
 
+      # `bun run build` ends with `--sync-versions`, which repoints package.json
+      # at the newest tag in the repo — that would publish the wrong version.
+      - name: Restore the tag's own version
+        if: inputs.publish-tag != ''
+        run: git checkout -- package.json README.md docs/guides
+
+      - name: Verify the tag is publishable
+        if: inputs.publish-tag != ''
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [ "v$VERSION" != "${{ inputs.publish-tag }}" ]; then
+            echo "::error::package.json ($VERSION) does not match tag ${{ inputs.publish-tag }}"
+            exit 1
+          fi
+          if npm view "katanakit-js@$VERSION" version >/dev/null 2>&1; then
+            echo "::error::katanakit-js@$VERSION is already on npm"
+            exit 1
+          fi
+          echo "Backfilling katanakit-js@$VERSION"
+
       - name: Write CHANGELOG section and sync version refs
+        if: inputs.publish-tag == ''
         run: node scripts/generate-release-notes.mjs "v$(node -p "require('./package.json').version")" --write
 
       - run: npm publish --provenance --access public
 
       - name: Commit changelog
+        if: inputs.publish-tag == ''
         run: |
           VERSION=$(node -p "require('./package.json').version")
           if git diff --quiet -- CHANGELOG.md README.md docs/guides; then
@@ -79,14 +133,17 @@ jobs:
             git commit -m "docs: changelog for v${VERSION}"
           fi
 
-      - run: git push && git push --tags
+      - if: inputs.publish-tag == ''
+        run: git push && git push --tags
 
       - name: Generate release notes
+        if: inputs.publish-tag == ''
         run: |
           VERSION=$(node -p "require('./package.json').version")
           node scripts/generate-release-notes.mjs "v${VERSION}" --changelog > /tmp/release-notes.md
 
       - name: Create GitHub release
+        if: inputs.publish-tag == ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_MESSAGE: ${{ inputs.release-message }}
