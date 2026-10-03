@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.1.0] - 2026-10-03
+
+### Changed
+- docs(guides): add per-major upgrade guides$'
+'- docs(CHANGELOG): add missing 6.0.5 release entry$'
+'- docs(CHANGELOG.md): update documentation in 8 files
+
 ## [6.0.6] - 2026-09-27
 
 ### Changed
