@@ -2,7 +2,11 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"entryPoints": ["src/index.ts"],
 	"tsconfig": "tsconfig.json",
-	"plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
+	"plugin": [
+		"typedoc-plugin-markdown",
+		"typedoc-vitepress-theme",
+		"./scripts/typedoc-drop-deprecated.mjs"
+	],
 	"out": "docs/api",
 	"docsRoot": "./docs",
 	"entryFileName": "index.md",

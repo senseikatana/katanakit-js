@@ -277,7 +277,7 @@ export function useRssHeadLink(config: SiteConfig): string {
 	return node ? serializeSeoTag(node) : "";
 }
 
-/** Full `<head>` HTML (meta + RSS). Accepts legacy {@link SeoMeta} or flat {@link SeoMetaInput}. */
+/** Full `<head>` HTML (meta + RSS). Accepts legacy `SeoMeta` or flat {@link SeoMetaInput}. */
 export function useHeadTags(config: SiteConfig, meta: SeoMeta | SeoMetaInput): string {
 	if (isLegacySeoMeta(meta)) {
 		return useSeoTag(config, meta).html;
