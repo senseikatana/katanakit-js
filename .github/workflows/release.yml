@@ -92,18 +92,43 @@ jobs:
             npm version "$RELEASE_TYPE" -m "chore: release v%s"
           fi
 
-      - run: bun run build
+      - name: Build the tag's own sources
+        if: inputs.publish-tag != ''
+        run: |
+          if bun run build; then
+            echo "Built with the tag's own build script"
+          else
+            # Legacy tags call pnpm (v3.x) or other tooling that is not on the runner.
+            echo "::warning::tag build script failed — compiling directly with tsc"
+            rm -rf dist
+            if [ -x node_modules/.bin/tsc6 ]; then TSC=node_modules/.bin/tsc6
+            elif [ -x node_modules/.bin/tsc ]; then TSC=node_modules/.bin/tsc
+            else echo "::error::no TypeScript compiler in node_modules/.bin"; exit 1; fi
+            "$TSC" -p tsconfig.json
+          fi
+          if [ -z "$(ls -A dist 2>/dev/null)" ]; then
+            echo "::error::dist/ is empty after build"
+            exit 1
+          fi
+          echo "dist/ has $(ls dist | wc -l) entries"
+
+      - name: Build and sync versions
+        if: inputs.publish-tag == ''
+        run: bun run build
 
       # `bun run build` ends with `--sync-versions`, which repoints package.json at
-      # the newest tag in the repo. Restore the tag's own files, then pin the
-      # version to the tag name: several 6.x tags were cut before the bump, so the
-      # package.json inside them lags (v6.1.0 carries 6.0.6).
+      # the newest tag in the repo. Restore the tag's own files (paths that did not
+      # exist yet on old tags are skipped), then pin the version to the tag name:
+      # several 6.x tags were cut before the bump, so the package.json inside them
+      # lags (v6.1.0 carries 6.0.6).
       - name: Restore tag content and pin the published version
         if: inputs.publish-tag != ''
         env:
           PUBLISH_TAG: ${{ inputs.publish-tag }}
         run: |
-          git checkout -- package.json README.md docs/guides
+          for path in package.json README.md docs/guides; do
+            git checkout -- "$path" 2>/dev/null || true
+          done
           node <<'EOF'
           const fs = require("node:fs");
           const tag = process.env.PUBLISH_TAG;
@@ -137,7 +162,26 @@ jobs:
         if: inputs.publish-tag == ''
         run: node scripts/generate-release-notes.mjs "v$(node -p "require('./package.json').version")" --write
 
-      - run: npm publish --provenance --access public
+      # A backfilled version is normally older than `latest`, and npm refuses to
+      # move `latest` backwards — publish it under a side dist-tag instead.
+      - name: npm publish (backfill)
+        if: inputs.publish-tag != ''
+        env:
+          PUBLISH_TAG: ${{ inputs.publish-tag }}
+        run: |
+          VERSION="${PUBLISH_TAG#v}"
+          LATEST=$(npm view katanakit-js dist-tags.latest 2>/dev/null || true)
+          if [ -n "$LATEST" ] && [ "$(printf '%s\n%s\n' "$LATEST" "$VERSION" | sort -V | tail -1)" = "$VERSION" ]; then
+            TAG=latest
+          else
+            TAG=backfill
+          fi
+          echo "publishing $VERSION with dist-tag '$TAG' (current latest: ${LATEST:-none})"
+          npm publish --provenance --access public --tag "$TAG"
+
+      - name: npm publish
+        if: inputs.publish-tag == ''
+        run: npm publish --provenance --access public
 
       - name: Commit changelog
         if: inputs.publish-tag == ''
