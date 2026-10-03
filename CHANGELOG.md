@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.4.0] - 2026-10-03
+
+### Added
+- **docs**: navbar stars, version pill, new badges and what's-new panel
+
 ## [6.3.1] - 2026-10-03
 
 ### Changed
