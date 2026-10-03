@@ -171,7 +171,7 @@ export default defineConfig({
 			{ text: "API Reference", collapsed: true, items: apiSidebar },
 		],
 		search: { provider: "local" },
-		socialLinks: [{ icon: "github", link: "https://github.com/senseikatana/katanakit-js" }],
+		socialLinks: [],
 		editLink: {
 			pattern: "https://github.com/senseikatana/katanakit-js/edit/dev/docs/:path",
 			text: "Edit this page on GitHub",

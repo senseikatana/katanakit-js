@@ -30,6 +30,8 @@ examples/assistant/notes.jsonl
 docs/.vitepress/cache/
 docs/.vitepress/dist/
 docs/.vitepress/.temp/
+# Build-time signals (version, GitHub stars, "new" pages, changelog panel)
+docs/.vitepress/theme/signals.json
 /.vitepress/
 
 # @katanakit/ui build output
