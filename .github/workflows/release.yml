@@ -68,6 +68,11 @@ jobs:
           PUBLISH_TAG: ${{ inputs.publish-tag }}
         run: |
           VERSION="${PUBLISH_TAG#v}"
+          NAME=$(node -p "require('./package.json').name")
+          if [ "$NAME" != "katanakit-js" ]; then
+            echo "::error::$PUBLISH_TAG ships package name '$NAME', not katanakit-js — skip it"
+            exit 1
+          fi
           if npm view "katanakit-js@$VERSION" version >/dev/null 2>&1; then
             echo "::error::katanakit-js@$VERSION is already on npm"
             exit 1
@@ -133,12 +138,19 @@ jobs:
           const fs = require("node:fs");
           const tag = process.env.PUBLISH_TAG;
           const version = tag.replace(/^v/, "");
-          const raw = fs.readFileSync("package.json", "utf8");
-          const pkg = JSON.parse(raw);
+          const REPO = "git+https://github.com/senseikatana/katanakit-js.git";
+          const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
           if (pkg.version !== version) {
             console.log(`::warning::package.json at ${tag} says ${pkg.version} — pinning to ${version}`);
           }
-          fs.writeFileSync("package.json", raw.replace(/("version":\s*)"[^"]+"/, `$1"${version}"`));
+          pkg.version = version;
+          // Provenance rejects tags cut before the repo was renamed to katanakit-js.
+          const url = pkg.repository && pkg.repository.url;
+          if (url !== REPO) {
+            console.log(`::warning::repository.url was ${url || "(none)"} — normalizing to ${REPO}`);
+            pkg.repository = { type: "git", url: REPO };
+          }
+          fs.writeFileSync("package.json", JSON.stringify(pkg, null, "\t") + "\n");
           console.log(`package.json pinned to ${version}`);
           EOF
 
@@ -177,7 +189,9 @@ jobs:
             TAG=backfill
           fi
           echo "publishing $VERSION with dist-tag '$TAG' (current latest: ${LATEST:-none})"
-          npm publish --provenance --access public --tag "$TAG"
+          # --ignore-scripts: old tags carry a prepublishOnly that re-runs their
+          # own check/test/build with tooling that no longer exists on the runner.
+          npm publish --provenance --access public --tag "$TAG" --ignore-scripts
 
       - name: npm publish
         if: inputs.publish-tag == ''
