@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.3.0] - 2026-10-03
+
+### Changed
+- docs(.vitepress): keep a single UI Kit nav entry$'
+'- docs(agents): document the lint gate and flat-config rule$'
+'- chore(release): sync version refs to v6.2.0$'
+'- chore(tooling): gate commits with husky and lint-staged
+
 ## [6.2.0] - 2026-10-03
 
 ### Changed
