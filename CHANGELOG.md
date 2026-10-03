@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.4.5] - 2026-10-03
+
+### Changed
+- docs(AGENTS.md): update documentation in 674 files
+
 ## [Unreleased]
 
 ### Added
