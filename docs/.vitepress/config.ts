@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vitepress";
 
 const API_SIDEBAR = fileURLToPath(new URL("../api/typedoc-sidebar.json", import.meta.url));
@@ -25,6 +26,7 @@ export default defineConfig({
 	sitemap: { hostname: "https://docs.senseikatana.com" },
 	head: [["meta", { name: "theme-color", content: "#0a0a0a" }]],
 	vite: {
+		plugins: [tailwindcss()],
 		resolve: {
 			alias: {
 				"@katanakit/ui/styles.css": fileURLToPath(
@@ -166,6 +168,7 @@ export default defineConfig({
 					{ text: "Architecture", link: "/ui-kit/architecture" },
 					{ text: "Inventory", link: "/ui-kit/inventory" },
 					{ text: "LLM Files", link: "/ui-kit/llm-files" },
+					{ text: "HyperUI", link: "/ui-kit/hyperui" },
 					{ text: "Roadmap", link: "/ui-kit/roadmap" },
 				],
 			},
