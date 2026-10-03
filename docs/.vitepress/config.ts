@@ -43,7 +43,8 @@ export default defineConfig({
 	themeConfig: {
 		nav: [
 			{ text: "Home", link: "/" },
-			{ text: "Guides", link: "/guides/getting-started", activeMatch: "/guides/" },
+			{ text: "Guides", link: "/guides/getting-started", activeMatch: "^/guides/(?!upgrade-to)" },
+			{ text: "Upgrade", link: "/guides/upgrade-to/", activeMatch: "^/guides/upgrade-to" },
 			{ text: "UI Kit", link: "/ui-kit/", activeMatch: "^/ui-kit/(?!css)" },
 			{ text: "katanakit-css", link: "/ui-kit/css/", activeMatch: "^/ui-kit/css/" },
 			{ text: "Releases", link: "/changelog" },
@@ -64,6 +65,18 @@ export default defineConfig({
 					{ text: "Faker", link: "/guides/faker" },
 					{ text: "Architecture", link: "/guides/architecture" },
 					{ text: "Roadmap", link: "/guides/roadmap" },
+				],
+			},
+			{
+				text: "Upgrade Guides",
+				collapsed: false,
+				items: [
+					{ text: "Overview", link: "/guides/upgrade-to/" },
+					{ text: "Upgrade to v6", link: "/guides/upgrade-to/v6" },
+					{ text: "Upgrade to v5", link: "/guides/upgrade-to/v5" },
+					{ text: "Upgrade to v4", link: "/guides/upgrade-to/v4" },
+					{ text: "Upgrade to v3", link: "/guides/upgrade-to/v3" },
+					{ text: "Upgrade to v2", link: "/guides/upgrade-to/v2" },
 				],
 			},
 			{
