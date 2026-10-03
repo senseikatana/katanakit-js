@@ -37,6 +37,11 @@
 			"import": "./dist/adapters/astro/index.js",
 			"default": "./dist/adapters/astro/index.js"
 		},
+		"./adapters/photoswipe": {
+			"types": "./dist/adapters/photoswipe/index.d.ts",
+			"import": "./dist/adapters/photoswipe/index.js",
+			"default": "./dist/adapters/photoswipe/index.js"
+		},
 		"./adapters/assistant": {
 			"types": "./dist/adapters/assistant/index.d.ts",
 			"import": "./dist/adapters/assistant/index.js",
@@ -202,7 +207,8 @@
 		"react-dom": ">=18.0.0",
 		"solid-js": ">=1.7.0",
 		"svelte": ">=3.0.0",
-		"vue": ">=3.0.0"
+		"vue": ">=3.0.0",
+		"photoswipe": ">=5.0.0"
 	},
 	"peerDependenciesMeta": {
 		"@angular/core": {
@@ -237,6 +243,9 @@
 		},
 		"vue": {
 			"optional": true
+		},
+		"photoswipe": {
+			"optional": true
 		}
 	},
 	"devDependencies": {
@@ -263,6 +272,7 @@
 		"husky": "^9.1.7",
 		"jsdom": "^30.1.0",
 		"lint-staged": "^17.6.0",
+		"photoswipe": "^5.4.4",
 		"prettier": "^3.9.8",
 		"prisma": "8.0.0-rc.13",
 		"react": "^19.3.0",
