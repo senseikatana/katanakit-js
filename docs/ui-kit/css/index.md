@@ -20,17 +20,17 @@ KatanaKIT CSS is a **pure SCSS** framework inspired by the utility-first approac
 ## Quick install
 
 ```bash
-npm install katanakit-css
+npm install katanakit-js
 ```
 
 ```scss
 // Full stylesheet (reset + tokens + utilities)
-@use "katanakit-css/src/scss/main";
+@use "katanakit-js/scss/main";
 
 // Or compose your own from modules
-@use "katanakit-css/src/scss/functions" as f;
-@use "katanakit-css/src/scss/variables" as v;
-@use "katanakit-css/src/scss/mixins" as m;
+@use "katanakit-js/scss/functions" as f;
+@use "katanakit-js/scss/variables" as v;
+@use "katanakit-js/scss/mixins" as m;
 ```
 
 ## Next steps

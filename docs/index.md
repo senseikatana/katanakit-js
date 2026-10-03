@@ -15,7 +15,7 @@ hero:
       text: API Reference
       link: /api/
     - theme: alt
-      text: katanakit-css
+      text: SCSS framework
       link: /ui-kit/css/
 
 features:
@@ -83,6 +83,6 @@ if (result.ok) {
 | Auth (client + session)                | [Better Auth](/guides/better-auth)         |
 | Hexagonal architecture                 | [Architecture](/guides/architecture)       |
 | UI kit foundations (Katana UI)          | [Katana UI](/ui-kit/)                      |
-| SCSS framework (tokens and utilities)   | [katanakit-css](/ui-kit/css/)               |
+| SCSS framework (tokens and utilities)   | [SCSS framework](/ui-kit/css/)              |
 | Every release                          | [Releases](/changelog)                     |
 | Every export, generated from source    | [API Reference](/api/)                     |

@@ -20,7 +20,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 
 ## Architecture
 
-- `src/types/` single source of truth; `src/core/services/` pure (no I/O); `src/infrastructure/` runtime I/O (browser + Node/Bun, SSR-safe); `src/adapters/*` framework entry points published as package subpaths — never import them from the main barrel. `@faker-js/faker` is an optional peer loaded lazily by `core/services/faker.service.ts`. `packages/ui/` is the private `@katanakit/ui` workspace (Katana UI foundations) styled with `katanakit-css`; the docs consume its built `dist/` through Vite aliases.
+- `src/types/` single source of truth; `src/core/services/` pure (no I/O); `src/infrastructure/` runtime I/O (browser + Node/Bun, SSR-safe); `src/adapters/*` framework entry points published as package subpaths — never import them from the main barrel. `@faker-js/faker` is an optional peer loaded lazily by `core/services/faker.service.ts`. `packages/ui/` is the private `@katanakit/ui` workspace (Katana UI foundations) styled with the SCSS framework vendored in `scss/` (origin: `katanakit-css@0.12.5`); the docs consume its built `dist/` through Vite aliases.
 - All relative imports inside `src/` MUST use explicit `.js` extension (nodenext). `@/` alias only in `tests/` and `examples/`.
 - `use*` prefix on every public method (except `getInstance()`); English only; no side effects on import; SSR guards where `window`/`document` touched; fallible async returns Safe Result `{ data, error, ok }` — prefer `useAttempt()` / `useTryJsonParse()` / `useErrorNormalize()` over ad-hoc `try/catch` at boundaries.
 - Services are Singleton facades with destructured re-exports; `adapters/nuxt` exports pure functions (exception).

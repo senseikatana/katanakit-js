@@ -95,15 +95,8 @@
       "name": "@katanakit/ui",
       "version": "0.0.0",
       "devDependencies": {
-        "katanakit-css": "^0.12.5",
         "sass": "^1.104.0",
       },
-      "peerDependencies": {
-        "katanakit-css": ">=0.12.5",
-      },
-      "optionalPeers": [
-        "katanakit-css",
-      ],
     },
   },
   "packages": {
@@ -1428,8 +1421,6 @@
     "jsonc-parser": ["jsonc-parser@3.3.1", "", {}, "sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ=="],
 
     "jszip": ["jszip@3.10.2", "", { "dependencies": { "lie": "~3.3.0", "pako": "~1.0.2", "readable-stream": "~2.3.6", "setimmediate": "^1.0.5" } }, "sha512-3l+rb15IOWtUhU0H5MFqES/T6Kh7abYwjosBey/vD6hDt8zoEffkSC5Ws5SGtgVw3gBx2NEbhTeSW1+kWkpyTQ=="],
-
-    "katanakit-css": ["katanakit-css@0.12.5", "", {}, "sha512-vxp+NAYqdvmoqQd7j8zpjXm+Cy3UTZhMoSRTC50TnkspgDQC4hiu2MiEttq34xUcK/QhY4f28vtDLJrp2tHh3w=="],
 
     "keyv": ["keyv@5.6.0", "", { "dependencies": { "@keyv/serialize": "^1.1.1" } }, "sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw=="],
 

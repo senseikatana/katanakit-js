@@ -32,7 +32,7 @@ row.append(
 | `variant` | `"neutral" \| "info" \| "success" \| "warning" \| "danger"` | `"neutral"` | Semantic color.    |
 
 ::: tip Dark mode
-Variants use katanakit-css palette tokens, so they invert automatically with
+Variants use KatanaKit palette tokens, so they invert automatically with
 `data-theme="dark"` (toggle the site theme to see it).
 :::
 

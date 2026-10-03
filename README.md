@@ -365,7 +365,7 @@ const stop = useKatanaWatch(newProduct, () => checkValidations(), { deep: true }
 - **SSR-safe** — all infrastructure adapters guard or fall back gracefully in server environments
 - **Filesystem (Node/Bun)** — `useReadFile`, `useWriteFile`, `useReadJsonFile`, `useReadModuleJson`, `useHashFile` and friends return Safe Results with native errno codes, loaded lazily through dynamic `import()` and guarded by `useIsNode()`
 - **Fake data (optional)** — `useFakeVehicle`, `useFakeEmail`, `useFakeList`, … via an optional, lazy-loaded `@faker-js/faker` peer
-- **Katana UI** — framework-agnostic component foundations (`useButton`, `useInput`, `useCard`, `useBadge`, `useAlert`) live in the private `@katanakit/ui` workspace, styled with `katanakit-css` (see [UI Kit](https://docs.senseikatana.com/ui-kit/))
+- **Katana UI** — framework-agnostic component foundations (`useButton`, `useInput`, `useCard`, `useBadge`, `useAlert`) live in the private `@katanakit/ui` workspace, styled with the SCSS framework vendored in `katanakit-js` (see [UI Kit](https://docs.senseikatana.com/ui-kit/))
 
 ## Filesystem (Node/Bun)
 

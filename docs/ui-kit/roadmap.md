@@ -12,13 +12,13 @@ independently; the kit never blocks core releases.
 
 - [x] Foundation components: `useButton`, `useInput`, `useCard`, `useBadge`,
       `useAlert` (+ `*Class` SSR helpers) in the private `@katanakit/ui` workspace.
-- [x] Stylesheet build: `@katanakit/ui/styles.css` (self-contained `katanakit-css`
+- [x] Stylesheet build: `@katanakit/ui/styles.css` (self-contained vendored
       framework + dark tokens + `.kk-*` classes).
 - [x] Docs skeleton: UI Kit section with component pages and live demos.
 - [x] Theming: dark tokens compiled in and driven by the `data-theme` contract
       (`ThemeService` owns the attribute).
 - [ ] Token contract: a namespaced, documented override surface on top of the
-      `katanakit-css` palette.
+      vendored palette.
 - [ ] Headless primitives: disclosure, focus trap, popover positioning, roving tabindex.
 - [ ] Full a11y checklist pass (keyboard map per component).
 

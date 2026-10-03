@@ -1,7 +1,7 @@
 # @katanakit/ui
 
 Katana UI foundations — framework-agnostic components styled with
-[`katanakit-css`](https://github.com/senseikatana/katanakit-css) design tokens.
+the KatanaKit SCSS framework vendored in `katanakit-js` (`scss/`).
 
 > **Status:** experimental workspace package (`private`). Not published yet.
 
@@ -20,7 +20,7 @@ factories create DOM elements and throw outside a DOM environment.
 
 ## Styles
 
-`@katanakit/ui/styles.css` is self-contained: it emits the full `katanakit-css`
+`@katanakit/ui/styles.css` is self-contained: it emits the full vendored
 framework (reset, tokens, utilities), the dark theme tokens
 (`:root[data-theme="dark"]`) and the `.kk-*` component classes.
 
@@ -37,7 +37,7 @@ document.body.append(
 );
 ```
 
-Dark mode follows the katanakit-css contract: set `data-theme="dark"` on the
+Dark mode follows the KatanaKit contract: set `data-theme="dark"` on the
 root element (the `ThemeService` in `katanakit-js` owns that attribute).
 
 ## Build

@@ -99,7 +99,7 @@ export default defineConfig({
 						],
 					},
 					{
-						text: "katanakit-css",
+						text: "SCSS framework",
 						collapsed: true,
 						items: [
 							{ text: "Overview", link: "/ui-kit/css/" },

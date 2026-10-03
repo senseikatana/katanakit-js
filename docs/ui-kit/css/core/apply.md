@@ -10,7 +10,7 @@ The `@apply` system lets you compose registered utilities into component styles.
 ## Registration
 
 ```scss
-@use "katanakit-css/src/scss/mixins" as m;
+@use "katanakit-js/scss/mixins" as m;
 
 // Register a utility
 @include m.register-utility("card-base", (

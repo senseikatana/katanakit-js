@@ -1,11 +1,11 @@
 ---
 title: Getting Started
-description: Install katanakit-css and write your first styles.
+description: Install katanakit-js SCSS framework and write your first styles.
 ---
 
 # Getting Started
 
-This guide walks you through installing `katanakit-css` and writing your first styles.
+This guide walks you through installing the `katanakit-js` SCSS framework and writing your first styles.
 
 ## Prerequisites
 
@@ -15,13 +15,13 @@ This guide walks you through installing `katanakit-css` and writing your first s
 ## Installation
 
 ```bash
-npm install katanakit-css
+npm install katanakit-js
 ```
 
 ### CDN (no install required)
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katanakit-css@latest/dist/css/katanakit.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katanakit-js@latest/dist/styles.css" />
 ```
 
 ## Path 1: Full stylesheet
@@ -29,7 +29,7 @@ npm install katanakit-css
 The simplest approach — import everything:
 
 ```scss
-@use "katanakit-css/src/scss/main";
+@use "katanakit-js/scss/main";
 ```
 
 This emits:
@@ -43,9 +43,9 @@ This emits:
 Import only what you need:
 
 ```scss
-@use "katanakit-css/src/scss/functions" as f;
-@use "katanakit-css/src/scss/variables" as v;
-@use "katanakit-css/src/scss/mixins" as m;
+@use "katanakit-js/scss/functions" as f;
+@use "katanakit-js/scss/variables" as v;
+@use "katanakit-js/scss/mixins" as m;
 
 .my-component {
   padding: v.spacing(4);
@@ -69,7 +69,7 @@ npx sass src/scss/main.scss dist/css/main.css --no-source-map --style=compressed
 Override any `!default` map before importing:
 
 ```scss
-@use "katanakit-css/src/scss/variables" as v with (
+@use "katanakit-js/scss/variables" as v with (
   $spacing-scale: (
     "0": 0,
     "1": 0.5rem,

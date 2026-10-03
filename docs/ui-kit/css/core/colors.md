@@ -23,7 +23,7 @@ description: Color palettes, shades, access functions and utility classes.
 ## Access functions
 
 ```scss
-@use "katanakit-css/src/scss/variables" as v;
+@use "katanakit-js/scss/variables" as v;
 
 v.get-color("info", 300)        // Info shade 300
 v.get-color("info", 500, 0.5)   // With alpha

@@ -1,14 +1,14 @@
 // ============================================================
 //  @katanakit/ui — foundations stylesheet
-//  Self-contained: emits the full katanakit-css framework
-//  (reset, tokens, utilities), the dark theme tokens and the
-//  .kk-* component classes.
+//  Base: the vendored framework (scss/main.scss, compiled to
+//  dist/base.css), concatenated at build time
+//  (see scripts/concat-css.mjs). This file emits ONLY
+//  the dark theme tokens and the .kk-* component classes.
 //
 //  Build: bun run ui:build
 // ============================================================
 
-@use "katanakit-css/src/scss/main";
-@use "katanakit-css/src/scss/variables" as v;
+@use "scss/variables" as v;
 
 // Dark theme tokens (:root[data-theme="dark"]) — opt-in upstream,
 // on by default for the UI kit.

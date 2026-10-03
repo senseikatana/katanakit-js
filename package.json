@@ -112,12 +112,19 @@
 			"import": "./dist/schemas/index.js",
 			"default": "./dist/schemas/index.js"
 		},
+		"./styles.css": "./dist/styles.css",
+		"./dist/styles.css": "./dist/styles.css",
 		"./package.json": "./package.json"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"scss"
 	],
-	"sideEffects": false,
+	"sass": "scss/main.scss",
+	"style": "./dist/styles.css",
+	"sideEffects": [
+		"*.css"
+	],
 	"engines": {
 		"node": ">=22.18.0"
 	},
@@ -145,7 +152,7 @@
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
 		"prebuild": "bunx lint-staged",
-		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json && node scripts/generate-release-notes.mjs --sync-versions",
+		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json && bun run ui:build && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions",
 		"postbuild": "bun run examples:check",
 		"release": "bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && npm publish --access public",
 		"ui:build": "bun run --filter @katanakit/ui build",

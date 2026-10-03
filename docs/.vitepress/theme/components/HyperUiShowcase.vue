@@ -81,7 +81,7 @@ watch([markup, dark], render);
 				<button type="button" :disabled="!markup" @click="copy">
 					{{ copied ? "Copied ✓" : "Copy HTML" }}
 				</button>
-				<a :href="`https://github.com/markmead/hyperui/blob/main/${src.replace('/hyperui/', '/examples/')}`" target="_blank" rel="noreferrer noopener">
+				<a :href="`https://github.com/markmead/hyperui/blob/main/public/examples${src.replace('/hyperui', '')}`" target="_blank" rel="noreferrer noopener">
 					Source
 				</a>
 			</span>

@@ -9,11 +9,11 @@ description: Katana UI — the planned framework-agnostic UI kit built on top of
 
 **Foundations available.** The first components (button, input, card, badge, alert)
 live in the private `packages/ui` workspace (`@katanakit/ui`) and are styled with
-[`katanakit-css`](./css/index.md). The package is **not published to npm yet** — inside
+the [SCSS framework](./css/index.md) vendored in `katanakit-js` (`scss/`). The package is **not published to npm yet** — inside
 this repo you import it by name, outside it you cannot install it. The rest of the kit
 is still planned; the name **Katana UI** is provisional.
 
-The full **katanakit-css reference** lives in this section too: design tokens, colors,
+The full **SCSS framework reference** lives in this section too: design tokens, colors,
 breakpoints, dark mode, `@apply`, layout mixins, every utility class and the complete
 API reference.
 
@@ -21,7 +21,7 @@ API reference.
 
 ## Install and styles
 
-Import the stylesheet once (it ships the full `katanakit-css` framework, dark-theme
+Import the stylesheet once (it ships the full vendored framework, dark-theme
 tokens and the `.kk-*` component classes) before using any factory:
 
 ```ts
@@ -35,7 +35,7 @@ document.body.append(
 ```
 
 Every snippet below assumes that CSS import — without it the components render as
-unstyled markup. Dark mode follows the katanakit-css contract: set
+unstyled markup. Dark mode follows the KatanaKit contract: set
 `data-theme="dark"` on the root element (the `ThemeService` in `katanakit-js`
 owns that attribute).
 
@@ -96,7 +96,7 @@ the same primitives the toolkit already guarantees.
 ## Read next
 
 - [Components](./components/button.md) — button, input, card, badge and alert foundations.
-- [katanakit-css](./css/index.md) — the SCSS framework behind the kit: tokens, utilities, mixins and API reference.
+- [SCSS framework](./css/index.md) — the framework behind the kit (vendored from `katanakit-css@0.12.5`): tokens, utilities, mixins and API reference.
 - [Architecture](./architecture.md) — layers, theming, distribution and patterns.
 - [Inventory](./inventory.md) — every planned page, block, layout and interaction.
 - [LLM files](./llm-files.md) — machine-readable artifacts for AI agents.

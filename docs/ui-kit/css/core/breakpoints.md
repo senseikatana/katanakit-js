@@ -22,7 +22,7 @@ Mobile-first breakpoint system with 7 tiers.
 ## Generic mixin
 
 ```scss
-@use "katanakit-css/src/scss/mixins" as m;
+@use "katanakit-js/scss/mixins" as m;
 
 @include m.breakpoint($from, $direction: up, $to: null) { ... }
 ```

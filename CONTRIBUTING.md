@@ -82,7 +82,7 @@ Useful scripts:
 | `bun run release`       | `build` → write CHANGELOG section → publish to npm      |
 | `bun run docs:dev`      | Docs site dev server (VitePress)                       |
 | `bun run docs`          | Builds the docs site into `docs/.vitepress/dist/`      |
-| `bun run ui:build`      | Builds `@katanakit/ui` (components + katanakit-css CSS) |
+| `bun run ui:build`      | Builds `@katanakit/ui` (vendored framework + components CSS) |
 | `bun run dev`           | All dev servers concurrently                           |
 | `bun run dev:api`       | Express example server only                            |
 
@@ -102,7 +102,7 @@ Useful scripts:
 - `tests/` — Vitest unit tests (import from `src/` via the `@/` alias).
 - `examples/` — runnable demos for all adapters and frameworks.
 - `docs/` — VitePress documentation site (keep in sync with code changes).
-- `packages/ui/` — private `@katanakit/ui` workspace: Katana UI foundations (button, input, card, badge, alert) styled with `katanakit-css`.
+- `packages/ui/` — private `@katanakit/ui` workspace: Katana UI foundations (button, input, card, badge, alert) styled with the SCSS framework vendored in `scss/`.
 
 ## Updating documentation
 

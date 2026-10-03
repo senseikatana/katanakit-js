@@ -1,19 +1,19 @@
 ---
 title: API Reference
-description: Complete reference for katanakit-css.
+description: Complete reference for the katanakit-js SCSS framework.
 ---
 
 # API Reference
 
-Complete reference for `katanakit-css`.
+Complete reference for the SCSS framework vendored in `katanakit-js` (`scss/`).
 
 ## Module namespaces
 
 ```scss
-@use "katanakit-css/src/scss/functions"   as f;
-@use "katanakit-css/src/scss/variables"   as v;
-@use "katanakit-css/src/scss/mixins"      as m;
-@use "katanakit-css/src/scss/utilities"   as u;
+@use "katanakit-js/scss/functions"   as f;
+@use "katanakit-js/scss/variables"   as v;
+@use "katanakit-js/scss/mixins"      as m;
+@use "katanakit-js/scss/utilities"   as u;
 ```
 
 ## variables (as v)

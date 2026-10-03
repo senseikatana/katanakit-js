@@ -24,7 +24,7 @@ All design values are centralized in `!default` maps in `_variables.scss`. Overr
 ## Access functions
 
 ```scss
-@use "katanakit-css/src/scss/variables" as v;
+@use "katanakit-js/scss/variables" as v;
 
 v.font-family("sans-serif")  // font stack
 v.shadow("md")               // shadow value
@@ -57,7 +57,7 @@ Emits all tokens as `:root` CSS variables:
 ## Overriding tokens
 
 ```scss
-@use "katanakit-css/src/scss/variables" as v with (
+@use "katanakit-js/scss/variables" as v with (
   $spacing-scale: ("0": 0, "1": 0.5rem, "2": 1rem, "4": 2rem),
   $radius: ("default": 0.5rem, "full": 9999px)
 );

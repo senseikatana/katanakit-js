@@ -100,7 +100,7 @@ All color utility classes work with the extended palettes:
 All extended palettes support dark mode inversion:
 
 ```scss
-@use "katanakit-css/src/scss/variables" as v;
+@use "katanakit-js/scss/variables" as v;
 
 // Emits :root[data-theme="dark"] with inverted shades
 @include v.theme("dark");
@@ -134,7 +134,7 @@ $colors: (
 ## Access Functions
 
 ```scss
-@use "katanakit-css/src/scss/variables" as v;
+@use "katanakit-js/scss/variables" as v;
 
 v.get-color("blue", 500)        // hsl(217, 91%, 60%)
 v.get-color("rose", 300, 0.5)   // With 50% alpha

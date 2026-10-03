@@ -10,8 +10,8 @@ The `theme()` mixin automatically inverts color palettes for dark mode.
 ## Usage
 
 ```scss
-@use "katanakit-css/src/scss/variables" as v;
-@use "katanakit-css/src/scss/mixins" as m;
+@use "katanakit-js/scss/variables" as v;
+@use "katanakit-js/scss/mixins" as m;
 
 // Emits :root[data-theme="dark"] with inverted palettes
 @include v.theme("dark");

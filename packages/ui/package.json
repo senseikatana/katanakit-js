@@ -2,7 +2,7 @@
 	"name": "@katanakit/ui",
 	"version": "0.0.0",
 	"private": true,
-	"description": "Katana UI foundations — framework-agnostic components styled with katanakit-css.",
+	"description": "Katana UI foundations — framework-agnostic components styled with the vendored KatanaKit SCSS framework.",
 	"type": "module",
 	"exports": {
 		".": {
@@ -16,19 +16,10 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc6 -p tsconfig.json && sass src/styles/index.scss dist/styles.css --no-source-map --style=compressed --load-path=node_modules",
+		"build": "tsc6 -p tsconfig.json && sass ../../scss/main.scss dist/base.css --no-source-map --style=compressed && sass src/styles/index.scss dist/components.css --no-source-map --style=compressed --load-path=../.. && node scripts/concat-css.mjs",
 		"typecheck": "tsc6 -p tsconfig.json --noEmit"
 	},
-	"peerDependencies": {
-		"katanakit-css": ">=0.12.5"
-	},
-	"peerDependenciesMeta": {
-		"katanakit-css": {
-			"optional": true
-		}
-	},
 	"devDependencies": {
-		"katanakit-css": "^0.12.5",
 		"sass": "^1.104.0"
 	}
 }
