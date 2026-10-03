@@ -8,6 +8,12 @@ All notable changes to this project are documented in this file.
 
 - Tooling, documentation and test updates.
 
+## [6.0.5] - 2026-09-27
+
+### Changed
+
+- Tooling, documentation and test updates.
+
 ## [6.0.4] - 2026-09-27
 
 ### Changed
