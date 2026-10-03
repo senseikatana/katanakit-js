@@ -10,30 +10,30 @@ All notable changes to this project are documented in this file.
 ## [6.3.0] - 2026-10-03
 
 ### Changed
-- docs(.vitepress): keep a single UI Kit nav entry$'
-'- docs(agents): document the lint gate and flat-config rule$'
-'- chore(release): sync version refs to v6.2.0$'
-'- chore(tooling): gate commits with husky and lint-staged
+- docs(.vitepress): keep a single UI Kit nav entry
+- docs(agents): document the lint gate and flat-config rule
+- chore(release): sync version refs to v6.2.0
+- chore(tooling): gate commits with husky and lint-staged
 
 ## [6.2.0] - 2026-10-03
 
 ### Changed
-- ci(release): drop the dist-tag job OIDC cannot authenticate$'
-'- ci(release): add a remove-dist-tag maintenance job$'
-'- ci(release): retry backfill publishes without provenance on tlog conflicts$'
-'- ci(release): normalize legacy package metadata for backfill publishes$'
-'- ci(release): unblock backfill publishes on legacy tags$'
-'- ci(release): pin backfill publishes to the tag name$'
-'- ci(release): backfill an existing tag through the publish-tag input$'
-'- chore(release): sync version refs to v6.1.0$'
-'- docs(.vitepress): merge UI Kit and katanakit-css into one nav dropdown
+- ci(release): drop the dist-tag job OIDC cannot authenticate
+- ci(release): add a remove-dist-tag maintenance job
+- ci(release): retry backfill publishes without provenance on tlog conflicts
+- ci(release): normalize legacy package metadata for backfill publishes
+- ci(release): unblock backfill publishes on legacy tags
+- ci(release): pin backfill publishes to the tag name
+- ci(release): backfill an existing tag through the publish-tag input
+- chore(release): sync version refs to v6.1.0
+- docs(.vitepress): merge UI Kit and katanakit-css into one nav dropdown
 
 ## [6.1.0] - 2026-10-03
 
 ### Changed
-- docs(guides): add per-major upgrade guides$'
-'- docs(CHANGELOG): add missing 6.0.5 release entry$'
-'- docs(CHANGELOG.md): update documentation in 8 files
+- docs(guides): add per-major upgrade guides
+- docs(CHANGELOG): add missing 6.0.5 release entry
+- docs(CHANGELOG.md): update documentation in 8 files
 
 ## [6.0.6] - 2026-09-27
 
