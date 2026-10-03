@@ -6,7 +6,9 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 ## Commands (order matters: lint → typecheck → test)
 
 - `bun run check` — gate: `eslint ./src packages/ui/src` + `tsc6 --noEmit` (+ `tsc6 -p packages/ui/tsconfig.json --noEmit`) + `vitest run`. Must pass before any PR.
-- `bun run fix` — same with `eslint --fix`.
+- `bun run fix` — same with `eslint --fix`. `bun run lint` / `bun run lint:fix` run eslint alone.
+- ESLint 10 is **flat config only** — rules live in `eslint.config.mjs`; a `.eslintrc.json` is silently ignored. Never add one.
+- Commits run husky `pre-commit` → `bunx lint-staged` → `eslint --fix --quiet` on staged `**/*.{ts,tsx}`. Skip with `git commit --no-verify`; disable hook install with `HUSKY=0 bun install`.
 - `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`, then `generate-release-notes.mjs --sync-versions` so `package.json` and every version pinned in the README/guides always name the newest git tag (idempotent).
 - `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`; run `bun run build` first.
 - `bun run ui:build` — builds `@katanakit/ui` (`tsc` + `sass` → `packages/ui/dist`); `docs:dev`/`docs:build`/`docs:gh` run it first.
