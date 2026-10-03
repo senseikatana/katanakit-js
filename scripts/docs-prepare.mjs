@@ -114,34 +114,59 @@ function markdownToHtml(text) {
 		.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
 
-/** Newest `## [x.y.z] - date` section of CHANGELOG.md, grouped by `### Heading`. */
-function latestChangelog() {
+/** Commit type → emoji used by the "What's new" panel bullets. */
+const EMOJI_BY_TYPE = {
+	feat: "\u{1F680}",
+	fix: "\u{1F41B}",
+	perf: "\u26A1",
+	refactor: "\u267B\uFE0F",
+	docs: "\u{1F4DA}",
+	test: "\u{1F9EA}",
+	build: "\u{1F4E6}",
+	ci: "\u{1F916}",
+	chore: "\u{1F9F9}",
+	style: "\u{1F484}",
+	release: "\u{1F389}",
+	deps: "\u2B06\uFE0F",
+	revert: "\u21A9\uFE0F",
+};
+
+/** `feat(scope): …` / `chore: …` → emoji; unknown or scoped-only prose falls back. */
+function emojiFor(text) {
+	const match = /^(\w+)(?:\([^)]*\))?!?:/.exec(text);
+	return EMOJI_BY_TYPE[match?.[1] ?? ""] ?? "\u2728";
+}
+
+/**
+ * The last 6 releases (or the last 3 when fewer than 6 exist), each reduced to
+ * its bullet summary with an emoji per bullet — what the bottom-right panel shows.
+ */
+function recentReleases() {
 	const text = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8");
-	const heading = /^## \[([^\]]+)\] - (\d{4}-\d{2}-\d{2})[ \t]*$/m.exec(text);
-	if (!heading) return null;
+	const headings = [...text.matchAll(/^## \[([^\]]+)\] - (\d{4}-\d{2}-\d{2})[ \t]*$/gm)];
+	const releases = [];
 
-	const rest = text.slice(heading.index + heading[0].length);
-	const nextHeading = rest.search(/\n## \[/);
-	const body = nextHeading === -1 ? rest : rest.slice(0, nextHeading);
+	for (let index = 0; index < headings.length && releases.length < 6; index++) {
+		const heading = headings[index];
+		const body = text.slice(
+			heading.index + heading[0].length,
+			index + 1 < headings.length ? headings[index + 1].index : text.length,
+		);
 
-	const sections = [];
-	let current = null;
-	for (const rawLine of body.split(/\r?\n/)) {
-		const line = rawLine.trimEnd();
-		if (/^###\s+/.test(line)) {
-			current = { title: line.replace(/^###\s+/, "").trim(), items: [] };
-			sections.push(current);
-			continue;
+		const items = [];
+		for (const rawLine of body.split(/\r?\n/)) {
+			const line = rawLine.trimEnd();
+			if (!/^-\s+/.test(line)) continue;
+			const bullet = line.replace(/^-\s+/, "");
+			items.push({ emoji: emojiFor(bullet), html: markdownToHtml(bullet) });
 		}
-		if (/^-\s+/.test(line)) {
-			current ??= { title: "Changed", items: [] };
-			if (!sections.includes(current)) sections.push(current);
-			current.items.push(markdownToHtml(line.replace(/^-\s+/, "")));
+		if (items.length > 0) {
+			releases.push({ version: heading[1], date: heading[2], items });
 		}
 	}
 
-	const used = sections.filter((section) => section.items.length > 0);
-	return used.length ? { version: heading[1], date: heading[2], sections: used } : null;
+	const take = releases.length >= 6 ? 6 : Math.min(3, releases.length);
+	return releases.slice(0, take);
 }
 
 /** Docs pages changed in the current release cycle, as site routes. */
@@ -215,11 +240,18 @@ function releasedVersion() {
 	return JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version;
 }
 
+/** Shape consumed by the What's new panel: latest release + its summary list. */
+function recentChangelog() {
+	const releases = recentReleases();
+	if (releases.length === 0) return null;
+	return { version: releases[0].version, date: releases[0].date, releases };
+}
+
 const signals = {
 	version: releasedVersion(),
 	stars: await githubStars(),
 	newPages: newPagePaths(),
-	changelog: latestChangelog(),
+	changelog: recentChangelog(),
 };
 
 mkdirSync(dirname(SIGNALS_FILE), { recursive: true });

@@ -1,20 +1,32 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 
+import type { ChangelogRelease } from "../signals";
 import { siteSignals } from "../signals";
 
 const CHANGELOG_URL = "/changelog";
 const STORAGE_KEY = "katanakit:whats-new-seen";
+/** Items shown per release — the panel is a summary, not the full changelog. */
+const ITEMS_PER_RELEASE = 5;
 
-const release = computed(() => siteSignals().changelog ?? null);
+const entry = computed(() => siteSignals().changelog ?? null);
 const open = ref(false);
-const visible = computed(() => Boolean(release.value));
 
-const title = computed(() => {
-	const data = release.value;
-	if (!data) return "";
-	return `Changelog ${formatDate(data.date)}`;
-});
+/** A release reduced to the summary shown in the panel. */
+type ShownRelease = ChangelogRelease & { hidden: number };
+
+const title = computed(() =>
+	entry.value ? `Changelog ${formatDate(entry.value.date)}` : "",
+);
+
+/** Last 6 releases (3 when fewer exist), each capped for the summary view. */
+const releases = computed<ShownRelease[]>(() =>
+	(entry.value?.releases ?? []).map((release) => {
+		const items = release.items.slice(0, ITEMS_PER_RELEASE);
+		const hidden = release.items.length - items.length;
+		return { ...release, items, hidden };
+	}),
+);
 
 function formatDate(iso: string): string {
 	const [year, month, day] = iso.split("-").map(Number);
@@ -23,6 +35,15 @@ function formatDate(iso: string): string {
 		"July", "August", "September", "October", "November", "December",
 	];
 	return `${months[(month ?? 1) - 1]} ${day}, ${year}`;
+}
+
+function shortDate(iso: string): string {
+	const [, month, day] = iso.split("-").map(Number);
+	const months = [
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+	];
+	return `${months[(month ?? 1) - 1]} ${day}`;
 }
 
 function seen(): string | null {
@@ -36,15 +57,15 @@ function seen(): string | null {
 function dismiss() {
 	open.value = false;
 	try {
-		localStorage.setItem(STORAGE_KEY, release.value?.version ?? "");
+		localStorage.setItem(STORAGE_KEY, entry.value?.version ?? "");
 	} catch {
-		/* private mode — the modal just shows again next visit */
+		/* private mode — the panel simply shows again next visit */
 	}
 }
 
 onMounted(() => {
-	if (!release.value) return;
-	if (seen() === release.value.version) return;
+	if (!entry.value) return;
+	if (seen() === entry.value.version) return;
 	// Open right away: the panel animates in through CSS, and a timer here only
 	// adds a window where a route change can remount the layout and close it.
 	open.value = true;
@@ -52,7 +73,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div v-if="visible" class="whats-new" :class="{ open }">
+	<div v-if="entry" class="whats-new" :class="{ open }">
 		<button
 			class="whats-new__launcher"
 			type="button"
@@ -61,7 +82,7 @@ onMounted(() => {
 			@click="open = !open"
 		>
 			<span class="whats-new__dot" aria-hidden="true" />
-			v{{ release?.version }}
+			v{{ entry.version }}
 			<span class="whats-new__label">What's new</span>
 		</button>
 
@@ -72,9 +93,25 @@ onMounted(() => {
 			</header>
 
 			<div class="whats-new__body">
-				<ul v-for="section in release?.sections" :key="section.title">
-					<li v-for="(item, index) in section.items" :key="index" v-html="item" />
-				</ul>
+				<section
+					v-for="release in releases"
+					:key="release.version"
+					class="whats-new__release"
+				>
+					<h3>
+						v{{ release.version }}
+						<span>{{ shortDate(release.date) }}</span>
+					</h3>
+					<ul>
+						<li v-for="(item, index) in release.items" :key="index">
+							<span class="whats-new__emoji" aria-hidden="true">{{ item.emoji }}</span>
+							<span v-html="item.html" />
+						</li>
+						<li v-if="release.hidden" class="whats-new__more">
+							… and {{ release.hidden }} more
+						</li>
+					</ul>
+				</section>
 			</div>
 
 			<footer class="whats-new__footer">

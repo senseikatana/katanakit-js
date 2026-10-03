@@ -273,3 +273,43 @@
 	filter: brightness(1.08);
 	text-decoration: none;
 }
+
+/* ── What's new: per-release summary blocks ── */
+
+.whats-new__release + .whats-new__release {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px dashed var(--vp-c-divider);
+}
+
+.whats-new__release h3 {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	margin: 0 0 6px;
+	color: var(--vp-c-brand-1);
+	font-family: var(--vp-font-family-mono);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+}
+
+.whats-new__release h3 span {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-family: var(--vp-font-family-base);
+	font-size: 11.5px;
+	font-weight: 500;
+}
+
+.whats-new__body ul {
+	margin-bottom: 0;
+}
+
+.whats-new__emoji {
+	margin-right: 6px;
+}
+
+.whats-new__more {
+	color: var(--vp-c-text-2);
+	font-style: italic;
+}
