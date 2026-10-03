@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.4.1] - 2026-10-03
+
+### Changed
+- **bun.lock**: update dependencies or build settings in bun.lock
+
 ## [6.4.0] - 2026-10-03
 
 ### Added
