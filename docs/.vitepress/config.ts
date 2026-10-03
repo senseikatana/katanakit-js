@@ -45,14 +45,7 @@ export default defineConfig({
 			{ text: "Home", link: "/" },
 			{ text: "Guides", link: "/guides/getting-started", activeMatch: "^/guides/(?!upgrade-to)" },
 			{ text: "Upgrade", link: "/guides/upgrade-to/", activeMatch: "^/guides/upgrade-to" },
-			{
-				text: "UI Kit",
-				activeMatch: "^/ui-kit/",
-				items: [
-					{ text: "Katana UI", link: "/ui-kit/" },
-					{ text: "katanakit-css", link: "/ui-kit/css/" },
-				],
-			},
+			{ text: "UI Kit", link: "/ui-kit/", activeMatch: "^/ui-kit/" },
 			{ text: "Releases", link: "/changelog" },
 			{ text: "API Reference", link: "/api/" },
 		],
