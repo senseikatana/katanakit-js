@@ -191,7 +191,14 @@ jobs:
           echo "publishing $VERSION with dist-tag '$TAG' (current latest: ${LATEST:-none})"
           # --ignore-scripts: old tags carry a prepublishOnly that re-runs their
           # own check/test/build with tooling that no longer exists on the runner.
-          npm publish --provenance --access public --tag "$TAG" --ignore-scripts
+          if npm publish --provenance --access public --tag "$TAG" --ignore-scripts; then
+            exit 0
+          fi
+          # A previous failed attempt for the same tag can leave its attestation in
+          # the sigstore log, which then returns 409. Retry without provenance:
+          # authentication still happens through the OIDC trusted publisher.
+          echo "::warning::publishing $VERSION without provenance"
+          npm publish --provenance=false --access public --tag "$TAG" --ignore-scripts
 
       - name: npm publish
         if: inputs.publish-tag == ''
