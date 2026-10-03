@@ -8,7 +8,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 6.3.1)
+## Shipped (as of 6.4.1)
 
 ### Architecture and packaging
 
@@ -48,6 +48,10 @@ Legend: `[x]` done · `[ ]` planned.
 - [x] Express reference server (`katanakit-js/adapters/express`) with CORS
       restriction defaults and hardened headers.
 - [x] Worker pool concurrency fixed by correlating tasks with a `taskId` echo.
+- [x] PhotoSwipe adapter (`katanakit-js/adapters/photoswipe`): DOM-selector
+      lightbox binding, programmatic open, Safe Results, SSR guard.
+- [x] Better Auth adapter (`katanakit-js/adapters/better-auth`): client factory
+      for five frameworks plus Safe Result session/handler/locals helpers.
 - [x] `useEncrypt` generates a random salt when none is provided.
 
 ### Quality and tooling

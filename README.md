@@ -29,7 +29,7 @@ In the browser, use jsDelivr **`/+esm`** so named exports and dependencies resol
 | **esm.sh**                         | `https://esm.sh/katanakit-js`                                                           |
 | **Raw ESM file**                   | `https://cdn.jsdelivr.net/npm/katanakit-js/dist/index.js` (needs bundler or import map) |
 
-Pin a version in production (e.g. `@6.3.1/+esm`). There is no IIFE/UMD build.
+Pin a version in production (e.g. `@6.4.1/+esm`). There is no IIFE/UMD build.
 
 ## Quick Start
 
@@ -818,6 +818,13 @@ See [Getting Started](https://docs.senseikatana.com/guides/getting-started) for 
 | **Assistant** | `katanakit-js/adapters/assistant`               | REST digital assistant (`useStartAssistant`)                 |
 | **Telegram**  | `katanakit-js/adapters/telegram`                | BotFather bot (`defineTelegramConfig`, `useStartTelegramPolling`) |
 | **WhatsApp**  | `katanakit-js/adapters/whatsapp`                | Meta Cloud API (`defineWhatsAppConfig`, `useStartWhatsApp`)  |
+
+## UI and Auth Adapters
+
+| Adapter         | Import                                   | Description                                                    |
+| --------------- | ---------------------------------------- | -------------------------------------------------------------- |
+| **PhotoSwipe**  | `katanakit-js/adapters/photoswipe`       | Lightbox bound by CSS selectors, Safe Result, SSR-safe          |
+| **Better Auth** | `katanakit-js/adapters/better-auth`      | Auth client (vanilla/react/vue/svelte/solid) + session helpers  |
 
 ## REST API Adapters
 
