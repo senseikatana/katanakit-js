@@ -62,6 +62,7 @@ export default defineConfig({
 					{ text: "Watch", link: "/guides/watch" },
 					{ text: "Filesystem", link: "/guides/filesystem" },
 					{ text: "Faker", link: "/guides/faker" },
+					{ text: "PhotoSwipe", link: "/guides/photoswipe" },
 					{ text: "Architecture", link: "/guides/architecture" },
 					{ text: "Roadmap", link: "/guides/roadmap" },
 				],
