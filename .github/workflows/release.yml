@@ -62,19 +62,17 @@ jobs:
         run: |
           git checkout --detach "${{ inputs.publish-tag }}"
 
-      - name: Check the tag before building
+      - name: Check the tag is not already on npm
         if: inputs.publish-tag != ''
+        env:
+          PUBLISH_TAG: ${{ inputs.publish-tag }}
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          if [ "v$VERSION" != "${{ inputs.publish-tag }}" ]; then
-            echo "::error::package.json ($VERSION) does not match tag ${{ inputs.publish-tag }}"
-            exit 1
-          fi
+          VERSION="${PUBLISH_TAG#v}"
           if npm view "katanakit-js@$VERSION" version >/dev/null 2>&1; then
             echo "::error::katanakit-js@$VERSION is already on npm"
             exit 1
           fi
-          echo "Backfilling katanakit-js@$VERSION"
+          echo "Will backfill katanakit-js@$VERSION"
 
       - run: bun install --frozen-lockfile
 
@@ -96,25 +94,44 @@ jobs:
 
       - run: bun run build
 
-      # `bun run build` ends with `--sync-versions`, which repoints package.json
-      # at the newest tag in the repo — that would publish the wrong version.
-      - name: Restore the tag's own version
+      # `bun run build` ends with `--sync-versions`, which repoints package.json at
+      # the newest tag in the repo. Restore the tag's own files, then pin the
+      # version to the tag name: several 6.x tags were cut before the bump, so the
+      # package.json inside them lags (v6.1.0 carries 6.0.6).
+      - name: Restore tag content and pin the published version
         if: inputs.publish-tag != ''
-        run: git checkout -- package.json README.md docs/guides
+        env:
+          PUBLISH_TAG: ${{ inputs.publish-tag }}
+        run: |
+          git checkout -- package.json README.md docs/guides
+          node <<'EOF'
+          const fs = require("node:fs");
+          const tag = process.env.PUBLISH_TAG;
+          const version = tag.replace(/^v/, "");
+          const raw = fs.readFileSync("package.json", "utf8");
+          const pkg = JSON.parse(raw);
+          if (pkg.version !== version) {
+            console.log(`::warning::package.json at ${tag} says ${pkg.version} — pinning to ${version}`);
+          }
+          fs.writeFileSync("package.json", raw.replace(/("version":\s*)"[^"]+"/, `$1"${version}"`));
+          console.log(`package.json pinned to ${version}`);
+          EOF
 
-      - name: Verify the tag is publishable
+      - name: Verify the pinned version before publishing
         if: inputs.publish-tag != ''
+        env:
+          PUBLISH_TAG: ${{ inputs.publish-tag }}
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          if [ "v$VERSION" != "${{ inputs.publish-tag }}" ]; then
-            echo "::error::package.json ($VERSION) does not match tag ${{ inputs.publish-tag }}"
+          if [ "v$VERSION" != "$PUBLISH_TAG" ]; then
+            echo "::error::package.json ($VERSION) does not match tag $PUBLISH_TAG"
             exit 1
           fi
           if npm view "katanakit-js@$VERSION" version >/dev/null 2>&1; then
             echo "::error::katanakit-js@$VERSION is already on npm"
             exit 1
           fi
-          echo "Backfilling katanakit-js@$VERSION"
+          echo "Publishing katanakit-js@$VERSION from $PUBLISH_TAG"
 
       - name: Write CHANGELOG section and sync version refs
         if: inputs.publish-tag == ''
