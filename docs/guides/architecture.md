@@ -146,6 +146,16 @@ to the default-exported classes (`StorageService`, `ViewportService`,
   reactivity system (`data`, `error`, `loading`, `refetch`). It imports `vue`
   directly and is published only as the `katanakit-js/adapters/vue` subpath;
   `vue` is an optional peer dependency.
+- `photoswipe/` — `usePhotoSwipe(options)` binds a lightbox from CSS
+  selectors (`gallery`, `children`, `root`), plus `usePhotoSwipeOpen`,
+  `usePhotoSwipeDestroy` and `usePhotoSwipeSupported`. Rebinding is
+  idempotent, so late-rendered galleries are safe. Published only as the
+  `katanakit-js/adapters/photoswipe` subpath; `photoswipe` is an optional peer.
+- `better-auth/` — `useAuthClient({ framework })` creates the Better Auth
+  client for vanilla/react/vue/svelte/solid (only that entry is imported), and
+  `useAuthSession` / `useAuthHandler` / `useAstroAuthLocals` wrap the server
+  calls in Safe Results. Published only as the
+  `katanakit-js/adapters/better-auth` subpath; `better-auth` is an optional peer.
 
 ### `config/` — site configuration and SEO
 
@@ -198,6 +208,8 @@ and the client is not exported from the main barrel.
   | `katanakit-js/adapters/express`   | Express reference adapter                     |
   | `katanakit-js/adapters/nuxt`      | Nuxt helpers                                  |
   | `katanakit-js/adapters/vue`       | Vue 3 composable                              |
+  | `katanakit-js/adapters/photoswipe`| Lightbox bound by CSS selectors                |
+  | `katanakit-js/adapters/better-auth` | Auth client factory + session helpers       |
 
 - **`@/` alias** maps to `src/` in `tsconfig.json` and `vitest.config.ts`. It is
   used by the test suite and the examples, not by library source files.

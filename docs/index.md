@@ -79,6 +79,8 @@ if (result.ok) {
 | Bun server adapter                     | [Bun Adapter](/guides/bun-adapter)         |
 | Filesystem (Node/Bun)                  | [Filesystem](/guides/filesystem)           |
 | Fake data and seed fixtures            | [Faker](/guides/faker)                     |
+| Lightbox galleries                     | [PhotoSwipe](/guides/photoswipe)           |
+| Auth (client + session)                | [Better Auth](/guides/better-auth)         |
 | Hexagonal architecture                 | [Architecture](/guides/architecture)       |
 | UI kit foundations (Katana UI)          | [Katana UI](/ui-kit/)                      |
 | SCSS framework (tokens and utilities)   | [katanakit-css](/ui-kit/css/)               |

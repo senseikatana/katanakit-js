@@ -76,10 +76,12 @@ Useful scripts:
 | ----------------------- | ------------------------------------------------------ |
 | `bun run check`         | ESLint + typecheck + tests (gate before build/publish) |
 | `bun run fix`           | Same as `check` with ESLint auto-fix                   |
+| `bun run lint`          | ESLint only (no typecheck/tests)                       |
+| `bun run lint:staged`   | ESLint on the staged files (what the pre-commit runs)   |
 | `bun run build`         | `check`, compile to `dist/`, sync version references   |
 | `bun run release`       | `build` → write CHANGELOG section → publish to npm      |
 | `bun run docs:dev`      | Docs site dev server (VitePress)                       |
-| `bun run docs:build`    | Builds the docs site into `docs/.vitepress/dist/`      |
+| `bun run docs`          | Builds the docs site into `docs/.vitepress/dist/`      |
 | `bun run ui:build`      | Builds `@katanakit/ui` (components + katanakit-css CSS) |
 | `bun run dev`           | All dev servers concurrently                           |
 | `bun run dev:api`       | Express example server only                            |
@@ -143,7 +145,7 @@ description: Cache, retry and invalidate server state.
 
 ```bash
 bun run docs:dev       # generate API + changelog, then live-reloading server
-bun run docs:build     # static build into docs/.vitepress/dist/
+bun run docs           # static build into docs/.vitepress/dist/
 bun run docs:preview   # preview the last build
 bun run docs:gh        # manual preview on the gh-pages branch (no Actions)
 bun run docs:clean     # purge .vitepress/.temp and cache
