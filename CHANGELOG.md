@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.4.2] - 2026-10-03
+
+### Added
+- **docs**: resolve panel emojis from scope and keywords$'
+'- **adapters**: add Better Auth adapter with Safe Result helpers$'
+'- **docs**: summarize the last 6 releases in the what's-new panel$'
+'- **adapters**: add PhotoSwipe adapter with DOM-selector options
+
 ## [6.4.1] - 2026-10-03
 
 ### Changed
