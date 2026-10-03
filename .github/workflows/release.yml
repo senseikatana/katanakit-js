@@ -32,13 +32,34 @@ on:
         description: "Backfill: publish an existing tag to npm (e.g. v6.1.0) without bumping, tagging or creating a release"
         required: false
         type: string
+      remove-dist-tag:
+        description: "Maintenance: remove a temporary dist-tag (e.g. backfill) instead of running a release"
+        required: false
+        type: string
 
 permissions:
   contents: write
   id-token: write
 
 jobs:
+  remove-dist-tag:
+    if: inputs.remove-dist-tag != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+      - name: Remove dist-tag
+        env:
+          DIST_TAG: ${{ inputs.remove-dist-tag }}
+        run: |
+          echo "before: $(npm dist-tag ls katanakit-js | tr '\n' ' ')"
+          npm dist-tag rm katanakit-js "$DIST_TAG"
+          echo "after: $(npm dist-tag ls katanakit-js | tr '\n' ' ')"
+
   release:
+    if: inputs.remove-dist-tag == ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
