@@ -1,6 +1,6 @@
 {
 	"name": "katanakit-js",
-	"version": "6.3.0",
+	"version": "6.3.1",
 	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -119,9 +119,11 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-		"dev": "tsx src/adapters/express/main.ts",
+		"predev": "bunx lint-staged",
+		"dev": "concurrently --names api,assistant,tg,wa \"bun run dev:api\" \"bun run assistant:dev\" \"bun run telegram:dev\" \"bun run whatsapp:dev\"",
+		"postdev": "bun run lint",
+		"dev:api": "tsx src/adapters/express/main.ts",
 		"bun:dev": "bun run src/adapters/bun/main.ts",
-		"dev:all": "concurrently --names api,assistant,tg,wa \"bun run dev\" \"bun run assistant:dev\" \"bun run telegram:dev\" \"bun run whatsapp:dev\"",
 		"assistant:dev": "tsx src/adapters/assistant/main.ts",
 		"telegram:dev": "tsx src/adapters/telegram/main.ts",
 		"whatsapp:dev": "tsx src/adapters/whatsapp/main.ts",
@@ -132,16 +134,20 @@
 		"check": "eslint ./src packages/ui/src && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
+		"prebuild": "bunx lint-staged",
 		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json && node scripts/generate-release-notes.mjs --sync-versions",
+		"postbuild": "bun run examples:check",
 		"release": "bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && npm publish --access public",
 		"ui:build": "bun run --filter @katanakit/ui build",
 		"docs:clean": "node scripts/docs.mjs clean",
 		"docs:prepare": "node scripts/docs-prepare.mjs",
 		"docs:dev": "node scripts/docs.mjs dev",
-		"docs:build": "node scripts/docs.mjs build",
+		"predocs": "bunx lint-staged",
+		"docs": "node scripts/docs.mjs build",
+		"postdocs": "node -e \"require('node:fs').accessSync('docs/.vitepress/dist/index.html')\"",
 		"docs:preview": "vitepress preview docs",
 		"docs:gh": "node scripts/docs.mjs gh",
-		"cf:deploy": "bun run build && bun run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
+		"cf:deploy": "bun run build && bun run docs && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
 	},
 	"lint-staged": {
 		"**/*.{ts,tsx}": "eslint --fix --quiet"

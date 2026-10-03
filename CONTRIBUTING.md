@@ -81,7 +81,8 @@ Useful scripts:
 | `bun run docs:dev`      | Docs site dev server (VitePress)                       |
 | `bun run docs:build`    | Builds the docs site into `docs/.vitepress/dist/`      |
 | `bun run ui:build`      | Builds `@katanakit/ui` (components + katanakit-css CSS) |
-| `bun run dev`           | Express example server                                 |
+| `bun run dev`           | All dev servers concurrently                           |
+| `bun run dev:api`       | Express example server only                            |
 
 `build` and `release` never compile or publish unless `check` passes.
 
@@ -148,7 +149,7 @@ bun run docs:gh        # manual preview on the gh-pages branch (no Actions)
 bun run docs:clean     # purge .vitepress/.temp and cache
 ```
 
-::: warning Never run docs:dev and docs:build/docs:gh at the same time
+::: warning Never run docs:dev and docs/docs:gh at the same time
 VitePress shares `docs/.vitepress/.temp` between the dev server and the build,
 so running both corrupts it and the build fails with
 `Cannot find module '…/.vitepress/.temp/…'`. `scripts/docs.mjs` enforces an

@@ -244,9 +244,9 @@ and the client is not exported from the main barrel.
 - `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`.
 - `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass`).
 - `bun run release` — local fallback (build → changelog → publish); releases normally run through CI (`.github/workflows/release.yml`, trusted OIDC publishing to npm). The bump level comes from `useGit release create`.
-- `bun run docs:dev` / `docs:build` — VitePress site (`build` runs `docs:prepare`, which generates the TypeDoc API reference and the changelog page).
+- `bun run docs:dev` / `docs` — VitePress site (`docs` runs `docs:prepare`, which generates the TypeDoc API reference and the changelog page).
 - `bun run cf:deploy` — build + docs build + `wrangler pages deploy` to Cloudflare.
-- `bun run dev:all` — the Express, assistant, Telegram and WhatsApp dev servers concurrently (`bun run dev` for Express alone).
+- `bun run dev` — the Express, assistant, Telegram and WhatsApp dev servers concurrently (`bun run dev:api` for Express alone).
 
 There is no Prettier in the gate: formatting comes from ESLint (`eslint --fix`).
 `tsc6` is the aliased TypeScript 6 binary (`typescript` devDep → `@typescript/typescript6`).

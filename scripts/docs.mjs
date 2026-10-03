@@ -98,7 +98,7 @@ function chain() {
 	run("node", [join(ROOT, "scripts", "docs-prepare.mjs")]);
 
 	if (mode === "dev") {
-		console.log("docs: dev server starting — do not run docs:build/docs:gh meanwhile.");
+		console.log("docs: dev server starting — do not run docs/docs:gh meanwhile.");
 		run("node_modules/.bin/vitepress", ["dev", "docs"]);
 		return;
 	}
