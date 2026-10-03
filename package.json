@@ -1,6 +1,6 @@
 {
 	"name": "katanakit-js",
-	"version": "6.3.1",
+	"version": "6.4.1",
 	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -41,6 +41,11 @@
 			"types": "./dist/adapters/photoswipe/index.d.ts",
 			"import": "./dist/adapters/photoswipe/index.js",
 			"default": "./dist/adapters/photoswipe/index.js"
+		},
+		"./adapters/better-auth": {
+			"types": "./dist/adapters/better-auth/index.d.ts",
+			"import": "./dist/adapters/better-auth/index.js",
+			"default": "./dist/adapters/better-auth/index.js"
 		},
 		"./adapters/assistant": {
 			"types": "./dist/adapters/assistant/index.d.ts",
@@ -208,7 +213,8 @@
 		"solid-js": ">=1.7.0",
 		"svelte": ">=3.0.0",
 		"vue": ">=3.0.0",
-		"photoswipe": ">=5.0.0"
+		"photoswipe": ">=5.0.0",
+		"better-auth": ">=1.0.0"
 	},
 	"peerDependenciesMeta": {
 		"@angular/core": {
@@ -246,6 +252,9 @@
 		},
 		"photoswipe": {
 			"optional": true
+		},
+		"better-auth": {
+			"optional": true
 		}
 	},
 	"devDependencies": {
@@ -259,6 +268,7 @@
 		"@types/node": "26.6.2",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
+		"better-auth": "^1.7.7",
 		"bun-types": "^1.4.2",
 		"concurrently": "^10.0.5",
 		"cors": "2.8.6",
