@@ -4,19 +4,63 @@ All notable changes to this project are documented in this file.
 
 ## [6.7.1] - 2026-10-04
 
-### Changed
-- docs(AGENTS.md): update documentation in 9 files
+### Fixed
+
+- **prisma:** align orm-postgres with the CLI toolchain and regenerate the contract
+  <details>
+  <summary>9 files</summary>
+
+  - `AGENTS.md`
+  - `README.md`
+  - `bun.lock`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+
+  </details>
 
 ## [6.7.0] - 2026-10-04
 
+### Added
+
+- **docs:** generate per-page SEO metas with useSeoMeta
+  <details>
+  <summary>2 files</summary>
+
+  - `AGENTS.md`
+  - `docs/.vitepress/config.ts`
+
+  </details>
+
 ### Changed
-- docs(AGENTS.md): update documentation in 2 files$'
-'- docs(AGENTS.md): update documentation in 4 files
+
+- **docs:** compact API sidebar and enable metaChunk
+  <details>
+  <summary>2 files</summary>
+
+  - `AGENTS.md`
+  - `docs/.vitepress/config.ts`
+
+  </details>
+
+### Chores
+
+- **deps:** update dependencies
+  <details>
+  <summary>2 files</summary>
+
+  - `bun.lock`
+  - `package.json`
+
+  </details>
 
 ## [6.6.6] - 2026-10-04
 
 ### Changed
-- docs(AGENTS.md): update documentation in 10 files
+- Generate release notes with typed sections and per-file details, sync version references, and document the release workflow (`AGENTS.md`, `CONTRIBUTING.md`).
 
 ## [6.6.5] - 2026-10-04
 
