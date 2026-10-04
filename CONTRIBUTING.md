@@ -175,13 +175,20 @@ cut locally.
   files each commit touched), syncs `package.json` and the version refs pinned
   in README/docs, commits the generated files, creates the annotated tag and
   publishes the GitHub release.
-- **`bun run release`** — `build` + changelog `--write` + auth preflight
-  (`npm whoami`, falling back to `npm login`) + `npm publish --access public`,
-  all from your machine with your npm credentials. It does not create the git
-  tag. The package requires 2FA at publish time: npm prints an approval URL
-  (`npm error code EOTP`), you approve it in the browser and the publish
-  continues by itself — run it from a real terminal, not a non-interactive
-  shell.
+- **`bun run release`** — `build` + changelog `--write` + `bun run
+  publish:npm`. Use it for the full path once the release is tagged with
+  `useGit`.
+- **`bun run publish:npm`** — preflight only + publish: verifies a clean tree,
+  `v<version>` present locally and on origin, a `## [<version>]` CHANGELOG
+  section, synced README/docs version refs, a built `dist/` and that the
+  version is not already on npm; then runs `npm publish --access public`. Use
+  `-- --check` for the dry preflight and `-- --dry-run` for npm's dry run.
+  Neither script creates the git tag.
+
+The package requires 2FA at publish time: npm prints an approval URL
+(`npm error code EOTP`), you approve it in the browser and the publish
+continues by itself — run it from a real terminal, not a non-interactive
+shell.
 
 ### Version synchronization
 
