@@ -70,7 +70,6 @@ export default defineApiConfig({
   pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
   debug: true, // boolean flags stay off the registry, on `config`
   getPokemon: async function () {
-    //            ^^^^^^^^ `function`, never an arrow
     if (this.config.debug) console.log("fetching…");
     return useFetch("pokeapi", "byId", { params: { id: 25 } });
   },
