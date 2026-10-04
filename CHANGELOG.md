@@ -2,6 +2,30 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.7.3] - 2026-10-04
+
+### Fixed
+
+- **release:** silence npm probe stderr in publish preflight — `scripts/npm-publish.mjs`
+
+### Documentation
+
+- **agents:** require refreshing README, AGENTS and CHANGELOG on every change — `AGENTS.md`
+- **readme:** document all adapters and design patterns — `README.md`
+
+### Chores
+
+- **release:** add npm publish preflight
+  <details>
+  <summary>4 files</summary>
+
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+  - `scripts/npm-publish.mjs`
+
+  </details>
+
 ## [6.7.2] - 2026-10-04
 
 ### Fixed
