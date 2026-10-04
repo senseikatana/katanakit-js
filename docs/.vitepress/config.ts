@@ -24,7 +24,17 @@ export default defineConfig({
 	cleanUrls: true,
 	lastUpdated: true,
 	sitemap: { hostname: "https://docs.senseikatana.com" },
-	head: [["meta", { name: "theme-color", content: "#0a0a0a" }]],
+	head: [
+		["meta", { name: "theme-color", content: "#0a0a0a" }],
+		["meta", { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
+		["meta", { name: "description", content: "KatanaKit - TypeScript service toolkit with hexagonal architecture" }],
+		["meta", { name: "keywords", content: "katanakit, typescript, hexagonal architecture, api, rest, graphql, safe results, zod, query client" }],
+		["meta", { property: "og:type", content: "website" }],
+		["meta", { property: "og:site_name", content: "KatanaKit" }],
+		["meta", { property: "og:image", content: "https://docs.senseikatana.com/images/social-card.jpg" }],
+		["meta", { name: "twitter:card", content: "summary_large_image" }],
+		["meta", { name: "twitter:image", content: "https://docs.senseikatana.com/images/social-card.jpg" }],
+	],
 	vite: {
 		plugins: [tailwindcss()],
 		resolve: {

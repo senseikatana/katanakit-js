@@ -459,15 +459,28 @@ export const useAppend = (target: Element | string, child: Element | string): vo
 };
 
 /**
- * Removes the target element from the DOM.
+ * Closes a modal by adding the "hidden" class or removing it from the DOM.
+ * Clicking outside the modal or calling this function will hide it.
  *
- * @param target - A CSS selector string or an Element instance.
- *
+ * @param modalSelector - A CSS selector string for the modal element.
+ * @param useRemoveDOM - If `true`, removes the modal from the DOM entirely.
+ *                       If `false`, only adds the "hidden" class (CSS `display: none`).
  * @example
  * ```ts
- * useRemove(".modal-overlay");
+ * // Hide modal with CSS hidden class (keeps element in DOM)
+ * useModalClose(".modal-overlay", false);
+ *
+ * // Remove modal from DOM completely
+ * useModalClose(".modal-overlay", true);
  * ```
  */
-export const useRemove = (target: Element | string): void => {
-	resolve(target)?.remove();
+export const useModalClose = (modalSelector: string, useRemoveDOM = false): void => {
+	const modal = resolve(modalSelector);
+	if (!modal) return;
+
+	if (useRemoveDOM) {
+		modal.remove();
+	} else {
+		useToggleClass(modal, "hidden");
+	}
 };

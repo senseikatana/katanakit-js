@@ -15,6 +15,21 @@ import { useSplitConfig } from "./utils.service.js";
 const MAX_ERROR_BODY_CHARS = 32 * 1024;
 
 /**
+ * Resolves environment variable references in a string.
+ * Supports the pattern `${VARIABLE_NAME}` which is replaced by `process.env.VARIABLE_NAME`.
+ * If the variable is not defined, the original string is returned unchanged.
+ *
+ * @param str - The string potentially containing environment variable references.
+ * @returns The string with environment variables resolved, or the original string if not found.
+ */
+function resolveEnv(str: string): string {
+	return str.replace(/\$\{([^}]+)\}/g, (match, varName) => {
+		const value = process.env[varName];
+		return value !== undefined ? value : match;
+	});
+}
+
+/**
  * Internal: narrows an unknown literal entry to an {@link ApiEntry}.
  *
  * @param value - A non-method value from a `defineApiConfig` literal.
