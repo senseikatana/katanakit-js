@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.5.1] - 2026-10-04
+
+### Security
+
+- **Secret management hardening** — removed real Cloudflare API tokens from `.env` (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_SECURITY_TOKEN` commented out); added "Secret Management" section to `AGENTS.md` and `CONTRIBUTING.md` documenting best practices for handling secrets (empty local `.env`, `.env.example` template only, CI secrets for real values).
+
+### Changed
+
+- **TypeScript strictness** — enabled `isolatedModules: true` in `tsconfig.json` for stricter transpilation checks (required by esbuild/SWC and future bundler compatibility).
+- **Removed `.github/` directory** — CI release workflows that kept failing with `Deploy failed` were untracked; docs deploy locally with `bun run cf:deploy`.
+
 ## [6.5.0] - 2026-10-04
 
 ### Added
