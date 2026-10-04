@@ -2,9 +2,82 @@ import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vitepress";
+import { defineConfig, type HeadConfig } from "vitepress";
+
+import { useSeoMeta } from "../../src/config/seo.service.js";
+import type { SiteConfig } from "../../src/config/site.config.js";
 
 const API_SIDEBAR = fileURLToPath(new URL("../api/typedoc-sidebar.json", import.meta.url));
+
+const DOCS_ORIGIN = "https://docs.senseikatana.com";
+const DOCS_OG_IMAGE = `${DOCS_ORIGIN}/images/social-card.jpg`;
+const DOCS_KEYWORDS =
+	"katanakit, typescript, hexagonal architecture, api, rest, graphql, safe results, zod, query client";
+
+/** Docs site config consumed by the library's own SEO helpers (dogfooding). */
+const docsSiteConfig: SiteConfig = {
+	site: DOCS_ORIGIN,
+	title: "KatanaKit",
+	description:
+		"A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
+	lang: "en-US",
+	author: "Sergio Jurado",
+	ogImage: DOCS_OG_IMAGE,
+	rss: { enabled: false, path: "/rss.xml", limit: 20 },
+	seo: { noindex: false, canonical: true, openGraph: true, twitterCard: true, jsonLd: true },
+};
+
+/** Canonical URL for a page (`index.md` maps to the section root). */
+function pageUrl(relativePath: string): string {
+	const clean = relativePath
+		.replace(/(^|\/)index\.md$/, "$1")
+		.replace(/\.md$/, "")
+		.replace(/\/$/, "");
+	return clean ? `${DOCS_ORIGIN}/${clean}` : `${DOCS_ORIGIN}/`;
+}
+
+/**
+ * Post-processes the built HTML so every `<meta>` (plus canonical links and the
+ * anti-FOUC inline scripts) sits right after `<title>`, before stylesheet links
+ * and the app script. VitePress renders its `head` entries after the assets and
+ * only offers `transformHtml` to reorder the final document.
+ */
+function reorderHead(html: string): string {
+	const head = /<head>([\s\S]*?)<\/head>/.exec(html);
+	if (!head) return html;
+
+	const moved: string[] = [];
+	let inner = head[1];
+
+	inner = inner.replace(/<meta\b[^>]*>/g, (tag) => {
+		if (/\bcharset\s*=/i.test(tag)) return tag;
+		moved.push(tag);
+		return "";
+	});
+	inner = inner.replace(/<link\b[^>]*rel="canonical"[^>]*>/g, (tag) => {
+		moved.push(tag);
+		return "";
+	});
+	inner = inner.replace(
+		/<script (?:id="check-(?:dark-mode|mac-os)"|type="application\/ld\+json")[\s\S]*?<\/script>/g,
+		(tag) => {
+			moved.push(tag);
+			return "";
+		},
+	);
+	// Drop the whitespace-only lines the extracted tags leave behind.
+	inner = inner.replace(/\n[ \t]+(?=\n)/g, "");
+
+	if (moved.length === 0) return html;
+
+	const titleEnd = inner.indexOf("</title>");
+	const at = titleEnd === -1 ? inner.indexOf(">") + 1 : titleEnd + "</title>".length;
+	const ordered = `${inner.slice(0, at)}\n    ${moved.join("\n    ")}\n${inner
+		.slice(at)
+		.replace(/^\s*\n/, "")}`;
+
+	return html.replace(head[0], () => `<head>${ordered}</head>`);
+}
 
 type SidebarItem = { text: string; link?: string; items?: SidebarItem[]; collapsed?: boolean };
 
@@ -24,17 +97,39 @@ export default defineConfig({
 	cleanUrls: true,
 	lastUpdated: true,
 	sitemap: { hostname: "https://docs.senseikatana.com" },
-	head: [
-		["meta", { name: "theme-color", content: "#0a0a0a" }],
-		["meta", { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
-		["meta", { name: "description", content: "KatanaKit - TypeScript service toolkit with hexagonal architecture" }],
-		["meta", { name: "keywords", content: "katanakit, typescript, hexagonal architecture, api, rest, graphql, safe results, zod, query client" }],
-		["meta", { property: "og:type", content: "website" }],
-		["meta", { property: "og:site_name", content: "KatanaKit" }],
-		["meta", { property: "og:image", content: "https://docs.senseikatana.com/images/social-card.jpg" }],
-		["meta", { name: "twitter:card", content: "summary_large_image" }],
-		["meta", { name: "twitter:image", content: "https://docs.senseikatana.com/images/social-card.jpg" }],
-	],
+	// Only tags the SEO helper cannot generate live here; the rest is per-page
+	// (transformHead) and reordered to the top of <head> (transformHtml).
+	head: [["meta", { name: "theme-color", content: "#0a0a0a" }]],
+	transformHead({ pageData, title }) {
+		const { tags } = useSeoMeta(
+			{
+				title,
+				description: pageData.description || docsSiteConfig.description,
+				keywords: DOCS_KEYWORDS,
+				viewport: "width=device-width, initial-scale=1.0",
+				canonical: pageUrl(pageData.relativePath),
+				ogUrl: pageUrl(pageData.relativePath),
+				ogType: "website",
+			},
+			docsSiteConfig,
+		);
+
+		const head: HeadConfig[] = [];
+		for (const node of tags) {
+			// VitePress already owns <title>; everything else is injected here.
+			if (node.tag === "title") continue;
+			head.push([node.tag, node.attrs ?? {}, node.text ?? ""]);
+		}
+		// useSeoMeta covers HTML + Open Graph only; Twitter cards layer on top.
+		head.push(["meta", { name: "twitter:card", content: "summary_large_image" }]);
+		head.push(["meta", { name: "twitter:image", content: DOCS_OG_IMAGE }]);
+
+		return head;
+	},
+	transformHtml(code, id) {
+		if (!id.endsWith(".html")) return code;
+		return reorderHead(code);
+	},
 	vite: {
 		plugins: [tailwindcss()],
 		resolve: {
