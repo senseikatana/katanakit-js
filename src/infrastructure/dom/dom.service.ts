@@ -459,6 +459,19 @@ export const useAppend = (target: Element | string, child: Element | string): vo
 };
 
 /**
+ * Removes the target element from the DOM.
+ *
+ * @param target - A CSS selector string or an Element instance.
+ * @example
+ * ```ts
+ * useRemove(".modal-overlay");
+ * ```
+ */
+export const useRemove = (target: Element | string): void => {
+	resolve(target)?.remove();
+};
+
+/**
  * Closes a modal by adding the "hidden" class or removing it from the DOM.
  * Clicking outside the modal or calling this function will hide it.
  *
