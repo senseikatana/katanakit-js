@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.5.0] - 2026-10-04
+
+### Added
+- **core**: migrate services and adapters to singleton classes
+
+### Changed
+- move CI release workflows and release notes to docs
+
 ## [6.4.6] - 2026-10-03
 
 ### Changed
