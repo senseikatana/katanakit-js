@@ -4,7 +4,11 @@
 		"noEmit": true,
 		"rootDir": ".",
 		"jsx": "preserve",
-		"jsxImportSource": "solid-js"
+		"jsxImportSource": "solid-js",
+		"paths": {
+			"katanakit-js": ["./dist/index.d.ts"],
+			"katanakit-js/*": ["./dist/*"]
+		}
 	},
 	"include": ["examples/query/solid.tsx"],
 	"exclude": ["node_modules", "dist"]

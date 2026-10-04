@@ -3,7 +3,11 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"rootDir": ".",
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"paths": {
+			"katanakit-js": ["./dist/index.d.ts"],
+			"katanakit-js/*": ["./dist/*"]
+		}
 	},
 	"include": [
 		"examples/query/vanilla.ts",
