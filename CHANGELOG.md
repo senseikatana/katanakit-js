@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.6.4] - 2026-10-04
+
+### Changed
+- docs(README.md): update documentation in 5 files
+
 ## [6.6.3] - 2026-10-04
 
 ### Changed
