@@ -35,7 +35,12 @@ const run = (cmd, cmdArgs, opts = {}) =>
 
 const runOr = (cmd, cmdArgs) => {
 	try {
-		return run(cmd, cmdArgs);
+		// Probe: stderr stays quiet (e.g. `npm view` 404s are expected here).
+		return execFileSync(cmd, cmdArgs, {
+			cwd: ROOT,
+			encoding: "utf8",
+			stdio: ["ignore", "pipe", "ignore"],
+		}).trim();
 	} catch {
 		return undefined;
 	}
