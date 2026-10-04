@@ -16,8 +16,143 @@ import type { FetchResult } from "../../types/index.js";
  */
 export * from "@tanstack/query-core";
 
-/** Module-level {@link QueryClient} singleton shared by every adapter (browser). */
-let instance: QueryClient | null = null;
+/**
+ * QueryClientFactory - Factory Pattern para crear instancias de QueryClient.
+ *
+ * Centraliza la creación de clientes: `create()` fabrica un cliente nuevo
+ * (por petición en SSR) y `createShared()` reemplaza el singleton compartido.
+ * El resto del código no llama `new QueryClient()` directamente, así que la
+ * política de creación vive en un único punto (Open/Closed).
+ *
+ * @example
+ * ```ts
+ * // SSR: un cliente por petición
+ * const client = QueryClientFactory.create({ defaultOptions: { queries: { staleTime: 60_000 } } });
+ *
+ * // Browser: singleton compartido
+ * QueryClientFactory.createShared();
+ * ```
+ */
+export class QueryClientFactory {
+	/**
+	 * Fabrica un **nuevo** {@link QueryClient}. Úsalo en el servidor (SSR) para
+	 * obtener un cliente por petición y evitar compartir la caché global.
+	 *
+	 * @param config - TanStack {@link QueryClientConfig} (caches, default options).
+	 * @returns Un {@link QueryClient} fresco.
+	 *
+	 * @example
+	 * ```ts
+	 * const client = QueryClientFactory.create();
+	 * await client.prefetchQuery({ queryKey, queryFn });
+	 * ```
+	 */
+	static create(config: QueryClientConfig = {}): QueryClient {
+		return new QueryClient(config);
+	}
+
+	/**
+	 * Reemplaza el singleton compartido con un cliente configurado.
+	 * Limpia la caché del cliente anterior antes de intercambiarlo.
+	 *
+	 * @param config - TanStack {@link QueryClientConfig}.
+	 * @returns El nuevo {@link QueryClient} compartido.
+	 */
+	static createShared(config: QueryClientConfig = {}): QueryClient {
+		return QueryService.getInstance().useInit(config);
+	}
+}
+
+/**
+ * QueryService - Singleton para el QueryClient compartido.
+ *
+ * Aplica el patrón Singleton: una única instancia mantiene el
+ * {@link QueryClient} global que comparten todos los adaptadores de
+ * framework (browser). En SSR, usa {@link QueryClientFactory.create} para
+ * un cliente por petición.
+ *
+ * @example
+ * ```ts
+ * const client = QueryService.getInstance().useGetClient();
+ * await client.invalidateQueries({ queryKey: ["users"] });
+ * ```
+ */
+export class QueryService {
+	private static instance: QueryService;
+
+	/** Shared {@link QueryClient} singleton (browser). */
+	private client: QueryClient | null = null;
+
+	/**
+	 * Constructor privado - enforce singleton.
+	 */
+	private constructor() {}
+
+	/**
+	 * Obtiene la instancia única del QueryService (Singleton).
+	 *
+	 * @returns La instancia única de {@link QueryService}.
+	 */
+	static getInstance(): QueryService {
+		if (!QueryService.instance) {
+			QueryService.instance = new QueryService();
+		}
+		return QueryService.instance;
+	}
+
+	/**
+	 * Returns the shared {@link QueryClient}, creating one on first call.
+	 *
+	 * This is a **process-global** instance: it is the right default in the browser,
+	 * but on the server it would leak cached data across requests. Use
+	 * {@link QueryClientFactory.create} per request when running under SSR.
+	 *
+	 * @returns The shared {@link QueryClient}.
+	 */
+	useGetClient(): QueryClient {
+		this.client ??= QueryClientFactory.create();
+		return this.client;
+	}
+
+	/**
+	 * Replaces the shared {@link QueryClient} with a configured instance.
+	 * The previous client's caches are cleared before swapping.
+	 *
+	 * @param config - TanStack {@link QueryClientConfig} (caches, default options).
+	 * @returns The newly created {@link QueryClient}.
+	 */
+	useInit(config: QueryClientConfig = {}): QueryClient {
+		this.client?.clear();
+		this.client = QueryClientFactory.create(config);
+		return this.client;
+	}
+
+	/**
+	 * Bridges a KatanaKit Safe Result fetcher into a TanStack `queryFn`.
+	 *
+	 * TanStack expects `queryFn` to resolve with data and **throw** on failure;
+	 * KatanaKit returns `{ data, error, ok }`. This adapter unwraps the Safe Result
+	 * so the two fit together. Throws a real `Error` (with `status`) so `instanceof`
+	 * checks and error boundaries work.
+	 *
+	 * @typeParam T - The resolved data type.
+	 * @param fn - A function returning a Safe Result (e.g. `() => useGetApi(...)`).
+	 * @returns A `queryFn` that throws on error.
+	 */
+	useSafeQueryFn<T>(
+		fn: (context: QueryFunctionContext) => Promise<FetchResult<T>>,
+	): (context: QueryFunctionContext) => Promise<T> {
+		return async (context) => {
+			const result = await fn(context);
+			if (!result.ok) {
+				throw Object.assign(new Error(result.error.message), {
+					status: result.error.status,
+				});
+			}
+			return result.data as T;
+		};
+	}
+}
 
 /**
  * Creates a **new** {@link QueryClient}. Use this on the server (SSR) to get one
@@ -35,7 +170,7 @@ let instance: QueryClient | null = null;
  * ```
  */
 export function useCreateQueryClient(config: QueryClientConfig = {}): QueryClient {
-	return new QueryClient(config);
+	return QueryClientFactory.create(config);
 }
 
 /**
@@ -56,7 +191,7 @@ export function useCreateQueryClient(config: QueryClientConfig = {}): QueryClien
  * ```
  */
 export function useQueryClient(): QueryClient {
-	return (instance ??= new QueryClient());
+	return QueryService.getInstance().useGetClient();
 }
 
 /**
@@ -76,9 +211,7 @@ export function useQueryClient(): QueryClient {
  * ```
  */
 export function useInitQueryClient(config: QueryClientConfig = {}): QueryClient {
-	instance?.clear();
-	instance = new QueryClient(config);
-	return instance;
+	return QueryService.getInstance().useInit(config);
 }
 
 /**
@@ -113,11 +246,5 @@ export function useInitQueryClient(config: QueryClientConfig = {}): QueryClient 
 export function useSafeQueryFn<T>(
 	fn: (context: QueryFunctionContext) => Promise<FetchResult<T>>,
 ): (context: QueryFunctionContext) => Promise<T> {
-	return async (context) => {
-		const result = await fn(context);
-		if (!result.ok) {
-			throw Object.assign(new Error(result.error.message), { status: result.error.status });
-		}
-		return result.data as T;
-	};
+	return QueryService.getInstance().useSafeQueryFn(fn);
 }

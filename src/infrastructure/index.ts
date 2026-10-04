@@ -1,3 +1,4 @@
+export * from "./decorators/index.js";
 export * from "./dom/dom.service.js";
 export * from "./filesystem/filesystem.service.js";
 export * from "./filesystem/path.service.js";

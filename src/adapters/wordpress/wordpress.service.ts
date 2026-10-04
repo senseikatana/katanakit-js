@@ -69,54 +69,6 @@ import type {
 /** Default WordPress REST API namespace. */
 const WP_API_NAMESPACE = "wp/v2";
 
-/** Module-level WordPress configuration. */
-let config: WordPressConfig | null = null;
-
-/**
- * Retrieves the registered WordPress config or throws.
- * @internal
- */
-function getConfig(): WordPressConfig {
-	if (!config) {
-		throw new Error("[WordPress] Not configured. Call defineWordPressConfig() first.");
-	}
-	return config;
-}
-
-/**
- * Builds the base API URL from config.
- * @internal
- */
-function getApiBase(): string {
-	const { baseUrl, apiNamespace } = getConfig();
-	const ns = apiNamespace ?? WP_API_NAMESPACE;
-	const cleanBase = baseUrl.replace(/\/+$/, "");
-	return `${cleanBase}/wp-json/${ns}`;
-}
-
-/**
- * Builds authentication headers from config.
- * @internal
- */
-function getAuthHeaders(): Record<string, string> {
-	const { auth } = getConfig();
-	if (!auth) return {};
-
-	switch (auth.type) {
-		case "application-passwords":
-		case "basic": {
-			const credentials = btoa(`${auth.username}:${auth.password}`);
-			return { Authorization: `Basic ${credentials}` };
-		}
-		case "jwt":
-			return { Authorization: `Bearer ${auth.token}` };
-		case "nonce":
-			return { "X-WP-Nonce": auth.nonce, Cookie: auth.cookie };
-		default:
-			return {};
-	}
-}
-
 /**
  * Converts query params to URL search params.
  * Handles _fields (string), _embed (boolean or string), and arrays.
@@ -188,145 +140,720 @@ function invalidInput(parsed: FetchResult<unknown>): FetchResult<never> {
 	};
 }
 
-/**
- * Internal helper to make requests to the WordPress REST API.
- * @internal
- */
-async function wpFetch<T>(
-	endpoint: string,
-	options: RequestInit = {},
-	schema?: z.ZodType<unknown>,
-): Promise<FetchResult<T>> {
-	let url = "";
-
-	const attempt = await useAttempt(async () => {
-		url = `${getApiBase()}${endpoint}`;
-		const response = await fetch(url, {
-			...options,
-			headers: {
-				"Content-Type": "application/json",
-				...getAuthHeaders(),
-				...options.headers,
-			},
-		});
-
-		if (!response.ok) {
-			const errorBody = await response.text().catch(() => null);
-			throw apiError(`WordPress API Error: ${response.statusText}`, response.status, errorBody);
-		}
-
-		if (response.status === 204) {
-			return { data: null as T, status: 204 };
-		}
-
-		const raw = (await response.json()) as unknown;
-		if (schema) {
-			const parsed = useValidate(schema, raw);
-			if (!parsed.ok) {
-				throw apiError(
-					"WordPress Validation Error: " + parsed.error.message,
-					502,
-					parsed.error.details,
-				);
-			}
-			// WP may return partials via `_fields`, so the schema guarantees present fields are well-typed.
-			return { data: parsed.data as T, status: response.status };
-		}
-		return { data: raw as T, status: response.status };
-	});
-
-	if (!attempt.ok) {
-		const { message, status, details } = attempt.error;
-		return {
-			data: null,
-			error: { message: status === 0 ? `Network Error: ${message}` : message, status, details },
-			url,
-			status,
-			ok: false,
-		};
-	}
-	return { data: attempt.data.data, error: null, url, status: attempt.data.status, ok: true };
-}
-
 /** Builds a throwable error carrying `status`/`details` for `useAttempt`. */
 function apiError(message: string, status: number, details?: unknown): Error {
 	return Object.assign(new Error(message), { status, details });
 }
 
 /**
- * Internal helper for multipart file uploads.
- * @internal
+ * WordPressService - Singleton para el cliente del WordPress REST API.
+ *
+ * Aplica el patrón Singleton: una única instancia mantiene la configuración
+ * (URL base, auth, namespace) y centraliza todas las operaciones CRUD contra
+ * la REST API de WordPress, devolviendo siempre Safe Results.
+ *
+ * @example
+ * ```ts
+ * const wp = WordPressService.getInstance();
+ * wp.useInit({ baseUrl: "https://mysite.com", auth: { type: "jwt", token: "..." } });
+ * const result = await wp.useGetPosts({ per_page: 5 });
+ * ```
  */
-async function wpUpload<T>(
-	endpoint: string,
-	file: File | Blob | Buffer,
-	meta?: Record<string, unknown>,
-	schema?: z.ZodType<unknown>,
-): Promise<FetchResult<T>> {
-	let url = "";
+export class WordPressService {
+	private static instance: WordPressService;
 
-	const attempt = await useAttempt(async () => {
-		url = `${getApiBase()}${endpoint}`;
-		const formData = new FormData();
+	/** Registered WordPress configuration. */
+	private config: WordPressConfig | null = null;
 
-		// Add the file
-		if (typeof Buffer !== "undefined" && file instanceof Buffer) {
-			const blob = new Blob([new Uint8Array(file)]);
-			formData.append("file", blob, "upload");
-		} else {
-			formData.append("file", file as Blob, (file as File).name ?? "upload");
+	/**
+	 * Constructor privado - enforce singleton.
+	 */
+	private constructor() {}
+
+	/**
+	 * Obtiene la instancia única del WordPressService (Singleton).
+	 *
+	 * @returns La instancia única de {@link WordPressService}.
+	 */
+	static getInstance(): WordPressService {
+		if (!WordPressService.instance) {
+			WordPressService.instance = new WordPressService();
 		}
+		return WordPressService.instance;
+	}
 
-		// Add metadata
-		if (meta) {
-			for (const [key, value] of Object.entries(meta)) {
-				if (value !== undefined && value !== null) {
-					formData.append(key, String(value));
-				}
+	/**
+	 * Retrieves the registered WordPress config or throws.
+	 * @internal
+	 */
+	private useGetConfig(): WordPressConfig {
+		if (!this.config) {
+			throw new Error("[WordPress] Not configured. Call defineWordPressConfig() first.");
+		}
+		return this.config;
+	}
+
+	/**
+	 * Builds the base API URL from config.
+	 * @internal
+	 */
+	private useGetApiBase(): string {
+		const { baseUrl, apiNamespace } = this.useGetConfig();
+		const ns = apiNamespace ?? WP_API_NAMESPACE;
+		const cleanBase = baseUrl.replace(/\/+$/, "");
+		return `${cleanBase}/wp-json/${ns}`;
+	}
+
+	/**
+	 * Builds authentication headers from config.
+	 * @internal
+	 */
+	private useGetAuthHeaders(): Record<string, string> {
+		const { auth } = this.useGetConfig();
+		if (!auth) return {};
+
+		switch (auth.type) {
+			case "application-passwords":
+			case "basic": {
+				const credentials = btoa(`${auth.username}:${auth.password}`);
+				return { Authorization: `Basic ${credentials}` };
 			}
+			case "jwt":
+				return { Authorization: `Bearer ${auth.token}` };
+			case "nonce":
+				return { "X-WP-Nonce": auth.nonce, Cookie: auth.cookie };
+			default:
+				return {};
 		}
+	}
 
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				...getAuthHeaders(),
-				// Don't set Content-Type — browser sets multipart boundary
-			},
-			body: formData,
+	/**
+	 * Internal helper to make requests to the WordPress REST API.
+	 * @internal
+	 */
+	private async useRequest<T>(
+		endpoint: string,
+		options: RequestInit = {},
+		schema?: z.ZodType<unknown>,
+	): Promise<FetchResult<T>> {
+		let url = "";
+
+		const attempt = await useAttempt(async () => {
+			url = `${this.useGetApiBase()}${endpoint}`;
+			const response = await fetch(url, {
+				...options,
+				headers: {
+					"Content-Type": "application/json",
+					...this.useGetAuthHeaders(),
+					...options.headers,
+				},
+			});
+
+			if (!response.ok) {
+				const errorBody = await response.text().catch(() => null);
+				throw apiError(`WordPress API Error: ${response.statusText}`, response.status, errorBody);
+			}
+
+			if (response.status === 204) {
+				return { data: null as T, status: 204 };
+			}
+
+			const raw = (await response.json()) as unknown;
+			if (schema) {
+				const parsed = useValidate(schema, raw);
+				if (!parsed.ok) {
+					throw apiError(
+						"WordPress Validation Error: " + parsed.error.message,
+						502,
+						parsed.error.details,
+					);
+				}
+				// WP may return partials via `_fields`, so the schema guarantees present fields are well-typed.
+				return { data: parsed.data as T, status: response.status };
+			}
+			return { data: raw as T, status: response.status };
 		});
 
-		if (!response.ok) {
-			const errorBody = await response.text().catch(() => null);
-			throw apiError(`WordPress Upload Error: ${response.statusText}`, response.status, errorBody);
+		if (!attempt.ok) {
+			const { message, status, details } = attempt.error;
+			return {
+				data: null,
+				error: {
+					message: status === 0 ? `Network Error: ${message}` : message,
+					status,
+					details,
+				},
+				url,
+				status,
+				ok: false,
+			};
 		}
+		return { data: attempt.data.data, error: null, url, status: attempt.data.status, ok: true };
+	}
 
-		const raw = (await response.json()) as unknown;
-		if (schema) {
-			const parsed = useValidate(schema, raw);
-			if (!parsed.ok) {
-				throw apiError(
-					"WordPress Validation Error: " + parsed.error.message,
-					502,
-					parsed.error.details,
-				);
+	/**
+	 * Internal helper for multipart file uploads.
+	 * @internal
+	 */
+	private async useUpload<T>(
+		endpoint: string,
+		file: File | Blob | Buffer,
+		meta?: Record<string, unknown>,
+		schema?: z.ZodType<unknown>,
+	): Promise<FetchResult<T>> {
+		let url = "";
+
+		const attempt = await useAttempt(async () => {
+			url = `${this.useGetApiBase()}${endpoint}`;
+			const formData = new FormData();
+
+			// Add the file
+			if (typeof Buffer !== "undefined" && file instanceof Buffer) {
+				const blob = new Blob([new Uint8Array(file)]);
+				formData.append("file", blob, "upload");
+			} else {
+				formData.append("file", file as Blob, (file as File).name ?? "upload");
 			}
-			// WP may return partials via `_fields`, so the schema guarantees present fields are well-typed.
-			return { data: parsed.data as T, status: response.status };
-		}
-		return { data: raw as T, status: response.status };
-	});
 
-	if (!attempt.ok) {
-		const { message, status, details } = attempt.error;
+			// Add metadata
+			if (meta) {
+				for (const [key, value] of Object.entries(meta)) {
+					if (value !== undefined && value !== null) {
+						formData.append(key, String(value));
+					}
+				}
+			}
+
+			const response = await fetch(url, {
+				method: "POST",
+				headers: {
+					...this.useGetAuthHeaders(),
+					// Don't set Content-Type — browser sets multipart boundary
+				},
+				body: formData,
+			});
+
+			if (!response.ok) {
+				const errorBody = await response.text().catch(() => null);
+				throw apiError(`WordPress Upload Error: ${response.statusText}`, response.status, errorBody);
+			}
+
+			const raw = (await response.json()) as unknown;
+			if (schema) {
+				const parsed = useValidate(schema, raw);
+				if (!parsed.ok) {
+					throw apiError(
+						"WordPress Validation Error: " + parsed.error.message,
+						502,
+						parsed.error.details,
+					);
+				}
+				return { data: parsed.data as T, status: response.status };
+			}
+			return { data: raw as T, status: response.status };
+		});
+
+		if (!attempt.ok) {
+			const { message, status, details } = attempt.error;
+			return {
+				data: null,
+				error: { message: status === 0 ? `Upload Error: ${message}` : message, status, details },
+				url,
+				status,
+				ok: false,
+			};
+		}
+		return { data: attempt.data.data, error: null, url, status: attempt.data.status, ok: true };
+	}
+
+	/**
+	 * Registers the WordPress REST API configuration.
+	 *
+	 * Supports multiple auth methods: Application Passwords, JWT tokens,
+	 * Basic Auth, and nonce-based auth for themes.
+	 *
+	 * @param cfg - Site URL, authentication method, and optional API namespace.
+	 * @throws {Error} If the config fails Zod validation.
+	 *
+	 * @example
+	 * ```ts
+	 * WordPressService.getInstance().useInit({
+	 *   baseUrl: "https://mysite.com",
+	 *   auth: { type: "application-passwords", username: "admin", password: "xxxx xxxx xxxx" },
+	 * });
+	 * ```
+	 */
+	useInit(cfg: WordPressConfig): void {
+		const parsed = useValidate(WordPressConfigSchema, cfg);
+		if (!parsed.ok) {
+			throw new Error("[WordPress] Invalid config: " + parsed.error.message);
+		}
+		this.config = { ...parsed.data };
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Posts                                                                    */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of WordPress posts with optional filtering and pagination. */
+	async useGetPosts(options?: WpQueryParams): Promise<FetchResult<WpPost[]>> {
+		return this.useRequest<WpPost[]>(`/posts${buildQueryParams(options)}`, {}, WpPostListSchema);
+	}
+
+	/** Retrieves a single WordPress post by ID. */
+	async useGetPost(id: number, options?: WpQueryParams): Promise<FetchResult<WpPost>> {
+		return this.useRequest<WpPost>(
+			`/posts/${id}${buildQueryParams(options)}`,
+			{},
+			WpPostResponseSchema,
+		);
+	}
+
+	/** Creates a new WordPress post. */
+	async useCreatePost(data: WpPostCreate): Promise<FetchResult<WpPost>> {
+		const parsed = useValidate(WpPostCreateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpPost>(
+			"/posts",
+			{ method: "POST", body: JSON.stringify(data) },
+			WpPostResponseSchema,
+		);
+	}
+
+	/** Updates an existing WordPress post. */
+	async useUpdatePost(id: number, data: WpPostUpdate): Promise<FetchResult<WpPost>> {
+		const parsed = useValidate(WpPostUpdateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpPost>(
+			`/posts/${id}`,
+			{ method: "POST", body: JSON.stringify(data) },
+			WpPostResponseSchema,
+		);
+	}
+
+	/** Deletes a WordPress post (trash by default, permanent with `force`). */
+	async useDeletePost(id: number, force = false): Promise<FetchResult<WpPost>> {
+		return this.useRequest<WpPost>(
+			`/posts/${id}?force=${force}`,
+			{ method: "DELETE" },
+			WpPostResponseSchema,
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Pages                                                                    */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of WordPress pages. */
+	async useGetPages(options?: WpQueryParams): Promise<FetchResult<WpPage[]>> {
+		return this.useRequest<WpPage[]>(`/pages${buildQueryParams(options)}`, {}, WpPageListSchema);
+	}
+
+	/** Retrieves a single WordPress page by ID. */
+	async useGetPage(id: number, options?: WpQueryParams): Promise<FetchResult<WpPage>> {
+		return this.useRequest<WpPage>(
+			`/pages/${id}${buildQueryParams(options)}`,
+			{},
+			WpPageResponseSchema,
+		);
+	}
+
+	/** Creates a new WordPress page. */
+	async useCreatePage(data: WpPageCreate): Promise<FetchResult<WpPage>> {
+		const parsed = useValidate(WpPageCreateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpPage>(
+			"/pages",
+			{ method: "POST", body: JSON.stringify(data) },
+			WpPageResponseSchema,
+		);
+	}
+
+	/** Updates an existing WordPress page. */
+	async useUpdatePage(id: number, data: WpPageUpdate): Promise<FetchResult<WpPage>> {
+		const parsed = useValidate(WpPageUpdateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpPage>(
+			`/pages/${id}`,
+			{ method: "POST", body: JSON.stringify(data) },
+			WpPageResponseSchema,
+		);
+	}
+
+	/** Deletes a WordPress page (trash by default, permanent with `force`). */
+	async useDeletePage(id: number, force = false): Promise<FetchResult<WpPage>> {
+		return this.useRequest<WpPage>(
+			`/pages/${id}?force=${force}`,
+			{ method: "DELETE" },
+			WpPageResponseSchema,
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Media                                                                    */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of WordPress media items. */
+	async useGetMedia(options?: WpQueryParams): Promise<FetchResult<WpMedia[]>> {
+		return this.useRequest<WpMedia[]>(`/media${buildQueryParams(options)}`, {}, WpMediaListSchema);
+	}
+
+	/** Retrieves a single WordPress media item by ID. */
+	async useGetMediaItem(id: number): Promise<FetchResult<WpMedia>> {
+		return this.useRequest<WpMedia>(`/media/${id}`, {}, WpMediaResponseSchema);
+	}
+
+	/** Uploads a file to the WordPress media library. */
+	async useUploadMedia(
+		file: File | Blob | Buffer,
+		meta?: WpMediaMeta,
+	): Promise<FetchResult<WpMedia>> {
+		if (meta !== undefined) {
+			const parsed = useValidate(WpMediaMetaSchema, meta);
+			if (!parsed.ok) return invalidInput(parsed);
+		}
+		return this.useUpload<WpMedia>(
+			"/media",
+			file,
+			meta as Record<string, unknown>,
+			WpMediaResponseSchema,
+		);
+	}
+
+	/** Updates metadata of a WordPress media item. */
+	async useUpdateMedia(id: number, data: WpMediaUpdate): Promise<FetchResult<WpMedia>> {
+		const parsed = useValidate(WpMediaUpdateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpMedia>(
+			`/media/${id}`,
+			{ method: "POST", body: JSON.stringify(data) },
+			WpMediaResponseSchema,
+		);
+	}
+
+	/** Deletes a WordPress media item. */
+	async useDeleteMedia(id: number, force = false): Promise<FetchResult<WpMedia>> {
+		return this.useRequest<WpMedia>(
+			`/media/${id}?force=${force}`,
+			{ method: "DELETE" },
+			WpMediaResponseSchema,
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Categories                                                               */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of WordPress categories. */
+	async useGetCategories(options?: WpQueryParams): Promise<FetchResult<WpCategory[]>> {
+		return this.useRequest<WpCategory[]>(
+			`/categories${buildQueryParams(options)}`,
+			{},
+			WpCategoryListSchema,
+		);
+	}
+
+	/** Retrieves a single WordPress category by ID. */
+	async useGetCategory(id: number): Promise<FetchResult<WpCategory>> {
+		return this.useRequest<WpCategory>(`/categories/${id}`, {}, WpCategoryResponseSchema);
+	}
+
+	/** Creates a new WordPress category. */
+	async useCreateCategory(data: WpCategoryCreate): Promise<FetchResult<WpCategory>> {
+		const parsed = useValidate(WpCategoryCreateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpCategory>(
+			"/categories",
+			{ method: "POST", body: JSON.stringify(data) },
+			WpCategoryResponseSchema,
+		);
+	}
+
+	/** Updates an existing WordPress category. */
+	async useUpdateCategory(id: number, data: WpCategoryUpdate): Promise<FetchResult<WpCategory>> {
+		const parsed = useValidate(WpCategoryUpdateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpCategory>(
+			`/categories/${id}`,
+			{ method: "POST", body: JSON.stringify(data) },
+			WpCategoryResponseSchema,
+		);
+	}
+
+	/** Deletes a WordPress category. */
+	async useDeleteCategory(id: number, force = false): Promise<FetchResult<WpCategory>> {
+		return this.useRequest<WpCategory>(
+			`/categories/${id}?force=${force}`,
+			{ method: "DELETE" },
+			WpCategoryResponseSchema,
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Tags                                                                     */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of WordPress tags. */
+	async useGetTags(options?: WpQueryParams): Promise<FetchResult<WpTag[]>> {
+		return this.useRequest<WpTag[]>(`/tags${buildQueryParams(options)}`, {}, WpTagListSchema);
+	}
+
+	/** Retrieves a single WordPress tag by ID. */
+	async useGetTag(id: number): Promise<FetchResult<WpTag>> {
+		return this.useRequest<WpTag>(`/tags/${id}`, {}, WpTagResponseSchema);
+	}
+
+	/** Creates a new WordPress tag. */
+	async useCreateTag(data: WpTagCreate): Promise<FetchResult<WpTag>> {
+		const parsed = useValidate(WpTagCreateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpTag>(
+			"/tags",
+			{ method: "POST", body: JSON.stringify(data) },
+			WpTagResponseSchema,
+		);
+	}
+
+	/** Updates an existing WordPress tag. */
+	async useUpdateTag(id: number, data: WpTagUpdate): Promise<FetchResult<WpTag>> {
+		const parsed = useValidate(WpTagUpdateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpTag>(
+			`/tags/${id}`,
+			{ method: "POST", body: JSON.stringify(data) },
+			WpTagResponseSchema,
+		);
+	}
+
+	/** Deletes a WordPress tag. */
+	async useDeleteTag(id: number, force = false): Promise<FetchResult<WpTag>> {
+		return this.useRequest<WpTag>(
+			`/tags/${id}?force=${force}`,
+			{ method: "DELETE" },
+			WpTagResponseSchema,
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Comments                                                                 */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of WordPress comments. */
+	async useGetComments(options?: WpQueryParams): Promise<FetchResult<WpComment[]>> {
+		return this.useRequest<WpComment[]>(
+			`/comments${buildQueryParams(options)}`,
+			{},
+			WpCommentListSchema,
+		);
+	}
+
+	/** Retrieves a single WordPress comment by ID. */
+	async useGetComment(id: number): Promise<FetchResult<WpComment>> {
+		return this.useRequest<WpComment>(`/comments/${id}`, {}, WpCommentResponseSchema);
+	}
+
+	/** Creates a new WordPress comment. */
+	async useCreateComment(data: WpCommentCreate): Promise<FetchResult<WpComment>> {
+		const parsed = useValidate(WpCommentCreateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpComment>(
+			"/comments",
+			{ method: "POST", body: JSON.stringify(data) },
+			WpCommentResponseSchema,
+		);
+	}
+
+	/** Updates an existing WordPress comment. */
+	async useUpdateComment(id: number, data: WpCommentUpdate): Promise<FetchResult<WpComment>> {
+		const parsed = useValidate(WpCommentUpdateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpComment>(
+			`/comments/${id}`,
+			{ method: "POST", body: JSON.stringify(data) },
+			WpCommentResponseSchema,
+		);
+	}
+
+	/** Deletes a WordPress comment. */
+	async useDeleteComment(id: number, force = false): Promise<FetchResult<WpComment>> {
+		return this.useRequest<WpComment>(
+			`/comments/${id}?force=${force}`,
+			{ method: "DELETE" },
+			WpCommentResponseSchema,
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Users                                                                    */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of WordPress users. */
+	async useGetUsers(options?: WpQueryParams): Promise<FetchResult<WpUser[]>> {
+		return this.useRequest<WpUser[]>(`/users${buildQueryParams(options)}`, {}, WpUserListSchema);
+	}
+
+	/** Retrieves a single WordPress user by ID. */
+	async useGetUser(id: number): Promise<FetchResult<WpUser>> {
+		return this.useRequest<WpUser>(`/users/${id}`, {}, WpUserResponseSchema);
+	}
+
+	/** Retrieves the currently authenticated WordPress user. */
+	async useGetCurrentUser(): Promise<FetchResult<WpUser>> {
+		return this.useRequest<WpUser>("/users/me", {}, WpUserResponseSchema);
+	}
+
+	/** Creates a new WordPress user. */
+	async useCreateUser(data: WpUserCreate): Promise<FetchResult<WpUser>> {
+		const parsed = useValidate(WpUserCreateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpUser>(
+			"/users",
+			{ method: "POST", body: JSON.stringify(data) },
+			WpUserResponseSchema,
+		);
+	}
+
+	/** Updates an existing WordPress user. */
+	async useUpdateUser(id: number, data: WpUserUpdate): Promise<FetchResult<WpUser>> {
+		const parsed = useValidate(WpUserUpdateSchema, data);
+		if (!parsed.ok) return invalidInput(parsed);
+		return this.useRequest<WpUser>(
+			`/users/${id}`,
+			{ method: "POST", body: JSON.stringify(data) },
+			WpUserResponseSchema,
+		);
+	}
+
+	/** Deletes a WordPress user, optionally reassigning their content. */
+	async useDeleteUser(id: number, reassign?: number): Promise<FetchResult<WpUser>> {
+		const qs = reassign ? `?reassign=${reassign}` : "";
+		return this.useRequest<WpUser>(`/users/${id}${qs}`, { method: "DELETE" }, WpUserResponseSchema);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Custom Post Types                                                        */
+	/* ---------------------------------------------------------------------- */
+
+	/** Retrieves a list of custom post type entries. */
+	async useGetCustomPosts(
+		postType: string,
+		options?: WpQueryParams,
+	): Promise<FetchResult<unknown[]>> {
+		return this.useRequest<unknown[]>(`/${postType}${buildQueryParams(options)}`);
+	}
+
+	/** Retrieves a single custom post type entry by ID. */
+	async useGetCustomPost(
+		postType: string,
+		id: number,
+		options?: WpQueryParams,
+	): Promise<FetchResult<unknown>> {
+		return this.useRequest<unknown>(`/${postType}/${id}${buildQueryParams(options)}`);
+	}
+
+	/** Creates a new custom post type entry. */
+	async useCreateCustomPost(
+		postType: string,
+		data: Record<string, unknown>,
+	): Promise<FetchResult<unknown>> {
+		return this.useRequest<unknown>(`/${postType}`, {
+			method: "POST",
+			body: JSON.stringify(data),
+		});
+	}
+
+	/** Updates a custom post type entry. */
+	async useUpdateCustomPost(
+		postType: string,
+		id: number,
+		data: Record<string, unknown>,
+	): Promise<FetchResult<unknown>> {
+		return this.useRequest<unknown>(`/${postType}/${id}`, {
+			method: "POST",
+			body: JSON.stringify(data),
+		});
+	}
+
+	/** Deletes a custom post type entry. */
+	async useDeleteCustomPost(
+		postType: string,
+		id: number,
+		force = false,
+	): Promise<FetchResult<unknown>> {
+		return this.useRequest<unknown>(`/${postType}/${id}?force=${force}`, {
+			method: "DELETE",
+		});
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Batch Operations                                                         */
+	/* ---------------------------------------------------------------------- */
+
+	/** Executes multiple WordPress REST API requests in a single batch. */
+	async useBatch(operations: WpBatchOperation[]): Promise<FetchResult<WpBatchResult>> {
+		for (const operation of operations) {
+			const parsed = useValidate(WpBatchOperationSchema, operation);
+			if (!parsed.ok) return invalidInput(parsed);
+		}
+		return this.useRequest<WpBatchResult>(
+			"/batch/v1",
+			{ method: "POST", body: JSON.stringify({ requests: operations }) },
+			WpBatchResultSchema,
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Pagination Helpers                                                       */
+	/* ---------------------------------------------------------------------- */
+
+	/**
+	 * Fetches ALL posts matching the criteria, automatically handling pagination.
+	 *
+	 * @param options - Query params for filtering. Do NOT pass `page` or `per_page`.
+	 * @param maxItems - Cap on the total number of posts to fetch (default `1000`).
+	 */
+	async useListAllPosts(options?: WpQueryParams, maxItems = 1000): Promise<FetchResult<WpPost[]>> {
+		const allPosts: WpPost[] = [];
+		let page = 1;
+
+		while (true) {
+			const result = await this.useGetPosts({ ...options, page, per_page: 100 });
+			if (!result.ok) return result;
+
+			allPosts.push(...result.data);
+
+			if (maxItems && allPosts.length >= maxItems) break;
+			if (result.data.length < 100) break;
+			page++;
+		}
+
 		return {
-			data: null,
-			error: { message: status === 0 ? `Upload Error: ${message}` : message, status, details },
-			url,
-			status,
-			ok: false,
+			data: allPosts.slice(0, maxItems),
+			error: null,
+			url: "",
+			status: 200,
+			ok: true,
 		};
 	}
-	return { data: attempt.data.data, error: null, url, status: attempt.data.status, ok: true };
+
+	/** Searches ALL posts by keyword, automatically handling pagination. */
+	async useSearchAllPosts(query: string, options?: WpQueryParams): Promise<FetchResult<WpPost[]>> {
+		return this.useListAllPosts({ ...options, search: query });
+	}
+
+	/** Finds a single post by its URL slug. Returns `null` if not found. */
+	async useFindPostBySlug(slug: string): Promise<FetchResult<WpPost | null>> {
+		const result = await this.useGetPosts({ slug, per_page: 1 });
+		if (!result.ok) return result;
+
+		return {
+			data: result.data[0] ?? null,
+			error: null,
+			url: result.url,
+			status: result.status,
+			ok: true,
+		};
+	}
 }
 
 /* -------------------------------------------------------------------------- */
@@ -387,55 +914,33 @@ export function defineWordPressConfig<T extends WordPressConfig>(
  * ```ts
  * import { useInitWordPress } from "katanakit-js/adapters/wordpress";
  *
- * // With Application Passwords (recommended)
  * useInitWordPress({
  *   baseUrl: "https://mysite.com",
  *   auth: { type: "application-passwords", username: "admin", password: "xxxx xxxx xxxx" },
  * });
- *
- * // With JWT
- * useInitWordPress({
- *   baseUrl: "https://mysite.com",
- *   auth: { type: "jwt", token: "eyJhbGci..." },
- * });
  * ```
  */
 export function useInitWordPress(cfg: WordPressConfig): void {
-	const parsed = useValidate(WordPressConfigSchema, cfg);
-	if (!parsed.ok) {
-		throw new Error("[WordPress] Invalid config: " + parsed.error.message);
-	}
-	config = { ...parsed.data };
+	WordPressService.getInstance().useInit(cfg);
 }
 
 /* -------------------------------------------------------------------------- */
-/* Posts                                                                      */
+/* Wrappers (backward compatibility)                                          */
 /* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of WordPress posts with optional filtering and pagination.
  *
- * Use to display blog listings, search posts, or filter by category/tag/status.
- * Returns a single page of results (default 10 per page).
- *
- * @param options - Query params: `per_page`, `page`, `search`, `categories`,
- *   `tags`, `status`, `orderby`, `order`, `_embed`, etc.
+ * @param options - Query params: `per_page`, `page`, `search`, `categories`, etc.
  * @returns Array of posts.
  *
  * @example
  * ```ts
- * // Get latest 5 published posts
  * const result = await useWpGetPosts({ per_page: 5, status: "publish" });
- *
- * // Search posts by keyword
- * const result = await useWpGetPosts({ search: "tutorial" });
- *
- * // Get posts from category 3, sorted by title
- * const result = await useWpGetPosts({ categories: 3, orderby: "title", order: "asc" });
  * ```
  */
 export async function useWpGetPosts(options?: WpQueryParams): Promise<FetchResult<WpPost[]>> {
-	return wpFetch<WpPost[]>(`/posts${buildQueryParams(options)}`, {}, WpPostListSchema);
+	return WordPressService.getInstance().useGetPosts(options);
 }
 
 /**
@@ -448,51 +953,28 @@ export async function useWpGetPosts(options?: WpQueryParams): Promise<FetchResul
  * @example
  * ```ts
  * const result = await useWpGetPost(42, { _embed: true });
- * if (result.ok) console.log(result.data.title.rendered);
  * ```
  */
 export async function useWpGetPost(
 	id: number,
 	options?: WpQueryParams,
 ): Promise<FetchResult<WpPost>> {
-	return wpFetch<WpPost>(`/posts/${id}${buildQueryParams(options)}`, {}, WpPostResponseSchema);
+	return WordPressService.getInstance().useGetPost(id, options);
 }
 
 /**
  * Creates a new WordPress post.
  *
- * Use to publish blog entries, create drafts, or schedule future posts.
- * The post will be assigned to the authenticated user by default.
- *
- * @param data - Post data: `title`, `content` (HTML), `status` (publish/draft/pending),
- *   `categories`, `tags`, `featured_media`, `excerpt`, `slug`, `date`, etc.
+ * @param data - Post data: `title`, `content`, `status`, `categories`, etc.
  * @returns The created post.
  *
  * @example
  * ```ts
- * // Publish immediately
- * const result = await useWpCreatePost({
- *   title: "My New Post",
- *   content: "<p>Hello World!</p>",
- *   status: "publish",
- *   categories: [1, 3],
- * });
- *
- * // Create as draft
- * await useWpCreatePost({ title: "Draft Post", content: "...", status: "draft" });
+ * const result = await useWpCreatePost({ title: "My New Post", content: "<p>Hello</p>", status: "publish" });
  * ```
  */
 export async function useWpCreatePost(data: WpPostCreate): Promise<FetchResult<WpPost>> {
-	const parsed = useValidate(WpPostCreateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpPost>(
-		"/posts",
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpPostResponseSchema,
-	);
+	return WordPressService.getInstance().useCreatePost(data);
 }
 
 /**
@@ -511,16 +993,7 @@ export async function useWpUpdatePost(
 	id: number,
 	data: WpPostUpdate,
 ): Promise<FetchResult<WpPost>> {
-	const parsed = useValidate(WpPostUpdateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpPost>(
-		`/posts/${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpPostResponseSchema,
-	);
+	return WordPressService.getInstance().useUpdatePost(id, data);
 }
 
 /**
@@ -532,23 +1005,12 @@ export async function useWpUpdatePost(
  *
  * @example
  * ```ts
- * await useWpDeletePost(42); // Move to trash
- * await useWpDeletePost(42, true); // Permanently delete
+ * await useWpDeletePost(42, true);
  * ```
  */
 export async function useWpDeletePost(id: number, force = false): Promise<FetchResult<WpPost>> {
-	return wpFetch<WpPost>(
-		`/posts/${id}?force=${force}`,
-		{
-			method: "DELETE",
-		},
-		WpPostResponseSchema,
-	);
+	return WordPressService.getInstance().useDeletePost(id, force);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Pages                                                                      */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of WordPress pages.
@@ -562,7 +1024,7 @@ export async function useWpDeletePost(id: number, force = false): Promise<FetchR
  * ```
  */
 export async function useWpGetPages(options?: WpQueryParams): Promise<FetchResult<WpPage[]>> {
-	return wpFetch<WpPage[]>(`/pages${buildQueryParams(options)}`, {}, WpPageListSchema);
+	return WordPressService.getInstance().useGetPages(options);
 }
 
 /**
@@ -575,14 +1037,13 @@ export async function useWpGetPages(options?: WpQueryParams): Promise<FetchResul
  * @example
  * ```ts
  * const result = await useWpGetPage(10);
- * if (result.ok) console.log(result.data.title.rendered);
  * ```
  */
 export async function useWpGetPage(
 	id: number,
 	options?: WpQueryParams,
 ): Promise<FetchResult<WpPage>> {
-	return wpFetch<WpPage>(`/pages/${id}${buildQueryParams(options)}`, {}, WpPageResponseSchema);
+	return WordPressService.getInstance().useGetPage(id, options);
 }
 
 /**
@@ -593,24 +1054,11 @@ export async function useWpGetPage(
  *
  * @example
  * ```ts
- * await useWpCreatePage({
- *   title: "About Us",
- *   content: "<p>Welcome to our site!</p>",
- *   status: "publish",
- * });
+ * await useWpCreatePage({ title: "About Us", content: "<p>Welcome</p>", status: "publish" });
  * ```
  */
 export async function useWpCreatePage(data: WpPageCreate): Promise<FetchResult<WpPage>> {
-	const parsed = useValidate(WpPageCreateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpPage>(
-		"/pages",
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpPageResponseSchema,
-	);
+	return WordPressService.getInstance().useCreatePage(data);
 }
 
 /**
@@ -629,16 +1077,7 @@ export async function useWpUpdatePage(
 	id: number,
 	data: WpPageUpdate,
 ): Promise<FetchResult<WpPage>> {
-	const parsed = useValidate(WpPageUpdateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpPage>(
-		`/pages/${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpPageResponseSchema,
-	);
+	return WordPressService.getInstance().useUpdatePage(id, data);
 }
 
 /**
@@ -650,22 +1089,12 @@ export async function useWpUpdatePage(
  *
  * @example
  * ```ts
- * await useWpDeletePage(10); // Move to trash
+ * await useWpDeletePage(10);
  * ```
  */
 export async function useWpDeletePage(id: number, force = false): Promise<FetchResult<WpPage>> {
-	return wpFetch<WpPage>(
-		`/pages/${id}?force=${force}`,
-		{
-			method: "DELETE",
-		},
-		WpPageResponseSchema,
-	);
+	return WordPressService.getInstance().useDeletePage(id, force);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Media                                                                      */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of WordPress media items.
@@ -679,7 +1108,7 @@ export async function useWpDeletePage(id: number, force = false): Promise<FetchR
  * ```
  */
 export async function useWpGetMedia(options?: WpQueryParams): Promise<FetchResult<WpMedia[]>> {
-	return wpFetch<WpMedia[]>(`/media${buildQueryParams(options)}`, {}, WpMediaListSchema);
+	return WordPressService.getInstance().useGetMedia(options);
 }
 
 /**
@@ -691,48 +1120,29 @@ export async function useWpGetMedia(options?: WpQueryParams): Promise<FetchResul
  * @example
  * ```ts
  * const result = await useWpGetMediaItem(42);
- * if (result.ok) console.log(result.data.source_url);
  * ```
  */
 export async function useWpGetMediaItem(id: number): Promise<FetchResult<WpMedia>> {
-	return wpFetch<WpMedia>(`/media/${id}`, {}, WpMediaResponseSchema);
+	return WordPressService.getInstance().useGetMediaItem(id);
 }
 
 /**
  * Uploads a file to the WordPress media library.
  *
- * Use to upload images, documents, or any file type supported by WordPress.
- * Returns the media item with its URL for use as featured media or in content.
- *
  * @param file - File (browser), Blob, or Buffer (Node.js) to upload.
- * @param meta - Optional metadata: `title`, `alt_text`, `caption`, `description`,
- *   `post` (attach to existing post), `slug`.
+ * @param meta - Optional metadata: `title`, `alt_text`, `caption`, etc.
  * @returns The created media item with `source_url`.
  *
  * @example
  * ```ts
- * // From a file input (browser)
- * const file = document.querySelector("input[type=file]").files[0];
- * const result = await useWpUploadMedia(file, {
- *   title: "My Image",
- *   alt_text: "Description for accessibility",
- * });
- * if (result.ok) console.log(result.data.source_url); // URL to use in content
- *
- * // From a Buffer (Node.js)
- * const buffer = fs.readFileSync("photo.jpg");
- * await useWpUploadMedia(buffer, { title: "Photo" });
+ * const result = await useWpUploadMedia(file, { title: "My Image" });
  * ```
  */
 export async function useWpUploadMedia(
 	file: File | Blob | Buffer,
 	meta?: WpMediaMeta,
 ): Promise<FetchResult<WpMedia>> {
-	if (meta !== undefined) {
-		const parsed = useValidate(WpMediaMetaSchema, meta);
-		if (!parsed.ok) return invalidInput(parsed);
-	}
-	return wpUpload<WpMedia>("/media", file, meta as Record<string, unknown>, WpMediaResponseSchema);
+	return WordPressService.getInstance().useUploadMedia(file, meta);
 }
 
 /**
@@ -751,16 +1161,7 @@ export async function useWpUpdateMedia(
 	id: number,
 	data: WpMediaUpdate,
 ): Promise<FetchResult<WpMedia>> {
-	const parsed = useValidate(WpMediaUpdateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpMedia>(
-		`/media/${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpMediaResponseSchema,
-	);
+	return WordPressService.getInstance().useUpdateMedia(id, data);
 }
 
 /**
@@ -776,18 +1177,8 @@ export async function useWpUpdateMedia(
  * ```
  */
 export async function useWpDeleteMedia(id: number, force = false): Promise<FetchResult<WpMedia>> {
-	return wpFetch<WpMedia>(
-		`/media/${id}?force=${force}`,
-		{
-			method: "DELETE",
-		},
-		WpMediaResponseSchema,
-	);
+	return WordPressService.getInstance().useDeleteMedia(id, force);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Categories                                                                 */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of WordPress categories.
@@ -798,13 +1189,12 @@ export async function useWpDeleteMedia(id: number, force = false): Promise<Fetch
  * @example
  * ```ts
  * const result = await useWpGetCategories({ per_page: 50 });
- * if (result.ok) result.data.forEach(c => console.log(c.name));
  * ```
  */
 export async function useWpGetCategories(
 	options?: WpQueryParams,
 ): Promise<FetchResult<WpCategory[]>> {
-	return wpFetch<WpCategory[]>(`/categories${buildQueryParams(options)}`, {}, WpCategoryListSchema);
+	return WordPressService.getInstance().useGetCategories(options);
 }
 
 /**
@@ -816,11 +1206,10 @@ export async function useWpGetCategories(
  * @example
  * ```ts
  * const result = await useWpGetCategory(5);
- * if (result.ok) console.log(result.data.name);
  * ```
  */
 export async function useWpGetCategory(id: number): Promise<FetchResult<WpCategory>> {
-	return wpFetch<WpCategory>(`/categories/${id}`, {}, WpCategoryResponseSchema);
+	return WordPressService.getInstance().useGetCategory(id);
 }
 
 /**
@@ -837,16 +1226,7 @@ export async function useWpGetCategory(id: number): Promise<FetchResult<WpCatego
 export async function useWpCreateCategory(
 	data: WpCategoryCreate,
 ): Promise<FetchResult<WpCategory>> {
-	const parsed = useValidate(WpCategoryCreateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpCategory>(
-		"/categories",
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpCategoryResponseSchema,
-	);
+	return WordPressService.getInstance().useCreateCategory(data);
 }
 
 /**
@@ -865,16 +1245,7 @@ export async function useWpUpdateCategory(
 	id: number,
 	data: WpCategoryUpdate,
 ): Promise<FetchResult<WpCategory>> {
-	const parsed = useValidate(WpCategoryUpdateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpCategory>(
-		`/categories/${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpCategoryResponseSchema,
-	);
+	return WordPressService.getInstance().useUpdateCategory(id, data);
 }
 
 /**
@@ -893,18 +1264,8 @@ export async function useWpDeleteCategory(
 	id: number,
 	force = false,
 ): Promise<FetchResult<WpCategory>> {
-	return wpFetch<WpCategory>(
-		`/categories/${id}?force=${force}`,
-		{
-			method: "DELETE",
-		},
-		WpCategoryResponseSchema,
-	);
+	return WordPressService.getInstance().useDeleteCategory(id, force);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Tags                                                                       */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of WordPress tags.
@@ -918,7 +1279,7 @@ export async function useWpDeleteCategory(
  * ```
  */
 export async function useWpGetTags(options?: WpQueryParams): Promise<FetchResult<WpTag[]>> {
-	return wpFetch<WpTag[]>(`/tags${buildQueryParams(options)}`, {}, WpTagListSchema);
+	return WordPressService.getInstance().useGetTags(options);
 }
 
 /**
@@ -933,7 +1294,7 @@ export async function useWpGetTags(options?: WpQueryParams): Promise<FetchResult
  * ```
  */
 export async function useWpGetTag(id: number): Promise<FetchResult<WpTag>> {
-	return wpFetch<WpTag>(`/tags/${id}`, {}, WpTagResponseSchema);
+	return WordPressService.getInstance().useGetTag(id);
 }
 
 /**
@@ -948,16 +1309,7 @@ export async function useWpGetTag(id: number): Promise<FetchResult<WpTag>> {
  * ```
  */
 export async function useWpCreateTag(data: WpTagCreate): Promise<FetchResult<WpTag>> {
-	const parsed = useValidate(WpTagCreateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpTag>(
-		"/tags",
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpTagResponseSchema,
-	);
+	return WordPressService.getInstance().useCreateTag(data);
 }
 
 /**
@@ -973,16 +1325,7 @@ export async function useWpCreateTag(data: WpTagCreate): Promise<FetchResult<WpT
  * ```
  */
 export async function useWpUpdateTag(id: number, data: WpTagUpdate): Promise<FetchResult<WpTag>> {
-	const parsed = useValidate(WpTagUpdateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpTag>(
-		`/tags/${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpTagResponseSchema,
-	);
+	return WordPressService.getInstance().useUpdateTag(id, data);
 }
 
 /**
@@ -998,18 +1341,8 @@ export async function useWpUpdateTag(id: number, data: WpTagUpdate): Promise<Fet
  * ```
  */
 export async function useWpDeleteTag(id: number, force = false): Promise<FetchResult<WpTag>> {
-	return wpFetch<WpTag>(
-		`/tags/${id}?force=${force}`,
-		{
-			method: "DELETE",
-		},
-		WpTagResponseSchema,
-	);
+	return WordPressService.getInstance().useDeleteTag(id, force);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Comments                                                                   */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of WordPress comments.
@@ -1019,12 +1352,11 @@ export async function useWpDeleteTag(id: number, force = false): Promise<FetchRe
  *
  * @example
  * ```ts
- * // Get comments for a specific post
  * const result = await useWpGetComments({ post: 42 });
  * ```
  */
 export async function useWpGetComments(options?: WpQueryParams): Promise<FetchResult<WpComment[]>> {
-	return wpFetch<WpComment[]>(`/comments${buildQueryParams(options)}`, {}, WpCommentListSchema);
+	return WordPressService.getInstance().useGetComments(options);
 }
 
 /**
@@ -1039,7 +1371,7 @@ export async function useWpGetComments(options?: WpQueryParams): Promise<FetchRe
  * ```
  */
 export async function useWpGetComment(id: number): Promise<FetchResult<WpComment>> {
-	return wpFetch<WpComment>(`/comments/${id}`, {}, WpCommentResponseSchema);
+	return WordPressService.getInstance().useGetComment(id);
 }
 
 /**
@@ -1050,25 +1382,11 @@ export async function useWpGetComment(id: number): Promise<FetchResult<WpComment
  *
  * @example
  * ```ts
- * await useWpCreateComment({
- *   post: 42,
- *   content: "Great article!",
- *   author_name: "John",
- *   author_email: "john@example.com",
- * });
+ * await useWpCreateComment({ post: 42, content: "Great article!" });
  * ```
  */
 export async function useWpCreateComment(data: WpCommentCreate): Promise<FetchResult<WpComment>> {
-	const parsed = useValidate(WpCommentCreateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpComment>(
-		"/comments",
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpCommentResponseSchema,
-	);
+	return WordPressService.getInstance().useCreateComment(data);
 }
 
 /**
@@ -1087,16 +1405,7 @@ export async function useWpUpdateComment(
 	id: number,
 	data: WpCommentUpdate,
 ): Promise<FetchResult<WpComment>> {
-	const parsed = useValidate(WpCommentUpdateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpComment>(
-		`/comments/${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpCommentResponseSchema,
-	);
+	return WordPressService.getInstance().useUpdateComment(id, data);
 }
 
 /**
@@ -1115,18 +1424,8 @@ export async function useWpDeleteComment(
 	id: number,
 	force = false,
 ): Promise<FetchResult<WpComment>> {
-	return wpFetch<WpComment>(
-		`/comments/${id}?force=${force}`,
-		{
-			method: "DELETE",
-		},
-		WpCommentResponseSchema,
-	);
+	return WordPressService.getInstance().useDeleteComment(id, force);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Users                                                                      */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of WordPress users.
@@ -1140,7 +1439,7 @@ export async function useWpDeleteComment(
  * ```
  */
 export async function useWpGetUsers(options?: WpQueryParams): Promise<FetchResult<WpUser[]>> {
-	return wpFetch<WpUser[]>(`/users${buildQueryParams(options)}`, {}, WpUserListSchema);
+	return WordPressService.getInstance().useGetUsers(options);
 }
 
 /**
@@ -1152,11 +1451,10 @@ export async function useWpGetUsers(options?: WpQueryParams): Promise<FetchResul
  * @example
  * ```ts
  * const result = await useWpGetUser(1);
- * if (result.ok) console.log(result.data.name);
  * ```
  */
 export async function useWpGetUser(id: number): Promise<FetchResult<WpUser>> {
-	return wpFetch<WpUser>(`/users/${id}`, {}, WpUserResponseSchema);
+	return WordPressService.getInstance().useGetUser(id);
 }
 
 /**
@@ -1167,11 +1465,10 @@ export async function useWpGetUser(id: number): Promise<FetchResult<WpUser>> {
  * @example
  * ```ts
  * const result = await useWpGetCurrentUser();
- * if (result.ok) console.log(result.data.email);
  * ```
  */
 export async function useWpGetCurrentUser(): Promise<FetchResult<WpUser>> {
-	return wpFetch<WpUser>("/users/me", {}, WpUserResponseSchema);
+	return WordPressService.getInstance().useGetCurrentUser();
 }
 
 /**
@@ -1182,25 +1479,11 @@ export async function useWpGetCurrentUser(): Promise<FetchResult<WpUser>> {
  *
  * @example
  * ```ts
- * await useWpCreateUser({
- *   username: "johndoe",
- *   email: "john@example.com",
- *   password: "secure-password",
- *   roles: ["editor"],
- * });
+ * await useWpCreateUser({ username: "johndoe", email: "john@example.com", password: "..." });
  * ```
  */
 export async function useWpCreateUser(data: WpUserCreate): Promise<FetchResult<WpUser>> {
-	const parsed = useValidate(WpUserCreateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpUser>(
-		"/users",
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpUserResponseSchema,
-	);
+	return WordPressService.getInstance().useCreateUser(data);
 }
 
 /**
@@ -1219,16 +1502,7 @@ export async function useWpUpdateUser(
 	id: number,
 	data: WpUserUpdate,
 ): Promise<FetchResult<WpUser>> {
-	const parsed = useValidate(WpUserUpdateSchema, data);
-	if (!parsed.ok) return invalidInput(parsed);
-	return wpFetch<WpUser>(
-		`/users/${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(data),
-		},
-		WpUserResponseSchema,
-	);
+	return WordPressService.getInstance().useUpdateUser(id, data);
 }
 
 /**
@@ -1240,23 +1514,12 @@ export async function useWpUpdateUser(
  *
  * @example
  * ```ts
- * await useWpDeleteUser(2, 1); // Reassign content to user 1
+ * await useWpDeleteUser(2, 1);
  * ```
  */
 export async function useWpDeleteUser(id: number, reassign?: number): Promise<FetchResult<WpUser>> {
-	const qs = reassign ? `?reassign=${reassign}` : "";
-	return wpFetch<WpUser>(
-		`/users/${id}${qs}`,
-		{
-			method: "DELETE",
-		},
-		WpUserResponseSchema,
-	);
+	return WordPressService.getInstance().useDeleteUser(id, reassign);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Custom Post Types                                                          */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Retrieves a list of custom post type entries.
@@ -1274,7 +1537,7 @@ export async function useWpGetCustomPosts(
 	postType: string,
 	options?: WpQueryParams,
 ): Promise<FetchResult<unknown[]>> {
-	return wpFetch<unknown[]>(`/${postType}${buildQueryParams(options)}`);
+	return WordPressService.getInstance().useGetCustomPosts(postType, options);
 }
 
 /**
@@ -1295,7 +1558,7 @@ export async function useWpGetCustomPost(
 	id: number,
 	options?: WpQueryParams,
 ): Promise<FetchResult<unknown>> {
-	return wpFetch<unknown>(`/${postType}/${id}${buildQueryParams(options)}`);
+	return WordPressService.getInstance().useGetCustomPost(postType, id, options);
 }
 
 /**
@@ -1307,21 +1570,14 @@ export async function useWpGetCustomPost(
  *
  * @example
  * ```ts
- * await useWpCreateCustomPost("product", {
- *   title: "Widget",
- *   content: "<p>A great widget</p>",
- *   status: "publish",
- * });
+ * await useWpCreateCustomPost("product", { title: "Widget", status: "publish" });
  * ```
  */
 export async function useWpCreateCustomPost(
 	postType: string,
 	data: Record<string, unknown>,
 ): Promise<FetchResult<unknown>> {
-	return wpFetch<unknown>(`/${postType}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	return WordPressService.getInstance().useCreateCustomPost(postType, data);
 }
 
 /**
@@ -1342,10 +1598,7 @@ export async function useWpUpdateCustomPost(
 	id: number,
 	data: Record<string, unknown>,
 ): Promise<FetchResult<unknown>> {
-	return wpFetch<unknown>(`/${postType}/${id}`, {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	return WordPressService.getInstance().useUpdateCustomPost(postType, id, data);
 }
 
 /**
@@ -1366,14 +1619,8 @@ export async function useWpDeleteCustomPost(
 	id: number,
 	force = false,
 ): Promise<FetchResult<unknown>> {
-	return wpFetch<unknown>(`/${postType}/${id}?force=${force}`, {
-		method: "DELETE",
-	});
+	return WordPressService.getInstance().useDeleteCustomPost(postType, id, force);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Batch Operations                                                           */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Executes multiple WordPress REST API requests in a single batch.
@@ -1385,86 +1632,36 @@ export async function useWpDeleteCustomPost(
  * ```ts
  * const result = await useWpBatch([
  *   { method: "GET", path: "/wp/v2/posts/1" },
- *   { method: "POST", path: "/wp/v2/posts", body: { title: "New Post" } },
  * ]);
- * if (result.ok) console.log(result.data.responses);
  * ```
  */
 export async function useWpBatch(
 	operations: WpBatchOperation[],
 ): Promise<FetchResult<WpBatchResult>> {
-	for (const operation of operations) {
-		const parsed = useValidate(WpBatchOperationSchema, operation);
-		if (!parsed.ok) return invalidInput(parsed);
-	}
-	return wpFetch<WpBatchResult>(
-		"/batch/v1",
-		{
-			method: "POST",
-			body: JSON.stringify({ requests: operations }),
-		},
-		WpBatchResultSchema,
-	);
+	return WordPressService.getInstance().useBatch(operations);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Pagination Helpers                                                         */
-/* -------------------------------------------------------------------------- */
 
 /**
  * Fetches ALL posts matching the criteria, automatically handling pagination.
  *
- * Use when you need every post (e.g. for sitemap generation, RSS feeds,
- * or data exports) without managing page numbers. Loops until all pages
- * are fetched.
- *
- * @param options - Query params for filtering (`status`, `categories`, `tags`,
- *   `author`, `search`, `orderby`, `order`). Do NOT pass `page` or `per_page`.
+ * @param options - Query params for filtering. Do NOT pass `page` or `per_page`.
  * @param maxItems - Cap on the total number of posts to fetch (default `1000`).
  * @returns All posts as a flat array.
  *
  * @example
  * ```ts
- * // Get ALL published posts
  * const result = await useWpListAllPosts({ status: "publish" });
- * if (result.ok) console.log(`Total: ${result.data.length}`);
- *
- * // Get ALL posts from category 5
- * const cat5 = await useWpListAllPosts({ categories: 5 });
  * ```
  */
 export async function useWpListAllPosts(
 	options?: WpQueryParams,
 	maxItems = 1000,
 ): Promise<FetchResult<WpPost[]>> {
-	const allPosts: WpPost[] = [];
-	let page = 1;
-
-	while (true) {
-		const result = await useWpGetPosts({ ...options, page, per_page: 100 });
-		if (!result.ok) return result;
-
-		allPosts.push(...result.data);
-
-		if (maxItems && allPosts.length >= maxItems) break;
-		if (result.data.length < 100) break;
-		page++;
-	}
-
-	return {
-		data: allPosts.slice(0, maxItems),
-		error: null,
-		url: "",
-		status: 200,
-		ok: true,
-	};
+	return WordPressService.getInstance().useListAllPosts(options, maxItems);
 }
 
 /**
  * Searches ALL posts by keyword, automatically handling pagination.
- *
- * Use to find posts by title or content when you need every match,
- * not just the first page. Combines `search` param with auto-pagination.
  *
  * @param query - Search term (searches title and content).
  * @param options - Additional filters (`status`, `categories`, etc.).
@@ -1473,44 +1670,26 @@ export async function useWpListAllPosts(
  * @example
  * ```ts
  * const result = await useWpSearchAllPosts("tutorial");
- * if (result.ok) result.data.forEach(p => console.log(p.title.rendered));
  * ```
  */
 export async function useWpSearchAllPosts(
 	query: string,
 	options?: WpQueryParams,
 ): Promise<FetchResult<WpPost[]>> {
-	return useWpListAllPosts({ ...options, search: query });
+	return WordPressService.getInstance().useSearchAllPosts(query, options);
 }
 
 /**
- * Finds a single post by its URL slug.
- *
- * Use for slug-based routing (e.g. `/blog/:slug` pages) where you need
- * to fetch a post by its human-readable URL identifier. Returns `null`
- * if no post matches the slug.
+ * Finds a single post by its URL slug. Returns `null` if not found.
  *
  * @param slug - The post slug (e.g. "hello-world").
  * @returns The post or `null` if not found.
  *
  * @example
  * ```ts
- * // In an Astro/[slug].astro or similar dynamic route
  * const result = await useWpFindPostBySlug("hello-world");
- * if (result.ok && result.data) {
- *   console.log(result.data.title.rendered);
- * }
  * ```
  */
 export async function useWpFindPostBySlug(slug: string): Promise<FetchResult<WpPost | null>> {
-	const result = await useWpGetPosts({ slug, per_page: 1 });
-	if (!result.ok) return result;
-
-	return {
-		data: result.data[0] ?? null,
-		error: null,
-		url: result.url,
-		status: result.status,
-		ok: true,
-	};
+	return WordPressService.getInstance().useFindPostBySlug(slug);
 }

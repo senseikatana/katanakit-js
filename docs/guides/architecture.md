@@ -85,10 +85,26 @@ persists via injected storage functions from `infrastructure`.
 | `utils.service.ts`     | `DataUtils`, `SystemUtils`, `AppUtils`      |
 | `reactive.service.ts`  | `ReactiveService` (signals kernel)          |
 
-Every service is a Singleton facade (`getInstance()`), exposes arrow-function
-methods and re-exports them **destructured** at the bottom of the module
-(`export const { useLogger, ... } = LoggerService.getInstance();`), which keeps
-`this` bound and lets bundlers tree-shake unused methods.
+Every service is a **Singleton class** (`getInstance()`) that owns its state and
+exposes `use*` methods; the module also exports thin `use*` wrapper functions
+that delegate to `getInstance()`. The wrappers keep the public API stable while
+the class carries the implementation:
+
+```ts
+export class LoggerService {
+	private static instance: LoggerService;
+	static getInstance(): LoggerService { /* ... */ }
+	useLog(message: string, data?: unknown, level: LogLevel = "log"): void { /* ... */ }
+}
+
+// backward-compatible wrapper over the singleton
+export function useLogger(message: string, data?: unknown, level: LogLevel = "log"): void {
+	LoggerService.getInstance().useLog(message, data, level);
+}
+```
+
+Some services additionally expose `create()` (or an injectable strategy) for
+non-singleton, isolated instances — useful in tests:
 
 ### `infrastructure/` — the adapter layer
 
@@ -121,10 +137,20 @@ gracefully when `window`/`document`/`navigator` is absent.
   SSR/main-thread fallback).
 - `theme/` — `ThemeService` (mode switching over DOM + storage + a
   media-query listener), exported as `THEME_SERVICE`.
+- `decorators/` — composable function decorators (Decorator Pattern) that add
+  behaviour without touching the wrapped function:
+  - `RetryDecorator(fn, retries?, delayMs?)` — re-runs a failing async function
+    with a fixed delay before propagating the last error.
+  - `CacheDecorator(fn, { ttlMs?, keyFn? })` — memoizes results by argument key;
+    the decorated function also exposes `useClearCache()` / `useCacheSize()`.
+  - `LoggerDecorator(fn, label?, level?)` — traces start/ok/error with duration
+    for sync and async functions.
 
-`infrastructure/index.ts` re-exports every module and gives stable named exports
-to the default-exported classes (`StorageService`, `ViewportService`,
-`WorkerService`).
+  They compose: `RetryDecorator(LoggerDecorator(flakyRequest, "flaky"), 2)`.
+
+`infrastructure/index.ts` re-exports every module (including the decorators)
+and gives stable named exports to the default-exported classes
+(`StorageService`, `ViewportService`, `WorkerService`).
 
 ### `adapters/` — the framework layer
 
@@ -221,25 +247,47 @@ and the client is not exported from the main barrel.
 
 | Pattern    | Where                                                              |
 | ---------- | ------------------------------------------------------------------ |
-| Singleton  | every service (`FetchApiManager`, `LoggerService`, ...)            |
+| Singleton  | every service (`FetchApiManager`, `LoggerService`, `ExpressService`, `TelegramService`, `WordPressService`, `NotionService`, `InsForgeService`, `AssistantService`, `QueryService`, ...) |
 | Facade     | `FetchApiManager`, `DomService`, `AstroService`, `RssService`, `AppUtils` |
-| Strategy   | logger output, storage backends, generator crypto/UUID, worker     |
-| Factory    | debounce/throttle/timeout factories in `TimingService`; crypto strategies in `GeneratorService` |
+| Strategy   | `AccessService` (`HierarchicalAccessStrategy` / `FlatAccessStrategy`), `AgentService` (`OpenAiCompatibleStrategy`), storage backends, generator crypto/UUID, worker |
+| Factory    | `QueryClientFactory` (per-request `QueryClient` for SSR); debounce/throttle/timeout factories in `TimingService`; crypto strategies in `GeneratorService` |
 | Observer   | `ReactiveService` signals, `ObserverService`, theme media query    |
-| Decorator  | `ConverterService` decorating `FormatterService`                   |
+| Decorator  | `RetryDecorator`, `CacheDecorator`, `LoggerDecorator` (`infrastructure/decorators/`); `ConverterService` decorating `FormatterService` |
 | Adapter    | `DatesService` (Temporal), infrastructure layer, framework adapters |
+
+### How the patterns fit together
+
+Stateful services follow **Singleton + (Strategy | Decorator | Factory)**:
+
+- **Singleton** — one instance owns the configuration/state
+  (`ExpressService`, `TelegramService`, `WordPressService`, `FetchApiManager`,
+  `AssistantService`, `QueryService`).
+- **Singleton + Strategy** — the singleton delegates a swappable algorithm:
+  `AccessService.useSetStrategy(new FlatAccessStrategy())` and
+  `AgentService.useSetStrategy(...)` swap implementations at runtime; both also
+  expose a static `create(strategy)` for isolated (non-singleton) instances.
+- **Singleton + Decorator** — cross-cutting behaviour wraps functions without
+  modifying them (`RetryDecorator`, `CacheDecorator`, `LoggerDecorator`).
+- **Singleton + Factory** — the singleton fabricates collaborators through a
+  single creation point (`QueryClientFactory.create()` for per-request SSR
+  clients vs. the shared `QueryService` singleton).
+
+SOLID is preserved because the client only knows the contracts
+(`IAccessStrategy`, `IAiProviderStrategy`, `StorageStrategy`, `I*Service`
+facades), never the concrete implementations.
 
 ## Conventions
 
-- **`use*` methods** — every public method (except `getInstance()`) uses the
-  `use` prefix, mirroring React hooks. This makes the API consistent and
-  predictable.
-- **Destructured exports** — services expose their methods as arrow-function
-  class fields and re-export them destructured (`useLogger`, `useGetStorage`,
-  `useFetch`, ...) for `this`-safe calls and tree-shaking. `ObserverService`,
-  `LazyLoaderService`, `SensorsUtils` and `WorkerService` are exceptions that
-  you call through an instance (`ObserverService.getInstance()` or the exported
-  `sensorsUtils`).
+- **`use*` methods** — every public method (except `getInstance()` and the
+  static factory `create()`) uses the `use` prefix, mirroring React hooks. This
+  makes the API consistent and predictable.
+- **Singleton class + `use*` wrappers** — each stateful service is a Singleton
+  class (`getInstance()`) and the module re-exports thin `use*` wrapper
+  functions that delegate to it, so callers keep the functional API
+  (`useLogger(...)`, `useFetch(...)`) while the class owns the state. Decorators
+  are the exception to the `use*` rule: `RetryDecorator`/`CacheDecorator`/
+  `LoggerDecorator` use PascalCase because they are composables, not API
+  functions.
 - **Safe Result** — fallible operations return a discriminated union
   `{ data, error, ok }` instead of throwing. The generic `SafeResult<T, E>` is
   the base of `FetchResult<T>`, `FilesystemResult<T>`, `AstroServiceResult<T>`,
