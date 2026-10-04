@@ -19,7 +19,7 @@ import type { LogLevel } from "../../types/index.js";
  *
  * @example
  * ```ts
- * import { LoggerDecorator } from "katanakit-js/infrastructure/decorators";
+ * import { LoggerDecorator } from "katanakit-js";
  *
  * const traced = LoggerDecorator(fetchUser, "fetchUser");
  * await traced(1);
@@ -31,6 +31,10 @@ import type { LogLevel } from "../../types/index.js";
  * ```ts
  * const robust = RetryDecorator(LoggerDecorator(flakyRequest, "flaky"), 2);
  * ```
+ *
+ * @remarks **Security**: arguments and results are logged verbatim. Do NOT
+ * decorate functions that receive secrets (API keys, tokens, passwords) —
+ * wrap a redacting adapter instead, or strip sensitive fields before calling.
  */
 export function LoggerDecorator<T extends (...args: never[]) => unknown>(
 	fn: T,

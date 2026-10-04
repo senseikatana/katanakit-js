@@ -361,7 +361,8 @@ const stop = useKatanaWatch(newProduct, () => checkValidations(), { deep: true }
 - **Zod validation everywhere** — `types/` is the single source of truth, inferred from Zod schemas via `z.infer`; `useValidate()` turns any schema into a Safe Result and API adapters validate every response at the boundary
 - **Zero side effects** — importing any module is safe. No `fetch` calls, no `console.log`, no storage writes
 - **Hexagonal architecture** — pure core, infrastructure adapters, framework adapters
-- **Tree-shakeable** — destructured re-exports from Singleton facades
+- **Design patterns** — services are Singleton classes (`getInstance()`) with swappable Strategy implementations (`AccessService`, `AgentService`), a `QueryClientFactory` for per-request SSR clients, and composable Decorators exported from the main barrel: `RetryDecorator`, `CacheDecorator` (TTL memoization) and `LoggerDecorator` (timing traces)
+- **Tree-shakeable** — stable `use*` wrapper functions over the Singleton facades
 - **SSR-safe** — all infrastructure adapters guard or fall back gracefully in server environments
 - **Filesystem (Node/Bun)** — `useReadFile`, `useWriteFile`, `useReadJsonFile`, `useReadModuleJson`, `useHashFile` and friends return Safe Results with native errno codes, loaded lazily through dynamic `import()` and guarded by `useIsNode()`
 - **Fake data (optional)** — `useFakeVehicle`, `useFakeEmail`, `useFakeList`, … via an optional, lazy-loaded `@faker-js/faker` peer

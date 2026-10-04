@@ -54,6 +54,14 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 - Storage: R2 for objects; database pending (Cloudflare D1, INSForge as fallback). Local ORM is Prisma (`prisma.config.ts`).
 - `.env` gotcha: a non-empty `CLOUDFLARE_API_TOKEN` overrides the `wrangler login` OAuth session; leave it empty locally to use OAuth.
 - Never add non-Cloudflare hosting/deploy providers. Two documented exceptions: INSForge for the database fallback, and the manual `bun run docs:gh` preview on the `gh-pages` branch (no GitHub Actions) — Cloudflare stays the production host.
+
+## Secret Management
+
+- Do not commit real tokens or secrets into the repo.
+- Keep `CLOUDFLARE_API_TOKEN` and other sensitive env vars empty or omitted in local `.env`, using `.env.example` and CI secrets for real values.
+- The `.env` file is ignored by `.gitignore`; only the empty template remains in the repo.
+- For local development, leaving `CLOUDFLARE_API_TOKEN` empty ensures `wrangler login` OAuth is used.
+
 - Cloudflare Account ID: `d84658746e925afe768db13e48a136a7`
 
 ## npm security

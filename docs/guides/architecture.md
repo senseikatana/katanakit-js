@@ -148,6 +148,13 @@ gracefully when `window`/`document`/`navigator` is absent.
 
   They compose: `RetryDecorator(LoggerDecorator(flakyRequest, "flaky"), 2)`.
 
+  Decorators are exported from the **main barrel** (there is no
+  `katanakit-js/infrastructure/*` subpath):
+
+  ```ts
+  import { RetryDecorator, CacheDecorator, LoggerDecorator } from "katanakit-js";
+  ```
+
 `infrastructure/index.ts` re-exports every module (including the decorators)
 and gives stable named exports to the default-exported classes
 (`StorageService`, `ViewportService`, `WorkerService`).

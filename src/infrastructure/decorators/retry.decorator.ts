@@ -16,7 +16,7 @@
  *
  * @example
  * ```ts
- * import { RetryDecorator } from "katanakit-js/infrastructure/decorators";
+ * import { RetryDecorator } from "katanakit-js";
  *
  * const fetchWithRetry = RetryDecorator(() => fetch("/api"), 3, 500);
  * // reintenta hasta 3 veces con 500ms de espera antes de propagar el error
@@ -27,6 +27,11 @@
  * ```ts
  * const robust = RetryDecorator(LoggerDecorator(flakyRequest), 2, 200);
  * ```
+ *
+ * @remarks Only **thrown** errors trigger a retry. KatanaKit's Safe Result
+ * helpers (`useFetch`, `useGet`, ...) never throw — they return `{ ok: false }`
+ * — so they are not retried as-is. To retry those, make `fn` throw on failure
+ * (e.g. unwrap with `useSafeQueryFn`) or check `result.ok` inside `fn`.
  */
 export function RetryDecorator<T extends (...args: never[]) => Promise<unknown>>(
 	fn: T,

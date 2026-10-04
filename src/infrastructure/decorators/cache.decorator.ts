@@ -15,12 +15,17 @@
  *
  * @example
  * ```ts
- * import { CacheDecorator } from "katanakit-js/infrastructure/decorators";
+ * import { CacheDecorator } from "katanakit-js";
  *
  * const getCached = CacheDecorator(fetchUser, { ttlMs: 60_000 });
  * await getCached(1); // consulta
  * await getCached(1); // sirve de caché
  * ```
+ *
+ * @remarks Keys live in a `Map` (no prototype-pollution risk). Expired
+ * entries are reclaimed lazily — when their key is requested again — and
+ * `useClearCache()` drops everything. For high-cardinality keys (unbounded
+ * input space) call `useClearCache()` periodically or set a `ttlMs`.
  */
 export interface CacheDecoratorOptions {
 	/** Time-to-live de cada entrada en milisegundos. `0` = sin expiración. */

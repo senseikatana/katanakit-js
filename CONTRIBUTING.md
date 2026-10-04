@@ -26,7 +26,7 @@ These rules keep the codebase consistent and maintainable. Please read
 4. **Pure ESM with `.js` extensions** — the package is `"type": "module"` and
    compiles with `module: nodenext`. All relative imports **must** use an
    explicit `.js` extension (e.g. `import { useLogger } from
-"./logger.service.js"`). Do not import without the extension and do not add
+   "./logger.service.js"`). Do not import without the extension and do not add
    new `@/`-aliased imports inside `src/`; the `@/` alias exists for the test
    suite and examples only.
 5. **Destructured exports** — services expose their methods as arrow-function
@@ -118,12 +118,12 @@ When you change a public API:
   the public API docs automatically.
 - Update the matching entry in the README Features list and the docs page that
   covers the API (`docs/guides/*.md`).
-- Describe user-visible changes in the **Conventional Commit subject** — that
+- Describe user‑visible changes in the **Conventional Commit subject** — that
   subject is what `scripts/generate-release-notes.mjs <tag> --write` turns into
   the release's `CHANGELOG.md` entry when the version is cut. `CHANGELOG.md`
   only ever lists released versions (there is no `[Unreleased]` buffer), so
   nothing appears there until it actually ships.
-- Always use `katanakit-js` in example imports.
+- Use `katanakit-js` in example imports.
 
 ### Writing docs pages
 
@@ -138,16 +138,16 @@ description: Cache, retry and invalidate server state.
 
 - JS/TS inside a page goes in a `<script setup lang="ts">` block after the
   frontmatter (Vue-in-Markdown). VitePress does **not** support MDX.
-- Use `::: code-group` for tabbed code samples and `::: warning` for callouts.
-- `docs/api/` and `docs/changelog.md` are generated — never hand-edit them.
+- Use `::: code‑group` for tabbed code samples and `::: warning` for callouts.
+- `docs/api/` and `docs/changelog.md` are generated — never hand‑edit them.
 
 ### Running the docs locally
 
 ```bash
-bun run docs:dev       # generate API + changelog, then live-reloading server
+bun run docs:dev       # generate API + changelog, then live‑reloading server
 bun run docs           # static build into docs/.vitepress/dist/
 bun run docs:preview   # preview the last build
-bun run docs:gh        # manual preview on the gh-pages branch (no Actions)
+bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
 bun run docs:clean     # purge .vitepress/.temp and cache
 ```
 
@@ -156,7 +156,7 @@ VitePress shares `docs/.vitepress/.temp` between the dev server and the build,
 so running both corrupts it and the build fails with
 `Cannot find module '…/.vitepress/.temp/…'`. `scripts/docs.mjs` enforces an
 exclusive lock and fails fast with that guidance; if a process was killed,
-`bun run docs:clean` resets the temp state.
+bun run docs:clean resets the temp state.
 :::
 
 ## Versioning and changelog
@@ -172,8 +172,8 @@ Releases run through GitHub Actions (`.github/workflows/release.yml`,
 `package.json`, publishes to npm with provenance via **OIDC trusted publishing**
 (no `NPM_TOKEN` secret) and creates the GitHub release + annotated tag.
 
-One-time setup (already configured for this repo): npmjs.com → Package Settings →
-Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`,
+One‑time setup (already configured for this repo): npmjs.com → Package
+Settings → Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`,
 workflow `release.yml`, environment (none).
 
 ### Releasing (local fallback)
@@ -205,7 +205,7 @@ git tag --sort=-creatordate     # check tags
 - [ ] Code follows the development contract above.
 - [ ] All new public methods use the `use*` prefix (except `getInstance`).
 - [ ] Relative imports inside `src/` carry explicit `.js` extensions.
-- [ ] New contracts/types were added to `src/types/` (not re-declared).
+- [ ] New contracts/types were added to `src/types/` (not re‑declared).
 - [ ] New framework code is reachable via a subpath, not the main barrel.
 - [ ] `bun run check` passes (ESLint + typecheck + tests).
 - [ ] Tests added/updated for the change.
@@ -218,6 +218,13 @@ git tag --sort=-creatordate     # check tags
 Be kind, respectful, and constructive. We're all here to build great software
 and learn from each other. Harassment, discrimination, or toxic behavior will
 not be tolerated.
+
+## Secret Management
+
+- Ensure that real Cloudflare API tokens or other sensitive environment variables are not committed to the repository.
+- Use `.env.example` as a template for local development; real secrets should be provided as CI secrets.
+- The `.env` file is ignored by `.gitignore`; keep it empty in the repo.
+- For local development, leave `CLOUDFLARE_API_TOKEN` empty to rely on OAuth via `wrangler login`.
 
 ## Questions?
 
