@@ -355,10 +355,66 @@ const stop = useKatanaWatch(newProduct, () => checkValidations(), { deep: true }
 - **Direct cache updates** — `setQueryData` for optimistic updates.
 - **Prefetch** — `prefetchQuery` anticipates user actions.
 
+## Design patterns
+
+Services are **Singleton facades** with stable `use*` wrappers, and the classic
+patterns stay swappable without leaving the functional API.
+
+### Singleton + `use*` wrappers
+
+```ts
+import { LoggerService, useLogger } from "katanakit-js";
+
+LoggerService.getInstance().useLog("Application started");
+useLogger("Cache miss", undefined, "warn"); // thin wrapper over the singleton
+```
+
+### Strategy — access control and AI providers
+
+```ts
+import {
+  AccessService,
+  AgentService,
+  FlatAccessStrategy,
+  OpenAiCompatibleStrategy,
+} from "katanakit-js";
+
+// Swap the behavior of the shared singleton…
+AccessService.getInstance().useSetStrategy(new FlatAccessStrategy());
+
+// …or create an isolated instance (handy in tests).
+const access = AccessService.create(new FlatAccessStrategy());
+const agent = AgentService.create(new OpenAiCompatibleStrategy());
+```
+
+### Factory — one `QueryClient` per request (SSR)
+
+```ts
+import { QueryClientFactory } from "katanakit-js";
+
+const client = QueryClientFactory.create(); // fresh cache per request
+// QueryClientFactory.createShared() reuses the browser singleton
+```
+
+### Decorators — retry, TTL cache and timing traces
+
+```ts
+import { CacheDecorator, LoggerDecorator, RetryDecorator } from "katanakit-js";
+
+const loadUser = RetryDecorator(LoggerDecorator(fetchUser, "user"), 2, 200);
+const cached = CacheDecorator(loadUser, { ttlMs: 60_000 });
+
+cached.useClearCache();
+cached.useCacheSize();
+```
+
+`RetryDecorator` only retries **thrown** errors: Safe Result helpers never throw,
+so unwrap them (e.g. with `useSafeQueryFn`) before composing.
+
 ## Features
 
 - **Safe Results + helpers** — HTTP (and other fallible) operations return `{ data, error, ok }` instead of throwing; `useAttempt()`, `useTryJsonParse()` and `useErrorNormalize()` standardize boundaries and error shapes (see [Error Handling](https://docs.senseikatana.com/guides/errors))
-- **Zod validation everywhere** — `types/` is the single source of truth, inferred from Zod schemas via `z.infer`; `useValidate()` turns any schema into a Safe Result and API adapters validate every response at the boundary
+- **Zod validation everywhere** — `types/` is the single source of truth, inferred from Zod schemas via `z.infer`; every runtime schema is public under `katanakit-js/schemas`, `useValidate(schema, data)` turns any schema into a Safe Result, and API adapters validate every response at the boundary
 - **Zero side effects** — importing any module is safe. No `fetch` calls, no `console.log`, no storage writes
 - **Hexagonal architecture** — pure core, infrastructure adapters, framework adapters
 - **Design patterns** — services are Singleton classes (`getInstance()`) with swappable Strategy implementations (`AccessService`, `AgentService`), a `QueryClientFactory` for per-request SSR clients, and composable Decorators exported from the main barrel: `RetryDecorator`, `CacheDecorator` (TTL memoization) and `LoggerDecorator` (timing traces)
@@ -810,15 +866,36 @@ See [Getting Started](https://docs.senseikatana.com/guides/getting-started) for 
 
 ## Framework Adapters
 
-| Adapter       | Import                                          | Description                                                  |
-| ------------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| **Express**   | `katanakit-js/adapters/express`                 | Reference server with CORS and hardened headers              |
-| **Nuxt**      | `katanakit-js/adapters/nuxt`                    | `useUnwrap`, `useSafeResponse`, `useEventResponse`           |
-| **Vue**       | `katanakit-js/adapters/vue`                     | `useRequest` composable with reactivity                      |
-| **Astro**     | `katanakit-js` or `katanakit-js/adapters/astro` | `AstroService`, `RssService`                                 |
-| **Assistant** | `katanakit-js/adapters/assistant`               | REST digital assistant (`useStartAssistant`)                 |
-| **Telegram**  | `katanakit-js/adapters/telegram`                | BotFather bot (`defineTelegramConfig`, `useStartTelegramPolling`) |
-| **WhatsApp**  | `katanakit-js/adapters/whatsapp`                | Meta Cloud API (`defineWhatsAppConfig`, `useStartWhatsApp`)  |
+### Server & meta-framework
+
+| Adapter     | Import                                          | Description                                             |
+| ----------- | ----------------------------------------------- | ------------------------------------------------------- |
+| **Express** | `katanakit-js/adapters/express`                 | Reference server with CORS and hardened headers         |
+| **Bun**     | `katanakit-js/adapters/bun`                     | `Bun.serve` route table + dummyjson.com demo            |
+| **Nuxt**    | `katanakit-js/adapters/nuxt`                    | `useUnwrap`, `useSafeResponse`, `useEventResponse`      |
+| **Astro**   | `katanakit-js` or `katanakit-js/adapters/astro` | `AstroService`, `RssService`                            |
+
+### UI frameworks
+
+Each subpath is a complete entry point: it re-exports the query client helpers
+and adds the framework's native reactivity over TanStack Query Core.
+
+| Adapter     | Import                         | Bindings                                            |
+| ----------- | ------------------------------ | --------------------------------------------------- |
+| **React**   | `katanakit-js/adapters/react`  | `useQuery`, `useMutation`, `useRequest`, `useWatch` |
+| **Vue**     | `katanakit-js/adapters/vue`    | `useQuery`, `useMutation`, `useRequest`, `useWatch` |
+| **Solid**   | `katanakit-js/adapters/solid`  | `useQuery`, `useMutation`, `useRequest`, `useWatch` |
+| **Svelte**  | `katanakit-js/adapters/svelte` | `useQuery`, `useMutation`, `useRequest`, `useWatch` |
+| **Angular** | `katanakit-js/adapters/angular` | `useQuery`, `useMutation`, `useRequest`, `useWatch` |
+| **Vanilla** | `katanakit-js/adapters/vanilla` | Raw `QueryObserver` / `MutationObserver`, no framework |
+
+### Assistant & messaging
+
+| Adapter       | Import                            | Description                                                        |
+| ------------- | --------------------------------- | ------------------------------------------------------------------ |
+| **Assistant** | `katanakit-js/adapters/assistant` | REST digital assistant (`useStartAssistant`)                       |
+| **Telegram**  | `katanakit-js/adapters/telegram`  | BotFather bot (`defineTelegramConfig`, `useStartTelegramPolling`)  |
+| **WhatsApp**  | `katanakit-js/adapters/whatsapp`  | Meta Cloud API (`defineWhatsAppConfig`, `useStartWhatsApp`)        |
 
 ## UI and Auth Adapters
 
