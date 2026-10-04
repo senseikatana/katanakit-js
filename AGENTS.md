@@ -9,8 +9,7 @@ Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fall
 - `bun run fix` — same with `eslint --fix`. 
 - ESLint 10 is **flat config only** — rules live in `eslint.config.mjs`; a `.eslintrc.json` is silently ignored. Never add one.
 - Commits run husky `pre-commit` → `bunx lint-staged` → `eslint --fix --quiet` on staged `**/*.{ts,tsx}`. Skip with `git commit --no-verify`; disable hook install with `HUSKY=0 bun install`.
-- `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`, then `generate-release-notes.mjs --sync-versions` so `package.json` and every version pinned in the README/guides always name the newest git tag (idempotent).
-- `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`; run `bun run build` first.
+- `bun run build` — clean + check + `tsc6 -p tsconfig.json` → `dist/`, then `generate-release-notes.mjs --sync-versions` and `examples:check` typecheck against built output so `package.json` and every version pinned in the README/guides always name the newest git tag (idempotent).
 - `bun run ui:build` — builds `@katanakit/ui` (`tsc` + `sass` → `packages/ui/dist`); `docs:dev`/`docs`/`docs:gh` run it first.
 - Docs: VitePress in `docs/` (`bun run docs:dev`, `bun run docs` → `docs/.vitepress/dist`). `scripts/docs-prepare.mjs` generates the TypeDoc API reference and the changelog page; CI does NOT build docs (deploy workflow does).
 - `bun run dev` — runs the Express dev server. Use `bun run bun:dev` for Bun alternative.

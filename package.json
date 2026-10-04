@@ -141,7 +141,7 @@
 		"bun:dev": "bun run src/adapters/bun/main.ts",
 		"check": "eslint ./src packages/ui/src && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
 		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
-		"build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && bun run check && tsc6 -p tsconfig.json && bun run ui:build && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions",
+		"build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && bun run check && tsc6 -p tsconfig.json && bun run ui:build && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions && bun run examples:check",
 		"release": "bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && npm publish --access public",
 		"ui:build": "bun run --filter @katanakit/ui build",
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
