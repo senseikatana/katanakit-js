@@ -83,14 +83,14 @@ Both take an optional algorithm typed by `FileHashAlgorithm`:
 ```ts
 import { useHashFile, useVerifyFileHash } from "katanakit-js";
 
-const digest = await useHashFile("releases/katanakit-6.7.0.tgz"); // sha256
+const digest = await useHashFile("releases/katanakit-6.7.1.tgz"); // sha256
 if (digest.ok) console.log(digest.data);
 
 // Pick an algorithm explicitly (e.g. an md5 checksum file)
-const md5 = await useHashFile("releases/katanakit-6.7.0.tgz", "md5");
+const md5 = await useHashFile("releases/katanakit-6.7.1.tgz", "md5");
 
 // Verify against a published checksum (case-insensitive)
-const check = await useVerifyFileHash("releases/katanakit-6.7.0.tgz", "e3b0c442…");
+const check = await useVerifyFileHash("releases/katanakit-6.7.1.tgz", "e3b0c442…");
 if (check.ok && check.data) console.log("checksum matches");
 ```
 
