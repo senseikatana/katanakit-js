@@ -4,35 +4,119 @@ All notable changes to this project are documented in this file.
 
 ## [6.6.5] - 2026-10-04
 
-### Changed
-- docs(.vitepress): update documentation in 4 files
+### Documentation
+
+- **.vitepress:** update documentation in 4 files
+  <details>
+  <summary>4 files</summary>
+
+  - `docs/.vitepress/config.ts`
+  - `docs/public/images/hero-logo.avif`
+  - `src/core/services/http.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+
+  </details>
 
 ## [6.6.4] - 2026-10-04
 
-### Changed
-- docs(README.md): update documentation in 5 files
+### Documentation
+
+- **README.md:** update documentation in 5 files
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.6.3] - 2026-10-04
 
-### Changed
-- docs(AGENTS.md): update documentation in 2 files$'
-'- docs: docs guidelines and scripts on package.json updated
+### Documentation
+
+- **AGENTS.md:** update documentation in 2 files
+  <details>
+  <summary>2 files</summary>
+
+  - `AGENTS.md`
+  - `package.json`
+
+  </details>
+- docs guidelines and scripts on package.json updated
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.6.2] - 2026-10-04
 
-### Changed
-- docs(AGENTS.md): update documentation in 2 files$'
-'- docs(README.md): update documentation in 7 files
+### Documentation
+
+- **AGENTS.md:** update documentation in 2 files
+  <details>
+  <summary>2 files</summary>
+
+  - `AGENTS.md`
+  - `package.json`
+
+  </details>
+- **README.md:** update documentation in 7 files
+  <details>
+  <summary>7 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `tsconfig.examples.json`
+  - `tsconfig.examples.solid.json`
+
+  </details>
 
 ## [6.6.1] - 2026-10-04
 
-### Changed
-- docs(AGENTS.md): update documentation in 6 files
+### Documentation
+
+- **AGENTS.md:** update documentation in 6 files
+  <details>
+  <summary>6 files</summary>
+
+  - `AGENTS.md`
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.6.0] - 2026-10-04
 
-### Changed
-- docs(AGENTS.md): update documentation in 7 files
+### Documentation
+
+- **AGENTS.md:** update documentation in 7 files
+  <details>
+  <summary>7 files</summary>
+
+  - `AGENTS.md`
+  - `CHANGELOG.md`
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.5.1] - 2026-10-04
 
@@ -48,102 +132,1276 @@ All notable changes to this project are documented in this file.
 ## [6.5.0] - 2026-10-04
 
 ### Added
-- **core**: migrate services and adapters to singleton classes
+
+- **core:** migrate services and adapters to singleton classes
+  <details>
+  <summary>26 files</summary>
+
+  - `.zcodeignore`
+  - `README.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/insforge/insforge.service.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/core/services/access.service.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/core/services/validation.service.ts`
+  - `src/infrastructure/decorators/cache.decorator.ts`
+  - `src/infrastructure/decorators/index.ts`
+  - `src/infrastructure/decorators/logger.decorator.ts`
+  - `src/infrastructure/decorators/retry.decorator.ts`
+  - `src/infrastructure/index.ts`
+
+  </details>
 
 ### Changed
+
 - move CI release workflows and release notes to docs
+  <details>
+  <summary>12 files</summary>
+
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `RELEASE-DRAFT.md`
+  - `docs/guides/architecture.md`
+  - `docs/release-draft-patterns.md`
+  - `src/infrastructure/decorators/cache.decorator.ts`
+  - `src/infrastructure/decorators/logger.decorator.ts`
+  - `src/infrastructure/decorators/retry.decorator.ts`
+  - `tsconfig.json`
+
+  </details>
+
+### Documentation
+
+- **.gitignore:** update documentation in 2 files
+  <details>
+  <summary>2 files</summary>
+
+  - `.gitignore`
+  - `docs/release-draft-patterns.md`
+
+  </details>
 
 ## [6.4.6] - 2026-10-03
 
-### Changed
-- docs(README.md): update documentation in 5 files
+### Documentation
+
+- **README.md:** update documentation in 5 files
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.4.5] - 2026-10-03
 
-### Changed
-- docs(AGENTS.md): update documentation in 674 files
+### Documentation
+
+- **AGENTS.md:** update documentation in 674 files
+  <details>
+  <summary>674 files</summary>
+
+  - `AGENTS.md`
+  - `CHANGELOG.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/components/HyperUiShowcase.vue`
+  - `docs/index.md`
+  - `docs/public/component.css`
+  - `docs/public/component.js`
+  - `docs/public/hyperui/.version.json`
+  - `docs/public/hyperui/application/accordions/1-dark.html`
+  - `docs/public/hyperui/application/accordions/1.html`
+  - `docs/public/hyperui/application/accordions/2-dark.html`
+  - `docs/public/hyperui/application/accordions/2.html`
+  - `docs/public/hyperui/application/accordions/3-dark.html`
+  - `docs/public/hyperui/application/accordions/3.html`
+  - `docs/public/hyperui/application/accordions/4-dark.html`
+  - `docs/public/hyperui/application/accordions/4.html`
+  - `docs/public/hyperui/application/accordions/5-dark.html`
+  - `docs/public/hyperui/application/accordions/5.html`
+  - `docs/public/hyperui/application/accordions/index.html`
+  - `docs/public/hyperui/application/badges/2-dark.html`
+  - `docs/public/hyperui/application/badges/2.html`
+  - `docs/public/hyperui/application/badges/3-dark.html`
+  - `docs/public/hyperui/application/badges/3.html`
+  - `docs/public/hyperui/application/badges/4-dark.html`
+  - `docs/public/hyperui/application/badges/4.html`
+  - `docs/public/hyperui/application/badges/5-dark.html`
+  - `docs/public/hyperui/application/badges/5.html`
+  - `docs/public/hyperui/application/badges/index.html`
+  - `docs/public/hyperui/application/breadcrumbs/1-dark.html`
+  - `docs/public/hyperui/application/breadcrumbs/1.html`
+  - `docs/public/hyperui/application/breadcrumbs/2-dark.html`
+  - `docs/public/hyperui/application/breadcrumbs/2.html`
+  - `docs/public/hyperui/application/breadcrumbs/3-dark.html`
+  - `docs/public/hyperui/application/breadcrumbs/3.html`
+  - `docs/public/hyperui/application/breadcrumbs/4-dark.html`
+  - `docs/public/hyperui/application/breadcrumbs/4.html`
+  - `docs/public/hyperui/application/breadcrumbs/5-dark.html`
+  - `docs/public/hyperui/application/breadcrumbs/5.html`
+  - `docs/public/hyperui/application/breadcrumbs/index.html`
+  - `docs/public/hyperui/application/button-groups/1-dark.html`
+  - `docs/public/hyperui/application/button-groups/1.html`
+  - `docs/public/hyperui/application/button-groups/2-dark.html`
+  - `docs/public/hyperui/application/button-groups/2.html`
+  - `docs/public/hyperui/application/button-groups/3-dark.html`
+  - `docs/public/hyperui/application/button-groups/3.html`
+  - `docs/public/hyperui/application/button-groups/4-dark.html`
+  - `docs/public/hyperui/application/button-groups/4.html`
+  - `docs/public/hyperui/application/button-groups/5-dark.html`
+  - `docs/public/hyperui/application/button-groups/5.html`
+  - `docs/public/hyperui/application/button-groups/index.html`
+  - `docs/public/hyperui/application/charts/1-dark.html`
+  - `docs/public/hyperui/application/charts/1.html`
+  - `docs/public/hyperui/application/charts/10-dark.html`
+  - `docs/public/hyperui/application/charts/10.html`
+  - `docs/public/hyperui/application/charts/11-dark.html`
+  - `docs/public/hyperui/application/charts/11.html`
+  - `docs/public/hyperui/application/charts/2-dark.html`
+  - `docs/public/hyperui/application/charts/2.html`
+  - `docs/public/hyperui/application/charts/3-dark.html`
+  - `docs/public/hyperui/application/charts/3.html`
+  - `docs/public/hyperui/application/charts/4-dark.html`
+  - `docs/public/hyperui/application/charts/4.html`
+  - `docs/public/hyperui/application/charts/5-dark.html`
+  - `docs/public/hyperui/application/charts/5.html`
+  - `docs/public/hyperui/application/charts/6-dark.html`
+  - `docs/public/hyperui/application/charts/6.html`
+  - `docs/public/hyperui/application/charts/7-dark.html`
+  - `docs/public/hyperui/application/charts/7.html`
+  - `docs/public/hyperui/application/charts/8-dark.html`
+  - `docs/public/hyperui/application/charts/8.html`
+  - `docs/public/hyperui/application/charts/9-dark.html`
+  - `docs/public/hyperui/application/charts/9.html`
+  - `docs/public/hyperui/application/charts/index.html`
+  - `docs/public/hyperui/application/checkboxes/1-dark.html`
+  - `docs/public/hyperui/application/checkboxes/1.html`
+  - `docs/public/hyperui/application/checkboxes/2-dark.html`
+  - `docs/public/hyperui/application/checkboxes/2.html`
+  - `docs/public/hyperui/application/checkboxes/3-dark.html`
+  - `docs/public/hyperui/application/checkboxes/3.html`
+  - `docs/public/hyperui/application/checkboxes/index.html`
+  - `docs/public/hyperui/application/details-list/1-dark.html`
+  - `docs/public/hyperui/application/details-list/1.html`
+  - `docs/public/hyperui/application/details-list/2-dark.html`
+  - `docs/public/hyperui/application/details-list/2.html`
+  - `docs/public/hyperui/application/details-list/3-dark.html`
+  - `docs/public/hyperui/application/details-list/3.html`
+  - `docs/public/hyperui/application/details-list/4-dark.html`
+  - `docs/public/hyperui/application/details-list/4.html`
+  - `docs/public/hyperui/application/details-list/index.html`
+  - `docs/public/hyperui/application/dividers/1-dark.html`
+  - `docs/public/hyperui/application/dividers/1.html`
+  - `docs/public/hyperui/application/dividers/2-dark.html`
+  - `docs/public/hyperui/application/dividers/2.html`
+  - `docs/public/hyperui/application/dividers/3-dark.html`
+  - `docs/public/hyperui/application/dividers/3.html`
+  - `docs/public/hyperui/application/dividers/4-dark.html`
+  - `docs/public/hyperui/application/dividers/4.html`
+  - `docs/public/hyperui/application/dividers/5-dark.html`
+  - `docs/public/hyperui/application/dividers/5.html`
+  - `docs/public/hyperui/application/dividers/6-dark.html`
+  - `docs/public/hyperui/application/dividers/6.html`
+  - `docs/public/hyperui/application/dividers/index.html`
+  - `docs/public/hyperui/application/dropdown/1-dark.html`
+  - `docs/public/hyperui/application/dropdown/1.html`
+  - `docs/public/hyperui/application/dropdown/2-dark.html`
+  - `docs/public/hyperui/application/dropdown/2.html`
+  - `docs/public/hyperui/application/dropdown/3-dark.html`
+  - `docs/public/hyperui/application/dropdown/3.html`
+  - `docs/public/hyperui/application/dropdown/index.html`
+  - `docs/public/hyperui/application/empty-states/1-dark.html`
+  - `docs/public/hyperui/application/empty-states/1.html`
+  - `docs/public/hyperui/application/empty-states/2-dark.html`
+  - `docs/public/hyperui/application/empty-states/2.html`
+  - `docs/public/hyperui/application/empty-states/3-dark.html`
+  - `docs/public/hyperui/application/empty-states/3.html`
+  - `docs/public/hyperui/application/empty-states/4-dark.html`
+  - `docs/public/hyperui/application/empty-states/4.html`
+  - `docs/public/hyperui/application/empty-states/5-dark.html`
+  - `docs/public/hyperui/application/empty-states/5.html`
+  - `docs/public/hyperui/application/empty-states/index.html`
+  - `docs/public/hyperui/application/file-uploaders/1-dark.html`
+  - `docs/public/hyperui/application/file-uploaders/1.html`
+  - `docs/public/hyperui/application/file-uploaders/2-dark.html`
+  - `docs/public/hyperui/application/file-uploaders/2.html`
+  - `docs/public/hyperui/application/file-uploaders/index.html`
+  - `docs/public/hyperui/application/filters/1-dark.html`
+  - `docs/public/hyperui/application/filters/1.html`
+  - `docs/public/hyperui/application/filters/2-dark.html`
+  - `docs/public/hyperui/application/filters/2.html`
+  - `docs/public/hyperui/application/filters/index.html`
+  - `docs/public/hyperui/application/grids/1.html`
+  - `docs/public/hyperui/application/grids/10.html`
+  - `docs/public/hyperui/application/grids/2.html`
+  - `docs/public/hyperui/application/grids/3.html`
+  - `docs/public/hyperui/application/grids/4.html`
+  - `docs/public/hyperui/application/grids/5.html`
+  - `docs/public/hyperui/application/grids/6.html`
+  - `docs/public/hyperui/application/grids/7.html`
+  - `docs/public/hyperui/application/grids/8.html`
+  - `docs/public/hyperui/application/grids/9.html`
+  - `docs/public/hyperui/application/grids/index.html`
+  - `docs/public/hyperui/application/index.html`
+  - `docs/public/hyperui/application/inputs/1-dark.html`
+  - `docs/public/hyperui/application/inputs/1.html`
+  - `docs/public/hyperui/application/inputs/2-dark.html`
+  - `docs/public/hyperui/application/inputs/2.html`
+  - `docs/public/hyperui/application/inputs/3-dark.html`
+  - `docs/public/hyperui/application/inputs/3.html`
+  - `docs/public/hyperui/application/inputs/4-dark.html`
+  - `docs/public/hyperui/application/inputs/4.html`
+  - `docs/public/hyperui/application/inputs/index.html`
+  - `docs/public/hyperui/application/loaders/1-dark.html`
+  - `docs/public/hyperui/application/loaders/1.html`
+  - `docs/public/hyperui/application/loaders/2-dark.html`
+  - `docs/public/hyperui/application/loaders/2.html`
+  - `docs/public/hyperui/application/loaders/3-dark.html`
+  - `docs/public/hyperui/application/loaders/3.html`
+  - `docs/public/hyperui/application/loaders/4-dark.html`
+  - `docs/public/hyperui/application/loaders/4.html`
+  - `docs/public/hyperui/application/loaders/5-dark.html`
+  - `docs/public/hyperui/application/loaders/5.html`
+  - `docs/public/hyperui/application/loaders/6-dark.html`
+  - `docs/public/hyperui/application/loaders/6.html`
+  - `docs/public/hyperui/application/loaders/7-dark.html`
+  - `docs/public/hyperui/application/loaders/7.html`
+  - `docs/public/hyperui/application/loaders/index.html`
+  - `docs/public/hyperui/application/media/1.html`
+  - `docs/public/hyperui/application/media/2.html`
+  - `docs/public/hyperui/application/media/3.html`
+  - `docs/public/hyperui/application/media/4.html`
+  - `docs/public/hyperui/application/media/5.html`
+  - `docs/public/hyperui/application/media/6.html`
+  - `docs/public/hyperui/application/media/7.html`
+  - `docs/public/hyperui/application/media/8.html`
+  - `docs/public/hyperui/application/media/index.html`
+  - `docs/public/hyperui/application/modals/1-dark.html`
+  - `docs/public/hyperui/application/modals/1.html`
+  - `docs/public/hyperui/application/modals/2-dark.html`
+  - `docs/public/hyperui/application/modals/2.html`
+  - `docs/public/hyperui/application/modals/3-dark.html`
+  - `docs/public/hyperui/application/modals/3.html`
+  - `docs/public/hyperui/application/modals/4-dark.html`
+  - `docs/public/hyperui/application/modals/4.html`
+  - `docs/public/hyperui/application/modals/5-dark.html`
+  - `docs/public/hyperui/application/modals/5.html`
+  - `docs/public/hyperui/application/modals/6-dark.html`
+  - `docs/public/hyperui/application/modals/6.html`
+  - `docs/public/hyperui/application/modals/index.html`
+  - `docs/public/hyperui/application/pagination/1-dark.html`
+  - `docs/public/hyperui/application/pagination/1.html`
+  - `docs/public/hyperui/application/pagination/2-dark.html`
+  - `docs/public/hyperui/application/pagination/2.html`
+  - `docs/public/hyperui/application/pagination/3-dark.html`
+  - `docs/public/hyperui/application/pagination/3.html`
+  - `docs/public/hyperui/application/pagination/index.html`
+  - `docs/public/hyperui/application/progress-bars/1.html`
+  - `docs/public/hyperui/application/progress-bars/2.html`
+  - `docs/public/hyperui/application/progress-bars/3.html`
+  - `docs/public/hyperui/application/progress-bars/4.html`
+  - `docs/public/hyperui/application/progress-bars/index.html`
+  - `docs/public/hyperui/application/quantity-inputs/1-dark.html`
+  - `docs/public/hyperui/application/quantity-inputs/1.html`
+  - `docs/public/hyperui/application/quantity-inputs/2-dark.html`
+  - `docs/public/hyperui/application/quantity-inputs/2.html`
+  - `docs/public/hyperui/application/quantity-inputs/3-dark.html`
+  - `docs/public/hyperui/application/quantity-inputs/3.html`
+  - `docs/public/hyperui/application/quantity-inputs/4-dark.html`
+  - `docs/public/hyperui/application/quantity-inputs/4.html`
+  - `docs/public/hyperui/application/quantity-inputs/index.html`
+  - `docs/public/hyperui/application/radio-groups/1-dark.html`
+  - `docs/public/hyperui/application/radio-groups/1.html`
+  - `docs/public/hyperui/application/radio-groups/2-dark.html`
+  - `docs/public/hyperui/application/radio-groups/2.html`
+  - `docs/public/hyperui/application/radio-groups/3.html`
+  - `docs/public/hyperui/application/radio-groups/index.html`
+  - `docs/public/hyperui/application/range-inputs/1.html`
+  - `docs/public/hyperui/application/range-inputs/2.html`
+  - `docs/public/hyperui/application/range-inputs/3.html`
+  - `docs/public/hyperui/application/range-inputs/4.html`
+  - `docs/public/hyperui/application/range-inputs/5.html`
+  - `docs/public/hyperui/application/range-inputs/index.html`
+  - `docs/public/hyperui/application/selects/1-dark.html`
+  - `docs/public/hyperui/application/selects/1.html`
+  - `docs/public/hyperui/application/selects/2-dark.html`
+  - `docs/public/hyperui/application/selects/2.html`
+  - `docs/public/hyperui/application/selects/3-dark.html`
+  - `docs/public/hyperui/application/selects/3.html`
+  - `docs/public/hyperui/application/selects/index.html`
+  - `docs/public/hyperui/application/side-menu/1-dark.html`
+  - `docs/public/hyperui/application/side-menu/1.html`
+  - `docs/public/hyperui/application/side-menu/2-dark.html`
+  - `docs/public/hyperui/application/side-menu/2.html`
+  - `docs/public/hyperui/application/side-menu/index.html`
+  - `docs/public/hyperui/application/skip-links/1.html`
+  - `docs/public/hyperui/application/skip-links/2.html`
+  - `docs/public/hyperui/application/skip-links/3.html`
+  - `docs/public/hyperui/application/skip-links/index.html`
+  - `docs/public/hyperui/application/stats/1-dark.html`
+  - `docs/public/hyperui/application/stats/1.html`
+  - `docs/public/hyperui/application/stats/2-dark.html`
+  - `docs/public/hyperui/application/stats/2.html`
+  - `docs/public/hyperui/application/stats/3-dark.html`
+  - `docs/public/hyperui/application/stats/3.html`
+  - `docs/public/hyperui/application/stats/4-dark.html`
+  - `docs/public/hyperui/application/stats/4.html`
+  - `docs/public/hyperui/application/stats/5-dark.html`
+  - `docs/public/hyperui/application/stats/5.html`
+  - `docs/public/hyperui/application/stats/6-dark.html`
+  - `docs/public/hyperui/application/stats/6.html`
+  - `docs/public/hyperui/application/stats/index.html`
+  - `docs/public/hyperui/application/steps/1-dark.html`
+  - `docs/public/hyperui/application/steps/1.html`
+  - `docs/public/hyperui/application/steps/2-dark.html`
+  - `docs/public/hyperui/application/steps/2.html`
+  - `docs/public/hyperui/application/steps/3-dark.html`
+  - `docs/public/hyperui/application/steps/3.html`
+  - `docs/public/hyperui/application/steps/4-dark.html`
+  - `docs/public/hyperui/application/steps/4.html`
+  - `docs/public/hyperui/application/steps/5-dark.html`
+  - `docs/public/hyperui/application/steps/5.html`
+  - `docs/public/hyperui/application/steps/index.html`
+  - `docs/public/hyperui/application/tables/1-dark.html`
+  - `docs/public/hyperui/application/tables/1.html`
+  - `docs/public/hyperui/application/tables/2-dark.html`
+  - `docs/public/hyperui/application/tables/2.html`
+  - `docs/public/hyperui/application/tables/3-dark.html`
+  - `docs/public/hyperui/application/tables/3.html`
+  - `docs/public/hyperui/application/tables/4-dark.html`
+  - `docs/public/hyperui/application/tables/4.html`
+  - `docs/public/hyperui/application/tables/5-dark.html`
+  - `docs/public/hyperui/application/tables/5.html`
+  - `docs/public/hyperui/application/tables/index.html`
+  - `docs/public/hyperui/application/tabs/1-dark.html`
+  - `docs/public/hyperui/application/tabs/1.html`
+  - `docs/public/hyperui/application/tabs/2-dark.html`
+  - `docs/public/hyperui/application/tabs/2.html`
+  - `docs/public/hyperui/application/tabs/3-dark.html`
+  - `docs/public/hyperui/application/tabs/3.html`
+  - `docs/public/hyperui/application/tabs/4-dark.html`
+  - `docs/public/hyperui/application/tabs/4.html`
+  - `docs/public/hyperui/application/tabs/5-dark.html`
+  - `docs/public/hyperui/application/tabs/5.html`
+  - `docs/public/hyperui/application/tabs/index.html`
+  - `docs/public/hyperui/application/textareas/1-dark.html`
+  - `docs/public/hyperui/application/textareas/1.html`
+  - `docs/public/hyperui/application/textareas/2-dark.html`
+  - `docs/public/hyperui/application/textareas/2.html`
+  - `docs/public/hyperui/application/textareas/3-dark.html`
+  - `docs/public/hyperui/application/textareas/3.html`
+  - `docs/public/hyperui/application/textareas/index.html`
+  - `docs/public/hyperui/application/timelines/1-dark.html`
+  - `docs/public/hyperui/application/timelines/1.html`
+  - `docs/public/hyperui/application/timelines/2-dark.html`
+  - `docs/public/hyperui/application/timelines/2.html`
+  - `docs/public/hyperui/application/timelines/3-dark.html`
+  - `docs/public/hyperui/application/timelines/3.html`
+  - `docs/public/hyperui/application/timelines/index.html`
+  - `docs/public/hyperui/application/toasts/1-dark.html`
+  - `docs/public/hyperui/application/toasts/1.html`
+  - `docs/public/hyperui/application/toasts/2-dark.html`
+  - `docs/public/hyperui/application/toasts/2.html`
+  - `docs/public/hyperui/application/toasts/3-dark.html`
+  - `docs/public/hyperui/application/toasts/3.html`
+  - `docs/public/hyperui/application/toasts/4-dark.html`
+  - `docs/public/hyperui/application/toasts/4.html`
+  - `docs/public/hyperui/application/toasts/5-dark.html`
+  - `docs/public/hyperui/application/toasts/5.html`
+  - `docs/public/hyperui/application/toasts/6-dark.html`
+  - `docs/public/hyperui/application/toasts/6.html`
+  - `docs/public/hyperui/application/toasts/index.html`
+  - `docs/public/hyperui/application/toggles/1-dark.html`
+  - `docs/public/hyperui/application/toggles/1.html`
+  - `docs/public/hyperui/application/toggles/2-dark.html`
+  - `docs/public/hyperui/application/toggles/2.html`
+  - `docs/public/hyperui/application/toggles/3-dark.html`
+  - `docs/public/hyperui/application/toggles/3.html`
+  - `docs/public/hyperui/application/toggles/4-dark.html`
+  - `docs/public/hyperui/application/toggles/4.html`
+  - `docs/public/hyperui/application/toggles/index.html`
+  - `docs/public/hyperui/application/vertical-menu/1-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/1.html`
+  - `docs/public/hyperui/application/vertical-menu/2-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/2.html`
+  - `docs/public/hyperui/application/vertical-menu/3-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/3.html`
+  - `docs/public/hyperui/application/vertical-menu/4-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/4.html`
+  - `docs/public/hyperui/application/vertical-menu/5-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/5.html`
+  - `docs/public/hyperui/application/vertical-menu/6-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/6.html`
+  - `docs/public/hyperui/application/vertical-menu/7-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/7.html`
+  - `docs/public/hyperui/application/vertical-menu/8-dark.html`
+  - `docs/public/hyperui/application/vertical-menu/8.html`
+  - `docs/public/hyperui/application/vertical-menu/index.html`
+  - `docs/public/hyperui/blog/animate-duration-delay/1.html`
+  - `docs/public/hyperui/blog/animate-duration-delay/index.html`
+  - `docs/public/hyperui/blog/index.html`
+  - `docs/public/hyperui/blog/remove-number-input-spinners/1.html`
+  - `docs/public/hyperui/blog/remove-number-input-spinners/index.html`
+  - `docs/public/hyperui/index.html`
+  - `docs/public/hyperui/marketing/announcements/1-dark.html`
+  - `docs/public/hyperui/marketing/announcements/1.html`
+  - `docs/public/hyperui/marketing/announcements/2-dark.html`
+  - `docs/public/hyperui/marketing/announcements/2.html`
+  - `docs/public/hyperui/marketing/announcements/3-dark.html`
+  - `docs/public/hyperui/marketing/announcements/3.html`
+  - `docs/public/hyperui/marketing/announcements/4-dark.html`
+  - `docs/public/hyperui/marketing/announcements/4.html`
+  - `docs/public/hyperui/marketing/announcements/5-dark.html`
+  - `docs/public/hyperui/marketing/announcements/5.html`
+  - `docs/public/hyperui/marketing/announcements/6-dark.html`
+  - `docs/public/hyperui/marketing/announcements/6.html`
+  - `docs/public/hyperui/marketing/announcements/index.html`
+  - `docs/public/hyperui/marketing/banners/1-dark.html`
+  - `docs/public/hyperui/marketing/banners/1.html`
+  - `docs/public/hyperui/marketing/banners/2-dark.html`
+  - `docs/public/hyperui/marketing/banners/2.html`
+  - `docs/public/hyperui/marketing/banners/3-dark.html`
+  - `docs/public/hyperui/marketing/banners/3.html`
+  - `docs/public/hyperui/marketing/banners/index.html`
+  - `docs/public/hyperui/marketing/blog-cards/1-dark.html`
+  - `docs/public/hyperui/marketing/blog-cards/1.html`
+  - `docs/public/hyperui/marketing/blog-cards/2-dark.html`
+  - `docs/public/hyperui/marketing/blog-cards/2.html`
+  - `docs/public/hyperui/marketing/blog-cards/3-dark.html`
+  - `docs/public/hyperui/marketing/blog-cards/3.html`
+  - `docs/public/hyperui/marketing/blog-cards/4-dark.html`
+  - `docs/public/hyperui/marketing/blog-cards/4.html`
+  - `docs/public/hyperui/marketing/blog-cards/5-dark.html`
+  - `docs/public/hyperui/marketing/blog-cards/5.html`
+  - `docs/public/hyperui/marketing/blog-cards/6-dark.html`
+  - `docs/public/hyperui/marketing/blog-cards/6.html`
+  - `docs/public/hyperui/marketing/blog-cards/7.html`
+  - `docs/public/hyperui/marketing/blog-cards/index.html`
+  - `docs/public/hyperui/marketing/buttons/2-dark.html`
+  - `docs/public/hyperui/marketing/buttons/2.html`
+  - `docs/public/hyperui/marketing/buttons/3-dark.html`
+  - `docs/public/hyperui/marketing/buttons/3.html`
+  - `docs/public/hyperui/marketing/buttons/4-dark.html`
+  - `docs/public/hyperui/marketing/buttons/4.html`
+  - `docs/public/hyperui/marketing/buttons/5-dark.html`
+  - `docs/public/hyperui/marketing/buttons/5.html`
+  - `docs/public/hyperui/marketing/buttons/index.html`
+  - `docs/public/hyperui/marketing/cards/1.html`
+  - `docs/public/hyperui/marketing/cards/2.html`
+  - `docs/public/hyperui/marketing/cards/3.html`
+  - `docs/public/hyperui/marketing/cards/4.html`
+  - `docs/public/hyperui/marketing/cards/5.html`
+  - `docs/public/hyperui/marketing/cards/6.html`
+  - `docs/public/hyperui/marketing/cards/7.html`
+  - `docs/public/hyperui/marketing/cards/8.html`
+  - `docs/public/hyperui/marketing/cards/9.html`
+  - `docs/public/hyperui/marketing/cards/index.html`
+  - `docs/public/hyperui/marketing/carts/1-dark.html`
+  - `docs/public/hyperui/marketing/carts/1.html`
+  - `docs/public/hyperui/marketing/carts/2-dark.html`
+  - `docs/public/hyperui/marketing/carts/2.html`
+  - `docs/public/hyperui/marketing/carts/3-dark.html`
+  - `docs/public/hyperui/marketing/carts/3.html`
+  - `docs/public/hyperui/marketing/carts/index.html`
+  - `docs/public/hyperui/marketing/contact-forms/1-dark.html`
+  - `docs/public/hyperui/marketing/contact-forms/1.html`
+  - `docs/public/hyperui/marketing/contact-forms/2-dark.html`
+  - `docs/public/hyperui/marketing/contact-forms/2.html`
+  - `docs/public/hyperui/marketing/contact-forms/3-dark.html`
+  - `docs/public/hyperui/marketing/contact-forms/3.html`
+  - `docs/public/hyperui/marketing/contact-forms/4-dark.html`
+  - `docs/public/hyperui/marketing/contact-forms/4.html`
+  - `docs/public/hyperui/marketing/contact-forms/5-dark.html`
+  - `docs/public/hyperui/marketing/contact-forms/5.html`
+  - `docs/public/hyperui/marketing/contact-forms/index.html`
+  - `docs/public/hyperui/marketing/ctas/2-dark.html`
+  - `docs/public/hyperui/marketing/ctas/2.html`
+  - `docs/public/hyperui/marketing/ctas/3-dark.html`
+  - `docs/public/hyperui/marketing/ctas/3.html`
+  - `docs/public/hyperui/marketing/ctas/4-dark.html`
+  - `docs/public/hyperui/marketing/ctas/4.html`
+  - `docs/public/hyperui/marketing/ctas/index.html`
+  - `docs/public/hyperui/marketing/empty-content/1-dark.html`
+  - `docs/public/hyperui/marketing/empty-content/1.html`
+  - `docs/public/hyperui/marketing/empty-content/2-dark.html`
+  - `docs/public/hyperui/marketing/empty-content/2.html`
+  - `docs/public/hyperui/marketing/empty-content/3-dark.html`
+  - `docs/public/hyperui/marketing/empty-content/3.html`
+  - `docs/public/hyperui/marketing/empty-content/4-dark.html`
+  - `docs/public/hyperui/marketing/empty-content/4.html`
+  - `docs/public/hyperui/marketing/empty-content/5-dark.html`
+  - `docs/public/hyperui/marketing/empty-content/5.html`
+  - `docs/public/hyperui/marketing/empty-content/index.html`
+  - `docs/public/hyperui/marketing/faqs/1-dark.html`
+  - `docs/public/hyperui/marketing/faqs/1.html`
+  - `docs/public/hyperui/marketing/faqs/2-dark.html`
+  - `docs/public/hyperui/marketing/faqs/2.html`
+  - `docs/public/hyperui/marketing/faqs/3-dark.html`
+  - `docs/public/hyperui/marketing/faqs/3.html`
+  - `docs/public/hyperui/marketing/faqs/index.html`
+  - `docs/public/hyperui/marketing/feature-grids/1-dark.html`
+  - `docs/public/hyperui/marketing/feature-grids/1.html`
+  - `docs/public/hyperui/marketing/feature-grids/2-dark.html`
+  - `docs/public/hyperui/marketing/feature-grids/2.html`
+  - `docs/public/hyperui/marketing/feature-grids/3-dark.html`
+  - `docs/public/hyperui/marketing/feature-grids/3.html`
+  - `docs/public/hyperui/marketing/feature-grids/4-dark.html`
+  - `docs/public/hyperui/marketing/feature-grids/4.html`
+  - `docs/public/hyperui/marketing/feature-grids/index.html`
+  - `docs/public/hyperui/marketing/footers/1-dark.html`
+  - `docs/public/hyperui/marketing/footers/1.html`
+  - `docs/public/hyperui/marketing/footers/10-dark.html`
+  - `docs/public/hyperui/marketing/footers/10.html`
+  - `docs/public/hyperui/marketing/footers/11-dark.html`
+  - `docs/public/hyperui/marketing/footers/11.html`
+  - `docs/public/hyperui/marketing/footers/12-dark.html`
+  - `docs/public/hyperui/marketing/footers/12.html`
+  - `docs/public/hyperui/marketing/footers/2-dark.html`
+  - `docs/public/hyperui/marketing/footers/2.html`
+  - `docs/public/hyperui/marketing/footers/3-dark.html`
+  - `docs/public/hyperui/marketing/footers/3.html`
+  - `docs/public/hyperui/marketing/footers/4-dark.html`
+  - `docs/public/hyperui/marketing/footers/4.html`
+  - `docs/public/hyperui/marketing/footers/5-dark.html`
+  - `docs/public/hyperui/marketing/footers/5.html`
+  - `docs/public/hyperui/marketing/footers/6-dark.html`
+  - `docs/public/hyperui/marketing/footers/6.html`
+  - `docs/public/hyperui/marketing/footers/7-dark.html`
+  - `docs/public/hyperui/marketing/footers/7.html`
+  - `docs/public/hyperui/marketing/footers/8-dark.html`
+  - `docs/public/hyperui/marketing/footers/8.html`
+  - `docs/public/hyperui/marketing/footers/9-dark.html`
+  - `docs/public/hyperui/marketing/footers/9.html`
+  - `docs/public/hyperui/marketing/footers/index.html`
+  - `docs/public/hyperui/marketing/headers/1-dark.html`
+  - `docs/public/hyperui/marketing/headers/1.html`
+  - `docs/public/hyperui/marketing/headers/2-dark.html`
+  - `docs/public/hyperui/marketing/headers/2.html`
+  - `docs/public/hyperui/marketing/headers/3-dark.html`
+  - `docs/public/hyperui/marketing/headers/3.html`
+  - `docs/public/hyperui/marketing/headers/4-dark.html`
+  - `docs/public/hyperui/marketing/headers/4.html`
+  - `docs/public/hyperui/marketing/headers/index.html`
+  - `docs/public/hyperui/marketing/index.html`
+  - `docs/public/hyperui/marketing/logo-clouds/1.html`
+  - `docs/public/hyperui/marketing/logo-clouds/2.html`
+  - `docs/public/hyperui/marketing/logo-clouds/3.html`
+  - `docs/public/hyperui/marketing/logo-clouds/4.html`
+  - `docs/public/hyperui/marketing/logo-clouds/index.html`
+  - `docs/public/hyperui/marketing/newsletter-signup/1-dark.html`
+  - `docs/public/hyperui/marketing/newsletter-signup/1.html`
+  - `docs/public/hyperui/marketing/newsletter-signup/2-dark.html`
+  - `docs/public/hyperui/marketing/newsletter-signup/2.html`
+  - `docs/public/hyperui/marketing/newsletter-signup/index.html`
+  - `docs/public/hyperui/marketing/polls/1-dark.html`
+  - `docs/public/hyperui/marketing/polls/1.html`
+  - `docs/public/hyperui/marketing/polls/2-dark.html`
+  - `docs/public/hyperui/marketing/polls/2.html`
+  - `docs/public/hyperui/marketing/polls/3-dark.html`
+  - `docs/public/hyperui/marketing/polls/3.html`
+  - `docs/public/hyperui/marketing/polls/index.html`
+  - `docs/public/hyperui/marketing/pricing/1.html`
+  - `docs/public/hyperui/marketing/pricing/2.html`
+  - `docs/public/hyperui/marketing/pricing/index.html`
+  - `docs/public/hyperui/marketing/product-cards/1.html`
+  - `docs/public/hyperui/marketing/product-cards/2.html`
+  - `docs/public/hyperui/marketing/product-cards/3.html`
+  - `docs/public/hyperui/marketing/product-cards/4.html`
+  - `docs/public/hyperui/marketing/product-cards/5.html`
+  - `docs/public/hyperui/marketing/product-cards/6.html`
+  - `docs/public/hyperui/marketing/product-cards/7.html`
+  - `docs/public/hyperui/marketing/product-cards/8.html`
+  - `docs/public/hyperui/marketing/product-cards/index.html`
+  - `docs/public/hyperui/marketing/product-collections/1.html`
+  - `docs/public/hyperui/marketing/product-collections/2.html`
+  - `docs/public/hyperui/marketing/product-collections/3.html`
+  - `docs/public/hyperui/marketing/product-collections/4.html`
+  - `docs/public/hyperui/marketing/product-collections/index.html`
+  - `docs/public/hyperui/marketing/sections/1.html`
+  - `docs/public/hyperui/marketing/sections/2.html`
+  - `docs/public/hyperui/marketing/sections/3.html`
+  - `docs/public/hyperui/marketing/sections/4.html`
+  - `docs/public/hyperui/marketing/sections/index.html`
+  - `docs/public/hyperui/marketing/stats/1-dark.html`
+  - `docs/public/hyperui/marketing/stats/1.html`
+  - `docs/public/hyperui/marketing/stats/2-dark.html`
+  - `docs/public/hyperui/marketing/stats/2.html`
+  - `docs/public/hyperui/marketing/stats/3-dark.html`
+  - `docs/public/hyperui/marketing/stats/3.html`
+  - `docs/public/hyperui/marketing/stats/index.html`
+  - `docs/public/hyperui/marketing/team-sections/1-dark.html`
+  - `docs/public/hyperui/marketing/team-sections/1.html`
+  - `docs/public/hyperui/marketing/team-sections/2-dark.html`
+  - `docs/public/hyperui/marketing/team-sections/2.html`
+  - `docs/public/hyperui/marketing/team-sections/3-dark.html`
+  - `docs/public/hyperui/marketing/team-sections/3.html`
+  - `docs/public/hyperui/marketing/team-sections/index.html`
+  - `docs/public/hyperui/marketing/testimonials/1.html`
+  - `docs/public/hyperui/marketing/testimonials/2.html`
+  - `docs/public/hyperui/marketing/testimonials/3.html`
+  - `docs/public/hyperui/marketing/testimonials/index.html`
+  - `docs/public/hyperui/neobrutalism/accordions/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/accordions/1.html`
+  - `docs/public/hyperui/neobrutalism/accordions/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/accordions/2.html`
+  - `docs/public/hyperui/neobrutalism/accordions/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/accordions/3.html`
+  - `docs/public/hyperui/neobrutalism/accordions/index.html`
+  - `docs/public/hyperui/neobrutalism/alerts/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/alerts/1.html`
+  - `docs/public/hyperui/neobrutalism/alerts/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/alerts/2.html`
+  - `docs/public/hyperui/neobrutalism/alerts/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/alerts/3.html`
+  - `docs/public/hyperui/neobrutalism/alerts/index.html`
+  - `docs/public/hyperui/neobrutalism/badges/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/badges/1.html`
+  - `docs/public/hyperui/neobrutalism/badges/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/badges/2.html`
+  - `docs/public/hyperui/neobrutalism/badges/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/badges/3.html`
+  - `docs/public/hyperui/neobrutalism/badges/index.html`
+  - `docs/public/hyperui/neobrutalism/buttons/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/buttons/2.html`
+  - `docs/public/hyperui/neobrutalism/buttons/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/buttons/3.html`
+  - `docs/public/hyperui/neobrutalism/buttons/4-dark.html`
+  - `docs/public/hyperui/neobrutalism/buttons/4.html`
+  - `docs/public/hyperui/neobrutalism/buttons/5-dark.html`
+  - `docs/public/hyperui/neobrutalism/buttons/5.html`
+  - `docs/public/hyperui/neobrutalism/buttons/index.html`
+  - `docs/public/hyperui/neobrutalism/cards/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/cards/1.html`
+  - `docs/public/hyperui/neobrutalism/cards/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/cards/2.html`
+  - `docs/public/hyperui/neobrutalism/cards/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/cards/3.html`
+  - `docs/public/hyperui/neobrutalism/cards/4-dark.html`
+  - `docs/public/hyperui/neobrutalism/cards/4.html`
+  - `docs/public/hyperui/neobrutalism/cards/index.html`
+  - `docs/public/hyperui/neobrutalism/checkboxes/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/checkboxes/1.html`
+  - `docs/public/hyperui/neobrutalism/checkboxes/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/checkboxes/2.html`
+  - `docs/public/hyperui/neobrutalism/checkboxes/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/checkboxes/3.html`
+  - `docs/public/hyperui/neobrutalism/checkboxes/index.html`
+  - `docs/public/hyperui/neobrutalism/index.html`
+  - `docs/public/hyperui/neobrutalism/inputs/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/inputs/1.html`
+  - `docs/public/hyperui/neobrutalism/inputs/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/inputs/2.html`
+  - `docs/public/hyperui/neobrutalism/inputs/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/inputs/3.html`
+  - `docs/public/hyperui/neobrutalism/inputs/index.html`
+  - `docs/public/hyperui/neobrutalism/progress-bars/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/progress-bars/1.html`
+  - `docs/public/hyperui/neobrutalism/progress-bars/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/progress-bars/2.html`
+  - `docs/public/hyperui/neobrutalism/progress-bars/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/progress-bars/3.html`
+  - `docs/public/hyperui/neobrutalism/progress-bars/index.html`
+  - `docs/public/hyperui/neobrutalism/selects/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/selects/1.html`
+  - `docs/public/hyperui/neobrutalism/selects/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/selects/2.html`
+  - `docs/public/hyperui/neobrutalism/selects/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/selects/3.html`
+  - `docs/public/hyperui/neobrutalism/selects/index.html`
+  - `docs/public/hyperui/neobrutalism/tabs/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/tabs/1.html`
+  - `docs/public/hyperui/neobrutalism/tabs/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/tabs/2.html`
+  - `docs/public/hyperui/neobrutalism/tabs/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/tabs/3.html`
+  - `docs/public/hyperui/neobrutalism/tabs/4-dark.html`
+  - `docs/public/hyperui/neobrutalism/tabs/4.html`
+  - `docs/public/hyperui/neobrutalism/tabs/index.html`
+  - `docs/public/hyperui/neobrutalism/textareas/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/textareas/1.html`
+  - `docs/public/hyperui/neobrutalism/textareas/2-dark.html`
+  - `docs/public/hyperui/neobrutalism/textareas/2.html`
+  - `docs/public/hyperui/neobrutalism/textareas/3-dark.html`
+  - `docs/public/hyperui/neobrutalism/textareas/3.html`
+  - `docs/public/hyperui/neobrutalism/textareas/index.html`
+  - `docs/public/hyperui/templates/analytics-dashboard/1.html`
+  - `docs/public/hyperui/templates/analytics-dashboard/2.html`
+  - `docs/public/hyperui/templates/analytics-dashboard/3.html`
+  - `docs/public/hyperui/templates/analytics-dashboard/4.html`
+  - `docs/public/hyperui/templates/analytics-dashboard/5.html`
+  - `docs/public/hyperui/templates/analytics-dashboard/index.html`
+  - `docs/public/hyperui/templates/index.html`
+  - `docs/public/hyperui/templates/portfolio/1.html`
+  - `docs/public/hyperui/templates/portfolio/2.html`
+  - `docs/public/hyperui/templates/portfolio/index.html`
+  - `docs/public/hyperui/templates/saas-landing-page/1.html`
+  - `docs/public/hyperui/templates/saas-landing-page/index.html`
+  - `docs/public/hyperui/templates/storefront/1.html`
+  - `docs/public/hyperui/templates/storefront/2.html`
+  - `docs/public/hyperui/templates/storefront/index.html`
+  - `docs/public/hyperui/templates/support-inbox/1.html`
+  - `docs/public/hyperui/templates/support-inbox/2.html`
+  - `docs/public/hyperui/templates/support-inbox/index.html`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/components/badge.md`
+  - `docs/ui-kit/css/core/apply.md`
+  - `docs/ui-kit/css/core/breakpoints.md`
+  - `docs/ui-kit/css/core/colors.md`
+  - `docs/ui-kit/css/core/dark-mode.md`
+  - `docs/ui-kit/css/core/tokens.md`
+  - `docs/ui-kit/css/getting-started.md`
+  - `docs/ui-kit/css/index.md`
+  - `docs/ui-kit/css/reference/api-reference.md`
+  - `docs/ui-kit/css/utilities/colors-extended.md`
+  - `docs/ui-kit/css/utilities/container.md`
+  - `docs/ui-kit/hyperui.md`
+  - `docs/ui-kit/index.md`
+  - `docs/ui-kit/roadmap.md`
+  - `package.json`
+  - `packages/ui/README.md`
+  - `packages/ui/package.json`
+  - `packages/ui/scripts/concat-css.mjs`
+  - `packages/ui/src/styles/index.scss`
+  - `scripts/sync-hyperui.mjs`
+  - `scss/_flags.scss`
+  - `scss/_functions.scss`
+  - `scss/_mixins.scss`
+  - `scss/_reset.scss`
+  - `scss/_utilities.scss`
+  - `scss/_variables.scss`
+  - `scss/components/_index.scss`
+  - `scss/demo.scss`
+  - `scss/main.scss`
+
+  </details>
 
 ## [6.4.4] - 2026-10-03
 
-### Changed
-- docs(README.md): update documentation in 5 files
+### Documentation
+
+- **README.md:** update documentation in 5 files
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.4.3] - 2026-10-03
 
 ### Added
-- **docs**: resolve panel emojis from scope and keywords$'
-'- **adapters**: add Better Auth adapter with Safe Result helpers$'
-'- **docs**: summarize the last 6 releases in the what's-new panel$'
-'- **adapters**: add PhotoSwipe adapter with DOM-selector options
+
+- **docs:** resolve panel emojis from scope and keywords — `scripts/docs-prepare.mjs`
+- **adapters:** add Better Auth adapter with Safe Result helpers
+  <details>
+  <summary>7 files</summary>
+
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/better-auth/better-auth.service.ts`
+  - `src/adapters/better-auth/client.ts`
+  - `src/adapters/better-auth/index.ts`
+  - `src/adapters/index.ts`
+  - `tests/better-auth.service.test.ts`
+
+  </details>
+- **docs:** summarize the last 6 releases in the what's-new panel
+  <details>
+  <summary>4 files</summary>
+
+  - `docs/.vitepress/theme/components/WhatNew.vue`
+  - `docs/.vitepress/theme/signals.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `scripts/docs-prepare.mjs`
+
+  </details>
+- **adapters:** add PhotoSwipe adapter with DOM-selector options
+  <details>
+  <summary>6 files</summary>
+
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/index.ts`
+  - `src/adapters/photoswipe/index.ts`
+  - `src/adapters/photoswipe/photoswipe.service.ts`
+  - `tests/photoswipe.service.test.ts`
+
+  </details>
+
+### Documentation
+
+- document the new adapters and refresh stale command references
+  <details>
+  <summary>10 files</summary>
+
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/architecture.md`
+  - `docs/guides/better-auth.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/index.md`
+
+  </details>
+- **guides:** document the PhotoSwipe adapter
+  <details>
+  <summary>2 files</summary>
+
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/photoswipe.md`
+
+  </details>
+
+### CI
+
+- **workflows:** update pipeline configuration in 22 files
+  <details>
+  <summary>22 files</summary>
+
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `.vscode/extensions.json`
+  - `.vscode/settings.json`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/components/HyperUiShowcase.vue`
+  - `docs/.vitepress/theme/hyperui.css`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/public/hyperui/application/badges/1-dark.html`
+  - `docs/public/hyperui/application/badges/1.html`
+  - `docs/public/hyperui/marketing/buttons/1-dark.html`
+  - `docs/public/hyperui/marketing/buttons/1.html`
+  - `docs/public/hyperui/marketing/ctas/1-dark.html`
+  - `docs/public/hyperui/marketing/ctas/1.html`
+  - `docs/public/hyperui/neobrutalism/buttons/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/buttons/1.html`
+  - `docs/ui-kit/hyperui.md`
+  - `package.json`
+
+  </details>
+
+### Chores
+
+- **repo:** restore CI workflows, husky pre-commit and editor settings
+  <details>
+  <summary>6 files</summary>
+
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `.vscode/extensions.json`
+  - `.vscode/settings.json`
+
+  </details>
 
 ## [6.4.2] - 2026-10-03
 
 ### Added
-- **docs**: resolve panel emojis from scope and keywords$'
-'- **adapters**: add Better Auth adapter with Safe Result helpers$'
-'- **docs**: summarize the last 6 releases in the what's-new panel$'
-'- **adapters**: add PhotoSwipe adapter with DOM-selector options
+
+- **docs:** resolve panel emojis from scope and keywords — `scripts/docs-prepare.mjs`
+- **adapters:** add Better Auth adapter with Safe Result helpers
+  <details>
+  <summary>7 files</summary>
+
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/better-auth/better-auth.service.ts`
+  - `src/adapters/better-auth/client.ts`
+  - `src/adapters/better-auth/index.ts`
+  - `src/adapters/index.ts`
+  - `tests/better-auth.service.test.ts`
+
+  </details>
+- **docs:** summarize the last 6 releases in the what's-new panel
+  <details>
+  <summary>4 files</summary>
+
+  - `docs/.vitepress/theme/components/WhatNew.vue`
+  - `docs/.vitepress/theme/signals.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `scripts/docs-prepare.mjs`
+
+  </details>
+- **adapters:** add PhotoSwipe adapter with DOM-selector options
+  <details>
+  <summary>6 files</summary>
+
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/index.ts`
+  - `src/adapters/photoswipe/index.ts`
+  - `src/adapters/photoswipe/photoswipe.service.ts`
+  - `tests/photoswipe.service.test.ts`
+
+  </details>
+
+### Documentation
+
+- document the new adapters and refresh stale command references
+  <details>
+  <summary>10 files</summary>
+
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/architecture.md`
+  - `docs/guides/better-auth.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/index.md`
+
+  </details>
+- **guides:** document the PhotoSwipe adapter
+  <details>
+  <summary>2 files</summary>
+
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/photoswipe.md`
+
+  </details>
+
+### CI
+
+- **workflows:** update pipeline configuration in 22 files
+  <details>
+  <summary>22 files</summary>
+
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `.vscode/extensions.json`
+  - `.vscode/settings.json`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/components/HyperUiShowcase.vue`
+  - `docs/.vitepress/theme/hyperui.css`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/public/hyperui/application/badges/1-dark.html`
+  - `docs/public/hyperui/application/badges/1.html`
+  - `docs/public/hyperui/marketing/buttons/1-dark.html`
+  - `docs/public/hyperui/marketing/buttons/1.html`
+  - `docs/public/hyperui/marketing/ctas/1-dark.html`
+  - `docs/public/hyperui/marketing/ctas/1.html`
+  - `docs/public/hyperui/neobrutalism/buttons/1-dark.html`
+  - `docs/public/hyperui/neobrutalism/buttons/1.html`
+  - `docs/ui-kit/hyperui.md`
+  - `package.json`
+
+  </details>
 
 ## [6.4.1] - 2026-10-03
 
-### Changed
-- **bun.lock**: update dependencies or build settings in bun.lock
+### Build
+
+- **bun.lock:** update dependencies or build settings in bun.lock — `bun.lock`
 
 ## [6.4.0] - 2026-10-03
 
 ### Added
-- **docs**: navbar stars, version pill, new badges and what's-new panel
+
+- **docs:** navbar stars, version pill, new badges and what's-new panel
+  <details>
+  <summary>11 files</summary>
+
+  - `.gitignore`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/Layout.vue`
+  - `docs/.vitepress/theme/components/GitHubStars.vue`
+  - `docs/.vitepress/theme/components/SiteVersion.vue`
+  - `docs/.vitepress/theme/components/WhatNew.vue`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/newBadges.ts`
+  - `docs/.vitepress/theme/signals.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `scripts/docs-prepare.mjs`
+
+  </details>
+
+### Documentation
+
+- **api:** drop @deprecated symbols from the API reference
+  <details>
+  <summary>3 files</summary>
+
+  - `scripts/typedoc-drop-deprecated.mjs`
+  - `src/config/seo.service.ts`
+  - `typedoc.json`
+
+  </details>
+
+### Chores
+
+- **release:** sync version refs to v6.3.1
+  <details>
+  <summary>4 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+
+  </details>
+- **scripts:** unify dev, build and docs behind pre/post lifecycle hooks
+  <details>
+  <summary>6 files</summary>
+
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `docs/guides/architecture.md`
+  - `package.json`
+  - `scripts/docs.mjs`
+  - `scripts/setup-cloudflare.mjs`
+
+  </details>
+- **changelog:** repair shell-quoting artifacts in release sections — `CHANGELOG.md`
 
 ## [6.3.1] - 2026-10-03
 
-### Changed
-- docs(README.md): update documentation in 5 files
+### Documentation
+
+- **README.md:** update documentation in 5 files
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.3.0] - 2026-10-03
 
-### Changed
-- docs(.vitepress): keep a single UI Kit nav entry
-- docs(agents): document the lint gate and flat-config rule
-- chore(release): sync version refs to v6.2.0
-- chore(tooling): gate commits with husky and lint-staged
+### Documentation
+
+- **.vitepress:** keep a single UI Kit nav entry — `docs/.vitepress/config.ts`
+- **agents:** document the lint gate and flat-config rule — `AGENTS.md`
+
+### Chores
+
+- **release:** sync version refs to v6.2.0
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
+- **tooling:** gate commits with husky and lint-staged
+  <details>
+  <summary>4 files</summary>
+
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `bun.lock`
+  - `package.json`
+
+  </details>
 
 ## [6.2.0] - 2026-10-03
 
-### Changed
-- ci(release): drop the dist-tag job OIDC cannot authenticate
-- ci(release): add a remove-dist-tag maintenance job
-- ci(release): retry backfill publishes without provenance on tlog conflicts
-- ci(release): normalize legacy package metadata for backfill publishes
-- ci(release): unblock backfill publishes on legacy tags
-- ci(release): pin backfill publishes to the tag name
-- ci(release): backfill an existing tag through the publish-tag input
-- chore(release): sync version refs to v6.1.0
-- docs(.vitepress): merge UI Kit and katanakit-css into one nav dropdown
+### Documentation
+
+- **.vitepress:** merge UI Kit and katanakit-css into one nav dropdown — `docs/.vitepress/config.ts`
+
+### CI
+
+- **release:** drop the dist-tag job OIDC cannot authenticate — `.github/workflows/release.yml`
+- **release:** add a remove-dist-tag maintenance job — `.github/workflows/release.yml`
+- **release:** retry backfill publishes without provenance on tlog conflicts — `.github/workflows/release.yml`
+- **release:** normalize legacy package metadata for backfill publishes — `.github/workflows/release.yml`
+- **release:** unblock backfill publishes on legacy tags — `.github/workflows/release.yml`
+- **release:** pin backfill publishes to the tag name — `.github/workflows/release.yml`
+- **release:** backfill an existing tag through the publish-tag input — `.github/workflows/release.yml`
+
+### Chores
+
+- **release:** sync version refs to v6.1.0
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.1.0] - 2026-10-03
 
-### Changed
-- docs(guides): add per-major upgrade guides
-- docs(CHANGELOG): add missing 6.0.5 release entry
-- docs(CHANGELOG.md): update documentation in 8 files
+### Documentation
+
+- **guides:** add per-major upgrade guides
+  <details>
+  <summary>7 files</summary>
+
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/upgrade-to/index.md`
+  - `docs/guides/upgrade-to/v2.md`
+  - `docs/guides/upgrade-to/v3.md`
+  - `docs/guides/upgrade-to/v4.md`
+  - `docs/guides/upgrade-to/v5.md`
+  - `docs/guides/upgrade-to/v6.md`
+
+  </details>
+- **CHANGELOG:** add missing 6.0.5 release entry — `CHANGELOG.md`
+- **CHANGELOG.md:** update documentation in 8 files
+  <details>
+  <summary>8 files</summary>
+
+  - `CHANGELOG.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/index.md`
+  - `package.json`
+
+  </details>
 
 ## [6.0.6] - 2026-09-27
 
-### Changed
+### Documentation
 
-- Tooling, documentation and test updates.
+- **README.md:** update documentation in 5 files
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
+- **.vitepress:** update documentation in 39 files
+  <details>
+  <summary>39 files</summary>
+
+  - `docs/.vitepress/config.ts`
+  - `docs/ui-kit/css/core/apply.md`
+  - `docs/ui-kit/css/core/breakpoints.md`
+  - `docs/ui-kit/css/core/colors.md`
+  - `docs/ui-kit/css/core/dark-mode.md`
+  - `docs/ui-kit/css/core/tokens.md`
+  - `docs/ui-kit/css/getting-started.md`
+  - `docs/ui-kit/css/index.md`
+  - `docs/ui-kit/css/mixins/flex.md`
+  - `docs/ui-kit/css/mixins/grid.md`
+  - `docs/ui-kit/css/reference/api-reference.md`
+  - `docs/ui-kit/css/reference/architecture.md`
+  - `docs/ui-kit/css/reference/functions.md`
+  - `docs/ui-kit/css/utilities/aspect-ratio.md`
+  - `docs/ui-kit/css/utilities/border-style.md`
+  - `docs/ui-kit/css/utilities/colors-extended.md`
+  - `docs/ui-kit/css/utilities/container.md`
+  - `docs/ui-kit/css/utilities/cursor.md`
+  - `docs/ui-kit/css/utilities/display.md`
+  - `docs/ui-kit/css/utilities/effects.md`
+  - `docs/ui-kit/css/utilities/flex-classes.md`
+  - `docs/ui-kit/css/utilities/float.md`
+  - `docs/ui-kit/css/utilities/font-family.md`
+  - `docs/ui-kit/css/utilities/gap.md`
+  - `docs/ui-kit/css/utilities/grid-classes.md`
+  - `docs/ui-kit/css/utilities/interactivity.md`
+  - `docs/ui-kit/css/utilities/line-height.md`
+  - `docs/ui-kit/css/utilities/list-style.md`
+  - `docs/ui-kit/css/utilities/margin.md`
+  - `docs/ui-kit/css/utilities/object.md`
+  - `docs/ui-kit/css/utilities/overflow-direction.md`
+  - `docs/ui-kit/css/utilities/padding.md`
+  - `docs/ui-kit/css/utilities/position-values.md`
+  - `docs/ui-kit/css/utilities/tables.md`
+  - `docs/ui-kit/css/utilities/text-decoration.md`
+  - `docs/ui-kit/css/utilities/text-transform.md`
+  - `docs/ui-kit/css/utilities/typography.md`
+  - `docs/ui-kit/css/utilities/visibility.md`
+  - `docs/ui-kit/index.md`
+
+  </details>
 
 ## [6.0.5] - 2026-09-27
 
-### Changed
+### Documentation
 
-- Tooling, documentation and test updates.
+- **CHANGELOG.md:** update documentation in 6 files
+  <details>
+  <summary>6 files</summary>
+
+  - `CHANGELOG.md`
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
 
 ## [6.0.4] - 2026-09-27
 
-### Changed
+### Documentation
 
-- Tooling, documentation and test updates.
+- **AGENTS.md:** update documentation in 10 files
+  <details>
+  <summary>10 files</summary>
+
+  - `AGENTS.md`
+  - `CHANGELOG.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `scripts/generate-release-notes.mjs`
+
+  </details>
 
 ## [6.0.3] - 2026-09-27
 

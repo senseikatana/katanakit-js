@@ -75,16 +75,14 @@ Useful scripts:
 | Command                 | Description                                            |
 | ----------------------- | ------------------------------------------------------ |
 | `bun run check`         | ESLint + typecheck + tests (gate before build/publish) |
-| `bun run fix`           | Same as `check` with ESLint auto-fix                   |
-| `bun run lint`          | ESLint only (no typecheck/tests)                       |
-| `bun run lint:staged`   | ESLint on the staged files (what the pre-commit runs)   |
-| `bun run build`         | `check`, compile to `dist/`, sync version references   |
+| `bun run fix`           | Same as `check` with ESLint auto-fix (skips the UI typecheck) |
+| `bun run build`         | `check`, compile to `dist/`, build the UI, sync version references |
+| `bun run examples:check` | Typechecks the query/seed examples against `dist/`     |
 | `bun run release`       | `build` → write CHANGELOG section → publish to npm      |
 | `bun run docs:dev`      | Docs site dev server (VitePress)                       |
 | `bun run docs`          | Builds the docs site into `docs/.vitepress/dist/`      |
 | `bun run ui:build`      | Builds `@katanakit/ui` (vendored framework + components CSS) |
-| `bun run dev`           | All dev servers concurrently                           |
-| `bun run dev:api`       | Express example server only                            |
+| `bun run dev`           | Express dev server (`tsx`); `bun run bun:dev` for the Bun adapter |
 
 `build` and `release` never compile or publish unless `check` passes.
 
@@ -165,24 +163,25 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
 `CHANGELOG.md`. The current version is tracked in `package.json`.
 
-### Releasing (CI, preferred)
+### Releasing (local)
 
-Releases run through GitHub Actions (`.github/workflows/release.yml`,
-`workflow_dispatch` → pick `patch`/`minor`/`major`). The workflow bumps
-`package.json`, publishes to npm with provenance via **OIDC trusted publishing**
-(no `NPM_TOKEN` secret) and creates the GitHub release + annotated tag.
+There is no GitHub Actions pipeline: `.github/` was removed, so releases are
+cut locally.
 
-One‑time setup (already configured for this repo): npmjs.com → Package
-Settings → Publishing access → Trusted publishing → repo `senseikatana/katanakit-js`,
-workflow `release.yml`, environment (none).
-
-### Releasing (local fallback)
-
-```bash
-bun run release   # build + write CHANGELOG section + publish to npm
-```
-
-These publish from your machine with your npm credentials. Prefer the CI path.
+- **`useGit push --release` / `useGit release create`** — computes the bump
+  level from Conventional Commits, then calls
+  `scripts/generate-release-notes.mjs <tag> --write` when the script exists.
+  That writes the complete `CHANGELOG.md` section (every commit type, with the
+  files each commit touched), syncs `package.json` and the version refs pinned
+  in README/docs, commits the generated files, creates the annotated tag and
+  publishes the GitHub release.
+- **`bun run release`** — `build` + changelog `--write` + auth preflight
+  (`npm whoami`, falling back to `npm login`) + `npm publish --access public`,
+  all from your machine with your npm credentials. It does not create the git
+  tag. The package requires 2FA at publish time: npm prints an approval URL
+  (`npm error code EOTP`), you approve it in the browser and the publish
+  continues by itself — run it from a real terminal, not a non-interactive
+  shell.
 
 ### Version synchronization
 
@@ -190,7 +189,11 @@ Versions must be synchronized across:
 
 1. `package.json` — the source of truth
 2. npm registry — published via `npm publish`
-3. GitHub tags — created by the release script
+3. GitHub tags — created by `useGit release create`
+
+`node scripts/generate-release-notes.mjs --sync-versions` (also run by
+`bun run build`) mirrors `package.json` and every version pinned in
+README/docs to the newest `v*` tag, so the sources never drift apart.
 
 To verify synchronization:
 

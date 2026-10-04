@@ -8,7 +8,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 6.6.3)
+## Shipped (as of 6.6.5)
 
 ### Architecture and packaging
 
@@ -59,14 +59,15 @@ Legend: `[x]` done · `[ ]` planned.
 - [x] Vitest suite (36+ files, 270+ tests) with the `@/` alias; jsdom coverage
       for the UI kit foundations.
 - [x] ESLint gate (`check` = eslint + `tsc6` typecheck + vitest; `fix` auto-fixes).
-- [x] Releases through GitHub Actions with npm OIDC trusted publishing
-      (`.github/workflows/release.yml`) plus a local `bun run release` fallback.
+- [x] Local releases: `useGit push --release` writes the complete CHANGELOG
+      section and syncs version refs before tagging, and `bun run release`
+      publishes to npm (GitHub Actions was removed).
 - [x] English documentation: README, Getting Started, Architecture, API
       Reference, Roadmap, CONTRIBUTING, SECURITY, CHANGELOG.
 - [x] Security fixes applied: URL scheme validation, DOM `on*` attribute block,
       JSON-LD `</script>` escaping, worker cleanup, generic server errors.
-- [x] CI pipeline (GitHub Actions) running `check`, `build` and `examples:check`
-      on push/PR to `main` and `dev`, plus a docs deploy workflow to Cloudflare.
+- [x] Verification gate (`check`, `build`, `examples:check`) run locally and by
+      the release flow; docs deploy to Cloudflare with `bun run cf:deploy`.
 - [x] `QueryClient` (TanStack Query Core): cache with GC, stale-while-revalidate,
       retry with backoff, deduplication, invalidation and prefetch.
 
@@ -77,7 +78,7 @@ Legend: `[x]` done · `[ ]` planned.
 - [ ] Reactive: automatic dependency tracking for
       `useCreateEffect`/`useCreateMemo` (today signals are listed explicitly).
 - [ ] Structured/JSON logger strategy.
-- [ ] Add Vitest coverage reporting to CI.
+- [ ] Add Vitest coverage reporting to the release gate.
 
 ## Later
 
