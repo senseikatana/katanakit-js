@@ -29,6 +29,7 @@ TypeScript service toolkit (ESM, hexagonal). Bun is the package manager and scri
 - VitePress in `docs/` (`bun run docs:dev`, `bun run docs` → `docs/.vitepress/dist`). `scripts/docs.mjs` takes an exclusive lock in `.cache/docs.lock.json`: `docs:dev` and `docs`/`docs:gh` must not run at the same time (shared `docs/.vitepress/.temp`); it cleans stale state and fails with guidance.
 - `scripts/docs-prepare.mjs` generates `docs/api/` and `docs/changelog.md` — never hand-edit these. `docs:gh` is a manual `gh-pages` preview; production docs deploy to Cloudflare.
 - Head/SEO: `docs/.vitepress/config.ts` generates per-page metas with the library's `useSeoMeta` (`transformHead`) and reorders the built `<head>` (metas first, then anti-FOUC scripts, then assets) with `transformHtml` — don't duplicate static meta tags in the `head` config.
+- Keep `metaChunk: true` and the **compact** API sidebar: VitePress server-renders the sidebar in every page, and the full TypeDoc tree (783 links) plus the inlined hash map pushed `dist/` to 353 MB. With both fixes it is ~62 MB.
 - Docs pages use YAML frontmatter and Vue-in-Markdown (`<script setup>`), not MDX.
 
 ## Git workflow
