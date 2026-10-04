@@ -2,6 +2,10 @@
 
 TypeScript service toolkit (ESM, hexagonal). Bun is the package manager and script runner; Node >= 22.18 (`engines`). Infrastructure: Cloudflare only (Pages, R2, DNS); INSForge only as database fallback; Prisma is the local ORM.
 
+## Docs sync premise (always, since 2026-10-04)
+
+Every change refreshes all three in the same work: `README.md` (features, adapters, examples), `AGENTS.md` (rules, gotchas, conventions) and `CHANGELOG.md` (via `scripts/generate-release-notes.mjs` at release time — commit subjects are the entries). Never land a behavior/API change without updating the first two.
+
 ## Commands (gate order: lint → typecheck → test)
 
 - `bun run check` — the gate: `eslint ./src packages/ui/src` + `tsc6 --noEmit` + `tsc6 -p packages/ui/tsconfig.json --noEmit` + `vitest run`. Must pass before any PR.
