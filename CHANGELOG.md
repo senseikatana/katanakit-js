@@ -2,6 +2,42 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.7.2] - 2026-10-04
+
+### Fixed
+
+- **dom:** restore useRemove and add DOM service tests
+  <details>
+  <summary>2 files</summary>
+
+  - `src/infrastructure/dom/dom.service.ts`
+  - `tests/dom.service.test.ts`
+
+  </details>
+
+### Changed
+
+- **http:** remove unused resolveEnv helper — `src/core/services/http.service.ts`
+
+### Documentation
+
+- **changelog:** fix 6.6.6 entry and regenerate 6.7.0/6.7.1 sections — `CHANGELOG.md`
+
+### Chores
+
+- drop .zcodeignore — `.zcodeignore`
+- **release:** sync version references to 6.7.1
+  <details>
+  <summary>5 files</summary>
+
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
+  </details>
+
 ## [6.7.1] - 2026-10-04
 
 ### Fixed
