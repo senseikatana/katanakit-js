@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.6.2] - 2026-10-04
+
+### Changed
+- docs(AGENTS.md): update documentation in 2 files$'
+'- docs(README.md): update documentation in 7 files
+
 ## [6.6.1] - 2026-10-04
 
 ### Changed
