@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.7.4] - 2026-10-04
+
+### Documentation
+
+- **README.md:** update documentation in README.md — `README.md`
+
 ## [6.7.3] - 2026-10-04
 
 ### Fixed
