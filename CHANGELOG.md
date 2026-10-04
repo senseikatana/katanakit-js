@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.6.1] - 2026-10-04
+
+### Changed
+- docs(AGENTS.md): update documentation in 6 files
+
 ## [6.6.0] - 2026-10-04
 
 ### Changed
@@ -35,17 +40,6 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 - docs(AGENTS.md): update documentation in 674 files
-
-## [Unreleased]
-
-### Added
-- **scss**: vendor the full `katanakit-css@0.12.5` SCSS framework at `scss/` (published via the `sass` field and `files`); `katanakit-js` is now self-contained for styles — the external `katanakit-css` dependency is gone.
-- **styles**: `katanakit-js/styles.css` export (compiled framework + `.kk-*` components), shippable with `import "katanakit-js/styles.css"`.
-- **docs**: full HyperUI catalog vendored (560 upstream snippets, `public/examples` byte-identical at `2b5aebbc`, 2026-09-26) with a generated `index.html` in every folder (81 pages) + `scripts/sync-hyperui.mjs` to refresh from upstream.
-
-### Changed
-- **ui**: `@katanakit/ui` builds its stylesheet from the vendored `scss/` (base + components concat) instead of the npm `katanakit-css` package; peer/dev dependency removed.
-- **docs**: UI Kit docs and `@use` paths updated from `katanakit-css/src/scss/*` to `katanakit-js/scss/*`; nav label renamed to "SCSS framework".
 
 ## [6.4.4] - 2026-10-03
 
