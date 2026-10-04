@@ -220,6 +220,7 @@
             "relations": {
               "conversation": {
                 "cardinality": "N:1",
+                "nullable": false,
                 "on": {
                   "localFields": [
                     "conversationId"
@@ -304,6 +305,7 @@
             "relations": {
               "author": {
                 "cardinality": "N:1",
+                "nullable": false,
                 "on": {
                   "localFields": [
                     "authorId"
@@ -607,7 +609,7 @@
     "storageHash": "ce515282319cbb777a3517fb0040a3b0f020b3fbee1ad2b3c5f5a7673d09ce65"
   },
   "execution": {
-    "executionHash": "de351793f558d79e425eb77cf4c0a7718fecca715d58f6948d422bd29d13c14e",
+    "executionHash": "21530d1b13556db12c1951e3b7552b3b211162c2b23d89c87fc1f2d0a13c1ed5",
     "mutations": {
       "defaults": [
         {
@@ -620,9 +622,9 @@
             "kind": "generator"
           },
           "ref": {
-            "column": "updatedAt",
-            "namespace": "public",
-            "table": "accounts"
+            "entry": "accounts",
+            "field": "updatedAt",
+            "namespace": "public"
           }
         },
         {
@@ -631,9 +633,9 @@
             "kind": "generator"
           },
           "ref": {
-            "column": "id",
-            "namespace": "public",
-            "table": "conversations"
+            "entry": "conversations",
+            "field": "id",
+            "namespace": "public"
           }
         },
         {
@@ -646,9 +648,9 @@
             "kind": "generator"
           },
           "ref": {
-            "column": "updatedAt",
-            "namespace": "public",
-            "table": "conversations"
+            "entry": "conversations",
+            "field": "updatedAt",
+            "namespace": "public"
           }
         },
         {
@@ -661,9 +663,9 @@
             "kind": "generator"
           },
           "ref": {
-            "column": "updatedAt",
-            "namespace": "public",
-            "table": "posts"
+            "entry": "posts",
+            "field": "updatedAt",
+            "namespace": "public"
           }
         }
       ]
@@ -682,6 +684,8 @@
       "checkConstraint": true,
       "defaultInInsert": true,
       "enums": true,
+      "insertOnConflictSkip": true,
+      "insertOnConflictWithoutTarget": true,
       "lateral": true,
       "returning": true,
       "scalarList": true
