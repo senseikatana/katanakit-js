@@ -2,80 +2,59 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] docs(CHANGELOG.md): update documentation in 2 files
+  - `scripts/generate-release-notes.mjs`
+
 ## [6.7.4] - 2026-10-04
 
-### Documentation
+What's news:
 
-- **README.md:** update documentation in README.md — `README.md`
+- [ ] docs(README.md): update documentation in README.md
+  - `README.md`
 
 ## [6.7.3] - 2026-10-04
 
-### Fixed
+What's news:
 
-- **release:** silence npm probe stderr in publish preflight — `scripts/npm-publish.mjs`
-
-### Documentation
-
-- **agents:** require refreshing README, AGENTS and CHANGELOG on every change — `AGENTS.md`
-- **readme:** document all adapters and design patterns — `README.md`
-
-### Chores
-
-- **release:** add npm publish preflight
-  <details>
-  <summary>4 files</summary>
-
+- [ ] docs(agents): require refreshing README, AGENTS and CHANGELOG on every change
+  - `AGENTS.md`
+- [ ] docs(readme): document all adapters and design patterns
+  - `README.md`
+- [ ] fix(release): silence npm probe stderr in publish preflight
+  - `scripts/npm-publish.mjs`
+- [ ] chore(release): add npm publish preflight
   - `AGENTS.md`
   - `CONTRIBUTING.md`
   - `package.json`
   - `scripts/npm-publish.mjs`
 
-  </details>
-
 ## [6.7.2] - 2026-10-04
 
-### Fixed
+What's news:
 
-- **dom:** restore useRemove and add DOM service tests
-  <details>
-  <summary>2 files</summary>
-
+- [ ] fix(dom): restore useRemove and add DOM service tests
   - `src/infrastructure/dom/dom.service.ts`
   - `tests/dom.service.test.ts`
-
-  </details>
-
-### Changed
-
-- **http:** remove unused resolveEnv helper — `src/core/services/http.service.ts`
-
-### Documentation
-
-- **changelog:** fix 6.6.6 entry and regenerate 6.7.0/6.7.1 sections — `CHANGELOG.md`
-
-### Chores
-
-- drop .zcodeignore — `.zcodeignore`
-- **release:** sync version references to 6.7.1
-  <details>
-  <summary>5 files</summary>
-
+- [ ] chore: drop .zcodeignore
+  - `.zcodeignore`
+- [ ] refactor(http): remove unused resolveEnv helper
+  - `src/core/services/http.service.ts`
+- [ ] chore(release): sync version references to 6.7.1
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
 
-  </details>
-
 ## [6.7.1] - 2026-10-04
 
-### Fixed
+What's news:
 
-- **prisma:** align orm-postgres with the CLI toolchain and regenerate the contract
-  <details>
-  <summary>9 files</summary>
-
+- [ ] fix(prisma): align orm-postgres with the CLI toolchain and regenerate the contract
   - `AGENTS.md`
   - `README.md`
   - `bun.lock`
@@ -86,119 +65,78 @@ All notable changes to this project are documented in this file.
   - `src/prisma/schema.d.ts`
   - `src/prisma/schema.json`
 
-  </details>
-
 ## [6.7.0] - 2026-10-04
 
-### Added
+What's news:
 
-- **docs:** generate per-page SEO metas with useSeoMeta
-  <details>
-  <summary>2 files</summary>
-
+- [ ] perf(docs): compact API sidebar and enable metaChunk
   - `AGENTS.md`
   - `docs/.vitepress/config.ts`
-
-  </details>
-
-### Changed
-
-- **docs:** compact API sidebar and enable metaChunk
-  <details>
-  <summary>2 files</summary>
-
+- [ ] feat(docs): generate per-page SEO metas with useSeoMeta
   - `AGENTS.md`
   - `docs/.vitepress/config.ts`
-
-  </details>
-
-### Chores
-
-- **deps:** update dependencies
-  <details>
-  <summary>2 files</summary>
-
+- [ ] chore(deps): update dependencies
   - `bun.lock`
   - `package.json`
 
-  </details>
-
 ## [6.6.6] - 2026-10-04
 
-### Changed
-- Generate release notes with typed sections and per-file details, sync version references, and document the release workflow (`AGENTS.md`, `CONTRIBUTING.md`).
+What's news:
+
+- [ ] docs(AGENTS.md): update documentation in 10 files
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `scripts/generate-release-notes.mjs`
 
 ## [6.6.5] - 2026-10-04
 
-### Documentation
+What's news:
 
-- **.vitepress:** update documentation in 4 files
-  <details>
-  <summary>4 files</summary>
-
+- [ ] docs(.vitepress): update documentation in 4 files
   - `docs/.vitepress/config.ts`
   - `docs/public/images/hero-logo.avif`
   - `src/core/services/http.service.ts`
   - `src/infrastructure/dom/dom.service.ts`
 
-  </details>
-
 ## [6.6.4] - 2026-10-04
 
-### Documentation
+What's news:
 
-- **README.md:** update documentation in 5 files
-  <details>
-  <summary>5 files</summary>
-
+- [ ] docs(README.md): update documentation in 5 files
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
 
 ## [6.6.3] - 2026-10-04
 
-### Documentation
+What's news:
 
-- **AGENTS.md:** update documentation in 2 files
-  <details>
-  <summary>2 files</summary>
-
+- [ ] docs(AGENTS.md): update documentation in 2 files
   - `AGENTS.md`
   - `package.json`
-
-  </details>
-- docs guidelines and scripts on package.json updated
-  <details>
-  <summary>5 files</summary>
-
+- [ ] docs: docs guidelines and scripts on package.json updated
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
 
-  </details>
-
 ## [6.6.2] - 2026-10-04
 
-### Documentation
+What's news:
 
-- **AGENTS.md:** update documentation in 2 files
-  <details>
-  <summary>2 files</summary>
-
+- [ ] docs(AGENTS.md): update documentation in 2 files
   - `AGENTS.md`
   - `package.json`
-
-  </details>
-- **README.md:** update documentation in 7 files
-  <details>
-  <summary>7 files</summary>
-
+- [ ] docs(README.md): update documentation in 7 files
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
@@ -207,42 +145,29 @@ All notable changes to this project are documented in this file.
   - `tsconfig.examples.json`
   - `tsconfig.examples.solid.json`
 
-  </details>
-
 ## [6.6.1] - 2026-10-04
 
-### Documentation
+What's news:
 
-- **AGENTS.md:** update documentation in 6 files
-  <details>
-  <summary>6 files</summary>
-
+- [ ] docs(AGENTS.md): update documentation in 6 files
   - `AGENTS.md`
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
 
 ## [6.6.0] - 2026-10-04
 
-### Documentation
+What's news:
 
-- **AGENTS.md:** update documentation in 7 files
-  <details>
-  <summary>7 files</summary>
-
+- [ ] docs(AGENTS.md): update documentation in 7 files
   - `AGENTS.md`
-  - `CHANGELOG.md`
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
 
 ## [6.5.1] - 2026-10-04
 
@@ -257,12 +182,25 @@ All notable changes to this project are documented in this file.
 
 ## [6.5.0] - 2026-10-04
 
-### Added
+What's news:
 
-- **core:** migrate services and adapters to singleton classes
-  <details>
-  <summary>26 files</summary>
-
+- [ ] refactor: move CI release workflows and release notes to docs
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `RELEASE-DRAFT.md`
+  - `docs/guides/architecture.md`
+  - `docs/release-draft-patterns.md`
+  - `src/infrastructure/decorators/cache.decorator.ts`
+  - `src/infrastructure/decorators/logger.decorator.ts`
+  - `src/infrastructure/decorators/retry.decorator.ts`
+  - `tsconfig.json`
+- [ ] docs(.gitignore): update documentation in 2 files
+  - `.gitignore`
+  - `docs/release-draft-patterns.md`
+- [ ] feat(core): migrate services and adapters to singleton classes
   - `.zcodeignore`
   - `README.md`
   - `docs/guides/architecture.md`
@@ -290,66 +228,23 @@ All notable changes to this project are documented in this file.
   - `src/infrastructure/decorators/retry.decorator.ts`
   - `src/infrastructure/index.ts`
 
-  </details>
-
-### Changed
-
-- move CI release workflows and release notes to docs
-  <details>
-  <summary>12 files</summary>
-
-  - `.github/workflows/ci.yml`
-  - `.github/workflows/release.yml`
-  - `AGENTS.md`
-  - `CONTRIBUTING.md`
-  - `README.md`
-  - `RELEASE-DRAFT.md`
-  - `docs/guides/architecture.md`
-  - `docs/release-draft-patterns.md`
-  - `src/infrastructure/decorators/cache.decorator.ts`
-  - `src/infrastructure/decorators/logger.decorator.ts`
-  - `src/infrastructure/decorators/retry.decorator.ts`
-  - `tsconfig.json`
-
-  </details>
-
-### Documentation
-
-- **.gitignore:** update documentation in 2 files
-  <details>
-  <summary>2 files</summary>
-
-  - `.gitignore`
-  - `docs/release-draft-patterns.md`
-
-  </details>
-
 ## [6.4.6] - 2026-10-03
 
-### Documentation
+What's news:
 
-- **README.md:** update documentation in 5 files
-  <details>
-  <summary>5 files</summary>
-
+- [ ] docs(README.md): update documentation in 5 files
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
 
-  </details>
-
 ## [6.4.5] - 2026-10-03
 
-### Documentation
+What's news:
 
-- **AGENTS.md:** update documentation in 674 files
-  <details>
-  <summary>674 files</summary>
-
+- [ ] docs(AGENTS.md): update documentation in 674 files
   - `AGENTS.md`
-  - `CHANGELOG.md`
   - `CONTRIBUTING.md`
   - `README.md`
   - `bun.lock`
@@ -1023,98 +918,29 @@ All notable changes to this project are documented in this file.
   - `scss/demo.scss`
   - `scss/main.scss`
 
-  </details>
-
 ## [6.4.4] - 2026-10-03
 
-### Documentation
+What's news:
 
-- **README.md:** update documentation in 5 files
-  <details>
-  <summary>5 files</summary>
-
+- [ ] docs(README.md): update documentation in 5 files
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
 
 ## [6.4.3] - 2026-10-03
 
-### Added
+What's news:
 
-- **docs:** resolve panel emojis from scope and keywords — `scripts/docs-prepare.mjs`
-- **adapters:** add Better Auth adapter with Safe Result helpers
-  <details>
-  <summary>7 files</summary>
-
-  - `bun.lock`
-  - `package.json`
-  - `src/adapters/better-auth/better-auth.service.ts`
-  - `src/adapters/better-auth/client.ts`
-  - `src/adapters/better-auth/index.ts`
-  - `src/adapters/index.ts`
-  - `tests/better-auth.service.test.ts`
-
-  </details>
-- **docs:** summarize the last 6 releases in the what's-new panel
-  <details>
-  <summary>4 files</summary>
-
-  - `docs/.vitepress/theme/components/WhatNew.vue`
-  - `docs/.vitepress/theme/signals.ts`
-  - `docs/.vitepress/theme/style.css`
-  - `scripts/docs-prepare.mjs`
-
-  </details>
-- **adapters:** add PhotoSwipe adapter with DOM-selector options
-  <details>
-  <summary>6 files</summary>
-
-  - `bun.lock`
-  - `package.json`
-  - `src/adapters/index.ts`
-  - `src/adapters/photoswipe/index.ts`
-  - `src/adapters/photoswipe/photoswipe.service.ts`
-  - `tests/photoswipe.service.test.ts`
-
-  </details>
-
-### Documentation
-
-- document the new adapters and refresh stale command references
-  <details>
-  <summary>10 files</summary>
-
-  - `AGENTS.md`
-  - `CONTRIBUTING.md`
-  - `README.md`
-  - `docs/.vitepress/config.ts`
-  - `docs/guides/architecture.md`
-  - `docs/guides/better-auth.md`
-  - `docs/guides/filesystem.md`
-  - `docs/guides/getting-started.md`
-  - `docs/guides/roadmap.md`
-  - `docs/index.md`
-
-  </details>
-- **guides:** document the PhotoSwipe adapter
-  <details>
-  <summary>2 files</summary>
-
-  - `docs/.vitepress/config.ts`
-  - `docs/guides/photoswipe.md`
-
-  </details>
-
-### CI
-
-- **workflows:** update pipeline configuration in 22 files
-  <details>
-  <summary>22 files</summary>
-
+- [ ] chore(repo): restore CI workflows, husky pre-commit and editor settings
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `.vscode/extensions.json`
+  - `.vscode/settings.json`
+- [ ] ci(workflows): update pipeline configuration in 22 files
   - `.github/workflows/ci.yml`
   - `.github/workflows/release.yml`
   - `.gitignore`
@@ -1137,98 +963,48 @@ All notable changes to this project are documented in this file.
   - `docs/public/hyperui/neobrutalism/buttons/1.html`
   - `docs/ui-kit/hyperui.md`
   - `package.json`
-
-  </details>
-
-### Chores
-
-- **repo:** restore CI workflows, husky pre-commit and editor settings
-  <details>
-  <summary>6 files</summary>
-
-  - `.github/workflows/ci.yml`
-  - `.github/workflows/release.yml`
-  - `.gitignore`
-  - `.husky/pre-commit`
-  - `.vscode/extensions.json`
-  - `.vscode/settings.json`
-
-  </details>
+- [ ] docs: document the new adapters and refresh stale command references
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/architecture.md`
+  - `docs/guides/better-auth.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/index.md`
+- [ ] feat(docs): resolve panel emojis from scope and keywords
+  - `scripts/docs-prepare.mjs`
+- [ ] feat(adapters): add Better Auth adapter with Safe Result helpers
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/better-auth/better-auth.service.ts`
+  - `src/adapters/better-auth/client.ts`
+  - `src/adapters/better-auth/index.ts`
+  - `src/adapters/index.ts`
+  - `tests/better-auth.service.test.ts`
+- [ ] feat(docs): summarize the last 6 releases in the what's-new panel
+  - `docs/.vitepress/theme/components/WhatNew.vue`
+  - `docs/.vitepress/theme/signals.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `scripts/docs-prepare.mjs`
+- [ ] docs(guides): document the PhotoSwipe adapter
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/photoswipe.md`
+- [ ] feat(adapters): add PhotoSwipe adapter with DOM-selector options
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/index.ts`
+  - `src/adapters/photoswipe/index.ts`
+  - `src/adapters/photoswipe/photoswipe.service.ts`
+  - `tests/photoswipe.service.test.ts`
 
 ## [6.4.2] - 2026-10-03
 
-### Added
+What's news:
 
-- **docs:** resolve panel emojis from scope and keywords — `scripts/docs-prepare.mjs`
-- **adapters:** add Better Auth adapter with Safe Result helpers
-  <details>
-  <summary>7 files</summary>
-
-  - `bun.lock`
-  - `package.json`
-  - `src/adapters/better-auth/better-auth.service.ts`
-  - `src/adapters/better-auth/client.ts`
-  - `src/adapters/better-auth/index.ts`
-  - `src/adapters/index.ts`
-  - `tests/better-auth.service.test.ts`
-
-  </details>
-- **docs:** summarize the last 6 releases in the what's-new panel
-  <details>
-  <summary>4 files</summary>
-
-  - `docs/.vitepress/theme/components/WhatNew.vue`
-  - `docs/.vitepress/theme/signals.ts`
-  - `docs/.vitepress/theme/style.css`
-  - `scripts/docs-prepare.mjs`
-
-  </details>
-- **adapters:** add PhotoSwipe adapter with DOM-selector options
-  <details>
-  <summary>6 files</summary>
-
-  - `bun.lock`
-  - `package.json`
-  - `src/adapters/index.ts`
-  - `src/adapters/photoswipe/index.ts`
-  - `src/adapters/photoswipe/photoswipe.service.ts`
-  - `tests/photoswipe.service.test.ts`
-
-  </details>
-
-### Documentation
-
-- document the new adapters and refresh stale command references
-  <details>
-  <summary>10 files</summary>
-
-  - `AGENTS.md`
-  - `CONTRIBUTING.md`
-  - `README.md`
-  - `docs/.vitepress/config.ts`
-  - `docs/guides/architecture.md`
-  - `docs/guides/better-auth.md`
-  - `docs/guides/filesystem.md`
-  - `docs/guides/getting-started.md`
-  - `docs/guides/roadmap.md`
-  - `docs/index.md`
-
-  </details>
-- **guides:** document the PhotoSwipe adapter
-  <details>
-  <summary>2 files</summary>
-
-  - `docs/.vitepress/config.ts`
-  - `docs/guides/photoswipe.md`
-
-  </details>
-
-### CI
-
-- **workflows:** update pipeline configuration in 22 files
-  <details>
-  <summary>22 files</summary>
-
+- [ ] ci(workflows): update pipeline configuration in 22 files
   - `.github/workflows/ci.yml`
   - `.github/workflows/release.yml`
   - `.gitignore`
@@ -1251,23 +1027,68 @@ All notable changes to this project are documented in this file.
   - `docs/public/hyperui/neobrutalism/buttons/1.html`
   - `docs/ui-kit/hyperui.md`
   - `package.json`
-
-  </details>
+- [ ] docs: document the new adapters and refresh stale command references
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/architecture.md`
+  - `docs/guides/better-auth.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/index.md`
+- [ ] feat(docs): resolve panel emojis from scope and keywords
+  - `scripts/docs-prepare.mjs`
+- [ ] feat(adapters): add Better Auth adapter with Safe Result helpers
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/better-auth/better-auth.service.ts`
+  - `src/adapters/better-auth/client.ts`
+  - `src/adapters/better-auth/index.ts`
+  - `src/adapters/index.ts`
+  - `tests/better-auth.service.test.ts`
+- [ ] feat(docs): summarize the last 6 releases in the what's-new panel
+  - `docs/.vitepress/theme/components/WhatNew.vue`
+  - `docs/.vitepress/theme/signals.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `scripts/docs-prepare.mjs`
+- [ ] docs(guides): document the PhotoSwipe adapter
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/photoswipe.md`
+- [ ] feat(adapters): add PhotoSwipe adapter with DOM-selector options
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/index.ts`
+  - `src/adapters/photoswipe/index.ts`
+  - `src/adapters/photoswipe/photoswipe.service.ts`
+  - `tests/photoswipe.service.test.ts`
 
 ## [6.4.1] - 2026-10-03
 
-### Build
+What's news:
 
-- **bun.lock:** update dependencies or build settings in bun.lock — `bun.lock`
+- [ ] build(bun.lock): update dependencies or build settings in bun.lock
+  - `bun.lock`
 
 ## [6.4.0] - 2026-10-03
 
-### Added
+What's news:
 
-- **docs:** navbar stars, version pill, new badges and what's-new panel
-  <details>
-  <summary>11 files</summary>
-
+- [ ] chore(release): sync version refs to v6.3.1
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+- [ ] chore(scripts): unify dev, build and docs behind pre/post lifecycle hooks
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `docs/guides/architecture.md`
+  - `package.json`
+  - `scripts/docs.mjs`
+  - `scripts/setup-cloudflare.mjs`
+- [ ] chore(changelog): repair shell-quoting artifacts in release sections
+- [ ] feat(docs): navbar stars, version pill, new badges and what's-new panel
   - `.gitignore`
   - `docs/.vitepress/config.ts`
   - `docs/.vitepress/theme/Layout.vue`
@@ -1279,132 +1100,74 @@ All notable changes to this project are documented in this file.
   - `docs/.vitepress/theme/signals.ts`
   - `docs/.vitepress/theme/style.css`
   - `scripts/docs-prepare.mjs`
-
-  </details>
-
-### Documentation
-
-- **api:** drop @deprecated symbols from the API reference
-  <details>
-  <summary>3 files</summary>
-
+- [ ] docs(api): drop @deprecated symbols from the API reference
   - `scripts/typedoc-drop-deprecated.mjs`
   - `src/config/seo.service.ts`
   - `typedoc.json`
 
-  </details>
-
-### Chores
-
-- **release:** sync version refs to v6.3.1
-  <details>
-  <summary>4 files</summary>
-
-  - `README.md`
-  - `docs/guides/filesystem.md`
-  - `docs/guides/getting-started.md`
-  - `docs/guides/roadmap.md`
-
-  </details>
-- **scripts:** unify dev, build and docs behind pre/post lifecycle hooks
-  <details>
-  <summary>6 files</summary>
-
-  - `AGENTS.md`
-  - `CONTRIBUTING.md`
-  - `docs/guides/architecture.md`
-  - `package.json`
-  - `scripts/docs.mjs`
-  - `scripts/setup-cloudflare.mjs`
-
-  </details>
-- **changelog:** repair shell-quoting artifacts in release sections — `CHANGELOG.md`
-
 ## [6.3.1] - 2026-10-03
 
-### Documentation
+What's news:
 
-- **README.md:** update documentation in 5 files
-  <details>
-  <summary>5 files</summary>
-
+- [ ] docs(README.md): update documentation in 5 files
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
 
 ## [6.3.0] - 2026-10-03
 
-### Documentation
+What's news:
 
-- **.vitepress:** keep a single UI Kit nav entry — `docs/.vitepress/config.ts`
-- **agents:** document the lint gate and flat-config rule — `AGENTS.md`
-
-### Chores
-
-- **release:** sync version refs to v6.2.0
-  <details>
-  <summary>5 files</summary>
-
+- [ ] docs(.vitepress): keep a single UI Kit nav entry
+  - `docs/.vitepress/config.ts`
+- [ ] docs(agents): document the lint gate and flat-config rule
+  - `AGENTS.md`
+- [ ] chore(release): sync version refs to v6.2.0
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
-- **tooling:** gate commits with husky and lint-staged
-  <details>
-  <summary>4 files</summary>
-
+- [ ] chore(tooling): gate commits with husky and lint-staged
   - `.gitignore`
   - `.husky/pre-commit`
   - `bun.lock`
   - `package.json`
 
-  </details>
-
 ## [6.2.0] - 2026-10-03
 
-### Documentation
+What's news:
 
-- **.vitepress:** merge UI Kit and katanakit-css into one nav dropdown — `docs/.vitepress/config.ts`
-
-### CI
-
-- **release:** drop the dist-tag job OIDC cannot authenticate — `.github/workflows/release.yml`
-- **release:** add a remove-dist-tag maintenance job — `.github/workflows/release.yml`
-- **release:** retry backfill publishes without provenance on tlog conflicts — `.github/workflows/release.yml`
-- **release:** normalize legacy package metadata for backfill publishes — `.github/workflows/release.yml`
-- **release:** unblock backfill publishes on legacy tags — `.github/workflows/release.yml`
-- **release:** pin backfill publishes to the tag name — `.github/workflows/release.yml`
-- **release:** backfill an existing tag through the publish-tag input — `.github/workflows/release.yml`
-
-### Chores
-
-- **release:** sync version refs to v6.1.0
-  <details>
-  <summary>5 files</summary>
-
+- [ ] ci(release): drop the dist-tag job OIDC cannot authenticate
+  - `.github/workflows/release.yml`
+- [ ] ci(release): add a remove-dist-tag maintenance job
+  - `.github/workflows/release.yml`
+- [ ] ci(release): retry backfill publishes without provenance on tlog conflicts
+  - `.github/workflows/release.yml`
+- [ ] ci(release): normalize legacy package metadata for backfill publishes
+  - `.github/workflows/release.yml`
+- [ ] ci(release): unblock backfill publishes on legacy tags
+  - `.github/workflows/release.yml`
+- [ ] ci(release): pin backfill publishes to the tag name
+  - `.github/workflows/release.yml`
+- [ ] ci(release): backfill an existing tag through the publish-tag input
+  - `.github/workflows/release.yml`
+- [ ] chore(release): sync version refs to v6.1.0
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
+- [ ] docs(.vitepress): merge UI Kit and katanakit-css into one nav dropdown
+  - `docs/.vitepress/config.ts`
 
 ## [6.1.0] - 2026-10-03
 
-### Documentation
+What's news:
 
-- **guides:** add per-major upgrade guides
-  <details>
-  <summary>7 files</summary>
-
+- [ ] docs(guides): add per-major upgrade guides
   - `docs/.vitepress/config.ts`
   - `docs/guides/upgrade-to/index.md`
   - `docs/guides/upgrade-to/v2.md`
@@ -1412,14 +1175,8 @@ All notable changes to this project are documented in this file.
   - `docs/guides/upgrade-to/v4.md`
   - `docs/guides/upgrade-to/v5.md`
   - `docs/guides/upgrade-to/v6.md`
-
-  </details>
-- **CHANGELOG:** add missing 6.0.5 release entry — `CHANGELOG.md`
-- **CHANGELOG.md:** update documentation in 8 files
-  <details>
-  <summary>8 files</summary>
-
-  - `CHANGELOG.md`
+- [ ] docs(CHANGELOG): add missing 6.0.5 release entry
+- [ ] docs(CHANGELOG.md): update documentation in 8 files
   - `README.md`
   - `docs/.vitepress/config.ts`
   - `docs/guides/filesystem.md`
@@ -1428,27 +1185,17 @@ All notable changes to this project are documented in this file.
   - `docs/index.md`
   - `package.json`
 
-  </details>
-
 ## [6.0.6] - 2026-09-27
 
-### Documentation
+What's news:
 
-- **README.md:** update documentation in 5 files
-  <details>
-  <summary>5 files</summary>
-
+- [ ] docs(README.md): update documentation in 5 files
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
-
-  </details>
-- **.vitepress:** update documentation in 39 files
-  <details>
-  <summary>39 files</summary>
-
+- [ ] docs(.vitepress): update documentation in 39 files
   - `docs/.vitepress/config.ts`
   - `docs/ui-kit/css/core/apply.md`
   - `docs/ui-kit/css/core/breakpoints.md`
@@ -1489,35 +1236,23 @@ All notable changes to this project are documented in this file.
   - `docs/ui-kit/css/utilities/visibility.md`
   - `docs/ui-kit/index.md`
 
-  </details>
-
 ## [6.0.5] - 2026-09-27
 
-### Documentation
+What's news:
 
-- **CHANGELOG.md:** update documentation in 6 files
-  <details>
-  <summary>6 files</summary>
-
-  - `CHANGELOG.md`
+- [ ] docs(CHANGELOG.md): update documentation in 6 files
   - `README.md`
   - `docs/guides/filesystem.md`
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
 
-  </details>
-
 ## [6.0.4] - 2026-09-27
 
-### Documentation
+What's news:
 
-- **AGENTS.md:** update documentation in 10 files
-  <details>
-  <summary>10 files</summary>
-
+- [ ] docs(AGENTS.md): update documentation in 10 files
   - `AGENTS.md`
-  - `CHANGELOG.md`
   - `CONTRIBUTING.md`
   - `README.md`
   - `docs/guides/architecture.md`
@@ -1527,136 +1262,562 @@ All notable changes to this project are documented in this file.
   - `package.json`
   - `scripts/generate-release-notes.mjs`
 
-  </details>
-
 ## [6.0.3] - 2026-09-27
 
-### Changed
+What's news:
 
-- **Release pipeline simplified** — `scripts/bump-version.mjs` and the `bump:patch|minor|major|sync` scripts are gone. Versioning is plain `npm version`, and `generate-release-notes.mjs` now carries the two things the old script did: `--write` inserts the `[X.Y.Z] - date` section from the commits since the previous tag, and `--sync-versions` refreshes every version pinned in prose.
-- **`bun run build` refreshes every version reference** — it ends in `--sync-versions`, so `package.json`, the CDN pins in the README and Getting Started, the roadmap heading and the filesystem guide always name the newest tag. The call is idempotent: unchanged files are not rewritten.
-- **`release:minor` and `release:major` removed** — `useGit release create` already computes the bump level from Conventional Commits, so one `release` script (build → changelog → publish) covers the whole path.
-- **`release.yml` rebuilt on `npm version`** — the workflow no longer needs the deleted script; it versions, writes the changelog, publishes with OIDC and creates the GitHub release.
-- **`.github/workflows/deploy.yml` untracked** — it kept failing with `Deploy failed`. Docs deploy locally with `bun run cf:deploy`; `ci.yml` and `release.yml` stay.
+- [ ] docs(CHANGELOG.md): update documentation in CHANGELOG.md
+- [ ] ci(workflows): update pipeline configuration in 13 files
+  - `.github/workflows/deploy.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `scripts/bump-version.mjs`
+  - `scripts/generate-release-notes.mjs`
 
 ## [6.0.2] - 2026-09-27
 
-### Added
+What's news:
 
-- **`dummyJsonApiConfig`** — the dummyjson.com API definition exported as plain data, so importing the module runs nothing. Register it with `defineApiConfig(dummyJsonApiConfig)` before any `useDummyJson*` handler.
-
-### Breaking
-
-- **`useInitDummyJson()` removed** — it took no arguments and did exactly one thing: call `useInitApis` with a fixed preset. A function you configure by calling it with nothing was noise, and it delegated to an already-deprecated API. The definition is now data you pass to `defineApiConfig`, which is the pattern the rest of the library uses:
-
-  ```ts
-  import { defineApiConfig } from "katanakit-js";
-  import { dummyJsonApiConfig, useDummyJsonProducts } from "katanakit-js/adapters/bun";
-
-  defineApiConfig(dummyJsonApiConfig);
-  ```
-
-  Migration is a rename: `useInitDummyJson()` → `defineApiConfig(dummyJsonApiConfig)`. Updated in `src/adapters/bun/main.ts`, `server.ts` JSDoc, `tests/bun.adapter.test.ts` and the Bun adapter guide.
+- [ ] docs(CHANGELOG.md): update documentation in 6 files
+  - `docs/guides/bun-adapter.md`
+  - `src/adapters/bun/dummyjson.service.ts`
+  - `src/adapters/bun/main.ts`
+  - `src/adapters/bun/server.ts`
+  - `tests/bun.adapter.test.ts`
 
 ## [6.0.1] - 2026-09-27
 
-### Added
+What's news:
 
-- **`useFetch` takes URL options at the top level** — `params`, `query` and `ignoreDefaultQuery` now sit next to `method`/`headers`/`body`, the same shape as `useGet`, `useRequest` and Nuxt's `useFetch`, so nothing has to be nested:
-
-  ```ts
-  useFetch("api", "byId", { method: "GET", params: { id: 25 }, query: { limit: 2 } });
-  ```
-
-  The old `urlOptions: { … }` nest keeps working; when both are given the flat keys override it **key by key**, so a flat `params` and a legacy `query` combine instead of one replacing the other. `FetchOptions` did gain a type parameter for `transform`: it defaults to `any` (not `unknown`) precisely so a bare `FetchOptions` — or one stored in a variable and passed through a wrapper — stays assignable to `FetchOptions<T>` and existing callers keep compiling.
-
-- **`useFetch` `transform` option** — maps the parsed response body to `T` before it is returned (`(input) => T | Promise<T>`). It runs on successful responses only, and a failing transform comes back as a `Transform Error` Safe Result instead of escaping `useFetch`, so the never-throws contract holds.
-
-### Changed
-
-- **`FetchOptions.urlOptions` deprecated** — pass `params`/`query`/`ignoreDefaultQuery` at the top level instead. The nest is now only a compatibility shim and is scheduled for removal in the next major; every call site inside the library (adapters, DummyJson, `useGet`/`usePost`/…) already uses the flat form.
-
-- **`useBuildApiUrl` deprecated in favour of `useBuildUrl`** — it was a behaviourally identical wrapper with zero real usage, and the Getting Started guide had its deprecation comment backwards (it marked `useBuildUrl` as legacy while the README, the examples and all three tests use it). The guide now teaches `useBuildUrl`, and its JSDoc was rewritten to lead with the answer to *when do I use this*: it is `useFetch` minus the fetch — same registry, same `:param` and `query` handling, but it returns a string instead of requesting. It also documents why it throws rather than returning a Safe Result (it is synchronous and never leaves the process).
+- [ ] test(tests): add test coverage for 4 files
+  - `tests/angular.fetch.test.ts`
+  - `tests/react.fetch.test.ts`
+  - `tests/solid.fetch.test.ts`
+  - `tests/svelte.fetch.test.ts`
+- [ ] docs(CHANGELOG.md): update documentation in 6 files
+  - `docs/guides/getting-started.md`
+  - `src/core/services/http.service.ts`
+  - `src/types/index.ts`
+  - `tests/http.service.test.ts`
+  - `tests/vue.service.test.ts`
+- [ ] docs(CHANGELOG.md): update documentation in 14 files
+  - `README.md`
+  - `docs/guides/getting-started.md`
+  - `examples/query/README.md`
+  - `src/adapters/angular/fetch.ts`
+  - `src/adapters/bun/dummyjson.service.ts`
+  - `src/adapters/react/fetch.ts`
+  - `src/adapters/solid/fetch.ts`
+  - `src/adapters/svelte/fetch.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/types/index.ts`
+  - `tests/http.service.test.ts`
 
 ## [6.0.0] - 2026-09-27
 
-### Added
+What's news:
 
-- **`define*Config` config-file entry points** — every service that takes configuration can now be declared in one call that registers it and hands it back, Nuxt/Astro `defineNuxtConfig`-style, with no second `useInit*` step:
-
-  ```ts
-  // katanakit.config.ts
-  export default defineApiConfig({
-    pokeapi: { baseUri: "…", endpoints: { users: "/users" } }, // props
-    debug: true, // booleans
-    getPokemon: async function () {
-      // methods — `function`, never arrows
-      return useFetch("pokeapi", "byId", { params: { id: 25 } });
-    },
-  });
-  ```
-
-  The call returns a facade — `config` carries the props and flags, and your methods sit next to it, so `import api from "./katanakit.config.js"` registers the config on import and `await api.getPokemon()` chains your methods. Inside them `this.config` resolves to the same object (declare them with `function`: arrow functions have no `this`, and TypeScript reports it).
-
-  - `defineApiConfig` (main barrel), `defineNotionConfig`, `defineWordPressConfig`, `defineInsforgeConfig` also accept consumer-declared methods.
-  - `defineTelegramConfig`, `defineWhatsAppConfig` are config-only: they accept their config type and nothing else, so a method there is a compile error.
-  - For `defineApiConfig` only entries shaped like `{ baseUri, endpoints }` reach the registry — boolean flags stay on `config` for your methods to read, and any other object throws a typed error instead of registering garbage.
-  - Shared types `ConfigFacade`/`ConfigData`/`ConfigMethod`/`ConfigValues`/`ApiConfigValue` and the runtime helper `useSplitConfig` live in `src/types/index.ts` and `src/core/services/utils.service.ts`. No new files were added; each `define*Config` sits next to the `useInit*` it replaces.
-
-### Breaking
-
-- **`useInit*` replaced by `define*Config` as the public configuration API** — this is the 5.2.0 → 6.0.0 jump. Every config entry point (`useInit`, `useInitApis`, `useInitNotion`, `useInitWordPress`, `useInitTelegram`, `useInitWhatsApp`, `useInitInsforge`) now has a `define*Config` counterpart that registers the config **and** returns it in one call, so a whole file can be `export default define*Config({ … })` with no second step.
-
-  The old names are still exported and marked `@deprecated`, so existing call sites keep compiling — but they are no longer the documented API, and their "not configured" errors now point at the `define*Config` replacement. Code written against 5.2.x should move to `define*Config` before the aliases are removed in the next major.
-
-  - `IFetchApiManager`, `INotionService` and `IWordPressService` carry the same `@deprecated` marks on their `useInit*` members.
+- [ ] docs(CHANGELOG.md): update documentation in 52 files
+  - `README.md`
+  - `docs/guides/framework-adapters.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/query-client.md`
+  - `docs/index.md`
+  - `examples/api-manager/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/query/angular.ts`
+  - `examples/query/react.tsx`
+  - `examples/query/solid.tsx`
+  - `examples/query/svelte.svelte`
+  - `examples/query/vue.vue`
+  - `examples/vue/demo.ts`
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `src/adapters/insforge/index.ts`
+  - `src/adapters/insforge/insforge.service.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/telegram/index.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/whatsapp/index.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/types/index.ts`
+  - `tests/http.service.test.ts`
+  - `tests/insforge.service.test.ts`
+  - `tests/notion.service.test.ts`
+  - `tests/telegram.service.test.ts`
+  - `tests/whatsapp.service.test.ts`
+  - `tests/wordpress.service.test.ts`
+- [ ] docs: fix stale docs, MkDocs leftovers and UI kit coherence
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/index.md`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/components/alert.md`
+  - `docs/ui-kit/components/badge.md`
+  - `docs/ui-kit/components/button.md`
+  - `docs/ui-kit/components/card.md`
+  - `docs/ui-kit/components/input.md`
+  - `docs/ui-kit/index.md`
+  - `docs/ui-kit/roadmap.md`
+  - `packages/ui/README.md`
+- [ ] docs(agents): document working OIDC trusted publishing and drop suspended-account notes
+  - `AGENTS.md`
 
 ## [5.2.0] - 2026-09-26
 
-### Added
+What's news:
 
-- **File hash helpers** (`useHashFile`, `useVerifyFileHash`) — streaming md5/sha1/sha256/sha512 checksums with Safe Results, plus the Zod-inferred `FileHashAlgorithm` type.
-- **Safe Result helpers** — generic `SafeResult<T, E>` type (now the base of `FilesystemResult`, `AstroServiceResult`, `AiResult` and `RssResult`), plus `useAttempt()` (runs sync/async operations and normalizes any throw into `{ data, error, ok }`; its error mapper defaults to `useErrorNormalize()`), `useTryJsonParse()` (non-throwing JSON) and `useErrorNormalize()` (coerces SDK errors, `Error` instances and strings into `ApiError`, reading `message`/`status`/`statusCode`/`details`). Ad-hoc `try/catch` was removed or centralized across the library: the nested storage `getItem` guard, the duplicated HTTP body reader, the dead guards in reactive storage signals, the Notion config throw (now a null-config Safe Result), all ten InsForge boundaries (collapsed into a single internal `run()` helper) and the Notion/WordPress fetch boundaries (now `useAttempt` + one local `apiError()` helper each). Guarded error payloads: HTTP error bodies are capped at 32 KB, string error `details` at 2000 chars, JSON-parse messages at 300, and InsForge only exposes a sanitized `{ name, message, statusCode }` clone instead of the live SDK error object.
-- **Docs build hardening** — new `scripts/docs.mjs` runner (`docs:dev`/`docs:build`/`docs:gh`/`docs:clean`) takes an exclusive lock in `.cache/docs.lock.json`, clears stale locks, purges `.vitepress/.temp` before builds and fails with actionable guidance when the VitePress dev server and a build would otherwise race over the shared temp directory (the old `Cannot find module '…/.vitepress/.temp/…'` failure). `docs:prepare` uses the local TypeDoc binary (no unpinned `bunx` download), validates the generated sidebar in its cache check and writes the changelog page atomically; `docs-publish` preflights the dist directory and distinguishes a missing `gh-pages` branch from auth failures. `.gitignore` now covers `.vitepress/.temp`, the stray root `.vitepress/`, `.codegraph/`, `.wrangler/` and `.dev.vars`.
-- **Error Handling guide** — new `docs/guides/errors.md` documenting the Safe Result contract, `useAttempt`/`useTryJsonParse`/`useErrorNormalize`, the normalization rules and when *not* to use them, linked from the sidebar, architecture, getting-started and the home page.
-- **Katana UI foundations (`@katanakit/ui`, private workspace)** — framework-agnostic `useButton`/`useButtonClass`, `useInput`, `useCard`, `useBadge` and `useAlert` (variants, sizes, loading state, accessible label/help/error wiring and dismissal) styled with `katanakit-css` tokens and `data-theme` dark mode. The package ships a self-contained `@katanakit/ui/styles.css` build, VitePress pages with live demos under UI Kit → Components, and jsdom tests. Not published to npm yet.
-
-### Changed
-
-- **Docs site migrated to VitePress** — sources live in `docs/` and are served at `docs.senseikatana.com/*` (old `/docs/*` links redirect via `_redirects`). The API reference is TypeDoc-generated (`docs/api/` + sidebar JSON) and the changelog page is materialized from `CHANGELOG.md` by `scripts/docs-prepare.mjs`, which skips TypeDoc when `src/` is unchanged. Pages keep YAML frontmatter (`title`, `description`) so Obsidian reads them as properties; JS/TS is embedded with `<script setup lang="ts">` (Vue-in-Markdown — VitePress has no MDX).
-- **Repository cleanup** — removed the `playground/` workspace, the intermediate MkDocs tooling (`mkdocs.yml`, `hooks/`, Python) and the stale `content/` tree; the repo now has a single docs site and no extra workspaces. Deploy, CI, `setup-cloudflare.mjs` and docs were updated accordingly; the manual `bun run docs:gh` command keeps an Action-free gh-pages preview.
+- [ ] chore(ci): bump GitHub Actions to current majors and wrangler to 4.141.0
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/deploy.yml`
+  - `.github/workflows/release.yml`
+  - `bun.lock`
+  - `package.json`
+- [ ] fix(docs,security,core): harden the docs build, error payloads and adapters
+  - `.gitignore`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/architecture.md`
+  - `docs/guides/errors.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/index.md`
+  - `package.json`
+  - `scripts/docs-prepare.mjs`
+  - `scripts/docs-publish.mjs`
+  - `scripts/docs.mjs`
+  - `src/adapters/insforge/insforge.service.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/result.service.ts`
+  - `src/infrastructure/filesystem/filesystem.service.ts`
+  - `src/schemas/filesystem.schema.ts`
+  - `src/types/index.ts`
+  - `tests/filesystem.service.test.ts`
+- [ ] refactor(core): add SafeResult helpers and remove ad-hoc try/catch
+  - `AGENTS.md`
+  - `src/adapters/insforge/insforge.service.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/core/index.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/result.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/types/index.ts`
+  - `tests/result.service.test.ts`
+  - `tests/storage.service.test.ts`
+- [ ] feat(ui): add @katanakit/ui foundations styled with katanakit-css
+  - `.gitignore`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/ui-kit/components/alert.md`
+  - `docs/ui-kit/components/badge.md`
+  - `docs/ui-kit/components/button.md`
+  - `docs/ui-kit/components/card.md`
+  - `docs/ui-kit/components/input.md`
+  - `docs/ui-kit/index.md`
+  - `package.json`
+  - `packages/ui/README.md`
+  - `packages/ui/package.json`
+  - `packages/ui/src/components/alert.ts`
+  - `packages/ui/src/components/badge.ts`
+  - `packages/ui/src/components/button.ts`
+  - `packages/ui/src/components/card.ts`
+  - `packages/ui/src/components/input.ts`
+  - `packages/ui/src/index.ts`
+  - `packages/ui/src/styles/index.scss`
+  - `packages/ui/tests/alert.test.ts`
+  - `packages/ui/tests/badge.test.ts`
+  - `packages/ui/tests/button.test.ts`
+  - `packages/ui/tests/card.test.ts`
+  - `packages/ui/tests/input.test.ts`
+  - `packages/ui/tsconfig.json`
+  - `vitest.config.ts`
+- [ ] fix(docs): publish gh-pages from a temp clone and keep the index clean
+  - `bun.lock`
+  - `docs/public/.gitignore`
+  - `package.json`
+  - `scripts/docs-publish.mjs`
+- [ ] fix(release,docs): keep CHANGELOG current and ship a warning-free VitePress build
+  - `AGENTS.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/getting-started.md`
+  - `docs/index.md`
+  - `docs/public/img/favicon.ico`
+  - `docs/public/img/logo.svg`
+  - `package.json`
+  - `scripts/bump-version.mjs`
+  - `scripts/docs-prepare.mjs`
+  - `typedoc.json`
+- [ ] docs(migration): replace MkDocs with VitePress and prune unused workspaces
+  - `.github/workflows/deploy.yml`
+  - `.gitignore`
+  - `.vscode/settings.json`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `bun.lock`
+  - `content/docs/changelog.md`
+  - `content/docs/guides/architecture.md`
+  - `content/docs/guides/bun-adapter.md`
+  - `content/docs/guides/faker.md`
+  - `content/docs/guides/filesystem.md`
+  - `content/docs/guides/framework-adapters.md`
+  - `content/docs/guides/getting-started.md`
+  - `content/docs/guides/query-client.md`
+  - `content/docs/guides/roadmap.md`
+  - `content/docs/guides/watch.md`
+  - `content/docs/index.md`
+  - `content/docs/ui-kit/architecture.md`
+  - `content/docs/ui-kit/index.md`
+  - `content/docs/ui-kit/inventory.md`
+  - `content/docs/ui-kit/llm-files.md`
+  - `content/docs/ui-kit/roadmap.md`
+  - `content/img/favicon.ico`
+  - `content/img/logo.svg`
+  - `content/index.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/architecture.md`
+  - `docs/guides/bun-adapter.md`
+  - `docs/guides/faker.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/framework-adapters.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/query-client.md`
+  - `docs/guides/roadmap.md`
+  - `docs/guides/watch.md`
+  - `docs/index.md`
+  - `docs/public/.nojekyll`
+  - `docs/public/_redirects`
+  - `docs/public/img/favicon.ico`
+  - `docs/public/img/logo.svg`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/index.md`
+  - `docs/ui-kit/inventory.md`
+  - `docs/ui-kit/llm-files.md`
+  - `docs/ui-kit/roadmap.md`
+  - `eslint.config.mjs`
+  - `hooks/__pycache__/generate_api.cpython-312.pyc`
+  - `hooks/generate_api.py`
+  - `mkdocs.yml`
+  - `package.json`
+  - `playground/index.html`
+  - `playground/package.json`
+  - `playground/src/App.vue`
+  - `playground/src/components/AppSidebar.vue`
+  - `playground/src/components/CodeBlock.vue`
+  - `playground/src/components/JsonViewer.vue`
+  - `playground/src/composables/usePlaygroundApis.ts`
+  - `playground/src/main.ts`
+  - `playground/src/router/index.ts`
+  - `playground/src/style.css`
+  - `playground/src/views/FetchView.vue`
+  - `playground/src/views/HomeView.vue`
+  - `playground/src/views/QueryView.vue`
+  - `playground/src/views/UrlBuilderView.vue`
+  - `playground/src/views/WatchView.vue`
+  - `playground/tsconfig.json`
+  - `playground/vite.config.ts`
+  - `playground/wrangler.jsonc`
+  - `scripts/docs-prepare.mjs`
+  - `scripts/setup-cloudflare.mjs`
+  - `typedoc.json`
+- [ ] docs(migration): replace Docusaurus with MkDocs Material
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/deploy.yml`
+  - `.gitignore`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `bun.lock`
+  - `content/docs/changelog.md`
+  - `content/docs/guides/architecture.md`
+  - `content/docs/guides/bun-adapter.md`
+  - `content/docs/guides/faker.md`
+  - `content/docs/guides/filesystem.md`
+  - `content/docs/guides/framework-adapters.md`
+  - `content/docs/guides/getting-started.md`
+  - `content/docs/guides/query-client.md`
+  - `content/docs/guides/roadmap.md`
+  - `content/docs/guides/watch.md`
+  - `content/docs/index.md`
+  - `content/docs/ui-kit/architecture.md`
+  - `content/docs/ui-kit/index.md`
+  - `content/docs/ui-kit/inventory.md`
+  - `content/docs/ui-kit/llm-files.md`
+  - `content/docs/ui-kit/roadmap.md`
+  - `content/img/favicon.ico`
+  - `content/img/logo.svg`
+  - `content/index.md`
+  - `docs/index.md`
+  - `eslint.config.mjs`
+  - `guides/.gitignore`
+  - `guides/README.md`
+  - `guides/content/changelog.md`
+  - `guides/content/guides/architecture.md`
+  - `guides/content/guides/bun-adapter.md`
+  - `guides/content/guides/framework-adapters.md`
+  - `guides/content/guides/getting-started.md`
+  - `guides/content/guides/query-client.md`
+  - `guides/content/guides/roadmap.md`
+  - `guides/content/guides/watch.md`
+  - `guides/content/ui-kit/architecture.md`
+  - `guides/content/ui-kit/index.md`
+  - `guides/content/ui-kit/inventory.md`
+  - `guides/content/ui-kit/llm-files.md`
+  - `guides/content/ui-kit/roadmap.md`
+  - `guides/docusaurus.config.ts`
+  - `guides/package.json`
+  - `guides/plugin-typedoc-escape.ts`
+  - `guides/sidebars.ts`
+  - `guides/src/components/HomepageFeatures.module.css`
+  - `guides/src/components/HomepageFeatures.tsx`
+  - `guides/src/components/HomepageFeatures/index.tsx`
+  - `guides/src/components/HomepageFeatures/styles.module.css`
+  - `guides/src/components/ReleaseHistory/index.tsx`
+  - `guides/src/components/ReleaseHistory/styles.module.css`
+  - `guides/src/css/custom.css`
+  - `guides/src/data/releases.ts`
+  - `guides/src/pages/index.module.css`
+  - `guides/src/pages/index.tsx`
+  - `guides/src/theme/ColorModeToggle/index.tsx`
+  - `guides/src/theme/ColorModeToggle/styles.module.css`
+  - `guides/src/theme/DebugGlobalData/index.tsx`
+  - `guides/static/.nojekyll`
+  - `guides/static/img/docusaurus-social-card.jpg`
+  - `guides/static/img/docusaurus.png`
+  - `guides/static/img/favicon.ico`
+  - `guides/static/img/logo.svg`
+  - `guides/static/img/undraw_docusaurus_mountain.svg`
+  - `guides/static/img/undraw_docusaurus_react.svg`
+  - `guides/static/img/undraw_docusaurus_tree.svg`
+  - `guides/tsconfig.json`
+  - `guides/wrangler.jsonc`
+  - `hooks/__pycache__/generate_api.cpython-312.pyc`
+  - `hooks/generate_api.py`
+  - `mkdocs.yml`
+  - `package.json`
+  - `scripts/bump-version.mjs`
+  - `scripts/setup-cloudflare.mjs`
+  - `scripts/sync-docs-releases.mjs`
+  - `tsconfig.json`
+  - `typedoc.json`
+  - `vitest.config.ts`
 
 ## [5.1.1] - 2026-09-26
 
-### Added
+What's news:
 
-- **Filesystem service (Node/Bun)** (`useReadFile`, `useReadFileBuffer`, `useWriteFile`, `useAppendFile`, `useReadJsonFile`, `useWriteJsonFile`, `useReadDir`, `useEnsureDir`, `useFileExists`, `useGetFileStats`, `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir`) plus path helpers (`useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`, `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode`) and module-relative readers (`useReadModuleFile`, `useReadModuleJson`, the `__dirname` pattern without `__dirname`). `node:fs/promises`/`node:path` load through dynamic `import()`, every fallible call returns a Safe Result with the native errno `code` (`ENOENT`, `EACCES`, …), and browsers/Workers get `ERR_FS_UNAVAILABLE` instead of a crash. `useReadJsonFile`/`useReadModuleJson` accept an optional Zod schema for boundary validation.
-- **Faker service** (`useFakeUuid`, `useFakeEmail`, `useFakeFullName`, `useFakeFirstName`, `useFakeLastName`, `useFakePhone`, `useFakeCompanyName`, `useFakeUrl`, `useFakeText`, `useFakeNumber`, `useFakeBoolean`, `useFakeDate`, `useFakeVehicle`, `useFakeList`, `useFakeSeed`, `useFakeSetDefaultRefDate`) — generic fake data for tests, seeds and forms. `useFakeSeed(seed?)` sets (or rolls and returns) a seed, `useFakeSetDefaultRefDate()` pins relative dates, and `useFakeList(factory, count)` passes the index for relations. `@faker-js/faker` is an **optional peer dependency** loaded through dynamic `import()`, so it never enters the initial bundle.
+- [ ] docs(AGENTS.md): update documentation in 25 files
+  - `AGENTS.md`
+  - `README.md`
+  - `bun.lock`
+  - `docs/index.md`
+  - `examples/seed/README.md`
+  - `examples/seed/seed-data.ts`
+  - `guides/content/changelog.md`
+  - `guides/content/guides/architecture.md`
+  - `guides/docusaurus.config.ts`
+  - `guides/src/data/releases.ts`
+  - `mkdocs.yml`
+  - `package.json`
+  - `src/core/index.ts`
+  - `src/core/services/faker.service.ts`
+  - `src/infrastructure/filesystem/filesystem.service.ts`
+  - `src/infrastructure/filesystem/path.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/schemas/faker.schema.ts`
+  - `src/schemas/filesystem.schema.ts`
+  - `src/schemas/index.ts`
+  - `src/types/index.ts`
+  - `tests/faker.service.test.ts`
+  - `tests/filesystem.service.test.ts`
+  - `tsconfig.examples.json`
 
 ## [5.1.0] - 2026-09-24
 
-### Added
+What's news:
 
-- **SmartVideo media service** (`useParseMediaSource`, `useBuildVideoEmbed`, `useGetYoutubeVideoId`, nocookie embed + thumbnail builders) — one `src` renders native `<video>` for direct files or a click-to-play facade `<figure>` for YouTube/Vimeo, plus `useEnhanceVideoFacades` hydration in infrastructure.
-- **YouTube channel service** (`useInitYoutube`, `useGetChannelVideos`, `useGetVideoDetails`, `useGetUploadsPlaylistId`) — quota-cheap listing via `channels` → `playlistItems` (never `search.list`), and keyless RSS fallback (`useGetChannelVideosRss`, `useParseYoutubeRss`). One GCP project serves every repo; call server/build-time and cache.
-- **Zod validation, framework-agnostic** (`zod` dependency, `katanakit-js/schemas` subpath) — runtime schemas for media, YouTube, RSS, AI wire shapes and common unions/errors; `src/types/` now infers via `z.infer` so consumer imports don't change. New `useValidate()` returns a Safe Result instead of throwing, and the YouTube service validates every API response at the boundary (malformed payloads → typed `502`, not garbage data).
-- **Zod coverage across the whole library** — schemas now also cover core data shapes (geometry, viewport, currency, dates, agent/assistant payloads), access control (roles, capabilities, subjects) and both REST adapters. Every inferable data type in `src/types/` is now derived from a schema; contracts with methods, generics and callbacks intentionally stay as interfaces.
-- **WordPress and Notion runtime validation** — responses are validated with loose schemas (extra keys like `_links`/`_embedded` are preserved), inputs are validated before any network call (`400`), malformed payloads return a typed `502` with per-field `details`, and update payloads support WP partial responses via response variants.
-- **InsForge adapter** (`katanakit-js/adapters/insforge`, optional `@insforge/sdk` peer) — database fallback with `useIfSelect`/`useIfInsert`/`useIfUpdate`/`useIfDelete`/`useIfRpc`, storage (`useIfUpload`, `useIfDownload`, `useIfRemove`, `useIfListObjects`, `useIfGetPublicUrl`) and edge functions (`useIfInvokeFunction`). Mass writes are refused (update/delete require non-empty filters), inputs are Zod-validated, and the whole surface returns Safe Results.
-
-### Changed
-
-- **WordPress `WpEmbedded["wp:featuredmedia"]`** is now a loose partial shape instead of `WpMedia[]` (embedded media never nests `_embedded`); this breaks the runtime Zod schema cycle while keeping `source_url`/`id`/`title` typed.
-
-### Fixed
-
-- **SEO `SiteConfig` errors name the missing field** — `useSeoTag`, `useGenerateMetaTags`, `useHeadTags`, `useRssHeadLink` and `useSeoMeta` defaults now throw `[Seo] SiteConfig.seo is required` / `[Seo] SiteConfig.rss is required` (with the caller name) instead of `Cannot read properties of undefined (reading 'noindex')`. `nav` stays optional.
+- [ ] docs(seo): fail-fast SiteConfig contract in guides + opts guard (IG008)
+  - `SECURITY.md`
+  - `guides/content/changelog.md`
+  - `guides/content/guides/architecture.md`
+  - `guides/content/guides/getting-started.md`
+  - `src/config/seo.service.ts`
+  - `tests/seo.service.test.ts`
+- [ ] fix(seo): explicit SiteConfig.seo/rss required errors (IG008)
+  - `src/config/seo.service.ts`
+  - `tests/seo.service.test.ts`
+- [ ] docs(guides): sync changelog with Unreleased entries
+  - `guides/content/changelog.md`
+- [ ] ci(release): configure git identity on the runner
+  - `.github/workflows/release.yml`
+- [ ] ci(release): add release message to tag and release title
+  - `.github/workflows/release.yml`
+  - `scripts/bump-version.mjs`
+  - `scripts/generate-release-notes.mjs`
+- [ ] feat(insforge): add database fallback, storage and functions adapter
+  - `README.md`
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/insforge/index.ts`
+  - `src/adapters/insforge/insforge.service.ts`
+  - `tests/insforge.service.test.ts`
+- [ ] feat(wordpress,notion): validate API responses and inputs with Zod
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `tests/notion.service.test.ts`
+  - `tests/wordpress.service.test.ts`
+- [ ] feat(validation): cover core, access, WordPress and Notion with Zod
+  - `src/schemas/access.schema.ts`
+  - `src/schemas/core.schema.ts`
+  - `src/schemas/index.ts`
+  - `src/schemas/insforge.schema.ts`
+  - `src/schemas/notion.schema.ts`
+  - `src/schemas/wordpress.schema.ts`
+  - `src/types/index.ts`
+- [ ] feat(notion): add changes to 3 files
+  - `src/adapters/notion/notion.service.ts`
+  - `src/schemas/notion.schema.ts`
+  - `tests/notion.service.test.ts`
+- [ ] feat(validation): add Zod schemas with inferred types library-wide
+  - `bun.lock`
+  - `package.json`
+  - `src/core/index.ts`
+  - `src/core/services/media.service.ts`
+  - `src/core/services/validation.service.ts`
+  - `src/core/services/youtube.service.ts`
+  - `src/index.ts`
+  - `src/schemas/ai.schema.ts`
+  - `src/schemas/common.schema.ts`
+  - `src/schemas/index.ts`
+  - `src/schemas/media.schema.ts`
+  - `src/schemas/rss.schema.ts`
+  - `src/schemas/youtube.schema.ts`
+  - `src/types/index.ts`
+  - `tests/validation.service.test.ts`
+- [ ] feat(media): add SmartVideo and YouTube channel services
+  - `src/core/index.ts`
+  - `src/core/services/media.service.ts`
+  - `src/core/services/youtube.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/media/media.service.ts`
+  - `src/types/index.ts`
+  - `tests/media.service.test.ts`
+  - `tests/youtube.service.test.ts`
+- [ ] ci(.env.example): update pipeline configuration in 16 files
+  - `.env.example`
+  - `.github/workflows/deploy.yml`
+  - `AGENTS.md`
+  - `README.md`
+  - `bun.lock`
+  - `guides/README.md`
+  - `guides/content/guides/query-client.md`
+  - `guides/docusaurus.config.ts`
+  - `guides/plugin-typedoc-escape.ts`
+  - `guides/src/data/releases.ts`
+  - `guides/wrangler.jsonc`
+  - `package.json`
+  - `playground/wrangler.jsonc`
+  - `render.yaml`
+  - `scripts/setup-cloudflare.mjs`
+  - `socket.yml`
+- [ ] chore(katanakit-js): backport the repo-reference fixes to main
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `examples/agent/demo.ts`
+  - `examples/api-manager/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `guides/content/changelog.md`
+  - `guides/content/guides/architecture.md`
+  - `guides/docusaurus.config.ts`
+  - `guides/src/data/releases.ts`
+  - `package.json`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-docs-releases.mjs`
 
 ## [5.0.1] - 2026-09-22
 
-### Changed
+What's news:
 
-- **Docs build maintenance** — dependency/build update in the docs workspace; published to npm as 5.0.1.
+- [ ] build(guides): update dependencies or build settings in 2 files
+  - `guides/package.json`
+  - `package.json`
 
 ## [5.0.0] - 2026-09-22
 
@@ -1666,218 +1827,10790 @@ Version alignment release (GitHub tag only; superseded by 5.0.1).
 
 Version-only release. No functional changes vs 4.0.3.
 
-## [4.0.3]
+## [4.0.3] - 2026-09-22
 
-### Changed
+What's news:
 
-- **Query layer now runs on TanStack Query Core** — `@tanstack/query-core` ships as a dependency (no separate install). The full engine is re-exported from `katanakit-js` (`QueryClient`, `QueryObserver`, `MutationObserver`, `focusManager`, `onlineManager`, `dehydrate`/`hydrate`, `keepPreviousData`, and every type), and the framework adapters (`useQuery`/`useMutation` for React, Vue, Solid, Svelte and Angular) are now thin bindings over it, returning TanStack's native result object — `isPending`, `isFetching`, `isSuccess`, `isError`, `data`, `error`, `status`, `fetchStatus`, `refetch`, `mutate`, `reset`. This replaces the hand-rolled `QueryClient`/`QueryCache`, which had correctness gaps (no-op `invalidateQueries`, blocking refetch instead of stale-while-revalidate, dead `refetchOnWindowFocus`/`refetchOnReconnect`, incomplete cancellation) and lacked infinite queries, optimistic updates, SSR hydration and devtools.
-
-### Added
-
-- **Framework-free query adapter** (`katanakit-js/adapters/vanilla`) — pure TypeScript with no framework. Returns the raw `QueryObserver` / `MutationObserver` so you own the subscribe/render loop (DOM, canvas, CLI, worker). The framework adapters are the same plus a reactivity bridge.
-- **Query examples** — `examples/query/` ships a runnable vanilla walkthrough (`bun run examples/query/vanilla.ts`) plus React, Vue, Solid, Svelte and Angular demos, and a README explaining every helper (`useQuery`, `useMutation`, `useSafeQueryFn`, `useQueryClient`, `useInitQueryClient`, `useCreateQueryClient`).
-- Every adapter subpath now also re-exports the client helpers (`useQueryClient`, `useInitQueryClient`, `useCreateQueryClient`, `useSafeQueryFn`), so each framework is a complete, independent entry point.
-- **`useSafeQueryFn` helper** — bridges KatanaKit's Safe Result (`useGetApi`/`useFetch`) into TanStack's throw-on-error `queryFn`. It receives TanStack's `QueryFunctionContext`, so `signal` can be forwarded for real request cancellation.
-- **`useCreateQueryClient` helper** — creates a fresh `QueryClient` per call. Use it on the server (SSR) to keep one cache per request instead of the module-level singleton (`useQueryClient()` stays the browser default).
-
-### Security
-
-- `useSafeQueryFn` now throws a real `Error` carrying only `message` + `status`; the upstream response body (`ApiError.details`) is no longer attached to the error or persisted in the query cache.
-- `useInitQueryClient` clears the previous client's caches before swapping the singleton.
-- `@tanstack/query-core` is pinned to an exact version.
+- [ ] ci: build before typechecking the examples
+  - `.github/workflows/ci.yml`
+  - `AGENTS.md`
+- [ ] ci: run guides:check and examples:check on main and dev
+  - `.github/workflows/ci.yml`
+- [ ] docs: point links at docs.senseikatana.com and drop stale references
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `playground/src/components/AppSidebar.vue`
+- [ ] fix(guides): generate a card for every release tag
+  - `guides/docusaurus.config.ts`
+  - `guides/src/data/releases.ts`
+  - `scripts/sync-docs-releases.mjs`
+- [ ] fix(changelog): move the unreleased query-layer entry to 4.0.3
+  - `guides/content/changelog.md`
+- [ ] fix(examples): restore the deleted examples and repair dead README links
+  - `examples/agent/demo.ts`
+  - `examples/api-manager/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+- [ ] chore(katanakit-js): point repo references at the standalone repository
+  - `README.md`
+  - `guides/content/changelog.md`
+  - `guides/docusaurus.config.ts`
+  - `guides/src/data/releases.ts`
+- [ ] ci(workflows): update pipeline configuration in 11 files
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `guides/content/guides/architecture.md`
+  - `guides/content/guides/query-client.md`
+  - `guides/docusaurus.config.ts`
+  - `package.json`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-docs-releases.mjs`
+- [ ] chore(examples): add an on-demand typecheck for the query demos
+  - `examples/query/README.md`
+  - `examples/query/vanilla.ts`
+  - `package.json`
+  - `tsconfig.examples.json`
+  - `tsconfig.examples.solid.json`
+- [ ] fix(examples): repair query demos and document bootstrap step
+  - `examples/query/angular.ts`
+  - `examples/query/react.tsx`
+  - `examples/query/solid.tsx`
+  - `examples/query/svelte.svelte`
+  - `examples/query/vanilla.ts`
+  - `examples/query/vue.vue`
+- [ ] feat(katanakit-js): add framework-free vanilla query adapter and examples
+  - `.gitignore`
+  - `bun.lock`
+  - `examples/query/README.md`
+  - `examples/query/angular.ts`
+  - `examples/query/react.tsx`
+  - `examples/query/solid.tsx`
+  - `examples/query/svelte.svelte`
+  - `examples/query/vanilla.ts`
+  - `examples/query/vue.vue`
+  - `guides/content/guides/query-client.md`
+  - `package.json`
+  - `playground/src/views/QueryView.vue`
+  - `src/adapters/angular/index.ts`
+  - `src/adapters/react/index.ts`
+  - `src/adapters/solid/index.ts`
+  - `src/adapters/svelte/index.ts`
+  - `src/adapters/vanilla/index.ts`
+  - `src/adapters/vanilla/query.ts`
+  - `src/adapters/vue/index.ts`
+  - `tests/vanilla.query.test.ts`
+- [ ] feat(katanakit-js): run the query layer on TanStack Query Core
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `README.md`
+  - `bun.lock`
+  - `guides/content/guides/framework-adapters.md`
+  - `guides/content/guides/query-client.md`
+  - `package.json`
+  - `src/adapters/angular/query.ts`
+  - `src/adapters/react/query.ts`
+  - `src/adapters/solid/query.ts`
+  - `src/adapters/svelte/query.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/core/services/query.service.ts`
+  - `tests/angular.query.test.ts`
+  - `tests/query.service.test.ts`
+  - `tests/react.query.test.ts`
+  - `tests/solid.query.test.ts`
+  - `tests/svelte.query.test.ts`
+  - `tests/vue.query.test.ts`
+  - `vitest.config.ts`
+- [ ] fix(docs): change URL to docs.senseikatana.com, keep root free
+  - `docs/docusaurus.config.ts`
+  - `senseikatana.com.txt`
+- [ ] docs(senseikatana.com.txt): update documentation in senseikatana.com.txt
+  - `senseikatana.com.txt`
+- [ ] docs(senseikatana.com.txt): update documentation in senseikatana.com.txt
+  - `senseikatana.com.txt`
+- [ ] docs: add Cloudflare Pages deployment guide to AGENTS.md
+  - `AGENTS.md`
+- [ ] fix(docs): change baseUrl to / for Cloudflare Pages deployment
+  - `docs/docusaurus.config.ts`
+- [ ] chore: migrate from pnpm to bun
+  - `.gitignore`
+  - `bun.lock`
+- [ ] ci(workflows): update pipeline configuration in 13 files
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.husky/pre-commit`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docusaurus.config.ts`
+  - `examples/assistant/README.md`
+  - `package.json`
+  - `playground/package.json`
+  - `pnpm-lock.yaml`
+  - `pnpm-workspace.yaml`
+- [ ] chore(.gitignore): update .gitignore
+  - `.gitignore`
+- [ ] chore: add concurrently and organize scripts
+  - `package.json`
+  - `pnpm-lock.yaml`
+- [ ] chore(views): update QueryView.vue
+  - `playground/src/views/QueryView.vue`
+- [ ] docs(docs): update documentation in 3 files
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
+- [ ] chore: migrate from bun back to pnpm, remove bun.lock
+  - `bun.lock`
+  - `pnpm-lock.yaml`
+  - `pnpm-workspace.yaml`
+- [ ] fix(docs): update playground URL to play.senseikatana.com
+  - `docs/docusaurus.config.ts`
+- [ ] fix(docs): update playground navbar URL to working pages.dev domain
+  - `docs/docusaurus.config.ts`
+- [ ] chore: bump prettier to 3.9.8
+  - `package.json`
+- [ ] build(.codegraph): update dependencies or build settings in 5 files
+  - `.codegraph/.gitignore`
+  - `bun.lock`
+  - `package.json`
+  - `pnpm-lock.yaml`
+  - `pnpm-workspace.yaml`
+- [ ] docs(docs): update documentation in docusaurus.config.ts
+  - `docs/docusaurus.config.ts`
+- [ ] feat: add interactive playground (Vue 3 + Vite + Vue Router)
+  - `AGENTS.md`
+  - `docs/docusaurus.config.ts`
+  - `package.json`
+  - `playground/index.html`
+  - `playground/package.json`
+  - `playground/src/App.vue`
+  - `playground/src/components/AppSidebar.vue`
+  - `playground/src/components/CodeBlock.vue`
+  - `playground/src/components/JsonViewer.vue`
+  - `playground/src/composables/usePlaygroundApis.ts`
+  - `playground/src/main.ts`
+  - `playground/src/router/index.ts`
+  - `playground/src/style.css`
+  - `playground/src/views/FetchView.vue`
+  - `playground/src/views/HomeView.vue`
+  - `playground/src/views/QueryView.vue`
+  - `playground/src/views/UrlBuilderView.vue`
+  - `playground/src/views/WatchView.vue`
+  - `playground/tsconfig.json`
+  - `playground/vite.config.ts`
+  - `pnpm-lock.yaml`
+  - `pnpm-workspace.yaml`
+- [ ] docs: add npm token docs link and pending tasks checklist
+  - `AGENTS.md`
+- [ ] chore(security): npm v12 hardening + OIDC trusted publishing workflow
+  - `.github/workflows/release.yml`
+  - `.npmrc`
+  - `AGENTS.md`
+- [ ] docs: improve useBuildUrl, Kitt, and contribution guide
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `src/core/services/http.service.ts`
+- [ ] docs(readme): add Notion/WordPress adapter documentation with _fields, _embed, ACF
+  - `README.md`
+- [ ] feat(wordpress): add _fields, _embed, ACF support + Vue/Nuxt examples
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/types/index.ts`
+- [ ] feat(adapters): add Notion and WordPress REST API adapters with framework examples
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `package.json`
+- [ ] chore(wordpress): update 2 files
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+- [ ] docs(README.md): update documentation in 14 files
+  - `README.md`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/wordpress/demo.ts`
+  - `package.json`
+  - `src/adapters/index.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/types/index.ts`
+- [ ] docs: sync release cards for v3.1.0
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
+- [ ] feat(vue): add generic useKatanaWatch/useWatch with native watch props
+  - `README.md`
+  - `docs/docs/guides/watch.md`
+  - `docs/sidebars.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `src/adapters/nuxt/watch.ts`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/watch.ts`
+  - `src/types/index.ts`
+  - `tests/vue.watch.test.ts`
+- [ ] docs: sync release cards for v3.0.1
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
+- [ ] chore!: migrate from Yarn 4 to pnpm 12
+  - `.github/workflows/ci.yml`
+  - `.husky/pre-commit`
+  - `.yarn/releases/yarn-4.18.0.cjs`
+  - `.yarnrc.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.gitignore`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/package.json`
+  - `docs/src/data/releases.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `package.json`
+  - `pnpm-lock.yaml`
+  - `pnpm-workspace.yaml`
+  - `render.yaml`
+  - `scripts/bump-version.mjs`
+  - `socket.yml`
+  - `yarn.lock`
+- [ ] fix: address v3.0.0 audit findings
+  - `.gitignore`
+  - `scripts/sync-docs-releases.mjs`
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/router.ts`
+  - `src/core/services/access.service.ts`
+  - `src/prisma/use-prisma.ts`
+  - `tests/access.guard.test.ts`
+  - `tests/access.service.test.ts`
+- [ ] docs: sync release cards for v3.0.0
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
+- [ ] feat: add access-control service and rename Prisma User to Account
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/index.ts`
+  - `src/core/index.ts`
+  - `src/core/services/access.service.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `tests/access.service.test.ts`
+- [ ] feat(docs): automate release cards, changelog and navbar from git tags
+  - `.github/workflows/ci.yml`
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
+  - `package.json`
+  - `scripts/sync-docs-releases.mjs`
+- [ ] docs: clarify merge-into-dev-first workflow
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+- [ ] docs: add CI fail-fast entry to CHANGELOG
+- [ ] chore: add Husky pre-commit, AGENTS.md, CI fail-fast
+  - `.github/workflows/ci.yml`
+  - `.husky/pre-commit`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+  - `yarn.lock`
+- [ ] style: fix import sort in vue query adapter
+  - `src/adapters/vue/query.ts`
+- [ ] docs: add QueryClient guide and update sidebar
+  - `docs/docs/guides/query-client.md`
+  - `docs/sidebars.ts`
+- [ ] feat: add QueryClient with cache, retry, dedup and Vue composables
+  - `README.md`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/core/index.ts`
+  - `src/core/services/query.service.ts`
+  - `tests/query.service.test.ts`
+- [ ] chore: replace Biome with ESLint + Prettier
+  - `.biomeignore`
+  - `.prettierignore`
+  - `.prettierrc`
+  - `CONTRIBUTING.md`
+  - `biome.json`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/roadmap.md`
+  - `eslint.config.mjs`
+  - `package.json`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/config/seo.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `yarn.lock`
+- [ ] chore: remove AI tool artifacts and refresh README links
+  - `.gitignore`
+  - `.zcode/plans/plan-sess_305f8f01-e7b4-487c-8534-75e5aaf26299.md`
+  - `.zcode/plans/plan-sess_6dc0667d-f228-4c43-a026-2910fdf18433.md`
+  - `README.md`
+- [ ] feat(docs): replace navbar color mode toggle with switch
+  - `docs/README.md`
+  - `docs/src/theme/ColorModeToggle/index.tsx`
+  - `docs/src/theme/ColorModeToggle/styles.module.css`
+- [ ] docs(ui-kit): add Katana UI design documentation
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/ui-kit/architecture.md`
+  - `docs/docs/ui-kit/index.md`
+  - `docs/docs/ui-kit/inventory.md`
+  - `docs/docs/ui-kit/llm-files.md`
+  - `docs/docs/ui-kit/roadmap.md`
+  - `docs/sidebars.ts`
+- [ ] docs: fix broken links in README with absolute GitHub URLs
+  - `README.md`
+- [ ] docs: add Releases dropdown to navbar with links to GitHub releases and tags
+  - `docs/docusaurus.config.ts`
+- [ ] feat(release): generate sectioned release notes from conventional commits
+  - `package.json`
+  - `scripts/generate-release-notes.mjs`
+- [ ] docs: add release history section to homepage
+  - `docs/src/components/ReleaseHistory/index.tsx`
+  - `docs/src/components/ReleaseHistory/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/data/releases.ts`
+  - `docs/src/pages/index.tsx`
+- [ ] chore: harden supply chain security - pin deps, add resolutions, add socket.yml
+  - `package.json`
+  - `socket.yml`
+  - `yarn.lock`
+- [ ] docs: improve API manager documentation with real-world examples and runnable demo
+  - `README.md`
+  - `examples/api-manager/demo.ts`
+  - `package.json`
+- [ ] fix(release): use npm publish instead of yarn npm publish for auth compatibility
+  - `package.json`
+- [ ] refactor: clean up unused imports, test formatting, and type safety
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `tests/agent.service.test.ts`
+  - `tests/assistant.service.test.ts`
+  - `tests/express.server.test.ts`
+- [ ] ci(.codegraph): update pipeline configuration in 44 files
+  - `.codegraph/.gitignore`
+  - `.env.example`
+  - `.github/workflows/ci.yml`
+  - `.gitignore`
+  - `README.md`
+  - `examples/agent/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/adapters/assistant/index.ts`
+  - `src/adapters/assistant/main.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/telegram/index.ts`
+  - `src/adapters/telegram/main.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/whatsapp/index.ts`
+  - `src/adapters/whatsapp/main.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/core/index.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/prisma/assistant.store.ts`
+  - `src/prisma/index.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/types/index.ts`
+  - `tests/agent.service.test.ts`
+  - `tests/assistant.service.test.ts`
+  - `tests/express.server.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tests/telegram.service.test.ts`
+  - `tests/vue.service.test.ts`
+  - `tests/whatsapp.service.test.ts`
+  - `tsconfig.json`
+  - `yarn.lock`
+- [ ] fix(docs): resolve yarn workspace lockfile conflict and typedoc compatibility
+  - `.gitignore`
+  - `docs/.yarn/install-state.gz`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/package.json`
+  - `docs/yarn.lock`
+  - `yarn.lock`
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
+- [ ] docs(docs): update documentation in 4 files
+  - `docs/package.json`
+  - `package.json`
+  - `render.yaml`
+  - `yarn.lock`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] build(package.json): update dependencies or build settings in 2 files
+  - `package.json`
+  - `wrangler.toml`
+- [ ] docs(functions): update documentation in 38 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] refactor(routing): update worker and route configuration
+  - `src/worker.js`
+  - `wrangler.toml`
+- [ ] ci(scripts): update pipeline configuration in 6 files
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/scripts/determine-version.sh`
+  - `.github/scripts/release.sh`
+  - `.github/workflows/cloudflare-pages.yml`
+  - `.github/workflows/docs.yml`
+  - `.github/workflows/release.yml`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] docs(functions): update documentation in 41 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docusaurus.config.ts`
+  - `src/worker.js`
+  - `vitest.config.ts`
+  - `wrangler.toml`
+- [ ] build(astro): update dependencies or build settings in 199 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.d.ts.map`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/adapters/astro/astro.service.js.map`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/astro/rss.service.d.ts`
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/app.d.ts`
+  - `dist/adapters/express/app.d.ts.map`
+  - `dist/adapters/express/app.js`
+  - `dist/adapters/express/app.js.map`
+  - `dist/adapters/express/index.d.ts`
+  - `dist/adapters/express/index.d.ts.map`
+  - `dist/adapters/express/index.js`
+  - `dist/adapters/express/index.js.map`
+  - `dist/adapters/express/main.d.ts`
+  - `dist/adapters/express/main.d.ts.map`
+  - `dist/adapters/express/main.js`
+  - `dist/adapters/express/main.js.map`
+  - `dist/adapters/express/products.controller.d.ts`
+  - `dist/adapters/express/products.controller.d.ts.map`
+  - `dist/adapters/express/products.controller.js`
+  - `dist/adapters/express/products.controller.js.map`
+  - `dist/adapters/express/router.d.ts`
+  - `dist/adapters/express/router.d.ts.map`
+  - `dist/adapters/express/router.js`
+  - `dist/adapters/express/router.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/index.d.ts`
+  - `dist/adapters/index.d.ts.map`
+  - `dist/adapters/index.js`
+  - `dist/adapters/index.js.map`
+  - `dist/adapters/nuxt/index.d.ts`
+  - `dist/adapters/nuxt/index.d.ts.map`
+  - `dist/adapters/nuxt/index.js`
+  - `dist/adapters/nuxt/index.js.map`
+  - `dist/adapters/nuxt/nuxt.service.d.ts`
+  - `dist/adapters/nuxt/nuxt.service.d.ts.map`
+  - `dist/adapters/nuxt/nuxt.service.js`
+  - `dist/adapters/nuxt/nuxt.service.js.map`
+  - `dist/adapters/vue/index.d.ts`
+  - `dist/adapters/vue/index.d.ts.map`
+  - `dist/adapters/vue/index.js`
+  - `dist/adapters/vue/index.js.map`
+  - `dist/adapters/vue/vue.service.d.ts`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/config/index.d.ts`
+  - `dist/config/index.d.ts.map`
+  - `dist/config/index.js`
+  - `dist/config/index.js.map`
+  - `dist/config/seo.service.d.ts`
+  - `dist/config/seo.service.d.ts.map`
+  - `dist/config/seo.service.js`
+  - `dist/config/seo.service.js.map`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `dist/config/site.config.js`
+  - `dist/config/site.config.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/error.service.d.ts`
+  - `dist/core/services/error.service.d.ts.map`
+  - `dist/core/services/error.service.js`
+  - `dist/core/services/error.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/index.d.ts`
+  - `dist/index.d.ts.map`
+  - `dist/index.js`
+  - `dist/index.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/index.d.ts`
+  - `dist/infrastructure/index.d.ts.map`
+  - `dist/infrastructure/index.js`
+  - `dist/infrastructure/index.js.map`
+  - `dist/infrastructure/observer/observer.service.d.ts`
+  - `dist/infrastructure/observer/observer.service.d.ts.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/prisma/db.d.ts`
+  - `dist/prisma/db.d.ts.map`
+  - `dist/prisma/db.js`
+  - `dist/prisma/db.js.map`
+  - `dist/prisma/schema.json`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `dist/types/index.js`
+  - `dist/types/index.js.map`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `src/worker.js`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+  - `wrangler.toml`
+- [ ] fix: configure Cloudflare Workers for static assets
+  - `.github/workflows/cloudflare-pages.yml`
+  - `src/worker.js`
+  - `wrangler.toml`
+- [ ] Update documentation links in SEO meta interfaces and type aliases
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] chore(.env.example): update .env.example
+  - `.env.example`
+- [ ] docs(functions): update documentation in 38 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+- [ ] chore: remove .env from version control
+  - `.env`
+  - `.env.example`
+  - `.gitignore`
+- [ ] docs: update baseUrl to /packages/katanakit-js/
+  - `docs/docusaurus.config.ts`
+- [ ] ci: configure Cloudflare Pages for subroute /katanakit-js/
+  - `.github/workflows/cloudflare-pages.yml`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docusaurus.config.ts`
+  - `package.json`
+  - `vitest.config.ts`
+- [ ] ci: configure Cloudflare Workers deployment
+  - `.github/workflows/cloudflare-pages.yml`
+  - `src/index.js`
+  - `wrangler.toml`
+- [ ] ci: fix docs workspace install
+  - `.github/workflows/cloudflare-pages.yml`
+- [ ] docs(prisma-8): update documentation in 142 files
+  - `.cursor/skills/prisma-8/SKILL.md`
+  - `.cursor/skills/prisma-8/references/build.md`
+  - `.cursor/skills/prisma-8/references/contract.md`
+  - `.cursor/skills/prisma-8/references/debug.md`
+  - `.cursor/skills/prisma-8/references/feedback.md`
+  - `.cursor/skills/prisma-8/references/migration-model.md`
+  - `.cursor/skills/prisma-8/references/migration-review.md`
+  - `.cursor/skills/prisma-8/references/migrations.md`
+  - `.cursor/skills/prisma-8/references/queries-mongo.md`
+  - `.cursor/skills/prisma-8/references/queries-postgres.md`
+  - `.cursor/skills/prisma-8/references/queries.md`
+  - `.cursor/skills/prisma-8/references/quickstart.md`
+  - `.cursor/skills/prisma-8/references/runtime.md`
+  - `.cursor/skills/prisma-8/references/supabase.md`
+  - `.cursor/skills/prisma-8/references/upgrade-app.md`
+  - `.cursor/skills/prisma-8/references/upgrade-extension.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-composer/SKILL.md`
+  - `.devin/skills/prisma-8/SKILL.md`
+  - `.devin/skills/prisma-8/references/build.md`
+  - `.devin/skills/prisma-8/references/contract.md`
+  - `.devin/skills/prisma-8/references/debug.md`
+  - `.devin/skills/prisma-8/references/feedback.md`
+  - `.devin/skills/prisma-8/references/migration-model.md`
+  - `.devin/skills/prisma-8/references/migration-review.md`
+  - `.devin/skills/prisma-8/references/migrations.md`
+  - `.devin/skills/prisma-8/references/queries-mongo.md`
+  - `.devin/skills/prisma-8/references/queries-postgres.md`
+  - `.devin/skills/prisma-8/references/queries.md`
+  - `.devin/skills/prisma-8/references/quickstart.md`
+  - `.devin/skills/prisma-8/references/runtime.md`
+  - `.devin/skills/prisma-8/references/supabase.md`
+  - `.devin/skills/prisma-8/references/upgrade-app.md`
+  - `.devin/skills/prisma-8/references/upgrade-extension.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-composer/SKILL.md`
+- [ ] chore: update yarn.lock
+  - `yarn.lock`
+- [ ] ci: add Cloudflare Pages deployment workflow
+  - `.github/workflows/cloudflare-pages.yml`
+- [ ] feat(vue): add changes to 4 files
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `src/adapters/vue/vue.service.ts`
+- [ ] ci: add Cloudflare Pages deployment workflow
+  - `.github/workflows/cloudflare-pages.yml`
+- [ ] feat(vue): add changes to 4 files
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `src/adapters/vue/vue.service.ts`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] docs(.yarn): update documentation in 39 files
+  - `docs/.yarn/install-state.gz`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+- [ ] docs(.gitignore): update documentation in 7 files
+  - `.gitignore`
+  - `.yarn/releases/yarn-4.18.0.cjs`
+  - `.yarnrc.yml`
+  - `docs/.yarn/install-state.gz`
+  - `docs/yarn.lock`
+  - `package.json`
+  - `yarn.lock`
+- [ ] refactor: convert classes to function statements with JSDoc
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `yarn.lock`
+- [ ] docs(docs): update documentation in 3 files
+  - `docs/bun.lock`
+  - `docs/yarn.lock`
+  - `package.json`
+- [ ] build(bun.lock): update dependencies or build settings in 3 files
+  - `bun.lock`
+  - `package.json`
+  - `yarn.lock`
+- [ ] docs(astro): update documentation in 47 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.js`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+- [ ] docs(astro): update documentation in 47 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.js`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+- [ ] docs(astro): update documentation in 179 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.d.ts.map`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/adapters/astro/astro.service.js.map`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/astro/rss.service.d.ts`
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/app.d.ts`
+  - `dist/adapters/express/app.d.ts.map`
+  - `dist/adapters/express/app.js`
+  - `dist/adapters/express/app.js.map`
+  - `dist/adapters/express/index.d.ts`
+  - `dist/adapters/express/index.d.ts.map`
+  - `dist/adapters/express/index.js`
+  - `dist/adapters/express/index.js.map`
+  - `dist/adapters/express/main.js`
+  - `dist/adapters/express/main.js.map`
+  - `dist/adapters/express/products.controller.d.ts`
+  - `dist/adapters/express/products.controller.d.ts.map`
+  - `dist/adapters/express/products.controller.js`
+  - `dist/adapters/express/products.controller.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/error.service.d.ts`
+  - `dist/core/services/error.service.d.ts.map`
+  - `dist/core/services/error.service.js`
+  - `dist/core/services/error.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/index.d.ts`
+  - `dist/infrastructure/index.d.ts.map`
+  - `dist/infrastructure/index.js`
+  - `dist/infrastructure/index.js.map`
+  - `dist/infrastructure/observer/observer.service.d.ts`
+  - `dist/infrastructure/observer/observer.service.d.ts.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+  - `package.json`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/server.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/rss.service.test.ts`
+- [ ] feat(express): add changes to index.ts
+  - `src/adapters/express/index.ts`
+- [ ] build(bun.lock): update dependencies or build settings in 30 files
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/server.ts`
+  - `src/core/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/index.ts`
+  - `src/prisma/use-prisma.ts`
+- [ ] feat(astro.service): refactor and enhance Astro path utilities with new functions
+  - `src/adapters/astro/astro.service.ts`
+- [ ] feat(astro.service): add useAstroPathsFrom and useAstroGetStaticPaths functions for enhanced route generation
+  - `src/adapters/astro/astro.service.ts`
+- [ ] docs(biome.json): update documentation in 54 files
+  - `biome.json`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+- [ ] build(prisma): update dependencies or build settings in 2 files
+  - `dist/prisma/schema.json`
+  - `package.json`
+- [ ] build(bun.lock): update dependencies or build settings in 6 files
+  - `bun.lock`
+  - `docs/bun.lock`
+  - `package.json`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `yarn.lock`
+- [ ] docs(functions): update documentation in 56 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `yarn.lock`
+- [ ] docs(.prisma): update documentation in 10 files
+  - `.prisma/local.json`
+  - `docs/docs/guides/architecture.md`
+  - `examples/prisma/prisma.service.ts`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+- [ ] docs(.env): update documentation in 19 files
+  - `.env`
+  - `.env.example`
+  - `.gitignore`
+  - `.prisma/local.json`
+  - `CONTRIBUTING.md`
+  - `SECURITY.md`
+  - `biome.json`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `examples/prisma/prisma.service.ts`
+  - `package.json`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+- [ ] ci(workflows): update pipeline configuration in 5 files
+  - `.github/workflows/docs.yml`
+  - `CONTRIBUTING.md`
+  - `docs/docs/guides/architecture.md`
+  - `package.json`
+  - `yarn.lock`
+- [ ] docs(classes): update documentation in 25 files
+  - `docs/docs/api/classes/DatesService.md`
+  - `docs/docs/api/functions/useApplySeoTag.md`
+  - `docs/docs/api/functions/useAverage.md`
+  - `docs/docs/api/functions/useBuildApiUrl.md`
+  - `docs/docs/api/functions/useBuildUrl.md`
+  - `docs/docs/api/functions/useCapitalize.md`
+  - `docs/docs/api/functions/useChunk.md`
+  - `docs/docs/api/functions/useCopyToClipboard.md`
+  - `docs/docs/api/functions/useDeepClone.md`
+  - `docs/docs/api/functions/useDeepMerge.md`
+  - `docs/docs/api/functions/useDelete.md`
+  - `docs/docs/api/functions/useFetch.md`
+  - `docs/docs/api/functions/useFetchApi.md`
+  - `docs/docs/api/functions/useFormatCurrency.md`
+  - `docs/docs/api/functions/useFormatNumber.md`
+  - `docs/docs/api/functions/useGet.md`
+  - `docs/docs/api/functions/useGetApi.md`
+  - `docs/docs/api/functions/useGetApis.md`
+  - `docs/docs/api/functions/useGetApisConfig.md`
+  - `docs/docs/api/functions/useGetUrlParams.md`
+  - `docs/docs/api/functions/useGroupBy.md`
+  - `docs/docs/api/functions/useInit.md`
+  - `docs/docs/api/functions/useInitApis.md`
+  - `docs/docs/api/functions/useIsObject.md`
+  - `docs/docs/changelog.md`
+- [ ] v2.12.2
+  - `package.json`
+- [ ] docs(classes): update documentation in 77 files
+  - `docs/docs/api/classes/DatesService.md`
+  - `docs/docs/api/functions/useApplySeoTag.md`
+  - `docs/docs/api/functions/useAverage.md`
+  - `docs/docs/api/functions/useBuildApiUrl.md`
+  - `docs/docs/api/functions/useBuildUrl.md`
+  - `docs/docs/api/functions/useCapitalize.md`
+  - `docs/docs/api/functions/useChunk.md`
+  - `docs/docs/api/functions/useCopyToClipboard.md`
+  - `docs/docs/api/functions/useDeepClone.md`
+  - `docs/docs/api/functions/useDeepMerge.md`
+  - `docs/docs/api/functions/useDelete.md`
+  - `docs/docs/api/functions/useFetch.md`
+  - `docs/docs/api/functions/useFetchApi.md`
+  - `docs/docs/api/functions/useFormatCurrency.md`
+  - `docs/docs/api/functions/useFormatNumber.md`
+  - `docs/docs/api/functions/useGet.md`
+  - `docs/docs/api/functions/useGetApi.md`
+  - `docs/docs/api/functions/useGetApis.md`
+  - `docs/docs/api/functions/useGetApisConfig.md`
+  - `docs/docs/api/functions/useGetUrlParams.md`
+  - `docs/docs/api/functions/useGroupBy.md`
+  - `docs/docs/api/functions/useInit.md`
+  - `docs/docs/api/functions/useInitApis.md`
+  - `docs/docs/api/functions/useIsObject.md`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+- [ ] v2.12.1
+  - `package.json`
+- [ ] ci(workflows): update pipeline configuration in 8 files
+  - `.github/workflows/docs.yml`
+  - `.gitignore`
+  - `CONTRIBUTING.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `package.json`
+- [ ] v2.10.0
+  - `package.json`
+- [ ] v2.9.0
+  - `docs/docs/.nojekyll`
+  - `docs/docs/assets/hierarchy.js`
+  - `docs/docs/assets/highlight.css`
+  - `docs/docs/assets/icons.js`
+  - `docs/docs/assets/icons.svg`
+  - `docs/docs/assets/main.js`
+  - `docs/docs/assets/navigation.js`
+  - `docs/docs/assets/search.js`
+  - `docs/docs/assets/style.css`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/hierarchy.html`
+  - `docs/docs/index.html`
+  - `docs/docs/modules.html`
+  - `package.json`
+- [ ] ci(workflows): update pipeline configuration in 322 files
+  - `.github/workflows/docs.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `CONTRIBUTING.md`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/config/index.d.ts`
+  - `dist/config/index.d.ts.map`
+  - `dist/config/index.js`
+  - `dist/config/index.js.map`
+  - `dist/config/seo.service.d.ts`
+  - `dist/config/seo.service.d.ts.map`
+  - `dist/config/seo.service.js`
+  - `dist/config/seo.service.js.map`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `dist/config/site.config.js`
+  - `dist/config/site.config.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `docs/docs/.nojekyll`
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/globals.md`
+  - `docs/docs/api/index.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/typedoc-sidebar.cjs`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/docs/assets/hierarchy.js`
+  - `docs/docs/assets/highlight.css`
+  - `docs/docs/assets/icons.js`
+  - `docs/docs/assets/icons.svg`
+  - `docs/docs/assets/main.js`
+  - `docs/docs/assets/navigation.js`
+  - `docs/docs/assets/search.js`
+  - `docs/docs/assets/style.css`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/hierarchy.html`
+  - `docs/docs/index.html`
+  - `docs/docs/modules.html`
+  - `package.json`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+- [ ] refactor(seo): improve type definitions and documentation for SEO configuration
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `tests/seo.service.test.ts`
+- [ ] docs(guides): update documentation in 7 files
+  - `docs/docs/guides/getting-started.md`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `tests/seo.service.test.ts`
+- [ ] ci(workflows): update pipeline configuration in 9 files
+  - `.github/workflows/docs.yml`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `tests/seo.service.test.ts`
+- [ ] feat(config): add changes to seo.service.ts
+  - `src/config/seo.service.ts`
+- [ ] refactor: replace useLog with useLogger across the codebase
+  - `.github/workflows/release.yml`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `src/adapters/express/server.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `tests/logger.service.test.ts`
+- [ ] docs(guides): update documentation in 8 files
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `package.json`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo.service.ts`
+  - `tests/seo.service.test.ts`
+- [ ] docs(astro): update documentation in 86 files
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/nuxt/nuxt.service.d.ts`
+  - `dist/adapters/nuxt/nuxt.service.d.ts.map`
+  - `dist/adapters/nuxt/nuxt.service.js`
+  - `dist/adapters/nuxt/nuxt.service.js.map`
+  - `dist/adapters/vue/vue.service.d.ts`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `docs/docs/guides/getting-started.md`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+- [ ] feat(services): add changes to 2 files
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/geometry.service.ts`
+- [ ] feat(services): add changes to formatter.service.ts
+  - `src/core/services/formatter.service.ts`
+- [ ] fix: harden SSR, security, and clarify public HTTP exports
+  - `README.md`
+  - `docs/docs/guides/getting-started.md`
+  - `package.json`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/core/index.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/storage.service.test.ts`
+- [ ] ci(scripts): update pipeline configuration in 258 files
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/workflows/docs.yml`
+  - `.github/workflows/release.yml`
+  - `README.md`
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/index.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docusaurus.config.ts`
+  - `package.json`
+  - `yarn.lock`
+- [ ] docs(classes): update documentation in 250 files
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/src/theme/DebugGlobalData/index.tsx`
+- [ ] docs(docs-site): update documentation in 280 files
+  - `docs-site/.gitignore`
+  - `docs-site/README.md`
+  - `docs-site/docs/api/classes/AppError.md`
+  - `docs-site/docs/api/classes/AppUtils.md`
+  - `docs-site/docs/api/classes/AstroService.md`
+  - `docs-site/docs/api/classes/ConsoleStrategy.md`
+  - `docs-site/docs/api/classes/ConverterService.md`
+  - `docs-site/docs/api/classes/DataUtils.md`
+  - `docs-site/docs/api/classes/DomService.md`
+  - `docs-site/docs/api/classes/ErrorFactoryService.md`
+  - `docs-site/docs/api/classes/FetchApiManager.md`
+  - `docs-site/docs/api/classes/FormatterService.md`
+  - `docs-site/docs/api/classes/GeneratorService.md`
+  - `docs-site/docs/api/classes/GeometryArea.md`
+  - `docs-site/docs/api/classes/GeometryPerimeter.md`
+  - `docs-site/docs/api/classes/GeometryVolume.md`
+  - `docs-site/docs/api/classes/LazyLoaderService.md`
+  - `docs-site/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs-site/docs/api/classes/LocalStorageStrategy.md`
+  - `docs-site/docs/api/classes/LoggerService.md`
+  - `docs-site/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs-site/docs/api/classes/NativeUuidStrategy.md`
+  - `docs-site/docs/api/classes/ObserverService.md`
+  - `docs-site/docs/api/classes/ReactiveService.md`
+  - `docs-site/docs/api/classes/RssService.md`
+  - `docs-site/docs/api/classes/SensorsUtils.md`
+  - `docs-site/docs/api/classes/SessionStorageStrategy.md`
+  - `docs-site/docs/api/classes/StorageService.md`
+  - `docs-site/docs/api/classes/SystemUtils.md`
+  - `docs-site/docs/api/classes/ThemeService.md`
+  - `docs-site/docs/api/classes/TimingService.md`
+  - `docs-site/docs/api/classes/ViewportService.md`
+  - `docs-site/docs/api/classes/WorkerService.md`
+  - `docs-site/docs/api/functions/useGenerateMetaTags.md`
+  - `docs-site/docs/api/functions/useHeadTags.md`
+  - `docs-site/docs/api/functions/useRssHeadLink.md`
+  - `docs-site/docs/api/functions/useTitle.md`
+  - `docs-site/docs/api/globals.md`
+  - `docs-site/docs/api/index.md`
+  - `docs-site/docs/api/interfaces/ApiEntry.md`
+  - `docs-site/docs/api/interfaces/ApiError.md`
+  - `docs-site/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs-site/docs/api/interfaces/AstroPath.md`
+  - `docs-site/docs/api/interfaces/AstroServiceError.md`
+  - `docs-site/docs/api/interfaces/BatteryManager.md`
+  - `docs-site/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs-site/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs-site/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs-site/docs/api/interfaces/FetchOptions.md`
+  - `docs-site/docs/api/interfaces/GeoPosition.md`
+  - `docs-site/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs-site/docs/api/interfaces/IAppUtils.md`
+  - `docs-site/docs/api/interfaces/IAstroService.md`
+  - `docs-site/docs/api/interfaces/IConverterService.md`
+  - `docs-site/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs-site/docs/api/interfaces/IDataUtils.md`
+  - `docs-site/docs/api/interfaces/IDomService.md`
+  - `docs-site/docs/api/interfaces/IErrorFactory.md`
+  - `docs-site/docs/api/interfaces/IFetchApiManager.md`
+  - `docs-site/docs/api/interfaces/IFormatterService.md`
+  - `docs-site/docs/api/interfaces/IReactiveService.md`
+  - `docs-site/docs/api/interfaces/IRssService.md`
+  - `docs-site/docs/api/interfaces/ISerializedError.md`
+  - `docs-site/docs/api/interfaces/ISystemUtils.md`
+  - `docs-site/docs/api/interfaces/IThemeService.md`
+  - `docs-site/docs/api/interfaces/IUuidStrategy.md`
+  - `docs-site/docs/api/interfaces/IntervalControl.md`
+  - `docs-site/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs-site/docs/api/interfaces/LogStrategy.md`
+  - `docs-site/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs-site/docs/api/interfaces/ObserverConfig.md`
+  - `docs-site/docs/api/interfaces/ObserverEntry.md`
+  - `docs-site/docs/api/interfaces/PaginationProps.md`
+  - `docs-site/docs/api/interfaces/PathsOptions.md`
+  - `docs-site/docs/api/interfaces/RssConfig.md`
+  - `docs-site/docs/api/interfaces/RssItem.md`
+  - `docs-site/docs/api/interfaces/ScrollOptions.md`
+  - `docs-site/docs/api/interfaces/ScrollPosition.md`
+  - `docs-site/docs/api/interfaces/SeoMeta.md`
+  - `docs-site/docs/api/interfaces/SignalGetter.md`
+  - `docs-site/docs/api/interfaces/SiteConfig.md`
+  - `docs-site/docs/api/interfaces/StorageStrategy.md`
+  - `docs-site/docs/api/interfaces/Subscribable.md`
+  - `docs-site/docs/api/interfaces/ThemeOptions.md`
+  - `docs-site/docs/api/interfaces/TimeoutControl.md`
+  - `docs-site/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs-site/docs/api/interfaces/UrlOptions.md`
+  - `docs-site/docs/api/interfaces/ViewportSize.md`
+  - `docs-site/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs-site/docs/api/type-aliases/ApisConfig.md`
+  - `docs-site/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs-site/docs/api/type-aliases/Currency.md`
+  - `docs-site/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs-site/docs/api/type-aliases/FetchResult.md`
+  - `docs-site/docs/api/type-aliases/HttpMethod.md`
+  - `docs-site/docs/api/type-aliases/Locale.md`
+  - `docs-site/docs/api/type-aliases/LogLevel.md`
+  - `docs-site/docs/api/type-aliases/ObserverCallback.md`
+  - `docs-site/docs/api/type-aliases/ObserverTarget.md`
+  - `docs-site/docs/api/type-aliases/PathParams.md`
+  - `docs-site/docs/api/type-aliases/ProductType.md`
+  - `docs-site/docs/api/type-aliases/QueryParams.md`
+  - `docs-site/docs/api/type-aliases/RssResult.md`
+  - `docs-site/docs/api/type-aliases/SignalListener.md`
+  - `docs-site/docs/api/type-aliases/SignalSetter.md`
+  - `docs-site/docs/api/type-aliases/StorageTarget.md`
+  - `docs-site/docs/api/type-aliases/TemporalInput.md`
+  - `docs-site/docs/api/type-aliases/ThemeMode.md`
+  - `docs-site/docs/api/type-aliases/WorkerFunc.md`
+  - `docs-site/docs/api/typedoc-sidebar.cjs`
+  - `docs-site/docs/api/variables/DOM_SERVICE.md`
+  - `docs-site/docs/api/variables/GeometryUtils.md`
+  - `docs-site/docs/api/variables/THEME_SERVICE.md`
+  - `docs-site/docs/api/variables/sensorsUtils.md`
+  - `docs-site/docs/api/variables/siteConfig.md`
+  - `docs-site/docs/api/variables/useAddClass.md`
+  - `docs-site/docs/api/variables/useAppend.md`
+  - `docs-site/docs/api/variables/useAverage.md`
+  - `docs-site/docs/api/variables/useBadRequest.md`
+  - `docs-site/docs/api/variables/useBlurActiveElement.md`
+  - `docs-site/docs/api/variables/useBuildUrl.md`
+  - `docs-site/docs/api/variables/useCapitalize.md`
+  - `docs-site/docs/api/variables/useChunk.md`
+  - `docs-site/docs/api/variables/useClear.md`
+  - `docs-site/docs/api/variables/useClearStorage.md`
+  - `docs-site/docs/api/variables/useCopyToClipboard.md`
+  - `docs-site/docs/api/variables/useCreateBatch.md`
+  - `docs-site/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs-site/docs/api/variables/useCreateEffect.md`
+  - `docs-site/docs/api/variables/useCreateElement.md`
+  - `docs-site/docs/api/variables/useCreateMemo.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs-site/docs/api/variables/useCreateSignal.md`
+  - `docs-site/docs/api/variables/useCreateStorageSignal.md`
+  - `docs-site/docs/api/variables/useCreateToggle.md`
+  - `docs-site/docs/api/variables/useCustom.md`
+  - `docs-site/docs/api/variables/useDebounce.md`
+  - `docs-site/docs/api/variables/useDebounceImmediate.md`
+  - `docs-site/docs/api/variables/useDeepClone.md`
+  - `docs-site/docs/api/variables/useDeepMerge.md`
+  - `docs-site/docs/api/variables/useDelay.md`
+  - `docs-site/docs/api/variables/useDelete.md`
+  - `docs-site/docs/api/variables/useDestroyTheme.md`
+  - `docs-site/docs/api/variables/useEncrypt.md`
+  - `docs-site/docs/api/variables/useError.md`
+  - `docs-site/docs/api/variables/useExitFullscreen.md`
+  - `docs-site/docs/api/variables/useExtractUniqueValues.md`
+  - `docs-site/docs/api/variables/useFetch.md`
+  - `docs-site/docs/api/variables/useFindEntry.md`
+  - `docs-site/docs/api/variables/useFocusElement.md`
+  - `docs-site/docs/api/variables/useForbidden.md`
+  - `docs-site/docs/api/variables/useFormatCurrency.md`
+  - `docs-site/docs/api/variables/useFormatNumber.md`
+  - `docs-site/docs/api/variables/useGeneratePagination.md`
+  - `docs-site/docs/api/variables/useGenerateRss.md`
+  - `docs-site/docs/api/variables/useGet.md`
+  - `docs-site/docs/api/variables/useGetActiveElement.md`
+  - `docs-site/docs/api/variables/useGetApis.md`
+  - `docs-site/docs/api/variables/useGetAttribute.md`
+  - `docs-site/docs/api/variables/useGetBody.md`
+  - `docs-site/docs/api/variables/useGetDataAttribute.md`
+  - `docs-site/docs/api/variables/useGetElementByClass.md`
+  - `docs-site/docs/api/variables/useGetElementById.md`
+  - `docs-site/docs/api/variables/useGetResolved.md`
+  - `docs-site/docs/api/variables/useGetRoot.md`
+  - `docs-site/docs/api/variables/useGetScrollPosition.md`
+  - `docs-site/docs/api/variables/useGetScrollProgress.md`
+  - `docs-site/docs/api/variables/useGetScrollX.md`
+  - `docs-site/docs/api/variables/useGetScrollY.md`
+  - `docs-site/docs/api/variables/useGetStaticPaths.md`
+  - `docs-site/docs/api/variables/useGetStorage.md`
+  - `docs-site/docs/api/variables/useGetThemeMode.md`
+  - `docs-site/docs/api/variables/useGetTitle.md`
+  - `docs-site/docs/api/variables/useGetUrlParams.md`
+  - `docs-site/docs/api/variables/useGetViewportSize.md`
+  - `docs-site/docs/api/variables/useGroupBy.md`
+  - `docs-site/docs/api/variables/useHasClass.md`
+  - `docs-site/docs/api/variables/useInit.md`
+  - `docs-site/docs/api/variables/useInitTheme.md`
+  - `docs-site/docs/api/variables/useInternal.md`
+  - `docs-site/docs/api/variables/useInterval.md`
+  - `docs-site/docs/api/variables/useIsAtBottom.md`
+  - `docs-site/docs/api/variables/useIsAtTop.md`
+  - `docs-site/docs/api/variables/useIsBrowser.md`
+  - `docs-site/docs/api/variables/useIsDocumentVisible.md`
+  - `docs-site/docs/api/variables/useIsFullscreen.md`
+  - `docs-site/docs/api/variables/useIsObject.md`
+  - `docs-site/docs/api/variables/useJsonParse.md`
+  - `docs-site/docs/api/variables/useJsonStringify.md`
+  - `docs-site/docs/api/variables/useLog.md`
+  - `docs-site/docs/api/variables/useLowerCase.md`
+  - `docs-site/docs/api/variables/useMatchesMedia.md`
+  - `docs-site/docs/api/variables/useNotFound.md`
+  - `docs-site/docs/api/variables/useNumericId.md`
+  - `docs-site/docs/api/variables/useOmit.md`
+  - `docs-site/docs/api/variables/useOn.md`
+  - `docs-site/docs/api/variables/useOnVisibilityChange.md`
+  - `docs-site/docs/api/variables/usePathsFrom.md`
+  - `docs-site/docs/api/variables/usePathsFromValues.md`
+  - `docs-site/docs/api/variables/usePick.md`
+  - `docs-site/docs/api/variables/usePost.md`
+  - `docs-site/docs/api/variables/usePrefersColorScheme.md`
+  - `docs-site/docs/api/variables/usePrefersDarkMode.md`
+  - `docs-site/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs-site/docs/api/variables/usePrintPage.md`
+  - `docs-site/docs/api/variables/usePut.md`
+  - `docs-site/docs/api/variables/useQuerySelector.md`
+  - `docs-site/docs/api/variables/useQuerySelectorAll.md`
+  - `docs-site/docs/api/variables/useRace.md`
+  - `docs-site/docs/api/variables/useRemove.md`
+  - `docs-site/docs/api/variables/useRemoveAttribute.md`
+  - `docs-site/docs/api/variables/useRemoveClass.md`
+  - `docs-site/docs/api/variables/useRemoveStorage.md`
+  - `docs-site/docs/api/variables/useRepeat.md`
+  - `docs-site/docs/api/variables/useRequestFullscreen.md`
+  - `docs-site/docs/api/variables/useResetTheme.md`
+  - `docs-site/docs/api/variables/useRetry.md`
+  - `docs-site/docs/api/variables/useRound.md`
+  - `docs-site/docs/api/variables/useRssLinkTag.md`
+  - `docs-site/docs/api/variables/useScrollTo.md`
+  - `docs-site/docs/api/variables/useScrollToBottom.md`
+  - `docs-site/docs/api/variables/useScrollToElement.md`
+  - `docs-site/docs/api/variables/useScrollToTop.md`
+  - `docs-site/docs/api/variables/useSetAttribute.md`
+  - `docs-site/docs/api/variables/useSetDataAttribute.md`
+  - `docs-site/docs/api/variables/useSetHtml.md`
+  - `docs-site/docs/api/variables/useSetStorage.md`
+  - `docs-site/docs/api/variables/useSetStrategy.md`
+  - `docs-site/docs/api/variables/useSetTempTitle.md`
+  - `docs-site/docs/api/variables/useSetText.md`
+  - `docs-site/docs/api/variables/useSetThemeMode.md`
+  - `docs-site/docs/api/variables/useSetTimeout.md`
+  - `docs-site/docs/api/variables/useSetTitle.md`
+  - `docs-site/docs/api/variables/useSleep.md`
+  - `docs-site/docs/api/variables/useSlugify.md`
+  - `docs-site/docs/api/variables/useTable.md`
+  - `docs-site/docs/api/variables/useThrottle.md`
+  - `docs-site/docs/api/variables/useThrottleTrailing.md`
+  - `docs-site/docs/api/variables/useToCelsius.md`
+  - `docs-site/docs/api/variables/useToCm.md`
+  - `docs-site/docs/api/variables/useToFahrenheit.md`
+  - `docs-site/docs/api/variables/useToInches.md`
+  - `docs-site/docs/api/variables/useToKilometers.md`
+  - `docs-site/docs/api/variables/useToKilos.md`
+  - `docs-site/docs/api/variables/useToMiles.md`
+  - `docs-site/docs/api/variables/useToPounds.md`
+  - `docs-site/docs/api/variables/useToggleClass.md`
+  - `docs-site/docs/api/variables/useToggleTheme.md`
+  - `docs-site/docs/api/variables/useToken.md`
+  - `docs-site/docs/api/variables/useUnauthorized.md`
+  - `docs-site/docs/api/variables/useUnique.md`
+  - `docs-site/docs/api/variables/useUpperCase.md`
+  - `docs-site/docs/api/variables/useUuid.md`
+  - `docs-site/docs/changelog.md`
+  - `docs-site/docs/guides/architecture.md`
+  - `docs-site/docs/guides/getting-started.md`
+  - `docs-site/docs/guides/roadmap.md`
+  - `docs-site/docusaurus.config.ts`
+  - `docs-site/package.json`
+  - `docs-site/sidebars.ts`
+  - `docs-site/src/components/HomepageFeatures.module.css`
+  - `docs-site/src/components/HomepageFeatures.tsx`
+  - `docs-site/src/components/HomepageFeatures/index.tsx`
+  - `docs-site/src/components/HomepageFeatures/styles.module.css`
+  - `docs-site/src/css/custom.css`
+  - `docs-site/src/pages/index.module.css`
+  - `docs-site/src/pages/index.tsx`
+  - `docs-site/static/.nojekyll`
+  - `docs-site/static/img/docusaurus-social-card.jpg`
+  - `docs-site/static/img/docusaurus.png`
+  - `docs-site/static/img/favicon.ico`
+  - `docs-site/static/img/logo.svg`
+  - `docs-site/static/img/undraw_docusaurus_mountain.svg`
+  - `docs-site/static/img/undraw_docusaurus_react.svg`
+  - `docs-site/static/img/undraw_docusaurus_tree.svg`
+  - `docs-site/tsconfig.json`
+  - `docs-site/yarn.lock`
+  - `package.json`
+  - `yarn.lock`
+- [ ] docs(docs): update documentation in 278 files
+  - `docs/.gitignore`
+  - `docs/README.md`
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/globals.md`
+  - `docs/docs/api/index.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/typedoc-sidebar.cjs`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `docs/src/components/HomepageFeatures.module.css`
+  - `docs/src/components/HomepageFeatures.tsx`
+  - `docs/src/components/HomepageFeatures/index.tsx`
+  - `docs/src/components/HomepageFeatures/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/pages/index.module.css`
+  - `docs/src/pages/index.tsx`
+  - `docs/static/.nojekyll`
+  - `docs/static/img/docusaurus-social-card.jpg`
+  - `docs/static/img/docusaurus.png`
+  - `docs/static/img/favicon.ico`
+  - `docs/static/img/logo.svg`
+  - `docs/static/img/undraw_docusaurus_mountain.svg`
+  - `docs/static/img/undraw_docusaurus_react.svg`
+  - `docs/static/img/undraw_docusaurus_tree.svg`
+  - `docs/tsconfig.json`
+  - `docs/yarn.lock`
+- [ ] ci(scripts): update pipeline configuration in 295 files
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/workflows/docs.yml`
+  - `.nojekyll`
+  - `README.md`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `docs-site/.gitignore`
+  - `docs-site/README.md`
+  - `docs-site/astro.config.mjs`
+  - `docs-site/docs/api/classes/AppError.md`
+  - `docs-site/docs/api/classes/AppUtils.md`
+  - `docs-site/docs/api/classes/AstroService.md`
+  - `docs-site/docs/api/classes/ConsoleStrategy.md`
+  - `docs-site/docs/api/classes/ConverterService.md`
+  - `docs-site/docs/api/classes/DataUtils.md`
+  - `docs-site/docs/api/classes/DomService.md`
+  - `docs-site/docs/api/classes/ErrorFactoryService.md`
+  - `docs-site/docs/api/classes/FetchApiManager.md`
+  - `docs-site/docs/api/classes/FormatterService.md`
+  - `docs-site/docs/api/classes/GeneratorService.md`
+  - `docs-site/docs/api/classes/GeometryArea.md`
+  - `docs-site/docs/api/classes/GeometryPerimeter.md`
+  - `docs-site/docs/api/classes/GeometryVolume.md`
+  - `docs-site/docs/api/classes/LazyLoaderService.md`
+  - `docs-site/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs-site/docs/api/classes/LocalStorageStrategy.md`
+  - `docs-site/docs/api/classes/LoggerService.md`
+  - `docs-site/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs-site/docs/api/classes/NativeUuidStrategy.md`
+  - `docs-site/docs/api/classes/ObserverService.md`
+  - `docs-site/docs/api/classes/ReactiveService.md`
+  - `docs-site/docs/api/classes/RssService.md`
+  - `docs-site/docs/api/classes/SensorsUtils.md`
+  - `docs-site/docs/api/classes/SessionStorageStrategy.md`
+  - `docs-site/docs/api/classes/StorageService.md`
+  - `docs-site/docs/api/classes/SystemUtils.md`
+  - `docs-site/docs/api/classes/ThemeService.md`
+  - `docs-site/docs/api/classes/TimingService.md`
+  - `docs-site/docs/api/classes/ViewportService.md`
+  - `docs-site/docs/api/classes/WorkerService.md`
+  - `docs-site/docs/api/functions/useGenerateMetaTags.md`
+  - `docs-site/docs/api/functions/useHeadTags.md`
+  - `docs-site/docs/api/functions/useRssHeadLink.md`
+  - `docs-site/docs/api/functions/useTitle.md`
+  - `docs-site/docs/api/globals.md`
+  - `docs-site/docs/api/index.md`
+  - `docs-site/docs/api/interfaces/ApiEntry.md`
+  - `docs-site/docs/api/interfaces/ApiError.md`
+  - `docs-site/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs-site/docs/api/interfaces/AstroPath.md`
+  - `docs-site/docs/api/interfaces/AstroServiceError.md`
+  - `docs-site/docs/api/interfaces/BatteryManager.md`
+  - `docs-site/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs-site/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs-site/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs-site/docs/api/interfaces/FetchOptions.md`
+  - `docs-site/docs/api/interfaces/GeoPosition.md`
+  - `docs-site/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs-site/docs/api/interfaces/IAppUtils.md`
+  - `docs-site/docs/api/interfaces/IAstroService.md`
+  - `docs-site/docs/api/interfaces/IConverterService.md`
+  - `docs-site/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs-site/docs/api/interfaces/IDataUtils.md`
+  - `docs-site/docs/api/interfaces/IDomService.md`
+  - `docs-site/docs/api/interfaces/IErrorFactory.md`
+  - `docs-site/docs/api/interfaces/IFetchApiManager.md`
+  - `docs-site/docs/api/interfaces/IFormatterService.md`
+  - `docs-site/docs/api/interfaces/IReactiveService.md`
+  - `docs-site/docs/api/interfaces/IRssService.md`
+  - `docs-site/docs/api/interfaces/ISerializedError.md`
+  - `docs-site/docs/api/interfaces/ISystemUtils.md`
+  - `docs-site/docs/api/interfaces/IThemeService.md`
+  - `docs-site/docs/api/interfaces/IUuidStrategy.md`
+  - `docs-site/docs/api/interfaces/IntervalControl.md`
+  - `docs-site/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs-site/docs/api/interfaces/LogStrategy.md`
+  - `docs-site/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs-site/docs/api/interfaces/ObserverConfig.md`
+  - `docs-site/docs/api/interfaces/ObserverEntry.md`
+  - `docs-site/docs/api/interfaces/PaginationProps.md`
+  - `docs-site/docs/api/interfaces/PathsOptions.md`
+  - `docs-site/docs/api/interfaces/RssConfig.md`
+  - `docs-site/docs/api/interfaces/RssItem.md`
+  - `docs-site/docs/api/interfaces/ScrollOptions.md`
+  - `docs-site/docs/api/interfaces/ScrollPosition.md`
+  - `docs-site/docs/api/interfaces/SeoMeta.md`
+  - `docs-site/docs/api/interfaces/SignalGetter.md`
+  - `docs-site/docs/api/interfaces/SiteConfig.md`
+  - `docs-site/docs/api/interfaces/StorageStrategy.md`
+  - `docs-site/docs/api/interfaces/Subscribable.md`
+  - `docs-site/docs/api/interfaces/ThemeOptions.md`
+  - `docs-site/docs/api/interfaces/TimeoutControl.md`
+  - `docs-site/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs-site/docs/api/interfaces/UrlOptions.md`
+  - `docs-site/docs/api/interfaces/ViewportSize.md`
+  - `docs-site/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs-site/docs/api/type-aliases/ApisConfig.md`
+  - `docs-site/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs-site/docs/api/type-aliases/Currency.md`
+  - `docs-site/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs-site/docs/api/type-aliases/FetchResult.md`
+  - `docs-site/docs/api/type-aliases/HttpMethod.md`
+  - `docs-site/docs/api/type-aliases/Locale.md`
+  - `docs-site/docs/api/type-aliases/LogLevel.md`
+  - `docs-site/docs/api/type-aliases/ObserverCallback.md`
+  - `docs-site/docs/api/type-aliases/ObserverTarget.md`
+  - `docs-site/docs/api/type-aliases/PathParams.md`
+  - `docs-site/docs/api/type-aliases/ProductType.md`
+  - `docs-site/docs/api/type-aliases/QueryParams.md`
+  - `docs-site/docs/api/type-aliases/RssResult.md`
+  - `docs-site/docs/api/type-aliases/SignalListener.md`
+  - `docs-site/docs/api/type-aliases/SignalSetter.md`
+  - `docs-site/docs/api/type-aliases/StorageTarget.md`
+  - `docs-site/docs/api/type-aliases/TemporalInput.md`
+  - `docs-site/docs/api/type-aliases/ThemeMode.md`
+  - `docs-site/docs/api/type-aliases/WorkerFunc.md`
+  - `docs-site/docs/api/typedoc-sidebar.cjs`
+  - `docs-site/docs/api/variables/DOM_SERVICE.md`
+  - `docs-site/docs/api/variables/GeometryUtils.md`
+  - `docs-site/docs/api/variables/THEME_SERVICE.md`
+  - `docs-site/docs/api/variables/sensorsUtils.md`
+  - `docs-site/docs/api/variables/siteConfig.md`
+  - `docs-site/docs/api/variables/useAddClass.md`
+  - `docs-site/docs/api/variables/useAppend.md`
+  - `docs-site/docs/api/variables/useAverage.md`
+  - `docs-site/docs/api/variables/useBadRequest.md`
+  - `docs-site/docs/api/variables/useBlurActiveElement.md`
+  - `docs-site/docs/api/variables/useBuildUrl.md`
+  - `docs-site/docs/api/variables/useCapitalize.md`
+  - `docs-site/docs/api/variables/useChunk.md`
+  - `docs-site/docs/api/variables/useClear.md`
+  - `docs-site/docs/api/variables/useClearStorage.md`
+  - `docs-site/docs/api/variables/useCopyToClipboard.md`
+  - `docs-site/docs/api/variables/useCreateBatch.md`
+  - `docs-site/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs-site/docs/api/variables/useCreateEffect.md`
+  - `docs-site/docs/api/variables/useCreateElement.md`
+  - `docs-site/docs/api/variables/useCreateMemo.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs-site/docs/api/variables/useCreateSignal.md`
+  - `docs-site/docs/api/variables/useCreateStorageSignal.md`
+  - `docs-site/docs/api/variables/useCreateToggle.md`
+  - `docs-site/docs/api/variables/useCustom.md`
+  - `docs-site/docs/api/variables/useDebounce.md`
+  - `docs-site/docs/api/variables/useDebounceImmediate.md`
+  - `docs-site/docs/api/variables/useDeepClone.md`
+  - `docs-site/docs/api/variables/useDeepMerge.md`
+  - `docs-site/docs/api/variables/useDelay.md`
+  - `docs-site/docs/api/variables/useDelete.md`
+  - `docs-site/docs/api/variables/useDestroyTheme.md`
+  - `docs-site/docs/api/variables/useEncrypt.md`
+  - `docs-site/docs/api/variables/useError.md`
+  - `docs-site/docs/api/variables/useExitFullscreen.md`
+  - `docs-site/docs/api/variables/useExtractUniqueValues.md`
+  - `docs-site/docs/api/variables/useFetch.md`
+  - `docs-site/docs/api/variables/useFindEntry.md`
+  - `docs-site/docs/api/variables/useFocusElement.md`
+  - `docs-site/docs/api/variables/useForbidden.md`
+  - `docs-site/docs/api/variables/useFormatCurrency.md`
+  - `docs-site/docs/api/variables/useFormatNumber.md`
+  - `docs-site/docs/api/variables/useGeneratePagination.md`
+  - `docs-site/docs/api/variables/useGenerateRss.md`
+  - `docs-site/docs/api/variables/useGet.md`
+  - `docs-site/docs/api/variables/useGetActiveElement.md`
+  - `docs-site/docs/api/variables/useGetApis.md`
+  - `docs-site/docs/api/variables/useGetAttribute.md`
+  - `docs-site/docs/api/variables/useGetBody.md`
+  - `docs-site/docs/api/variables/useGetDataAttribute.md`
+  - `docs-site/docs/api/variables/useGetElementByClass.md`
+  - `docs-site/docs/api/variables/useGetElementById.md`
+  - `docs-site/docs/api/variables/useGetResolved.md`
+  - `docs-site/docs/api/variables/useGetRoot.md`
+  - `docs-site/docs/api/variables/useGetScrollPosition.md`
+  - `docs-site/docs/api/variables/useGetScrollProgress.md`
+  - `docs-site/docs/api/variables/useGetScrollX.md`
+  - `docs-site/docs/api/variables/useGetScrollY.md`
+  - `docs-site/docs/api/variables/useGetStaticPaths.md`
+  - `docs-site/docs/api/variables/useGetStorage.md`
+  - `docs-site/docs/api/variables/useGetThemeMode.md`
+  - `docs-site/docs/api/variables/useGetTitle.md`
+  - `docs-site/docs/api/variables/useGetUrlParams.md`
+  - `docs-site/docs/api/variables/useGetViewportSize.md`
+  - `docs-site/docs/api/variables/useGroupBy.md`
+  - `docs-site/docs/api/variables/useHasClass.md`
+  - `docs-site/docs/api/variables/useInit.md`
+  - `docs-site/docs/api/variables/useInitTheme.md`
+  - `docs-site/docs/api/variables/useInternal.md`
+  - `docs-site/docs/api/variables/useInterval.md`
+  - `docs-site/docs/api/variables/useIsAtBottom.md`
+  - `docs-site/docs/api/variables/useIsAtTop.md`
+  - `docs-site/docs/api/variables/useIsBrowser.md`
+  - `docs-site/docs/api/variables/useIsDocumentVisible.md`
+  - `docs-site/docs/api/variables/useIsFullscreen.md`
+  - `docs-site/docs/api/variables/useIsObject.md`
+  - `docs-site/docs/api/variables/useJsonParse.md`
+  - `docs-site/docs/api/variables/useJsonStringify.md`
+  - `docs-site/docs/api/variables/useLog.md`
+  - `docs-site/docs/api/variables/useLowerCase.md`
+  - `docs-site/docs/api/variables/useMatchesMedia.md`
+  - `docs-site/docs/api/variables/useNotFound.md`
+  - `docs-site/docs/api/variables/useNumericId.md`
+  - `docs-site/docs/api/variables/useOmit.md`
+  - `docs-site/docs/api/variables/useOn.md`
+  - `docs-site/docs/api/variables/useOnVisibilityChange.md`
+  - `docs-site/docs/api/variables/usePathsFrom.md`
+  - `docs-site/docs/api/variables/usePathsFromValues.md`
+  - `docs-site/docs/api/variables/usePick.md`
+  - `docs-site/docs/api/variables/usePost.md`
+  - `docs-site/docs/api/variables/usePrefersColorScheme.md`
+  - `docs-site/docs/api/variables/usePrefersDarkMode.md`
+  - `docs-site/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs-site/docs/api/variables/usePrintPage.md`
+  - `docs-site/docs/api/variables/usePut.md`
+  - `docs-site/docs/api/variables/useQuerySelector.md`
+  - `docs-site/docs/api/variables/useQuerySelectorAll.md`
+  - `docs-site/docs/api/variables/useRace.md`
+  - `docs-site/docs/api/variables/useRemove.md`
+  - `docs-site/docs/api/variables/useRemoveAttribute.md`
+  - `docs-site/docs/api/variables/useRemoveClass.md`
+  - `docs-site/docs/api/variables/useRemoveStorage.md`
+  - `docs-site/docs/api/variables/useRepeat.md`
+  - `docs-site/docs/api/variables/useRequestFullscreen.md`
+  - `docs-site/docs/api/variables/useResetTheme.md`
+  - `docs-site/docs/api/variables/useRetry.md`
+  - `docs-site/docs/api/variables/useRound.md`
+  - `docs-site/docs/api/variables/useRssLinkTag.md`
+  - `docs-site/docs/api/variables/useScrollTo.md`
+  - `docs-site/docs/api/variables/useScrollToBottom.md`
+  - `docs-site/docs/api/variables/useScrollToElement.md`
+  - `docs-site/docs/api/variables/useScrollToTop.md`
+  - `docs-site/docs/api/variables/useSetAttribute.md`
+  - `docs-site/docs/api/variables/useSetDataAttribute.md`
+  - `docs-site/docs/api/variables/useSetHtml.md`
+  - `docs-site/docs/api/variables/useSetStorage.md`
+  - `docs-site/docs/api/variables/useSetStrategy.md`
+  - `docs-site/docs/api/variables/useSetTempTitle.md`
+  - `docs-site/docs/api/variables/useSetText.md`
+  - `docs-site/docs/api/variables/useSetThemeMode.md`
+  - `docs-site/docs/api/variables/useSetTimeout.md`
+  - `docs-site/docs/api/variables/useSetTitle.md`
+  - `docs-site/docs/api/variables/useSleep.md`
+  - `docs-site/docs/api/variables/useSlugify.md`
+  - `docs-site/docs/api/variables/useTable.md`
+  - `docs-site/docs/api/variables/useThrottle.md`
+  - `docs-site/docs/api/variables/useThrottleTrailing.md`
+  - `docs-site/docs/api/variables/useToCelsius.md`
+  - `docs-site/docs/api/variables/useToCm.md`
+  - `docs-site/docs/api/variables/useToFahrenheit.md`
+  - `docs-site/docs/api/variables/useToInches.md`
+  - `docs-site/docs/api/variables/useToKilometers.md`
+  - `docs-site/docs/api/variables/useToKilos.md`
+  - `docs-site/docs/api/variables/useToMiles.md`
+  - `docs-site/docs/api/variables/useToPounds.md`
+  - `docs-site/docs/api/variables/useToggleClass.md`
+  - `docs-site/docs/api/variables/useToggleTheme.md`
+  - `docs-site/docs/api/variables/useToken.md`
+  - `docs-site/docs/api/variables/useUnauthorized.md`
+  - `docs-site/docs/api/variables/useUnique.md`
+  - `docs-site/docs/api/variables/useUpperCase.md`
+  - `docs-site/docs/api/variables/useUuid.md`
+  - `docs-site/docs/changelog.md`
+  - `docs-site/docs/guides/architecture.md`
+  - `docs-site/docs/guides/getting-started.md`
+  - `docs-site/docs/guides/roadmap.md`
+  - `docs-site/docusaurus.config.ts`
+  - `docs-site/package.json`
+  - `docs-site/sidebars.ts`
+  - `docs-site/src/components/HomepageFeatures.module.css`
+  - `docs-site/src/components/HomepageFeatures.tsx`
+  - `docs-site/src/components/HomepageFeatures/index.tsx`
+  - `docs-site/src/components/HomepageFeatures/styles.module.css`
+  - `docs-site/src/content.config.ts`
+  - `docs-site/src/content/docs/changelog.md`
+  - `docs-site/src/content/docs/guides/architecture.md`
+  - `docs-site/src/content/docs/guides/getting-started.md`
+  - `docs-site/src/content/docs/guides/roadmap.md`
+  - `docs-site/src/content/docs/index.md`
+  - `docs-site/src/css/custom.css`
+  - `docs-site/src/index.astro`
+  - `docs-site/src/pages/index.module.css`
+  - `docs-site/src/pages/index.tsx`
+  - `docs-site/static/.nojekyll`
+  - `docs-site/static/img/docusaurus-social-card.jpg`
+  - `docs-site/static/img/docusaurus.png`
+  - `docs-site/static/img/favicon.ico`
+  - `docs-site/static/img/logo.svg`
+  - `docs-site/static/img/undraw_docusaurus_mountain.svg`
+  - `docs-site/static/img/undraw_docusaurus_react.svg`
+  - `docs-site/static/img/undraw_docusaurus_tree.svg`
+  - `docs-site/tsconfig.json`
+  - `docs-site/versions.config.mjs`
+  - `docs-site/yarn.lock`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/README.md`
+  - `docs/Roadmap.md`
+  - `package.json`
+  - `src/config/site.config.ts`
+- [ ] fix: convert to yarn and fix Astro config
+  - `docs-site/src/index.astro`
+  - `docs-site/tsconfig.json`
+  - `package.json`
+- [ ] docs: Revamp architecture documentation and add new site structure
+  - `README.md`
+  - `docs-site/README.md`
+  - `docs-site/src/index.astro`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/README.md`
+- [ ] fix: use 'yarn run check' in validate to avoid yarn built-in conflict
+  - `package.json`
+- [ ] ci(release): add version to release title
+  - `.github/scripts/release.sh`
+- [ ] docs(.nojekyll): update documentation in 3 files
+  - `.nojekyll`
+  - `docs-site/src/content/docs/guides/getting-started.md`
+  - `docs-site/src/content/docs/index.md`
+- [ ] chore(.gitignore): update .gitignore
+  - `.gitignore`
+- [ ] docs(prisma-8): update documentation in 304 files
+  - `.cursor/skills/prisma-8/SKILL.md`
+  - `.cursor/skills/prisma-8/references/build.md`
+  - `.cursor/skills/prisma-8/references/contract.md`
+  - `.cursor/skills/prisma-8/references/debug.md`
+  - `.cursor/skills/prisma-8/references/feedback.md`
+  - `.cursor/skills/prisma-8/references/migration-model.md`
+  - `.cursor/skills/prisma-8/references/migration-review.md`
+  - `.cursor/skills/prisma-8/references/migrations.md`
+  - `.cursor/skills/prisma-8/references/queries-mongo.md`
+  - `.cursor/skills/prisma-8/references/queries-postgres.md`
+  - `.cursor/skills/prisma-8/references/queries.md`
+  - `.cursor/skills/prisma-8/references/quickstart.md`
+  - `.cursor/skills/prisma-8/references/runtime.md`
+  - `.cursor/skills/prisma-8/references/supabase.md`
+  - `.cursor/skills/prisma-8/references/upgrade-app.md`
+  - `.cursor/skills/prisma-8/references/upgrade-extension.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-composer/SKILL.md`
+  - `.devin/skills/prisma-8/SKILL.md`
+  - `.devin/skills/prisma-8/references/build.md`
+  - `.devin/skills/prisma-8/references/contract.md`
+  - `.devin/skills/prisma-8/references/debug.md`
+  - `.devin/skills/prisma-8/references/feedback.md`
+  - `.devin/skills/prisma-8/references/migration-model.md`
+  - `.devin/skills/prisma-8/references/migration-review.md`
+  - `.devin/skills/prisma-8/references/migrations.md`
+  - `.devin/skills/prisma-8/references/queries-mongo.md`
+  - `.devin/skills/prisma-8/references/queries-postgres.md`
+  - `.devin/skills/prisma-8/references/queries.md`
+  - `.devin/skills/prisma-8/references/quickstart.md`
+  - `.devin/skills/prisma-8/references/runtime.md`
+  - `.devin/skills/prisma-8/references/supabase.md`
+  - `.devin/skills/prisma-8/references/upgrade-app.md`
+  - `.devin/skills/prisma-8/references/upgrade-extension.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-composer/SKILL.md`
+  - `.env`
+  - `.gitignore`
+  - `.prisma/local.json`
+  - `.zcode/plans/plan-sess_305f8f01-e7b4-487c-8534-75e5aaf26299.md`
+  - `.zcode/plans/plan-sess_6dc0667d-f228-4c43-a026-2910fdf18433.md`
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.d.ts.map`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/adapters/astro/astro.service.js.map`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/astro/rss.service.d.ts`
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/app.d.ts`
+  - `dist/adapters/express/app.d.ts.map`
+  - `dist/adapters/express/app.js`
+  - `dist/adapters/express/app.js.map`
+  - `dist/adapters/express/index.d.ts`
+  - `dist/adapters/express/index.d.ts.map`
+  - `dist/adapters/express/index.js`
+  - `dist/adapters/express/index.js.map`
+  - `dist/adapters/express/main.d.ts`
+  - `dist/adapters/express/main.d.ts.map`
+  - `dist/adapters/express/main.js`
+  - `dist/adapters/express/main.js.map`
+  - `dist/adapters/express/products.controller.d.ts`
+  - `dist/adapters/express/products.controller.d.ts.map`
+  - `dist/adapters/express/products.controller.js`
+  - `dist/adapters/express/products.controller.js.map`
+  - `dist/adapters/express/router.d.ts`
+  - `dist/adapters/express/router.d.ts.map`
+  - `dist/adapters/express/router.js`
+  - `dist/adapters/express/router.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/index.d.ts`
+  - `dist/adapters/index.d.ts.map`
+  - `dist/adapters/index.js`
+  - `dist/adapters/index.js.map`
+  - `dist/adapters/nuxt/index.d.ts`
+  - `dist/adapters/nuxt/index.d.ts.map`
+  - `dist/adapters/nuxt/index.js`
+  - `dist/adapters/nuxt/index.js.map`
+  - `dist/adapters/nuxt/nuxt.service.d.ts`
+  - `dist/adapters/nuxt/nuxt.service.d.ts.map`
+  - `dist/adapters/nuxt/nuxt.service.js`
+  - `dist/adapters/nuxt/nuxt.service.js.map`
+  - `dist/adapters/vue/index.d.ts`
+  - `dist/adapters/vue/index.d.ts.map`
+  - `dist/adapters/vue/index.js`
+  - `dist/adapters/vue/index.js.map`
+  - `dist/adapters/vue/vue.service.d.ts`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/config/index.d.ts`
+  - `dist/config/index.d.ts.map`
+  - `dist/config/index.js`
+  - `dist/config/index.js.map`
+  - `dist/config/seo.service.d.ts`
+  - `dist/config/seo.service.d.ts.map`
+  - `dist/config/seo.service.js`
+  - `dist/config/seo.service.js.map`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `dist/config/site.config.js`
+  - `dist/config/site.config.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/error.service.d.ts`
+  - `dist/core/services/error.service.d.ts.map`
+  - `dist/core/services/error.service.js`
+  - `dist/core/services/error.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/index.d.ts`
+  - `dist/index.d.ts.map`
+  - `dist/index.js`
+  - `dist/index.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/index.d.ts`
+  - `dist/infrastructure/index.d.ts.map`
+  - `dist/infrastructure/index.js`
+  - `dist/infrastructure/index.js.map`
+  - `dist/infrastructure/observer/observer.service.d.ts`
+  - `dist/infrastructure/observer/observer.service.d.ts.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/prisma/db.d.ts`
+  - `dist/prisma/db.d.ts.map`
+  - `dist/prisma/db.js`
+  - `dist/prisma/db.js.map`
+  - `dist/prisma/schema.json`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `dist/types/index.js`
+  - `dist/types/index.js.map`
+- [ ] docs: add documentation site with versioning support
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/workflows/docs.yml`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs-site/.gitignore`
+  - `docs-site/package.json`
+  - `docs-site/src/content.config.ts`
+  - `docs-site/yarn.lock`
+  - `package.json`
+- [ ] feat: add Astro documentation site and restructure build scripts
+  - `docs-site/.gitignore`
+  - `docs-site/astro.config.mjs`
+  - `docs-site/package.json`
+  - `docs-site/src/content/docs/changelog.md`
+  - `docs-site/src/content/docs/guides/architecture.md`
+  - `docs-site/src/content/docs/guides/getting-started.md`
+  - `docs-site/src/content/docs/guides/roadmap.md`
+  - `docs-site/src/content/docs/index.md`
+  - `docs-site/tsconfig.json`
+  - `docs-site/versions.config.mjs`
+  - `package.json`
+- [ ] fix(release): derive base version from highest tag to prevent regressions
+  - `.github/scripts/determine-version.sh`
+  - `.github/scripts/release.sh`
+- [ ] ci(release): trigger automatic releases on dev and validate versions
+  - `.github/scripts/release.sh`
+  - `.github/workflows/release.yml`
+- [ ] ci(scripts): update pipeline configuration in 9 files
+  - `.github/scripts/determine-version.sh`
+  - `.github/scripts/release.sh`
+  - `.github/workflows/release.yml`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/API-Reference.md`
+  - `docs/Roadmap.md`
+- [ ] v2.2.1
+  - `package.json`
+- [ ] feat: bump package version to 2.2.0
+  - `package.json`
+- [ ] docs(CHANGELOG.md): update documentation in 12 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `tests/vue.service.test.ts`
+  - `yarn.lock`
+- [ ] docs(CHANGELOG.md): update documentation in 12 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `tests/vue.service.test.ts`
+  - `yarn.lock`
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
+- [ ] chore: update roadmap with completed features and future plans for katanakit-js
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/API-Reference.md`
+  - `docs/Roadmap.md`
+- [ ] docs: update architecture and getting started guides for clarity and detail
+  - `README.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
+- [ ] docs(README.md): update documentation and update version in package.json
+  - `README.md`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/nuxt.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/seo.service.test.ts`
+- [ ] docs(README.md): update documentation in 8 files
+  - `README.md`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/nuxt.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/seo.service.test.ts`
+- [ ] feat: remove unused theme initialization code
+  - `src/infrastructure/theme/theme.service.ts`
+- [ ] docs(README.md): update documentation in README.md
+  - `README.md`
+- [ ] docs(prisma-composer): update documentation in 15 files
+  - `.agents/skills/prisma-composer/SKILL.md`
+  - `biome.json`
+  - `package.json`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `src/config/index.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/index.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `tests/seo.service.test.ts`
+  - `yarn.lock`
+- [ ] build(bun.lock): update dependencies or build settings in 3 files
+  - `bun.lock`
+  - `package.json`
+  - `yarn.lock`
+- [ ] build(package.json): update dependencies or build settings in 4 files
+  - `package.json`
+  - `src/adapters/nuxt/index.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `tests/nuxt.service.test.ts`
+- [ ] fix: update DATABASE_URL in .env.example to use a placeholder
+  - `.env.example`
+- [ ] refactor: clean up exports in index.ts and enhance DOM service documentation
+  - `src/core/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+- [ ] docs(prisma-8): update documentation in 102 files
+  - `.agents/skills/prisma-8/SKILL.md`
+  - `.agents/skills/prisma-8/references/build.md`
+  - `.agents/skills/prisma-8/references/contract.md`
+  - `.agents/skills/prisma-8/references/debug.md`
+  - `.agents/skills/prisma-8/references/feedback.md`
+  - `.agents/skills/prisma-8/references/migration-model.md`
+  - `.agents/skills/prisma-8/references/migration-review.md`
+  - `.agents/skills/prisma-8/references/migrations.md`
+  - `.agents/skills/prisma-8/references/queries-mongo.md`
+  - `.agents/skills/prisma-8/references/queries-postgres.md`
+  - `.agents/skills/prisma-8/references/queries.md`
+  - `.agents/skills/prisma-8/references/quickstart.md`
+  - `.agents/skills/prisma-8/references/runtime.md`
+  - `.agents/skills/prisma-8/references/supabase.md`
+  - `.agents/skills/prisma-8/references/upgrade-app.md`
+  - `.agents/skills/prisma-8/references/upgrade-extension.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-composer/SKILL.md`
+  - `.gitignore`
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/server.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/db.ts`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] docs(README.md): update documentation in 10 files
+  - `README.md`
+  - `package.json`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/index.ts`
+  - `src/config/index.ts`
+  - `src/core/index.ts`
+  - `src/index.ts`
+  - `src/infrastructure/index.ts`
+  - `src/types/index.ts`
+- [ ] 2.0.1
+  - `package.json`
+- [ ] feat: rename package to katanakit-dev for clarity
+  - `README.md`
+  - `package.json`
+- [ ] feat: types and prisma change, updated, fixed
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/types/index.ts`
+- [ ] feat(astro): add changes to 11 files
+  - `src/adapters/astro/rss.service.ts`
+  - `src/config/seo.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/types/index.ts`
+- [ ] docs(README.md): update documentation in 9 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/index.ts`
+  - `src/types/index.ts`
+  - `tests/rss.service.test.ts`
+- [ ] Refactor Prisma schema and update models
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/rss.service.ts`
+- [ ] refactor!: update types with errors fixed
+  - `src/types/index.ts`
+- [ ] refactor!: Refactor Prisma schema and update models
+  - `.env.example`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `biome.json`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/observer/demo.ts`
+  - `package.json`
+  - `prisma.config.ts`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/server.ts`
+  - `src/core/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/storage.service.test.ts`
+- [ ] refactor!: remove unused Astro types and ports
+  - `src/adapters/astro/astro.types.ts`
+  - `src/core/ports/index.ts`
+- [ ] build(.env.example): update dependencies or build settings in 25 files
+  - `.env.example`
+  - `.gitattributes`
+  - `.gitignore`
+  - `bun.lock`
+  - `package.json`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] chore: add npm publish scripts and metadata
+  - `package.json`
+- [ ] chore(.gitignore): remove duplicate .zcode entry
+  - `.gitignore`
+- [ ] chore(.gitignore): update .gitignore
+  - `.gitignore`
+- [ ] rename: apify-manager → katanakit (KatanaKit brand)
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `bun.lock`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `package.json`
+- [ ] docs: rewrite documentation in English, add security guide, remove obsolete wiki
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+- [ ] fix: harden URL scheme validation, worker cleanup and token generation
+  - `index.js`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `wiki/API-References.md`
+  - `wiki/Architecture.md`
+  - `wiki/Getting-Started.md`
+  - `wiki/Home.md`
+  - `wiki/Roadmap.md`
+- [ ] test(astro): add test coverage for 9 files
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/storage.service.test.ts`
+  - `vitest.config.ts`
+- [ ] chore: restructure infrastructure and improve DOM service
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/astro.types.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/router.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/index.ts`
+  - `src/core/index.ts`
+  - `src/core/ports/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] feat: agregar servicio Prisma en ejemplos con soporte para Accelerate
+  - `examples/prisma/prisma.service.ts`
+  - `src/helpers/prisma/prisma.service.ts`
+- [ ] feat: add demo examples for Astro, Geometry, and Observer patterns
+  - `.gitignore`
+  - `biome.json`
+  - `bun.lock`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/observer/demo.ts`
+  - `package.json`
+  - `src/api/demo-astro.ts`
+  - `src/api/index.ts`
+  - `src/helpers/formatter/index.ts`
+  - `src/helpers/gemotry/demo.geometry.ts`
+  - `src/helpers/gemotry/types.geometry.ts`
+  - `src/helpers/index.ts`
+  - `src/helpers/localstorage/index.ts`
+  - `src/helpers/observer/demo.ts`
+  - `src/helpers/observer/types.ts`
+  - `src/helpers/prisma/prisma.service.ts`
+  - `src/helpers/sensors/demo.ts`
+  - `src/helpers/sensors/types.ts`
+  - `src/index.ts.bak`
+  - `src/infrastructure/signals/index.ts`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+- [ ] feat: upgrade to version 2.0.0 with TypeScript support and hexagonal architecture
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/astro.types.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/router.ts`
+  - `src/adapters/express/server.ts`
+  - `src/api/api-astro.ts`
+  - `src/api/astro.types.ts`
+  - `src/api/products/index.ts`
+  - `src/app.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/helpers/converters/index.ts`
+  - `src/helpers/errors/index.ts`
+  - `src/helpers/formatter/dates.ts`
+  - `src/helpers/gemotry/geometry.service.ts`
+  - `src/helpers/generator/index.ts`
+  - `src/helpers/localstorage/storage.service.ts`
+  - `src/helpers/logger.service.ts`
+  - `src/helpers/observer/observer.service.ts`
+  - `src/helpers/sensors/sensors.service.ts`
+  - `src/helpers/themes/index.ts`
+  - `src/helpers/utils/timing.service.ts`
+  - `src/helpers/worker/index.ts`
+  - `src/index.ts`
+  - `src/index.ts.bak`
+  - `src/infrastructure/api-core.ts`
+  - `src/infrastructure/dom-api/dom.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/signals/reactive.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/utils.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/window/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/router.ts`
+  - `src/server.ts`
+- [ ] docs: agregar utilidades para cálculos geométricos y manejo de observadores
+  - `src/helpers/gemotry/demo.geometry.ts`
+  - `src/helpers/gemotry/geometry.service.ts`
+  - `src/helpers/gemotry/types.geometry.ts`
+  - `src/helpers/observer/demo.ts`
+  - `src/helpers/observer/observer.service.ts`
+  - `src/helpers/observer/types.ts`
+  - `src/helpers/sensors/demo.ts`
+  - `src/helpers/sensors/sensors.service.ts`
+  - `src/helpers/sensors/types.ts`
+- [ ] feat: update versión a 1.0.0 y refactorizar servicios de tema y DOM
+  - `package.json`
+  - `src/helpers/themes/index.ts`
+  - `src/infrastructure/dom-api/dom.ts`
+  - `src/infrastructure/signals/index.ts`
+  - `src/infrastructure/signals/reactive.service.ts`
+- [ ] feat!: Implement API Manager and DOM Service with utility functions
+  - `.biomeignore`
+  - `biome.json`
+  - `bun.lock`
+  - `package.json`
+  - `src/api/api-astro.ts`
+  - `src/api/astro.types.ts`
+  - `src/api/demo-astro.ts`
+  - `src/api/index.ts`
+  - `src/api/products/index.ts`
+  - `src/app.ts`
+  - `src/helpers/converters/index.ts`
+  - `src/helpers/demo-astro.ts`
+  - `src/helpers/errors/index.ts`
+  - `src/helpers/formatter/dates.ts`
+  - `src/helpers/formatter/index.ts`
+  - `src/helpers/generator/index.ts`
+  - `src/helpers/index.ts`
+  - `src/helpers/localstorage/index.ts`
+  - `src/helpers/localstorage/storage.service.ts`
+  - `src/helpers/logger.service.ts`
+  - `src/helpers/themes/index.ts`
+  - `src/helpers/utils/timing.service.ts`
+  - `src/helpers/worker/index.ts`
+  - `src/index.ts`
+  - `src/infrastructure/api-core.ts`
+  - `src/infrastructure/dom-api/dom.ts`
+  - `src/infrastructure/utils.ts`
+  - `src/infrastructure/window/viewport.service.ts`
+  - `src/router.ts`
+  - `src/server.ts`
+  - `src/types/astro.types.ts`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] feat!: Agregar archivos de configuración inicial, documentación y ejemplos para apify-manager
+  - `.gitignore`
+  - `CONTRIBUTING.md`
+  - `LICENSE`
+  - `README.md`
+  - `index.js`
+  - `package.json`
+  - `src/api/api-astro.ts`
+  - `src/helpers/demo-astro.ts`
+  - `src/types/astro.types.ts`
+  - `tsconfig.json`
+  - `wiki/API-References.md`
+  - `wiki/Architecture.md`
+  - `wiki/Getting-Started.md`
+  - `wiki/Home.md`
+  - `wiki/Roadmap.md`
 
 ## [4.0.2] - 2026-09-22
 
 Version-only re-release. No functional changes vs 4.0.1.
 
-## [4.0.1]
+## [4.0.1] - 2026-09-22
 
-### Added
+What's news:
 
-- **Bun server adapter** (`katanakit-js/adapters/bun`) — a Bun-native alternative to Express built on `Bun.serve` with the `routes` API (Bun v1.2.3+). Ships a dummyjson.com demo: typed route table (`useBuildDummyJsonRoutes`), HTTP handlers over the core `useFetch` (`useDummyJsonProducts`, `useDummyJsonProductById`, `useDummyJsonProductSearch`, `useDummyJsonUsers`, `useDummyJsonPosts`, `useDummyJsonRandomQuote`, …), offline seed data (`useGetDummyJsonSeed`), and a singleton server facade (`useBunCreate`/`useBunStart`/`useBunGetServer`/`useBunStop`). Run locally with `bun run bun:dev`.
-
-### Breaking
-
-- **Logger API simplified** — `useLogger` now takes `(message, data?, level?)` with levels reduced to `log | warn | error` (removed `info`/`debug`). The Strategy abstraction (`LogStrategy`, `ConsoleStrategy`, `useSetLogLevel`, `useSetStrategy`) and `useLog` were removed; logging maps directly onto the native `console`.
-
-### Changed
-
-- **Renamed `docs/` → `guides/`** — the Docusaurus site is now the `guides` workspace (`katanakit-guides`); deployment paths, scripts, `sync-docs-releases.mjs` and the Docusaurus config (`path: "content"`, TypeDoc `out`) were updated.
-- **Prettier + ESLint as lint/format** — added `.vscode/settings.json` + `extensions.json` (Prettier default formatter, Biome disabled), formatted the whole codebase, removed stale `biome-ignore` comments and the redundant `eslint-config-prettier`.
-- **Reduced `package.json` scripts** — removed broken/redundant scripts (`bump:all`, `assistant:demo`, `api:demo`, `notes`, `dev:adapters`) and dropped husky/lint-staged (the pre-commit hook could not find `.git` in the monorepo).
-
-### Fixed
-
-- **`invalidateQueries` prefix matching** — now matches query keys by array prefix instead of serialized string, so invalidating `["users"]` correctly invalidates `["users", 1]`.
-- **XSS hardening in `useSetAttribute`** — `srcdoc` is now rejected outright (a regex cannot safely sanitize entity-encoded HTML); `data:` URIs are restricted to raster images (`png|jpg|gif|webp`).
-- **Pagination caps** — `useWpListAllPosts`, `useNotionListAllBlockChildren` and `useNotionListAllDatabasePages` now default to `maxItems = 1000`.
-- **Express `app` export is now lazy** — importing `katanakit-js/adapters/express` no longer builds the app as a side effect.
-- **Restored CI + release workflows** — `.github/workflows/ci.yml` and `release.yml` (OIDC trusted publishing) were recreated.
-- **Removed dead code** — the broken `ErrorService` singleton and the Astro re-export from the main barrel.
+- [ ] chore(katanakit-js): bump to 4.0.1 and merge changelog
+  - `bun.lock`
+  - `guides/package.json`
+  - `package.json`
+- [ ] docs(katanakit-js): document fixes, logger refactor and guides rename in CHANGELOG
+- [ ] fix(katanakit-js): address code review and security findings
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.npmrc`
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+- [ ] refactor(katanakit-js): rename docs to guides, configure prettier+eslint tooling
+  - `.gitignore`
+  - `.prettierignore`
+  - `.vscode/extensions.json`
+  - `.vscode/settings.json`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `eslint.config.mjs`
+  - `guides/.gitignore`
+  - `guides/README.md`
+  - `guides/content/changelog.md`
+  - `guides/content/guides/architecture.md`
+  - `guides/content/guides/bun-adapter.md`
+  - `guides/content/guides/framework-adapters.md`
+  - `guides/content/guides/getting-started.md`
+  - `guides/content/guides/query-client.md`
+  - `guides/content/guides/roadmap.md`
+  - `guides/content/guides/watch.md`
+  - `guides/content/ui-kit/architecture.md`
+  - `guides/content/ui-kit/index.md`
+  - `guides/content/ui-kit/inventory.md`
+  - `guides/content/ui-kit/llm-files.md`
+  - `guides/content/ui-kit/roadmap.md`
+  - `guides/docusaurus.config.ts`
+  - `guides/package.json`
+  - `guides/sidebars.ts`
+  - `guides/src/components/HomepageFeatures.module.css`
+  - `guides/src/components/HomepageFeatures.tsx`
+  - `guides/src/components/HomepageFeatures/index.tsx`
+  - `guides/src/components/HomepageFeatures/styles.module.css`
+  - `guides/src/components/ReleaseHistory/index.tsx`
+  - `guides/src/components/ReleaseHistory/styles.module.css`
+  - `guides/src/css/custom.css`
+  - `guides/src/data/releases.ts`
+  - `guides/src/pages/index.module.css`
+  - `guides/src/pages/index.tsx`
+  - `guides/src/theme/ColorModeToggle/index.tsx`
+  - `guides/src/theme/ColorModeToggle/styles.module.css`
+  - `guides/src/theme/DebugGlobalData/index.tsx`
+  - `guides/static/.nojekyll`
+  - `guides/static/img/docusaurus-social-card.jpg`
+  - `guides/static/img/docusaurus.png`
+  - `guides/static/img/favicon.ico`
+  - `guides/static/img/logo.svg`
+  - `guides/static/img/undraw_docusaurus_mountain.svg`
+  - `guides/static/img/undraw_docusaurus_react.svg`
+  - `guides/static/img/undraw_docusaurus_tree.svg`
+  - `guides/tsconfig.json`
+  - `package.json`
+  - `playground/index.html`
+  - `playground/package.json`
+  - `playground/src/App.vue`
+  - `playground/src/components/AppSidebar.vue`
+  - `playground/src/components/CodeBlock.vue`
+  - `playground/src/components/JsonViewer.vue`
+  - `playground/src/composables/usePlaygroundApis.ts`
+  - `playground/src/router/index.ts`
+  - `playground/src/style.css`
+  - `playground/src/views/FetchView.vue`
+  - `playground/src/views/HomeView.vue`
+  - `playground/src/views/QueryView.vue`
+  - `playground/src/views/UrlBuilderView.vue`
+  - `playground/src/views/WatchView.vue`
+  - `playground/tsconfig.json`
+  - `playground/vite.config.ts`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `render.yaml`
+  - `scripts/bump-version.mjs`
+  - `scripts/sync-docs-releases.mjs`
+  - `socket.yml`
+  - `src/core/services/query.service.ts`
+  - `tests/react.fetch.test.ts`
+  - `tests/react.query.test.ts`
+  - `tests/solid.fetch.test.ts`
+  - `tests/solid.query.test.ts`
+  - `tests/svelte.fetch.test.ts`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+- [ ] refactor(katanakit-js): simplify logger to useLogger(message, data, level)
+  - `.husky/pre-commit`
+  - `examples/agent/demo.ts`
+  - `examples/api-manager/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/types/index.ts`
+  - `tests/logger.service.test.ts`
+- [ ] delete unused SVG and TypeScript configuration files to clean up the project
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `docs/.gitignore`
+  - `docs/README.md`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/bun-adapter.md`
+  - `docs/docs/guides/framework-adapters.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/query-client.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/guides/watch.md`
+  - `docs/docs/ui-kit/architecture.md`
+  - `docs/docs/ui-kit/index.md`
+  - `docs/docs/ui-kit/inventory.md`
+  - `docs/docs/ui-kit/llm-files.md`
+  - `docs/docs/ui-kit/roadmap.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `docs/src/components/HomepageFeatures.module.css`
+  - `docs/src/components/HomepageFeatures.tsx`
+  - `docs/src/components/HomepageFeatures/index.tsx`
+  - `docs/src/components/HomepageFeatures/styles.module.css`
+  - `docs/src/components/ReleaseHistory/index.tsx`
+  - `docs/src/components/ReleaseHistory/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/data/releases.ts`
+  - `docs/src/pages/index.module.css`
+  - `docs/src/pages/index.tsx`
+  - `docs/src/theme/ColorModeToggle/index.tsx`
+  - `docs/src/theme/ColorModeToggle/styles.module.css`
+  - `docs/src/theme/DebugGlobalData/index.tsx`
+  - `docs/static/.nojekyll`
+  - `docs/static/img/docusaurus-social-card.jpg`
+  - `docs/static/img/docusaurus.png`
+  - `docs/static/img/favicon.ico`
+  - `docs/static/img/logo.svg`
+  - `docs/static/img/undraw_docusaurus_mountain.svg`
+  - `docs/static/img/undraw_docusaurus_react.svg`
+  - `docs/static/img/undraw_docusaurus_tree.svg`
+  - `docs/tsconfig.json`
+- [ ] Remove outdated upgrade instructions for Prisma extensions and delete the Prisma Composer skill documentation
+  - `.agents/skills/prisma-8/SKILL.md`
+  - `.agents/skills/prisma-8/references/build.md`
+  - `.agents/skills/prisma-8/references/contract.md`
+  - `.agents/skills/prisma-8/references/debug.md`
+  - `.agents/skills/prisma-8/references/feedback.md`
+  - `.agents/skills/prisma-8/references/migration-model.md`
+  - `.agents/skills/prisma-8/references/migration-review.md`
+  - `.agents/skills/prisma-8/references/migrations.md`
+  - `.agents/skills/prisma-8/references/queries-mongo.md`
+  - `.agents/skills/prisma-8/references/queries-postgres.md`
+  - `.agents/skills/prisma-8/references/queries.md`
+  - `.agents/skills/prisma-8/references/quickstart.md`
+  - `.agents/skills/prisma-8/references/runtime.md`
+  - `.agents/skills/prisma-8/references/supabase.md`
+  - `.agents/skills/prisma-8/references/upgrade-app.md`
+  - `.agents/skills/prisma-8/references/upgrade-extension.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-composer/SKILL.md`
+- [ ] fix(katanakit-js): address Bun adapter code review findings
+  - `src/adapters/bun/dummyjson.service.ts`
+  - `src/adapters/bun/routes.ts`
+  - `src/adapters/bun/seed.ts`
+  - `src/adapters/bun/server.ts`
+- [ ] feat(katanakit-js): add Bun server adapter with dummyjson demo routes
+  - `bun.lock`
+  - `docs/docs/guides/bun-adapter.md`
+  - `docs/sidebars.ts`
+  - `package.json`
+  - `src/adapters/bun/dummyjson.service.ts`
+  - `src/adapters/bun/index.ts`
+  - `src/adapters/bun/main.ts`
+  - `src/adapters/bun/routes.ts`
+  - `src/adapters/bun/seed.ts`
+  - `src/adapters/bun/server.ts`
+  - `tests/bun.adapter.test.ts`
 
 ## [4.0.0] - 2026-09-20
 
-### Added
+What's news:
 
-- **Framework adapters for React, Solid, Svelte and Angular** — new optional subpaths (`katanakit-js/adapters/react`, `katanakit-js/adapters/solid`, `katanakit-js/adapters/svelte`, `katanakit-js/adapters/angular`) exposing `useQuery`, `useMutation`, `useRequest`, and `useWatch` over the core `QueryClient` and HTTP layer, each with the framework's native reactivity: React hooks (`useState`/`useEffect`), Solid signals, Svelte readable stores, and Angular signals (injection-context aware via `DestroyRef`). All adapters share the global query cache, so data is shared across frameworks.
-- **`useRequest` renamed from `useKatanaFetch`** — the Vue reactive-fetch composable is now `useRequest` for brevity and consistency across adapters. `useKatanaFetch` remains as a deprecated alias.
-- **Interactive playground** — Vue 3 + Vite dev environment (`playground/`) for testing library features in-browser. Run with `pnpm playground:dev`. Includes demos for `useRequest`, `useQuery`, `useWatch`, and `useBuildUrl` with real API calls (PokeAPI, JSONPlaceholder).
-- **Notion REST API adapter** (`katanakit-js/adapters/notion`) — typed client for the Notion API with `useInitNotion` for token registration. Covers Pages (get, create, update, archive), Blocks (get, get children, append, update, delete), Databases (get schema, query, create, update), Users (get, list), and Search. Includes auto-pagination helpers: `useNotionListAllBlockChildren` and `useNotionListAllDatabasePages` that handle cursor-based pagination automatically. All functions return `FetchResult<T>` (safe result pattern).
-- **WordPress REST API adapter** (`katanakit-js/adapters/wordpress`) — typed client for the WordPress REST API with `useInitWordPress` supporting Application Passwords, JWT, Basic Auth, and nonce-based authentication. Covers Posts, Pages, Media (with file upload via `useWpUploadMedia`), Categories, Tags, Comments, Users, and Custom Post Types with full CRUD operations. Includes batch operations (`useWpBatch`), auto-pagination (`useWpListAllPosts`), search (`useWpSearchAllPosts`), and slug-based routing (`useWpFindPostBySlug`). All functions return `FetchResult<T>`.
-- **WordPress `_fields` support** — new `WpQueryParams._fields` parameter to limit response fields, reducing payload by 60-80% for list views. Supports nested field selection: `"id,title,link"` or `"id,title.rendered,acf.hero_image"`.
-- **WordPress `_embed` as string** — `WpQueryParams._embed` now accepts `boolean | string` for selective resource embedding: `"_embed: author,wp:featuredmedia"` embeds only author and featured media. Typed `WpEmbedded` interface for `_embedded` responses with proper `author[]`, `wp:featuredmedia[]`, `wp:term[][]`, and `replies[][]` types.
-- **WordPress ACF (Advanced Custom Fields) support** — `WpAcfFields` type for ACF field data on posts, pages, media, taxonomies, users, and options. ACF fields are accessible via `post.acf?.field_name` when using `_fields: "id,acf"`.
-- **WordPress `media_details` complete types** — added `filesize`, `image_meta` (EXIF data), and complete `sizes` structure with `file`, `mime_type`, and `filesize` per size.
-- **Vue and Nuxt framework examples** — SFC examples for blog listings and dynamic `[slug]` routes using `useQuery` (Vue) and `useAsyncData` (Nuxt) with SSR support.
-- **Framework examples** — Astro and Next.js (React) demos for both adapters showing real-world usage: blog listings, dynamic `[slug]` routes, database queries, block rendering, media uploads, and taxonomy management. Examples live in `examples/notion/` and `examples/wordpress/`.
+- [ ] chore(katanakit-js): bump to v4.0.0 and point repo refs to the katanakit monorepo
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `package.json`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-docs-releases.mjs`
+- [ ] chore(katanakit-js): finalize v3.3.0 changelog
+- [ ] build(katanakit-js): update dependencies or build settings in 2 files
+  - `bun.lock`
+  - `package.json`
+- [ ] feat(katanakit-js): add useRequest and useWatch to framework adapters
+  - `README.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/framework-adapters.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `examples/vue/demo.ts`
+  - `playground/src/components/AppSidebar.vue`
+  - `playground/src/router/index.ts`
+  - `playground/src/views/FetchView.vue`
+  - `playground/src/views/HomeView.vue`
+  - `src/adapters/angular/fetch.ts`
+  - `src/adapters/angular/index.ts`
+  - `src/adapters/angular/watch.ts`
+  - `src/adapters/react/fetch.ts`
+  - `src/adapters/react/index.ts`
+  - `src/adapters/react/watch.ts`
+  - `src/adapters/solid/fetch.ts`
+  - `src/adapters/solid/index.ts`
+  - `src/adapters/solid/watch.ts`
+  - `src/adapters/svelte/fetch.ts`
+  - `src/adapters/svelte/index.ts`
+  - `src/adapters/svelte/watch.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `tests/angular.fetch.test.ts`
+  - `tests/react.fetch.test.ts`
+  - `tests/solid.fetch.test.ts`
+  - `tests/svelte.fetch.test.ts`
+  - `tests/vue.service.test.ts`
+- [ ] feat(katanakit-js): add React, Solid, Svelte and Angular adapters
+  - `bun.lock`
+  - `docs/docs/guides/framework-adapters.md`
+  - `docs/sidebars.ts`
+  - `package.json`
+  - `src/adapters/angular/index.ts`
+  - `src/adapters/angular/query.ts`
+  - `src/adapters/react/index.ts`
+  - `src/adapters/react/query.ts`
+  - `src/adapters/solid/index.ts`
+  - `src/adapters/solid/query.ts`
+  - `src/adapters/svelte/index.ts`
+  - `src/adapters/svelte/query.ts`
+  - `tests/angular.query.test.ts`
+  - `tests/react.query.test.ts`
+  - `tests/solid.query.test.ts`
+  - `tests/svelte.query.test.ts`
+  - `vitest.config.ts`
+- [ ] fix(katanakit-js): correct query cache, SSR-safety, SSRF and adapter bugs
+  - `.gitignore`
+  - `.prisma/local.json`
+  - `bun.lock`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/prisma/assistant.store.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+- [ ] Add 'katanakit-js/' from commit '2951585a8e4182ceffb2b9538605114baadcec42'
+  - `.agents/skills/prisma-8/SKILL.md`
+  - `.agents/skills/prisma-8/references/build.md`
+  - `.agents/skills/prisma-8/references/contract.md`
+  - `.agents/skills/prisma-8/references/debug.md`
+  - `.agents/skills/prisma-8/references/feedback.md`
+  - `.agents/skills/prisma-8/references/migration-model.md`
+  - `.agents/skills/prisma-8/references/migration-review.md`
+  - `.agents/skills/prisma-8/references/migrations.md`
+  - `.agents/skills/prisma-8/references/queries-mongo.md`
+  - `.agents/skills/prisma-8/references/queries-postgres.md`
+  - `.agents/skills/prisma-8/references/queries.md`
+  - `.agents/skills/prisma-8/references/quickstart.md`
+  - `.agents/skills/prisma-8/references/runtime.md`
+  - `.agents/skills/prisma-8/references/supabase.md`
+  - `.agents/skills/prisma-8/references/upgrade-app.md`
+  - `.agents/skills/prisma-8/references/upgrade-extension.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-composer/SKILL.md`
+  - `.env.example`
+  - `.gitattributes`
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `.npmrc`
+  - `.prettierignore`
+  - `.prettierrc`
+  - `.prisma/local.json`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `LICENSE`
+  - `README.md`
+  - `SECURITY.md`
+  - `bun.lock`
+  - `docs/.gitignore`
+  - `docs/README.md`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/query-client.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/guides/watch.md`
+  - `docs/docs/ui-kit/architecture.md`
+  - `docs/docs/ui-kit/index.md`
+  - `docs/docs/ui-kit/inventory.md`
+  - `docs/docs/ui-kit/llm-files.md`
+  - `docs/docs/ui-kit/roadmap.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `docs/src/components/HomepageFeatures.module.css`
+  - `docs/src/components/HomepageFeatures.tsx`
+  - `docs/src/components/HomepageFeatures/index.tsx`
+  - `docs/src/components/HomepageFeatures/styles.module.css`
+  - `docs/src/components/ReleaseHistory/index.tsx`
+  - `docs/src/components/ReleaseHistory/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/data/releases.ts`
+  - `docs/src/pages/index.module.css`
+  - `docs/src/pages/index.tsx`
+  - `docs/src/theme/ColorModeToggle/index.tsx`
+  - `docs/src/theme/ColorModeToggle/styles.module.css`
+  - `docs/src/theme/DebugGlobalData/index.tsx`
+  - `docs/static/.nojekyll`
+  - `docs/static/img/docusaurus-social-card.jpg`
+  - `docs/static/img/docusaurus.png`
+  - `docs/static/img/favicon.ico`
+  - `docs/static/img/logo.svg`
+  - `docs/static/img/undraw_docusaurus_mountain.svg`
+  - `docs/static/img/undraw_docusaurus_react.svg`
+  - `docs/static/img/undraw_docusaurus_tree.svg`
+  - `docs/tsconfig.json`
+  - `eslint.config.mjs`
+  - `examples/agent/demo.ts`
+  - `examples/api-manager/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `package.json`
+  - `playground/index.html`
+  - `playground/package.json`
+  - `playground/src/App.vue`
+  - `playground/src/components/AppSidebar.vue`
+  - `playground/src/components/CodeBlock.vue`
+  - `playground/src/components/JsonViewer.vue`
+  - `playground/src/composables/usePlaygroundApis.ts`
+  - `playground/src/main.ts`
+  - `playground/src/router/index.ts`
+  - `playground/src/style.css`
+  - `playground/src/views/FetchView.vue`
+  - `playground/src/views/HomeView.vue`
+  - `playground/src/views/QueryView.vue`
+  - `playground/src/views/UrlBuilderView.vue`
+  - `playground/src/views/WatchView.vue`
+  - `playground/tsconfig.json`
+  - `playground/vite.config.ts`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `render.yaml`
+  - `scripts/bump-version.mjs`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-docs-releases.mjs`
+  - `socket.yml`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/adapters/assistant/index.ts`
+  - `src/adapters/assistant/main.ts`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/router.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/index.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/adapters/nuxt/watch.ts`
+  - `src/adapters/telegram/index.ts`
+  - `src/adapters/telegram/main.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/adapters/vue/watch.ts`
+  - `src/adapters/whatsapp/index.ts`
+  - `src/adapters/whatsapp/main.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/index.ts`
+  - `src/core/services/access.service.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/index.js`
+  - `src/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/assistant.store.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/index.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `src/worker.js`
+  - `tests/access.guard.test.ts`
+  - `tests/access.service.test.ts`
+  - `tests/agent.service.test.ts`
+  - `tests/assistant.service.test.ts`
+  - `tests/core.services.test.ts`
+  - `tests/express.server.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/nuxt.service.test.ts`
+  - `tests/query.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tests/storage.service.test.ts`
+  - `tests/telegram.service.test.ts`
+  - `tests/vue.service.test.ts`
+  - `tests/vue.watch.test.ts`
+  - `tests/whatsapp.service.test.ts`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+- [ ] chore: preparar para subtree add
+  - `.agents/skills/prisma-8/SKILL.md`
+  - `.agents/skills/prisma-8/references/build.md`
+  - `.agents/skills/prisma-8/references/contract.md`
+  - `.agents/skills/prisma-8/references/debug.md`
+  - `.agents/skills/prisma-8/references/feedback.md`
+  - `.agents/skills/prisma-8/references/migration-model.md`
+  - `.agents/skills/prisma-8/references/migration-review.md`
+  - `.agents/skills/prisma-8/references/migrations.md`
+  - `.agents/skills/prisma-8/references/queries-mongo.md`
+  - `.agents/skills/prisma-8/references/queries-postgres.md`
+  - `.agents/skills/prisma-8/references/queries.md`
+  - `.agents/skills/prisma-8/references/quickstart.md`
+  - `.agents/skills/prisma-8/references/runtime.md`
+  - `.agents/skills/prisma-8/references/supabase.md`
+  - `.agents/skills/prisma-8/references/upgrade-app.md`
+  - `.agents/skills/prisma-8/references/upgrade-extension.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-composer/SKILL.md`
+  - `.env.example`
+  - `.gitattributes`
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `.npmrc`
+  - `.prettierignore`
+  - `.prettierrc`
+  - `.prisma/local.json`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `LICENSE`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/.gitignore`
+  - `docs/README.md`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/query-client.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/guides/watch.md`
+  - `docs/docs/ui-kit/architecture.md`
+  - `docs/docs/ui-kit/index.md`
+  - `docs/docs/ui-kit/inventory.md`
+  - `docs/docs/ui-kit/llm-files.md`
+  - `docs/docs/ui-kit/roadmap.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `docs/src/components/HomepageFeatures.module.css`
+  - `docs/src/components/HomepageFeatures.tsx`
+  - `docs/src/components/HomepageFeatures/index.tsx`
+  - `docs/src/components/HomepageFeatures/styles.module.css`
+  - `docs/src/components/ReleaseHistory/index.tsx`
+  - `docs/src/components/ReleaseHistory/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/data/releases.ts`
+  - `docs/src/pages/index.module.css`
+  - `docs/src/pages/index.tsx`
+  - `docs/src/theme/ColorModeToggle/index.tsx`
+  - `docs/src/theme/ColorModeToggle/styles.module.css`
+  - `docs/src/theme/DebugGlobalData/index.tsx`
+  - `docs/static/.nojekyll`
+  - `docs/static/img/docusaurus-social-card.jpg`
+  - `docs/static/img/docusaurus.png`
+  - `docs/static/img/favicon.ico`
+  - `docs/static/img/logo.svg`
+  - `docs/static/img/undraw_docusaurus_mountain.svg`
+  - `docs/static/img/undraw_docusaurus_react.svg`
+  - `docs/static/img/undraw_docusaurus_tree.svg`
+  - `docs/tsconfig.json`
+  - `eslint.config.mjs`
+  - `examples/agent/demo.ts`
+  - `examples/api-manager/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `package.json`
+  - `playground/index.html`
+  - `playground/package.json`
+  - `playground/src/App.vue`
+  - `playground/src/components/AppSidebar.vue`
+  - `playground/src/components/CodeBlock.vue`
+  - `playground/src/components/JsonViewer.vue`
+  - `playground/src/composables/usePlaygroundApis.ts`
+  - `playground/src/main.ts`
+  - `playground/src/router/index.ts`
+  - `playground/src/style.css`
+  - `playground/src/views/FetchView.vue`
+  - `playground/src/views/HomeView.vue`
+  - `playground/src/views/QueryView.vue`
+  - `playground/src/views/UrlBuilderView.vue`
+  - `playground/src/views/WatchView.vue`
+  - `playground/tsconfig.json`
+  - `playground/vite.config.ts`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `render.yaml`
+  - `scripts/bump-version.mjs`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-docs-releases.mjs`
+  - `socket.yml`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/adapters/assistant/index.ts`
+  - `src/adapters/assistant/main.ts`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/router.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/index.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/adapters/nuxt/watch.ts`
+  - `src/adapters/telegram/index.ts`
+  - `src/adapters/telegram/main.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/adapters/vue/watch.ts`
+  - `src/adapters/whatsapp/index.ts`
+  - `src/adapters/whatsapp/main.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/index.ts`
+  - `src/core/services/access.service.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/index.js`
+  - `src/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/assistant.store.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/index.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `src/worker.js`
+  - `tests/access.guard.test.ts`
+  - `tests/access.service.test.ts`
+  - `tests/agent.service.test.ts`
+  - `tests/assistant.service.test.ts`
+  - `tests/core.services.test.ts`
+  - `tests/express.server.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/nuxt.service.test.ts`
+  - `tests/query.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tests/storage.service.test.ts`
+  - `tests/telegram.service.test.ts`
+  - `tests/vue.service.test.ts`
+  - `tests/vue.watch.test.ts`
+  - `tests/whatsapp.service.test.ts`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+- [ ] fix: subcarpetas como archivos normales
+  - `.agents/skills/prisma-8/SKILL.md`
+  - `.agents/skills/prisma-8/references/build.md`
+  - `.agents/skills/prisma-8/references/contract.md`
+  - `.agents/skills/prisma-8/references/debug.md`
+  - `.agents/skills/prisma-8/references/feedback.md`
+  - `.agents/skills/prisma-8/references/migration-model.md`
+  - `.agents/skills/prisma-8/references/migration-review.md`
+  - `.agents/skills/prisma-8/references/migrations.md`
+  - `.agents/skills/prisma-8/references/queries-mongo.md`
+  - `.agents/skills/prisma-8/references/queries-postgres.md`
+  - `.agents/skills/prisma-8/references/queries.md`
+  - `.agents/skills/prisma-8/references/quickstart.md`
+  - `.agents/skills/prisma-8/references/runtime.md`
+  - `.agents/skills/prisma-8/references/supabase.md`
+  - `.agents/skills/prisma-8/references/upgrade-app.md`
+  - `.agents/skills/prisma-8/references/upgrade-extension.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-composer/SKILL.md`
+  - `.env.example`
+  - `.gitattributes`
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `.npmrc`
+  - `.prettierignore`
+  - `.prettierrc`
+  - `.prisma/local.json`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `LICENSE`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/.gitignore`
+  - `docs/README.md`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/query-client.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/guides/watch.md`
+  - `docs/docs/ui-kit/architecture.md`
+  - `docs/docs/ui-kit/index.md`
+  - `docs/docs/ui-kit/inventory.md`
+  - `docs/docs/ui-kit/llm-files.md`
+  - `docs/docs/ui-kit/roadmap.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `docs/src/components/HomepageFeatures.module.css`
+  - `docs/src/components/HomepageFeatures.tsx`
+  - `docs/src/components/HomepageFeatures/index.tsx`
+  - `docs/src/components/HomepageFeatures/styles.module.css`
+  - `docs/src/components/ReleaseHistory/index.tsx`
+  - `docs/src/components/ReleaseHistory/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/data/releases.ts`
+  - `docs/src/pages/index.module.css`
+  - `docs/src/pages/index.tsx`
+  - `docs/src/theme/ColorModeToggle/index.tsx`
+  - `docs/src/theme/ColorModeToggle/styles.module.css`
+  - `docs/src/theme/DebugGlobalData/index.tsx`
+  - `docs/static/.nojekyll`
+  - `docs/static/img/docusaurus-social-card.jpg`
+  - `docs/static/img/docusaurus.png`
+  - `docs/static/img/favicon.ico`
+  - `docs/static/img/logo.svg`
+  - `docs/static/img/undraw_docusaurus_mountain.svg`
+  - `docs/static/img/undraw_docusaurus_react.svg`
+  - `docs/static/img/undraw_docusaurus_tree.svg`
+  - `docs/tsconfig.json`
+  - `eslint.config.mjs`
+  - `examples/agent/demo.ts`
+  - `examples/api-manager/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `package.json`
+  - `playground/index.html`
+  - `playground/package.json`
+  - `playground/src/App.vue`
+  - `playground/src/components/AppSidebar.vue`
+  - `playground/src/components/CodeBlock.vue`
+  - `playground/src/components/JsonViewer.vue`
+  - `playground/src/composables/usePlaygroundApis.ts`
+  - `playground/src/main.ts`
+  - `playground/src/router/index.ts`
+  - `playground/src/style.css`
+  - `playground/src/views/FetchView.vue`
+  - `playground/src/views/HomeView.vue`
+  - `playground/src/views/QueryView.vue`
+  - `playground/src/views/UrlBuilderView.vue`
+  - `playground/src/views/WatchView.vue`
+  - `playground/tsconfig.json`
+  - `playground/vite.config.ts`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `render.yaml`
+  - `scripts/bump-version.mjs`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-docs-releases.mjs`
+  - `socket.yml`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/adapters/assistant/index.ts`
+  - `src/adapters/assistant/main.ts`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/router.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/index.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/adapters/nuxt/watch.ts`
+  - `src/adapters/telegram/index.ts`
+  - `src/adapters/telegram/main.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/adapters/vue/watch.ts`
+  - `src/adapters/whatsapp/index.ts`
+  - `src/adapters/whatsapp/main.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/index.ts`
+  - `src/core/services/access.service.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/index.js`
+  - `src/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/assistant.store.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/index.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `src/worker.js`
+  - `tests/access.guard.test.ts`
+  - `tests/access.service.test.ts`
+  - `tests/agent.service.test.ts`
+  - `tests/assistant.service.test.ts`
+  - `tests/core.services.test.ts`
+  - `tests/express.server.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/nuxt.service.test.ts`
+  - `tests/query.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tests/storage.service.test.ts`
+  - `tests/telegram.service.test.ts`
+  - `tests/vue.service.test.ts`
+  - `tests/vue.watch.test.ts`
+  - `tests/whatsapp.service.test.ts`
+  - `tsconfig.json`
+  - `vitest.config.ts`
 
-### Changed
+## [3.2.4] - 2026-09-18
 
-- **npm v12 security hardening** — added `.npmrc` with `allow-scripts=` to block dependency lifecycle scripts (npm v12 default). Added `.github/workflows/release.yml` with OIDC trusted publishing for automated releases without long-lived NPM_TOKEN. Updated AGENTS.md with new release workflow and security notes.
-- **Improved documentation** — expanded `useBuildUrl` section with real-world use cases (navigation links, image URLs, third-party libraries, debugging, SSR), updated `CONTRIBUTING.md` to reflect current tooling (pnpm), added contribution invitation to README.
-- **Kitt AI assistant documentation** — added "When to use Kitt" and "When to use alternatives" comparison table with links to Vercel AI SDK, LangChain, CrewAI, and Botpress.
+What's news:
 
-### Fixed
+- [ ] docs: improve useBuildUrl, Kitt, and contribution guide
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `src/core/services/http.service.ts`
 
-- **Query cache** — `fetchQuery` no longer reuses the placeholder `queryFn` from `subscribe()` (which returned empty data); the error state is no longer corrupted to `[object Object]`; `cancelQueries` now actually cancels.
-- **SSRF** — `useFetch` fails closed on redirects (`redirect: "error"`).
-- **DOM sanitizer** — blocks `data:`, `vbscript:` and control-character scheme bypasses.
-- **Prisma subpath** — importing `katanakit-js/prisma` no longer throws without `DATABASE_URL` (lazy client).
-- **Notion/WordPress** — return Safe Results when unconfigured; WordPress nonce auth now sends the cookie.
-- **SSR guards** — `useCopyToClipboard` and storage access are now SSR-safe.
+## [3.2.1] - 2026-09-18
+
+What's news:
+
+- [ ] docs(readme): add Notion/WordPress adapter documentation with _fields, _embed, ACF
+  - `README.md`
+- [ ] feat(wordpress): add _fields, _embed, ACF support + Vue/Nuxt examples
+  - `examples/notion/nuxt-blog.vue`
+  - `examples/notion/nuxt-post.vue`
+  - `examples/notion/vue-blog.vue`
+  - `examples/notion/vue-post.vue`
+  - `examples/wordpress/demo.ts`
+  - `examples/wordpress/nuxt-blog.vue`
+  - `examples/wordpress/nuxt-post.vue`
+  - `examples/wordpress/vue-blog.vue`
+  - `examples/wordpress/vue-post.vue`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/types/index.ts`
+- [ ] feat(adapters): add Notion and WordPress REST API adapters with framework examples
+  - `examples/wordpress/next-[slug].tsx`
+  - `examples/wordpress/next-blog.tsx`
+  - `package.json`
+
+## [3.1.4] - 2026-09-18
+
+What's news:
+
+- [ ] chore(wordpress): update 2 files
+  - `examples/wordpress/astro-[slug].astro`
+  - `examples/wordpress/astro-blog.astro`
+- [ ] docs(README.md): update documentation in 14 files
+  - `README.md`
+  - `examples/notion/astro-[slug].astro`
+  - `examples/notion/astro-blog.astro`
+  - `examples/notion/demo.ts`
+  - `examples/notion/next-[slug].tsx`
+  - `examples/notion/next-blog.tsx`
+  - `examples/wordpress/demo.ts`
+  - `package.json`
+  - `src/adapters/index.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/types/index.ts`
+
+## [3.1.1] - 2026-09-16
+
+What's news:
+
+- [ ] docs: sync release cards for v3.1.0
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
 
 ## [3.1.0] - 2026-09-14
 
-### Added
+What's news:
 
-- **Generic `useKatanaWatch` / `useWatch` composables** — watcher in `katanakit-js/adapters/vue` (re-exported from `katanakit-js/adapters/nuxt`) wrapping the native Vue `watch` with `deep: true` by default. Props (`WatchSource`, `WatchCallback`, `WatchOptions`, `WatchStopHandle`) are taken from the native `watch` and live in `src/types/`; the callback accepts any internal function (sync/async, with or without args). Accepts a ref, reactive object, getter function or array of sources, stops automatically on unmount, and powers use cases like revalidating a form (`safeParse` with Zod, Valibot, Standard Schema or custom validators) on every nested change. Schema-agnostic types (`FieldErrors`, `ValidationSchema`) also live in `src/types/`.
+- [ ] feat(vue): add generic useKatanaWatch/useWatch with native watch props
+  - `README.md`
+  - `docs/docs/guides/watch.md`
+  - `docs/sidebars.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `src/adapters/nuxt/watch.ts`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/watch.ts`
+  - `src/types/index.ts`
+  - `tests/vue.watch.test.ts`
+- [ ] docs: sync release cards for v3.0.1
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
 
 ## [3.0.1] - 2026-09-13
 
-### Fixed
+What's news:
 
-- **`express-rate-limit` was imported by the assistant adapter but never declared** — the published package crashed with `ERR_MODULE_NOT_FOUND` for consumers of `katanakit-js/adapters/assistant`. It is now a runtime dependency (`8.7.0`, which ships its own types); the deprecated `@types/express-rate-limit` stub was removed.
-- **Prisma client was initialized eagerly on import** — `src/prisma/use-prisma.ts` exported a module-level `prisma` instance that threw on import when `DATABASE_URL` was missing, breaking any app that imported `katanakit-js/prisma` and making the documented `usePrismaClient(url)` override unusable. The eager export was removed (it was not re-exported from any barrel, so this is non-breaking).
-- **Release cards never badged `major`** — the version regex in `scripts/sync-docs-releases.mjs` was double-escaped, so `x.0.0` releases rendered as `Minor release`. Fixed and regenerated.
-
-### Changed
-
-- **Migrated the repository from Yarn 4 to pnpm 12** — `packageManager` pinned to `pnpm@12.4.1`, `pnpm-lock.yaml` replaces `yarn.lock`, workspace declared in `pnpm-workspace.yaml` (replacing the `workspaces` field), Yarn `resolutions` moved to pnpm `overrides`, CI uses `pnpm/action-setup` + `pnpm install --frozen-lockfile`, Husky pre-commit runs `pnpm lint-staged`, and all docs/config/scripts references updated. Release bumping now goes through `scripts/bump-version.mjs` (pnpm's `version` refuses a dirty working tree).
-- **`.gitignore` now ignores all `.env*` variants** (previously only the exact `.env`), with `.env.example` still tracked.
+- [ ] chore!: migrate from Yarn 4 to pnpm 12
+  - `.github/workflows/ci.yml`
+  - `.husky/pre-commit`
+  - `.yarn/releases/yarn-4.18.0.cjs`
+  - `.yarnrc.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.gitignore`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/package.json`
+  - `docs/src/data/releases.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `package.json`
+  - `pnpm-lock.yaml`
+  - `pnpm-workspace.yaml`
+  - `render.yaml`
+  - `scripts/bump-version.mjs`
+  - `socket.yml`
+  - `yarn.lock`
+- [ ] fix: address v3.0.0 audit findings
+  - `.gitignore`
+  - `scripts/sync-docs-releases.mjs`
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/router.ts`
+  - `src/core/services/access.service.ts`
+  - `src/prisma/use-prisma.ts`
+  - `tests/access.guard.test.ts`
+  - `tests/access.service.test.ts`
+- [ ] docs: sync release cards for v3.0.0
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
 
 ## [3.0.0] - 2026-09-13
 
-### Breaking
+What's news:
 
-- **Prisma model `User` renamed to `Account`** (`@@map("accounts")`); `Post.author` now points to `Account`. Consumers of `katanakit-js/prisma` must switch `db.public.User` to `db.public.Account`. Table rename `users` → `accounts` requires a migration on live databases.
-
-### Added
-
-- **Access-control service** — pure role/capability registry in `src/core/services/access.service.ts` with hierarchy-based inheritance: `owner` > `admin` > `editor` > `author` > `member` > `guest`. Exposes `useCan`, `useHasRole`, `useCapabilitiesFor`, `useRegisterRole`, `useRoles` and `useResetRoles`. Types (`AccessRole`, `AccessCapability`, `AccessRoleDefinition`, `AccessSubject`, `IAccessService`) live in `src/types/`.
-- **Express access guard** — `useRequireCapability(capability, resolveSubject)` in `katanakit-js/adapters/express` builds a `RequestHandler` that returns 401 for anonymous requests and 403 when the capability is missing. Plugs into the existing `guard` seam of the assistant router; unwired by default.
-
-### Changed
-
-- **Docs releases automated** — `scripts/sync-docs-releases.mjs` generates the homepage release cards, the docs changelog and the navbar Releases dropdown from git tags + Conventional Commits. `yarn docs:build` syncs first; CI runs `yarn docs:check` and fails on drift. The navbar now lists the latest 8 release tags with direct links to GitHub.
-- **Merge-into-dev-first workflow** — feature branches must be merged into `dev` (`git checkout dev && git merge <branch>`) before any PR; PRs to `main` come only from `dev`. Documented in `AGENTS.md`.
+- [ ] feat: add access-control service and rename Prisma User to Account
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/index.ts`
+  - `src/core/index.ts`
+  - `src/core/services/access.service.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `tests/access.service.test.ts`
+- [ ] feat(docs): automate release cards, changelog and navbar from git tags
+  - `.github/workflows/ci.yml`
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/src/data/releases.ts`
+  - `package.json`
+  - `scripts/sync-docs-releases.mjs`
+- [ ] docs: clarify merge-into-dev-first workflow
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
 
 ## [2.15.0] - 2026-09-13
 
-### Added
+What's news:
 
-- **QueryClient** — `QueryClient` + `QueryCache` built on the reactive kernel. Features: cache with GC, query keys, stale-while-revalidate, retry with exponential backoff, deduplication, invalidation, refetch-on-window-focus, and `prefetchQuery`. Integrates with the existing API manager (`useFetch`, `useGetApi`) and Safe Results pattern.
-- **Vue `useQuery` / `useMutation` composables** — reactive composables in `katanakit-js/adapters/vue` that wrap the QueryClient with Vue 3 reactivity (`data`, `error`, `isLoading`, `status`, `refetch`, `mutate`).
-- **Husky + lint-staged pre-commit hook** — runs `eslint --fix` on staged `src/**/*.ts` files before every commit (installed via `yarn install`). Prevents lint failures from reaching CI.
-- **`AGENTS.md`** — compact instruction file for AI agents (commands, architecture, git/CI workflow, Prisma skills).
-
-### Added (Tests)
-
-- 13 new tests for QueryClient (`tests/query.service.test.ts`) — 127 tests total.
-
-### Changed
-
-- **Replaced Biome with ESLint + Prettier** — migrated linting and formatting from Biome 2.5.12 (Rust, 38ms) to ESLint 10 + Prettier 3.9 (JS, ~4.3s). Same rules enforced: tabs, double quotes, semicolons, trailing commas, import sorting (`eslint-plugin-simple-import-sort`), recommended lint rules. TypeScript 7.0 has no compiler API; aliased `typescript` to `@typescript/typescript6@6.0.2` for type-aware linting. `tsc6` replaces `tsc` for type checking.
-- **CI matrix `fail-fast: false`** — the Node 22/24 jobs now run to completion even if one version fails, so a failure on one version no longer cancels the other.
+- [ ] docs: add CI fail-fast entry to CHANGELOG
+- [ ] chore: add Husky pre-commit, AGENTS.md, CI fail-fast
+  - `.github/workflows/ci.yml`
+  - `.husky/pre-commit`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+  - `yarn.lock`
+- [ ] style: fix import sort in vue query adapter
+  - `src/adapters/vue/query.ts`
+- [ ] docs: add QueryClient guide and update sidebar
+  - `docs/docs/guides/query-client.md`
+  - `docs/sidebars.ts`
+- [ ] feat: add QueryClient with cache, retry, dedup and Vue composables
+  - `README.md`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/core/index.ts`
+  - `src/core/services/query.service.ts`
+  - `tests/query.service.test.ts`
+- [ ] chore: replace Biome with ESLint + Prettier
+  - `.biomeignore`
+  - `.prettierignore`
+  - `.prettierrc`
+  - `CONTRIBUTING.md`
+  - `biome.json`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/roadmap.md`
+  - `eslint.config.mjs`
+  - `package.json`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/config/seo.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `yarn.lock`
+- [ ] chore: remove AI tool artifacts and refresh README links
+  - `.gitignore`
+  - `.zcode/plans/plan-sess_305f8f01-e7b4-487c-8534-75e5aaf26299.md`
+  - `.zcode/plans/plan-sess_6dc0667d-f228-4c43-a026-2910fdf18433.md`
+  - `README.md`
 
 ## [2.14.2] - 2026-09-13
 
-### Added
+What's news:
 
-- **Katana UI documentation** — new docs section describing the planned framework-agnostic UI kit: vision, layered architecture, full inventory (dashboards, e-commerce, apps, auth, blocks, layouts, interactions, charts and themes), LLM files strategy and delivery roadmap.
-- **Navbar theme switch** — the docs site replaces the default color mode button with a checkbox switch (swizzled `ColorModeToggle`) with keyboard focus, reduced-motion support and pre-hydration styling.
-
-### Changed
-
-- Docs sidebar includes a UI Kit category, and the toolkit roadmap links to it.
+- [ ] feat(docs): replace navbar color mode toggle with switch
+  - `docs/README.md`
+  - `docs/src/theme/ColorModeToggle/index.tsx`
+  - `docs/src/theme/ColorModeToggle/styles.module.css`
+- [ ] docs(ui-kit): add Katana UI design documentation
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/ui-kit/architecture.md`
+  - `docs/docs/ui-kit/index.md`
+  - `docs/docs/ui-kit/inventory.md`
+  - `docs/docs/ui-kit/llm-files.md`
+  - `docs/docs/ui-kit/roadmap.md`
+  - `docs/sidebars.ts`
+- [ ] docs: fix broken links in README with absolute GitHub URLs
+  - `README.md`
+- [ ] docs: add Releases dropdown to navbar with links to GitHub releases and tags
+  - `docs/docusaurus.config.ts`
+- [ ] feat(release): generate sectioned release notes from conventional commits
+  - `package.json`
+  - `scripts/generate-release-notes.mjs`
+- [ ] docs: add release history section to homepage
+  - `docs/src/components/ReleaseHistory/index.tsx`
+  - `docs/src/components/ReleaseHistory/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/data/releases.ts`
+  - `docs/src/pages/index.tsx`
 
 ## [2.14.1] - 2026-09-10
 
-### Changed
+What's news:
 
-- **Pinned all dependency versions** to exact (removed `^`/`~` ranges) for deterministic installs and supply chain safety.
-- Added `resolutions` for transitive floating deps: `pathe@2.0.3`, `jsbi@4.3.2`.
-
-### Removed
-
-- Removed unused `@types/bun` dev dependency.
-
-### Added
-
-- Added `socket.yml` for Socket.dev supply chain security configuration.
+- [ ] chore: harden supply chain security - pin deps, add resolutions, add socket.yml
+  - `package.json`
+  - `socket.yml`
+  - `yarn.lock`
+- [ ] docs: improve API manager documentation with real-world examples and runnable demo
+  - `README.md`
+  - `examples/api-manager/demo.ts`
+  - `package.json`
+- [ ] fix(release): use npm publish instead of yarn npm publish for auth compatibility
+  - `package.json`
 
 ## [2.14.0] - 2026-09-10
 
-### Added
+What's news:
 
-- **Kitt AI agent system** — OpenAI-compatible provider with tool-calling loop, session management, and conversation store. Built on a generic `AgentService` that handles system prompts, tool registration, and iterative LLM interaction until task completion.
-- **REST assistant adapter** (`katanakit-js/adapters/assistant`) — `POST /chat` for sending messages, `GET /sessions` for listing conversations, `DELETE /sessions/:id` for cleanup. Includes auth guard, per-session context, and conversation persistence.
-- **Telegram adapter** (`katanakit-js/adapters/telegram`) — long-polling bot via `getUpdates`, `sendMessage` reply with Markdown formatting, BotFather integration guide. Configurable polling interval and error handling.
-- **WhatsApp adapter** (`katanakit-js/adapters/whatsapp`) — Meta Cloud API webhook receiver, HMAC signature verification (`X-Hub-Signature-256`), rate limiting (60 req/min), and async message processing with `messages.update` / `messages.received` event types.
-- **Prisma conversation store** — `Conversation` + `Message` models in `prisma/schema.prisma` with session tracking, timestamps, and message history. New `assistant.store.ts` service for create/list/get/delete operations.
-- **GitHub Actions CI** — `.github/workflows/ci.yml` runs lint, typecheck, build, and 114 tests on Node 22 and 24.
-- **Rate limiting** — `express-rate-limit` on assistant routes (20 req/min) and WhatsApp webhook (60 req/min) with standard rate-limit headers.
-- **`examples/assistant/`** — full demo with knowledge base, system prompt, and session management.
-- **`examples/agent/`** — agent demo showing tool-calling loop with multiple registered tools.
-- New test suites: `agent.service.test.ts`, `assistant.service.test.ts`, `telegram.service.test.ts`, `whatsapp.service.test.ts`, `express.server.test.ts` — 114 tests total.
+- [ ] refactor: clean up unused imports, test formatting, and type safety
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `tests/agent.service.test.ts`
+  - `tests/assistant.service.test.ts`
+  - `tests/express.server.test.ts`
+- [ ] ci(.codegraph): update pipeline configuration in 44 files
+  - `.codegraph/.gitignore`
+  - `.env.example`
+  - `.github/workflows/ci.yml`
+  - `.gitignore`
+  - `README.md`
+  - `examples/agent/demo.ts`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `examples/assistant/knowledge-base.md`
+  - `examples/astro/demo.ts`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/adapters/assistant/index.ts`
+  - `src/adapters/assistant/main.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/telegram/index.ts`
+  - `src/adapters/telegram/main.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/whatsapp/index.ts`
+  - `src/adapters/whatsapp/main.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/core/index.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/prisma/assistant.store.ts`
+  - `src/prisma/index.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/types/index.ts`
+  - `tests/agent.service.test.ts`
+  - `tests/assistant.service.test.ts`
+  - `tests/express.server.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tests/telegram.service.test.ts`
+  - `tests/vue.service.test.ts`
+  - `tests/whatsapp.service.test.ts`
+  - `tsconfig.json`
+  - `yarn.lock`
+- [ ] fix(docs): resolve yarn workspace lockfile conflict and typedoc compatibility
+  - `.gitignore`
+  - `docs/.yarn/install-state.gz`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/package.json`
+  - `docs/yarn.lock`
+  - `yarn.lock`
 
-### Changed
+## [2.13.5] - 2026-09-09
 
-- **Express server restructured** — idempotent `create()`/`finalize()` pattern prevents double-initialization; `rawBody` capture via `verify` callback for signature verification; route ordering fix so static paths match before parameterized routes.
-- **Type definitions expanded** — new agent, assistant, and adapter types in `src/types/index.ts` covering `AgentConfig`, `ToolDefinition`, `SessionMessage`, `AssistantConfig`, `TelegramConfig`, `WhatsAppConfig`, and webhook event types.
-- **Prisma schema updated** — new `Conversation` and `Message` models; schema types regenerated.
+What's news:
 
-### Fixed
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
 
-- **Timing-safe HMAC comparison** — WhatsApp signature verification uses `crypto.timingSafeEqual` instead of string `===` to prevent timing attacks.
-- **HTTPS enforcement** — WhatsApp webhook rejects non-HTTPS requests in production.
-- **Path confinement** — file operations in storage service restricted to project root to prevent directory traversal.
-- **Per-tool error capture** — agent tool failures are captured individually without crashing the entire tool-calling loop.
-- **Build output directory** — `outDir` in `tsconfig.json` corrected; `yarn clean` ensures clean builds before each release.
+## [2.13.4] - 2026-09-09
+
+What's news:
+
+- [ ] docs(docs): update documentation in 4 files
+  - `docs/package.json`
+  - `package.json`
+  - `render.yaml`
+  - `yarn.lock`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+
+## [2.13.3] - 2026-09-09
+
+What's news:
+
+- [ ] build(package.json): update dependencies or build settings in 2 files
+  - `package.json`
+  - `wrangler.toml`
+- [ ] docs(functions): update documentation in 38 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+
+## [2.13.2] - 2026-09-09
+
+What's news:
+
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] refactor(routing): update worker and route configuration
+  - `src/worker.js`
+  - `wrangler.toml`
+- [ ] ci(scripts): update pipeline configuration in 6 files
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/scripts/determine-version.sh`
+  - `.github/scripts/release.sh`
+  - `.github/workflows/cloudflare-pages.yml`
+  - `.github/workflows/docs.yml`
+  - `.github/workflows/release.yml`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+
+## [2.13.1] - 2026-09-09
+
+What's news:
+
+- [ ] docs(functions): update documentation in 41 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docusaurus.config.ts`
+  - `src/worker.js`
+  - `vitest.config.ts`
+  - `wrangler.toml`
+- [ ] build(astro): update dependencies or build settings in 199 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.d.ts.map`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/adapters/astro/astro.service.js.map`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/astro/rss.service.d.ts`
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/app.d.ts`
+  - `dist/adapters/express/app.d.ts.map`
+  - `dist/adapters/express/app.js`
+  - `dist/adapters/express/app.js.map`
+  - `dist/adapters/express/index.d.ts`
+  - `dist/adapters/express/index.d.ts.map`
+  - `dist/adapters/express/index.js`
+  - `dist/adapters/express/index.js.map`
+  - `dist/adapters/express/main.d.ts`
+  - `dist/adapters/express/main.d.ts.map`
+  - `dist/adapters/express/main.js`
+  - `dist/adapters/express/main.js.map`
+  - `dist/adapters/express/products.controller.d.ts`
+  - `dist/adapters/express/products.controller.d.ts.map`
+  - `dist/adapters/express/products.controller.js`
+  - `dist/adapters/express/products.controller.js.map`
+  - `dist/adapters/express/router.d.ts`
+  - `dist/adapters/express/router.d.ts.map`
+  - `dist/adapters/express/router.js`
+  - `dist/adapters/express/router.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/index.d.ts`
+  - `dist/adapters/index.d.ts.map`
+  - `dist/adapters/index.js`
+  - `dist/adapters/index.js.map`
+  - `dist/adapters/nuxt/index.d.ts`
+  - `dist/adapters/nuxt/index.d.ts.map`
+  - `dist/adapters/nuxt/index.js`
+  - `dist/adapters/nuxt/index.js.map`
+  - `dist/adapters/nuxt/nuxt.service.d.ts`
+  - `dist/adapters/nuxt/nuxt.service.d.ts.map`
+  - `dist/adapters/nuxt/nuxt.service.js`
+  - `dist/adapters/nuxt/nuxt.service.js.map`
+  - `dist/adapters/vue/index.d.ts`
+  - `dist/adapters/vue/index.d.ts.map`
+  - `dist/adapters/vue/index.js`
+  - `dist/adapters/vue/index.js.map`
+  - `dist/adapters/vue/vue.service.d.ts`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/config/index.d.ts`
+  - `dist/config/index.d.ts.map`
+  - `dist/config/index.js`
+  - `dist/config/index.js.map`
+  - `dist/config/seo.service.d.ts`
+  - `dist/config/seo.service.d.ts.map`
+  - `dist/config/seo.service.js`
+  - `dist/config/seo.service.js.map`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `dist/config/site.config.js`
+  - `dist/config/site.config.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/error.service.d.ts`
+  - `dist/core/services/error.service.d.ts.map`
+  - `dist/core/services/error.service.js`
+  - `dist/core/services/error.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/index.d.ts`
+  - `dist/index.d.ts.map`
+  - `dist/index.js`
+  - `dist/index.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/index.d.ts`
+  - `dist/infrastructure/index.d.ts.map`
+  - `dist/infrastructure/index.js`
+  - `dist/infrastructure/index.js.map`
+  - `dist/infrastructure/observer/observer.service.d.ts`
+  - `dist/infrastructure/observer/observer.service.d.ts.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/prisma/db.d.ts`
+  - `dist/prisma/db.d.ts.map`
+  - `dist/prisma/db.js`
+  - `dist/prisma/db.js.map`
+  - `dist/prisma/schema.json`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `dist/types/index.js`
+  - `dist/types/index.js.map`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `src/worker.js`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+  - `wrangler.toml`
+- [ ] fix: configure Cloudflare Workers for static assets
+  - `.github/workflows/cloudflare-pages.yml`
+  - `src/worker.js`
+  - `wrangler.toml`
+- [ ] Update documentation links in SEO meta interfaces and type aliases
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] chore(.env.example): update .env.example
+  - `.env.example`
+- [ ] docs(functions): update documentation in 38 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+- [ ] docs: update baseUrl to /packages/katanakit-js/
+  - `docs/docusaurus.config.ts`
+- [ ] ci: configure Cloudflare Workers deployment
+  - `.github/workflows/cloudflare-pages.yml`
+  - `src/index.js`
+  - `wrangler.toml`
+- [ ] ci: fix docs workspace install
+  - `.github/workflows/cloudflare-pages.yml`
+- [ ] ci: add Cloudflare Pages deployment workflow
+  - `.github/workflows/cloudflare-pages.yml`
+- [ ] feat(vue): add changes to 4 files
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `src/adapters/vue/vue.service.ts`
+
+## [2.13.0] - 2026-09-09
+
+What's news:
+
+- [ ] chore: remove .env from version control
+  - `.env`
+  - `.env.example`
+  - `.gitignore`
+- [ ] ci: configure Cloudflare Pages for subroute /katanakit-js/
+  - `.github/workflows/cloudflare-pages.yml`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docusaurus.config.ts`
+  - `package.json`
+  - `vitest.config.ts`
+- [ ] docs(prisma-8): update documentation in 142 files
+  - `.cursor/skills/prisma-8/SKILL.md`
+  - `.cursor/skills/prisma-8/references/build.md`
+  - `.cursor/skills/prisma-8/references/contract.md`
+  - `.cursor/skills/prisma-8/references/debug.md`
+  - `.cursor/skills/prisma-8/references/feedback.md`
+  - `.cursor/skills/prisma-8/references/migration-model.md`
+  - `.cursor/skills/prisma-8/references/migration-review.md`
+  - `.cursor/skills/prisma-8/references/migrations.md`
+  - `.cursor/skills/prisma-8/references/queries-mongo.md`
+  - `.cursor/skills/prisma-8/references/queries-postgres.md`
+  - `.cursor/skills/prisma-8/references/queries.md`
+  - `.cursor/skills/prisma-8/references/quickstart.md`
+  - `.cursor/skills/prisma-8/references/runtime.md`
+  - `.cursor/skills/prisma-8/references/supabase.md`
+  - `.cursor/skills/prisma-8/references/upgrade-app.md`
+  - `.cursor/skills/prisma-8/references/upgrade-extension.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-composer/SKILL.md`
+  - `.devin/skills/prisma-8/SKILL.md`
+  - `.devin/skills/prisma-8/references/build.md`
+  - `.devin/skills/prisma-8/references/contract.md`
+  - `.devin/skills/prisma-8/references/debug.md`
+  - `.devin/skills/prisma-8/references/feedback.md`
+  - `.devin/skills/prisma-8/references/migration-model.md`
+  - `.devin/skills/prisma-8/references/migration-review.md`
+  - `.devin/skills/prisma-8/references/migrations.md`
+  - `.devin/skills/prisma-8/references/queries-mongo.md`
+  - `.devin/skills/prisma-8/references/queries-postgres.md`
+  - `.devin/skills/prisma-8/references/queries.md`
+  - `.devin/skills/prisma-8/references/quickstart.md`
+  - `.devin/skills/prisma-8/references/runtime.md`
+  - `.devin/skills/prisma-8/references/supabase.md`
+  - `.devin/skills/prisma-8/references/upgrade-app.md`
+  - `.devin/skills/prisma-8/references/upgrade-extension.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-composer/SKILL.md`
+- [ ] chore: update yarn.lock
+  - `yarn.lock`
+- [ ] ci: add Cloudflare Pages deployment workflow
+  - `.github/workflows/cloudflare-pages.yml`
+- [ ] feat(vue): add changes to 4 files
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `src/adapters/vue/vue.service.ts`
+- [ ] docs(functions): update documentation in 37 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+- [ ] docs(.yarn): update documentation in 39 files
+  - `docs/.yarn/install-state.gz`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+- [ ] docs(.gitignore): update documentation in 7 files
+  - `.gitignore`
+  - `.yarn/releases/yarn-4.18.0.cjs`
+  - `.yarnrc.yml`
+  - `docs/.yarn/install-state.gz`
+  - `docs/yarn.lock`
+  - `package.json`
+  - `yarn.lock`
+- [ ] refactor: convert classes to function statements with JSDoc
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `yarn.lock`
+
+## [2.12.9] - 2026-09-09
+
+What's news:
+
+- [ ] docs(docs): update documentation in 3 files
+  - `docs/bun.lock`
+  - `docs/yarn.lock`
+  - `package.json`
+
+## [2.12.8] - 2026-09-09
+
+What's news:
+
+- [ ] build(bun.lock): update dependencies or build settings in 3 files
+  - `bun.lock`
+  - `package.json`
+  - `yarn.lock`
+
+## [2.12.7] - 2026-09-09
+
+What's news:
+
+- [ ] docs(astro): update documentation in 47 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.js`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+- [ ] docs(astro): update documentation in 47 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.js`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+
+## [2.12.6] - 2026-09-09
+
+What's news:
+
+- [ ] docs(astro): update documentation in 179 files
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.d.ts.map`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/adapters/astro/astro.service.js.map`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/astro/rss.service.d.ts`
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/app.d.ts`
+  - `dist/adapters/express/app.d.ts.map`
+  - `dist/adapters/express/app.js`
+  - `dist/adapters/express/app.js.map`
+  - `dist/adapters/express/index.d.ts`
+  - `dist/adapters/express/index.d.ts.map`
+  - `dist/adapters/express/index.js`
+  - `dist/adapters/express/index.js.map`
+  - `dist/adapters/express/main.js`
+  - `dist/adapters/express/main.js.map`
+  - `dist/adapters/express/products.controller.d.ts`
+  - `dist/adapters/express/products.controller.d.ts.map`
+  - `dist/adapters/express/products.controller.js`
+  - `dist/adapters/express/products.controller.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/error.service.d.ts`
+  - `dist/core/services/error.service.d.ts.map`
+  - `dist/core/services/error.service.js`
+  - `dist/core/services/error.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/index.d.ts`
+  - `dist/infrastructure/index.d.ts.map`
+  - `dist/infrastructure/index.js`
+  - `dist/infrastructure/index.js.map`
+  - `dist/infrastructure/observer/observer.service.d.ts`
+  - `dist/infrastructure/observer/observer.service.d.ts.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+  - `package.json`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/server.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/use-prisma.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/rss.service.test.ts`
+- [ ] feat(express): add changes to index.ts
+  - `src/adapters/express/index.ts`
+
+## [2.12.5] - 2026-09-09
+
+What's news:
+
+- [ ] build(bun.lock): update dependencies or build settings in 30 files
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/server.ts`
+  - `src/core/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/index.ts`
+  - `src/prisma/use-prisma.ts`
+- [ ] feat(astro.service): refactor and enhance Astro path utilities with new functions
+  - `src/adapters/astro/astro.service.ts`
+- [ ] feat(astro.service): add useAstroPathsFrom and useAstroGetStaticPaths functions for enhanced route generation
+  - `src/adapters/astro/astro.service.ts`
+- [ ] docs(biome.json): update documentation in 54 files
+  - `biome.json`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+- [ ] build(prisma): update dependencies or build settings in 2 files
+  - `dist/prisma/schema.json`
+  - `package.json`
+- [ ] build(bun.lock): update dependencies or build settings in 6 files
+  - `bun.lock`
+  - `docs/bun.lock`
+  - `package.json`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `yarn.lock`
+- [ ] docs(functions): update documentation in 56 files
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+  - `docs/docs/changelog.md`
+  - `docs/docusaurus.config.ts`
+  - `yarn.lock`
+- [ ] docs(.prisma): update documentation in 10 files
+  - `.prisma/local.json`
+  - `docs/docs/guides/architecture.md`
+  - `examples/prisma/prisma.service.ts`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+
+## [2.12.4] - 2026-09-07
+
+What's news:
+
+- [ ] docs(.env): update documentation in 19 files
+  - `.env`
+  - `.env.example`
+  - `.gitignore`
+  - `.prisma/local.json`
+  - `CONTRIBUTING.md`
+  - `SECURITY.md`
+  - `biome.json`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `examples/prisma/prisma.service.ts`
+  - `package.json`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+- [ ] ci(workflows): update pipeline configuration in 5 files
+  - `.github/workflows/docs.yml`
+  - `CONTRIBUTING.md`
+  - `docs/docs/guides/architecture.md`
+  - `package.json`
+  - `yarn.lock`
+
+## [2.12.3] - 2026-09-07
+
+What's news:
+
+- [ ] docs(classes): update documentation in 25 files
+  - `docs/docs/api/classes/DatesService.md`
+  - `docs/docs/api/functions/useApplySeoTag.md`
+  - `docs/docs/api/functions/useAverage.md`
+  - `docs/docs/api/functions/useBuildApiUrl.md`
+  - `docs/docs/api/functions/useBuildUrl.md`
+  - `docs/docs/api/functions/useCapitalize.md`
+  - `docs/docs/api/functions/useChunk.md`
+  - `docs/docs/api/functions/useCopyToClipboard.md`
+  - `docs/docs/api/functions/useDeepClone.md`
+  - `docs/docs/api/functions/useDeepMerge.md`
+  - `docs/docs/api/functions/useDelete.md`
+  - `docs/docs/api/functions/useFetch.md`
+  - `docs/docs/api/functions/useFetchApi.md`
+  - `docs/docs/api/functions/useFormatCurrency.md`
+  - `docs/docs/api/functions/useFormatNumber.md`
+  - `docs/docs/api/functions/useGet.md`
+  - `docs/docs/api/functions/useGetApi.md`
+  - `docs/docs/api/functions/useGetApis.md`
+  - `docs/docs/api/functions/useGetApisConfig.md`
+  - `docs/docs/api/functions/useGetUrlParams.md`
+  - `docs/docs/api/functions/useGroupBy.md`
+  - `docs/docs/api/functions/useInit.md`
+  - `docs/docs/api/functions/useInitApis.md`
+  - `docs/docs/api/functions/useIsObject.md`
+  - `docs/docs/changelog.md`
+- [ ] v2.12.2
+  - `package.json`
+
+## [2.12.2] - 2026-09-06
+
+What's news:
+
+- [ ] docs(classes): update documentation in 77 files
+  - `docs/docs/api/classes/DatesService.md`
+  - `docs/docs/api/functions/useApplySeoTag.md`
+  - `docs/docs/api/functions/useAverage.md`
+  - `docs/docs/api/functions/useBuildApiUrl.md`
+  - `docs/docs/api/functions/useBuildUrl.md`
+  - `docs/docs/api/functions/useCapitalize.md`
+  - `docs/docs/api/functions/useChunk.md`
+  - `docs/docs/api/functions/useCopyToClipboard.md`
+  - `docs/docs/api/functions/useDeepClone.md`
+  - `docs/docs/api/functions/useDeepMerge.md`
+  - `docs/docs/api/functions/useDelete.md`
+  - `docs/docs/api/functions/useFetch.md`
+  - `docs/docs/api/functions/useFetchApi.md`
+  - `docs/docs/api/functions/useFormatCurrency.md`
+  - `docs/docs/api/functions/useFormatNumber.md`
+  - `docs/docs/api/functions/useGet.md`
+  - `docs/docs/api/functions/useGetApi.md`
+  - `docs/docs/api/functions/useGetApis.md`
+  - `docs/docs/api/functions/useGetApisConfig.md`
+  - `docs/docs/api/functions/useGetUrlParams.md`
+  - `docs/docs/api/functions/useGroupBy.md`
+  - `docs/docs/api/functions/useInit.md`
+  - `docs/docs/api/functions/useInitApis.md`
+  - `docs/docs/api/functions/useIsObject.md`
+  - `docs/docs/api/functions/useJsonParse.md`
+  - `docs/docs/api/functions/useJsonStringify.md`
+  - `docs/docs/api/functions/useLowerCase.md`
+  - `docs/docs/api/functions/useOmit.md`
+  - `docs/docs/api/functions/usePatch.md`
+  - `docs/docs/api/functions/usePick.md`
+  - `docs/docs/api/functions/usePost.md`
+  - `docs/docs/api/functions/usePut.md`
+  - `docs/docs/api/functions/useRetry.md`
+  - `docs/docs/api/functions/useRound.md`
+  - `docs/docs/api/functions/useRunStorageScope.md`
+  - `docs/docs/api/functions/useSeoMeta.md`
+  - `docs/docs/api/functions/useSeoTag.md`
+  - `docs/docs/api/functions/useSleep.md`
+  - `docs/docs/api/functions/useToCelsius.md`
+  - `docs/docs/api/functions/useToCm.md`
+  - `docs/docs/api/functions/useToFahrenheit.md`
+  - `docs/docs/api/functions/useToInches.md`
+  - `docs/docs/api/functions/useToKilometers.md`
+  - `docs/docs/api/functions/useToKilos.md`
+  - `docs/docs/api/functions/useToMiles.md`
+  - `docs/docs/api/functions/useToPounds.md`
+  - `docs/docs/api/functions/useUnique.md`
+  - `docs/docs/api/functions/useUpperCase.md`
+  - `docs/docs/api/interfaces/SeoMetaArticle.md`
+  - `docs/docs/api/interfaces/SeoMetaFlat.md`
+  - `docs/docs/api/interfaces/SeoOgImageObject.md`
+  - `docs/docs/api/interfaces/SeoRobotsObject.md`
+  - `docs/docs/api/interfaces/SeoTagNode.md`
+  - `docs/docs/api/type-aliases/SeoArrayable.md`
+  - `docs/docs/api/type-aliases/SeoBooleanable.md`
+  - `docs/docs/api/type-aliases/SeoMetaInput.md`
+  - `docs/docs/api/type-aliases/SeoTagResult.md`
+  - `docs/docs/api/type-aliases/SeoTagsResult.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaBase.md`
+  - `docs/docs/api/type-aliases/UseSeoMetaOptions.md`
+  - `docs/docs/api/variables/useAddDays.md`
+  - `docs/docs/api/variables/useDiff.md`
+  - `docs/docs/api/variables/useFirstDayOfMonth.md`
+  - `docs/docs/api/variables/useFormat.md`
+  - `docs/docs/api/variables/useHash.md`
+  - `docs/docs/api/variables/useIsAfter.md`
+  - `docs/docs/api/variables/useIsBefore.md`
+  - `docs/docs/api/variables/useIsEqual.md`
+  - `docs/docs/api/variables/useLastDayOfMonth.md`
+  - `docs/docs/api/variables/useLogger.md`
+  - `docs/docs/api/variables/useLoggerClear.md`
+  - `docs/docs/api/variables/useLoggerTable.md`
+  - `docs/docs/api/variables/useNow.md`
+  - `docs/docs/api/variables/useNowDateTime.md`
+  - `docs/docs/api/variables/usePbkdf2Hash.md`
+  - `docs/docs/api/variables/useSeoTags.md`
+  - `docs/docs/api/variables/useSubtractDays.md`
+- [ ] v2.12.1
+  - `package.json`
+
+## [2.12.1] - 2026-09-06
+
+What's news:
+
+- [ ] ci(workflows): update pipeline configuration in 8 files
+  - `.github/workflows/docs.yml`
+  - `.gitignore`
+  - `CONTRIBUTING.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `package.json`
+- [ ] v2.10.0
+  - `package.json`
+- [ ] v2.9.0
+  - `docs/docs/.nojekyll`
+  - `docs/docs/assets/hierarchy.js`
+  - `docs/docs/assets/highlight.css`
+  - `docs/docs/assets/icons.js`
+  - `docs/docs/assets/icons.svg`
+  - `docs/docs/assets/main.js`
+  - `docs/docs/assets/navigation.js`
+  - `docs/docs/assets/search.js`
+  - `docs/docs/assets/style.css`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/hierarchy.html`
+  - `docs/docs/index.html`
+  - `docs/docs/modules.html`
+  - `package.json`
+- [ ] ci(workflows): update pipeline configuration in 322 files
+  - `.github/workflows/docs.yml`
+  - `.github/workflows/release.yml`
+  - `.gitignore`
+  - `CONTRIBUTING.md`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/config/index.d.ts`
+  - `dist/config/index.d.ts.map`
+  - `dist/config/index.js`
+  - `dist/config/index.js.map`
+  - `dist/config/seo.service.d.ts`
+  - `dist/config/seo.service.d.ts.map`
+  - `dist/config/seo.service.js`
+  - `dist/config/seo.service.js.map`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `dist/config/site.config.js`
+  - `dist/config/site.config.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `docs/docs/.nojekyll`
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/globals.md`
+  - `docs/docs/api/index.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/typedoc-sidebar.cjs`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/docs/assets/hierarchy.js`
+  - `docs/docs/assets/highlight.css`
+  - `docs/docs/assets/icons.js`
+  - `docs/docs/assets/icons.svg`
+  - `docs/docs/assets/main.js`
+  - `docs/docs/assets/navigation.js`
+  - `docs/docs/assets/search.js`
+  - `docs/docs/assets/style.css`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docs/hierarchy.html`
+  - `docs/docs/index.html`
+  - `docs/docs/modules.html`
+  - `package.json`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+
+## [2.12.0] - 2026-09-06
+
+What's news:
+
+- [ ] refactor(seo): improve type definitions and documentation for SEO configuration
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `tests/seo.service.test.ts`
+- [ ] docs(guides): update documentation in 7 files
+  - `docs/docs/guides/getting-started.md`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `tests/seo.service.test.ts`
+- [ ] ci(workflows): update pipeline configuration in 9 files
+  - `.github/workflows/docs.yml`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `tests/seo.service.test.ts`
+
+## [2.11.2] - 2026-09-06
+
+What's news:
+
+- [ ] feat(config): add changes to seo.service.ts
+  - `src/config/seo.service.ts`
+- [ ] refactor: replace useLog with useLogger across the codebase
+  - `.github/workflows/release.yml`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `src/adapters/express/server.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `tests/logger.service.test.ts`
+- [ ] docs(guides): update documentation in 8 files
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `package.json`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo.service.ts`
+  - `tests/seo.service.test.ts`
+- [ ] docs(astro): update documentation in 86 files
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/nuxt/nuxt.service.d.ts`
+  - `dist/adapters/nuxt/nuxt.service.d.ts.map`
+  - `dist/adapters/nuxt/nuxt.service.js`
+  - `dist/adapters/nuxt/nuxt.service.js.map`
+  - `dist/adapters/vue/vue.service.d.ts`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `docs/docs/guides/getting-started.md`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+- [ ] feat(services): add changes to 2 files
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/geometry.service.ts`
+- [ ] feat(services): add changes to formatter.service.ts
+  - `src/core/services/formatter.service.ts`
+- [ ] fix: harden SSR, security, and clarify public HTTP exports
+  - `README.md`
+  - `docs/docs/guides/getting-started.md`
+  - `package.json`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/core/index.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/storage.service.test.ts`
+- [ ] ci(scripts): update pipeline configuration in 258 files
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/workflows/docs.yml`
+  - `.github/workflows/release.yml`
+  - `README.md`
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/index.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docusaurus.config.ts`
+  - `package.json`
+  - `yarn.lock`
+- [ ] docs(classes): update documentation in 250 files
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/src/theme/DebugGlobalData/index.tsx`
+
+## [2.11.1] - 2026-09-05
+
+What's news:
+
+- [ ] docs(docs-site): update documentation in 280 files
+  - `docs-site/.gitignore`
+  - `docs-site/README.md`
+  - `docs-site/docs/api/classes/AppError.md`
+  - `docs-site/docs/api/classes/AppUtils.md`
+  - `docs-site/docs/api/classes/AstroService.md`
+  - `docs-site/docs/api/classes/ConsoleStrategy.md`
+  - `docs-site/docs/api/classes/ConverterService.md`
+  - `docs-site/docs/api/classes/DataUtils.md`
+  - `docs-site/docs/api/classes/DomService.md`
+  - `docs-site/docs/api/classes/ErrorFactoryService.md`
+  - `docs-site/docs/api/classes/FetchApiManager.md`
+  - `docs-site/docs/api/classes/FormatterService.md`
+  - `docs-site/docs/api/classes/GeneratorService.md`
+  - `docs-site/docs/api/classes/GeometryArea.md`
+  - `docs-site/docs/api/classes/GeometryPerimeter.md`
+  - `docs-site/docs/api/classes/GeometryVolume.md`
+  - `docs-site/docs/api/classes/LazyLoaderService.md`
+  - `docs-site/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs-site/docs/api/classes/LocalStorageStrategy.md`
+  - `docs-site/docs/api/classes/LoggerService.md`
+  - `docs-site/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs-site/docs/api/classes/NativeUuidStrategy.md`
+  - `docs-site/docs/api/classes/ObserverService.md`
+  - `docs-site/docs/api/classes/ReactiveService.md`
+  - `docs-site/docs/api/classes/RssService.md`
+  - `docs-site/docs/api/classes/SensorsUtils.md`
+  - `docs-site/docs/api/classes/SessionStorageStrategy.md`
+  - `docs-site/docs/api/classes/StorageService.md`
+  - `docs-site/docs/api/classes/SystemUtils.md`
+  - `docs-site/docs/api/classes/ThemeService.md`
+  - `docs-site/docs/api/classes/TimingService.md`
+  - `docs-site/docs/api/classes/ViewportService.md`
+  - `docs-site/docs/api/classes/WorkerService.md`
+  - `docs-site/docs/api/functions/useGenerateMetaTags.md`
+  - `docs-site/docs/api/functions/useHeadTags.md`
+  - `docs-site/docs/api/functions/useRssHeadLink.md`
+  - `docs-site/docs/api/functions/useTitle.md`
+  - `docs-site/docs/api/globals.md`
+  - `docs-site/docs/api/index.md`
+  - `docs-site/docs/api/interfaces/ApiEntry.md`
+  - `docs-site/docs/api/interfaces/ApiError.md`
+  - `docs-site/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs-site/docs/api/interfaces/AstroPath.md`
+  - `docs-site/docs/api/interfaces/AstroServiceError.md`
+  - `docs-site/docs/api/interfaces/BatteryManager.md`
+  - `docs-site/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs-site/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs-site/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs-site/docs/api/interfaces/FetchOptions.md`
+  - `docs-site/docs/api/interfaces/GeoPosition.md`
+  - `docs-site/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs-site/docs/api/interfaces/IAppUtils.md`
+  - `docs-site/docs/api/interfaces/IAstroService.md`
+  - `docs-site/docs/api/interfaces/IConverterService.md`
+  - `docs-site/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs-site/docs/api/interfaces/IDataUtils.md`
+  - `docs-site/docs/api/interfaces/IDomService.md`
+  - `docs-site/docs/api/interfaces/IErrorFactory.md`
+  - `docs-site/docs/api/interfaces/IFetchApiManager.md`
+  - `docs-site/docs/api/interfaces/IFormatterService.md`
+  - `docs-site/docs/api/interfaces/IReactiveService.md`
+  - `docs-site/docs/api/interfaces/IRssService.md`
+  - `docs-site/docs/api/interfaces/ISerializedError.md`
+  - `docs-site/docs/api/interfaces/ISystemUtils.md`
+  - `docs-site/docs/api/interfaces/IThemeService.md`
+  - `docs-site/docs/api/interfaces/IUuidStrategy.md`
+  - `docs-site/docs/api/interfaces/IntervalControl.md`
+  - `docs-site/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs-site/docs/api/interfaces/LogStrategy.md`
+  - `docs-site/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs-site/docs/api/interfaces/ObserverConfig.md`
+  - `docs-site/docs/api/interfaces/ObserverEntry.md`
+  - `docs-site/docs/api/interfaces/PaginationProps.md`
+  - `docs-site/docs/api/interfaces/PathsOptions.md`
+  - `docs-site/docs/api/interfaces/RssConfig.md`
+  - `docs-site/docs/api/interfaces/RssItem.md`
+  - `docs-site/docs/api/interfaces/ScrollOptions.md`
+  - `docs-site/docs/api/interfaces/ScrollPosition.md`
+  - `docs-site/docs/api/interfaces/SeoMeta.md`
+  - `docs-site/docs/api/interfaces/SignalGetter.md`
+  - `docs-site/docs/api/interfaces/SiteConfig.md`
+  - `docs-site/docs/api/interfaces/StorageStrategy.md`
+  - `docs-site/docs/api/interfaces/Subscribable.md`
+  - `docs-site/docs/api/interfaces/ThemeOptions.md`
+  - `docs-site/docs/api/interfaces/TimeoutControl.md`
+  - `docs-site/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs-site/docs/api/interfaces/UrlOptions.md`
+  - `docs-site/docs/api/interfaces/ViewportSize.md`
+  - `docs-site/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs-site/docs/api/type-aliases/ApisConfig.md`
+  - `docs-site/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs-site/docs/api/type-aliases/Currency.md`
+  - `docs-site/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs-site/docs/api/type-aliases/FetchResult.md`
+  - `docs-site/docs/api/type-aliases/HttpMethod.md`
+  - `docs-site/docs/api/type-aliases/Locale.md`
+  - `docs-site/docs/api/type-aliases/LogLevel.md`
+  - `docs-site/docs/api/type-aliases/ObserverCallback.md`
+  - `docs-site/docs/api/type-aliases/ObserverTarget.md`
+  - `docs-site/docs/api/type-aliases/PathParams.md`
+  - `docs-site/docs/api/type-aliases/ProductType.md`
+  - `docs-site/docs/api/type-aliases/QueryParams.md`
+  - `docs-site/docs/api/type-aliases/RssResult.md`
+  - `docs-site/docs/api/type-aliases/SignalListener.md`
+  - `docs-site/docs/api/type-aliases/SignalSetter.md`
+  - `docs-site/docs/api/type-aliases/StorageTarget.md`
+  - `docs-site/docs/api/type-aliases/TemporalInput.md`
+  - `docs-site/docs/api/type-aliases/ThemeMode.md`
+  - `docs-site/docs/api/type-aliases/WorkerFunc.md`
+  - `docs-site/docs/api/typedoc-sidebar.cjs`
+  - `docs-site/docs/api/variables/DOM_SERVICE.md`
+  - `docs-site/docs/api/variables/GeometryUtils.md`
+  - `docs-site/docs/api/variables/THEME_SERVICE.md`
+  - `docs-site/docs/api/variables/sensorsUtils.md`
+  - `docs-site/docs/api/variables/siteConfig.md`
+  - `docs-site/docs/api/variables/useAddClass.md`
+  - `docs-site/docs/api/variables/useAppend.md`
+  - `docs-site/docs/api/variables/useAverage.md`
+  - `docs-site/docs/api/variables/useBadRequest.md`
+  - `docs-site/docs/api/variables/useBlurActiveElement.md`
+  - `docs-site/docs/api/variables/useBuildUrl.md`
+  - `docs-site/docs/api/variables/useCapitalize.md`
+  - `docs-site/docs/api/variables/useChunk.md`
+  - `docs-site/docs/api/variables/useClear.md`
+  - `docs-site/docs/api/variables/useClearStorage.md`
+  - `docs-site/docs/api/variables/useCopyToClipboard.md`
+  - `docs-site/docs/api/variables/useCreateBatch.md`
+  - `docs-site/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs-site/docs/api/variables/useCreateEffect.md`
+  - `docs-site/docs/api/variables/useCreateElement.md`
+  - `docs-site/docs/api/variables/useCreateMemo.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs-site/docs/api/variables/useCreateSignal.md`
+  - `docs-site/docs/api/variables/useCreateStorageSignal.md`
+  - `docs-site/docs/api/variables/useCreateToggle.md`
+  - `docs-site/docs/api/variables/useCustom.md`
+  - `docs-site/docs/api/variables/useDebounce.md`
+  - `docs-site/docs/api/variables/useDebounceImmediate.md`
+  - `docs-site/docs/api/variables/useDeepClone.md`
+  - `docs-site/docs/api/variables/useDeepMerge.md`
+  - `docs-site/docs/api/variables/useDelay.md`
+  - `docs-site/docs/api/variables/useDelete.md`
+  - `docs-site/docs/api/variables/useDestroyTheme.md`
+  - `docs-site/docs/api/variables/useEncrypt.md`
+  - `docs-site/docs/api/variables/useError.md`
+  - `docs-site/docs/api/variables/useExitFullscreen.md`
+  - `docs-site/docs/api/variables/useExtractUniqueValues.md`
+  - `docs-site/docs/api/variables/useFetch.md`
+  - `docs-site/docs/api/variables/useFindEntry.md`
+  - `docs-site/docs/api/variables/useFocusElement.md`
+  - `docs-site/docs/api/variables/useForbidden.md`
+  - `docs-site/docs/api/variables/useFormatCurrency.md`
+  - `docs-site/docs/api/variables/useFormatNumber.md`
+  - `docs-site/docs/api/variables/useGeneratePagination.md`
+  - `docs-site/docs/api/variables/useGenerateRss.md`
+  - `docs-site/docs/api/variables/useGet.md`
+  - `docs-site/docs/api/variables/useGetActiveElement.md`
+  - `docs-site/docs/api/variables/useGetApis.md`
+  - `docs-site/docs/api/variables/useGetAttribute.md`
+  - `docs-site/docs/api/variables/useGetBody.md`
+  - `docs-site/docs/api/variables/useGetDataAttribute.md`
+  - `docs-site/docs/api/variables/useGetElementByClass.md`
+  - `docs-site/docs/api/variables/useGetElementById.md`
+  - `docs-site/docs/api/variables/useGetResolved.md`
+  - `docs-site/docs/api/variables/useGetRoot.md`
+  - `docs-site/docs/api/variables/useGetScrollPosition.md`
+  - `docs-site/docs/api/variables/useGetScrollProgress.md`
+  - `docs-site/docs/api/variables/useGetScrollX.md`
+  - `docs-site/docs/api/variables/useGetScrollY.md`
+  - `docs-site/docs/api/variables/useGetStaticPaths.md`
+  - `docs-site/docs/api/variables/useGetStorage.md`
+  - `docs-site/docs/api/variables/useGetThemeMode.md`
+  - `docs-site/docs/api/variables/useGetTitle.md`
+  - `docs-site/docs/api/variables/useGetUrlParams.md`
+  - `docs-site/docs/api/variables/useGetViewportSize.md`
+  - `docs-site/docs/api/variables/useGroupBy.md`
+  - `docs-site/docs/api/variables/useHasClass.md`
+  - `docs-site/docs/api/variables/useInit.md`
+  - `docs-site/docs/api/variables/useInitTheme.md`
+  - `docs-site/docs/api/variables/useInternal.md`
+  - `docs-site/docs/api/variables/useInterval.md`
+  - `docs-site/docs/api/variables/useIsAtBottom.md`
+  - `docs-site/docs/api/variables/useIsAtTop.md`
+  - `docs-site/docs/api/variables/useIsBrowser.md`
+  - `docs-site/docs/api/variables/useIsDocumentVisible.md`
+  - `docs-site/docs/api/variables/useIsFullscreen.md`
+  - `docs-site/docs/api/variables/useIsObject.md`
+  - `docs-site/docs/api/variables/useJsonParse.md`
+  - `docs-site/docs/api/variables/useJsonStringify.md`
+  - `docs-site/docs/api/variables/useLog.md`
+  - `docs-site/docs/api/variables/useLowerCase.md`
+  - `docs-site/docs/api/variables/useMatchesMedia.md`
+  - `docs-site/docs/api/variables/useNotFound.md`
+  - `docs-site/docs/api/variables/useNumericId.md`
+  - `docs-site/docs/api/variables/useOmit.md`
+  - `docs-site/docs/api/variables/useOn.md`
+  - `docs-site/docs/api/variables/useOnVisibilityChange.md`
+  - `docs-site/docs/api/variables/usePathsFrom.md`
+  - `docs-site/docs/api/variables/usePathsFromValues.md`
+  - `docs-site/docs/api/variables/usePick.md`
+  - `docs-site/docs/api/variables/usePost.md`
+  - `docs-site/docs/api/variables/usePrefersColorScheme.md`
+  - `docs-site/docs/api/variables/usePrefersDarkMode.md`
+  - `docs-site/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs-site/docs/api/variables/usePrintPage.md`
+  - `docs-site/docs/api/variables/usePut.md`
+  - `docs-site/docs/api/variables/useQuerySelector.md`
+  - `docs-site/docs/api/variables/useQuerySelectorAll.md`
+  - `docs-site/docs/api/variables/useRace.md`
+  - `docs-site/docs/api/variables/useRemove.md`
+  - `docs-site/docs/api/variables/useRemoveAttribute.md`
+  - `docs-site/docs/api/variables/useRemoveClass.md`
+  - `docs-site/docs/api/variables/useRemoveStorage.md`
+  - `docs-site/docs/api/variables/useRepeat.md`
+  - `docs-site/docs/api/variables/useRequestFullscreen.md`
+  - `docs-site/docs/api/variables/useResetTheme.md`
+  - `docs-site/docs/api/variables/useRetry.md`
+  - `docs-site/docs/api/variables/useRound.md`
+  - `docs-site/docs/api/variables/useRssLinkTag.md`
+  - `docs-site/docs/api/variables/useScrollTo.md`
+  - `docs-site/docs/api/variables/useScrollToBottom.md`
+  - `docs-site/docs/api/variables/useScrollToElement.md`
+  - `docs-site/docs/api/variables/useScrollToTop.md`
+  - `docs-site/docs/api/variables/useSetAttribute.md`
+  - `docs-site/docs/api/variables/useSetDataAttribute.md`
+  - `docs-site/docs/api/variables/useSetHtml.md`
+  - `docs-site/docs/api/variables/useSetStorage.md`
+  - `docs-site/docs/api/variables/useSetStrategy.md`
+  - `docs-site/docs/api/variables/useSetTempTitle.md`
+  - `docs-site/docs/api/variables/useSetText.md`
+  - `docs-site/docs/api/variables/useSetThemeMode.md`
+  - `docs-site/docs/api/variables/useSetTimeout.md`
+  - `docs-site/docs/api/variables/useSetTitle.md`
+  - `docs-site/docs/api/variables/useSleep.md`
+  - `docs-site/docs/api/variables/useSlugify.md`
+  - `docs-site/docs/api/variables/useTable.md`
+  - `docs-site/docs/api/variables/useThrottle.md`
+  - `docs-site/docs/api/variables/useThrottleTrailing.md`
+  - `docs-site/docs/api/variables/useToCelsius.md`
+  - `docs-site/docs/api/variables/useToCm.md`
+  - `docs-site/docs/api/variables/useToFahrenheit.md`
+  - `docs-site/docs/api/variables/useToInches.md`
+  - `docs-site/docs/api/variables/useToKilometers.md`
+  - `docs-site/docs/api/variables/useToKilos.md`
+  - `docs-site/docs/api/variables/useToMiles.md`
+  - `docs-site/docs/api/variables/useToPounds.md`
+  - `docs-site/docs/api/variables/useToggleClass.md`
+  - `docs-site/docs/api/variables/useToggleTheme.md`
+  - `docs-site/docs/api/variables/useToken.md`
+  - `docs-site/docs/api/variables/useUnauthorized.md`
+  - `docs-site/docs/api/variables/useUnique.md`
+  - `docs-site/docs/api/variables/useUpperCase.md`
+  - `docs-site/docs/api/variables/useUuid.md`
+  - `docs-site/docs/changelog.md`
+  - `docs-site/docs/guides/architecture.md`
+  - `docs-site/docs/guides/getting-started.md`
+  - `docs-site/docs/guides/roadmap.md`
+  - `docs-site/docusaurus.config.ts`
+  - `docs-site/package.json`
+  - `docs-site/sidebars.ts`
+  - `docs-site/src/components/HomepageFeatures.module.css`
+  - `docs-site/src/components/HomepageFeatures.tsx`
+  - `docs-site/src/components/HomepageFeatures/index.tsx`
+  - `docs-site/src/components/HomepageFeatures/styles.module.css`
+  - `docs-site/src/css/custom.css`
+  - `docs-site/src/pages/index.module.css`
+  - `docs-site/src/pages/index.tsx`
+  - `docs-site/static/.nojekyll`
+  - `docs-site/static/img/docusaurus-social-card.jpg`
+  - `docs-site/static/img/docusaurus.png`
+  - `docs-site/static/img/favicon.ico`
+  - `docs-site/static/img/logo.svg`
+  - `docs-site/static/img/undraw_docusaurus_mountain.svg`
+  - `docs-site/static/img/undraw_docusaurus_react.svg`
+  - `docs-site/static/img/undraw_docusaurus_tree.svg`
+  - `docs-site/tsconfig.json`
+  - `docs-site/yarn.lock`
+  - `package.json`
+  - `yarn.lock`
+
+## [2.10.0] - 2026-09-05
+
+What's news:
+
+- [ ] docs(docs): update documentation in 278 files
+  - `docs/.gitignore`
+  - `docs/README.md`
+  - `docs/docs/api/classes/AppError.md`
+  - `docs/docs/api/classes/AppUtils.md`
+  - `docs/docs/api/classes/AstroService.md`
+  - `docs/docs/api/classes/ConsoleStrategy.md`
+  - `docs/docs/api/classes/ConverterService.md`
+  - `docs/docs/api/classes/DataUtils.md`
+  - `docs/docs/api/classes/DomService.md`
+  - `docs/docs/api/classes/ErrorFactoryService.md`
+  - `docs/docs/api/classes/FetchApiManager.md`
+  - `docs/docs/api/classes/FormatterService.md`
+  - `docs/docs/api/classes/GeneratorService.md`
+  - `docs/docs/api/classes/GeometryArea.md`
+  - `docs/docs/api/classes/GeometryPerimeter.md`
+  - `docs/docs/api/classes/GeometryVolume.md`
+  - `docs/docs/api/classes/LazyLoaderService.md`
+  - `docs/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs/docs/api/classes/LocalStorageStrategy.md`
+  - `docs/docs/api/classes/LoggerService.md`
+  - `docs/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs/docs/api/classes/NativeUuidStrategy.md`
+  - `docs/docs/api/classes/ObserverService.md`
+  - `docs/docs/api/classes/ReactiveService.md`
+  - `docs/docs/api/classes/RssService.md`
+  - `docs/docs/api/classes/SensorsUtils.md`
+  - `docs/docs/api/classes/SessionStorageStrategy.md`
+  - `docs/docs/api/classes/StorageService.md`
+  - `docs/docs/api/classes/SystemUtils.md`
+  - `docs/docs/api/classes/ThemeService.md`
+  - `docs/docs/api/classes/TimingService.md`
+  - `docs/docs/api/classes/ViewportService.md`
+  - `docs/docs/api/classes/WorkerService.md`
+  - `docs/docs/api/functions/useGenerateMetaTags.md`
+  - `docs/docs/api/functions/useHeadTags.md`
+  - `docs/docs/api/functions/useRssHeadLink.md`
+  - `docs/docs/api/functions/useTitle.md`
+  - `docs/docs/api/globals.md`
+  - `docs/docs/api/index.md`
+  - `docs/docs/api/interfaces/ApiEntry.md`
+  - `docs/docs/api/interfaces/ApiError.md`
+  - `docs/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs/docs/api/interfaces/AstroPath.md`
+  - `docs/docs/api/interfaces/AstroServiceError.md`
+  - `docs/docs/api/interfaces/BatteryManager.md`
+  - `docs/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs/docs/api/interfaces/FetchOptions.md`
+  - `docs/docs/api/interfaces/GeoPosition.md`
+  - `docs/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs/docs/api/interfaces/IAppUtils.md`
+  - `docs/docs/api/interfaces/IAstroService.md`
+  - `docs/docs/api/interfaces/IConverterService.md`
+  - `docs/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs/docs/api/interfaces/IDataUtils.md`
+  - `docs/docs/api/interfaces/IDomService.md`
+  - `docs/docs/api/interfaces/IErrorFactory.md`
+  - `docs/docs/api/interfaces/IFetchApiManager.md`
+  - `docs/docs/api/interfaces/IFormatterService.md`
+  - `docs/docs/api/interfaces/IReactiveService.md`
+  - `docs/docs/api/interfaces/IRssService.md`
+  - `docs/docs/api/interfaces/ISerializedError.md`
+  - `docs/docs/api/interfaces/ISystemUtils.md`
+  - `docs/docs/api/interfaces/IThemeService.md`
+  - `docs/docs/api/interfaces/IUuidStrategy.md`
+  - `docs/docs/api/interfaces/IntervalControl.md`
+  - `docs/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs/docs/api/interfaces/LogStrategy.md`
+  - `docs/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs/docs/api/interfaces/ObserverConfig.md`
+  - `docs/docs/api/interfaces/ObserverEntry.md`
+  - `docs/docs/api/interfaces/PaginationProps.md`
+  - `docs/docs/api/interfaces/PathsOptions.md`
+  - `docs/docs/api/interfaces/RssConfig.md`
+  - `docs/docs/api/interfaces/RssItem.md`
+  - `docs/docs/api/interfaces/ScrollOptions.md`
+  - `docs/docs/api/interfaces/ScrollPosition.md`
+  - `docs/docs/api/interfaces/SeoMeta.md`
+  - `docs/docs/api/interfaces/SignalGetter.md`
+  - `docs/docs/api/interfaces/SiteConfig.md`
+  - `docs/docs/api/interfaces/StorageStrategy.md`
+  - `docs/docs/api/interfaces/Subscribable.md`
+  - `docs/docs/api/interfaces/ThemeOptions.md`
+  - `docs/docs/api/interfaces/TimeoutControl.md`
+  - `docs/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs/docs/api/interfaces/UrlOptions.md`
+  - `docs/docs/api/interfaces/ViewportSize.md`
+  - `docs/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs/docs/api/type-aliases/ApisConfig.md`
+  - `docs/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs/docs/api/type-aliases/Currency.md`
+  - `docs/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs/docs/api/type-aliases/FetchResult.md`
+  - `docs/docs/api/type-aliases/HttpMethod.md`
+  - `docs/docs/api/type-aliases/Locale.md`
+  - `docs/docs/api/type-aliases/LogLevel.md`
+  - `docs/docs/api/type-aliases/ObserverCallback.md`
+  - `docs/docs/api/type-aliases/ObserverTarget.md`
+  - `docs/docs/api/type-aliases/PathParams.md`
+  - `docs/docs/api/type-aliases/ProductType.md`
+  - `docs/docs/api/type-aliases/QueryParams.md`
+  - `docs/docs/api/type-aliases/RssResult.md`
+  - `docs/docs/api/type-aliases/SignalListener.md`
+  - `docs/docs/api/type-aliases/SignalSetter.md`
+  - `docs/docs/api/type-aliases/StorageTarget.md`
+  - `docs/docs/api/type-aliases/TemporalInput.md`
+  - `docs/docs/api/type-aliases/ThemeMode.md`
+  - `docs/docs/api/type-aliases/WorkerFunc.md`
+  - `docs/docs/api/typedoc-sidebar.cjs`
+  - `docs/docs/api/variables/DOM_SERVICE.md`
+  - `docs/docs/api/variables/GeometryUtils.md`
+  - `docs/docs/api/variables/THEME_SERVICE.md`
+  - `docs/docs/api/variables/sensorsUtils.md`
+  - `docs/docs/api/variables/siteConfig.md`
+  - `docs/docs/api/variables/useAddClass.md`
+  - `docs/docs/api/variables/useAppend.md`
+  - `docs/docs/api/variables/useAverage.md`
+  - `docs/docs/api/variables/useBadRequest.md`
+  - `docs/docs/api/variables/useBlurActiveElement.md`
+  - `docs/docs/api/variables/useBuildUrl.md`
+  - `docs/docs/api/variables/useCapitalize.md`
+  - `docs/docs/api/variables/useChunk.md`
+  - `docs/docs/api/variables/useClear.md`
+  - `docs/docs/api/variables/useClearStorage.md`
+  - `docs/docs/api/variables/useCopyToClipboard.md`
+  - `docs/docs/api/variables/useCreateBatch.md`
+  - `docs/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs/docs/api/variables/useCreateEffect.md`
+  - `docs/docs/api/variables/useCreateElement.md`
+  - `docs/docs/api/variables/useCreateMemo.md`
+  - `docs/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs/docs/api/variables/useCreateSignal.md`
+  - `docs/docs/api/variables/useCreateStorageSignal.md`
+  - `docs/docs/api/variables/useCreateToggle.md`
+  - `docs/docs/api/variables/useCustom.md`
+  - `docs/docs/api/variables/useDebounce.md`
+  - `docs/docs/api/variables/useDebounceImmediate.md`
+  - `docs/docs/api/variables/useDeepClone.md`
+  - `docs/docs/api/variables/useDeepMerge.md`
+  - `docs/docs/api/variables/useDelay.md`
+  - `docs/docs/api/variables/useDelete.md`
+  - `docs/docs/api/variables/useDestroyTheme.md`
+  - `docs/docs/api/variables/useEncrypt.md`
+  - `docs/docs/api/variables/useError.md`
+  - `docs/docs/api/variables/useExitFullscreen.md`
+  - `docs/docs/api/variables/useExtractUniqueValues.md`
+  - `docs/docs/api/variables/useFetch.md`
+  - `docs/docs/api/variables/useFindEntry.md`
+  - `docs/docs/api/variables/useFocusElement.md`
+  - `docs/docs/api/variables/useForbidden.md`
+  - `docs/docs/api/variables/useFormatCurrency.md`
+  - `docs/docs/api/variables/useFormatNumber.md`
+  - `docs/docs/api/variables/useGeneratePagination.md`
+  - `docs/docs/api/variables/useGenerateRss.md`
+  - `docs/docs/api/variables/useGet.md`
+  - `docs/docs/api/variables/useGetActiveElement.md`
+  - `docs/docs/api/variables/useGetApis.md`
+  - `docs/docs/api/variables/useGetAttribute.md`
+  - `docs/docs/api/variables/useGetBody.md`
+  - `docs/docs/api/variables/useGetDataAttribute.md`
+  - `docs/docs/api/variables/useGetElementByClass.md`
+  - `docs/docs/api/variables/useGetElementById.md`
+  - `docs/docs/api/variables/useGetResolved.md`
+  - `docs/docs/api/variables/useGetRoot.md`
+  - `docs/docs/api/variables/useGetScrollPosition.md`
+  - `docs/docs/api/variables/useGetScrollProgress.md`
+  - `docs/docs/api/variables/useGetScrollX.md`
+  - `docs/docs/api/variables/useGetScrollY.md`
+  - `docs/docs/api/variables/useGetStaticPaths.md`
+  - `docs/docs/api/variables/useGetStorage.md`
+  - `docs/docs/api/variables/useGetThemeMode.md`
+  - `docs/docs/api/variables/useGetTitle.md`
+  - `docs/docs/api/variables/useGetUrlParams.md`
+  - `docs/docs/api/variables/useGetViewportSize.md`
+  - `docs/docs/api/variables/useGroupBy.md`
+  - `docs/docs/api/variables/useHasClass.md`
+  - `docs/docs/api/variables/useInit.md`
+  - `docs/docs/api/variables/useInitTheme.md`
+  - `docs/docs/api/variables/useInternal.md`
+  - `docs/docs/api/variables/useInterval.md`
+  - `docs/docs/api/variables/useIsAtBottom.md`
+  - `docs/docs/api/variables/useIsAtTop.md`
+  - `docs/docs/api/variables/useIsBrowser.md`
+  - `docs/docs/api/variables/useIsDocumentVisible.md`
+  - `docs/docs/api/variables/useIsFullscreen.md`
+  - `docs/docs/api/variables/useIsObject.md`
+  - `docs/docs/api/variables/useJsonParse.md`
+  - `docs/docs/api/variables/useJsonStringify.md`
+  - `docs/docs/api/variables/useLog.md`
+  - `docs/docs/api/variables/useLowerCase.md`
+  - `docs/docs/api/variables/useMatchesMedia.md`
+  - `docs/docs/api/variables/useNotFound.md`
+  - `docs/docs/api/variables/useNumericId.md`
+  - `docs/docs/api/variables/useOmit.md`
+  - `docs/docs/api/variables/useOn.md`
+  - `docs/docs/api/variables/useOnVisibilityChange.md`
+  - `docs/docs/api/variables/usePathsFrom.md`
+  - `docs/docs/api/variables/usePathsFromValues.md`
+  - `docs/docs/api/variables/usePick.md`
+  - `docs/docs/api/variables/usePost.md`
+  - `docs/docs/api/variables/usePrefersColorScheme.md`
+  - `docs/docs/api/variables/usePrefersDarkMode.md`
+  - `docs/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs/docs/api/variables/usePrintPage.md`
+  - `docs/docs/api/variables/usePut.md`
+  - `docs/docs/api/variables/useQuerySelector.md`
+  - `docs/docs/api/variables/useQuerySelectorAll.md`
+  - `docs/docs/api/variables/useRace.md`
+  - `docs/docs/api/variables/useRemove.md`
+  - `docs/docs/api/variables/useRemoveAttribute.md`
+  - `docs/docs/api/variables/useRemoveClass.md`
+  - `docs/docs/api/variables/useRemoveStorage.md`
+  - `docs/docs/api/variables/useRepeat.md`
+  - `docs/docs/api/variables/useRequestFullscreen.md`
+  - `docs/docs/api/variables/useResetTheme.md`
+  - `docs/docs/api/variables/useRetry.md`
+  - `docs/docs/api/variables/useRound.md`
+  - `docs/docs/api/variables/useRssLinkTag.md`
+  - `docs/docs/api/variables/useScrollTo.md`
+  - `docs/docs/api/variables/useScrollToBottom.md`
+  - `docs/docs/api/variables/useScrollToElement.md`
+  - `docs/docs/api/variables/useScrollToTop.md`
+  - `docs/docs/api/variables/useSetAttribute.md`
+  - `docs/docs/api/variables/useSetDataAttribute.md`
+  - `docs/docs/api/variables/useSetHtml.md`
+  - `docs/docs/api/variables/useSetStorage.md`
+  - `docs/docs/api/variables/useSetStrategy.md`
+  - `docs/docs/api/variables/useSetTempTitle.md`
+  - `docs/docs/api/variables/useSetText.md`
+  - `docs/docs/api/variables/useSetThemeMode.md`
+  - `docs/docs/api/variables/useSetTimeout.md`
+  - `docs/docs/api/variables/useSetTitle.md`
+  - `docs/docs/api/variables/useSleep.md`
+  - `docs/docs/api/variables/useSlugify.md`
+  - `docs/docs/api/variables/useTable.md`
+  - `docs/docs/api/variables/useThrottle.md`
+  - `docs/docs/api/variables/useThrottleTrailing.md`
+  - `docs/docs/api/variables/useToCelsius.md`
+  - `docs/docs/api/variables/useToCm.md`
+  - `docs/docs/api/variables/useToFahrenheit.md`
+  - `docs/docs/api/variables/useToInches.md`
+  - `docs/docs/api/variables/useToKilometers.md`
+  - `docs/docs/api/variables/useToKilos.md`
+  - `docs/docs/api/variables/useToMiles.md`
+  - `docs/docs/api/variables/useToPounds.md`
+  - `docs/docs/api/variables/useToggleClass.md`
+  - `docs/docs/api/variables/useToggleTheme.md`
+  - `docs/docs/api/variables/useToken.md`
+  - `docs/docs/api/variables/useUnauthorized.md`
+  - `docs/docs/api/variables/useUnique.md`
+  - `docs/docs/api/variables/useUpperCase.md`
+  - `docs/docs/api/variables/useUuid.md`
+  - `docs/docs/changelog.md`
+  - `docs/docs/guides/architecture.md`
+  - `docs/docs/guides/getting-started.md`
+  - `docs/docs/guides/roadmap.md`
+  - `docs/docusaurus.config.ts`
+  - `docs/package.json`
+  - `docs/sidebars.ts`
+  - `docs/src/components/HomepageFeatures.module.css`
+  - `docs/src/components/HomepageFeatures.tsx`
+  - `docs/src/components/HomepageFeatures/index.tsx`
+  - `docs/src/components/HomepageFeatures/styles.module.css`
+  - `docs/src/css/custom.css`
+  - `docs/src/pages/index.module.css`
+  - `docs/src/pages/index.tsx`
+  - `docs/static/.nojekyll`
+  - `docs/static/img/docusaurus-social-card.jpg`
+  - `docs/static/img/docusaurus.png`
+  - `docs/static/img/favicon.ico`
+  - `docs/static/img/logo.svg`
+  - `docs/static/img/undraw_docusaurus_mountain.svg`
+  - `docs/static/img/undraw_docusaurus_react.svg`
+  - `docs/static/img/undraw_docusaurus_tree.svg`
+  - `docs/tsconfig.json`
+  - `docs/yarn.lock`
+
+## [2.9.2] - 2026-09-05
+
+What's news:
+
+- [ ] ci(scripts): update pipeline configuration in 295 files
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/workflows/docs.yml`
+  - `.nojekyll`
+  - `README.md`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `docs-site/.gitignore`
+  - `docs-site/README.md`
+  - `docs-site/astro.config.mjs`
+  - `docs-site/docs/api/classes/AppError.md`
+  - `docs-site/docs/api/classes/AppUtils.md`
+  - `docs-site/docs/api/classes/AstroService.md`
+  - `docs-site/docs/api/classes/ConsoleStrategy.md`
+  - `docs-site/docs/api/classes/ConverterService.md`
+  - `docs-site/docs/api/classes/DataUtils.md`
+  - `docs-site/docs/api/classes/DomService.md`
+  - `docs-site/docs/api/classes/ErrorFactoryService.md`
+  - `docs-site/docs/api/classes/FetchApiManager.md`
+  - `docs-site/docs/api/classes/FormatterService.md`
+  - `docs-site/docs/api/classes/GeneratorService.md`
+  - `docs-site/docs/api/classes/GeometryArea.md`
+  - `docs-site/docs/api/classes/GeometryPerimeter.md`
+  - `docs-site/docs/api/classes/GeometryVolume.md`
+  - `docs-site/docs/api/classes/LazyLoaderService.md`
+  - `docs-site/docs/api/classes/LazyNodeCryptoStrategy.md`
+  - `docs-site/docs/api/classes/LocalStorageStrategy.md`
+  - `docs-site/docs/api/classes/LoggerService.md`
+  - `docs-site/docs/api/classes/MemoryStorageStrategy.md`
+  - `docs-site/docs/api/classes/NativeUuidStrategy.md`
+  - `docs-site/docs/api/classes/ObserverService.md`
+  - `docs-site/docs/api/classes/ReactiveService.md`
+  - `docs-site/docs/api/classes/RssService.md`
+  - `docs-site/docs/api/classes/SensorsUtils.md`
+  - `docs-site/docs/api/classes/SessionStorageStrategy.md`
+  - `docs-site/docs/api/classes/StorageService.md`
+  - `docs-site/docs/api/classes/SystemUtils.md`
+  - `docs-site/docs/api/classes/ThemeService.md`
+  - `docs-site/docs/api/classes/TimingService.md`
+  - `docs-site/docs/api/classes/ViewportService.md`
+  - `docs-site/docs/api/classes/WorkerService.md`
+  - `docs-site/docs/api/functions/useGenerateMetaTags.md`
+  - `docs-site/docs/api/functions/useHeadTags.md`
+  - `docs-site/docs/api/functions/useRssHeadLink.md`
+  - `docs-site/docs/api/functions/useTitle.md`
+  - `docs-site/docs/api/globals.md`
+  - `docs-site/docs/api/index.md`
+  - `docs-site/docs/api/interfaces/ApiEntry.md`
+  - `docs-site/docs/api/interfaces/ApiError.md`
+  - `docs-site/docs/api/interfaces/AppDateFormatOptions.md`
+  - `docs-site/docs/api/interfaces/AstroPath.md`
+  - `docs-site/docs/api/interfaces/AstroServiceError.md`
+  - `docs-site/docs/api/interfaces/BatteryManager.md`
+  - `docs-site/docs/api/interfaces/CollectionEntryLike.md`
+  - `docs-site/docs/api/interfaces/CurrencyFormatOptions.md`
+  - `docs-site/docs/api/interfaces/DatesServiceTypes.md`
+  - `docs-site/docs/api/interfaces/FetchOptions.md`
+  - `docs-site/docs/api/interfaces/GeoPosition.md`
+  - `docs-site/docs/api/interfaces/GeometryFormatOptions.md`
+  - `docs-site/docs/api/interfaces/IAppUtils.md`
+  - `docs-site/docs/api/interfaces/IAstroService.md`
+  - `docs-site/docs/api/interfaces/IConverterService.md`
+  - `docs-site/docs/api/interfaces/ICryptoStrategy.md`
+  - `docs-site/docs/api/interfaces/IDataUtils.md`
+  - `docs-site/docs/api/interfaces/IDomService.md`
+  - `docs-site/docs/api/interfaces/IErrorFactory.md`
+  - `docs-site/docs/api/interfaces/IFetchApiManager.md`
+  - `docs-site/docs/api/interfaces/IFormatterService.md`
+  - `docs-site/docs/api/interfaces/IReactiveService.md`
+  - `docs-site/docs/api/interfaces/IRssService.md`
+  - `docs-site/docs/api/interfaces/ISerializedError.md`
+  - `docs-site/docs/api/interfaces/ISystemUtils.md`
+  - `docs-site/docs/api/interfaces/IThemeService.md`
+  - `docs-site/docs/api/interfaces/IUuidStrategy.md`
+  - `docs-site/docs/api/interfaces/IntervalControl.md`
+  - `docs-site/docs/api/interfaces/LazyLoaderEntry.md`
+  - `docs-site/docs/api/interfaces/LogStrategy.md`
+  - `docs-site/docs/api/interfaces/NumberFormatOptions.md`
+  - `docs-site/docs/api/interfaces/ObserverConfig.md`
+  - `docs-site/docs/api/interfaces/ObserverEntry.md`
+  - `docs-site/docs/api/interfaces/PaginationProps.md`
+  - `docs-site/docs/api/interfaces/PathsOptions.md`
+  - `docs-site/docs/api/interfaces/RssConfig.md`
+  - `docs-site/docs/api/interfaces/RssItem.md`
+  - `docs-site/docs/api/interfaces/ScrollOptions.md`
+  - `docs-site/docs/api/interfaces/ScrollPosition.md`
+  - `docs-site/docs/api/interfaces/SeoMeta.md`
+  - `docs-site/docs/api/interfaces/SignalGetter.md`
+  - `docs-site/docs/api/interfaces/SiteConfig.md`
+  - `docs-site/docs/api/interfaces/StorageStrategy.md`
+  - `docs-site/docs/api/interfaces/Subscribable.md`
+  - `docs-site/docs/api/interfaces/ThemeOptions.md`
+  - `docs-site/docs/api/interfaces/TimeoutControl.md`
+  - `docs-site/docs/api/interfaces/ToggleSignalSetter.md`
+  - `docs-site/docs/api/interfaces/UrlOptions.md`
+  - `docs-site/docs/api/interfaces/ViewportSize.md`
+  - `docs-site/docs/api/interfaces/WorkerPoolEntry.md`
+  - `docs-site/docs/api/type-aliases/ApisConfig.md`
+  - `docs-site/docs/api/type-aliases/AstroServiceResult.md`
+  - `docs-site/docs/api/type-aliases/Currency.md`
+  - `docs-site/docs/api/type-aliases/DateFormatOptions.md`
+  - `docs-site/docs/api/type-aliases/FetchResult.md`
+  - `docs-site/docs/api/type-aliases/HttpMethod.md`
+  - `docs-site/docs/api/type-aliases/Locale.md`
+  - `docs-site/docs/api/type-aliases/LogLevel.md`
+  - `docs-site/docs/api/type-aliases/ObserverCallback.md`
+  - `docs-site/docs/api/type-aliases/ObserverTarget.md`
+  - `docs-site/docs/api/type-aliases/PathParams.md`
+  - `docs-site/docs/api/type-aliases/ProductType.md`
+  - `docs-site/docs/api/type-aliases/QueryParams.md`
+  - `docs-site/docs/api/type-aliases/RssResult.md`
+  - `docs-site/docs/api/type-aliases/SignalListener.md`
+  - `docs-site/docs/api/type-aliases/SignalSetter.md`
+  - `docs-site/docs/api/type-aliases/StorageTarget.md`
+  - `docs-site/docs/api/type-aliases/TemporalInput.md`
+  - `docs-site/docs/api/type-aliases/ThemeMode.md`
+  - `docs-site/docs/api/type-aliases/WorkerFunc.md`
+  - `docs-site/docs/api/typedoc-sidebar.cjs`
+  - `docs-site/docs/api/variables/DOM_SERVICE.md`
+  - `docs-site/docs/api/variables/GeometryUtils.md`
+  - `docs-site/docs/api/variables/THEME_SERVICE.md`
+  - `docs-site/docs/api/variables/sensorsUtils.md`
+  - `docs-site/docs/api/variables/siteConfig.md`
+  - `docs-site/docs/api/variables/useAddClass.md`
+  - `docs-site/docs/api/variables/useAppend.md`
+  - `docs-site/docs/api/variables/useAverage.md`
+  - `docs-site/docs/api/variables/useBadRequest.md`
+  - `docs-site/docs/api/variables/useBlurActiveElement.md`
+  - `docs-site/docs/api/variables/useBuildUrl.md`
+  - `docs-site/docs/api/variables/useCapitalize.md`
+  - `docs-site/docs/api/variables/useChunk.md`
+  - `docs-site/docs/api/variables/useClear.md`
+  - `docs-site/docs/api/variables/useClearStorage.md`
+  - `docs-site/docs/api/variables/useCopyToClipboard.md`
+  - `docs-site/docs/api/variables/useCreateBatch.md`
+  - `docs-site/docs/api/variables/useCreateDebouncedSignal.md`
+  - `docs-site/docs/api/variables/useCreateEffect.md`
+  - `docs-site/docs/api/variables/useCreateElement.md`
+  - `docs-site/docs/api/variables/useCreateMemo.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpoint.md`
+  - `docs-site/docs/api/variables/useCreateRssEndpointFromConfig.md`
+  - `docs-site/docs/api/variables/useCreateSignal.md`
+  - `docs-site/docs/api/variables/useCreateStorageSignal.md`
+  - `docs-site/docs/api/variables/useCreateToggle.md`
+  - `docs-site/docs/api/variables/useCustom.md`
+  - `docs-site/docs/api/variables/useDebounce.md`
+  - `docs-site/docs/api/variables/useDebounceImmediate.md`
+  - `docs-site/docs/api/variables/useDeepClone.md`
+  - `docs-site/docs/api/variables/useDeepMerge.md`
+  - `docs-site/docs/api/variables/useDelay.md`
+  - `docs-site/docs/api/variables/useDelete.md`
+  - `docs-site/docs/api/variables/useDestroyTheme.md`
+  - `docs-site/docs/api/variables/useEncrypt.md`
+  - `docs-site/docs/api/variables/useError.md`
+  - `docs-site/docs/api/variables/useExitFullscreen.md`
+  - `docs-site/docs/api/variables/useExtractUniqueValues.md`
+  - `docs-site/docs/api/variables/useFetch.md`
+  - `docs-site/docs/api/variables/useFindEntry.md`
+  - `docs-site/docs/api/variables/useFocusElement.md`
+  - `docs-site/docs/api/variables/useForbidden.md`
+  - `docs-site/docs/api/variables/useFormatCurrency.md`
+  - `docs-site/docs/api/variables/useFormatNumber.md`
+  - `docs-site/docs/api/variables/useGeneratePagination.md`
+  - `docs-site/docs/api/variables/useGenerateRss.md`
+  - `docs-site/docs/api/variables/useGet.md`
+  - `docs-site/docs/api/variables/useGetActiveElement.md`
+  - `docs-site/docs/api/variables/useGetApis.md`
+  - `docs-site/docs/api/variables/useGetAttribute.md`
+  - `docs-site/docs/api/variables/useGetBody.md`
+  - `docs-site/docs/api/variables/useGetDataAttribute.md`
+  - `docs-site/docs/api/variables/useGetElementByClass.md`
+  - `docs-site/docs/api/variables/useGetElementById.md`
+  - `docs-site/docs/api/variables/useGetResolved.md`
+  - `docs-site/docs/api/variables/useGetRoot.md`
+  - `docs-site/docs/api/variables/useGetScrollPosition.md`
+  - `docs-site/docs/api/variables/useGetScrollProgress.md`
+  - `docs-site/docs/api/variables/useGetScrollX.md`
+  - `docs-site/docs/api/variables/useGetScrollY.md`
+  - `docs-site/docs/api/variables/useGetStaticPaths.md`
+  - `docs-site/docs/api/variables/useGetStorage.md`
+  - `docs-site/docs/api/variables/useGetThemeMode.md`
+  - `docs-site/docs/api/variables/useGetTitle.md`
+  - `docs-site/docs/api/variables/useGetUrlParams.md`
+  - `docs-site/docs/api/variables/useGetViewportSize.md`
+  - `docs-site/docs/api/variables/useGroupBy.md`
+  - `docs-site/docs/api/variables/useHasClass.md`
+  - `docs-site/docs/api/variables/useInit.md`
+  - `docs-site/docs/api/variables/useInitTheme.md`
+  - `docs-site/docs/api/variables/useInternal.md`
+  - `docs-site/docs/api/variables/useInterval.md`
+  - `docs-site/docs/api/variables/useIsAtBottom.md`
+  - `docs-site/docs/api/variables/useIsAtTop.md`
+  - `docs-site/docs/api/variables/useIsBrowser.md`
+  - `docs-site/docs/api/variables/useIsDocumentVisible.md`
+  - `docs-site/docs/api/variables/useIsFullscreen.md`
+  - `docs-site/docs/api/variables/useIsObject.md`
+  - `docs-site/docs/api/variables/useJsonParse.md`
+  - `docs-site/docs/api/variables/useJsonStringify.md`
+  - `docs-site/docs/api/variables/useLog.md`
+  - `docs-site/docs/api/variables/useLowerCase.md`
+  - `docs-site/docs/api/variables/useMatchesMedia.md`
+  - `docs-site/docs/api/variables/useNotFound.md`
+  - `docs-site/docs/api/variables/useNumericId.md`
+  - `docs-site/docs/api/variables/useOmit.md`
+  - `docs-site/docs/api/variables/useOn.md`
+  - `docs-site/docs/api/variables/useOnVisibilityChange.md`
+  - `docs-site/docs/api/variables/usePathsFrom.md`
+  - `docs-site/docs/api/variables/usePathsFromValues.md`
+  - `docs-site/docs/api/variables/usePick.md`
+  - `docs-site/docs/api/variables/usePost.md`
+  - `docs-site/docs/api/variables/usePrefersColorScheme.md`
+  - `docs-site/docs/api/variables/usePrefersDarkMode.md`
+  - `docs-site/docs/api/variables/usePrefersReducedMotion.md`
+  - `docs-site/docs/api/variables/usePrintPage.md`
+  - `docs-site/docs/api/variables/usePut.md`
+  - `docs-site/docs/api/variables/useQuerySelector.md`
+  - `docs-site/docs/api/variables/useQuerySelectorAll.md`
+  - `docs-site/docs/api/variables/useRace.md`
+  - `docs-site/docs/api/variables/useRemove.md`
+  - `docs-site/docs/api/variables/useRemoveAttribute.md`
+  - `docs-site/docs/api/variables/useRemoveClass.md`
+  - `docs-site/docs/api/variables/useRemoveStorage.md`
+  - `docs-site/docs/api/variables/useRepeat.md`
+  - `docs-site/docs/api/variables/useRequestFullscreen.md`
+  - `docs-site/docs/api/variables/useResetTheme.md`
+  - `docs-site/docs/api/variables/useRetry.md`
+  - `docs-site/docs/api/variables/useRound.md`
+  - `docs-site/docs/api/variables/useRssLinkTag.md`
+  - `docs-site/docs/api/variables/useScrollTo.md`
+  - `docs-site/docs/api/variables/useScrollToBottom.md`
+  - `docs-site/docs/api/variables/useScrollToElement.md`
+  - `docs-site/docs/api/variables/useScrollToTop.md`
+  - `docs-site/docs/api/variables/useSetAttribute.md`
+  - `docs-site/docs/api/variables/useSetDataAttribute.md`
+  - `docs-site/docs/api/variables/useSetHtml.md`
+  - `docs-site/docs/api/variables/useSetStorage.md`
+  - `docs-site/docs/api/variables/useSetStrategy.md`
+  - `docs-site/docs/api/variables/useSetTempTitle.md`
+  - `docs-site/docs/api/variables/useSetText.md`
+  - `docs-site/docs/api/variables/useSetThemeMode.md`
+  - `docs-site/docs/api/variables/useSetTimeout.md`
+  - `docs-site/docs/api/variables/useSetTitle.md`
+  - `docs-site/docs/api/variables/useSleep.md`
+  - `docs-site/docs/api/variables/useSlugify.md`
+  - `docs-site/docs/api/variables/useTable.md`
+  - `docs-site/docs/api/variables/useThrottle.md`
+  - `docs-site/docs/api/variables/useThrottleTrailing.md`
+  - `docs-site/docs/api/variables/useToCelsius.md`
+  - `docs-site/docs/api/variables/useToCm.md`
+  - `docs-site/docs/api/variables/useToFahrenheit.md`
+  - `docs-site/docs/api/variables/useToInches.md`
+  - `docs-site/docs/api/variables/useToKilometers.md`
+  - `docs-site/docs/api/variables/useToKilos.md`
+  - `docs-site/docs/api/variables/useToMiles.md`
+  - `docs-site/docs/api/variables/useToPounds.md`
+  - `docs-site/docs/api/variables/useToggleClass.md`
+  - `docs-site/docs/api/variables/useToggleTheme.md`
+  - `docs-site/docs/api/variables/useToken.md`
+  - `docs-site/docs/api/variables/useUnauthorized.md`
+  - `docs-site/docs/api/variables/useUnique.md`
+  - `docs-site/docs/api/variables/useUpperCase.md`
+  - `docs-site/docs/api/variables/useUuid.md`
+  - `docs-site/docs/changelog.md`
+  - `docs-site/docs/guides/architecture.md`
+  - `docs-site/docs/guides/getting-started.md`
+  - `docs-site/docs/guides/roadmap.md`
+  - `docs-site/docusaurus.config.ts`
+  - `docs-site/package.json`
+  - `docs-site/sidebars.ts`
+  - `docs-site/src/components/HomepageFeatures.module.css`
+  - `docs-site/src/components/HomepageFeatures.tsx`
+  - `docs-site/src/components/HomepageFeatures/index.tsx`
+  - `docs-site/src/components/HomepageFeatures/styles.module.css`
+  - `docs-site/src/content.config.ts`
+  - `docs-site/src/content/docs/changelog.md`
+  - `docs-site/src/content/docs/guides/architecture.md`
+  - `docs-site/src/content/docs/guides/getting-started.md`
+  - `docs-site/src/content/docs/guides/roadmap.md`
+  - `docs-site/src/content/docs/index.md`
+  - `docs-site/src/css/custom.css`
+  - `docs-site/src/index.astro`
+  - `docs-site/src/pages/index.module.css`
+  - `docs-site/src/pages/index.tsx`
+  - `docs-site/static/.nojekyll`
+  - `docs-site/static/img/docusaurus-social-card.jpg`
+  - `docs-site/static/img/docusaurus.png`
+  - `docs-site/static/img/favicon.ico`
+  - `docs-site/static/img/logo.svg`
+  - `docs-site/static/img/undraw_docusaurus_mountain.svg`
+  - `docs-site/static/img/undraw_docusaurus_react.svg`
+  - `docs-site/static/img/undraw_docusaurus_tree.svg`
+  - `docs-site/tsconfig.json`
+  - `docs-site/versions.config.mjs`
+  - `docs-site/yarn.lock`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/README.md`
+  - `docs/Roadmap.md`
+  - `package.json`
+  - `src/config/site.config.ts`
+
+## [2.9.1] - 2026-09-05
+
+What's news:
+
+- [ ] fix: convert to yarn and fix Astro config
+  - `docs-site/src/index.astro`
+  - `docs-site/tsconfig.json`
+  - `package.json`
+
+## [2.9.0] - 2026-09-05
+
+What's news:
+
+- [ ] docs: Revamp architecture documentation and add new site structure
+  - `README.md`
+  - `docs-site/README.md`
+  - `docs-site/src/index.astro`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/README.md`
+
+## [2.8.3] - 2026-09-05
+
+What's news:
+
+- [ ] fix: use 'yarn run check' in validate to avoid yarn built-in conflict
+  - `package.json`
+
+## [2.8.2] - 2026-09-05
+
+What's news:
+
+- [ ] ci(release): add version to release title
+  - `.github/scripts/release.sh`
+
+## [2.8.1] - 2026-09-05
+
+What's news:
+
+- [ ] docs(.nojekyll): update documentation in 3 files
+  - `.nojekyll`
+  - `docs-site/src/content/docs/guides/getting-started.md`
+  - `docs-site/src/content/docs/index.md`
+
+## [2.8.0] - 2026-09-05
+
+What's news:
+
+- [ ] chore(.gitignore): update .gitignore
+  - `.gitignore`
+- [ ] docs(prisma-8): update documentation in 304 files
+  - `.cursor/skills/prisma-8/SKILL.md`
+  - `.cursor/skills/prisma-8/references/build.md`
+  - `.cursor/skills/prisma-8/references/contract.md`
+  - `.cursor/skills/prisma-8/references/debug.md`
+  - `.cursor/skills/prisma-8/references/feedback.md`
+  - `.cursor/skills/prisma-8/references/migration-model.md`
+  - `.cursor/skills/prisma-8/references/migration-review.md`
+  - `.cursor/skills/prisma-8/references/migrations.md`
+  - `.cursor/skills/prisma-8/references/queries-mongo.md`
+  - `.cursor/skills/prisma-8/references/queries-postgres.md`
+  - `.cursor/skills/prisma-8/references/queries.md`
+  - `.cursor/skills/prisma-8/references/quickstart.md`
+  - `.cursor/skills/prisma-8/references/runtime.md`
+  - `.cursor/skills/prisma-8/references/supabase.md`
+  - `.cursor/skills/prisma-8/references/upgrade-app.md`
+  - `.cursor/skills/prisma-8/references/upgrade-extension.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.cursor/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.cursor/skills/prisma-composer/SKILL.md`
+  - `.devin/skills/prisma-8/SKILL.md`
+  - `.devin/skills/prisma-8/references/build.md`
+  - `.devin/skills/prisma-8/references/contract.md`
+  - `.devin/skills/prisma-8/references/debug.md`
+  - `.devin/skills/prisma-8/references/feedback.md`
+  - `.devin/skills/prisma-8/references/migration-model.md`
+  - `.devin/skills/prisma-8/references/migration-review.md`
+  - `.devin/skills/prisma-8/references/migrations.md`
+  - `.devin/skills/prisma-8/references/queries-mongo.md`
+  - `.devin/skills/prisma-8/references/queries-postgres.md`
+  - `.devin/skills/prisma-8/references/queries.md`
+  - `.devin/skills/prisma-8/references/quickstart.md`
+  - `.devin/skills/prisma-8/references/runtime.md`
+  - `.devin/skills/prisma-8/references/supabase.md`
+  - `.devin/skills/prisma-8/references/upgrade-app.md`
+  - `.devin/skills/prisma-8/references/upgrade-extension.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.devin/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.devin/skills/prisma-composer/SKILL.md`
+  - `.env`
+  - `.gitignore`
+  - `.prisma/local.json`
+  - `.zcode/plans/plan-sess_305f8f01-e7b4-487c-8534-75e5aaf26299.md`
+  - `.zcode/plans/plan-sess_6dc0667d-f228-4c43-a026-2910fdf18433.md`
+  - `dist/adapters/astro/astro.service.d.ts`
+  - `dist/adapters/astro/astro.service.d.ts.map`
+  - `dist/adapters/astro/astro.service.js`
+  - `dist/adapters/astro/astro.service.js.map`
+  - `dist/adapters/astro/index.d.ts`
+  - `dist/adapters/astro/index.d.ts.map`
+  - `dist/adapters/astro/index.js`
+  - `dist/adapters/astro/index.js.map`
+  - `dist/adapters/astro/rss.service.d.ts`
+  - `dist/adapters/astro/rss.service.d.ts.map`
+  - `dist/adapters/astro/rss.service.js`
+  - `dist/adapters/astro/rss.service.js.map`
+  - `dist/adapters/express/app.d.ts`
+  - `dist/adapters/express/app.d.ts.map`
+  - `dist/adapters/express/app.js`
+  - `dist/adapters/express/app.js.map`
+  - `dist/adapters/express/index.d.ts`
+  - `dist/adapters/express/index.d.ts.map`
+  - `dist/adapters/express/index.js`
+  - `dist/adapters/express/index.js.map`
+  - `dist/adapters/express/main.d.ts`
+  - `dist/adapters/express/main.d.ts.map`
+  - `dist/adapters/express/main.js`
+  - `dist/adapters/express/main.js.map`
+  - `dist/adapters/express/products.controller.d.ts`
+  - `dist/adapters/express/products.controller.d.ts.map`
+  - `dist/adapters/express/products.controller.js`
+  - `dist/adapters/express/products.controller.js.map`
+  - `dist/adapters/express/router.d.ts`
+  - `dist/adapters/express/router.d.ts.map`
+  - `dist/adapters/express/router.js`
+  - `dist/adapters/express/router.js.map`
+  - `dist/adapters/express/server.d.ts`
+  - `dist/adapters/express/server.d.ts.map`
+  - `dist/adapters/express/server.js`
+  - `dist/adapters/express/server.js.map`
+  - `dist/adapters/index.d.ts`
+  - `dist/adapters/index.d.ts.map`
+  - `dist/adapters/index.js`
+  - `dist/adapters/index.js.map`
+  - `dist/adapters/nuxt/index.d.ts`
+  - `dist/adapters/nuxt/index.d.ts.map`
+  - `dist/adapters/nuxt/index.js`
+  - `dist/adapters/nuxt/index.js.map`
+  - `dist/adapters/nuxt/nuxt.service.d.ts`
+  - `dist/adapters/nuxt/nuxt.service.d.ts.map`
+  - `dist/adapters/nuxt/nuxt.service.js`
+  - `dist/adapters/nuxt/nuxt.service.js.map`
+  - `dist/adapters/vue/index.d.ts`
+  - `dist/adapters/vue/index.d.ts.map`
+  - `dist/adapters/vue/index.js`
+  - `dist/adapters/vue/index.js.map`
+  - `dist/adapters/vue/vue.service.d.ts`
+  - `dist/adapters/vue/vue.service.d.ts.map`
+  - `dist/adapters/vue/vue.service.js`
+  - `dist/adapters/vue/vue.service.js.map`
+  - `dist/config/index.d.ts`
+  - `dist/config/index.d.ts.map`
+  - `dist/config/index.js`
+  - `dist/config/index.js.map`
+  - `dist/config/seo.service.d.ts`
+  - `dist/config/seo.service.d.ts.map`
+  - `dist/config/seo.service.js`
+  - `dist/config/seo.service.js.map`
+  - `dist/config/site.config.d.ts`
+  - `dist/config/site.config.d.ts.map`
+  - `dist/config/site.config.js`
+  - `dist/config/site.config.js.map`
+  - `dist/core/index.d.ts`
+  - `dist/core/index.d.ts.map`
+  - `dist/core/index.js`
+  - `dist/core/index.js.map`
+  - `dist/core/services/dates.service.d.ts`
+  - `dist/core/services/dates.service.d.ts.map`
+  - `dist/core/services/dates.service.js`
+  - `dist/core/services/dates.service.js.map`
+  - `dist/core/services/error.service.d.ts`
+  - `dist/core/services/error.service.d.ts.map`
+  - `dist/core/services/error.service.js`
+  - `dist/core/services/error.service.js.map`
+  - `dist/core/services/formatter.service.d.ts`
+  - `dist/core/services/formatter.service.d.ts.map`
+  - `dist/core/services/formatter.service.js`
+  - `dist/core/services/formatter.service.js.map`
+  - `dist/core/services/generator.service.d.ts`
+  - `dist/core/services/generator.service.d.ts.map`
+  - `dist/core/services/generator.service.js`
+  - `dist/core/services/generator.service.js.map`
+  - `dist/core/services/geometry.service.d.ts`
+  - `dist/core/services/geometry.service.d.ts.map`
+  - `dist/core/services/geometry.service.js`
+  - `dist/core/services/geometry.service.js.map`
+  - `dist/core/services/http.service.d.ts`
+  - `dist/core/services/http.service.d.ts.map`
+  - `dist/core/services/http.service.js`
+  - `dist/core/services/http.service.js.map`
+  - `dist/core/services/logger.service.d.ts`
+  - `dist/core/services/logger.service.d.ts.map`
+  - `dist/core/services/logger.service.js`
+  - `dist/core/services/logger.service.js.map`
+  - `dist/core/services/reactive.service.d.ts`
+  - `dist/core/services/reactive.service.d.ts.map`
+  - `dist/core/services/reactive.service.js`
+  - `dist/core/services/reactive.service.js.map`
+  - `dist/core/services/timing.service.d.ts`
+  - `dist/core/services/timing.service.d.ts.map`
+  - `dist/core/services/timing.service.js`
+  - `dist/core/services/timing.service.js.map`
+  - `dist/core/services/utils.service.d.ts`
+  - `dist/core/services/utils.service.d.ts.map`
+  - `dist/core/services/utils.service.js`
+  - `dist/core/services/utils.service.js.map`
+  - `dist/index.d.ts`
+  - `dist/index.d.ts.map`
+  - `dist/index.js`
+  - `dist/index.js.map`
+  - `dist/infrastructure/dom/dom.service.d.ts`
+  - `dist/infrastructure/dom/dom.service.d.ts.map`
+  - `dist/infrastructure/dom/dom.service.js`
+  - `dist/infrastructure/dom/dom.service.js.map`
+  - `dist/infrastructure/index.d.ts`
+  - `dist/infrastructure/index.d.ts.map`
+  - `dist/infrastructure/index.js`
+  - `dist/infrastructure/index.js.map`
+  - `dist/infrastructure/observer/observer.service.d.ts`
+  - `dist/infrastructure/observer/observer.service.d.ts.map`
+  - `dist/infrastructure/observer/observer.service.js`
+  - `dist/infrastructure/observer/observer.service.js.map`
+  - `dist/infrastructure/sensors/sensors.service.d.ts`
+  - `dist/infrastructure/sensors/sensors.service.d.ts.map`
+  - `dist/infrastructure/sensors/sensors.service.js`
+  - `dist/infrastructure/sensors/sensors.service.js.map`
+  - `dist/infrastructure/storage/storage.service.d.ts`
+  - `dist/infrastructure/storage/storage.service.d.ts.map`
+  - `dist/infrastructure/storage/storage.service.js`
+  - `dist/infrastructure/storage/storage.service.js.map`
+  - `dist/infrastructure/theme/theme.service.d.ts`
+  - `dist/infrastructure/theme/theme.service.d.ts.map`
+  - `dist/infrastructure/theme/theme.service.js`
+  - `dist/infrastructure/theme/theme.service.js.map`
+  - `dist/infrastructure/viewport/viewport.service.d.ts`
+  - `dist/infrastructure/viewport/viewport.service.d.ts.map`
+  - `dist/infrastructure/viewport/viewport.service.js`
+  - `dist/infrastructure/viewport/viewport.service.js.map`
+  - `dist/infrastructure/worker/worker.service.d.ts`
+  - `dist/infrastructure/worker/worker.service.d.ts.map`
+  - `dist/infrastructure/worker/worker.service.js`
+  - `dist/infrastructure/worker/worker.service.js.map`
+  - `dist/prisma/db.d.ts`
+  - `dist/prisma/db.d.ts.map`
+  - `dist/prisma/db.js`
+  - `dist/prisma/db.js.map`
+  - `dist/prisma/schema.json`
+  - `dist/types/index.d.ts`
+  - `dist/types/index.d.ts.map`
+  - `dist/types/index.js`
+  - `dist/types/index.js.map`
+
+## [2.7.0] - 2026-09-05
+
+What's news:
+
+- [ ] docs(CHANGELOG.md): update documentation in 12 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `tests/vue.service.test.ts`
+  - `yarn.lock`
+
+## [2.6.0] - 2026-09-05
+
+What's news:
+
+- [ ] docs: add documentation site with versioning support
+  - `.github/scripts/archive-docs-version.sh`
+  - `.github/workflows/docs.yml`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs-site/.gitignore`
+  - `docs-site/package.json`
+  - `docs-site/src/content.config.ts`
+  - `docs-site/yarn.lock`
+  - `package.json`
+
+## [2.5.0] - 2026-09-05
+
+What's news:
+
+- [ ] feat: add Astro documentation site and restructure build scripts
+  - `docs-site/.gitignore`
+  - `docs-site/astro.config.mjs`
+  - `docs-site/package.json`
+  - `docs-site/src/content/docs/changelog.md`
+  - `docs-site/src/content/docs/guides/architecture.md`
+  - `docs-site/src/content/docs/guides/getting-started.md`
+  - `docs-site/src/content/docs/guides/roadmap.md`
+  - `docs-site/src/content/docs/index.md`
+  - `docs-site/tsconfig.json`
+  - `docs-site/versions.config.mjs`
+  - `package.json`
+
+## [2.3.1] - 2026-09-04
+
+What's news:
+
+- [ ] fix(release): derive base version from highest tag to prevent regressions
+  - `.github/scripts/determine-version.sh`
+  - `.github/scripts/release.sh`
+
+## [2.2.3] - 2026-09-04
+
+What's news:
+
+- [ ] ci(release): trigger automatic releases on dev and validate versions
+  - `.github/scripts/release.sh`
+  - `.github/workflows/release.yml`
+
+## [2.2.2] - 2026-09-04
+
+What's news:
+
+- [ ] ci(scripts): update pipeline configuration in 9 files
+  - `.github/scripts/determine-version.sh`
+  - `.github/scripts/release.sh`
+  - `.github/workflows/release.yml`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/API-Reference.md`
+  - `docs/Roadmap.md`
+- [ ] v2.2.1
+  - `package.json`
+- [ ] docs(CHANGELOG.md): update documentation in 12 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `tests/vue.service.test.ts`
+  - `yarn.lock`
+
+## [2.2.1] - 2026-09-04
+
+What's news:
+
+- [ ] feat: bump package version to 2.2.0
+  - `package.json`
+- [ ] docs(CHANGELOG.md): update documentation in 12 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `tests/vue.service.test.ts`
+  - `yarn.lock`
+
+## [2.2.0] - 2026-09-04
+
+What's news:
+
+- [ ] docs(CHANGELOG.md): update documentation in 12 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/vue/demo.ts`
+  - `package.json`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `tests/vue.service.test.ts`
+  - `yarn.lock`
+
+## [2.1.6] - 2026-09-04
+
+What's news:
+
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
+
+## [2.1.5] - 2026-09-04
+
+What's news:
+
+- [ ] chore: update roadmap with completed features and future plans for katanakit-js
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/API-Reference.md`
+  - `docs/Roadmap.md`
+- [ ] docs: update architecture and getting started guides for clarity and detail
+  - `README.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+- [ ] build(package.json): update dependencies or build settings in package.json
+  - `package.json`
+- [ ] docs(README.md): update documentation and update version in package.json
+  - `README.md`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/nuxt.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/seo.service.test.ts`
+
+## [2.1.4] - 2026-09-04
+
+What's news:
+
+- [ ] docs(README.md): update documentation in 8 files
+  - `README.md`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/nuxt.service.test.ts`
+  - `tests/rss.service.test.ts`
+  - `tests/seo.service.test.ts`
+
+## [2.1.3] - 2026-09-04
+
+What's news:
+
+- [ ] feat: remove unused theme initialization code
+  - `src/infrastructure/theme/theme.service.ts`
+- [ ] docs(README.md): update documentation in README.md
+  - `README.md`
+- [ ] docs(prisma-composer): update documentation in 15 files
+  - `.agents/skills/prisma-composer/SKILL.md`
+  - `biome.json`
+  - `package.json`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `src/config/index.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/index.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `tests/seo.service.test.ts`
+  - `yarn.lock`
+
+## [2.1.2] - 2026-09-04
+
+What's news:
+
+- [ ] build(bun.lock): update dependencies or build settings in 3 files
+  - `bun.lock`
+  - `package.json`
+  - `yarn.lock`
+- [ ] build(package.json): update dependencies or build settings in 4 files
+  - `package.json`
+  - `src/adapters/nuxt/index.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `tests/nuxt.service.test.ts`
+- [ ] fix: update DATABASE_URL in .env.example to use a placeholder
+  - `.env.example`
+- [ ] refactor: clean up exports in index.ts and enhance DOM service documentation
+  - `src/core/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+
+## [2.1.1] - 2026-09-03
+
+What's news:
+
+- [ ] docs(prisma-8): update documentation in 102 files
+  - `.agents/skills/prisma-8/SKILL.md`
+  - `.agents/skills/prisma-8/references/build.md`
+  - `.agents/skills/prisma-8/references/contract.md`
+  - `.agents/skills/prisma-8/references/debug.md`
+  - `.agents/skills/prisma-8/references/feedback.md`
+  - `.agents/skills/prisma-8/references/migration-model.md`
+  - `.agents/skills/prisma-8/references/migration-review.md`
+  - `.agents/skills/prisma-8/references/migrations.md`
+  - `.agents/skills/prisma-8/references/queries-mongo.md`
+  - `.agents/skills/prisma-8/references/queries-postgres.md`
+  - `.agents/skills/prisma-8/references/queries.md`
+  - `.agents/skills/prisma-8/references/quickstart.md`
+  - `.agents/skills/prisma-8/references/runtime.md`
+  - `.agents/skills/prisma-8/references/supabase.md`
+  - `.agents/skills/prisma-8/references/upgrade-app.md`
+  - `.agents/skills/prisma-8/references/upgrade-extension.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-closed-mongo-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-domain-namespaced-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/re-emit-postgres-public-default.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.12-to-0.13/re-emit-mti-variant-link-columns.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/app/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.10-to-0.11/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/migrate-contract-testing-imports.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/regenerate-extension-public-baseline.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.11-to-0.12/strip-migration-labels-hints.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.12-to-0.13/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/migration-op-factories-to-methods.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.13-to-0.14/uuid-preset-rename.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.14-to-0.15/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.15-to-0.16/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.16-to-0.17/strip-sha256-hash-prefixes.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.17-to-8.0.0-rc.1/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.7-to-0.8/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.8-to-0.9/strip-inline-contracts.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/0.9-to-0.10/stamp-storage-types-kind.ts`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.1-to-8.0.0-rc.2/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.2-to-8.0.0-rc.3/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.3-to-8.0.0-rc.4/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.4-to-8.0.0-rc.5/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.5-to-8.0.0-rc.6/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.6-to-8.0.0-rc.7/instructions.md`
+  - `.agents/skills/prisma-8/upgrading/extension/upgrades/8.0.0-rc.7-to-8.0.0-rc.8/instructions.md`
+  - `.agents/skills/prisma-composer/SKILL.md`
+  - `.gitignore`
+  - `bun.lock`
+  - `package.json`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/server.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/db.ts`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] docs(README.md): update documentation in 10 files
+  - `README.md`
+  - `package.json`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/index.ts`
+  - `src/config/index.ts`
+  - `src/core/index.ts`
+  - `src/index.ts`
+  - `src/infrastructure/index.ts`
+  - `src/types/index.ts`
+- [ ] 2.0.1
+  - `package.json`
+- [ ] feat: rename package to katanakit-dev for clarity
+  - `README.md`
+  - `package.json`
+
+## [2.0.2] - 2026-09-03
+
+What's news:
+
+- [ ] 2.0.1
+  - `package.json`
+- [ ] feat: rename package to katanakit-dev for clarity
+  - `README.md`
+  - `package.json`
+- [ ] feat: types and prisma change, updated, fixed
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/types/index.ts`
+- [ ] feat(astro): add changes to 11 files
+  - `src/adapters/astro/rss.service.ts`
+  - `src/config/seo.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/types/index.ts`
+- [ ] docs(README.md): update documentation in 9 files
+  - `README.md`
+  - `docs/API-Reference.md`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/index.ts`
+  - `src/types/index.ts`
+  - `tests/rss.service.test.ts`
 
 ## [2.0.0] - 2026-09-03
 
-Developed and published as `katanakit-dev`.
+What's news:
 
-### Added
+- [ ] Refactor Prisma schema and update models
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/astro/rss.service.ts`
+- [ ] refactor!: update types with errors fixed
+  - `src/types/index.ts`
+- [ ] refactor!: Refactor Prisma schema and update models
+  - `.env.example`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `biome.json`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/observer/demo.ts`
+  - `package.json`
+  - `prisma.config.ts`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/server.ts`
+  - `src/core/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/storage.service.test.ts`
+- [ ] refactor!: remove unused Astro types and ports
+  - `src/adapters/astro/astro.types.ts`
+  - `src/core/ports/index.ts`
 
-- **Reorganized the project** with hexagonal architecture into `types/`, `core/services/`, `infrastructure/`, `adapters/`, `config/`, and `prisma/`.
-- Exposed the public API through barrel files (`src/index.ts` and per-layer `index.ts`).
-- Added Vitest unit tests for the HTTP client, logger, storage, DOM, and reactive services.
-- Added English documentation (`README.md`, `CONTRIBUTING.md`, `docs/`, `SECURITY.md`).
+## [1.1.0] - 2026-09-03
 
-### Fixed
+What's news:
 
-- Fixed TypeScript compile errors: broken imports, broken singleton guards (`TimingService` and `ViewportService`), the `FIND_ENTRY` scope bug in `AstroService`, and Express `Request`/`Response` typing.
-- Removed all side effects on import (top-level `fetch` to dummyjson.com, `console.log` calls, storage writes and timers).
-- Fixed the Express server: `listen` now uses the configured port/host, the user router is mounted, and handler `(req, res)` argument order is correct.
-- Fixed the logger call sites (level is now the first argument of `useLog`).
+- [ ] build(.env.example): update dependencies or build settings in 25 files
+  - `.env.example`
+  - `.gitattributes`
+  - `.gitignore`
+  - `bun.lock`
+  - `package.json`
+  - `prisma-next.md`
+  - `prisma.config.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/prisma/db.ts`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+  - `src/prisma/schema.prisma`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] chore: add npm publish scripts and metadata
+  - `package.json`
+- [ ] chore(.gitignore): remove duplicate .zcode entry
+  - `.gitignore`
+- [ ] chore(.gitignore): update .gitignore
+  - `.gitignore`
+- [ ] rename: apify-manager → katanakit (KatanaKit brand)
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `bun.lock`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+  - `docs/Roadmap.md`
+  - `package.json`
+- [ ] docs: rewrite documentation in English, add security guide, remove obsolete wiki
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `SECURITY.md`
+  - `docs/API-Reference.md`
+  - `docs/Architecture.md`
+  - `docs/Getting-Started.md`
+- [ ] fix: harden URL scheme validation, worker cleanup and token generation
+  - `index.js`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `wiki/API-References.md`
+  - `wiki/Architecture.md`
+  - `wiki/Getting-Started.md`
+  - `wiki/Home.md`
+  - `wiki/Roadmap.md`
+- [ ] test(astro): add test coverage for 9 files
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/observer/demo.ts`
+  - `examples/prisma/prisma.service.ts`
+  - `tests/core.services.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/logger.service.test.ts`
+  - `tests/storage.service.test.ts`
+  - `vitest.config.ts`
+- [ ] chore: restructure infrastructure and improve DOM service
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/astro.types.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/index.ts`
+  - `src/adapters/express/main.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/router.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/index.ts`
+  - `src/core/index.ts`
+  - `src/core/ports/index.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/index.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] feat: agregar servicio Prisma en ejemplos con soporte para Accelerate
+  - `examples/prisma/prisma.service.ts`
+  - `src/helpers/prisma/prisma.service.ts`
+- [ ] feat: add demo examples for Astro, Geometry, and Observer patterns
+  - `.gitignore`
+  - `biome.json`
+  - `bun.lock`
+  - `examples/astro/demo.ts`
+  - `examples/geometry/demo.ts`
+  - `examples/observer/demo.ts`
+  - `package.json`
+  - `src/api/demo-astro.ts`
+  - `src/api/index.ts`
+  - `src/helpers/formatter/index.ts`
+  - `src/helpers/gemotry/demo.geometry.ts`
+  - `src/helpers/gemotry/types.geometry.ts`
+  - `src/helpers/index.ts`
+  - `src/helpers/localstorage/index.ts`
+  - `src/helpers/observer/demo.ts`
+  - `src/helpers/observer/types.ts`
+  - `src/helpers/prisma/prisma.service.ts`
+  - `src/helpers/sensors/demo.ts`
+  - `src/helpers/sensors/types.ts`
+  - `src/index.ts.bak`
+  - `src/infrastructure/signals/index.ts`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+- [ ] feat: upgrade to version 2.0.0 with TypeScript support and hexagonal architecture
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/astro.types.ts`
+  - `src/adapters/express/app.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/router.ts`
+  - `src/adapters/express/server.ts`
+  - `src/api/api-astro.ts`
+  - `src/api/astro.types.ts`
+  - `src/api/products/index.ts`
+  - `src/app.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/helpers/converters/index.ts`
+  - `src/helpers/errors/index.ts`
+  - `src/helpers/formatter/dates.ts`
+  - `src/helpers/gemotry/geometry.service.ts`
+  - `src/helpers/generator/index.ts`
+  - `src/helpers/localstorage/storage.service.ts`
+  - `src/helpers/logger.service.ts`
+  - `src/helpers/observer/observer.service.ts`
+  - `src/helpers/sensors/sensors.service.ts`
+  - `src/helpers/themes/index.ts`
+  - `src/helpers/utils/timing.service.ts`
+  - `src/helpers/worker/index.ts`
+  - `src/index.ts`
+  - `src/index.ts.bak`
+  - `src/infrastructure/api-core.ts`
+  - `src/infrastructure/dom-api/dom.ts`
+  - `src/infrastructure/dom/dom.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/signals/reactive.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/utils.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/window/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/router.ts`
+  - `src/server.ts`
+- [ ] docs: agregar utilidades para cálculos geométricos y manejo de observadores
+  - `src/helpers/gemotry/demo.geometry.ts`
+  - `src/helpers/gemotry/geometry.service.ts`
+  - `src/helpers/gemotry/types.geometry.ts`
+  - `src/helpers/observer/demo.ts`
+  - `src/helpers/observer/observer.service.ts`
+  - `src/helpers/observer/types.ts`
+  - `src/helpers/sensors/demo.ts`
+  - `src/helpers/sensors/sensors.service.ts`
+  - `src/helpers/sensors/types.ts`
+- [ ] feat: update versión a 1.0.0 y refactorizar servicios de tema y DOM
+  - `package.json`
+  - `src/helpers/themes/index.ts`
+  - `src/infrastructure/dom-api/dom.ts`
+  - `src/infrastructure/signals/index.ts`
+  - `src/infrastructure/signals/reactive.service.ts`
 
-### Removed
+## [1.0.0] - 2026-09-03
 
-- Removed duplicate type definitions (unified in `src/types/`).
-- Dead code, empty files and the broken signals draft.
-- Moved demos to `examples/` and dropped the obsolete `wiki/` documentation.
+What's news:
 
-## License
+- [ ] feat!: Implement API Manager and DOM Service with utility functions
+  - `.biomeignore`
+  - `biome.json`
+  - `bun.lock`
+  - `package.json`
+  - `src/api/api-astro.ts`
+  - `src/api/astro.types.ts`
+  - `src/api/demo-astro.ts`
+  - `src/api/index.ts`
+  - `src/api/products/index.ts`
+  - `src/app.ts`
+  - `src/helpers/converters/index.ts`
+  - `src/helpers/demo-astro.ts`
+  - `src/helpers/errors/index.ts`
+  - `src/helpers/formatter/dates.ts`
+  - `src/helpers/formatter/index.ts`
+  - `src/helpers/generator/index.ts`
+  - `src/helpers/index.ts`
+  - `src/helpers/localstorage/index.ts`
+  - `src/helpers/localstorage/storage.service.ts`
+  - `src/helpers/logger.service.ts`
+  - `src/helpers/themes/index.ts`
+  - `src/helpers/utils/timing.service.ts`
+  - `src/helpers/worker/index.ts`
+  - `src/index.ts`
+  - `src/infrastructure/api-core.ts`
+  - `src/infrastructure/dom-api/dom.ts`
+  - `src/infrastructure/utils.ts`
+  - `src/infrastructure/window/viewport.service.ts`
+  - `src/router.ts`
+  - `src/server.ts`
+  - `src/types/astro.types.ts`
+  - `src/types/index.ts`
+  - `tsconfig.json`
+- [ ] feat!: Agregar archivos de configuración inicial, documentación y ejemplos para apify-manager
+  - `.gitignore`
+  - `CONTRIBUTING.md`
+  - `LICENSE`
+  - `README.md`
+  - `index.js`
+  - `package.json`
+  - `src/api/api-astro.ts`
+  - `src/helpers/demo-astro.ts`
+  - `src/types/astro.types.ts`
+  - `tsconfig.json`
+  - `wiki/API-References.md`
+  - `wiki/Architecture.md`
+  - `wiki/Getting-Started.md`
+  - `wiki/Home.md`
+  - `wiki/Roadmap.md`
 
-MIT

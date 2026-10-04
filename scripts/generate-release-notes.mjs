@@ -11,14 +11,15 @@
  *   node scripts/generate-release-notes.mjs v2.14.1 --write       # write the section into CHANGELOG.md
  *   node scripts/generate-release-notes.mjs v2.14.1 --write --force  # rewrite an existing section
  *   node scripts/generate-release-notes.mjs --sync-versions       # refresh version refs in README/docs
+ *   node scripts/generate-release-notes.mjs --refresh             # regenerate ALL sections with current format
  *   node scripts/generate-release-notes.mjs --all --json
  *
- * Every Conventional Commit type reaches the changelog (features, fixes,
- * performance, refactors, docs, tests, build, CI, styles, chores, reverts) and
- * each entry lists the files the commit touched, so nothing generated is left
- * out of GitHub or the docs site. `--write` also refreshes the version pinned
- * in package.json and README/docs prose, so the published docs always name the
- * version that just shipped (never downgrading a newer tag when backfilling).
+ * Every version section is a "What's news:" checklist: one '- [ ]' task per
+ * commit (its full Conventional Commit subject) followed by the files it
+ * touched, so nothing generated is left out of GitHub or the docs site.
+ * `--write` also refreshes the version pinned in package.json and README/docs
+ * prose, so the published docs always name the version that just shipped
+ * (never downgrading a newer tag when backfilling).
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -113,9 +114,10 @@ function collect(tag, { pending = false } = {}) {
 		// Release machinery, not a user-visible change: the version bump and the
 		// changelog commit this script itself produces.
 		.filter(({ subject }) => !/^chore(\([^)]*\))?: release v/.test(subject))
-		.filter(({ subject }) => !/^docs\(changelog\): v\d+\.\d+\.\d+$/.test(subject))
-		.map(({ sha, subject }) => ({ sha, ...parseCommit(subject) }))
-		.filter((commit) => commit.type)
+		.filter(({ subject }) => !/^docs\(changelog\):/.test(subject))
+		// Commits that don't parse as Conventional Commits are kept as-is: the
+		// changelog checklist must list EVERY change, never drop one.
+		.map(({ sha, subject }) => ({ sha, subject, ...(parseCommit(subject) ?? {}) }))
 		.map((commit) => ({ ...commit, files: changedFiles(commit.sha) }));
 
 	const sections = SECTIONS.map((section) => ({
@@ -130,7 +132,14 @@ function collect(tag, { pending = false } = {}) {
 			})),
 	})).filter((section) => section.items.length > 0);
 
-	return { tag, version: tag.replace(/^v/, ""), date, previous: prev, sections };
+	return {
+		tag,
+		version: tag.replace(/^v/, ""),
+		date,
+		previous: prev,
+		sections,
+		commits,
+	};
 }
 
 function renderMarkdown(release) {
@@ -189,39 +198,8 @@ const preferChangelog = args.includes("--changelog");
 const write = args.includes("--write");
 const force = args.includes("--force");
 const syncVersions = args.includes("--sync-versions");
+const refresh = args.includes("--refresh");
 const tag = args.find((arg) => !arg.startsWith("--"));
-
-/**
- * Release-notes heading → `CHANGELOG.md` section. Every category gets its own
- * section: nothing generated is omitted, so GitHub and the docs site show the
- * complete set of changes for the release.
- */
-const CHANGELOG_SECTION = {
-	"🚀 Features": "Added",
-	"🔧 Fixes": "Fixed",
-	"⚡ Performance": "Changed",
-	"♻️ Refactors": "Changed",
-	"📝 Documentation": "Documentation",
-	"🧪 Tests": "Tests",
-	"📦 Build": "Build",
-	"🤖 CI": "CI",
-	"💄 Styles": "Styles",
-	"🧹 Chores": "Chores",
-	"⏪ Reverts": "Reverts",
-};
-const SECTION_ORDER = [
-	"Added",
-	"Fixed",
-	"Changed",
-	"Documentation",
-	"Tests",
-	"Build",
-	"CI",
-	"Styles",
-	"Chores",
-	"Reverts",
-	"Breaking",
-];
 
 /** Numeric semver compare (X.Y.Z only); > 0 when `a` is newer than `b`. */
 function compareSemver(a, b) {
@@ -244,15 +222,18 @@ const VERSIONED_DOCS = [
 function syncVersionRefs(version) {
 	// package.json first: it is the version npm publishes, so a tag created
 	// outside this script (`useGit release create`) must be mirrored back.
+	// (repos without package.json only sync the docs below)
 	const manifest = join(ROOT, "package.json");
-	const manifestBefore = readFileSync(manifest, "utf8");
-	const manifestAfter = manifestBefore.replace(
-		/("version":\s*)"\d+\.\d+\.\d+"/,
-		`$1"${version}"`,
-	);
-	if (manifestAfter !== manifestBefore) {
-		writeFileSync(manifest, manifestAfter);
-		console.log(`Version refs: package.json → ${version}`);
+	if (existsSync(manifest)) {
+		const manifestBefore = readFileSync(manifest, "utf8");
+		const manifestAfter = manifestBefore.replace(
+			/("version":\s*)"\d+\.\d+\.\d+"/,
+			`$1"${version}"`,
+		);
+		if (manifestAfter !== manifestBefore) {
+			writeFileSync(manifest, manifestAfter);
+			console.log(`Version refs: package.json → ${version}`);
+		}
 	}
 
 	const patterns = [
@@ -276,13 +257,13 @@ function syncVersionRefs(version) {
 
 /**
  * Inserts `## [X.Y.Z] - date` at the top of CHANGELOG.md, built from the
- * commits between the previous tag and this one. The file only ever lists
- * released versions — there is no `[Unreleased]` buffer to promote.
+ * commits between the previous tag and this one (`[Unreleased]`, if any, is
+ * dropped by `useGit` before this runs, so the version section lands on top).
  *
- * Every commit type becomes a section and every touched file is listed under
- * its bullet, so the changelog is a complete record on GitHub and on the docs
- * site. With `force`, an existing section is replaced in place (`--force`),
- * which is how the bot-generated sections get rewritten after a bad run.
+ * The section is a "What's news:" checklist: one '- [ ]' task per commit with
+ * its full subject and the files it touched — a complete record on GitHub and
+ * on the docs site. With `force`, an existing section is regenerated in place,
+ * which is how stale or hand-fixed sections get refreshed from git history.
  */
 function writeChangelog(release, { force = false } = {}) {
 	const file = join(ROOT, "CHANGELOG.md");
@@ -294,32 +275,18 @@ function writeChangelog(release, { force = false } = {}) {
 		return;
 	}
 
-	const bySection = new Map();
-	const breaking = [];
-
-	for (const section of release.sections) {
-		const title = CHANGELOG_SECTION[section.title];
-		if (!title) continue;
-		for (const item of section.items) {
-			const bullet = `- ${item.scope ? `**${item.scope}:** ` : ""}${item.message}`;
-			const lines = renderItem(bullet, item.files);
-			if (item.breaking) breaking.push(...lines);
-			else bySection.set(title, [...(bySection.get(title) ?? []), ...lines]);
+	const lines = [`## [${release.version}] - ${release.date}`, "", "What's news:", ""];
+	for (const commit of release.commits) {
+		lines.push(`- [ ] ${commit.subject}`);
+		for (const path of commit.files) {
+			if (path === "CHANGELOG.md") continue;
+			lines.push(`  - \`${path}\``);
 		}
 	}
-
-	const body = [
-		...SECTION_ORDER.flatMap((title) => {
-			const items = bySection.get(title);
-			return items?.length ? [`### ${title}`, "", ...items, ""] : [];
-		}),
-		...(breaking.length ? ["### Breaking", "", ...breaking, ""] : []),
-	];
-	if (body.length === 0) {
-		body.push("### Changed", "", "- Tooling, documentation and test updates.", "");
+	if (release.commits.length === 0) {
+		lines.push("- [ ] Tooling, documentation and test updates.");
 	}
-
-	const section = `## [${release.version}] - ${release.date}\n\n${body.join("\n").trimEnd()}\n\n`;
+	const section = `${lines.join("\n").trimEnd()}\n\n`;
 
 	if (existing) {
 		const start = existing.index;
@@ -332,9 +299,28 @@ function writeChangelog(release, { force = false } = {}) {
 		return;
 	}
 
-	const at = content.search(/^## \[/m);
-	const updated =
-		at === -1 ? `${content.trimEnd()}\n\n${section}` : content.slice(0, at) + section + content.slice(at);
+	// Insertar antes de la primera sección MÁS VIEJA (mantiene el orden
+	// descendente aunque se rellene una versión antigua con --refresh); si
+	// todas las secciones son más nuevas, va al final; si no hay ninguna, arriba.
+	let anchor = -1;
+	const headings = /^## \[([0-9]+\.[0-9]+\.[0-9]+)\][^\n]*$/gm;
+	let m;
+	while ((m = headings.exec(content))) {
+		if (compareSemver(m[1], release.version) < 0) {
+			anchor = m.index;
+			break;
+		}
+	}
+	let updated;
+	if (anchor !== -1) {
+		updated = content.slice(0, anchor) + section + content.slice(anchor);
+	} else {
+		const at = content.search(/^## \[/m);
+		updated =
+			at === -1
+				? `${content.trimEnd()}\n\n${section}`
+				: `${content.trimEnd()}\n${section}`;
+	}
 
 	writeFileSync(file, updated);
 	console.log(`Changelog: wrote [${release.version}]`);
@@ -349,6 +335,21 @@ if (syncVersions) {
 		process.exit(1);
 	}
 	syncVersionRefs(tags[0].replace(/^v/, ""));
+} else if (refresh) {
+	// Regenera TODAS las secciones con el formato actual (checklist +
+	// archivos), de la más vieja a la más nueva para que las que falten se
+	// inserten en el orden correcto. Secciones sin commits se dejan como están.
+	const tags = [...allTags()].reverse();
+	let count = 0;
+	for (const t of tags) {
+		const rel = collect(t);
+		if (rel.commits.length === 0) continue;
+		writeChangelog(rel, { force: true });
+		count++;
+	}
+	console.log(`Changelog: refreshed ${count} sections`);
+	const newest = allTags()[0]?.replace(/^v/, "");
+	if (newest) syncVersionRefs(newest);
 } else if (all) {
 	const releases = allTags().map(collect);
 	process.stdout.write(`${JSON.stringify(releases, null, 2)}\n`);
@@ -387,7 +388,7 @@ if (syncVersions) {
 	process.stdout.write(asJson ? `${JSON.stringify(release, null, 2)}\n` : renderMarkdown(release));
 } else {
 	console.error(
-		"Usage: node scripts/generate-release-notes.mjs <tag> [--json] [--changelog] [--write [--force]] | --sync-versions | --all [--json]",
+		"Usage: node scripts/generate-release-notes.mjs <tag> [--json] [--changelog] [--write [--force]] | --sync-versions | --refresh | --all [--json]",
 	);
 	process.exit(1);
 }
