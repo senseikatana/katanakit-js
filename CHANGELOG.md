@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [6.6.5] - 2026-10-04
+
+### Changed
+- docs(.vitepress): update documentation in 4 files
+
 ## [6.6.4] - 2026-10-04
 
 ### Changed
