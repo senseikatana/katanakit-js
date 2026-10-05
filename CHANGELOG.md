@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] docs(commands): sync the docs to the dev/server:dev rename
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/src/content/docs/guides/architecture.md`
+
 ## [6.8.3] - 2026-10-05
 
 What's news:
