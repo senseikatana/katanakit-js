@@ -251,7 +251,7 @@ in one line of code; the NestJS adapter exposes exactly this through its extra
 
 `LogLevel` is the union `"log" | "warn" | "error"`, inferred from the shared Zod
 schema and re-exported from the package root. It is the same type accepted by
-`useLog()` and by [`LoggerDecorator`](/api/variables/LoggerDecorator), so a
+`useLog()` and by [`LoggerDecorator`](/api/functions/LoggerDecorator), so a
 level can be threaded through application code without loss.
 
 | `LogLevel` | Console method | Typical use |
@@ -364,7 +364,7 @@ so Nest modules get the same output.
 ## Putting it together: traced work with request identity
 
 The context prefix is global, so request identity belongs in `data`. The
-[`LoggerDecorator`](/api/variables/LoggerDecorator) then traces individual
+[`LoggerDecorator`](/api/functions/LoggerDecorator) then traces individual
 functions on top of the same logger:
 
 ```ts
@@ -399,4 +399,4 @@ interleave safely because neither one mutates shared logger state.
 - [DOM](/guides/services/dom) — the other zero-dependency core service, with the
   same method-by-method page format.
 - [API Reference](/api/classes/LoggerService) — the class generated from source.
-- [API Reference](/api/variables/useLogger) — the top-level helpers.
+- [API Reference](/api/functions/useLogger) — the top-level helpers.

@@ -17,6 +17,11 @@
 			"import": "./dist/adapters/express/index.js",
 			"default": "./dist/adapters/express/index.js"
 		},
+		"./adapters/hono": {
+			"types": "./dist/adapters/hono/index.d.ts",
+			"import": "./dist/adapters/hono/index.js",
+			"default": "./dist/adapters/hono/index.js"
+		},
 		"./adapters/bun": {
 			"types": "./dist/adapters/bun/index.d.ts",
 			"import": "./dist/adapters/bun/index.js",
@@ -208,6 +213,7 @@
 		"cors": ">=2.8.0",
 		"dotenv": ">=18.0.5",
 		"express": ">=5.0.0",
+		"hono": ">=4.0.0",
 		"react": ">=18.0.0",
 		"react-dom": ">=18.0.0",
 		"solid-js": ">=1.7.0",
@@ -236,6 +242,9 @@
 			"optional": true
 		},
 		"express": {
+			"optional": true
+		},
+		"hono": {
 			"optional": true
 		},
 		"react": {
@@ -285,6 +294,7 @@
 		"eslint-plugin-simple-import-sort": "^14.0.0",
 		"express": "5.2.1",
 		"globals": "^17.13.0",
+		"hono": "^4.13.13",
 		"husky": "^9.1.7",
 		"jsdom": "^30.1.2",
 		"lint-staged": "^17.6.0",

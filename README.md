@@ -872,6 +872,7 @@ See [Getting Started](https://docs.senseikatana.com/guides/getting-started) for 
 | **Express** | `katanakit-js/adapters/express`                 | Reference server with CORS and hardened headers         |
 | **Bun**     | `katanakit-js/adapters/bun`                     | `Bun.serve` route table + dummyjson.com demo            |
 | **NestJS**  | `katanakit-js/adapters/nestjs`                  | `KatanaKitModule`, injectable facade, capability guard and logger bridge |
+| **Hono**    | `katanakit-js/adapters/hono`                    | Runtime-agnostic app factory, capability middleware and `useSafeJson` |
 | **Nuxt**    | `katanakit-js/adapters/nuxt`                    | `useUnwrap`, `useSafeResponse`, `useEventResponse`      |
 | **Astro**   | `katanakit-js` or `katanakit-js/adapters/astro` | `AstroService`, `RssService`                            |
 

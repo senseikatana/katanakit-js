@@ -12,7 +12,7 @@ KatanaKit ships first-class adapters for the major front-end frameworks. They wr
 - **Vue** — composables with `ref`/`shallowRef` (`katanakit-js/adapters/vue`)
 - **Nuxt** — H3 server helpers (`katanakit-js/adapters/nuxt`)
 
-Every adapter exposes the same surface: `useQuery`, `useMutation`, `useRequest`, and `useWatch`. `useQuery`/`useMutation` wrap TanStack Query and return its native result object (`isPending`, `isFetching`, `isSuccess`, `isError`, `data`, `error`, `status`, …); `useRequest`/`useWatch` are KatanaKit's own primitives, each exposed with the framework's reactivity.
+Every UI adapter exposes the same surface: `useQuery`, `useMutation`, `useRequest`, and `useWatch`. `useQuery`/`useMutation` wrap TanStack Query and return its native result object (`isPending`, `isFetching`, `isSuccess`, `isError`, `data`, `error`, `status`, …); `useRequest`/`useWatch` are KatanaKit's own primitives, each exposed with the framework's reactivity. Meta-frameworks such as Nuxt and Astro layer their own server helpers on top — see their pages for the exact surface.
 
 ## useQuery
 

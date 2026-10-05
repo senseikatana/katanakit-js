@@ -223,6 +223,7 @@ export default defineConfig({
 					{ text: "Vue Adapter", link: "/guides/services/vue-adapter" },
 					{ text: "Express Server", link: "/guides/services/express-server" },
 					{ text: "NestJS Adapter", link: "/guides/nestjs" },
+					{ text: "Hono Adapter", link: "/guides/hono" },
 				],
 			},
 			{

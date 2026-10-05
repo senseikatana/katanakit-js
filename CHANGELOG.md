@@ -2,6 +2,37 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] docs(services): update documentation in 25 files
+  - `AGENTS.md`
+  - `README.md`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/framework-adapters.md`
+  - `docs/guides/hono.md`
+  - `docs/guides/services/astro-adapter.md`
+  - `docs/guides/services/converter.md`
+  - `docs/guides/services/error-helpers.md`
+  - `docs/guides/services/express-server.md`
+  - `docs/guides/services/logger.md`
+  - `docs/guides/services/nuxt-adapter.md`
+  - `docs/guides/services/observer.md`
+  - `docs/guides/services/rss.md`
+  - `docs/guides/services/seo.md`
+  - `docs/guides/services/viewport.md`
+  - `docs/guides/services/vue-adapter.md`
+  - `docs/guides/services/worker.md`
+  - `package.json`
+  - `src/adapters/hono/access.guard.ts`
+  - `src/adapters/hono/app.ts`
+  - `src/adapters/hono/index.ts`
+  - `src/adapters/hono/result.ts`
+  - `src/config/index.ts`
+  - `tests/hono.adapter.test.ts`
+
 ## [6.7.6] - 2026-10-05
 
 What's news:

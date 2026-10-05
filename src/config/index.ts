@@ -14,11 +14,14 @@ export type {
 	UseSeoMetaOptions,
 } from "./seo.service.js";
 export {
+	defineSeoMetaConfig,
 	useApplySeoTag,
 	useGenerateMetaTags,
 	useHeadTags,
+	useResetSeoMetaConfig,
 	useRssHeadLink,
 	useSeoMeta,
+	useSeoMetaConfig,
 	useSeoTag,
 	useSeoTags,
 	useTitle,
