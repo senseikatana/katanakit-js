@@ -123,7 +123,7 @@ if (!new RegExp(`^## \\[${version.replace(/\./g, "\\.")}\\]`, "m").test(changelo
 run("node", [join("scripts", "generate-release-notes.mjs"), "--sync-versions"]);
 if (run("git", ["status", "--porcelain"])) {
 	fail(
-		"Las refs de versión no estaban sincronizadas (README/docs/package.json).",
+		"Las refs de versión no estaban sincronizadas (package.json, README y docs).",
 		"El sync las cambió: commitealas y reintentá.",
 	);
 }

@@ -36,9 +36,10 @@ const remove = (target) => rmSync(target, { recursive: true, force: true });
 /** Removes the Astro cache and previous build output. */
 function clean() {
 	remove(ASTRO_CACHE_DIR);
+	remove(join(ASTRO_DIR, "node_modules", ".astro")); // content-layer cache (stale entries)
 	remove(ASTRO_DIST_DIR);
 	remove(join(ASTRO_DIR, "node_modules", ".vite"));
-	console.log("docs: cleaned docs/.astro, docs/dist and the Astro/Vite caches");
+	console.log("docs: cleaned docs/.astro, docs/node_modules/.astro, docs/dist and the Astro/Vite caches");
 }
 
 function readLock() {
@@ -100,7 +101,7 @@ function chain() {
 	run("node", [join(ROOT, "scripts", "docs-prepare.mjs")]);
 
 	if (mode === "dev") {
-		console.log("docs: dev server starting — do not run docs/docs:gh meanwhile.");
+		console.log('docs: dev server starting — do not run `bun run docs`/`docs:gh` meanwhile.');
 		astro(["dev"]);
 		return;
 	}

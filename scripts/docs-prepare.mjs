@@ -419,7 +419,7 @@ function releaseVersions() {
 	for (const release of releases) {
 		const major = release.version.split(".")[0];
 		if (major === currentMajor || previous.some((entry) => entry.major === major)) continue;
-		const guide = join(ROOT, "docs", "guides", "upgrade-to", `v${major}.md`);
+		const guide = join(ROOT, "docs", "src", "content", "docs", "guides", "upgrade-to", `v${major}.md`);
 		previous.push({
 			major,
 			version: release.version,
