@@ -7,8 +7,8 @@
 		"typedoc-vitepress-theme",
 		"./scripts/typedoc-drop-deprecated.mjs"
 	],
-	"out": "docs/api",
-	"docsRoot": "./docs",
+	"out": "docs/src/content/docs/api",
+	"docsRoot": "./docs/src/content/docs",
 	"entryFileName": "index.md",
 	"readme": "none",
 	"hidePageHeader": true,

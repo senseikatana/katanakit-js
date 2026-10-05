@@ -1,0 +1,14 @@
+/* KatanaKit docs — custom layers on top of Starlight defaults. */
+
+:root {
+	/* Accent aligned with the VitePress-era brand indigo. */
+	--sl-color-accent-low: #1b1f4b;
+	--sl-color-accent: #4f5ddb;
+	--sl-color-accent-high: #c3c9ff;
+}
+
+:root[data-theme="light"] {
+	--sl-color-accent-low: #d5d9ff;
+	--sl-color-accent: #3a46c9;
+	--sl-color-accent-high: #1b1f5e;
+}

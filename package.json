@@ -159,9 +159,9 @@
 		"docs:dev": "node scripts/docs.mjs dev",
 		"docs": "node scripts/docs.mjs build",
 		"docs:clean": "node scripts/docs.mjs clean",
-		"docs:preview": "vitepress preview docs",
+		"docs:preview": "astro preview --root docs",
 		"docs:gh": "node scripts/docs.mjs gh",
-		"cf:deploy": "bun run build && bun run docs && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
+		"cf:deploy": "bun run build && bun run docs && wrangler pages deploy docs/dist --project-name katanakit-docs --branch main"
 	},
 	"lint-staged": {
 		"**/*.{ts,tsx}": "eslint --fix --quiet"
@@ -271,6 +271,7 @@
 	},
 	"devDependencies": {
 		"@angular/core": "^22.2.1",
+		"@astrojs/starlight": "^0.42.5",
 		"@eslint/js": "^10.0.1",
 		"@faker-js/faker": "^10.6.0",
 		"@insforge/sdk": "^1.5.2",
@@ -283,6 +284,7 @@
 		"@types/node": "26.6.4",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
+		"astro": "^7.3.5",
 		"better-auth": "^1.7.7",
 		"bun-types": "^1.4.2",
 		"concurrently": "^10.0.5",

@@ -1,0 +1,57 @@
+---
+title: Alert
+description: Inline alert with semantic variants, title/message and accessible dismissal.
+---
+
+import KitDemo from "../../../../components/KitDemo.astro";
+
+# Alert
+
+`useAlert(options)` creates a `.kk-alert` with `role="alert"` for
+`warning`/`danger` and `role="status"` for `info`/`success`. Dismissible alerts get
+a button with `aria-label="Dismiss"`. `useAlertClass(options)` returns the classes
+for SSR markup.
+
+## Variants
+
+<KitDemo demo="alert-stack" layout="stack" />
+
+```ts
+import { useAlert } from "@katanakit/ui";
+
+stack.append(
+  useAlert({ variant: "info", title: "Heads up", message: "Deploy starts in 10 minutes." }),
+  useAlert({ variant: "success", message: "Backup finished." }),
+  useAlert({ variant: "warning", message: "Quota at 90%." }),
+  useAlert({ variant: "danger", title: "Build failed", message: "Check the logs." }),
+);
+```
+
+## Dismissible
+
+<KitDemo demo="alert-dismissible" layout="stack" />
+
+```ts
+useAlert({
+  variant: "info",
+  message: "This one can be dismissed.",
+  dismissible: true,
+  onDismiss: () => console.log("closed"),
+});
+```
+
+## Options
+
+| Option        | Type                                          | Default  | Notes                                  |
+| ------------- | --------------------------------------------- | -------- | -------------------------------------- |
+| `variant`     | `"info" \| "success" \| "warning" \| "danger"` | `"info"` | Colors and ARIA role.                   |
+| `title`       | `string`                                      | —        | Bold title line.                        |
+| `message`     | `string`                                      | —        | Body text.                              |
+| `dismissible` | `boolean`                                     | `false`  | Adds the accessible close button.       |
+| `onDismiss`   | `() => void`                                  | —        | Called after the alert is removed.      |
+
+:::note[SSR]
+The factory needs a DOM. On the server use `useAlertClass()` and render the
+markup yourself — the classes are stable strings.
+:::
+

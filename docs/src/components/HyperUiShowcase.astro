@@ -1,0 +1,133 @@
+---
+interface Props {
+	/** Path of the vendored example under `docs/public`. */
+	src: string;
+	/** Optional dark-variant path (`…-dark.html`). */
+	darkSrc?: string;
+	/** Display name of the component. */
+	label: string;
+	/** Upstream category shown in the header (marketing, application, …). */
+	category?: string;
+	height?: number;
+}
+
+const { src, darkSrc, label, category, height = 420 } = Astro.props;
+const sourceUrl = `https://github.com/markmead/hyperui/blob/main/public/examples${src.replace("/hyperui", "")}`;
+---
+
+<figure
+	class="hyperui-demo"
+	data-hyperui
+	data-src={src}
+	data-dark-src={darkSrc ?? ""}
+>
+	<figcaption class="hyperui-demo__head">
+		<span class="hyperui-demo__title">
+			<strong>{label}</strong>
+			{category && <em>{category}</em>}
+		</span>
+		<span class="hyperui-demo__actions">
+			{darkSrc && <button type="button" data-action="toggle">Dark</button>}
+			<button type="button" data-action="copy" disabled>Copy HTML</button>
+			<a href={sourceUrl} target="_blank" rel="noreferrer noopener">Source</a>
+		</span>
+	</figcaption>
+
+	<iframe
+		class="hyperui-demo__frame"
+		title={label}
+		sandbox=""
+		style={`height: ${height}px; background: #fff;`}
+	></iframe>
+	<p class="hyperui-demo__error" hidden>
+		Could not load <code>{src}</code> — is the example vendored in
+		<code>docs/public/hyperui/</code>?
+	</p>
+</figure>
+
+<script>
+	import tailwindCss from "../styles/hyperui.css?inline";
+
+	interface Demo {
+		root: HTMLElement;
+		frame: HTMLIFrameElement;
+		error: HTMLElement | null;
+		copyButton: HTMLButtonElement | null;
+		toggleButton: HTMLButtonElement | null;
+		src: string;
+		darkSrc: string;
+		markup: string;
+		dark: boolean;
+		copyTimer?: ReturnType<typeof setTimeout>;
+	}
+
+	function render(demo: Demo) {
+		const themeClass = demo.dark ? "dark " : "";
+		demo.frame.style.background = demo.dark ? "#0a0a0a" : "#fff";
+		demo.frame.srcdoc = `<!doctype html><html class="${themeClass}font-sans antialiased">
+<head><meta charset="utf-8" /><style>${tailwindCss}</style></head>
+<body>${demo.markup}</body>
+</html>`;
+	}
+
+	async function load(demo: Demo) {
+		const url = demo.dark && demo.darkSrc ? demo.darkSrc : demo.src;
+		try {
+			const response = await fetch(url);
+			if (!response.ok) throw new Error(String(response.status));
+			const parsed = new DOMParser().parseFromString(await response.text(), "text/html");
+			demo.markup = parsed.body.innerHTML;
+			if (demo.error) demo.error.hidden = true;
+			demo.frame.hidden = false;
+			if (demo.copyButton) demo.copyButton.disabled = !demo.markup;
+			render(demo);
+		} catch {
+			demo.markup = "";
+			if (demo.error) demo.error.hidden = false;
+			demo.frame.hidden = true;
+			if (demo.copyButton) demo.copyButton.disabled = true;
+		}
+	}
+
+	const demos: Demo[] = [];
+	for (const root of document.querySelectorAll<HTMLElement>("[data-hyperui]")) {
+		const frame = root.querySelector("iframe");
+		if (!frame) continue;
+
+		const demo: Demo = {
+			root,
+			frame,
+			error: root.querySelector(".hyperui-demo__error"),
+			copyButton: root.querySelector('[data-action="copy"]'),
+			toggleButton: root.querySelector('[data-action="toggle"]'),
+			src: root.dataset.src ?? "",
+			darkSrc: root.dataset.darkSrc ?? "",
+			markup: "",
+			dark: false,
+		};
+
+		demo.toggleButton?.addEventListener("click", () => {
+			demo.dark = !demo.dark;
+			if (demo.toggleButton) demo.toggleButton.textContent = demo.dark ? "Light" : "Dark";
+			void load(demo);
+		});
+
+		demo.copyButton?.addEventListener("click", async () => {
+			if (!demo.markup) return;
+			try {
+				await navigator.clipboard.writeText(demo.markup);
+				if (!demo.copyButton) return;
+				demo.copyButton.textContent = "Copied ✓";
+				clearTimeout(demo.copyTimer);
+				demo.copyTimer = setTimeout(() => {
+					if (demo.copyButton) demo.copyButton.textContent = "Copy HTML";
+				}, 1600);
+			} catch {
+				/* clipboard unavailable — the markup stays visible in the preview */
+			}
+		});
+
+		demos.push(demo);
+		void load(demo);
+	}
+</script>

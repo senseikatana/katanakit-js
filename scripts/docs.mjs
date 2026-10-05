@@ -2,14 +2,13 @@
 /**
  * Docs task runner: `node scripts/docs.mjs <dev|build|gh|clean>`.
  *
- * VitePress shares `docs/.vitepress/.temp` between the dev server and the
- * build, so running both concurrently corrupts it and the build dies with
- * `Cannot find module '…/.vitepress/.temp/…'`. This runner:
+ * `bun run docs:dev` and `bun run docs` share Astro's cache under
+ * `docs/.astro`, so running both concurrently can corrupt it. This runner:
  *
  *   1. takes a lock in `.cache/docs.lock.json` (dev and build are exclusive),
  *   2. removes stale locks from dead processes,
- *   3. purges `.temp`/`cache` before a build (never during a live dev server),
- *   4. fails with actionable guidance instead of a cryptic VitePress error.
+ *   3. purges Astro's cache before a build (never during a live dev server),
+ *   4. fails with actionable guidance instead of a cryptic Astro error.
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -18,10 +17,9 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LOCK_FILE = join(ROOT, ".cache", "docs.lock.json");
-const VITEPRESS_DIR = join(ROOT, "docs", ".vitepress");
-const TEMP_DIR = join(VITEPRESS_DIR, ".temp");
-const CACHE_DIR = join(VITEPRESS_DIR, "cache");
-const ROOT_VITEPRESS_DIR = join(ROOT, ".vitepress");
+const ASTRO_DIR = join(ROOT, "docs");
+const ASTRO_CACHE_DIR = join(ROOT, "docs", ".astro");
+const ASTRO_DIST_DIR = join(ROOT, "docs", "dist");
 
 const MODES = new Set(["dev", "build", "gh"]);
 const mode = (process.argv[2] ?? "").toLowerCase();
@@ -29,14 +27,18 @@ const mode = (process.argv[2] ?? "").toLowerCase();
 const run = (command, args, opts = {}) =>
 	execFileSync(command, args, { cwd: ROOT, stdio: "inherit", ...opts });
 
+/** Runs the project-local Astro CLI with `docs/` as the project root. */
+const astro = (args, opts = {}) =>
+	run(join(ROOT, "node_modules", ".bin", "astro"), args, { cwd: ASTRO_DIR, ...opts });
+
 const remove = (target) => rmSync(target, { recursive: true, force: true });
 
-/** Removes the VitePress temp/cache dirs and the stray root `.vitepress/`. */
+/** Removes the Astro cache and previous build output. */
 function clean() {
-	remove(TEMP_DIR);
-	remove(CACHE_DIR);
-	remove(ROOT_VITEPRESS_DIR);
-	console.log("docs: cleaned .vitepress/.temp, .vitepress/cache and ./ .vitepress");
+	remove(ASTRO_CACHE_DIR);
+	remove(ASTRO_DIST_DIR);
+	remove(join(ASTRO_DIR, "node_modules", ".vite"));
+	console.log("docs: cleaned docs/.astro, docs/dist and the Astro/Vite caches");
 }
 
 function readLock() {
@@ -69,8 +71,8 @@ function acquire() {
 			console.error(
 				[
 					`docs: blocked — "docs:dev" is already running (pid ${existing.pid}, started ${started}).`,
-					"VitePress shares docs/.vitepress/.temp between dev and build; running both fails with:",
-					"  Cannot find module '.../.vitepress/.temp/...'",
+					"Astro shares its cache under docs/.astro between dev and build; running both",
+					"concurrently can corrupt the generated content types.",
 					"Stop the dev server (Ctrl+C), then retry. Check with: `bun run docs:clean`",
 				].join("\n"),
 			);
@@ -99,17 +101,16 @@ function chain() {
 
 	if (mode === "dev") {
 		console.log("docs: dev server starting — do not run docs/docs:gh meanwhile.");
-		run("node_modules/.bin/vitepress", ["dev", "docs"]);
+		astro(["dev"]);
 		return;
 	}
 
-	// Build/gh: purge shared temp state so a killed process can't poison us.
-	remove(TEMP_DIR);
-	remove(CACHE_DIR);
+	// Build/gh: purge cached content state so a killed process can't poison us.
+	remove(ASTRO_CACHE_DIR);
 
-	const args = ["build", "docs"];
+	const args = ["build"];
 	if (mode === "gh") args.push("--base", "/katanakit-js/");
-	run("node_modules/.bin/vitepress", args);
+	astro(args);
 
 	if (mode === "gh") {
 		run("node", [join(ROOT, "scripts", "docs-publish.mjs")]);

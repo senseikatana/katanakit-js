@@ -1,0 +1,60 @@
+---
+title: Input
+description: Accessible text field with label, help/error wiring and invalid state.
+---
+
+import KitDemo from "../../../../components/KitDemo.astro";
+
+# Input
+
+`useInput(options)` returns `{ root, input }`: a `.kk-field` wrapper with the label
+and message already wired through `for`, `aria-invalid` and `aria-describedby`.
+`useInputClass(options)` returns the control classes for SSR markup.
+
+## Basic field
+
+<KitDemo demo="input-basic" layout="stack" />
+
+```ts
+import { useInput } from "@katanakit/ui";
+
+const { root } = useInput({
+  label: "Email",
+  type: "email",
+  name: "email",
+  placeholder: "you@example.com",
+  help: "We only use it for receipts.",
+});
+
+form.append(root);
+```
+
+## Error state
+
+<KitDemo demo="input-errors" layout="stack" />
+
+```ts
+useInput({ label: "Email", type: "email", error: "Enter a valid email." });
+```
+
+## Options
+
+| Option        | Type                                                       | Default  | Notes                                        |
+| ------------- | ---------------------------------------------------------- | -------- | -------------------------------------------- |
+| `label`       | `string`                                                   | —        | Rendered as `<label for>`.                    |
+| `name`        | `string`                                                   | —        | `name` attribute; derives the input id.       |
+| `type`        | `"text" \| "email" \| "password" \| "search" \| "tel" \| "url"` | `"text"` | Native input type.                            |
+| `value`       | `string`                                                   | —        | Initial value.                                |
+| `placeholder` | `string`                                                   | —        | Placeholder text.                             |
+| `help`        | `string`                                                   | —        | Helper text (`aria-describedby`).             |
+| `error`       | `string`                                                   | —        | Error message; adds `aria-invalid` + styling. |
+| `required`    | `boolean`                                                  | `false`  | Native `required` + visual marker.            |
+| `disabled`    | `boolean`                                                  | `false`  | Native disabled state.                        |
+| `onInput`     | `(value: string) => void`                                  | —        | Fired on every `input` event.                 |
+
+:::tip[Validation]
+Pair the field with `useValidate()` from `katanakit-js`: run the Safe Result
+and pass `error.issues[0].message` to `useInput` — or rebuild the field when
+the state changes.
+:::
+
