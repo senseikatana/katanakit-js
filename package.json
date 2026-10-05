@@ -147,7 +147,8 @@
 	"scripts": {
 		"prepare": "husky",
 		"predev": "bunx lint-staged",
-		"dev": "tsx src/adapters/express/main.ts",
+		"dev": "node scripts/docs.mjs dev",
+		"server:dev": "tsx src/adapters/express/main.ts",
 		"bun:dev": "bun run src/adapters/bun/main.ts",
 		"check": "eslint ./src packages/ui/src && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
 		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
@@ -156,7 +157,6 @@
 		"publish:npm": "node scripts/npm-publish.mjs",
 		"ui:build": "bun run --filter @katanakit/ui build",
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
-		"docs:dev": "node scripts/docs.mjs dev",
 		"docs": "node scripts/docs.mjs build",
 		"docs:clean": "node scripts/docs.mjs clean",
 		"docs:preview": "astro preview --root docs",

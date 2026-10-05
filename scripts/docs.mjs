@@ -2,7 +2,7 @@
 /**
  * Docs task runner: `node scripts/docs.mjs <dev|build|gh|clean>`.
  *
- * `bun run docs:dev` and `bun run docs` share Astro's cache under
+ * `bun run dev` and `bun run docs` share Astro's cache under
  * `docs/.astro`, so running both concurrently can corrupt it. This runner:
  *
  *   1. takes a lock in `.cache/docs.lock.json` (dev and build are exclusive),
@@ -71,7 +71,7 @@ function acquire() {
 		if (existing.mode === "dev" && mode !== "dev") {
 			console.error(
 				[
-					`docs: blocked — "docs:dev" is already running (pid ${existing.pid}, started ${started}).`,
+					`docs: blocked — "bun run dev" is already running (pid ${existing.pid}, started ${started}).`,
 					"Astro shares its cache under docs/.astro between dev and build; running both",
 					"concurrently can corrupt the generated content types.",
 					"Stop the dev server (Ctrl+C), then retry. Check with: `bun run docs:clean`",

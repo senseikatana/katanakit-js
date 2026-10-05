@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] fix: update scripts/docs.mjs to reflect changes in bun run dev command
+  - `package.json`
+  - `scripts/docs-prepare.mjs`
+  - `scripts/docs.mjs`
+
 ## [6.8.2] - 2026-10-05
 
 What's news:
