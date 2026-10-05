@@ -2,6 +2,76 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] fix(scripts): readapt the docs pipeline to the Astro content tree
+  - `scripts/docs-prepare.mjs`
+  - `scripts/docs.mjs`
+  - `scripts/npm-publish.mjs`
+- [ ] docs(astro): restore the pre-Astro home layout on Starlight
+  - `docs/src/styles/custom.css`
+- [ ] docs(astro): migrate the docs site from VitePress to Astro Starlight
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `bunfig.toml`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/Layout.vue`
+  - `docs/.vitepress/theme/components/GitHubStars.vue`
+  - `docs/.vitepress/theme/components/HeroInstall.vue`
+  - `docs/.vitepress/theme/components/HomeAnnouncement.vue`
+  - `docs/.vitepress/theme/components/HomeSections.vue`
+  - `docs/.vitepress/theme/components/HyperUiShowcase.vue`
+  - `docs/.vitepress/theme/components/VersionFlyout.vue`
+  - `docs/.vitepress/theme/components/WhatNew.vue`
+  - `docs/.vitepress/theme/hyperui.css`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/newBadges.ts`
+  - `docs/.vitepress/theme/signals.json`
+  - `docs/.vitepress/theme/signals.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/astro.config.mjs`
+  - `docs/changelog.md`
+  - `docs/public/img/favicon.ico`
+  - `docs/src/components/GitHubStars.astro`
+  - `docs/src/components/HeroInstall.astro`
+  - `docs/src/components/HomeAnnouncement.astro`
+  - `docs/src/components/HomeFeatures.astro`
+  - `docs/src/components/HomeSections.astro`
+  - `docs/src/components/VersionFlyout.astro`
+  - `docs/src/components/WhatNew.astro`
+  - `docs/src/components/starlight/Head.astro`
+  - `docs/src/components/starlight/Hero.astro`
+  - `docs/src/components/starlight/PageFrame.astro`
+  - `docs/src/components/starlight/SocialIcons.astro`
+  - `docs/src/content.config.ts`
+  - `docs/src/content/docs/404.md`
+  - `docs/src/content/docs/guides/architecture.md`
+  - `docs/src/content/docs/guides/errors.md`
+  - `docs/src/content/docs/guides/faker.md`
+  - `docs/src/content/docs/guides/framework-adapters.mdx`
+  - `docs/src/content/docs/guides/getting-started.md`
+  - `docs/src/content/docs/guides/roadmap.md`
+  - `docs/src/content/docs/guides/upgrade-to/index.md`
+  - `docs/src/content/docs/index.md`
+  - `docs/src/content/docs/index.mdx`
+  - `docs/src/content/docs/ui-kit/architecture.md`
+  - `docs/src/content/docs/ui-kit/hyperui.mdx`
+  - `docs/src/content/docs/ui-kit/index.md`
+  - `docs/src/content/docs/ui-kit/inventory.md`
+  - `docs/src/content/docs/ui-kit/roadmap.md`
+  - `docs/src/content/i18n/en.json`
+  - `docs/src/seo.ts`
+  - `docs/src/signals.ts`
+  - `docs/src/styles/custom.css`
+  - `docs/src/styles/hyperui.css`
+  - `scripts/docs-prepare.mjs`
+  - `scripts/docs-publish.mjs`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-hyperui.mjs`
+
 ## [6.8.1] - 2026-10-05
 
 What's news:
