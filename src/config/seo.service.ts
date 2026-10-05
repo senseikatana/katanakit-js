@@ -59,7 +59,7 @@ export type SeoTagsResult = SeoTagResult;
  */
 export function useSeoMeta<OmitKeys extends keyof UseSeoMetaBase = never>(
 	opts: UseSeoMetaOptions<OmitKeys>,
-	defaults: SiteConfig = defaultSiteConfig,
+	defaults: SiteConfig = useSeoMetaConfig(),
 ): SeoTagResult {
 	if (opts == null || typeof opts !== "object") {
 		throw new Error("[Seo] useSeoMeta(opts) is required (received empty options).");
@@ -108,6 +108,63 @@ export function useSeoMeta<OmitKeys extends keyof UseSeoMetaBase = never>(
 		tags,
 		jsonLd,
 	};
+}
+
+/**
+ * Site-wide SEO defaults registered once with {@link defineSeoMetaConfig}.
+ * `null` until a config is registered; the demo defaults fill the gap.
+ */
+let registeredSiteConfig: SiteConfig | null = null;
+
+/**
+ * Registers the site-wide SEO config once — the same `define*Config` pattern
+ * used by the HTTP client and the other services.
+ *
+ * After the call, every `useSeoMeta(opts)` resolves against this config, so
+ * pages only pass their own fields. An explicit second argument still wins, so
+ * per-call overrides and tests stay possible.
+ *
+ * @param config - The site config (same shape the docs site uses).
+ * @returns The same config, for chaining or reference.
+ * @throws {Error} When required blocks (`seo`, `rss`) are missing.
+ *
+ * @example
+ * ```ts
+ * import { defineSeoMetaConfig, useSeoMeta } from "katanakit-js";
+ *
+ * defineSeoMetaConfig({
+ *   site: "https://myblog.com",
+ *   title: "My Blog",
+ *   description: "Notes on software",
+ *   lang: "en",
+ *   author: "Ada",
+ *   ogImage: "https://myblog.com/og.png",
+ *   rss: { enabled: true, path: "/rss.xml", limit: 20 },
+ *   seo: { noindex: false, canonical: true, openGraph: true, twitterCard: true, jsonLd: true },
+ * });
+ *
+ * const seo = useSeoMeta({ title: "My Post", description: "A great post" });
+ * // seo.site === "https://myblog.com", seo.html / seo.tags ready for <head>
+ * ```
+ */
+export function defineSeoMetaConfig(config: SiteConfig): SiteConfig {
+	assertSiteConfigSeo(config, "defineSeoMetaConfig");
+	assertSiteConfigRss(config, "defineSeoMetaConfig");
+	registeredSiteConfig = config;
+	return config;
+}
+
+/**
+ * Returns the registered site config, falling back to the bundled demo
+ * defaults when {@link defineSeoMetaConfig} was never called.
+ */
+export function useSeoMetaConfig(): SiteConfig {
+	return registeredSiteConfig ?? defaultSiteConfig;
+}
+
+/** Clears the registered config (restores the demo defaults). Useful in tests. */
+export function useResetSeoMetaConfig(): void {
+	registeredSiteConfig = null;
 }
 
 /**

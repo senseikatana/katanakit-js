@@ -14,9 +14,6 @@ hero:
     - theme: alt
       text: API Reference
       link: /api/
-    - theme: alt
-      text: SCSS framework
-      link: /ui-kit/css/
 
 features:
   - title: Safe Results
@@ -32,14 +29,6 @@ features:
   - title: SSR-safe
     details: Every infrastructure service guards or falls back gracefully outside the browser; Node-only APIs load through dynamic import.
 ---
-
-## Install
-
-```bash
-npm install katanakit-js
-# or
-bun add katanakit-js
-```
 
 ## Quick start
 
@@ -68,21 +57,3 @@ if (result.ok) {
 }
 ```
 
-## What's inside
-
-| Area                                   | Start here                                |
-| -------------------------------------- | ----------------------------------------- |
-| HTTP client, Safe Results, Zod         | [Getting Started](/guides/getting-started) |
-| Error handling (Safe Result + helpers) | [Error Handling](/guides/errors)           |
-| Query cache (TanStack Query Core)      | [Query Client](/guides/query-client)       |
-| React / Vue / Solid / Svelte / Angular | [Framework Adapters](/guides/framework-adapters) |
-| Bun server adapter                     | [Bun Adapter](/guides/bun-adapter)         |
-| Filesystem (Node/Bun)                  | [Filesystem](/guides/filesystem)           |
-| Fake data and seed fixtures            | [Faker](/guides/faker)                     |
-| Lightbox galleries                     | [PhotoSwipe](/guides/photoswipe)           |
-| Auth (client + session)                | [Better Auth](/guides/better-auth)         |
-| Hexagonal architecture                 | [Architecture](/guides/architecture)       |
-| UI kit foundations (Katana UI)          | [Katana UI](/ui-kit/)                      |
-| SCSS framework (tokens and utilities)   | [SCSS framework](/ui-kit/css/)              |
-| Every release                          | [Releases](/changelog)                     |
-| Every export, generated from source    | [API Reference](/api/)                     |

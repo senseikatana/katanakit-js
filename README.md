@@ -871,6 +871,7 @@ See [Getting Started](https://docs.senseikatana.com/guides/getting-started) for 
 | ----------- | ----------------------------------------------- | ------------------------------------------------------- |
 | **Express** | `katanakit-js/adapters/express`                 | Reference server with CORS and hardened headers         |
 | **Bun**     | `katanakit-js/adapters/bun`                     | `Bun.serve` route table + dummyjson.com demo            |
+| **NestJS**  | `katanakit-js/adapters/nestjs`                  | `KatanaKitModule`, injectable facade, capability guard and logger bridge |
 | **Nuxt**    | `katanakit-js/adapters/nuxt`                    | `useUnwrap`, `useSafeResponse`, `useEventResponse`      |
 | **Astro**   | `katanakit-js` or `katanakit-js/adapters/astro` | `AstroService`, `RssService`                            |
 
@@ -1548,13 +1549,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development contract.
 
 The docs site is built with **VitePress** from [`docs/`](./docs) and deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/). Run it locally with `bun run docs:dev`.
 
-- [Getting Started](https://docs.senseikatana.com/guides/getting-started)
-- [Error Handling](https://docs.senseikatana.com/guides/errors)
-- [Architecture](https://docs.senseikatana.com/guides/architecture)
-- [UI Kit (Katana UI)](https://docs.senseikatana.com/ui-kit/)
-- [API Reference](https://docs.senseikatana.com/api/)
-- [Roadmap](https://docs.senseikatana.com/guides/roadmap)
-- [Changelog](https://docs.senseikatana.com/changelog)
+- **Introduction** — [Getting Started](https://docs.senseikatana.com/guides/getting-started) · [Error Handling](https://docs.senseikatana.com/guides/errors) · [Architecture](https://docs.senseikatana.com/guides/architecture) · [Roadmap](https://docs.senseikatana.com/guides/roadmap)
+- **Core Services** — [Overview](https://docs.senseikatana.com/guides/services/) · [HTTP Client](https://docs.senseikatana.com/guides/services/http-client) · [DOM](https://docs.senseikatana.com/guides/services/dom) · [Storage](https://docs.senseikatana.com/guides/services/storage) · [Dates](https://docs.senseikatana.com/guides/services/dates)
+- **Platform Services** — [Theme](https://docs.senseikatana.com/guides/services/theme) · [Astro Adapter](https://docs.senseikatana.com/guides/services/astro-adapter) · [RSS](https://docs.senseikatana.com/guides/services/rss) · [SEO](https://docs.senseikatana.com/guides/services/seo)
+- **Integrations** — [Nuxt Adapter](https://docs.senseikatana.com/guides/services/nuxt-adapter) · [Vue Adapter](https://docs.senseikatana.com/guides/services/vue-adapter) · [Express Server](https://docs.senseikatana.com/guides/services/express-server)
+- **HTTP & REST** — [Query Client](https://docs.senseikatana.com/guides/query-client) · [Framework Adapters](https://docs.senseikatana.com/guides/framework-adapters) · [Better Auth](https://docs.senseikatana.com/guides/better-auth)
+- **Runtime & Filesystem** — [Filesystem](https://docs.senseikatana.com/guides/filesystem) · [Bun Adapter](https://docs.senseikatana.com/guides/bun-adapter) · [Faker](https://docs.senseikatana.com/guides/faker)
+- **Browser & DOM** — [Watch](https://docs.senseikatana.com/guides/watch) · [PhotoSwipe](https://docs.senseikatana.com/guides/photoswipe)
+- **UI Kit (Katana UI)** — [Overview](https://docs.senseikatana.com/ui-kit/) · [SCSS framework](https://docs.senseikatana.com/ui-kit/css/)
+- **Reference** — [API Reference](https://docs.senseikatana.com/api/) · [Changelog](https://docs.senseikatana.com/changelog)
 
 ## License
 

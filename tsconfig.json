@@ -5,6 +5,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "strict": true,
+    "experimentalDecorators": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

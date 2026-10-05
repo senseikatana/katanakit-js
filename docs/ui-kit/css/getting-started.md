@@ -60,8 +60,11 @@ Import only what you need:
 
 ## Compile
 
+From your project root, with Dart Sass installed:
+
 ```bash
-npx sass src/scss/main.scss dist/css/main.css --no-source-map --style=compressed
+npx sass --load-path=node_modules --no-source-map --style=compressed \
+  node_modules/katanakit-js/scss/main.scss dist/css/main.css
 ```
 
 ## Overriding tokens
@@ -82,6 +85,9 @@ Override any `!default` map before importing:
 ## Next steps
 
 - [Design Tokens](/ui-kit/css/core/tokens) — all token maps and access functions
-- [Colors](/ui-kit/css/core/colors) — palettes, shades, dark mode
+- [Colors](/ui-kit/css/core/colors) · [Dark Mode](/ui-kit/css/core/dark-mode) — palettes and theming
 - [Breakpoints](/ui-kit/css/core/breakpoints) — responsive mixins
+- [Grid](/ui-kit/css/mixins/grid) · [Flexbox](/ui-kit/css/mixins/flex) — layout mixins
+- [Utilities](/ui-kit/css/utilities/padding) — the class catalog
+- [API Reference](/ui-kit/css/reference/api-reference) — every function, mixin and map
 

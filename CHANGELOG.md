@@ -2,6 +2,69 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] update docs(services): in 54 files
+  - `AGENTS.md`
+  - `README.md`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/Layout.vue`
+  - `docs/.vitepress/theme/components/HeroInstall.vue`
+  - `docs/.vitepress/theme/components/HomeAnnouncement.vue`
+  - `docs/.vitepress/theme/components/HomeSections.vue`
+  - `docs/.vitepress/theme/components/SiteVersion.vue`
+  - `docs/.vitepress/theme/components/VersionFlyout.vue`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/signals.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/nestjs.md`
+  - `docs/guides/services/astro-adapter.md`
+  - `docs/guides/services/converter.md`
+  - `docs/guides/services/dates.md`
+  - `docs/guides/services/dom.md`
+  - `docs/guides/services/error-helpers.md`
+  - `docs/guides/services/express-server.md`
+  - `docs/guides/services/formatter.md`
+  - `docs/guides/services/generator.md`
+  - `docs/guides/services/geometry.md`
+  - `docs/guides/services/http-client.md`
+  - `docs/guides/services/index.md`
+  - `docs/guides/services/logger.md`
+  - `docs/guides/services/nuxt-adapter.md`
+  - `docs/guides/services/observer.md`
+  - `docs/guides/services/reactive.md`
+  - `docs/guides/services/rss.md`
+  - `docs/guides/services/seo.md`
+  - `docs/guides/services/storage.md`
+  - `docs/guides/services/theme.md`
+  - `docs/guides/services/timing.md`
+  - `docs/guides/services/viewport.md`
+  - `docs/guides/services/vue-adapter.md`
+  - `docs/guides/services/worker.md`
+  - `docs/index.md`
+  - `docs/ui-kit/css/getting-started.md`
+  - `docs/ui-kit/css/index.md`
+  - `docs/ui-kit/css/reference/architecture.md`
+  - `package.json`
+  - `scripts/docs-prepare.mjs`
+  - `src/adapters/nestjs/access.guard.ts`
+  - `src/adapters/nestjs/index.ts`
+  - `src/adapters/nestjs/kit.module.ts`
+  - `src/adapters/nestjs/kit.service.ts`
+  - `src/adapters/nestjs/logger.service.ts`
+  - `src/adapters/nestjs/options.ts`
+  - `src/config/seo.service.ts`
+  - `tests/nestjs.adapter.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tsconfig.json`
+- [ ] fix(release): bind publish preflight to the released tree and fresh dist
+  - `AGENTS.md`
+  - `scripts/npm-publish.mjs`
+
 ## [6.7.5] - 2026-10-04
 
 What's news:

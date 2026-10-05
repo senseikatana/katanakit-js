@@ -1,6 +1,7 @@
 import DefaultTheme from "vitepress/theme";
 
 import "@katanakit/ui/styles.css";
+import HomeSections from "./components/HomeSections.vue";
 import HyperUiShowcase from "./components/HyperUiShowcase.vue";
 import Layout from "./Layout.vue";
 import "./style.css";
@@ -15,6 +16,7 @@ export default {
 	Layout,
 	enhanceApp({ app }) {
 		app.component("HyperUiShowcase", HyperUiShowcase);
+		app.component("HomeSections", HomeSections);
 		if (typeof document === "undefined") return;
 		const root = document.documentElement;
 		const sync = () => {

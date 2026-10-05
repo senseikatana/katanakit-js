@@ -4,7 +4,9 @@ import { useRoute } from "vitepress";
 import { nextTick, onBeforeUnmount, onMounted, watch } from "vue";
 
 import GitHubStars from "./components/GitHubStars.vue";
-import SiteVersion from "./components/SiteVersion.vue";
+import HeroInstall from "./components/HeroInstall.vue";
+import HomeAnnouncement from "./components/HomeAnnouncement.vue";
+import VersionFlyout from "./components/VersionFlyout.vue";
 import WhatNew from "./components/WhatNew.vue";
 import { newPagePaths, decorateNewPages } from "./newBadges";
 
@@ -36,11 +38,24 @@ watch(() => route.path, () => nextTick(decorate));
 
 <template>
 	<DefaultTheme.Layout>
-		<template #nav-bar-title-after>
-			<SiteVersion />
-		</template>
 		<template #nav-bar-content-after>
 			<GitHubStars />
+			<VersionFlyout />
+		</template>
+		<template #home-hero-info-before>
+			<HomeAnnouncement />
+		</template>
+		<template #home-hero-actions-after>
+			<HeroInstall />
+		</template>
+		<template #home-features-before>
+			<div class="home-features-heading">
+				<p class="home-features-heading__eyebrow">Why KatanaKit</p>
+				<h2 class="home-features-heading__title">Sharp tools, zero surprises</h2>
+			</div>
+		</template>
+		<template #home-features-after>
+			<HomeSections />
 		</template>
 		<template #layout-bottom>
 			<WhatNew />

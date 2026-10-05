@@ -5,20 +5,31 @@ description: How the framework is organized.
 
 # Architecture
 
-## Module structure
+## Source layout
+
+The framework is vendored in `scss/` at the repository root (origin: `katanakit-css@0.12.5`) and ships inside the `katanakit-js` package, so consumers can compose it module by module:
 
 ```
-src/scss/
-├── main.scss          # Entry: reset + tokens + all utilities
+scss/
+├── main.scss          # Entry: reset + tokens + every utility class generator
 ├── _reset.scss        # Preflight (Tailwind-style)
-├── _variables.scss    # Design tokens + color palettes
+├── _variables.scss    # Design tokens: fonts, spacing, radius, shadows, palettes
 ├── _functions.scss    # Pure functions (unit, color, fluid)
-├── _mixins.scss       # Breakpoints, grid, flex, @apply, generators
+├── _mixins.scss       # Breakpoints, grid, flex, @apply and generators
 ├── _utilities.scss    # Utility maps + class generators
-├── demo.scss          # Demo entry (main + components)
+├── demo.scss          # Demo entry (main + example components)
 └── components/
-    └── _index.scss    # Example components with @apply
+    └── _index.scss    # Example components built with @apply
 ```
+
+| Module            | Documented in                                                                                                                                                     |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main.scss`       | [Getting Started](/ui-kit/css/getting-started)                                                                                                                    |
+| `_variables.scss` | [Design Tokens](/ui-kit/css/core/tokens) · [Colors](/ui-kit/css/core/colors) · [Breakpoints](/ui-kit/css/core/breakpoints) · [Dark Mode](/ui-kit/css/core/dark-mode) |
+| `_functions.scss` | [Functions](/ui-kit/css/reference/functions)                                                                                                                      |
+| `_mixins.scss`    | [@apply](/ui-kit/css/core/apply) · [Grid](/ui-kit/css/mixins/grid) · [Flexbox](/ui-kit/css/mixins/flex) · [API Reference](/ui-kit/css/reference/api-reference)     |
+| `_utilities.scss` | [Utilities](/ui-kit/css/utilities/padding)                                                                                                                        |
+| `_reset.scss`     | Preflight only — covered by [Getting Started](/ui-kit/css/getting-started).                                                                                       |
 
 ## Design philosophy
 
@@ -29,11 +40,13 @@ src/scss/
 
 ## Build pipeline
 
-```bash
-# CSS artifact (npm)
-npx sass src/scss/main.scss dist/css/globals.min.css --no-source-map --style=compressed
+`@katanakit/ui` compiles the framework and the component styles, then concatenates both into the published artifact:
 
-# Demo (Vite HMR)
-pnpm dev
+```bash
+bun run ui:build
+# packages/ui/dist/base.css        ← scss/main.scss
+# packages/ui/dist/components.css  ← .kk-* component classes
+# packages/ui/dist/styles.css      ← base + components (exported as katanakit-js/styles.css)
 ```
 
+The docs site consumes `packages/ui/dist/styles.css` through a Vite alias, so every demo is styled by the same artifact users install.

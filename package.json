@@ -102,6 +102,11 @@
 			"import": "./dist/adapters/insforge/index.js",
 			"default": "./dist/adapters/insforge/index.js"
 		},
+		"./adapters/nestjs": {
+			"types": "./dist/adapters/nestjs/index.d.ts",
+			"import": "./dist/adapters/nestjs/index.js",
+			"default": "./dist/adapters/nestjs/index.js"
+		},
 		"./prisma": {
 			"types": "./dist/prisma/index.d.ts",
 			"import": "./dist/prisma/index.js",
@@ -199,6 +204,7 @@
 		"@angular/core": ">=16.0.0",
 		"@faker-js/faker": ">=9.0.0",
 		"@insforge/sdk": ">=1.5.0",
+		"@nestjs/common": ">=10.0.0",
 		"cors": ">=2.8.0",
 		"dotenv": ">=18.0.5",
 		"express": ">=5.0.0",
@@ -218,6 +224,9 @@
 			"optional": true
 		},
 		"@insforge/sdk": {
+			"optional": true
+		},
+		"@nestjs/common": {
 			"optional": true
 		},
 		"cors": {
@@ -256,6 +265,7 @@
 		"@eslint/js": "^10.0.1",
 		"@faker-js/faker": "^10.6.0",
 		"@insforge/sdk": "^1.5.2",
+		"@nestjs/common": "^12.1.2",
 		"@prisma/cli-engine": "0.6.2",
 		"@tailwindcss/vite": "^4.3.3",
 		"@testing-library/react": "^16.3.3",
@@ -283,6 +293,7 @@
 		"prisma": "8.0.0-rc.19",
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
+		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.2",
 		"solid-js": "^1.9.15",
 		"svelte": "^5.57.1",

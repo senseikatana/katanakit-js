@@ -317,6 +317,47 @@ function releasedVersion() {
 	return JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version;
 }
 
+/**
+ * Version groups for the navbar releases flyout (Bootstrap-style): the latest
+ * release, recent releases of the current major, and the newest release of
+ * every older major, linked to its upgrade guide when one exists.
+ */
+function releaseVersions() {
+	const text = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8");
+	const releases = [...text.matchAll(/^## \[([^\]]+)\] - (\d{4}-\d{2}-\d{2})[ \t]*$/gm)].map(
+		(match) => ({
+			version: match[1],
+			date: match[2],
+			// VitePress slug for `## [6.7.5] - 2026-10-04` → `_6-7-5-2026-10-04`.
+			anchor: `#_${match[1].replace(/\./g, "-")}-${match[2]}`,
+		}),
+	);
+	if (releases.length === 0) return null;
+
+	const [latest] = releases;
+	const currentMajor = latest.version.split(".")[0];
+	const recent = releases
+		.filter((release) => release.version.split(".")[0] === currentMajor)
+		.slice(0, 5);
+
+	const previous = [];
+	for (const release of releases) {
+		const major = release.version.split(".")[0];
+		if (major === currentMajor || previous.some((entry) => entry.major === major)) continue;
+		const guide = join(ROOT, "docs", "guides", "upgrade-to", `v${major}.md`);
+		previous.push({
+			major,
+			version: release.version,
+			date: release.date,
+			anchor: release.anchor,
+			link: existsSync(guide) ? `/guides/upgrade-to/v${major}` : "/changelog",
+		});
+		if (previous.length === 4) break;
+	}
+
+	return { latest, recent, previous };
+}
+
 /** Shape consumed by the What's new panel: latest release + its summary list. */
 function recentChangelog() {
 	const releases = recentReleases();
@@ -329,11 +370,13 @@ const signals = {
 	stars: await githubStars(),
 	newPages: newPagePaths(),
 	changelog: recentChangelog(),
+	versions: releaseVersions(),
 };
 
 mkdirSync(dirname(SIGNALS_FILE), { recursive: true });
 writeFileSync(SIGNALS_FILE, `${JSON.stringify(signals, null, "\t")}\n`);
 console.log(
 	`docs: signals → version ${signals.version}, stars ${signals.stars ?? "n/a"}, ` +
-		`${signals.newPages.length} new page(s)${signals.changelog ? `, changelog v${signals.changelog.version}` : ""}`,
+		`${signals.newPages.length} new page(s)${signals.changelog ? `, changelog v${signals.changelog.version}` : ""}` +
+		`${signals.versions ? `, ${signals.versions.previous.length} previous major(s)` : ""}`,
 );

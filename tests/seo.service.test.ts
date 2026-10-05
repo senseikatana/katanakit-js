@@ -1,10 +1,14 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
+
 import {
-	type UseSeoMetaOptions,
+	defineSeoMetaConfig,
 	useGenerateMetaTags,
 	useHeadTags,
+	useResetSeoMetaConfig,
 	useRssHeadLink,
 	useSeoMeta,
+	useSeoMetaConfig,
+	type UseSeoMetaOptions,
 	useSeoTag,
 	useSeoTags,
 	useTitle,
@@ -309,9 +313,7 @@ describe("seo.service", () => {
 		});
 
 		it("useRssHeadLink rejects a null config with an explicit error", () => {
-			expect(() => useRssHeadLink(null as unknown as SiteConfig)).toThrow(
-				"SiteConfig is required",
-			);
+			expect(() => useRssHeadLink(null as unknown as SiteConfig)).toThrow("SiteConfig is required");
 		});
 
 		it("nav stays optional and does not throw", () => {
@@ -330,6 +332,57 @@ describe("seo.service", () => {
 			expect(siteConfig.seo.openGraph).toBe(true);
 			expect(siteConfig.seo.twitterCard).toBe(false);
 			expect(siteConfig.seo.jsonLd).toBe(true);
+		});
+	});
+
+	describe("defineSeoMetaConfig", () => {
+		afterEach(() => {
+			useResetSeoMetaConfig();
+		});
+
+		it("returns the registered config", () => {
+			expect(defineSeoMetaConfig(config)).toBe(config);
+		});
+
+		it("becomes the default source for useSeoMeta", () => {
+			defineSeoMetaConfig(config);
+
+			const seo = useSeoMeta({ title: "Post" });
+
+			expect(seo.site).toBe("https://example.com");
+			expect(seo.siteTitle).toBe("My Site");
+		});
+
+		it("still lets the explicit second argument win", () => {
+			defineSeoMetaConfig(config);
+			const override: SiteConfig = { ...config, site: "https://other.dev", title: "Other" };
+
+			const seo = useSeoMeta({ title: "Post" }, override);
+
+			expect(seo.site).toBe("https://other.dev");
+		});
+
+		it("falls back to the demo site config when nothing is registered", () => {
+			expect(useSeoMetaConfig()).toBe(siteConfig);
+		});
+
+		it("restores the demo defaults after a reset", () => {
+			defineSeoMetaConfig(config);
+			useResetSeoMetaConfig();
+
+			expect(useSeoMetaConfig()).toBe(siteConfig);
+		});
+
+		it("throws when the seo or rss blocks are missing", () => {
+			const incomplete = {
+				site: "https://example.com",
+				title: "t",
+				description: "d",
+				lang: "en",
+				author: "a",
+			} as unknown as SiteConfig;
+
+			expect(() => defineSeoMetaConfig(incomplete)).toThrow(/seo/i);
 		});
 	});
 });

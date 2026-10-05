@@ -14,11 +14,21 @@ export type ChangelogEntry = {
 	releases: ChangelogRelease[];
 };
 
+/** Version entries for the navbar releases flyout. */
+export type ReleaseVersion = { version: string; date: string; anchor: string };
+export type PreviousRelease = ReleaseVersion & { major: string; link: string };
+export type ReleaseVersions = {
+	latest: ReleaseVersion;
+	recent: ReleaseVersion[];
+	previous: PreviousRelease[];
+};
+
 export type SiteSignals = {
 	version?: string;
 	stars?: number | null;
 	newPages?: string[];
 	changelog?: ChangelogEntry | null;
+	versions?: ReleaseVersions | null;
 };
 
 const modules = import.meta.glob<SiteSignals>("./signals.json", {
