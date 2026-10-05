@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased]
+## [6.8.1] - 2026-10-05
 
 What's news:
 
@@ -12,6 +12,50 @@ What's news:
   - `docs/.vitepress/theme/signals.json`
   - `docs/astro.config.mjs`
   - `docs/changelog.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/better-auth.md`
+  - `docs/guides/bun-adapter.md`
+  - `docs/guides/errors.md`
+  - `docs/guides/faker.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/framework-adapters.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/hono.md`
+  - `docs/guides/nestjs.md`
+  - `docs/guides/photoswipe.md`
+  - `docs/guides/query-client.md`
+  - `docs/guides/roadmap.md`
+  - `docs/guides/services/astro-adapter.md`
+  - `docs/guides/services/converter.md`
+  - `docs/guides/services/dates.md`
+  - `docs/guides/services/dom.md`
+  - `docs/guides/services/error-helpers.md`
+  - `docs/guides/services/express-server.md`
+  - `docs/guides/services/formatter.md`
+  - `docs/guides/services/generator.md`
+  - `docs/guides/services/geometry.md`
+  - `docs/guides/services/http-client.md`
+  - `docs/guides/services/index.md`
+  - `docs/guides/services/logger.md`
+  - `docs/guides/services/nuxt-adapter.md`
+  - `docs/guides/services/observer.md`
+  - `docs/guides/services/reactive.md`
+  - `docs/guides/services/rss.md`
+  - `docs/guides/services/seo.md`
+  - `docs/guides/services/storage.md`
+  - `docs/guides/services/theme.md`
+  - `docs/guides/services/timing.md`
+  - `docs/guides/services/viewport.md`
+  - `docs/guides/services/vue-adapter.md`
+  - `docs/guides/services/worker.md`
+  - `docs/guides/upgrade-to/index.md`
+  - `docs/guides/upgrade-to/v2.md`
+  - `docs/guides/upgrade-to/v3.md`
+  - `docs/guides/upgrade-to/v4.md`
+  - `docs/guides/upgrade-to/v5.md`
+  - `docs/guides/upgrade-to/v6.md`
+  - `docs/guides/watch.md`
+  - `docs/index.md`
   - `docs/sidebar.mjs`
   - `docs/src/components/HyperUiShowcase.astro`
   - `docs/src/components/KitDemo.astro`
@@ -110,6 +154,54 @@ What's news:
   - `docs/src/content/docs/ui-kit/roadmap.md`
   - `docs/src/styles/custom.css`
   - `docs/src/styles/hyperui.css`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/components/alert.md`
+  - `docs/ui-kit/components/badge.md`
+  - `docs/ui-kit/components/button.md`
+  - `docs/ui-kit/components/card.md`
+  - `docs/ui-kit/components/input.md`
+  - `docs/ui-kit/css/core/apply.md`
+  - `docs/ui-kit/css/core/breakpoints.md`
+  - `docs/ui-kit/css/core/colors.md`
+  - `docs/ui-kit/css/core/dark-mode.md`
+  - `docs/ui-kit/css/core/tokens.md`
+  - `docs/ui-kit/css/getting-started.md`
+  - `docs/ui-kit/css/index.md`
+  - `docs/ui-kit/css/mixins/flex.md`
+  - `docs/ui-kit/css/mixins/grid.md`
+  - `docs/ui-kit/css/reference/api-reference.md`
+  - `docs/ui-kit/css/reference/architecture.md`
+  - `docs/ui-kit/css/reference/functions.md`
+  - `docs/ui-kit/css/utilities/aspect-ratio.md`
+  - `docs/ui-kit/css/utilities/border-style.md`
+  - `docs/ui-kit/css/utilities/colors-extended.md`
+  - `docs/ui-kit/css/utilities/container.md`
+  - `docs/ui-kit/css/utilities/cursor.md`
+  - `docs/ui-kit/css/utilities/display.md`
+  - `docs/ui-kit/css/utilities/effects.md`
+  - `docs/ui-kit/css/utilities/flex-classes.md`
+  - `docs/ui-kit/css/utilities/float.md`
+  - `docs/ui-kit/css/utilities/font-family.md`
+  - `docs/ui-kit/css/utilities/gap.md`
+  - `docs/ui-kit/css/utilities/grid-classes.md`
+  - `docs/ui-kit/css/utilities/interactivity.md`
+  - `docs/ui-kit/css/utilities/line-height.md`
+  - `docs/ui-kit/css/utilities/list-style.md`
+  - `docs/ui-kit/css/utilities/margin.md`
+  - `docs/ui-kit/css/utilities/object.md`
+  - `docs/ui-kit/css/utilities/overflow-direction.md`
+  - `docs/ui-kit/css/utilities/padding.md`
+  - `docs/ui-kit/css/utilities/position-values.md`
+  - `docs/ui-kit/css/utilities/tables.md`
+  - `docs/ui-kit/css/utilities/text-decoration.md`
+  - `docs/ui-kit/css/utilities/text-transform.md`
+  - `docs/ui-kit/css/utilities/typography.md`
+  - `docs/ui-kit/css/utilities/visibility.md`
+  - `docs/ui-kit/hyperui.md`
+  - `docs/ui-kit/index.md`
+  - `docs/ui-kit/inventory.md`
+  - `docs/ui-kit/llm-files.md`
+  - `docs/ui-kit/roadmap.md`
   - `package.json`
   - `scripts/docs-prepare.mjs`
   - `scripts/docs-publish.mjs`
