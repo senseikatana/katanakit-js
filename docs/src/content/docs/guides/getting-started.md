@@ -48,7 +48,7 @@ bundler or import map:
 | **Raw package file** | `https://cdn.jsdelivr.net/npm/katanakit-js/dist/index.js` | Needs a bundler or an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) for `@js-temporal/polyfill` |
 | **unpkg** | `https://unpkg.com/katanakit-js/dist/index.js` | Same caveat as the raw file |
 
-Pin a version in production (e.g. `katanakit-js@6.8.2/+esm`) instead of
+Pin a version in production (e.g. `katanakit-js@6.8.3/+esm`) instead of
 floating `@latest`.
 
 There is **no IIFE/UMD** build — only ESM (`"type": "module"`).
