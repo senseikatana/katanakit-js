@@ -925,3 +925,89 @@
 		padding: 48px 20px 56px;
 	}
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Pre-Astro (VitePress) home layout against Starlight's DOM.
+ *
+ * Everything above is the old stylesheet verbatim; these rules translate the
+ * old `.VPHome .VPHero:not(.has-image)` centering and neutralize Starlight's
+ * content containers so the old full-width bands take effect:
+ *   - hero band + section bands: full-bleed (old `.VPHome` was full width)
+ *   - inner containers: 1152px (features/sections) and 1280px (markdown
+ *     flow, old `VPHomeContent`) centered
+ *   - hero: one centered column (Starlight defaults to a 7fr/4fr
+ *     left-aligned grid on desktop)
+ * Unlayered CSS always beats Starlight's `@layer starlight.core` styles.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+html[data-has-hero] .content-panel {
+	padding: 0;
+}
+
+html[data-has-hero] .content-panel .sl-container {
+	max-width: none;
+	margin-inline: 0;
+}
+
+html[data-has-hero] .sl-container > * + * {
+	margin-top: 0;
+}
+
+html[data-has-hero] .sl-markdown-content {
+	box-sizing: border-box;
+	max-width: 1280px;
+	margin-inline: auto;
+	padding-inline: 24px;
+}
+
+@media (min-width: 640px) {
+	html[data-has-hero] .sl-markdown-content {
+		padding-inline: 48px;
+	}
+}
+
+@media (min-width: 960px) {
+	html[data-has-hero] .sl-markdown-content {
+		padding-inline: 64px;
+	}
+}
+
+/* `.home-sections` was a direct child of `.VPHome`: full-bleed band with a
+   centered 1152px container inside — escape the markdown container above. */
+html[data-has-hero] .home-sections {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+}
+
+html[data-has-hero] {
+	overflow-x: clip;
+}
+
+/* Old `.VPHero` layout: single centered column at every width. */
+.home-hero .stack {
+	width: 100%;
+	max-width: 860px;
+	margin-inline: auto;
+}
+
+.home-hero .copy > * {
+	max-width: none;
+}
+
+@media (min-width: 50rem) {
+	.home-hero .hero {
+		grid-template-columns: 100%;
+	}
+
+	.home-hero .stack {
+		text-align: center;
+	}
+
+	.home-hero .copy {
+		align-items: center;
+	}
+
+	.home-hero .actions {
+		justify-content: center;
+	}
+}
