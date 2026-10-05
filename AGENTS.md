@@ -14,8 +14,8 @@ Every change refreshes all three in the same work: `README.md` (features, adapte
 - Husky `pre-commit` → `bunx lint-staged` → `eslint --fix --quiet` on staged `**/*.{ts,tsx}`; `bun run dev` also triggers `predev` → lint-staged. Skip with `git commit --no-verify`; disable hook install with `HUSKY=0 bun install`.
 - `bun run build` — clean + `check` + `tsc6 -p tsconfig.json` → `dist/`, then `ui:build`, copies `packages/ui/dist/styles.css` → `dist/styles.css`, runs `generate-release-notes.mjs --sync-versions`, then `examples:check`. `--sync-versions` **rewrites `package.json` and the version refs in README/docs to the newest `v*` tag**, so a build can touch those files.
 - `bun run examples:check` — typechecks `examples/query/*` and `examples/seed/*` via `tsconfig.examples*.json`, mapping `katanakit-js` → `dist/`; run it after a build.
-- `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass` → `packages/ui/dist`); `docs:dev`/`docs`/`docs:gh` run it automatically.
-- `bun run dev` — Express dev server (`tsx`); `bun run bun:dev` is the Bun alternative.
+- `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass` → `packages/ui/dist`); `dev`/`docs`/`docs:gh` run it automatically.
+- `bun run dev` — docs site dev server (Astro Starlight); `bun run server:dev` is the Express dev server (`tsx`), `bun run bun:dev` the Bun one.
 - One test file: `vitest run <path>`. The root run covers `tests/**` and `packages/ui/tests/**` in node env; `vitest.config.ts` aliases `@` → `src` and forces Solid's client builds (SSR builds turn signals/effects into no-ops).
 - `tsc6`, NOT `tsc`: the `typescript` devDep is aliased to `@typescript/typescript6@6.0.2`.
 
@@ -30,7 +30,7 @@ Every change refreshes all three in the same work: `README.md` (features, adapte
 
 ## Docs
 
-- Astro Starlight in `docs/` (`bun run docs:dev`, `bun run docs` → `docs/dist`, `bun run docs:gh` manual preview). `scripts/docs.mjs` takes an exclusive lock in `.cache/docs.lock.json` so `docs:dev` and `docs`/`docs:gh` never run at the same time; the dev server is an Astro daemon — stop it with `bunx astro dev stop --root docs`.
+- Astro Starlight in `docs/` (`bun run dev`, `bun run docs` → `docs/dist`, `bun run docs:gh` manual preview). `scripts/docs.mjs` takes an exclusive lock in `.cache/docs.lock.json` so `dev` and `docs`/`docs:gh` never run at the same time; the dev server is an Astro daemon — stop it with `bunx astro dev stop --root docs`.
 - `scripts/docs-prepare.mjs` generates `docs/src/content/docs/api/` (TypeDoc via `typedoc-vitepress-theme`, then `normalizeApiPages()` rewrites it for Starlight) and `docs/src/content/docs/changelog.md` — never hand-edit these. It also writes `docs/src/data/signals.json` (version, stars, `newPages`, changelog summary and `versions` for the releases flyout), read at build time through `docs/src/signals.ts` — never hand-edit either.
 - Sidebar IA: `docs/sidebar.mjs` builds 12 top-level sections, **all with `collapsed: true`** — keep top-level groups uniform: no bare links at depth 0. The service reference is split into `Core Services` / `Platform Services` / `Integrations` (one page per service under `docs/guides/services/`, sub-methods live as headings in the page); `Releases` is generated from `signals.versions` (changelog + one anchor per previous major).
 - Theme extras are registered in the `components` map of `docs/astro.config.mjs`: `Head.astro` (SEO extras), `SocialIcons.astro` (GitHubStars + VersionFlyout navbar cluster), `Hero.astro` (home hero + HomeAnnouncement + HeroInstall) and `PageFrame.astro` (WhatNew panel). Every override composes the Starlight default through slots — never reimplement a default. The flyout reads `signals.versions`; `SiteVersion` was removed in favor of it.

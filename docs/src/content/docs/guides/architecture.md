@@ -311,9 +311,9 @@ facades), never the concrete implementations.
 - `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`.
 - `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass`).
 - `bun run release` — build → complete CHANGELOG section → `npm publish` from your machine; the version bump and tag come from `useGit release create` (there is no GitHub Actions pipeline).
-- `bun run docs:dev` / `docs` — Astro Starlight site (`docs` runs `docs:prepare`, which generates the TypeDoc API reference and the changelog page).
+- `bun run dev` / `docs` — Astro Starlight site (`docs` runs `docs:prepare`, which generates the TypeDoc API reference and the changelog page).
 - `bun run cf:deploy` — build + docs build + `wrangler pages deploy` to Cloudflare.
-- `bun run dev` — the Express dev server (`tsx`); `bun run bun:dev` runs the Bun adapter.
+- `bun run server:dev` — the Express dev server (`tsx`); `bun run bun:dev` runs the Bun adapter.
 
 There is no Prettier in the gate: formatting comes from ESLint (`eslint --fix`).
 `tsc6` is the aliased TypeScript 6 binary (`typescript` devDep → `@typescript/typescript6`).

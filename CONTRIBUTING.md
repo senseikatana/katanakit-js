@@ -79,10 +79,10 @@ Useful scripts:
 | `bun run build`         | `check`, compile to `dist/`, build the UI, sync version references |
 | `bun run examples:check` | Typechecks the query/seed examples against `dist/`     |
 | `bun run release`       | `build` → write CHANGELOG section → publish to npm      |
-| `bun run docs:dev`      | Docs site dev server (Astro Starlight)                |
+| `bun run dev`           | Docs site dev server (Astro Starlight)                |
 | `bun run docs`          | Builds the docs site into `docs/dist/`                 |
 | `bun run ui:build`      | Builds `@katanakit/ui` (vendored framework + components CSS) |
-| `bun run dev`           | Express dev server (`tsx`); `bun run bun:dev` for the Bun adapter |
+| `bun run server:dev`    | Express dev server (`tsx`); `bun run bun:dev` for the Bun adapter |
 
 `build` and `release` never compile or publish unless `check` passes.
 
@@ -111,7 +111,7 @@ is built with **Astro Starlight**. The source is in `docs/`.
 When you change a public API:
 
 - **API Reference is auto-generated** from JSDoc/TSDoc comments in `src/` by
-  TypeDoc (`scripts/docs-prepare.mjs`, invoked by `docs`/`docs:dev`, writes
+  TypeDoc (`scripts/docs-prepare.mjs`, invoked by `docs`/`dev`, writes
   `docs/src/content/docs/api/` and feeds the sidebar).
   Write good doc comments on your exported functions and types — they become
   the public API docs automatically.
@@ -153,14 +153,14 @@ description: Cache, retry and invalidate server state.
 ### Running the docs locally
 
 ```bash
-bun run docs:dev       # generate API + changelog, then dev server (daemon)
+bun run dev            # generate API + changelog, then dev server (daemon)
 bun run docs           # static build into docs/dist/
 bun run docs:preview   # preview the last build
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
 bun run docs:clean     # purge build output and caches
 ```
 
-::: warning Never run docs:dev and docs/docs:gh at the same time
+::: warning Never run dev and docs/docs:gh at the same time
 `scripts/docs.mjs` takes an exclusive lock in `.cache/docs.lock.json` so the
 dev server and a build never run concurrently; the second command fails fast
 with guidance. The dev server is an Astro daemon — stop it with `bunx astro dev
