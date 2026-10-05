@@ -5,7 +5,7 @@ description: Use KatanaKit's query client from React, Solid, Svelte, and Angular
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-KatanaKit ships first-class adapters for the major front-end frameworks. They wrap the same core [`QueryClient`](./query-client.md) and Safe Result pattern, but expose it with each framework's native reactivity:
+KatanaKit ships first-class adapters for the major front-end frameworks. They wrap the same core [`QueryClient`](/guides/query-client/) and Safe Result pattern, but expose it with each framework's native reactivity:
 
 - **React** — hooks with `useState` / `useEffect` (`katanakit-js/adapters/react`)
 - **Solid** — fine-grained signals (`katanakit-js/adapters/solid`)
@@ -242,4 +242,4 @@ useWatch(() => product, (next, prev) => console.log(next, prev));
 
 ## Sharing state across frameworks
 
-All adapters share the same global [`QueryClient`](./query-client.md) singleton (unless you pass your own instance), so cached data is shared across adapters and even across frameworks in the same app. The `queryKey` is the single source of truth for identity and invalidation.
+All adapters share the same global [`QueryClient`](/guides/query-client/) singleton (unless you pass your own instance), so cached data is shared across adapters and even across frameworks in the same app. The `queryKey` is the single source of truth for identity and invalidation.

@@ -16,11 +16,11 @@ migration guide. Each one answers the same three questions in the same order:
 
 | From | To | Guide |
 | ------------------ | -------------------------- | ------------------------------ |
-| 5.2.x (and 5.x) | **v6** — current major | [Upgrade to v6](./v6) |
-| 4.x | v5 | [Upgrade to v5](./v5) |
-| 3.x | v4 | [Upgrade to v4](./v4) |
-| 2.x | v3 | [Upgrade to v3](./v3) |
-| 1.x | v2 | [Upgrade to v2](./v2) |
+| 5.2.x (and 5.x) | **v6** — current major | [Upgrade to v6](/guides/upgrade-to/v6/) |
+| 4.x | v5 | [Upgrade to v5](/guides/upgrade-to/v5/) |
+| 3.x | v4 | [Upgrade to v4](/guides/upgrade-to/v4/) |
+| 2.x | v3 | [Upgrade to v3](/guides/upgrade-to/v3/) |
+| 1.x | v2 | [Upgrade to v2](/guides/upgrade-to/v2/) |
 
 :::tip[Patch and minor releases never break]
 Within a major, upgrades are `npm install katanakit-js@^6`. Breaking changes

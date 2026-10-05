@@ -29,7 +29,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
 const DEST = join(root, "docs", "public", "hyperui");
 const DOCS_PUBLIC = join(root, "docs", "public");
-const MD_PATH = join(root, "docs", "ui-kit", "hyperui.md");
+const MD_PATH = join(root, "docs", "src", "content", "docs", "ui-kit", "hyperui.mdx");
 const UPSTREAM = "https://github.com/markmead/hyperui.git";
 
 const CATEGORY_BLURBS = {
@@ -222,10 +222,10 @@ function main() {
 	);
 	console.log(`vendored ${total} snippets in ${catalog.reduce((n, c) => n + c.components.length, 0)} components`);
 
-	// 2. Regenerate the catalog section of docs/ui-kit/hyperui.md
+	// 2. Regenerate the catalog section of docs/src/content/docs/ui-kit/hyperui.mdx
 	const md = readFileSync(MD_PATH, "utf8");
-	const start = "<!-- hyperui-catalog:start -->";
-	const end = "<!-- hyperui-catalog:end -->";
+	const start = "{/* hyperui-catalog:start */}";
+	const end = "{/* hyperui-catalog:end */}";
 	if (!md.includes(start) || !md.includes(end)) {
 		throw new Error(`catalog markers missing in ${MD_PATH}`);
 	}
@@ -248,7 +248,7 @@ function main() {
 		catalogMd,
 	);
 	writeFileSync(MD_PATH, next);
-	console.log(`catalog section regenerated in docs/ui-kit/hyperui.md`);
+	console.log(`catalog section regenerated in docs/src/content/docs/ui-kit/hyperui.mdx`);
 
 	if (tmp) rmSync(tmp, { recursive: true, force: true });
 }

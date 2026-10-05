@@ -83,13 +83,13 @@ numeric `status` → `statusCode` → `fallbackStatus` (`0`); `message` defaults
 ## When not to use it
 
 - **TanStack Query** needs `queryFn` to throw: bridge Safe Results with
-  [`useSafeQueryFn`](./query-client.md).
+  [`useSafeQueryFn`](/guides/query-client/).
 - **Configuration errors** fail fast by design (SEO `SiteConfig`, init calls).
 - **Tests** where throwing is the behavior under test.
 
 ## Related
 
-- [Architecture](architecture.md) — layers and conventions.
-- [Getting Started](getting-started.md) — HTTP with Safe Results.
-- [Filesystem](filesystem.md) — errno codes as Safe Results.
-- [Faker](faker.md) — helpers that throw and how to wrap them.
+- [Architecture](/guides/architecture/) — layers and conventions.
+- [Getting Started](/guides/getting-started/) — HTTP with Safe Results.
+- [Filesystem](/guides/filesystem/) — errno codes as Safe Results.
+- [Faker](/guides/faker/) — helpers that throw and how to wrap them.

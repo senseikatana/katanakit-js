@@ -53,7 +53,7 @@ snippets, so the utilities never leak into the KatanaKit theme.
 
 ## Full catalog
 
-<!-- hyperui-catalog:start -->
+{/* hyperui-catalog:start */}
 > Full catalog vendored from upstream `2b5aebb` (2026-09-26): **560 snippets** across **75 components**. Every folder has its own `index.html`, so the kit is browsable standalone at `/hyperui/`.
 
 ### Application — 34 components, 295 snippets
@@ -145,7 +145,7 @@ snippets, so the utilities never leak into the KatanaKit theme.
 - [Saas Landing Page](/hyperui/templates/saas-landing-page/) (1) — [upstream](https://github.com/markmead/hyperui/tree/main/public/examples/templates/saas-landing-page)
 - [Storefront](/hyperui/templates/storefront/) (2) — [upstream](https://github.com/markmead/hyperui/tree/main/public/examples/templates/storefront)
 - [Support Inbox](/hyperui/templates/support-inbox/) (2) — [upstream](https://github.com/markmead/hyperui/tree/main/public/examples/templates/support-inbox)
-<!-- hyperui-catalog:end -->
+{/* hyperui-catalog:end */}
 
 ## Using HyperUI in your project
 
@@ -165,7 +165,7 @@ so HyperUI markup is **not** drop-in for `.kk-*` pages.
 | Piece                          | Where                                                  |
 | ------------------------------ | ------------------------------------------------------ |
 | Vendored snippets              | `docs/public/hyperui/**/*.html` (upstream `public/examples`, byte-identical) |
-| Tailwind build (v4, `?inline`) | `docs/.vitepress/theme/hyperui.css`                    |
+| Tailwind build (v4, `?inline`) | `docs/src/styles/hyperui.css`                          |
 | Preview component              | `HyperUiShowcase.astro` (iframe + copy bar)              |
 | Per-folder catalog pages       | `index.html` generated in every folder by `scripts/sync-hyperui.mjs` |
 | Refresh the catalog            | `node scripts/sync-hyperui.mjs` (re-clones upstream `main`, re-vendors, regenerates catalog) |

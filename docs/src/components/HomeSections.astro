@@ -1,4 +1,4 @@
-<script setup lang="ts">
+---
 type HomeSection = {
 	title: string;
 	description: string;
@@ -77,48 +77,47 @@ const sections: HomeSection[] = [
 		icon: '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
 	},
 ];
-</script>
+---
 
-<template>
-	<section class="home-sections">
-		<div class="home-sections__container">
-			<p class="home-sections__eyebrow">Documentation</p>
-			<h2 class="home-sections__title">Explore by domain</h2>
-			<p class="home-sections__lead">
-				Nine self-contained sections. Start at the top or jump straight into the area you need.
-			</p>
-			<div class="home-sections__grid">
-				<a
-					v-for="section in sections"
-					:key="section.title"
-					class="home-card"
-					:href="section.link"
-				>
-					<span class="home-card__icon" aria-hidden="true">
-						<svg
-							viewBox="0 0 24 24"
-							width="20"
-							height="20"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="1.8"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							v-html="section.icon"
-						/>
-					</span>
-					<span class="home-card__head">
-						<span class="home-card__title">{{ section.title }}</span>
-						<span class="home-card__arrow" aria-hidden="true">→</span>
-					</span>
-					<span class="home-card__desc">{{ section.description }}</span>
-					<span class="home-card__chips">
-						<span v-for="chip in section.chips" :key="chip" class="home-card__chip">
-							{{ chip }}
+<section class="home-sections">
+	<div class="home-sections__container">
+		<p class="home-sections__eyebrow">Documentation</p>
+		<h2 class="home-sections__title">Explore by domain</h2>
+		<p class="home-sections__lead">
+			Nine self-contained sections. Start at the top or jump straight into the area you need.
+		</p>
+		<div class="home-sections__grid">
+			{
+				sections.map((section) => (
+					<a class="home-card" href={section.link}>
+						<span class="home-card__icon" aria-hidden="true">
+							<svg
+								viewBox="0 0 24 24"
+								width="20"
+								height="20"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.8"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								set:html={section.icon}
+							/>
 						</span>
-					</span>
-				</a>
-			</div>
+						<span class="home-card__head">
+							<span class="home-card__title">{section.title}</span>
+							<span class="home-card__arrow" aria-hidden="true">
+								→
+							</span>
+						</span>
+						<span class="home-card__desc">{section.description}</span>
+						<span class="home-card__chips">
+							{section.chips.map((chip) => (
+								<span class="home-card__chip">{chip}</span>
+							))}
+						</span>
+					</a>
+				))
+			}
 		</div>
-	</section>
-</template>
+	</div>
+</section>

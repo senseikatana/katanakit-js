@@ -1,0 +1,66 @@
+---
+import { siteSignals } from "../signals";
+
+const REPO = "https://github.com/senseikatana/katanakit-js";
+const COMMAND = "npm i katanakit-js";
+const version = siteSignals().version;
+---
+
+<div class="home-install">
+	<div class="home-install__command">
+		<code><span class="home-install__prompt">$</span>&nbsp;{COMMAND}</code>
+		<button
+			type="button"
+			class="home-install__copy"
+			aria-label="Copy install command"
+			title="Copy"
+			data-install-command={COMMAND}
+		>
+			<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+				<rect x="9" y="9" width="11" height="11" rx="2" />
+				<path d="M5 15V6a2 2 0 0 1 2-2h9" />
+			</svg>
+		</button>
+	</div>
+	{
+		version && (
+			<p class="home-install__meta">
+				Currently <b>v{version}</b>
+				<span aria-hidden="true">·</span>
+				<a href="/changelog">Releases</a>
+				<span aria-hidden="true">·</span>
+				<a href={REPO} target="_blank" rel="noreferrer noopener">
+					GitHub
+				</a>
+			</p>
+		)
+	}
+</div>
+
+<script>
+	// Clipboard only exists in the browser; Astro runs this once per page load.
+	const COPY_ICON = '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></svg>';
+	const DONE_ICON = '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5" /></svg>';
+
+	document.querySelectorAll<HTMLButtonElement>(".home-install__copy").forEach((button) => {
+		button.addEventListener("click", async () => {
+			const command = button.dataset.installCommand;
+			if (!command || typeof navigator === "undefined" || !navigator.clipboard) return;
+			try {
+				await navigator.clipboard.writeText(command);
+				button.classList.add("is-copied");
+				button.innerHTML = DONE_ICON;
+				button.setAttribute("aria-label", "Copied");
+				button.title = "Copied";
+				window.setTimeout(() => {
+					button.classList.remove("is-copied");
+					button.innerHTML = COPY_ICON;
+					button.setAttribute("aria-label", "Copy install command");
+					button.title = "Copy";
+				}, 1600);
+			} catch {
+				/* clipboard blocked (permissions/insecure context) — stay silent */
+			}
+		});
+	});
+</script>

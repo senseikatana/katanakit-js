@@ -1,0 +1,19 @@
+---
+import { siteSignals } from "../signals";
+
+const version = siteSignals().version;
+---
+
+{
+	version && (
+		<a class="home-announcement" href="/changelog">
+			<span class="home-announcement__dot" aria-hidden="true" />
+			<span>
+				KatanaKit <b>v{version}</b> is out
+			</span>
+			<span class="home-announcement__arrow" aria-hidden="true">
+				→
+			</span>
+		</a>
+	)
+}

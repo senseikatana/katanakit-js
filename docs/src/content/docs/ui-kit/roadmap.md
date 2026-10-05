@@ -73,5 +73,5 @@ block using only the LLM files.
 
 ## Related
 
-- [Toolkit roadmap](../guides/roadmap.md) — core services and adapters.
-- [Inventory](./inventory.md) — the full planned surface.
+- [Toolkit roadmap](/guides/roadmap/) — core services and adapters.
+- [Inventory](/ui-kit/inventory/) — the full planned surface.

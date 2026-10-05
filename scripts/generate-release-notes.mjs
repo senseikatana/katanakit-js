@@ -214,9 +214,9 @@ function compareSemver(a, b) {
 /** Files whose prose pins a version number; refreshed so docs never go stale. */
 const VERSIONED_DOCS = [
 	"README.md",
-	"docs/guides/getting-started.md",
-	"docs/guides/roadmap.md",
-	"docs/guides/filesystem.md",
+	"docs/src/content/docs/guides/getting-started.md",
+	"docs/src/content/docs/guides/roadmap.md",
+	"docs/src/content/docs/guides/filesystem.md",
 ];
 
 function syncVersionRefs(version) {

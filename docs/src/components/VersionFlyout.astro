@@ -1,0 +1,90 @@
+---
+import { siteSignals } from "../signals";
+
+const versions = siteSignals().versions ?? null;
+const major = versions?.latest.version.split(".")[0] ?? "";
+---
+
+{
+	versions && (
+		<div class="version-flyout">
+			<button
+				type="button"
+				class="version-flyout__trigger"
+				aria-expanded="false"
+				aria-haspopup="menu"
+			>
+				v{versions.latest.version}
+				<span class="version-flyout__caret" aria-hidden="true">
+					▾
+				</span>
+			</button>
+			<div class="version-flyout__panel" role="menu" hidden>
+				<p class="version-flyout__group">v{major} releases</p>
+				{versions.recent.map((release) => (
+					<a
+						class:list={[
+							"version-flyout__item",
+							release.version === versions.latest.version && "is-current",
+						]}
+						href={`/changelog${release.anchor}`}
+						role="menuitem"
+					>
+						<span>
+							{release.version === versions.latest.version
+								? `Latest (${release.version})`
+								: `v${release.version}`}
+						</span>
+						{release.version === versions.latest.version && (
+							<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+								<path d="M4 12.5 9.5 18 20 6.5" />
+							</svg>
+						)}
+					</a>
+				))}
+				{versions.previous.length > 0 && (
+					<p class="version-flyout__group version-flyout__group--sep">Previous releases</p>
+				)}
+				{versions.previous.map((release) => (
+					<a class="version-flyout__item" href={release.link} role="menuitem">
+						<span>v{release.version}</span>
+						<span class="version-flyout__hint">v{release.major}.x</span>
+					</a>
+				))}
+				<a class="version-flyout__item version-flyout__item--all" href="/changelog" role="menuitem">
+					All releases
+				</a>
+			</div>
+		</div>
+	)
+}
+
+<script>
+	// Closes on outside click / Escape, like the default theme flyouts.
+	document.querySelectorAll<HTMLElement>(".version-flyout").forEach((root) => {
+		const trigger = root.querySelector<HTMLButtonElement>(".version-flyout__trigger");
+		const caret = root.querySelector<HTMLElement>(".version-flyout__caret");
+		const panel = root.querySelector<HTMLElement>(".version-flyout__panel");
+		if (!trigger || !panel) return;
+
+		const setOpen = (open: boolean) => {
+			trigger.setAttribute("aria-expanded", String(open));
+			panel.hidden = !open;
+			caret?.classList.toggle("is-open", open);
+		};
+
+		trigger.addEventListener("click", () => {
+			setOpen(trigger.getAttribute("aria-expanded") !== "true");
+		});
+
+		document.addEventListener("click", (event) => {
+			if (trigger.getAttribute("aria-expanded") !== "true") return;
+			if (event.target instanceof Node && root.contains(event.target)) return;
+			setOpen(false);
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") setOpen(false);
+		});
+	});
+</script>

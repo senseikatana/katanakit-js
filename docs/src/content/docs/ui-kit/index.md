@@ -9,7 +9,7 @@ description: Katana UI — the planned framework-agnostic UI kit built on top of
 
 **Foundations available.** The first components (button, input, card, badge, alert)
 live in the private `packages/ui` workspace (`@katanakit/ui`) and are styled with
-the [SCSS framework](./css/index.md) vendored in `katanakit-js` (`scss/`). The package is **not published to npm yet** — inside
+the [SCSS framework](/ui-kit/css/) vendored in `katanakit-js` (`scss/`). The package is **not published to npm yet** — inside
 this repo you import it by name, outside it you cannot install it. The rest of the kit
 is still planned; the name **Katana UI** is provisional.
 
@@ -95,9 +95,9 @@ the same primitives the toolkit already guarantees.
 
 ## Read next
 
-- [Components](./components/button.md) — button, input, card, badge and alert foundations.
-- [SCSS framework](./css/index.md) — the framework behind the kit (vendored from `katanakit-css@0.12.5`): tokens, utilities, mixins and API reference.
-- [Architecture](./architecture.md) — layers, theming, distribution and patterns.
-- [Inventory](./inventory.md) — every planned page, block, layout and interaction.
-- [LLM files](./llm-files.md) — machine-readable artifacts for AI agents.
-- [Roadmap](./roadmap.md) — delivery phases and exit criteria.
+- [Components](/ui-kit/components/button/) — button, input, card, badge and alert foundations.
+- [SCSS framework](/ui-kit/css/) — the framework behind the kit (vendored from `katanakit-css@0.12.5`): tokens, utilities, mixins and API reference.
+- [Architecture](/ui-kit/architecture/) — layers, theming, distribution and patterns.
+- [Inventory](/ui-kit/inventory/) — every planned page, block, layout and interaction.
+- [LLM files](/ui-kit/llm-files/) — machine-readable artifacts for AI agents.
+- [Roadmap](/ui-kit/roadmap/) — delivery phases and exit criteria.

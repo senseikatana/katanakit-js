@@ -6,7 +6,7 @@ description: Every planned page, dashboard, application, block, layout and inter
 # Inventory
 
 The full planned surface of Katana UI. Everything listed here is **planned**; see the
-[roadmap](./roadmap.md) for delivery order.
+[roadmap](/ui-kit/roadmap/) for delivery order.
 
 ## Dashboards (8)
 
@@ -108,4 +108,4 @@ daisyUI themes.
 
 Machine-readable artifacts generated from component metadata: `llms.txt`,
 `llms-full.txt`, a component registry and per-block markdown. See
-[LLM files](./llm-files.md).
+[LLM files](/ui-kit/llm-files/).

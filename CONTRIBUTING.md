@@ -79,8 +79,8 @@ Useful scripts:
 | `bun run build`         | `check`, compile to `dist/`, build the UI, sync version references |
 | `bun run examples:check` | Typechecks the query/seed examples against `dist/`     |
 | `bun run release`       | `build` → write CHANGELOG section → publish to npm      |
-| `bun run docs:dev`      | Docs site dev server (VitePress)                       |
-| `bun run docs`          | Builds the docs site into `docs/.vitepress/dist/`      |
+| `bun run docs:dev`      | Docs site dev server (Astro Starlight)                |
+| `bun run docs`          | Builds the docs site into `docs/dist/`                 |
 | `bun run ui:build`      | Builds `@katanakit/ui` (vendored framework + components CSS) |
 | `bun run dev`           | Express dev server (`tsx`); `bun run bun:dev` for the Bun adapter |
 
@@ -99,19 +99,20 @@ Useful scripts:
 - `src/index.ts` — main barrel (public API surface).
 - `tests/` — Vitest unit tests (import from `src/` via the `@/` alias).
 - `examples/` — runnable demos for all adapters and frameworks.
-- `docs/` — VitePress documentation site (keep in sync with code changes).
+- `docs/` — Astro Starlight documentation site (keep in sync with code changes).
 - `packages/ui/` — private `@katanakit/ui` workspace: Katana UI foundations (button, input, card, badge, alert) styled with the SCSS framework vendored in `scss/`.
 
 ## Updating documentation
 
 The public documentation site lives at
 **[docs.senseikatana.com](https://docs.senseikatana.com/)** and
-is built with VitePress. The source is in `docs/`.
+is built with **Astro Starlight**. The source is in `docs/`.
 
 When you change a public API:
 
 - **API Reference is auto-generated** from JSDoc/TSDoc comments in `src/` by
-  TypeDoc (`bun run docs:prepare` writes `docs/api/` and the VitePress sidebar).
+  TypeDoc (`scripts/docs-prepare.mjs`, invoked by `docs`/`docs:dev`, writes
+  `docs/src/content/docs/api/` and feeds the sidebar).
   Write good doc comments on your exported functions and types — they become
   the public API docs automatically.
 - Update the matching entry in the README Features list and the docs page that
@@ -125,7 +126,7 @@ When you change a public API:
 
 ### Writing docs pages
 
-Every page starts with YAML frontmatter so both VitePress and Obsidian read it:
+Every page starts with YAML frontmatter so Astro and Obsidian read it:
 
 ```md
 ---
@@ -134,27 +135,37 @@ description: Cache, retry and invalidate server state.
 ---
 ```
 
-- JS/TS inside a page goes in a `<script setup lang="ts">` block after the
-  frontmatter (Vue-in-Markdown). VitePress does **not** support MDX.
-- Use `::: code‑group` for tabbed code samples and `::: warning` for callouts.
-- `docs/api/` and `docs/changelog.md` are generated — never hand‑edit them.
+- Plain content stays `.md`. Any page that imports an Astro component MUST be
+  `.mdx` (Astro `.md` cannot import — Starlight auto-registers MDX); put the
+  imports right after the frontmatter.
+- JS/TS that runs in the browser goes in a plain `<script>` tag inside `.mdx`
+  (Astro compiles it); Vue/Nuxt examples in the guides belong in fenced code
+  blocks like any other sample.
+- Callouts use Starlight's `:::note`, `:::tip`, `:::caution`, `:::danger`.
+- Internal links are root-absolute with a trailing slash
+  (`/guides/services/worker/`) — Astro does not resolve `.md` links
+  file-relative the way VitePress did.
+- `docs/src/content/docs/api/` and `docs/src/content/docs/changelog.md` are
+  generated — never hand-edit them. After renaming or removing content files,
+  purge the stale content-layer cache (`rm -rf docs/node_modules/.astro
+  docs/.astro`) before rebuilding.
 
 ### Running the docs locally
 
 ```bash
-bun run docs:dev       # generate API + changelog, then live‑reloading server
-bun run docs           # static build into docs/.vitepress/dist/
+bun run docs:dev       # generate API + changelog, then dev server (daemon)
+bun run docs           # static build into docs/dist/
 bun run docs:preview   # preview the last build
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
-bun run docs:clean     # purge .vitepress/.temp and cache
+bun run docs:clean     # purge build output and caches
 ```
 
 ::: warning Never run docs:dev and docs/docs:gh at the same time
-VitePress shares `docs/.vitepress/.temp` between the dev server and the build,
-so running both corrupts it and the build fails with
-`Cannot find module '…/.vitepress/.temp/…'`. `scripts/docs.mjs` enforces an
-exclusive lock and fails fast with that guidance; if a process was killed,
-bun run docs:clean resets the temp state.
+`scripts/docs.mjs` takes an exclusive lock in `.cache/docs.lock.json` so the
+dev server and a build never run concurrently; the second command fails fast
+with guidance. The dev server is an Astro daemon — stop it with `bunx astro dev
+stop --root docs` (that also releases the lock); if a process was killed,
+`bun run docs:clean` resets stale state.
 :::
 
 ## Versioning and changelog

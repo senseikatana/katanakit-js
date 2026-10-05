@@ -298,7 +298,7 @@ facades), never the concrete implementations.
 - **Safe Result** — fallible operations return a discriminated union
   `{ data, error, ok }` instead of throwing. The generic `SafeResult<T, E>` is
   the base of `FetchResult<T>`, `FilesystemResult<T>`, `AstroServiceResult<T>`,
-  `AiResult<T>` and `RssResult`; see [Error Handling](../guides/errors.md).
+  `AiResult<T>` and `RssResult`; see [Error Handling](/guides/errors/).
 - **Single source of truth** — all contracts and shared types live in
   `src/types/`.
 - **English only** — comments, identifiers and messages are written in English.
@@ -311,7 +311,7 @@ facades), never the concrete implementations.
 - `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`.
 - `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass`).
 - `bun run release` — build → complete CHANGELOG section → `npm publish` from your machine; the version bump and tag come from `useGit release create` (there is no GitHub Actions pipeline).
-- `bun run docs:dev` / `docs` — VitePress site (`docs` runs `docs:prepare`, which generates the TypeDoc API reference and the changelog page).
+- `bun run docs:dev` / `docs` — Astro Starlight site (`docs` runs `docs:prepare`, which generates the TypeDoc API reference and the changelog page).
 - `bun run cf:deploy` — build + docs build + `wrangler pages deploy` to Cloudflare.
 - `bun run dev` — the Express dev server (`tsx`); `bun run bun:dev` runs the Bun adapter.
 

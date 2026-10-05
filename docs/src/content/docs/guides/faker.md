@@ -51,7 +51,7 @@ A seeded UUID is predictable. For real identifiers use `useUuid()`
 ## Seed data (users, products, orders)
 
 Compose the helpers with `useFakeList` to build realistic fixtures, then write
-them anywhere with the [filesystem helpers](filesystem.md):
+them anywhere with the [filesystem helpers](/guides/filesystem/):
 
 ```ts
 import {

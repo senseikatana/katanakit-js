@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Prepares generated docs content before VitePress runs:
+ * Prepares generated docs content before Astro/Starlight builds:
  *
  * 1. Generates the TypeDoc API reference into the Starlight content
  *    collection (`docs/src/content/docs/api/`) and rewrites the relative
@@ -110,17 +110,20 @@ function normalizeApiPages() {
 
 			// Starlight requires a `title` for every content entry; TypeDoc
 			// emits plain Markdown, so derive it from the first heading.
-			if (!/^---\n[\s\S]*?\ntitle:/.test(text)) {
+			// Idempotent: an existing frontmatter that already carries a
+			// title (first key or not) is left untouched.
+			const fmMatch = /^---\n([\s\S]*?)\n---/.exec(text);
+			const hasTitle = fmMatch ? /^title:/m.test(fmMatch[1]) : false;
+			if (!hasTitle) {
 				const isIndex = relative(API_DIR, full) === "index.md";
 				const heading = /^# (.+)$/m.exec(text)?.[1]?.trim() ?? "";
 				const symbol = heading
 					.replace(/^(Class|Function|Interface|Type Alias|Variable|Enumeration):\s*/, "")
 					.replace(/\(\)$/, "");
 				const title = isIndex ? "API Reference" : symbol || "API";
-				const frontmatter = `---\ntitle: ${JSON.stringify(title)}\n---\n\n`;
-				text = text.startsWith("---\n")
+				text = fmMatch
 					? text.replace(/^---\n/, `---\ntitle: ${JSON.stringify(title)}\n`)
-					: frontmatter + text;
+					: `---\ntitle: ${JSON.stringify(title)}\n---\n\n${text}`;
 			}
 
 			writeFileSync(full, text);
@@ -131,7 +134,7 @@ function normalizeApiPages() {
 	console.log(`docs: normalized ${files} API page(s)`);
 }
 
-rewriteApiLinks();
+normalizeApiPages();
 
 const changelog = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8")
 	.replace(/^# Changelog\n+/, "")
@@ -160,7 +163,7 @@ renameSync(tempPage, CHANGELOG_PAGE);
 console.log("docs: wrote docs/src/content/docs/changelog.md");
 
 /* ──────────────────────────────────────────────────────────────────────────
- * 3. Build-time signals for the VitePress theme (`theme/signals.json`):
+ * 3. Build-time signals for the Starlight theme (`src/data/signals.json`):
  *    navbar version pill, GitHub stars, sidebar `new` pills and the
  *    bottom-right "What's new" changelog panel. Every field degrades to a
  *    null/empty value instead of failing the build.
@@ -337,12 +340,19 @@ function newPagePaths() {
 		: run("log", "-1", "--name-only", "--pretty=format:", "--", "docs");
 	const untracked = run("ls-files", "--others", "--exclude-standard", "--", "docs");
 
+	// Content lives under docs/src/content/docs (Astro Starlight); map the file
+	// path to its route by stripping that prefix (the legacy docs/ root is
+	// still accepted so the badges keep working if content moves back).
+	const CONTENT_ROOT = "docs/src/content/docs/";
 	const pages = new Set();
 	for (const line of `${tracked}\n${untracked}`.split("\n")) {
 		const file = line.trim();
-		if (!file.startsWith("docs/") || !file.endsWith(".md")) continue;
+		if (!file.startsWith("docs/") || !/\.(md|mdx)$/.test(file)) continue;
 		if (!existsSync(join(ROOT, file))) continue;
-		let route = `/${file.slice("docs/".length).replace(/\.md$/, "")}`;
+		const relative = file.startsWith(CONTENT_ROOT)
+			? file.slice(CONTENT_ROOT.length)
+			: file.slice("docs/".length);
+		let route = `/${relative.replace(/\.mdx?$/, "")}`;
 		if (route.endsWith("/index")) route = route.slice(0, -"index".length);
 		if (route.length > 1 && route.endsWith("/")) route = route.slice(0, -1);
 		pages.add(route || "/");

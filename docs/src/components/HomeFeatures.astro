@@ -1,0 +1,65 @@
+---
+/**
+ * "Why KatanaKit" heading + six-feature grid. The VitePress home rendered
+ * these from the `features` frontmatter (VPHomeFeatures); Starlight ignores
+ * that key, so the markup lives here with its own styles in custom.css.
+ */
+type Feature = { title: string; details: string };
+
+/** Backticks become `<code>` — the old VitePress frontmatter rendered these raw. */
+function renderDetails(text: string): string {
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+const features: Feature[] = [
+	{
+		title: "Safe Results",
+		details:
+			"Fallible async calls return `{ data, error, ok }` instead of throwing — HTTP, filesystem and every adapter share the same contract.",
+	},
+	{
+		title: "Zod everywhere",
+		details:
+			"`src/types` is inferred from Zod schemas and API adapters validate every response at the boundary, so malformed payloads never leak.",
+	},
+	{
+		title: "Framework adapters",
+		details:
+			"React, Vue, Solid, Svelte, Angular and Nuxt bindings over the same TanStack Query Core engine bundled with the package.",
+	},
+	{
+		title: "Node/Bun toolkit",
+		details:
+			"Filesystem and path helpers with native errno codes, plus optional lazy faker for reproducible seed data and fixtures.",
+	},
+	{
+		title: "Zero side effects",
+		details:
+			"Importing any module is safe — no fetch calls, no console logs, no storage writes, no top-level Node built-ins.",
+	},
+	{
+		title: "SSR-safe",
+		details:
+			"Every infrastructure service guards or falls back gracefully outside the browser; Node-only APIs load through dynamic import.",
+	},
+];
+---
+
+<div class="home-features-heading">
+	<p class="home-features-heading__eyebrow">Why KatanaKit</p>
+	<h2 class="home-features-heading__title">Sharp tools, zero surprises</h2>
+</div>
+<dl class="home-features">
+	{
+		features.map((feature) => (
+			<div class="home-features__item">
+				<dt class="home-features__title">{feature.title}</dt>
+				<dd class="home-features__details" set:html={renderDetails(feature.details)} />
+			</div>
+		))
+	}
+</dl>

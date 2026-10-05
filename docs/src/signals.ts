@@ -31,7 +31,7 @@ export type SiteSignals = {
 	versions?: ReleaseVersions | null;
 };
 
-const modules = import.meta.glob<SiteSignals>("./signals.json", {
+const modules = import.meta.glob<SiteSignals>("./data/signals.json", {
 	eager: true,
 	import: "default",
 });

@@ -264,13 +264,13 @@ Every service has its own page — the [Services overview](/guides/services/) ex
 
 | Group            | Services                                                                                                                                                                                                                                                                                                                                                                        |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Core**         | [HTTP Client](services/http-client.md) · [Logger](services/logger.md) · [Storage](services/storage.md) · [DOM](services/dom.md) · [Reactive](services/reactive.md) · [Formatter](services/formatter.md) · [Converter](services/converter.md) · [Error Helpers](services/error-helpers.md) · [Generator](services/generator.md) · [Dates](services/dates.md) · [Geometry](services/geometry.md) · [Timing](services/timing.md) · [Viewport](services/viewport.md) · [Observer](services/observer.md) · [Worker](services/worker.md) |
-| **Platform**     | [Theme](services/theme.md) · [Astro Adapter](services/astro-adapter.md) · [RSS](services/rss.md) · [SEO](services/seo.md)                                                                                                                                                                                                                                                        |
-| **Integrations** | [Nuxt Adapter](services/nuxt-adapter.md) · [Vue Adapter](services/vue-adapter.md) · [Express Server](services/express-server.md)                                                                                                                                                                                                                                                 |
+| **Core**         | [HTTP Client](/guides/services/http-client/) · [Logger](/guides/services/logger/) · [Storage](/guides/services/storage/) · [DOM](/guides/services/dom/) · [Reactive](/guides/services/reactive/) · [Formatter](/guides/services/formatter/) · [Converter](/guides/services/converter/) · [Error Helpers](/guides/services/error-helpers/) · [Generator](/guides/services/generator/) · [Dates](/guides/services/dates/) · [Geometry](/guides/services/geometry/) · [Timing](/guides/services/timing/) · [Viewport](/guides/services/viewport/) · [Observer](/guides/services/observer/) · [Worker](/guides/services/worker/) |
+| **Platform**     | [Theme](/guides/services/theme/) · [Astro Adapter](/guides/services/astro-adapter/) · [RSS](/guides/services/rss/) · [SEO](/guides/services/seo/)                                                                                                                                                                                                                                                        |
+| **Integrations** | [Nuxt Adapter](/guides/services/nuxt-adapter/) · [Vue Adapter](/guides/services/vue-adapter/) · [Express Server](/guides/services/express-server/)                                                                                                                                                                                                                                                 |
 
 ## Next steps
 
-- [Architecture](architecture.md) — understand the hexagonal layout
-- [API Reference](../api/index.md) — auto-generated from source
-- [Releases](../changelog.md) — what changed in each version
-- [Roadmap](roadmap.md) — what's coming next
+- [Architecture](/guides/architecture/) — understand the hexagonal layout
+- [API Reference](/api/) — auto-generated from source
+- [Releases](/changelog/) — what changed in each version
+- [Roadmap](/guides/roadmap/) — what's coming next

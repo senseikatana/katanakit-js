@@ -1,0 +1,7 @@
+# npm-style hoisting: Astro's SSR prerender (and other tools that emit CJS
+# `require()` calls for inlined native bindings like @bruits/satteri) resolve
+# modules by walking up from the output chunk to the root `node_modules`.
+# Bun's default isolated linker keeps transitive deps only inside the
+# `.bun` store, so those requires fail at prerender time.
+[install]
+linker = "hoisted"

@@ -130,7 +130,7 @@ interface ChartAdapter {
 - Focus trap, focus restore and roving tabindex live in primitives, not in each
   component.
 - Every interactive block documents its keyboard map in the component metadata
-  (see [LLM files](./llm-files.md)).
+  (see [LLM files](/ui-kit/llm-files/)).
 - `prefers-reduced-motion` disables non-essential animation.
 
 ## Performance

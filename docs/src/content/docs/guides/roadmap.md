@@ -84,7 +84,7 @@ Legend: `[x]` done · `[ ]` planned.
 
 - [ ] UI kit (Katana UI): foundations shipped (button, input, card, badge,
       alert); shells, blocks, layouts and app pages remain.
-      See the [UI Kit roadmap](../ui-kit/roadmap.md).
+      See the [UI Kit roadmap](/ui-kit/roadmap/).
 - [ ] Deno / Cloudflare Workers compatibility pass.
 - [ ] More geometry (3D solids) and unit-system conversions.
 - [ ] i18n and relative-time output for `DatesService.useDiff`.

@@ -23,7 +23,7 @@ const git = (args, cwd) => execFileSync("git", args, { cwd, stdio: "inherit", en
 const output = (args, cwd) => execFileSync("git", args, { cwd, encoding: "utf8", env: ENV }).trim();
 
 if (!existsSync(DIST)) {
-	console.error(`docs: ${DIST} does not exist — run the VitePress build before publishing.`);
+	console.error(`docs: ${DIST} does not exist — run the docs build (\`bun run docs\`) before publishing.`);
 	process.exit(1);
 }
 
