@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Docs task runner: `node scripts/docs.mjs <dev|build|preview|gh|clean>`.
+ * Docs task runner: `node scripts/docs.mjs <dev|build|preview|deploy|gh|clean>`.
  *
  * VitePress shares `docs/.vitepress/.temp` between the dev server and the
  * build, so running both concurrently corrupts it and the build dies with
@@ -13,20 +13,29 @@
  *
  * `preview` builds first and then serves that build, so the previewed site is
  * always the complete, current one (UI CSS, TypeDoc reference, changelog).
+ *
+ * `deploy` does the same and then publishes the build to Cloudflare Pages, so
+ * the production site can never be an artifact of a stale or half-finished
+ * build.
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LOCK_FILE = join(ROOT, ".cache", "docs.lock.json");
 const VITEPRESS_DIR = join(ROOT, "docs", ".vitepress");
+const DIST_DIR = join(VITEPRESS_DIR, "dist");
 const TEMP_DIR = join(VITEPRESS_DIR, ".temp");
 const CACHE_DIR = join(VITEPRESS_DIR, "cache");
 const ROOT_VITEPRESS_DIR = join(ROOT, ".vitepress");
 
-const MODES = new Set(["dev", "build", "preview", "gh"]);
+const CLOUDFLARE_PROJECT = "katanakit-docs";
+const CLOUDFLARE_BRANCH = "main";
+
+const MODES = new Set(["dev", "build", "preview", "deploy", "gh"]);
 const mode = (process.argv[2] ?? "").toLowerCase();
 
 const run = (command, args, opts = {}) =>
@@ -125,6 +134,69 @@ function release() {
 	remove(LOCK_FILE);
 }
 
+/**
+ * Cloudflare credentials for the deploy: an API token from the environment or
+ * from `.env` (gitignored, never committed), otherwise wrangler's OAuth login.
+ * Returns the env additions for the child process, or `null` when no token is
+ * present — the OAuth session is then used as-is.
+ */
+function cloudflareEnv() {
+	if (process.env.CLOUDFLARE_API_TOKEN?.trim()) return {};
+
+	const envFile = join(ROOT, ".env");
+	if (existsSync(envFile)) {
+		for (const line of readFileSync(envFile, "utf8").split(/\r?\n/)) {
+			const match = /^\s*CLOUDFLARE_API_TOKEN\s*=\s*(.+?)\s*$/.exec(line);
+			const value = match?.[1]?.replace(/^["']|["']$/g, "");
+			if (value) return { CLOUDFLARE_API_TOKEN: value };
+		}
+	}
+	return null;
+}
+
+/** True when wrangler has an OAuth session to fall back on (no API token). */
+function hasWranglerSession() {
+	return (
+		existsSync(join(homedir(), ".config", ".wrangler", "config")) ||
+		existsSync(join(homedir(), ".wrangler", "config"))
+	);
+}
+
+/** Uploads the built site to the Cloudflare Pages project behind the docs domain. */
+function deployToCloudflare() {
+	if (!existsSync(join(DIST_DIR, "index.html"))) {
+		console.error("docs: no build to deploy — expected docs/.vitepress/dist/index.html");
+		process.exit(1);
+	}
+
+	const env = cloudflareEnv();
+	if (!env && !hasWranglerSession()) {
+		console.error(
+			[
+				"docs: no Cloudflare credentials found.",
+				"  → set CLOUDFLARE_API_TOKEN in .env (see .env.example)",
+				"  → or authenticate with `bunx wrangler login`",
+			].join("\n"),
+		);
+		process.exit(1);
+	}
+
+	console.log(`docs: deploying to Cloudflare Pages (${CLOUDFLARE_PROJECT}/${CLOUDFLARE_BRANCH})`);
+	run(
+		join(ROOT, "node_modules", ".bin", "wrangler"),
+		[
+			"pages",
+			"deploy",
+			DIST_DIR,
+			"--project-name",
+			CLOUDFLARE_PROJECT,
+			"--branch",
+			CLOUDFLARE_BRANCH,
+		],
+		{ env: { ...process.env, ...env } },
+	);
+}
+
 function chain() {
 	run("bun", ["run", "ui:build"]);
 	run("node", [join(ROOT, "scripts", "docs-prepare.mjs")]);
@@ -151,6 +223,11 @@ function chain() {
 		// non-TTY run (CI) would hang there forever.
 		console.log("docs: preview server starting on http://localhost:4173/");
 		run("node_modules/.bin/vitepress", ["preview", "docs", "--port", "4173", "--strictPort"]);
+		return;
+	}
+
+	if (mode === "deploy") {
+		deployToCloudflare();
 		return;
 	}
 
@@ -194,6 +271,6 @@ if (mode === "clean") {
 		release();
 	}
 } else {
-	console.error("Usage: node scripts/docs.mjs <dev|build|preview|gh|clean>");
+	console.error("Usage: node scripts/docs.mjs <dev|build|preview|deploy|gh|clean>");
 	process.exit(1);
 }

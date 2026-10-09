@@ -170,10 +170,15 @@ description: Cache, retry and invalidate server state.
 ```bash
 bun run dev            # generate API + changelog, then live‑reloading server
 bun run docs           # static build into docs/.vitepress/dist/
-bun run docs:preview   # preview the last build
+bun run docs:preview   # build, then serve that build on :4173
+bun run docs:deploy    # build, then publish to Cloudflare Pages (docs.senseikatana.com)
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
 bun run docs:clean     # purge .vitepress/.temp and cache
 ```
+
+`docs:deploy` needs Cloudflare credentials: either `CLOUDFLARE_API_TOKEN` in
+`.env` (see `.env.example`, never committed) or a `bunx wrangler login` session.
+It always builds first, so the published site is never a stale artifact.
 
 ::: warning Never run dev and docs/docs:gh at the same time
 VitePress shares `docs/.vitepress/.temp` between the dev server and the build,

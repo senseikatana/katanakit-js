@@ -162,8 +162,9 @@
 		"predocs:dev": "bunx lint-staged",
 		"docs:clean": "node scripts/docs.mjs clean",
 		"docs:preview": "node scripts/docs.mjs preview",
+		"docs:deploy": "node scripts/docs.mjs deploy",
 		"docs:gh": "node scripts/docs.mjs gh",
-		"cf:deploy": "bun run build && bun run docs && wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main"
+		"cf:deploy": "bun run docs:deploy"
 	},
 	"lint-staged": {
 		"**/*.{ts,tsx}": "eslint --fix --quiet"
