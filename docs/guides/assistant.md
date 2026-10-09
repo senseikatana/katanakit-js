@@ -180,7 +180,7 @@ is a generic digital assistant with two demo tools: `readFile` on
 `knowledge-base.md` and `saveNote` to `notes.jsonl`. Copy `.env` keys from
 [`.env.example`](https://github.com/senseikatana/katanakit-js/blob/main/.env.example):
 
-```env
+```dotenv
 DASHSCOPE_API_KEY=
 PORT=3000
 KITT_CHANNEL=rest

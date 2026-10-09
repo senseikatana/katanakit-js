@@ -20,7 +20,7 @@ semantics for you.
 
 ## 2. Configure the adapter
 
-```env
+```dotenv
 WHATSAPP_TOKEN=
 WHATSAPP_PHONE_NUMBER_ID=
 WHATSAPP_VERIFY_TOKEN=

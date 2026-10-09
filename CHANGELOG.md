@@ -6,6 +6,13 @@ All notable changes to this project are documented in this file.
 
 What's news:
 
+- [ ] build(guides): update dependencies or build settings in 6 files
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/assistant.md`
+  - `docs/guides/whatsapp.md`
+  - `package.json`
+  - `scripts/docs.mjs`
 - [ ] feat: documentation updates for Diátaxis, explanations, and tutorials
   - `AGENTS.md`
   - `CONTRIBUTING.md`

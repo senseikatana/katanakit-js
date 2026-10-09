@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Docs task runner: `node scripts/docs.mjs <dev|build|gh|clean>`.
+ * Docs task runner: `node scripts/docs.mjs <dev|build|preview|gh|clean>`.
  *
  * VitePress shares `docs/.vitepress/.temp` between the dev server and the
  * build, so running both concurrently corrupts it and the build dies with
@@ -10,6 +10,9 @@
  *   2. removes stale locks from dead processes,
  *   3. purges `.temp`/`cache` before a build (never during a live dev server),
  *   4. fails with actionable guidance instead of a cryptic VitePress error.
+ *
+ * `preview` builds first and then serves that build, so the previewed site is
+ * always the complete, current one (UI CSS, TypeDoc reference, changelog).
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -23,7 +26,7 @@ const TEMP_DIR = join(VITEPRESS_DIR, ".temp");
 const CACHE_DIR = join(VITEPRESS_DIR, "cache");
 const ROOT_VITEPRESS_DIR = join(ROOT, ".vitepress");
 
-const MODES = new Set(["dev", "build", "gh"]);
+const MODES = new Set(["dev", "build", "preview", "gh"]);
 const mode = (process.argv[2] ?? "").toLowerCase();
 
 const run = (command, args, opts = {}) =>
@@ -103,13 +106,21 @@ function chain() {
 		return;
 	}
 
-	// Build/gh: purge shared temp state so a killed process can't poison us.
+	// Build/preview/gh: purge shared temp state so a killed process can't poison us.
 	remove(TEMP_DIR);
 	remove(CACHE_DIR);
 
 	const args = ["build", "docs"];
 	if (mode === "gh") args.push("--base", "/katanakit-js/");
 	run("node_modules/.bin/vitepress", args);
+
+	if (mode === "preview") {
+		// Serves the build that just ran, so the preview is the complete site
+		// (UI CSS, TypeDoc reference and changelog included), never a stale one.
+		console.log("docs: preview server starting on http://localhost:4173/");
+		run("node_modules/.bin/vitepress", ["preview", "docs"]);
+		return;
+	}
 
 	if (mode === "gh") {
 		run("node", [join(ROOT, "scripts", "docs-publish.mjs")]);
@@ -144,6 +155,6 @@ if (mode === "clean") {
 		release();
 	}
 } else {
-	console.error("Usage: node scripts/docs.mjs <dev|build|gh|clean>");
+	console.error("Usage: node scripts/docs.mjs <dev|build|preview|gh|clean>");
 	process.exit(1);
 }

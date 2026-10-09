@@ -156,10 +156,13 @@ export default defineConfig({
 			},
 		},
 		build: {
-			// The largest chunk is the lazily-loaded local search index (full-text of
-			// ~780 pages, API reference included); the limit only keeps the build
-			// output warning-free.
-			chunkSizeWarningLimit: 2048,
+			// The chunk over the 2 MB default is the SSR bundle: one module that
+			// renders all ~880 pages (the TypeDoc reference is most of it), and
+			// it never reaches the browser. The largest *client* chunk is the
+			// local-search index at ~830 KB, which is lazy-loaded on demand.
+			// Splitting the SSR bundle would not make the site faster, so the
+			// limit only exists to keep the build output honest.
+			chunkSizeWarningLimit: 4096,
 		},
 	},
 	themeConfig: {
