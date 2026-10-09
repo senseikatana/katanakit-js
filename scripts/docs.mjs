@@ -129,6 +129,17 @@ if (mode === "clean") {
 	process.on("SIGTERM", onSignal);
 	try {
 		chain();
+	} catch (error) {
+		// `chain()` blocks in `execFileSync`, so a Ctrl+C reaches the child
+		// first and surfaces here as a signal error instead of the handler
+		// above. Translate it into a quiet exit; anything else is a real
+		// failure and keeps its stack.
+		release();
+		if (error?.signal === "SIGINT" || error?.signal === "SIGTERM") {
+			console.log("\ndocs: stopped");
+			process.exit(130);
+		}
+		throw error;
 	} finally {
 		release();
 	}
