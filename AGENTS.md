@@ -34,6 +34,8 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 ## Documentation
 
 - The docs site uses VitePress. Pages use YAML frontmatter and Vue-in-Markdown (`<script setup>`), not MDX.
+- Docs follow Diátaxis: tutorials in `docs/tutorials/`, how-to guides in `docs/guides/`, reference generated in `docs/api/` plus the UI kit `reference/` pages, explanation in `docs/explanation/`. One page, one kind — do not mix them in a single page.
+- The "why" behind hard-to-reverse decisions lives in `docs/explanation/decisions/` (context, decision, consequences). Add a numbered record there instead of burying rationale in prose; superseded records are never rewritten.
 - `scripts/docs-prepare.mjs` generates `docs/api/`, `docs/changelog.md`, and `docs/.vitepress/theme/signals.json`; do not edit these generated files by hand.
 - `scripts/docs.mjs` manages shared VitePress temporary state. Do not run `bun run dev` concurrently with `bun run docs` or `bun run docs:gh`.
 - Production docs deploy to Cloudflare Pages. Keep Cloudflare as the hosting/storage provider; INSForge is the database fallback and Prisma is the local ORM.

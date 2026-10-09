@@ -1,12 +1,24 @@
 ---
 title: Getting Started
-description: Install KatanaKit and learn every service with real code examples.
+description: Install KatanaKit, make your first call and find the right document for what you need.
 ---
 
-This guide covers installation, entry points and configuration files. Every service has its own page in the [Services](/guides/services/) section.
+# Getting Started
 
+KatanaKit is a framework-agnostic TypeScript service toolkit. It gives you one
+consistent API for the plumbing every project repeats: HTTP requests with Safe
+Results, Zod validation at the boundary, a TanStack-powered query cache, plus
+logger, storage, dates, filesystem and browser helpers — with adapters for
+Astro, Express, NestJS, Hono, Nuxt, Vue, React, Svelte, Solid, Angular and
+more.
 
-## Installation
+Two shapes cover the whole library: **`use*` helper functions** exported from
+the main barrel, and **Singleton facade classes** (`getInstance()`) underneath
+for when you want to inject an instance. The
+[Tutorial](/tutorials/first-api-client) builds a real client with both; this
+page is installation and orientation.
+
+## Install
 
 ```bash
 npm install katanakit-js
@@ -49,9 +61,32 @@ bundler or import map:
 | **unpkg** | `https://unpkg.com/katanakit-js/dist/index.js` | Same caveat as the raw file |
 
 Pin a version in production (e.g. `katanakit-js@6.8.4/+esm`) instead of
-floating `@latest`.
+floating `@latest`. There is **no IIFE/UMD** build — only ESM
+(`"type": "module"`).
 
-There is **no IIFE/UMD** build — only ESM (`"type": "module"`).
+## First call
+
+```ts
+import { defineApiConfig, useGetApi } from "katanakit-js";
+
+defineApiConfig({
+  pokeapi: {
+    baseUri: "https://pokeapi.co/api/v2",
+    endpoints: { pokemonById: "/pokemon/:id/" },
+  },
+});
+
+const result = await useGetApi<{ name: string }>("pokeapi", "pokemonById", {
+  params: { id: 25 },
+});
+
+if (result.ok) console.log(result.data.name); // "pikachu"
+else console.error(result.error.status, result.error.message);
+```
+
+`useGetApi` never throws: it resolves to a **Safe Result** (`{ data, error,
+ok }`). The [Tutorial](/tutorials/first-api-client) takes this snippet further,
+step by step — validating the payload, caching it and handling failures.
 
 ## Import entry points
 
@@ -76,10 +111,10 @@ import { useRequest } from "katanakit-js/adapters/vue";
 import { ServerExpress } from "katanakit-js/adapters/express";
 ```
 
-Every public `use*` helper lives on the main barrel (`katanakit-js`). Express,
-Nuxt, and Vue adapters stay on their subpaths because they pull optional peers.
+Every public `use*` helper lives on the main barrel (`katanakit-js`). Framework
+adapters stay on their subpaths because they pull optional peers.
 
-## Use in any framework (especially Astro)
+## Use it in your framework
 
 ### Astro — frontmatter (server / SSG)
 
@@ -105,12 +140,9 @@ const result = await useGetApi<{ name: string }>("pokeapi", "pokemonById", {
 {result.ok ? <h1>{result.data.name}</h1> : <p>Failed to load</p>}
 ```
 
-### Astro — client script with npm (Vite bundles it)
+### Astro — client script
 
 ```astro
----
-// no server imports required for this island
----
 <button id="log-btn">Log</button>
 
 <script>
@@ -122,42 +154,17 @@ const result = await useGetApi<{ name: string }>("pokeapi", "pokemonById", {
 </script>
 ```
 
-### Astro — client script with jsDelivr CDN
-
-Astro processes local `<script>` tags. For a **pure CDN** import, mark the
-script as external so Astro does not rewrite it:
+Astro processes local `<script>` tags, so npm imports just work. For a **pure
+CDN** import, mark the script `is:inline` so Astro does not rewrite it:
 
 ```astro
-<button id="cdn-btn">Log via CDN</button>
-
 <script is:inline type="module">
-  import { useLogger, defineApiConfig, useGetApi } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
-
-  defineApiConfig({
-    pokeapi: {
-      baseUri: "https://pokeapi.co/api/v2",
-      endpoints: { pokemonById: "/pokemon/:id/" },
-    },
-  });
-
-  document.getElementById("cdn-btn")?.addEventListener("click", async () => {
-    useLogger("CDN click");
-    const result = await useGetApi("pokeapi", "pokemonById", { params: { id: 25 } });
-    useLogger(result.ok ? result.data : result.error);
-  });
+  import { useLogger } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
+  useLogger("Loaded from the CDN");
 </script>
 ```
 
-### Astro — islands (`client:*`)
-
-In a Vue/React/Svelte island, import from npm like any other dependency:
-
-```ts
-// src/components/Pokemon.vue (used as <Pokemon client:load />)
-import { defineApiConfig, useGetApi, useLogger } from "katanakit-js";
-```
-
-### Vue / Nuxt (brief)
+### Vue / Nuxt
 
 ```ts
 // Vue SFC or Nuxt plugin / server route — main barrel
@@ -170,21 +177,15 @@ import { useUnwrap } from "katanakit-js/adapters/nuxt";
 import { useRequest } from "katanakit-js/adapters/vue";
 ```
 
-### Vanilla HTML
-
-```html
-<script type="module">
-  import { useLogger, useFormatCurrency } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
-  useLogger(useFormatCurrency({ amount: 9.99, currency: "EUR", locale: "es-ES" }));
-</script>
-```
-
----
+More depth per integration: [Astro Adapter](/guides/services/astro-adapter),
+[Nuxt Adapter](/guides/services/nuxt-adapter), [Vue Adapter](/guides/services/vue-adapter),
+[Express Server](/guides/services/express-server), and the reactive
+`useQuery`/`useMutation` bindings in [Framework Adapters](/guides/framework-adapters).
 
 ## Configuration files — `define*Config`
 
-Every service that takes configuration exposes a **`define*Config`** entry point.
-One call registers the config and hands it back — there is no second
+Every service that takes configuration exposes a **`define*Config`** entry
+point. One call registers the config and hands it back — there is no second
 `useInit*` step, so a whole file can be nothing but:
 
 ```ts
@@ -204,35 +205,14 @@ export default defineApiConfig({
 });
 ```
 
-Importing that file registers the config, and the default export is a facade
-carrying both halves:
-
-```ts
-import api from "./katanakit.config.js";
-
-api.config.pokeapi.baseUri; // the config you declared
-api.config.debug; // your flags
-await api.getPokemon(); // your methods
-```
-
-Inside a method, `this.config` is the same object:
-
-```ts
-getPokemon: async function () {
-  if (this.config.debug) console.log("fetching…");
-  return useFetch("pokeapi", "pokemonById", { params: { id: 25 } });
-},
-```
+Importing that file registers the config, and the default export carries both
+halves: the declared config under `api.config` and your methods directly on the
+facade. Inside a method, `this.config` is the same object.
 
 ::: warning Use `function`, not an arrow
 Arrow functions have no `this` of their own, so `this.config` inside an arrow
 is `undefined`. The compiler catches it — write `async function () { … }`.
 :::
-
-Only object entries shaped like `{ baseUri, endpoints }` reach the API registry;
-boolean flags stay on `config` for your methods to read.
-
-### Which services
 
 | Service | Import | Methods on the facade |
 |---------|--------|----------------------|
@@ -243,34 +223,20 @@ boolean flags stay on `config` for your methods to read.
 | Telegram | `defineTelegramConfig` | no (config only) |
 | WhatsApp | `defineWhatsAppConfig` | no (config only) |
 
-The config-only services accept their config type and nothing else, so declaring
-a method there is a compile error.
+The old `useInit*` functions still work and are marked `@deprecated` — they are
+a one-for-one rename of the config half; the full migration table lives in
+[Upgrade to v6](/guides/upgrade-to/v6).
 
-### Migration
+## How these docs are organised
 
-The old `useInit*` functions still work and are marked `@deprecated` — nothing
-breaks. They are a one-for-one rename of the config half:
+The site has four kinds of pages, one per reader need:
 
-```ts
-useInitApis({ pokeapi: { … } }); // deprecated
-defineApiConfig({ pokeapi: { … } }); // same call, plus methods and `config`
-```
+| If you want to… | Read |
+| ---------------------------------------------------------- | ---------------------------------------------------------- |
+| **Learn by building**, step by step | [Tutorial: Your First API Client](/tutorials/first-api-client) |
+| **Do a specific task** — HTTP client, framework, filesystem, bots | [Guides](/guides/services/) — [HTTP Client](/guides/services/http-client), [Query Client](/guides/query-client), [Filesystem](/guides/filesystem), [Notion](/guides/notion), [WordPress](/guides/wordpress), [InsForge](/guides/insforge), [Telegram](/guides/telegram), [WhatsApp](/guides/whatsapp), [Kitt assistant](/guides/assistant) |
+| **Look up an exact fact** — signature, option, error code | [Service pages](/guides/services/) and the generated [API Reference](/api/) |
+| **Understand why** it is built this way | [Why KatanaKit](/explanation/why-katanakit), [Architecture](/guides/architecture), [Decisions (ADRs)](/explanation/decisions/) |
 
----
-
-## Service reference
-
-Every service has its own page — the [Services overview](/guides/services/) explains the singleton-facade contract shared by all of them.
-
-| Group            | Services                                                                                                                                                                                                                                                                                                                                                                        |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Core**         | [HTTP Client](services/http-client.md) · [Logger](services/logger.md) · [Storage](services/storage.md) · [DOM](services/dom.md) · [Reactive](services/reactive.md) · [Formatter](services/formatter.md) · [Converter](services/converter.md) · [Error Helpers](services/error-helpers.md) · [Generator](services/generator.md) · [Dates](services/dates.md) · [Geometry](services/geometry.md) · [Timing](services/timing.md) · [Viewport](services/viewport.md) · [Observer](services/observer.md) · [Worker](services/worker.md) |
-| **Platform**     | [Theme](services/theme.md) · [Astro Adapter](services/astro-adapter.md) · [RSS](services/rss.md) · [SEO](services/seo.md)                                                                                                                                                                                                                                                        |
-| **Integrations** | [Nuxt Adapter](services/nuxt-adapter.md) · [Vue Adapter](services/vue-adapter.md) · [Express Server](services/express-server.md)                                                                                                                                                                                                                                                 |
-
-## Next steps
-
-- [Architecture](architecture.md) — understand the hexagonal layout
-- [API Reference](../api/index.md) — auto-generated from source
-- [Releases](../changelog.md) — what changed in each version
-- [Roadmap](roadmap.md) — what's coming next
+The [Services overview](/guides/services/) lists every service with its one-line
+description.

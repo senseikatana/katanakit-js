@@ -164,6 +164,7 @@ export default defineConfig({
 	},
 	themeConfig: {
 		nav: [
+			{ text: "Tutorial", link: "/tutorials/first-api-client", activeMatch: "^/tutorials/" },
 			{ text: "Guides", link: "/guides/getting-started", activeMatch: "^/guides/" },
 			{ text: "UI Kit", link: "/ui-kit/", activeMatch: "^/ui-kit/" },
 			{ text: "Releases", link: "/changelog" },
@@ -178,8 +179,8 @@ export default defineConfig({
 				collapsed: true,
 				items: [
 					{ text: "Getting Started", link: "/guides/getting-started" },
+					{ text: "Tutorial: Your First API Client", link: "/tutorials/first-api-client" },
 					{ text: "Error Handling", link: "/guides/errors" },
-					{ text: "Architecture", link: "/guides/architecture" },
 					{ text: "Roadmap", link: "/guides/roadmap" },
 				],
 			},
@@ -227,6 +228,18 @@ export default defineConfig({
 				],
 			},
 			{
+				text: "Data & Messaging",
+				collapsed: true,
+				items: [
+					{ text: "Notion", link: "/guides/notion" },
+					{ text: "WordPress", link: "/guides/wordpress" },
+					{ text: "InsForge", link: "/guides/insforge" },
+					{ text: "Telegram", link: "/guides/telegram" },
+					{ text: "WhatsApp", link: "/guides/whatsapp" },
+					{ text: "Assistant (Kitt)", link: "/guides/assistant" },
+				],
+			},
+			{
 				text: "HTTP & REST",
 				collapsed: true,
 				items: [
@@ -262,6 +275,16 @@ export default defineConfig({
 					{ text: "Upgrade to v4", link: "/guides/upgrade-to/v4" },
 					{ text: "Upgrade to v3", link: "/guides/upgrade-to/v3" },
 					{ text: "Upgrade to v2", link: "/guides/upgrade-to/v2" },
+				],
+			},
+			{
+				text: "Explanation",
+				collapsed: true,
+				items: [
+					{ text: "Overview", link: "/explanation/" },
+					{ text: "Why KatanaKit", link: "/explanation/why-katanakit" },
+					{ text: "Architecture", link: "/guides/architecture" },
+					{ text: "Decisions (ADRs)", link: "/explanation/decisions/" },
 				],
 			},
 			{

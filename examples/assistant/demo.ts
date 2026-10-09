@@ -8,11 +8,12 @@
  *   import { defineWhatsAppConfig, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
  *
  * Run from this repo:
- *   DASHSCOPE_API_KEY=... pnpm assistant:demo
- *   KITT_CHANNEL=telegram TELEGRAM_BOT_TOKEN=... pnpm assistant:demo
- *   KITT_CHANNEL=whatsapp WHATSAPP_TOKEN=... WHATSAPP_PHONE_NUMBER_ID=... WHATSAPP_VERIFY_TOKEN=... pnpm assistant:demo
+ *   DASHSCOPE_API_KEY=... bun run examples/assistant/demo.ts
+ *   KITT_CHANNEL=telegram TELEGRAM_BOT_TOKEN=... bun run examples/assistant/demo.ts
+ *   KITT_CHANNEL=whatsapp WHATSAPP_TOKEN=... WHATSAPP_PHONE_NUMBER_ID=... WHATSAPP_VERIFY_TOKEN=... bun run examples/assistant/demo.ts
  */
 import "dotenv/config";
+
 import { appendFile, readFile, realpath } from "node:fs/promises";
 import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -22,7 +23,10 @@ import {
 	defineTelegramConfig,
 	useStartTelegramPolling,
 } from "../../src/adapters/telegram/telegram.service.js";
-import { defineWhatsAppConfig, useStartWhatsApp } from "../../src/adapters/whatsapp/whatsapp.service.js";
+import {
+	defineWhatsAppConfig,
+	useStartWhatsApp,
+} from "../../src/adapters/whatsapp/whatsapp.service.js";
 import { useInitAssistant } from "../../src/core/services/assistant.service.js";
 import type { AiTool } from "../../src/types/index.js";
 

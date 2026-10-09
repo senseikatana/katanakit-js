@@ -7,6 +7,11 @@ KatanaKit follows **hexagonal architecture** (ports and adapters). The goal is a
 pure, framework-agnostic core surrounded by adapters that talk to the outside
 world (browser APIs, HTTP, frameworks) and a shared kernel of contracts.
 
+The choices behind this shape — and their costs — are recorded as decision
+records: [ADR-0004: Hexagonal layout with a pure core](/explanation/decisions/adr-0004-hexagonal-core),
+[ADR-0002: Singleton facades](/explanation/decisions/adr-0002-singleton-facades)
+and [ADR-0003: Subpath adapters](/explanation/decisions/adr-0003-adapter-subpath-exports).
+
 ```
                src/
                │
@@ -50,14 +55,11 @@ world (browser APIs, HTTP, frameworks) and a shared kernel of contracts.
 ### `types/` — the shared kernel
 
 `src/types/index.ts` is the single source of truth for every contract and domain
-type in the library. It contains the strategy contracts (`StorageStrategy`,
-`ICryptoStrategy`, `IUuidStrategy`), the facade interfaces
-(`IFetchApiManager`, `IFormatterService`, `IConverterService`,
-`IReactiveService`, `IDomService`, `IThemeService`, `IAstroService`,
-`IRssService`, `DatesServiceTypes`, `IDataUtils`, `ISystemUtils`,
-`IAppUtils`) and every shared type (`LogLevel`, `Locale`, `Currency`,
-`HttpMethod`, `QueryParams`, `FetchResult`, `ApiError`, `RssConfig`,
-`ObserverConfig`, `ThemeOptions`, ...).
+type in the library: the strategy contracts (`StorageStrategy`, `ICryptoStrategy`,
+`IUuidStrategy`), the facade interfaces (`IFetchApiManager`, `IFormatterService`,
+`IRssService`, …) and every shared type (`LogLevel`, `Currency`, `FetchResult`,
+`ApiError`, …). The complete inventory lives in the
+[API Reference](/api/#interfaces).
 
 Services implement these contracts; adapters consume them. Domain rules never
 reach for concrete `window`/`fetch` globals directly.
@@ -78,7 +80,7 @@ persists via injected storage functions from `infrastructure`.
 | `error.service.ts`     | `useErrorNormalize`, `useErrorSerialize`, `useErrorCustom`     |
 | `result.service.ts`    | `useAttempt`, `useTryJsonParse`             |
 | `generator.service.ts` | `GeneratorService`, `LazyNodeCryptoStrategy`, `NativeUuidStrategy` |
-| `faker.service.ts`     | `useFakeUuid`, `useFakeEmail`, `useFakeFullName`, `useFakeText`, `useFakeNumber`, `useFakeDate`, `useFakeVehicle`, `useFakeList`, `useFakeSeed`, `useFakeSetDefaultRefDate` (optional `@faker-js/faker` peer, lazy-loaded) |
+| `faker.service.ts`     | `useFake*` helpers (`useFakeEmail`, `useFakeList`, `useFakeSeed`, …) over an optional, lazy-loaded `@faker-js/faker` peer — see [Faker](/guides/faker) |
 | `dates.service.ts`     | `DatesService` (Temporal polyfill adapter)  |
 | `geometry.service.ts`  | `GeometryUtils` (`area`/`perimeter`/`volume`) |
 | `timing.service.ts`    | `TimingService`                             |
@@ -116,17 +118,12 @@ gracefully when `window`/`document`/`navigator` is absent.
 - `storage/` — `StorageService` over `localStorage`/`sessionStorage` with
   `LocalStorageStrategy`, `SessionStorageStrategy` and an in-memory
   `MemoryStorageStrategy` SSR fallback.
-- `filesystem/` — Node/Bun helpers over `node:fs/promises` (`useReadFile`,
-  `useWriteFile`, `useAppendFile`, `useReadJsonFile`, `useWriteJsonFile`,
-  `useReadDir`, `useEnsureDir`, `useFileExists`, `useGetFileStats`,
-  `useCopyFile`, `useMoveFile`, `useRemoveFile`, `useRemoveDir`,
-  `useReadModuleFile`, `useReadModuleJson`, `useHashFile`, `useVerifyFileHash`)
-  and `path.service.ts`
-  (`useGetDirname`, `useResolvePath`, `useJoinPath`, `useGetRelativePath`,
-  `useGetBasename`, `useGetFileExtension`, `useGetCwd`, `useIsNode`). Built-ins
-  load through dynamic `import()`; every fallible call returns a Safe Result
-  with the native errno `code`, and non-Node runtimes get `ERR_FS_UNAVAILABLE`.
-  `useReadJsonFile`/`useReadModuleJson` accept an optional Zod schema.
+- `filesystem/` — Node/Bun helpers over `node:fs/promises` (read/write/append,
+  JSON, directories, stats, copy/move/remove, hashing) plus `path.service.ts`.
+  Built-ins load through dynamic `import()`; every fallible call returns a Safe
+  Result with the native errno `code`, and non-Node runtimes get
+  `ERR_FS_UNAVAILABLE`. `useReadJsonFile`/`useReadModuleJson` accept an optional
+  Zod schema. Full surface: [Filesystem](/guides/filesystem).
 - `viewport/` — `ViewportService` (dimensions, scroll, media queries,
   fullscreen, visibility, title).
 - `sensors/` — `SensorsUtils` (camera/microphone, geolocation, motion,
@@ -294,28 +291,18 @@ facades), never the concrete implementations.
   (`useLogger(...)`, `useFetch(...)`) while the class owns the state. Decorators
   are the exception to the `use*` rule: `RetryDecorator`/`CacheDecorator`/
   `LoggerDecorator` use PascalCase because they are composables, not API
-  functions.
+  functions. See [ADR-0002](/explanation/decisions/adr-0002-singleton-facades).
 - **Safe Result** — fallible operations return a discriminated union
   `{ data, error, ok }` instead of throwing. The generic `SafeResult<T, E>` is
   the base of `FetchResult<T>`, `FilesystemResult<T>`, `AstroServiceResult<T>`,
-  `AiResult<T>` and `RssResult`; see [Error Handling](../guides/errors.md).
+  `AiResult<T>` and `RssResult`; see [Error Handling](/guides/errors) and
+  [ADR-0001](/explanation/decisions/adr-0001-safe-results).
 - **Single source of truth** — all contracts and shared types live in
   `src/types/`.
 - **English only** — comments, identifiers and messages are written in English.
 
 ## Development tooling
 
-- `bun run check` — the gate: `eslint ./src packages/ui/src` + `tsc6 --noEmit` (+ `packages/ui`) + `vitest run`. Must pass before any PR.
-- `bun run fix` — same as `check` with ESLint auto-fix.
-- `bun run build` — `clean` → `check` → `tsc6 -p tsconfig.json` → `dist/`.
-- `bun run examples:check` — typechecks `examples/query/*` against the built `dist/`.
-- `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass`).
-- `bun run release` — build → complete CHANGELOG section → `npm publish` from your machine; the version bump and tag come from `useGit release create` (there is no GitHub Actions pipeline).
-- `bun run dev` / `docs` — VitePress site (`scripts/docs.mjs` builds the UI and generates the TypeDoc API reference and the changelog page).
-- `bun run cf:deploy` — build + docs build + `wrangler pages deploy` to Cloudflare.
-- `bun run server:dev` — the Express dev server (`tsx`); `bun run bun:dev` runs the Bun adapter.
-
-There is no Prettier in the gate: formatting comes from ESLint (`eslint --fix`).
-`tsc6` is the aliased TypeScript 6 binary (`typescript` devDep → `@typescript/typescript6`).
-
-See [CONTRIBUTING.md](https://github.com/senseikatana/katanakit-js/blob/dev/CONTRIBUTING.md) for the full development contract.
+The scripts, the gate (`bun run check`) and the local release flow are part of
+the [contributing contract](https://github.com/senseikatana/katanakit-js/blob/dev/CONTRIBUTING.md) —
+this page stays about the architecture.

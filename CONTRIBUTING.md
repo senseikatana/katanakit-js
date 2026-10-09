@@ -108,14 +108,40 @@ The public documentation site lives at
 **[docs.senseikatana.com](https://docs.senseikatana.com/)** and
 is built with VitePress. The source is in `docs/`.
 
+### The four kinds of documentation
+
+The site follows [Diátaxis](https://diataxis.fr/): four kinds of pages, each
+answering a different reader need. Keep them apart — **one page, one kind**. A
+how-to that explains from scratch wastes the time of someone in a hurry, and a
+tutorial that describes every option strands a learner. Link across kinds
+instead of mixing them.
+
+| Kind | Answers | Where it lives | How it is written |
+| --- | --- | --- | --- |
+| **Tutorial** | "Teach me, step by step" | `docs/tutorials/` | One guided lesson whose steps each end in a visible result. No option tables or alternatives — link to them. |
+| **How-to guide** | "Help me do this task" | `docs/guides/` | The title states the goal; numbered, copy-pasteable steps for someone who already knows the project. |
+| **Reference** | "Tell me the exact facts" | `docs/api/` (generated), `docs/ui-kit/css/reference/`, service pages | Uniform, complete, look-up material; generated from source whenever possible. |
+| **Explanation** | "Help me understand why" | `docs/explanation/` | Context and rationale — why the system is the way it is, including the decision records. |
+
+The hand-written service pages (`docs/guides/services/*.md`) accompany the
+generated reference and keep one shape: a short overview paragraph, a quick
+example, then one section per method (signature, example, real use case).
+
 When you change a public API:
 
+- First ask **"which document is no longer true because of this change?"** and
+  update it in the same pull request — docs travel with the code.
 - **API Reference is auto-generated** from JSDoc/TSDoc comments in `src/` by
   TypeDoc (`bun run docs:prepare` writes `docs/api/` and the VitePress sidebar).
   Write good doc comments on your exported functions and types — they become
   the public API docs automatically.
 - Update the matching entry in the README Features list and the docs page that
   covers the API (`docs/guides/*.md`).
+- **Hard-to-reverse decisions** (a new runtime dependency, a public contract
+  change, an architecture move) get a numbered record under
+  `docs/explanation/decisions/`: context, decision, consequences — good and
+  bad. Approved records are never rewritten; a new record supersedes the old
+  one.
 - Describe user‑visible changes in the **Conventional Commit subject** — that
   subject is what `scripts/generate-release-notes.mjs <tag> --write` turns into
   the release's `CHANGELOG.md` entry when the version is cut. `CHANGELOG.md`

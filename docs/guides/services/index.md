@@ -31,7 +31,8 @@ useGetApi("pokeapi", "pokemonById", { params: { id: 25 } });
 ```
 
 The [API Reference](/api/) is generated from the source; the pages below are
-the task-oriented companion, with runnable examples per method.
+the hand-written reference companion: an overview paragraph, a quick example
+and one section per method with runnable examples.
 
 ## Core
 

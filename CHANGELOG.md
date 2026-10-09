@@ -2,6 +2,45 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] feat: documentation updates for Diátaxis, explanations, and tutorials
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/explanation/decisions/adr-0001-safe-results.md`
+  - `docs/explanation/decisions/adr-0002-singleton-facades.md`
+  - `docs/explanation/decisions/adr-0003-adapter-subpath-exports.md`
+  - `docs/explanation/decisions/adr-0004-hexagonal-core.md`
+  - `docs/explanation/decisions/adr-0005-docs-as-code.md`
+  - `docs/explanation/decisions/index.md`
+  - `docs/explanation/index.md`
+  - `docs/explanation/why-katanakit.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/assistant.md`
+  - `docs/guides/errors.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/insforge.md`
+  - `docs/guides/notion.md`
+  - `docs/guides/services/index.md`
+  - `docs/guides/telegram.md`
+  - `docs/guides/whatsapp.md`
+  - `docs/guides/wordpress.md`
+  - `docs/tutorials/first-api-client.md`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+- [ ] fix(scripts): exit quietly on Ctrl+C and drop the Astro Tailwind deps
+  - `bun.lock`
+  - `package.json`
+  - `scripts/docs.mjs`
+- [ ] feat(docs): track the active page and reading position in the sidebar
+  - `docs/.vitepress/theme/active-nav.ts`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/style.css`
+
 ## [6.8.5] - 2026-10-09
 
 What's news:

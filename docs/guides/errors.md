@@ -34,6 +34,9 @@ try {
 }
 ```
 
+The rationale for replacing that pattern — and the trade-offs accepted — is
+recorded in [ADR-0001: Safe Results instead of exceptions](/explanation/decisions/adr-0001-safe-results).
+
 ## useAttempt()
 
 Runs a sync or async operation and normalizes **any** throw into a Safe Result.
@@ -93,3 +96,4 @@ numeric `status` → `statusCode` → `fallbackStatus` (`0`); `message` defaults
 - [Getting Started](getting-started.md) — HTTP with Safe Results.
 - [Filesystem](filesystem.md) — errno codes as Safe Results.
 - [Faker](faker.md) — helpers that throw and how to wrap them.
+- [ADR-0001: Safe Results instead of exceptions](/explanation/decisions/adr-0001-safe-results) — why the contract exists.
