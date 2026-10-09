@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased]
+## [6.8.5] - 2026-10-09
 
 What's news:
 
@@ -243,6 +243,10 @@ What's news:
   - `scripts/generate-release-notes.mjs`
   - `scripts/sync-hyperui.mjs`
   - `typedoc.json`
+- [ ] docs(commands): sync the docs to the dev/server:dev rename
+- [ ] fix: update scripts/docs.mjs to reflect changes in bun run dev command
+- [ ] fix(scripts): readapt the docs pipeline to the Astro content tree
+- [ ] docs(astro): restore the pre-Astro home layout on Starlight
 
 ## [6.8.4] - 2026-10-05
 
