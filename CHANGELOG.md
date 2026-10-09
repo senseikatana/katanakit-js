@@ -6,6 +6,8 @@ All notable changes to this project are documented in this file.
 
 What's news:
 
+- [ ] docs(AGENTS.md): update documentation in AGENTS.md
+  - `AGENTS.md`
 - [ ] fix: update VitePress theme to latest version
   - `.gitignore`
   - `AGENTS.md`
@@ -78,6 +80,7 @@ What's news:
   - `docs/src/components/HeroInstall.astro`
   - `docs/src/components/HomeAnnouncement.astro`
   - `docs/src/components/HomeFeatures.astro`
+  - `docs/src/components/HomeSections.astro`
   - `docs/src/components/HyperUiShowcase.astro`
   - `docs/src/components/KitDemo.astro`
   - `docs/src/components/VersionFlyout.astro`
@@ -88,9 +91,103 @@ What's news:
   - `docs/src/components/starlight/SocialIcons.astro`
   - `docs/src/content.config.ts`
   - `docs/src/content/docs/404.md`
+  - `docs/src/content/docs/guides/architecture.md`
+  - `docs/src/content/docs/guides/better-auth.md`
+  - `docs/src/content/docs/guides/bun-adapter.md`
+  - `docs/src/content/docs/guides/errors.md`
+  - `docs/src/content/docs/guides/faker.md`
+  - `docs/src/content/docs/guides/filesystem.md`
+  - `docs/src/content/docs/guides/framework-adapters.mdx`
+  - `docs/src/content/docs/guides/getting-started.md`
+  - `docs/src/content/docs/guides/hono.md`
+  - `docs/src/content/docs/guides/nestjs.mdx`
+  - `docs/src/content/docs/guides/photoswipe.md`
+  - `docs/src/content/docs/guides/query-client.mdx`
+  - `docs/src/content/docs/guides/roadmap.md`
+  - `docs/src/content/docs/guides/services/astro-adapter.md`
+  - `docs/src/content/docs/guides/services/converter.md`
+  - `docs/src/content/docs/guides/services/dates.md`
+  - `docs/src/content/docs/guides/services/dom.md`
+  - `docs/src/content/docs/guides/services/error-helpers.md`
+  - `docs/src/content/docs/guides/services/express-server.md`
+  - `docs/src/content/docs/guides/services/formatter.md`
+  - `docs/src/content/docs/guides/services/generator.md`
+  - `docs/src/content/docs/guides/services/geometry.md`
+  - `docs/src/content/docs/guides/services/http-client.md`
+  - `docs/src/content/docs/guides/services/index.md`
+  - `docs/src/content/docs/guides/services/logger.md`
+  - `docs/src/content/docs/guides/services/nuxt-adapter.md`
+  - `docs/src/content/docs/guides/services/observer.md`
+  - `docs/src/content/docs/guides/services/reactive.md`
+  - `docs/src/content/docs/guides/services/rss.md`
+  - `docs/src/content/docs/guides/services/seo.md`
+  - `docs/src/content/docs/guides/services/storage.md`
+  - `docs/src/content/docs/guides/services/theme.md`
+  - `docs/src/content/docs/guides/services/timing.md`
+  - `docs/src/content/docs/guides/services/viewport.md`
+  - `docs/src/content/docs/guides/services/vue-adapter.md`
+  - `docs/src/content/docs/guides/services/worker.md`
+  - `docs/src/content/docs/guides/upgrade-to/index.md`
+  - `docs/src/content/docs/guides/upgrade-to/v2.md`
+  - `docs/src/content/docs/guides/upgrade-to/v3.md`
+  - `docs/src/content/docs/guides/upgrade-to/v4.md`
+  - `docs/src/content/docs/guides/upgrade-to/v5.md`
+  - `docs/src/content/docs/guides/upgrade-to/v6.md`
+  - `docs/src/content/docs/guides/watch.md`
   - `docs/src/content/docs/index.mdx`
+  - `docs/src/content/docs/ui-kit/architecture.md`
+  - `docs/src/content/docs/ui-kit/components/alert.mdx`
+  - `docs/src/content/docs/ui-kit/components/badge.mdx`
+  - `docs/src/content/docs/ui-kit/components/button.mdx`
+  - `docs/src/content/docs/ui-kit/components/card.mdx`
+  - `docs/src/content/docs/ui-kit/components/input.mdx`
+  - `docs/src/content/docs/ui-kit/css/core/apply.md`
+  - `docs/src/content/docs/ui-kit/css/core/breakpoints.md`
+  - `docs/src/content/docs/ui-kit/css/core/colors.md`
+  - `docs/src/content/docs/ui-kit/css/core/dark-mode.md`
+  - `docs/src/content/docs/ui-kit/css/core/tokens.md`
+  - `docs/src/content/docs/ui-kit/css/getting-started.md`
+  - `docs/src/content/docs/ui-kit/css/index.md`
+  - `docs/src/content/docs/ui-kit/css/mixins/flex.md`
+  - `docs/src/content/docs/ui-kit/css/mixins/grid.md`
+  - `docs/src/content/docs/ui-kit/css/reference/api-reference.md`
+  - `docs/src/content/docs/ui-kit/css/reference/architecture.md`
+  - `docs/src/content/docs/ui-kit/css/reference/functions.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/aspect-ratio.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/border-style.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/colors-extended.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/container.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/cursor.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/display.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/effects.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/flex-classes.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/float.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/font-family.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/gap.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/grid-classes.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/interactivity.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/line-height.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/list-style.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/margin.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/object.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/overflow-direction.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/padding.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/position-values.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/tables.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/text-decoration.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/text-transform.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/typography.md`
+  - `docs/src/content/docs/ui-kit/css/utilities/visibility.md`
+  - `docs/src/content/docs/ui-kit/hyperui.mdx`
+  - `docs/src/content/docs/ui-kit/index.md`
+  - `docs/src/content/docs/ui-kit/inventory.md`
+  - `docs/src/content/docs/ui-kit/llm-files.md`
+  - `docs/src/content/docs/ui-kit/roadmap.md`
   - `docs/src/content/i18n/en.json`
   - `docs/src/seo.ts`
+  - `docs/src/signals.ts`
+  - `docs/src/styles/custom.css`
+  - `docs/src/styles/hyperui.css`
   - `docs/ui-kit/architecture.md`
   - `docs/ui-kit/components/alert.md`
   - `docs/ui-kit/components/badge.md`
