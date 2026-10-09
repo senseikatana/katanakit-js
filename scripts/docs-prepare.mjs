@@ -270,20 +270,24 @@ function newPagePaths() {
 		.split("\n")
 		.map((tag) => tag.trim())
 		.filter((tag) => /^v\d+\.\d+\.\d+$/.test(tag));
-	// Badges cover the cycle that is shipping now: everything touched since the
-	// previous release, so they reset when a new version goes out.
+	// Badges cover the cycle that is shipping now, and mark what is new for
+	// the reader: pages added in the window. `-M` collapses the moves a
+	// migration/revert produces into renames, and the filter keeps only `A`
+	// (added), so an edit to an existing page or a pure move never shows a
+	// "new" pill. Edits still reset the cycle through the release tag.
 	const range = tags[1] ? `${tags[1]}..HEAD` : "";
 	const tracked = range
-		? run("diff", "--name-only", range, "--", "docs")
-		: run("log", "-1", "--name-only", "--pretty=format:", "--", "docs");
+		? run("diff", "-M", "--name-only", "--diff-filter=A", range, "--", "docs")
+		: run("log", "-1", "--name-only", "--diff-filter=A", "--pretty=format:", "--", "docs");
 	const untracked = run("ls-files", "--others", "--exclude-standard", "--", "docs");
 
 	const pages = new Set();
 	for (const line of `${tracked}\n${untracked}`.split("\n")) {
 		const file = line.trim();
-		if (!file.startsWith("docs/") || !file.endsWith(".md")) continue;
+		if (!file.startsWith("docs/") || !/\.mdx?$/.test(file)) continue;
+		if (file.includes("/.vitepress/") || file.includes("/public/")) continue;
 		if (!existsSync(join(ROOT, file))) continue;
-		let route = `/${file.slice("docs/".length).replace(/\.md$/, "")}`;
+		let route = `/${file.slice("docs/".length).replace(/\.mdx?$/, "")}`;
 		if (route.endsWith("/index")) route = route.slice(0, -"index".length);
 		if (route.length > 1 && route.endsWith("/")) route = route.slice(0, -1);
 		pages.add(route || "/");

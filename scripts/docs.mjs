@@ -32,7 +32,13 @@ const mode = (process.argv[2] ?? "").toLowerCase();
 const run = (command, args, opts = {}) =>
 	execFileSync(command, args, { cwd: ROOT, stdio: "inherit", ...opts });
 
-const remove = (target) => rmSync(target, { recursive: true, force: true });
+/**
+ * Removes a tree. `maxRetries` covers the window where another task is still
+ * writing into it (ENOTEMPTY/EBUSY), which is exactly the race the lock above
+ * exists to prevent in the first place.
+ */
+const remove = (target) =>
+	rmSync(target, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
 
 /** Removes the VitePress temp/cache dirs and the stray root `.vitepress/`. */
 function clean() {
@@ -84,12 +90,26 @@ function acquire() {
 	}
 	if (existing) {
 		console.log(`docs: removed stale lock from pid ${existing.pid} (process is gone).`);
+		remove(LOCK_FILE);
 	}
 
-	writeFileSync(
-		LOCK_FILE,
-		JSON.stringify({ pid: process.pid, mode, started: new Date().toISOString() }),
-	);
+	// `wx` makes the lock atomic: two tasks starting at the same instant cannot
+	// both observe "no lock" and both proceed, which is what corrupts
+	// docs/.vitepress/.temp (ENOTEMPTY / missing module).
+	try {
+		writeFileSync(
+			LOCK_FILE,
+			JSON.stringify({ pid: process.pid, mode, started: new Date().toISOString() }),
+			{ flag: "wx" },
+		);
+	} catch (error) {
+		if (error?.code !== "EEXIST") throw error;
+		const holder = readLock();
+		console.error(
+			`docs: blocked — another docs task grabbed the lock (${holder?.mode ?? "unknown"}, pid ${holder?.pid ?? "unknown"}).`,
+		);
+		process.exit(1);
+	}
 }
 
 function release() {
