@@ -35,7 +35,7 @@ resolve:
 </script>
 ```
 
-Pin a version in production (e.g. `katanakit-js@6.9.0/+esm`). There is no
+Pin a version in production (e.g. `katanakit-js@6.9.1/+esm`). There is no
 IIFE/UMD build — ESM only. [CDN options and the full entry-point map →](https://docs.senseikatana.com/guides/getting-started)
 
 ## Quick start

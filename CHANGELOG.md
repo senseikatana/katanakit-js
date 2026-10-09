@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased]
+## [6.9.1] - 2026-10-09
 
 What's news:
 
@@ -23,6 +23,9 @@ What's news:
   - `docs/guides/getting-started.md`
   - `docs/guides/roadmap.md`
   - `package.json`
+- [ ] build(guides): update dependencies or build settings in 6 files
+- [ ] feat: documentation updates for Diátaxis, explanations, and tutorials
+- [ ] fix(scripts): exit quietly on Ctrl+C and drop the Astro Tailwind deps
 
 ## [6.9.0] - 2026-10-09
 
