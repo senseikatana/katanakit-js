@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased]
+## [6.9.0] - 2026-10-09
 
 What's news:
 
@@ -47,6 +47,8 @@ What's news:
   - `docs/.vitepress/theme/active-nav.ts`
   - `docs/.vitepress/theme/index.ts`
   - `docs/.vitepress/theme/style.css`
+- [ ] docs(AGENTS.md): update documentation in AGENTS.md
+- [ ] fix: update VitePress theme to latest version
 
 ## [6.8.5] - 2026-10-09
 
