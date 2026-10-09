@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+What's news:
+
+- [ ] fix: sync hyperui navigation and outline tracking
+  - `docs/.vitepress/theme/active-nav.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `package.json`
+  - `scripts/docs-prepare.mjs`
+  - `scripts/docs-publish.mjs`
+  - `scripts/docs.mjs`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/sync-hyperui.mjs`
+- [ ] fix(scripts): make the docs lock atomic and badge only added pages
+  - `scripts/docs-prepare.mjs`
+  - `scripts/docs.mjs`
+- [ ] chore(release): sync version references to 6.9.0
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+
 ## [6.9.0] - 2026-10-09
 
 What's news:

@@ -28,6 +28,10 @@ if (!existsSync(DIST)) {
 }
 
 const remote = output(["remote", "get-url", "origin"], ROOT);
+if (!/^(https?:\/\/|git@|ssh:\/\/)/.test(remote)) {
+	console.error(`docs: refusing to clone from an unexpected origin URL: ${remote}`);
+	process.exit(1);
+}
 const sha = output(["rev-parse", "--short", "HEAD"], ROOT);
 const work = mkdtempSync(join(tmpdir(), "katanakit-gh-pages-"));
 
@@ -54,7 +58,9 @@ try {
 		}
 	}
 	for (const entry of readdirSync(DIST)) {
-		cpSync(join(DIST, entry), join(work, entry), { recursive: true });
+		// `dereference` keeps a symlink from `docs/public` out of the published
+		// tree: the gh-pages branch must contain only real files.
+		cpSync(join(DIST, entry), join(work, entry), { recursive: true, dereference: true });
 	}
 
 	git(["add", "-A"], work);

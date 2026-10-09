@@ -159,6 +159,7 @@
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"docs": "node scripts/docs.mjs build",
 		"docs:dev": "node scripts/docs.mjs dev",
+		"predocs:dev": "bunx lint-staged",
 		"docs:clean": "node scripts/docs.mjs clean",
 		"docs:preview": "node scripts/docs.mjs preview",
 		"docs:gh": "node scripts/docs.mjs gh",

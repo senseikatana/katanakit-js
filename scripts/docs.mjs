@@ -53,6 +53,9 @@ function readLock() {
 	try {
 		return JSON.parse(readFileSync(LOCK_FILE, "utf8"));
 	} catch {
+		// A truncated lock (process killed between create and write) must not
+		// deadlock the pipeline forever: an unreadable lock is a stale lock.
+		remove(LOCK_FILE);
 		return null;
 	}
 }
@@ -80,7 +83,7 @@ function acquire() {
 					`docs: blocked — "bun run dev" is already running (pid ${existing.pid}, started ${started}).`,
 					"VitePress shares docs/.vitepress/.temp between dev and build; running both fails with:",
 					"  Cannot find module '.../.vitepress/.temp/...'",
-					"Stop the dev server (Ctrl+C), then retry. Check with: `bun run docs:clean`",
+					"Stop the dev server (Ctrl+C), then retry — the lock is released automatically.",
 				].join("\n"),
 			);
 		} else {
@@ -112,7 +115,13 @@ function acquire() {
 	}
 }
 
+/**
+ * Drops the lock, but only when this process owns it: `docs:clean` and a
+ * foreign task must never delete the lock of a live run.
+ */
 function release() {
+	const lock = readLock();
+	if (lock && lock.pid !== process.pid) return;
 	remove(LOCK_FILE);
 }
 
@@ -137,8 +146,11 @@ function chain() {
 	if (mode === "preview") {
 		// Serves the build that just ran, so the preview is the complete site
 		// (UI CSS, TypeDoc reference and changelog included), never a stale one.
+		// `--strictPort` keeps it non-interactive: without it a busy port makes
+		// VitePress prompt for another one while we hold the lock, and a
+		// non-TTY run (CI) would hang there forever.
 		console.log("docs: preview server starting on http://localhost:4173/");
-		run("node_modules/.bin/vitepress", ["preview", "docs"]);
+		run("node_modules/.bin/vitepress", ["preview", "docs", "--port", "4173", "--strictPort"]);
 		return;
 	}
 
@@ -148,8 +160,14 @@ function chain() {
 }
 
 if (mode === "clean") {
-	clean();
-	release();
+	// Take the lock first: purging `.temp` while a dev server is live is the
+	// corruption this runner exists to prevent.
+	acquire();
+	try {
+		clean();
+	} finally {
+		release();
+	}
 } else if (MODES.has(mode)) {
 	acquire();
 	const onSignal = () => {
@@ -164,8 +182,9 @@ if (mode === "clean") {
 		// `chain()` blocks in `execFileSync`, so a Ctrl+C reaches the child
 		// first and surfaces here as a signal error instead of the handler
 		// above. Translate it into a quiet exit; anything else is a real
-		// failure and keeps its stack.
-		release();
+		// failure and keeps its stack. The lock is dropped by `finally` on
+		// every path (a second `release()` here could delete a lock another
+		// task took in the meantime).
 		if (error?.signal === "SIGINT" || error?.signal === "SIGTERM") {
 			console.log("\ndocs: stopped");
 			process.exit(130);

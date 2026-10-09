@@ -200,6 +200,13 @@ const force = args.includes("--force");
 const syncVersions = args.includes("--sync-versions");
 const refresh = args.includes("--refresh");
 const tag = args.find((arg) => !arg.startsWith("--"));
+// The tag reaches `git log` as a revision, so only the release shape the rest
+// of the script assumes is accepted; otherwise `--all`-style arguments would
+// be parsed as git options.
+if (tag && !/^v\d+\.\d+\.\d+$/.test(tag)) {
+	console.error(`Invalid tag "${tag}": expected v<major>.<minor>.<patch>`);
+	process.exit(1);
+}
 
 /** Numeric semver compare (X.Y.Z only); > 0 when `a` is newer than `b`. */
 function compareSemver(a, b) {

@@ -900,20 +900,21 @@
 
 /* The section containing the current page reads as active even before you
    click one of its links (router-driven, see theme/active-nav.ts). */
-.VPSidebarItem.level-0.has-current-page > .item > .text,
 .VPSidebarItem.level-1.has-current-page > .item > .text {
 	color: var(--vp-c-text-1);
 }
 
-/* Current page: brand text plus the left indicator bar. */
+/* Current page: brand text plus the left indicator bar. VitePress renders
+   `.indicator` as a sibling *before* the link inside `.item`, so the bar has
+   to be selected from the item, not from the link. */
 .VPSidebar a.link.is-current-page,
 .VPSidebarItem.is-active > .item > .link {
 	font-weight: 600;
 	color: var(--vp-c-brand-1);
 }
 
-.VPSidebarItem.is-link.is-active > .item > .link > .indicator,
-.VPSidebar a.link.is-current-page ~ .indicator {
+.VPSidebarItem:has(> .item > .link.is-current-page) > .item > .indicator,
+.VPSidebarItem.is-link.is-active > .item > .indicator {
 	background-color: var(--vp-c-brand-1);
 }
 

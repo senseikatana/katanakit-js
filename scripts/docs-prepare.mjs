@@ -109,13 +109,24 @@ console.log("docs: wrote docs/changelog.md");
 
 const SIGNALS_FILE = join(ROOT, "docs", ".vitepress", "theme", "signals.json");
 
+/**
+ * Link schemes allowed in generated HTML. The input is CHANGELOG bullets,
+ * which come verbatim from commit subjects, so anything that can run script
+ * (`javascript:`, `data:`) must never reach an `href` that is rendered with
+ * `v-html` in the "What's new" panel.
+ */
+const SAFE_LINK = /^(https?:\/\/|mailto:|\/|#)/i;
+
 function markdownToHtml(text) {
 	return text
 		.replace(/&/g, "&amp;")
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
 		.replace(/"/g, "&quot;")
-		.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>')
+		.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (match, label, href) =>
+			// Unsafe or unparseable target: keep the text, drop the link.
+			SAFE_LINK.test(href.trim()) ? `<a href="${href.trim()}">${label}</a>` : label,
+		)
 		.replace(/`([^`]+)`/g, "<code>$1</code>")
 		.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
@@ -271,11 +282,15 @@ function newPagePaths() {
 		.map((tag) => tag.trim())
 		.filter((tag) => /^v\d+\.\d+\.\d+$/.test(tag));
 	// Badges cover the cycle that is shipping now, and mark what is new for
-	// the reader: pages added in the window. `-M` collapses the moves a
-	// migration/revert produces into renames, and the filter keeps only `A`
-	// (added), so an edit to an existing page or a pure move never shows a
-	// "new" pill. Edits still reset the cycle through the release tag.
-	const range = tags[1] ? `${tags[1]}..HEAD` : "";
+	// the reader: pages added since the last release tag. `-M` collapses the
+	// moves a migration/revert produces into renames, and the filter keeps only
+	// `A` (added), so an edit to an existing page or a pure move never shows a
+	// "new" pill. The baseline is the newest tag: HEAD is what is shipping.
+	const range = tags[0] ? `${tags[0]}..HEAD` : "";
+	if (range) {
+		const check = run("rev-parse", "--verify", "--quiet", range);
+		if (!check) console.warn(`docs: baseline ${range} is not available (shallow clone?); no new-page badges`);
+	}
 	const tracked = range
 		? run("diff", "-M", "--name-only", "--diff-filter=A", range, "--", "docs")
 		: run("log", "-1", "--name-only", "--diff-filter=A", "--pretty=format:", "--", "docs");

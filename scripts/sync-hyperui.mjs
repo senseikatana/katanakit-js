@@ -71,14 +71,28 @@ function ensureUpstream(srcOpt) {
 
 /** Self-contained catalog chrome. `hk-` classes only, so the Tailwind
  *  `@source` scan over docs/public/hyperui/** never picks these up. */
+/**
+ * Escapes text interpolated into the generated catalog HTML. File and
+ * directory names come from the vendored upstream repository, and the output
+ * is committed and served from the docs origin, so an unexpected `"` or `<`
+ * must not be able to break out of the attribute or inject markup.
+ */
+function html(value) {
+	return String(value).replace(
+		/[&<>"']/g,
+		(char) =>
+			({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char],
+	);
+}
+
 function pageShell({ title, breadcrumb, body, upstreamPath }) {
-	const upstreamUrl = `https://github.com/markmead/hyperui/tree/main/public/examples/${upstreamPath}`;
+	const upstreamUrl = `https://github.com/markmead/hyperui/tree/main/public/examples/${html(upstreamPath)}`;
 	return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>${title} — HyperUI in KatanaKit UI Kit</title>
+<title>${html(title)} — HyperUI in KatanaKit UI Kit</title>
 <style>
 :root { color-scheme: light dark; }
 body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 0; padding: 2rem; background: #f8fafc; color: #0f172a; }
@@ -105,11 +119,11 @@ h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
 </head>
 <body>
 <div class="hk-wrap">
-<nav class="hk-crumb">${breadcrumb}</nav>
-<h1>${title}</h1>
+<nav class="hk-crumb">${html(breadcrumb)}</nav>
+<h1>${html(title)}</h1>
 <p class="hk-sub">HyperUI (MIT, by Mark Mead) vendored in KatanaKit UI Kit. <a href="${upstreamUrl}">Upstream source</a></p>
 ${body}
-<p class="hk-foot">Rendered from <a href="${upstreamUrl}">${upstreamPath || "public/examples"}</a> · styled by <code>/component.css</code> when served from the docs site.</p>
+<p class="hk-foot">Rendered from <a href="${upstreamUrl}">${html(upstreamPath || "public/examples")}</a> · styled by <code>/component.css</code> when served from the docs site.</p>
 </div>
 </body>
 </html>
@@ -165,8 +179,8 @@ function main() {
 			const cards = files
 				.map(
 					(f) => `<section class="hk-variant">
-<header><strong>${variantFileLabel(f)}</strong><span><a href="./${f}">${f}</a> · <a href="https://github.com/markmead/hyperui/blob/main/public/examples/${cat}/${comp}/${f}">upstream</a></span></header>
-<iframe src="./${f}" height="${tall ? 720 : 340}" loading="lazy" title="${cat}/${comp}/${f}"></iframe>
+<header><strong>${html(variantFileLabel(f))}</strong><span><a href="./${html(f)}">${html(f)}</a> · <a href="https://github.com/markmead/hyperui/blob/main/public/examples/${html(cat)}/${html(comp)}/${html(f)}">upstream</a></span></header>
+<iframe src="./${html(f)}" height="${tall ? 720 : 340}" loading="lazy" sandbox="" title="${html(cat)}/${html(comp)}/${html(f)}"></iframe>
 </section>`,
 				)
 				.join("\n");
