@@ -917,6 +917,11 @@
 		font-size: 13px;
 	}
 
+	.home-features,
+	.home-sections__grid {
+		grid-template-columns: 1fr;
+	}
+
 	.home-features-heading {
 		padding-top: 48px;
 	}
