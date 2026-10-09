@@ -1,6 +1,7 @@
 import DefaultTheme from "vitepress/theme";
 
 import "@katanakit/ui/styles.css";
+import { installActiveNav } from "./active-nav";
 import HomeSections from "./components/HomeSections.vue";
 import HyperUiShowcase from "./components/HyperUiShowcase.vue";
 import Layout from "./Layout.vue";
@@ -14,10 +15,11 @@ import "./style.css";
 export default {
 	extends: DefaultTheme,
 	Layout,
-	enhanceApp({ app }) {
+	enhanceApp({ app, router }) {
 		app.component("HyperUiShowcase", HyperUiShowcase);
 		app.component("HomeSections", HomeSections);
 		if (typeof document === "undefined") return;
+		installActiveNav(router);
 		const root = document.documentElement;
 		const sync = () => {
 			root.dataset.theme = root.classList.contains("dark") ? "dark" : "light";

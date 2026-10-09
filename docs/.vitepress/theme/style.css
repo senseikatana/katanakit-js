@@ -873,3 +873,52 @@
 		padding: 48px 20px 56px;
 	}
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Navigation state: sections, current page and reading position.
+ *
+ * The sidebar is a segmented menu (every top-level entry is a collapsed
+ * group), so the three states below must be unmistakable: the section that
+ * holds the page you are on, the link you are on, and the outline entry of
+ * the heading you are reading.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* Section separation: a top-level entry reads as a block, not a loose link. */
+.VPSidebarItem.level-0 {
+	padding-bottom: 16px;
+}
+
+.VPSidebarItem.level-0 > .item > .text {
+	font-weight: 700;
+	color: var(--vp-c-text-1);
+}
+
+.VPSidebarItem.level-0.has-active > .item > .text,
+.VPSidebarItem.level-0.has-current-page > .item > .text {
+	color: var(--vp-c-brand-1);
+}
+
+/* The section containing the current page reads as active even before you
+   click one of its links (router-driven, see theme/active-nav.ts). */
+.VPSidebarItem.level-0.has-current-page > .item > .text,
+.VPSidebarItem.level-1.has-current-page > .item > .text {
+	color: var(--vp-c-text-1);
+}
+
+/* Current page: brand text plus the left indicator bar. */
+.VPSidebar a.link.is-current-page,
+.VPSidebarItem.is-active > .item > .link {
+	font-weight: 600;
+	color: var(--vp-c-brand-1);
+}
+
+.VPSidebarItem.is-link.is-active > .item > .link > .indicator,
+.VPSidebar a.link.is-current-page ~ .indicator {
+	background-color: var(--vp-c-brand-1);
+}
+
+/* Outline (right rail): the entry of the section you are reading. */
+.VPDocAsideOutline .outline-link.is-current-heading {
+	color: var(--vp-c-brand-1);
+	font-weight: 600;
+}
