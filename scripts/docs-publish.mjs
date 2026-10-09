@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Publishes `docs/dist` to the `gh-pages` branch.
+ * Publishes `docs/.vitepress/dist` to the `gh-pages` branch.
  *
  * A throwaway clone in the OS temp directory keeps the project checkout and its
  * index untouched (the `gh-pages` npm package staged the whole working tree,
@@ -15,7 +15,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const DIST = join(ROOT, "docs", "dist");
+const DIST = join(ROOT, "docs", ".vitepress", "dist");
 const BRANCH = "gh-pages";
 
 const ENV = { ...process.env, GIT_TERMINAL_PROMPT: "0" };
@@ -23,7 +23,7 @@ const git = (args, cwd) => execFileSync("git", args, { cwd, stdio: "inherit", en
 const output = (args, cwd) => execFileSync("git", args, { cwd, encoding: "utf8", env: ENV }).trim();
 
 if (!existsSync(DIST)) {
-	console.error(`docs: ${DIST} does not exist — run the docs build (\`bun run docs\`) before publishing.`);
+	console.error(`docs: ${DIST} does not exist — run the VitePress build before publishing.`);
 	process.exit(1);
 }
 
@@ -71,7 +71,7 @@ try {
 		work,
 	);
 	git(["push", "origin", `HEAD:${BRANCH}`], work);
-	console.log(`Published docs/dist to ${BRANCH} (${sha}).`);
+	console.log(`Published docs/.vitepress/dist to ${BRANCH} (${sha}).`);
 } finally {
 	rmSync(work, { recursive: true, force: true });
 }

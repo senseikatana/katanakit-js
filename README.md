@@ -1548,7 +1548,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development contract.
 
 ## Documentation
 
-The docs site is built with **Astro Starlight** from [`docs/`](./docs) and deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/). Run it locally with `bun run dev`.
+The docs site is built with **VitePress** from [`docs/`](./docs) and deployed with Cloudflare Pages at [docs.senseikatana.com](https://docs.senseikatana.com/). Run it locally with `bun run dev`, build with `bun run docs` into `docs/.vitepress/dist/`, and preview with `bun run docs:preview`.
 
 - **Introduction** — [Getting Started](https://docs.senseikatana.com/guides/getting-started) · [Error Handling](https://docs.senseikatana.com/guides/errors) · [Architecture](https://docs.senseikatana.com/guides/architecture) · [Roadmap](https://docs.senseikatana.com/guides/roadmap)
 - **Core Services** — [Overview](https://docs.senseikatana.com/guides/services/) · [HTTP Client](https://docs.senseikatana.com/guides/services/http-client) · [DOM](https://docs.senseikatana.com/guides/services/dom) · [Storage](https://docs.senseikatana.com/guides/services/storage) · [Dates](https://docs.senseikatana.com/guides/services/dates)

@@ -15,7 +15,7 @@ Every change refreshes all three in the same work: `README.md` (features, adapte
 - `bun run build` — clean + `check` + `tsc6 -p tsconfig.json` → `dist/`, then `ui:build`, copies `packages/ui/dist/styles.css` → `dist/styles.css`, runs `generate-release-notes.mjs --sync-versions`, then `examples:check`. `--sync-versions` **rewrites `package.json` and the version refs in README/docs to the newest `v*` tag**, so a build can touch those files.
 - `bun run examples:check` — typechecks `examples/query/*` and `examples/seed/*` via `tsconfig.examples*.json`, mapping `katanakit-js` → `dist/`; run it after a build.
 - `bun run ui:build` — builds the private `@katanakit/ui` workspace (`tsc` + `sass` → `packages/ui/dist`); `dev`/`docs`/`docs:gh` run it automatically.
-- `bun run dev` — docs site dev server (Astro Starlight); `bun run server:dev` is the Express dev server (`tsx`), `bun run bun:dev` the Bun one.
+- `bun run dev` — docs site dev server (VitePress); `bun run server:dev` is the Express dev server (`tsx`), `bun run bun:dev` the Bun one.
 - One test file: `vitest run <path>`. The root run covers `tests/**` and `packages/ui/tests/**` in node env; `vitest.config.ts` aliases `@` → `src` and forces Solid's client builds (SSR builds turn signals/effects into no-ops).
 - `tsc6`, NOT `tsc`: the `typescript` devDep is aliased to `@typescript/typescript6@6.0.2`.
 
@@ -30,15 +30,14 @@ Every change refreshes all three in the same work: `README.md` (features, adapte
 
 ## Docs
 
-- Astro Starlight in `docs/` (`bun run dev`, `bun run docs` → `docs/dist`, `bun run docs:gh` manual preview). `scripts/docs.mjs` takes an exclusive lock in `.cache/docs.lock.json` so `dev` and `docs`/`docs:gh` never run at the same time; the dev server is an Astro daemon — stop it with `bunx astro dev stop --root docs`.
-- `scripts/docs-prepare.mjs` generates `docs/src/content/docs/api/` (TypeDoc via `typedoc-vitepress-theme`, then `normalizeApiPages()` rewrites it for Starlight) and `docs/src/content/docs/changelog.md` — never hand-edit these. It also writes `docs/src/data/signals.json` (version, stars, `newPages`, changelog summary and `versions` for the releases flyout), read at build time through `docs/src/signals.ts` — never hand-edit either.
-- Sidebar IA: `docs/sidebar.mjs` builds 12 top-level sections, **all with `collapsed: true`** — keep top-level groups uniform: no bare links at depth 0. The service reference is split into `Core Services` / `Platform Services` / `Integrations` (one page per service under `docs/guides/services/`, sub-methods live as headings in the page); `Releases` is generated from `signals.versions` (changelog + one anchor per previous major).
-- Theme extras are registered in the `components` map of `docs/astro.config.mjs`: `Head.astro` (SEO extras), `SocialIcons.astro` (GitHubStars + VersionFlyout navbar cluster), `Hero.astro` (home hero + HomeAnnouncement + HeroInstall) and `PageFrame.astro` (WhatNew panel). Every override composes the Starlight default through slots — never reimplement a default. The flyout reads `signals.versions`; `SiteVersion` was removed in favor of it.
-- Head/SEO: `docs/src/seo.ts` registers `defineSeoMetaConfig` (site defaults) and `Head.astro` imports it so the docs dogfood `useSeoMeta`. Without that registration the service falls back to its demo config (`https://example.com`, phantom `/rss.xml` link) — the import order is what guarantees registration before page frontmatter runs. Starlight already owns `<title>`, canonical and the default OG/Twitter-card tags; the override only ADDS deduped extras (keywords, og:image, JSON-LD, twitter:image) — never duplicate static metas in the `head` config.
-- Pages: plain content stays `.md`; any page that imports a component MUST be `.mdx` (Astro `.md` cannot import — `frontmatter.setup` is long dead; Starlight auto-registers `@astrojs/mdx`). Put component imports right after the YAML frontmatter.
-- Internal links are **root-absolute with a trailing slash** (`/guides/services/worker/`) — Astro/Starlight does not resolve `.md` links file-relative the way VitePress did.
-- Content-layer cache gotcha: after renaming or removing content files, `docs/node_modules/.astro/` (and `docs/.astro/`) can keep serving the stale entry (imports render as literal text). `rm -rf` both dirs and rebuild.
-- Keep the build warning-free: `docs/src/content/docs/404.md` is the single 404 source (`disable404Route: true` stops Starlight injecting a colliding `/404`), `docs/src/content/i18n/en.json` keeps Starlight's i18n lookup populated, and `astro.config.mjs` filters Astro's own `use astro:head-inject` bundle noise. Watch the compact API sidebar: the full TypeDoc tree (783 pages) historically bloated `dist/`.
+- VitePress in `docs/` (`bun run dev`, `bun run docs` → `docs/.vitepress/dist`, `bun run docs:preview` for the last build). `scripts/docs.mjs` takes an exclusive lock in `.cache/docs.lock.json`: `dev` and `docs`/`docs:gh` must not run at the same time (shared `docs/.vitepress/.temp`); it cleans stale state and fails with guidance. Stop the dev server with Ctrl+C.
+- `scripts/docs-prepare.mjs` generates `docs/api/` and `docs/changelog.md` — never hand-edit these. It also writes `theme/signals.json` (version, stars, `newPages`, changelog summary and `versions` for the navbar releases flyout) — never hand-edit either. `docs:gh` is a manual `gh-pages` preview; production docs deploy to Cloudflare.
+- Sidebar IA: 12 top-level sections, **all with `collapsed: true`** — VitePress force-opens only the section holding the active page (segmented-sidebar pattern borrowed from bluuweb.dev; the hairline dividers between sections are VitePress defaults). Keep top-level groups uniform: no bare links at depth 0. The service reference is split into `Core Services` / `Platform Services` / `Integrations` (one page per service under `docs/guides/services/`, sub-methods live as headings in the page); `Releases` is generated from `signals.versions` (changelog + one anchor per previous major).
+- Theme extras live in `docs/.vitepress/theme/Layout.vue` slots: `HomeAnnouncement` + `HeroInstall` (home hero) and `GitHubStars` + `VersionFlyout` (navbar right cluster). The flyout reads `signals.versions`; `SiteVersion` was removed in favor of it.
+- Head/SEO: `docs/.vitepress/config.ts` generates per-page metas with the library's `useSeoMeta` (`transformHead`) and reorders the built `<head>` (metas first, then anti-FOUC scripts, then assets) with `transformHtml` — don't duplicate static meta tags in the `head` config.
+- Keep `metaChunk: true` and the **compact** API sidebar: VitePress server-renders the sidebar in every page, and the full TypeDoc tree (783 links) plus the inlined hash map pushed `dist/` to 353 MB. With both fixes it is ~62 MB.
+- Docs pages use YAML frontmatter and Vue-in-Markdown (`<script setup>`), not MDX.
+- The documentation migration to Astro Starlight was introduced by `de0dac966` and completed by `0d178a32e`; the VitePress theme and content were restored from `de0dac966^`. Do not reintroduce Astro documentation tooling; the library's Astro adapter and examples remain supported.
 
 ## Git workflow
 
@@ -49,7 +48,7 @@ Every change refreshes all three in the same work: `README.md` (features, adapte
 
 ## Cloudflare (only hosting/storage provider)
 
-- **Docs:** `katanakit-docs` project → `docs.senseikatana.com`; deploy with `bun run cf:deploy` (= build + docs build + `wrangler pages deploy docs/dist --project-name katanakit-docs --branch main`). Wrangler is pinned in devDeps.
+- **Docs:** `katanakit-docs` project → `docs.senseikatana.com`; deploy with `bun run cf:deploy` (= build + docs build + `wrangler pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main`). Wrangler is pinned in devDeps.
 - Provision/verify projects, domains and secrets: `node scripts/setup-cloudflare.mjs [--apply] [--github-secrets]` (reads `CLOUDFLARE_ACCOUNT_ID`).
 - Storage: R2 for objects; database pending (Cloudflare D1, INSForge as fallback). Local ORM is Prisma.
 - `.env` gotcha: a non-empty `CLOUDFLARE_API_TOKEN` overrides the `wrangler login` OAuth session; leave it empty locally to use OAuth.
