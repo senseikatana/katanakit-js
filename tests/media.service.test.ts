@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import {
 	useBuildVideoEmbed,
 	useBuildVimeoEmbedUrl,
@@ -12,22 +13,14 @@ import {
 describe("media.service", () => {
 	describe("useGetYoutubeVideoId", () => {
 		it("parses watch URLs", () => {
-			expect(useGetYoutubeVideoId("https://www.youtube.com/watch?v=dQw4w9WgXcQ")).toBe(
-				"dQw4w9WgXcQ",
-			);
+			expect(useGetYoutubeVideoId("https://www.youtube.com/watch?v=dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
 		});
 
 		it("parses youtu.be, shorts, embed and live URLs", () => {
 			expect(useGetYoutubeVideoId("https://youtu.be/dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
-			expect(useGetYoutubeVideoId("https://www.youtube.com/shorts/dQw4w9WgXcQ")).toBe(
-				"dQw4w9WgXcQ",
-			);
-			expect(useGetYoutubeVideoId("https://www.youtube.com/embed/dQw4w9WgXcQ")).toBe(
-				"dQw4w9WgXcQ",
-			);
-			expect(useGetYoutubeVideoId("https://www.youtube.com/live/dQw4w9WgXcQ")).toBe(
-				"dQw4w9WgXcQ",
-			);
+			expect(useGetYoutubeVideoId("https://www.youtube.com/shorts/dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
+			expect(useGetYoutubeVideoId("https://www.youtube.com/embed/dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
+			expect(useGetYoutubeVideoId("https://www.youtube.com/live/dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
 		});
 
 		it("accepts bare ids and rejects garbage", () => {
@@ -60,9 +53,7 @@ describe("media.service", () => {
 		});
 
 		it("builds vimeo embeds with dnt", () => {
-			expect(useBuildVimeoEmbedUrl("123456789")).toContain(
-				"https://player.vimeo.com/video/123456789",
-			);
+			expect(useBuildVimeoEmbedUrl("123456789")).toContain("https://player.vimeo.com/video/123456789");
 		});
 
 		it("builds thumbnails without an API key", () => {
@@ -117,6 +108,26 @@ describe("media.service", () => {
 			});
 			expect(html).not.toContain("<script>alert(1)</script>");
 			expect(html).toContain("&lt;script&gt;");
+		});
+
+		it("does not create links for unsafe unknown-source protocols", () => {
+			const { html } = useBuildVideoEmbed({
+				src: "javascript:alert(document.domain)",
+				title: "Unknown video",
+			});
+
+			expect(html).not.toContain("<a ");
+			expect(html).not.toContain("javascript:");
+			expect(html).toContain("Unknown video");
+		});
+
+		it("keeps safe links for unknown sources", () => {
+			const { html } = useBuildVideoEmbed({
+				src: "https://example.com/watch",
+				title: "Watch video",
+			});
+
+			expect(html).toContain('<a href="https://example.com/watch">Watch video</a>');
 		});
 	});
 });

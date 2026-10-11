@@ -43,7 +43,7 @@ export interface SeoMetaArticle {
 }
 
 /**
- * Flat meta: HTML head essentials + Facebook Open Graph.
+ * Flat meta: HTML head essentials, Open Graph and optional Twitter/X cards.
  */
 export interface SeoMetaFlat extends SeoMetaArticle {
 	/**
@@ -101,6 +101,21 @@ export interface SeoMetaFlat extends SeoMetaArticle {
 	ogImageWidth?: string | number;
 	ogImageHeight?: string | number;
 	ogImageAlt?: string;
+
+	/** Twitter/X card size; defaults to `summary_large_image` when an image is available. */
+	twitterCard?: "summary" | "summary_large_image";
+	/** Twitter/X title; defaults to the resolved Open Graph title. */
+	twitterTitle?: string;
+	/** Twitter/X description; defaults to the resolved Open Graph description. */
+	twitterDescription?: string;
+	/** Twitter/X image URL; defaults to the resolved Open Graph image. */
+	twitterImage?: string;
+	/** Alt text for the Twitter/X image. */
+	twitterImageAlt?: string;
+	/** Twitter/X site handle, e.g. `"@katanakit"`. */
+	twitterSite?: string;
+	/** Twitter/X creator handle, e.g. `"@katanakit"`. */
+	twitterCreator?: string;
 }
 
 /** Flat meta input (all keys optional / nullable). */
@@ -134,6 +149,7 @@ export type UseSeoMetaBase = SeoMetaInput & {
 		noindex: boolean;
 		canonical: boolean;
 		openGraph: boolean;
+		twitterCard: boolean;
 		jsonLd: boolean;
 	}>;
 	nav?: Array<{ label: string; href: string; external?: boolean }>;
@@ -141,7 +157,8 @@ export type UseSeoMetaBase = SeoMetaInput & {
 
 /**
  * Public options for {@link useSeoMeta}.
- * Only HTML + Open Graph (+ site fields). Omit keys you do not want in the type.
+ * HTML, Open Graph, Twitter/X card and site fields in one object.
+ * Omit keys you do not want in the type.
  *
  * @example
  * ```ts

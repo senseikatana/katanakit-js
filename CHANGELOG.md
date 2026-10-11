@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+For installation and usage, see the
+[README](https://github.com/senseikatana/katanakit-js/blob/main/README.md) and
+[KatanaKit documentation](https://docs.senseikatana.com/). Browse the
+[published release notes](https://docs.senseikatana.com/changelog) or return to
+the [project repository](https://github.com/senseikatana/katanakit-js).
+
 ## [6.9.1] - 2026-10-09
 
 What's news:
@@ -13321,4 +13327,3 @@ What's news:
   - `wiki/Getting-Started.md`
   - `wiki/Home.md`
   - `wiki/Roadmap.md`
-

@@ -127,6 +127,7 @@ export default defineConfig({
 			canonical: pageUrl(pageData.relativePath),
 			ogUrl: pageUrl(pageData.relativePath),
 			ogType: "website",
+			ogImageAlt: "KatanaKit — a sharp TypeScript service toolkit",
 		});
 
 		const head: HeadConfig[] = [];
@@ -135,9 +136,6 @@ export default defineConfig({
 			if (node.tag === "title") continue;
 			head.push([node.tag, node.attrs ?? {}, node.text ?? ""]);
 		}
-		// useSeoMeta covers HTML + Open Graph only; Twitter cards layer on top.
-		head.push(["meta", { name: "twitter:card", content: "summary_large_image" }]);
-		head.push(["meta", { name: "twitter:image", content: DOCS_OG_IMAGE }]);
 
 		return head;
 	},

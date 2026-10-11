@@ -22,7 +22,7 @@ export interface SiteConfig {
 	author: string;
 	/** Social/OG image URL (absolute or relative to public/). */
 	ogImage?: string;
-	/** @deprecated Unused by useSeoMeta (HTML + OG only). */
+	/** Twitter/X account handle used for the `twitter:site` card field. */
 	twitter?: string;
 	rss: {
 		enabled: boolean;
@@ -35,7 +35,7 @@ export interface SiteConfig {
 		noindex: boolean;
 		canonical: boolean;
 		openGraph: boolean;
-		/** @deprecated Unused by useSeoMeta. */
+		/** Enables Twitter/X card metadata in `useSeoMeta`. */
 		twitterCard: boolean;
 		jsonLd: boolean;
 	};
