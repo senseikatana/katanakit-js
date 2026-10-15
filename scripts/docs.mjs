@@ -202,8 +202,12 @@ function chain() {
 	run("node", [join(ROOT, "scripts", "docs-prepare.mjs")]);
 
 	if (mode === "dev") {
+		// `--host` is not optional in practice: Vite defaults to binding loopback
+		// on IPv6 only, so `http://localhost:5173` resolves to 127.0.0.1 first in
+		// most browsers and gets connection-refused while the server is healthy.
+		// Binding both stacks makes `localhost` work everywhere.
 		console.log("docs: dev server starting — do not run docs/docs:gh meanwhile.");
-		run("node_modules/.bin/vitepress", ["dev", "docs"]);
+		run("node_modules/.bin/vitepress", ["dev", "docs", "--host"]);
 		return;
 	}
 
@@ -222,7 +226,14 @@ function chain() {
 		// VitePress prompt for another one while we hold the lock, and a
 		// non-TTY run (CI) would hang there forever.
 		console.log("docs: preview server starting on http://localhost:4173/");
-		run("node_modules/.bin/vitepress", ["preview", "docs", "--port", "4173", "--strictPort"]);
+		run("node_modules/.bin/vitepress", [
+			"preview",
+			"docs",
+			"--port",
+			"4173",
+			"--strictPort",
+			"--host",
+		]);
 		return;
 	}
 

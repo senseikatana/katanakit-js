@@ -15,7 +15,7 @@
  * already removes trees that way.
  */
 import { existsSync, readdirSync, rmSync, statSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
+import { dirname, isAbsolute, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -29,9 +29,9 @@ const TARGETS = [
 	["packages/ui/dist", "bun run build:ui"],
 	["docs/api", "bun run docs"],
 	["docs/changelog.md", "bun run docs"],
-	["docs/.vitepress/dist", "bun run docs:build"],
-	["docs/.vitepress/cache", "bun run docs:build"],
-	["docs/.vitepress/.temp", "bun run docs:build"],
+	["docs/.vitepress/dist", "bun run docs"],
+	["docs/.vitepress/cache", "bun run docs"],
+	["docs/.vitepress/.temp", "bun run docs"],
 	["docs/.vitepress/theme/signals.json", "bun run docs"],
 	[".vitepress", "bun run docs"],
 	[".cache", "bun run docs"],
@@ -54,7 +54,15 @@ function directorySize(directory) {
 	}
 	for (const entry of entries) {
 		const child = join(directory, entry.name);
-		total += entry.isDirectory() ? directorySize(child) : statSync(child).size;
+		// A symlink is not walked into: `statSync` would follow it and double-count
+		// (or loop on a cycle). `rmSync` unlinks the link itself either way.
+		if (entry.isSymbolicLink()) continue;
+		// One unreadable entry must never abort the sweep part-way through.
+		try {
+			total += entry.isDirectory() ? directorySize(child) : statSync(child).size;
+		} catch {
+			continue;
+		}
 	}
 	return total;
 }
@@ -67,7 +75,12 @@ function directorySize(directory) {
  */
 function bytes(absolute) {
 	if (!existsSync(absolute)) return 0;
-	return statSync(absolute).isDirectory() ? directorySize(absolute) : statSync(absolute).size;
+	try {
+		const info = statSync(absolute);
+		return info.isDirectory() ? directorySize(absolute) : info.size;
+	} catch {
+		return 0;
+	}
 }
 
 /**
@@ -97,7 +110,13 @@ if (present.length === 0) {
 
 const rows = present.map(([target, restore]) => {
 	const absolute = join(ROOT, target);
-	return { label: relative(ROOT, absolute), absolute, restore, size: bytes(absolute) };
+	// Containment assert: today every target is a literal, but this keeps a
+	// future `..` or absolute entry from turning a clean into a data loss.
+	const rel = relative(ROOT, absolute);
+	if (rel.startsWith("..") || isAbsolute(rel)) {
+		throw new Error(`clean: refusing to touch ${rel} — it escapes the repo`);
+	}
+	return { label: rel, absolute, restore, size: bytes(absolute) };
 });
 
 const total = rows.reduce((sum, row) => sum + row.size, 0);

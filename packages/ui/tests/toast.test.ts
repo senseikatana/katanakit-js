@@ -10,6 +10,9 @@ import {
 	useToastStore,
 } from "../src/index";
 
+/** Mirrors the component's private default so timing assertions read in real units. */
+const DEFAULT_DURATION = 5000;
+
 describe("useToastClass", () => {
 	it("defaults to info at medium size and dismissible", () => {
 		expect(useToastClass()).toBe("kk-toast kk-toast--info kk-toast--md kk-toast--dismissible");
@@ -92,8 +95,12 @@ describe("useToastStore", () => {
 	});
 
 	afterEach(() => {
-		vi.useRealTimers();
+		// Prune module state through the real path — the singleton's `mounted`
+		// and `stacks` maps survive a `body.innerHTML` wipe.
+		useToastStore().clear();
+		vi.runOnlyPendingTimers();
 		document.body.innerHTML = "";
+		vi.useRealTimers();
 	});
 
 	it("mounts into a lazily created stack", () => {
@@ -273,5 +280,172 @@ describe("useToastStore", () => {
 		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(1);
 		vi.advanceTimersByTime(1000 + TOAST_EXIT_FALLBACK_MS);
 		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(0);
+	});
+
+	it("hands back the same store on every call", () => {
+		expect(useToastStore()).toBe(useToastStore());
+	});
+
+	describe("close button", () => {
+		it("dismisses through the normal path and reports the real id", () => {
+			// Arrange
+			const onClose = vi.fn();
+			const handle = useToastStore().show({ message: "bye", onClose, duration: 0 });
+			const close = document.querySelector<HTMLButtonElement>(".kk-toast__close");
+
+			// Act
+			close?.click();
+			vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
+
+			// Assert — a real id, never ""
+			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(onClose).toHaveBeenCalledWith(handle.id);
+			expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+		});
+
+		it("does not leak the entry: the stack is pruned too", () => {
+			// Arrange
+			const toast = useToastStore();
+			toast.info("pinned", { duration: 0 });
+
+			// Act
+			document.querySelector<HTMLButtonElement>(".kk-toast__close")?.click();
+			vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
+
+			// Assert
+			expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(0);
+			// A later clear() must find nothing left to remove.
+			toast.clear();
+			expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+		});
+	});
+
+	it("calls onClose once no matter how often dismiss is called", () => {
+		// Arrange
+		const onClose = vi.fn();
+		const handle = useToastStore().show({ message: "x", onClose, duration: 0 });
+
+		// Act
+		handle.dismiss();
+		handle.dismiss();
+		handle.dismiss();
+		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
+
+		// Assert
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	it("does not re-arm the timer when the pointer leaves during exit", () => {
+		// Arrange
+		const onClose = vi.fn();
+		const handle = useToastStore().show({ message: "x", onClose, duration: 1000 });
+		const element = document.querySelector(".kk-toast") as HTMLElement;
+
+		// Act
+		handle.dismiss();
+		element.dispatchEvent(new MouseEvent("mouseleave"));
+		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
+
+		// Assert
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	it("ignores an update after dismissal", () => {
+		// Arrange
+		const handle = useToastStore().show({ message: "bye", duration: 0 });
+
+		// Act
+		handle.dismiss();
+		handle.update({ type: "success", message: "should not appear" });
+		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
+
+		// Assert
+		expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+		expect(document.querySelector(".kk-toast--success")).toBeNull();
+	});
+
+	it("creates the progress bar when a toast becomes timed", () => {
+		// Arrange — a pinned toast has no bar
+		const handle = useToastStore().show({ message: "x", duration: 0 });
+		expect(document.querySelectorAll(".kk-toast__progress")).toHaveLength(0);
+
+		// Act
+		handle.update({ duration: 3000 });
+		const element = document.querySelector(".kk-toast") as HTMLElement;
+
+		// Assert
+		expect(document.querySelectorAll(".kk-toast__progress")).toHaveLength(1);
+		expect(element.style.getPropertyValue("--kk-toast-duration")).toBe("3000ms");
+	});
+
+	it("keeps a loading toast pinned even after a timed update", () => {
+		// Arrange — explicit duration must not resurrect the timer on `loading`
+		const handle = useToastStore().info("info", { duration: 3000 });
+
+		// Act
+		handle.update({ type: "loading", message: "working" });
+		vi.advanceTimersByTime(60_000);
+
+		// Assert
+		expect(document.querySelector(".kk-toast--loading")).not.toBeNull();
+	});
+
+	it("caps the number of live toasts per stack", () => {
+		// Arrange / Act
+		const toast = useToastStore();
+		for (let i = 0; i < 12; i += 1) toast.info(`m${i}`, { duration: 0 });
+
+		// Assert — a rolling window of the newest 5, oldest evicted
+		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
+		const live = [...document.querySelectorAll(".kk-toast")];
+		expect(live).toHaveLength(5);
+		expect(live.map((node) => node.textContent)).toEqual(["m7×", "m8×", "m9×", "m10×", "m11×"]);
+	});
+
+	it("ignores a null duration instead of pinning the toast forever", () => {
+		// Arrange / Act — `null` arrives easily from JSON or a settings blob
+		useToastStore().show({ message: "x", duration: null as unknown as number });
+
+		// Assert
+		vi.advanceTimersByTime(DEFAULT_DURATION + TOAST_EXIT_FALLBACK_MS);
+		expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+	});
+
+	it("ignores an infinite duration instead of dismissing instantly", () => {
+		// Arrange / Act
+		useToastStore().show({ message: "x", duration: Number.POSITIVE_INFINITY });
+
+		// Assert
+		vi.advanceTimersByTime(DEFAULT_DURATION + TOAST_EXIT_FALLBACK_MS);
+		expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+	});
+
+	it("keeps the paused state across an update", () => {
+		// Arrange
+		const handle = useToastStore().success("Saved", { duration: 5000 });
+		const element = document.querySelector(".kk-toast") as HTMLElement;
+		vi.advanceTimersByTime(1000);
+		element.dispatchEvent(new MouseEvent("mouseenter"));
+
+		// Act
+		handle.update({ message: "Saved (v2)" });
+		const updated = document.querySelector(".kk-toast") as HTMLElement;
+
+		// Assert — the pointer never left, so it must stay paused
+		expect(updated.classList.contains("kk-toast--paused")).toBe(true);
+		vi.advanceTimersByTime(60_000);
+		expect(document.querySelector(".kk-toast")).not.toBeNull();
+	});
+
+	it("keeps position on update rather than silently ignoring it", () => {
+		// Arrange
+		const handle = useToastStore().info("a", { position: "top-right" });
+
+		// Act — position anchors the stack, so it cannot move mid-life
+		handle.update({ position: "bottom-left" });
+
+		// Assert
+		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(1);
+		expect(document.querySelector(".kk-toast-stack--top-right")).not.toBeNull();
 	});
 });

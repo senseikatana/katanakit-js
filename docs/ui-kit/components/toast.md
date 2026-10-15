@@ -145,7 +145,6 @@ import { useToastClass, useToastContainerClass } from "@katanakit/ui";
     <div class="kk-toast__content"><p class="kk-toast__message">Deployed.</p></div>
   </div>
 </div>
-```
 
 <script>
   import { useToastStore } from "@katanakit/ui";
@@ -169,37 +168,32 @@ import { useToastClass, useToastContainerClass } from "@katanakit/ui";
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useToastStore } from "@katanakit/ui";
+import type { ToastStore } from "@katanakit/ui";
+import { useToast, useToastStore } from "@katanakit/ui";
 
+// Importing is SSR-safe — only *calling* these needs a DOM. VitePress evaluates
+// this block during SSR, so every call is inside `onMounted` or a click handler,
+// never at module scope.
 const variants = ref<HTMLElement>();
 
 onMounted(() => {
-	const toast = useToastStore();
-	const stack = variants.value;
-	if (!stack) return;
+	const host = variants.value;
+	if (!host) return;
 
-	// The store mounts into document.body so positions work; for the inline
-	// demo we move each toast into the local container afterwards.
-	const local = stack.closest(".kk-toast-demo") as HTMLElement | null;
-	const host = document.createElement("div");
-	if (local) local.prepend(host);
-
-	toast.info("Sync started.");
-	toast.success("Profile saved.");
-	toast.warning("Quota at 90%.");
-	toast.error("Upload failed.");
-
-	// Mirror the fixed stack into the inline preview, offset from the edge.
-	window.setTimeout(() => {
-		for (const node of document.querySelectorAll(".kk-toast-stack--top-right > .kk-toast")) {
-			if (!host.contains(node)) host.append(node);
-		}
-	}, 0);
+	// `useToast()` builds one element with no viewport pinning and no timer —
+	// the right tool for a static inline demo.
+	for (const [type, text] of [
+		["info", "Sync started."],
+		["success", "Profile saved."],
+		["warning", "Quota at 90%."],
+		["error", "Upload failed."],
+	] as const) {
+		host.append(useToast({ type, message: text }));
+	}
 });
 
 function runUpload() {
-	const toast = useToastStore();
-	const handle = toast.loading("Uploading 3 files…", { position: "bottom-right" });
+	const handle = useToastStore().loading("Uploading 3 files…", { position: "bottom-right" });
 	window.setTimeout(() => handle.update({ type: "success", message: "3 files uploaded." }), 2500);
 }
 
@@ -208,7 +202,7 @@ function runPause() {
 }
 
 function runPositions() {
-	const toast = useToastStore();
+	const store: ToastStore = useToastStore();
 	const spots = [
 		["top-right", "Top right"],
 		["top-center", "Top center"],
@@ -219,7 +213,7 @@ function runPositions() {
 	] as const;
 
 	for (const [position, label] of spots) {
-		toast.info(label, { position, duration: 4000 });
+		store.info(label, { position, duration: 4000 });
 	}
 }
 </script>

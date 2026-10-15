@@ -64,7 +64,7 @@ export interface ToastOptions {
 export interface ToastHandle {
 	/** Stable id assigned at creation. */
 	readonly id: string;
-	/** Replaces options in place, keeping position and stacking order. */
+	/** Replaces options in place, keeping position and stacking order. `position` is ignored. */
 	update(options: Partial<ToastOptions>): void;
 	/** Closes the toast, playing the exit animation. */
 	dismiss(): void;
@@ -80,7 +80,7 @@ export interface ToastStore {
 	success(message: string, options?: Partial<ToastOptions>): ToastHandle;
 	/** Warning toast. */
 	warning(message: string, options?: Partial<ToastOptions>): ToastHandle;
-	/** Error toast; announced assertively and never auto-dismisses by default. */
+	/** Error toast; announced assertively, with extra time to be read. */
 	error(message: string, options?: Partial<ToastOptions>): ToastHandle;
 	/** Indeterminate toast that stays until dismissed or updated. */
 	loading(message: string, options?: Partial<ToastOptions>): ToastHandle;
@@ -183,8 +183,21 @@ function requireDom(api: string): Document {
  * @returns Milliseconds to wait, or `0` when the toast must stay pinned.
  */
 function resolveDuration(options: ToastOptions): number {
-	if (options.duration !== undefined) return Math.max(0, options.duration);
+	// `loading` is indeterminate. It wins over an explicit `duration`, otherwise a
+	// `duration` inherited from `update()`'s merge would resurrect a timer on a
+	// toast whose contract says it is pinned.
 	if (options.type === "loading") return 0;
+
+	if (options.duration !== undefined) {
+		// Guard rather than coerce: `null` and `NaN` both coerce to 0 (pin the
+		// toast open forever), and `Infinity` clamps to 1 ms in setTimeout.
+		// Both arrive easily from JSON or a settings blob.
+		if (typeof options.duration !== "number" || !Number.isFinite(options.duration)) {
+			return DEFAULT_DURATION;
+		}
+		return Math.max(0, options.duration);
+	}
+
 	return options.type === "error" ? DEFAULT_ERROR_DURATION : DEFAULT_DURATION;
 }
 
@@ -261,10 +274,11 @@ export function useToast(options: ToastOptions = {}): HTMLDivElement {
 		close.className = "kk-toast__close";
 		close.setAttribute("aria-label", options.closeLabel ?? "Dismiss notification");
 		close.textContent = "×";
-		close.addEventListener("click", () => {
-			toast.remove();
-			options.onClose?.("");
-		});
+		// Marked, not wired: the standalone builder has no id and no registry
+		// entry, so the store attaches the real handler (see useShow) and routes
+		// it through useRemove. Binding here would skip the exit animation and
+		// leak the entry in `mounted`.
+		close.dataset.kkToastClose = "";
 		toast.append(close);
 	}
 
@@ -319,6 +333,18 @@ const mounted = new Map<string, Mounted>();
 /** Monotonic id counter — ids only need to be unique within a page. */
 let sequence = 0;
 
+/** Cached singleton facade, so `useToastStore()` is cheap and truly shared. */
+let store: ToastStore | null = null;
+
+/**
+ * Ceiling on live toasts per stack.
+ *
+ * Without it, an app that fires a toast per keystroke or per socket frame grows
+ * the live region without bound — and every insertion is announced by a screen
+ * reader, so it is an accessibility problem as much as a memory one.
+ */
+const MAX_PER_STACK = 5;
+
 function useStack(position: ToastPosition): HTMLDivElement {
 	const existing = stacks.get(position);
 	if (existing?.isConnected) return existing;
@@ -330,16 +356,24 @@ function useStack(position: ToastPosition): HTMLDivElement {
 }
 
 function useRemove(entry: Mounted, id: string): void {
-	if (entry.timer) clearTimeout(entry.timer);
-	entry.timer = null;
-	// Both the animation event and the fallback timer can fire; run once.
+	// Idempotent: a second `dismiss()` (or an auto-timer landing inside the exit
+	// window) must be a no-op, not a second `onClose`.
+	if (entry.removing) return;
 	entry.removing = true;
 
+	if (entry.timer) clearTimeout(entry.timer);
+	entry.timer = null;
+	// Drop the registry entry NOW so `clear()`/`dismiss(id)` cannot re-enter it.
+	mounted.delete(id);
+
 	let done = false;
+	let fallback: ReturnType<typeof setTimeout> | null = null;
+
 	const finish = () => {
 		if (done) return;
 		done = true;
-		mounted.delete(id);
+		if (fallback) clearTimeout(fallback);
+		fallback = null;
 
 		// Read the parent before detaching — `remove()` clears `parentElement`.
 		const parent = entry.element.parentElement;
@@ -353,13 +387,22 @@ function useRemove(entry: Mounted, id: string): void {
 		}
 	};
 
+	const onAnimationEnd = (event: Event) => {
+		// `animationend` bubbles: the progress bar and the spinner animate too.
+		// The bar's duration equals the dismiss timer, so without this filter it
+		// wins the race and the toast vanishes with no exit animation.
+		if (event.target !== entry.element) return;
+		if ((event as AnimationEvent).animationName !== "kk-toast-out") return;
+		finish();
+	};
+
 	entry.element.classList.add("kk-toast--leaving");
 	const reduced =
 		typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 	if (reduced) finish();
-	else entry.element.addEventListener("animationend", finish, { once: true });
+	else entry.element.addEventListener("animationend", onAnimationEnd);
 
-	setTimeout(finish, TOAST_EXIT_FALLBACK_MS);
+	fallback = setTimeout(finish, TOAST_EXIT_FALLBACK_MS);
 }
 
 function useSchedule(entry: Mounted, id: string): void {
@@ -376,14 +419,19 @@ function useSchedule(entry: Mounted, id: string): void {
  */
 function useBindPause(entry: Mounted, id: string): void {
 	const pause = () => {
-		if (!entry.timer) return;
+		// A toast on its way out must not be re-armed.
+		if (entry.removing || !entry.timer) return;
 		clearTimeout(entry.timer);
 		entry.timer = null;
 		entry.remaining = Math.max(0, entry.remaining - (Date.now() - entry.startedAt));
 		entry.element.classList.add("kk-toast--paused");
 	};
-	const resume = () => {
-		if (entry.timer || entry.remaining <= 0) return;
+	const resume = (event?: Event) => {
+		if (entry.removing || entry.timer || entry.remaining <= 0) return;
+		// `focusout` bubbles: ignore moves between elements inside the toast,
+		// or the countdown restarts while focus is still within it.
+		const related = (event as FocusEvent | undefined)?.relatedTarget as Node | null | undefined;
+		if (related && entry.element.contains(related)) return;
 		entry.element.classList.remove("kk-toast--paused");
 		useSchedule(entry, id);
 	};
@@ -393,6 +441,35 @@ function useBindPause(entry: Mounted, id: string): void {
 	element.addEventListener("mouseleave", resume);
 	element.addEventListener("focusin", pause);
 	element.addEventListener("focusout", resume);
+}
+
+/**
+ * Creates or moves the countdown bar so it matches the current duration.
+ *
+ * `update()` swaps the whole node, so a bar created before the swap has to be
+ * carried over — and a newly timed toast needs one created for the first time.
+ */
+function useSyncProgressBar(entry: Mounted): void {
+	const existing = entry.element.querySelector<HTMLElement>(".kk-toast__progress");
+	if (entry.remaining <= 0) {
+		existing?.remove();
+		return;
+	}
+	if (existing) return;
+	const bar = document.createElement("span");
+	bar.className = "kk-toast__progress";
+	// Purely decorative timing cue; the live region carries the message.
+	bar.setAttribute("aria-hidden", "true");
+	entry.element.append(bar);
+}
+
+/** Wires the close button (delegated, so it survives `update()` swapping nodes). */
+function useBindClose(entry: Mounted, id: string): void {
+	entry.element.addEventListener("click", (event) => {
+		const target = event.target as Element | null;
+		if (!target?.closest?.("[data-kk-toast-close]")) return;
+		useRemove(entry, id);
+	});
 }
 
 function useShow(options: ToastOptions = {}): ToastHandle {
@@ -409,7 +486,13 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 		handle: {
 			id,
 			update(next: Partial<ToastOptions>) {
-				const merged = { ...entry.options, ...next };
+				// A dismissed toast must not come back: swapping the node would
+				// drop the `--leaving` class and leave it visible forever.
+				if (entry.removing) return;
+
+				// `position` anchors the stack, so it cannot change mid-life.
+				const { position: _ignored, ...patch } = next;
+				const merged = { ...entry.options, ...patch };
 				entry.options = merged;
 
 				const replacement = useToast(merged);
@@ -419,14 +502,25 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 				entry.element.replaceWith(replacement);
 				entry.element = replacement;
 
+				// Carry over an in-flight pause, and charge it for the elapsed time.
+				// `entry.timer` is null while paused — the class is the source of truth.
+				if (element.classList.contains("kk-toast--paused")) {
+					entry.remaining = Math.max(0, entry.remaining - (Date.now() - entry.startedAt));
+					replacement.classList.add("kk-toast--paused");
+				}
+
 				entry.remaining = resolveDuration(merged);
+				// Set before insertion so the bar's animation starts at the right
+				// duration instead of flashing with the stylesheet fallback.
 				replacement.style.setProperty("--kk-toast-duration", `${entry.remaining}ms`);
+				useSyncProgressBar(entry);
+
 				if (entry.timer) clearTimeout(entry.timer);
 				entry.timer = null;
 				// Re-bind: the node the listeners were attached to is gone.
 				useBindPause(entry, id);
-				// A dismissed toast must not be resurrected by a late update.
-				if (!entry.removing) useSchedule(entry, id);
+				useBindClose(entry, id);
+				if (!replacement.classList.contains("kk-toast--paused")) useSchedule(entry, id);
 			},
 			dismiss() {
 				useRemove(entry, id);
@@ -442,23 +536,33 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 	const element = entry.element;
 	element.dataset.toastId = id;
 	element.style.setProperty("--kk-toast-duration", `${entry.remaining}ms`);
-
-	if (entry.remaining > 0) {
-		const bar = document.createElement("span");
-		bar.className = "kk-toast__progress";
-		// Purely decorative timing cue; the live region carries the message.
-		bar.setAttribute("aria-hidden", "true");
-		element.append(bar);
-	}
+	useSyncProgressBar(entry);
 
 	// Pause on hover and on keyboard focus so the timer never races the user.
 	useBindPause(entry, id);
+	useBindClose(entry, id);
 
 	mounted.set(id, entry);
 	stack.append(element);
 	useSchedule(entry, id);
+	useTrimStack(stack);
 
 	return entry.handle;
+}
+
+/** Dismisses the oldest toasts once a stack exceeds {@link MAX_PER_STACK}. */
+function useTrimStack(stack: HTMLDivElement): void {
+	const live = stack.querySelectorAll(".kk-toast:not(.kk-toast--leaving)");
+	const excess = live.length - MAX_PER_STACK;
+	if (excess <= 0) return;
+
+	for (const node of Array.from(live).slice(0, excess)) {
+		for (const [id, candidate] of mounted) {
+			if (candidate.element !== node) continue;
+			useRemove(candidate, id);
+			break;
+		}
+	}
 }
 
 /**
@@ -481,7 +585,9 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 export function useToastStore(): ToastStore {
 	requireDom("useToastStore");
 
-	return {
+	// Cached so repeated calls really do hand back the same facade, as the
+	// singleton contract promises — and so it is not reallocated per call.
+	store ??= {
 		show: useShow,
 		info: (message, options = {}) => useShow({ ...options, type: "info", message }),
 		success: (message, options = {}) => useShow({ ...options, type: "success", message }),
@@ -500,6 +606,7 @@ export function useToastStore(): ToastStore {
 			for (const [key, entry] of [...mounted]) useRemove(entry, key);
 		},
 	};
+	return store;
 }
 
 /**
