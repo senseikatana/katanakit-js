@@ -8,6 +8,20 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.10.2] - 2026-10-15
+
+Highlights: fix(docs): render the component contract and VitePress markup on the Wiki.
+
+- [x] 🐛 fix(docs): render the component contract and VitePress markup on the Wiki
+  - `docs/ui-kit/components/toast.md`
+  - `scripts/sync-wiki.mjs`
+  - `tests/sync-wiki.test.ts`
+- [x] 🐛 fix(ui): close the measured focus-trap gaps in the modal
+- [x] 🐛 fix: update documentation and components for select and tabs
+- [x] 🐛 fix(ui): make the modal exit animation actually run
+- [x] 🚀 feat(ui): add a modal with focus trap, portal and scroll lock
+- [x] 🔹 Add ordered HTTP request interceptors (#19)
+
 ## [6.10.1] - 2026-10-15
 
 Highlights: feat(ui): add a modal with focus trap, portal and scroll lock and fix(ui): close the measured focus-trap gaps in the modal, plus 3 more changes.
