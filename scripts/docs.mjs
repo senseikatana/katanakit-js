@@ -125,7 +125,7 @@ function acquire() {
 }
 
 /**
- * Drops the lock, but only when this process owns it: `docs:clean` and a
+ * Drops the lock, but only when this process owns it: `clean` and a
  * foreign task must never delete the lock of a live run.
  */
 function release() {
@@ -198,7 +198,7 @@ function deployToCloudflare() {
 }
 
 function chain() {
-	run("bun", ["run", "ui:build"]);
+	run("bun", ["run", "build:ui"]);
 	run("node", [join(ROOT, "scripts", "docs-prepare.mjs")]);
 
 	if (mode === "dev") {

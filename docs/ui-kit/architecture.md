@@ -9,8 +9,8 @@ Katana UI is designed as a separate package that consumes `katanakit-js` from th
 outside. The toolkit stays a pure service library; the kit adds presentation on top
 without reaching into the core.
 
-**Today** the kit is the foundations layer only: five components (`button`,
-`input`, `card`, `badge`, `alert`) in the private `packages/ui` workspace,
+**Today** the kit is the foundations layer only: six components (`button`,
+`input`, `card`, `badge`, `alert`, `toast` <span class="vp-new-badge">new</span>) in the private `packages/ui` workspace,
 styled with the SCSS framework vendored in `katanakit-js` (`scss/`, from `katanakit-css@0.12.5`). Everything else on this page marked "planned" is the
 target design, not the current state.
 
@@ -81,9 +81,9 @@ Current state of `packages/ui` (private workspace, not published to npm):
 | --- | --- |
 | Location | Workspace package `packages/ui` inside this repo. **Private** (`"private": true`, version `0.0.0`). |
 | Package name | `@katanakit/ui` (provisional). |
-| Entry points (today) | `.` → `dist/index.js` (the five component factories + `*Class` helpers) and `./styles.css` → `dist/styles.css`. Nothing else is exported. |
+| Entry points (today) | `.` → `dist/index.js` (the six component factories + `*Class` helpers) and `./styles.css` → `dist/styles.css`. Nothing else is exported. |
 | Peer dependencies | None for CSS — the built stylesheet embeds the vendored framework, so runtime consumers need no extra CSS. |
-| Build | `bun run ui:build` — `tsc6` to `dist/` + `sass` (`scss/main.scss` → `dist/base.css`, components → `dist/components.css`) + concat → `dist/styles.css`. |
+| Build | `bun run build:ui` — `tsc6` to `dist/` + `sass` (`scss/main.scss` → `dist/base.css`, components → `dist/components.css`) + concat → `dist/styles.css`. |
 | Styling | One self-contained stylesheet (`@katanakit/ui/styles.css`) that emits the full vendored framework, dark tokens and the `.kk-*` classes. |
 | CSS isolation | Component selectors are namespaced (`.kk-*`); they never target host markup. Palette tokens are shared with the vendored framework (unprefixed). |
 

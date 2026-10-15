@@ -8,7 +8,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 6.9.0)
+## Shipped (as of 6.9.1)
 
 ### Architecture and packaging
 
@@ -67,7 +67,7 @@ Legend: `[x]` done · `[ ]` planned.
 - [x] Security fixes applied: URL scheme validation, DOM `on*` attribute block,
       JSON-LD `</script>` escaping, worker cleanup, generic server errors.
 - [x] Verification gate (`check`, `build`, `examples:check`) run locally and by
-      the release flow; docs deploy to Cloudflare with `bun run cf:deploy`.
+      the release flow; docs deploy to Cloudflare with `bun run deploy`.
 - [x] `QueryClient` (TanStack Query Core): cache with GC, stale-while-revalidate,
       retry with backoff, deduplication, invalidation and prefetch.
 

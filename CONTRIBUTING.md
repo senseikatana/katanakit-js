@@ -73,16 +73,23 @@ bun install
 Useful scripts:
 
 | Command                 | Description                                            |
-| ----------------------- | ------------------------------------------------------ |
-| `bun run check`         | ESLint + typecheck + tests (gate before build/publish) |
-| `bun run fix`           | Same as `check` with ESLint auto-fix (skips the UI typecheck) |
-| `bun run build`         | `check`, compile to `dist/`, build the UI, sync version references |
-| `bun run examples:check` | Typechecks the query/seed examples against `dist/`     |
-| `bun run release`       | `build` → write CHANGELOG section → publish to npm      |
-| `bun run dev`           | Docs site dev server (VitePress)                       |
-| `bun run docs`          | Builds the docs site into `docs/.vitepress/dist/`      |
-| `bun run ui:build`      | Builds `@katanakit/ui` (vendored framework + components CSS) |
-| `bun run server:dev`    | Express dev server (`tsx`); `bun run bun:dev` for the Bun adapter |
+| Layer | Script | What it does |
+| --- | --- | --- |
+| **develop** | `bun run dev` | Docs site dev server (VitePress), after lint-staged |
+| | `bun run dev:server` | Express dev server (`tsx`); `bun run dev:bun` for the Bun adapter |
+| | `bun run docs:dev` | Alias of `dev` kept for discoverability |
+| **verify** | `bun run check` | ESLint + typecheck + tests (gate before build/publish) |
+| | `bun run fix` | Same as `check` with ESLint auto-fix (skips the UI typecheck) |
+| | `bun run examples:check` | Typechecks the query/seed examples against `dist/` |
+| **clean** | `bun run clean` | Removes every regenerable artifact (`-- --dry` previews) |
+| **build** | `bun run build` | `clean` → `check` → compile to `dist/` → build the UI → sync version references |
+| | `bun run build:ui` | Builds `@katanakit/ui` (vendored framework + components CSS) |
+| | `bun run docs` | Builds the docs site into `docs/.vitepress/dist/` |
+| | `bun run docs:preview` | Build, then serve that build on `:4173` |
+| **deploy** | `bun run deploy` | Builds, then publishes to Cloudflare Pages (docs.senseikatana.com) |
+| | `bun run docs:gh` | Manual preview on the gh-pages branch (no Actions) |
+| **publish** | `bun run release` | `build` → write CHANGELOG section → `publish` |
+| | `bun run publish` | Preflight + `npm publish` (`-- --check` to stop at preflight) |
 
 `build` and `release` never compile or publish unless `check` passes.
 
@@ -171,12 +178,12 @@ description: Cache, retry and invalidate server state.
 bun run dev            # generate API + changelog, then live‑reloading server
 bun run docs           # static build into docs/.vitepress/dist/
 bun run docs:preview   # build, then serve that build on :4173
-bun run docs:deploy    # build, then publish to Cloudflare Pages (docs.senseikatana.com)
+bun run deploy         # build, then publish to Cloudflare Pages (docs.senseikatana.com)
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
-bun run docs:clean     # purge .vitepress/.temp and cache
+bun run clean          # purge every regenerable artifact (docs temp included)
 ```
 
-`docs:deploy` needs Cloudflare credentials: either `CLOUDFLARE_API_TOKEN` in
+`deploy` needs Cloudflare credentials: either `CLOUDFLARE_API_TOKEN` in
 `.env` (see `.env.example`, never committed) or a `bunx wrangler login` session.
 It always builds first, so the published site is never a stale artifact.
 
@@ -185,7 +192,7 @@ VitePress shares `docs/.vitepress/.temp` between the dev server and the build,
 so running both corrupts it and the build fails with
 `Cannot find module '…/.vitepress/.temp/…'`. `scripts/docs.mjs` enforces an
 exclusive lock and fails fast with that guidance; if a process was killed,
-bun run docs:clean resets the temp state.
+bun run clean resets the temp state.
 :::
 
 ## Versioning and changelog
@@ -207,9 +214,9 @@ cut locally.
   in README/docs, commits the generated files, creates the annotated tag and
   publishes the GitHub release.
 - **`bun run release`** — `build` + changelog `--write` + `bun run
-  publish:npm`. Use it for the full path once the release is tagged with
+  publish`. Use it for the full path once the release is tagged with
   `useGit`.
-- **`bun run publish:npm`** — preflight only + publish: verifies a clean tree,
+- **`bun run publish`** — preflight only + publish: verifies a clean tree,
   `v<version>` present locally and on origin, a `## [<version>]` CHANGELOG
   section, synced README/docs version refs, a built `dist/` and that the
   version is not already on npm; then runs `npm publish --access public`. Use

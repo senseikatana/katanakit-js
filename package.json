@@ -1,6 +1,6 @@
 {
 	"name": "katanakit-js",
-	"version": "6.9.0",
+	"version": "6.9.1",
 	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -146,25 +146,31 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-		"predev": "bunx lint-staged",
-		"dev": "node scripts/docs.mjs dev",
-		"server:dev": "tsx src/adapters/express/main.ts",
-		"bun:dev": "bun run src/adapters/bun/main.ts",
+
+		"dev": "bunx lint-staged && node scripts/docs.mjs dev",
+		"dev:server": "tsx src/adapters/express/main.ts",
+		"dev:bun": "bun run src/adapters/bun/main.ts",
+
 		"check": "eslint ./src packages/ui/src && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
 		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
-		"build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && bun run check && tsc6 -p tsconfig.json && bun run ui:build && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions && bun run examples:check",
-		"release": "bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && bun run publish:npm",
-		"publish:npm": "node scripts/npm-publish.mjs",
-		"ui:build": "bun run --filter @katanakit/ui build",
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
-		"docs": "node scripts/docs.mjs build",
-		"docs:dev": "node scripts/docs.mjs dev",
-		"predocs:dev": "bunx lint-staged",
+
+		"clean": "node scripts/clean.mjs",
+
+		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions && bun run examples:check",
+		"build:ui": "bun run --filter @katanakit/ui build",
+
+		"docs": "bunx lint-staged && node scripts/docs.mjs build",
+		"docs:dev": "bunx lint-staged && node scripts/docs.mjs dev",
 		"docs:clean": "node scripts/docs.mjs clean",
 		"docs:preview": "node scripts/docs.mjs preview",
-		"docs:deploy": "node scripts/docs.mjs deploy",
 		"docs:gh": "node scripts/docs.mjs gh",
-		"cf:deploy": "bun run docs:deploy"
+
+		"deploy": "node scripts/docs.mjs deploy",
+		"deploy:cf": "node scripts/docs.mjs deploy",
+
+		"release": "bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && bun run publish",
+		"publish": "node scripts/npm-publish.mjs"
 	},
 	"lint-staged": {
 		"**/*.{ts,tsx}": "eslint --fix --quiet"
@@ -203,7 +209,7 @@
 	"jsdelivr": "./dist/index.js",
 	"dependencies": {
 		"@js-temporal/polyfill": "0.5.1",
-		"@prisma/orm-postgres": "8.0.0-rc.14",
+		"@prisma/orm-postgres": "8.0.0-rc.18",
 		"@tanstack/query-core": "5.104.1",
 		"express-rate-limit": "8.7.0",
 		"zod": "^4.6.5"
@@ -278,7 +284,7 @@
 		"@faker-js/faker": "^10.6.0",
 		"@insforge/sdk": "^1.5.2",
 		"@nestjs/common": "^12.1.2",
-		"@prisma/cli-engine": "0.6.2",
+		"@prisma/cli-engine": "0.7.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"@testing-library/react": "^16.3.3",
 		"@types/cors": "2.8.19",
@@ -303,7 +309,7 @@
 		"lint-staged": "^17.6.0",
 		"photoswipe": "^5.4.4",
 		"prettier": "^3.9.9",
-		"prisma": "8.0.0-rc.19",
+		"prisma": "8.0.0-rc.22",
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
 		"reflect-metadata": "^0.2.2",

@@ -17,10 +17,10 @@
  * 2FA approval (EOTP: open the printed URL) can complete in a real terminal.
  *
  * Usage:
- *   bun run publish:npm                # preflight + publish
- *   bun run publish:npm -- --check     # preflight only, never publishes
- *   bun run publish:npm -- --dry-run   # npm publish --dry-run (no upload)
- *   bun run publish:npm -- --otp=123456
+ *   bun run publish                # preflight + publish
+ *   bun run publish -- --check     # preflight only, never publishes
+ *   bun run publish -- --dry-run   # npm publish --dry-run (no upload)
+ *   bun run publish -- --otp=123456
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";

@@ -43,7 +43,7 @@ scss/
 `@katanakit/ui` compiles the framework and the component styles, then concatenates both into the published artifact:
 
 ```bash
-bun run ui:build
+bun run build:ui
 # packages/ui/dist/base.css        ← scss/main.scss
 # packages/ui/dist/components.css  ← .kk-* component classes
 # packages/ui/dist/styles.css      ← base + components (exported as katanakit-js/styles.css)

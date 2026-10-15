@@ -5,7 +5,7 @@
 //  (see scripts/concat-css.mjs). This file emits ONLY
 //  the dark theme tokens and the .kk-* component classes.
 //
-//  Build: bun run ui:build
+//  Build: bun run build:ui
 // ============================================================
 
 @use "scss/variables" as v;
@@ -343,4 +343,259 @@
 .kk-alert__close:focus-visible {
 	outline: 2px solid currentcolor;
 	outline-offset: 2px;
+}
+
+// ------------------------------------------------------------
+//  Toast
+// ------------------------------------------------------------
+
+.kk-toast-stack {
+	position: fixed;
+	z-index: var(--z-toast);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+	width: min(24rem, calc(100vw - var(--spacing-8)));
+	// Pointer events stay off the stack so it never swallows page clicks;
+	// individual toasts opt back in.
+	pointer-events: none;
+}
+
+.kk-toast-stack--top-right {
+	top: var(--spacing-5);
+	right: var(--spacing-5);
+	align-items: flex-end;
+}
+
+.kk-toast-stack--top-center {
+	top: var(--spacing-5);
+	left: 50%;
+	align-items: center;
+	transform: translateX(-50%);
+}
+
+.kk-toast-stack--top-left {
+	top: var(--spacing-5);
+	left: var(--spacing-5);
+	align-items: flex-start;
+}
+
+.kk-toast-stack--bottom-right {
+	bottom: var(--spacing-5);
+	right: var(--spacing-5);
+	align-items: flex-end;
+	flex-direction: column-reverse;
+}
+
+.kk-toast-stack--bottom-center {
+	bottom: var(--spacing-5);
+	left: 50%;
+	align-items: center;
+	flex-direction: column-reverse;
+	transform: translateX(-50%);
+}
+
+.kk-toast-stack--bottom-left {
+	bottom: var(--spacing-5);
+	left: var(--spacing-5);
+	align-items: flex-start;
+	flex-direction: column-reverse;
+}
+
+.kk-toast {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--spacing-3);
+	overflow: hidden;
+	padding: var(--spacing-3) var(--spacing-4);
+	border: 1px solid var(--neutral-200);
+	border-left-width: 3px;
+	border-radius: var(--radius-lg);
+	background-color: var(--neutral-50);
+	box-shadow: var(--shadow-md);
+	color: var(--neutral-900);
+	font-family: var(--font-sans-serif);
+	font-size: 0.875rem;
+	line-height: 1.4;
+	pointer-events: auto;
+	animation: kk-toast-in var(--duration-300) var(--ease-out) both;
+}
+
+.kk-toast--sm {
+	padding: var(--spacing-2) var(--spacing-3);
+	font-size: 0.8125rem;
+}
+
+.kk-toast--lg {
+	padding: var(--spacing-4) var(--spacing-5);
+	font-size: 1rem;
+}
+
+.kk-toast--info {
+	border-left-color: var(--info-500);
+}
+
+.kk-toast--success {
+	border-left-color: var(--success-500);
+}
+
+.kk-toast--warning {
+	border-left-color: var(--warning-500);
+}
+
+.kk-toast--error {
+	border-left-color: var(--danger-500);
+}
+
+.kk-toast--loading {
+	border-left-color: var(--neutral-400);
+}
+
+.kk-toast__icon {
+	flex: none;
+	width: 1.25rem;
+	height: 1.25rem;
+	margin-top: 0.0625rem;
+}
+
+.kk-toast--info .kk-toast__icon {
+	color: var(--info-600);
+}
+
+.kk-toast--success .kk-toast__icon {
+	color: var(--success-600);
+}
+
+.kk-toast--warning .kk-toast__icon {
+	color: var(--warning-600);
+}
+
+.kk-toast--error .kk-toast__icon {
+	color: var(--danger-600);
+}
+
+.kk-toast--loading .kk-toast__icon {
+	display: none;
+}
+
+.kk-toast__content {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	gap: var(--spacing-1);
+	min-width: 0;
+}
+
+.kk-toast__title {
+	margin: 0;
+	font-weight: 600;
+}
+
+.kk-toast__message {
+	margin: 0;
+	color: var(--neutral-700);
+	// Long URLs and stack traces must not blow out the stack width.
+	overflow-wrap: anywhere;
+}
+
+.kk-toast__close {
+	flex: none;
+	padding: 0 var(--spacing-1);
+	border: 0;
+	border-radius: var(--radius-sm);
+	background-color: transparent;
+	color: var(--neutral-500);
+	font-size: 1rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.kk-toast__close:hover {
+	background-color: var(--neutral-100);
+	color: var(--neutral-900);
+}
+
+.kk-toast__close:focus-visible {
+	outline: 2px solid var(--purple-500);
+	outline-offset: 2px;
+}
+
+// Indeterminate spinner for `loading` toasts.
+.kk-toast--loading::before {
+	content: "";
+	flex: none;
+	width: 1rem;
+	height: 1rem;
+	margin-top: 0.125rem;
+	border: 2px solid currentcolor;
+	border-right-color: transparent;
+	border-radius: var(--radius-full);
+	color: var(--neutral-500);
+	animation: kk-spin var(--duration-700) var(--ease-linear) infinite;
+}
+
+// Countdown bar. Driven purely by CSS so it pauses in lockstep with the
+// JS timer via `animation-play-state`.
+.kk-toast__progress {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: var(--purple-500);
+	transform-origin: left center;
+	animation: kk-toast-progress var(--kk-toast-duration, 5000ms) linear both;
+}
+
+.kk-toast--paused .kk-toast__progress {
+	animation-play-state: paused;
+}
+
+.kk-toast--leaving {
+	animation: kk-toast-out var(--duration-200) var(--ease-in) both;
+}
+
+@keyframes kk-toast-in {
+	from {
+		opacity: 0;
+		transform: translateY(-0.5rem) scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes kk-toast-out {
+	to {
+		opacity: 0;
+		transform: translateX(1rem);
+	}
+}
+
+@keyframes kk-toast-progress {
+	from {
+		transform: scaleX(1);
+	}
+
+	to {
+		transform: scaleX(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.kk-toast,
+	.kk-toast--leaving {
+		animation: none;
+	}
+
+	.kk-toast--loading::before {
+		animation-duration: var(--duration-1000);
+	}
+
+	.kk-toast__progress {
+		animation: none;
+	}
 }

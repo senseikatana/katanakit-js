@@ -23,10 +23,10 @@ Add `bun-types` to your `tsconfig.json` `types` for the `Bun` global:
 
 ## Quick start
 
-`bun run bun:dev` boots the dummyjson demo server:
+`bun run dev:bun` boots the dummyjson demo server:
 
 ```bash
-bun run bun:dev
+bun run dev:bun
 # Server running at http://localhost:3000
 ```
 

@@ -29,7 +29,7 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 - `bun run build` runs `check`, compiles `dist/`, builds the UI, synchronizes version references, and checks examples. The version-sync step can modify `package.json` and README/docs references; review those changes rather than discarding them blindly.
 - Run `bun run examples:check` after a build when changing examples or package exports.
 - ESLint uses flat config in `eslint.config.mjs`; do not add `.eslintrc` files. Prettier runs through ESLint.
-- `bun run dev` starts the VitePress docs site. `bun run server:dev` runs the Express server and `bun run bun:dev` runs the Bun server.
+- `bun run dev` starts the VitePress docs site. `bun run dev:server` runs the Express server and `bun run dev:bun` runs the Bun server.
 
 ## Documentation
 
@@ -38,7 +38,7 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 - The "why" behind hard-to-reverse decisions lives in `docs/explanation/decisions/` (context, decision, consequences). Add a numbered record there instead of burying rationale in prose; superseded records are never rewritten.
 - `scripts/docs-prepare.mjs` generates `docs/api/`, `docs/changelog.md`, and `docs/.vitepress/theme/signals.json`; do not edit these generated files by hand.
 - `scripts/docs.mjs` manages shared VitePress temporary state. Do not run `bun run dev` concurrently with `bun run docs` or `bun run docs:gh`.
-- Production docs deploy to Cloudflare Pages with `bun run docs:deploy` (`cf:deploy` is an alias): it builds, then publishes `docs/.vitepress/dist` to the `katanakit-docs` project via Wrangler. Credentials come from `CLOUDFLARE_API_TOKEN` in `.env` or a `bunx wrangler login` session. Keep Cloudflare as the hosting/storage provider; INSForge is the database fallback and Prisma is the local ORM.
+- Production docs deploy to Cloudflare Pages with `bun run deploy` (`deploy:cf` is an alias): it builds, then publishes `docs/.vitepress/dist` to the `katanakit-docs` project via Wrangler. Credentials come from `CLOUDFLARE_API_TOKEN` in `.env` or a `bunx wrangler login` session. Keep Cloudflare as the hosting/storage provider; INSForge is the database fallback and Prisma is the local ORM.
 
 ## Git and releases
 

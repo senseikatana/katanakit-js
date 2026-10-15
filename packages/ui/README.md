@@ -43,5 +43,5 @@ root element (the `ThemeService` in `katanakit-js` owns that attribute).
 ## Build
 
 ```bash
-bun run ui:build   # from the repo root: tsc + sass -> packages/ui/dist
+bun run build:ui   # from the repo root: tsc + sass -> packages/ui/dist
 ```

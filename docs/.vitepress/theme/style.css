@@ -184,6 +184,8 @@
 	align-self: center;
 	margin-left: auto;
 	padding: 1px 7px;
+	/* Inline use (page headings) drops the sidebar-only auto margin. */
+	vertical-align: middle;
 	border: 1px solid var(--vp-c-divider);
 	border-radius: 999px;
 	background: var(--vp-c-bg-soft);
