@@ -31,6 +31,64 @@ test.beforeEach(async ({ page }) => {
 	});
 });
 
+test("actually runs the exit animation before removing the dialog", async ({ page }) => {
+	// The regression this assertion exists for. Two independent bugs made the
+	// exit animation dead while every other test stayed green:
+	//
+	//   1. the leaving class landed on the shell but the rule read it as a
+	//      descendant (`.modal--leaving .modal__shell`), which can never match;
+	//   2. `dialog.close()` ran immediately, and removing `[open]` applies the UA
+	//      rule `dialog:not([open]) { display: none }` — a `display: none` element
+	//      runs no animation.
+	//
+	// So every close silently degraded to the fallback timer and the dialog just
+	// vanished. Assert the computed animation, not merely that it closes.
+	await page.click("#open-modal");
+
+	const animation = await page.evaluate(async () => {
+		const shell = document.querySelector(".modal__shell") as HTMLElement;
+		const before = getComputedStyle(shell).animationName;
+
+		window.modal.closeAll();
+		// Read it synchronously after close starts, while the exit should be live.
+		const during = getComputedStyle(shell).animationName;
+
+		return { before, during, stillConnected: shell.isConnected };
+	});
+
+	expect(animation.before).toBe("katana-modal-in");
+	expect(animation.during).toBe("katana-modal-out");
+	// Present in the DOM means the fallback timer had not run yet.
+	expect(animation.stillConnected).toBe(true);
+
+	await expect(page.locator("dialog.modal")).toHaveCount(0);
+});
+
+test("a descendant animation during close does not complete it early", async ({ page }) => {
+	// The listener is bound to the shell and filtered by name, because the kit's
+	// own buttons and inputs animate. A stray animationend must not tear the
+	// dialog down before its exit finishes.
+	await page.click("#open-modal");
+
+	const events = await page.evaluate(async () => {
+		const shell = document.querySelector(".modal__shell") as HTMLElement;
+		const seen: string[] = [];
+		shell.addEventListener("animationend", (e) => seen.push((e as AnimationEvent).animationName));
+
+		window.modal.closeAll();
+		// Simulate a caller's own animation completing inside the exit window.
+		shell.dispatchEvent(
+			new AnimationEvent("animationend", { animationName: "someone-elses-spin", bubbles: true }),
+		);
+		await new Promise((resolve) => setTimeout(resolve, 30));
+		return seen;
+	});
+
+	expect(events).toContain("someone-elses-spin");
+	// The dialog survives the stray event and completes on its own animation.
+	await expect(page.locator("dialog.modal")).toHaveCount(0);
+});
+
 test("opens in the top layer with the expected semantics", async ({ page }) => {
 	await page.click("#open-modal");
 

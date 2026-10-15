@@ -463,6 +463,47 @@ describe("modal", () => {
 			expect(document.querySelectorAll("dialog")).toHaveLength(1);
 		});
 
+		it("completes synchronously under prefers-reduced-motion", () => {
+			// Arrange — the branch where a double-completion bug would hide. jsdom
+			// does not define `matchMedia` at all, so the component's `typeof`
+			// guard short-circuits and this path never ran; the previous revision
+			// shipped exactly such a bug. Define it, then remove it.
+			const original = window.matchMedia;
+			Object.defineProperty(window, "matchMedia", {
+				configurable: true,
+				writable: true,
+				value: (query: string) => ({
+					matches: query.includes("prefers-reduced-motion"),
+					media: query,
+					addEventListener: () => {},
+					removeEventListener: () => {},
+				}),
+			});
+
+			try {
+				const onClose = vi.fn();
+				// Set before opening: `open` captures whatever overflow the body has
+				// at that moment and restores exactly that on close.
+				document.body.style.overflow = "auto";
+				const handle = modal.open({ title: "a", onClose });
+
+				// Act — the synchronous finish plus the fallback timer must agree
+				handle.close();
+				vi.advanceTimersByTime(MODAL_EXIT_FALLBACK_MS);
+
+				// Assert
+				expect(onClose).toHaveBeenCalledTimes(1);
+				expect(document.querySelector("dialog")).toBeNull();
+				expect(document.body.style.overflow).toBe("auto");
+			} finally {
+				Object.defineProperty(window, "matchMedia", {
+					configurable: true,
+					writable: true,
+					value: original,
+				});
+			}
+		});
+
 		it("leaves no orphaned nodes after closeAll", () => {
 			// Arrange
 			modal.open({ title: "a" });
@@ -516,8 +557,8 @@ describe("modal", () => {
 			expect(document.body.style.overflow).toBe("hidden");
 		});
 
-		it("completes closeAll even when one dialog cannot be closed", () => {
-			// Arrange — the no-`showModal` fallback path has no `close()` method;
+		it("completes closeAll even when the platform close() throws", () => {
+			// Arrange — the no-`showModal` fallback path has no `close()` at all;
 			// assuming it exists there aborted the sweep and left the rest of the
 			// stack open with the page locked forever.
 			modal.open({ title: "a" });
@@ -530,12 +571,35 @@ describe("modal", () => {
 				},
 			});
 
-			// Act
+			// Act — the throw must not escape, nor abort the other dialog
 			expect(() => modal.closeAll()).not.toThrow();
 			vi.advanceTimersByTime(MODAL_EXIT_FALLBACK_MS);
 
-			// Assert
+			// Assert — cleanup still ran for both
 			expect(document.querySelectorAll("dialog")).toHaveLength(0);
+			expect(document.body.style.overflow).toBe("");
+		});
+
+		it("still removes the dialog and calls onClose when close() throws", () => {
+			// Arrange — `finish` runs from a timer, so a throwing platform API would
+			// otherwise abort the scroll unlock, the DOM removal and the callback.
+			const onClose = vi.fn();
+			modal.open({ title: "a", onClose });
+			const dialog = document.querySelector("dialog") as HTMLDialogElement;
+			Object.defineProperty(dialog, "close", {
+				configurable: true,
+				value: () => {
+					throw new TypeError("close is not available");
+				},
+			});
+
+			// Act
+			modal.closeAll();
+			vi.advanceTimersByTime(MODAL_EXIT_FALLBACK_MS);
+
+			// Assert
+			expect(document.querySelector("dialog")).toBeNull();
+			expect(onClose).toHaveBeenCalledTimes(1);
 			expect(document.body.style.overflow).toBe("");
 		});
 	});

@@ -116,6 +116,13 @@ modal.open({ container: host.shadowRoot }); // host not in the document yet — 
 **`initialFocus` must be inside the dialog.** The focus guard pulls focus back
 from anywhere else, so pointing it at an outside element has no lasting effect.
 
+**`container` must belong to the current document.** A node from another document is
+refused rather than half-supported: `focusin` does not cross a document
+boundary either, so the focus guard would never fire.
+
+**`content` and `footer` nodes are moved, not copied.** Passing the same `Node` to a
+second `open()` rips it out of the first dialog.
+
 ## Store API
 
 | Method             | Returns        | Notes                                        |

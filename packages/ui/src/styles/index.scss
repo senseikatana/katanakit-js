@@ -748,7 +748,7 @@
 	}
 }
 
-.modal--leaving .modal__shell {
+.modal__shell.modal--leaving {
 	animation: katana-modal-out var(--duration-150) var(--ease-in) both;
 }
 
@@ -766,7 +766,7 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.modal__shell,
-	.modal--leaving .modal__shell {
+	.modal__shell.modal--leaving {
 		animation: none;
 	}
 }

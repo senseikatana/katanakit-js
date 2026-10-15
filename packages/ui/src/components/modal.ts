@@ -232,6 +232,13 @@ function usePortalTarget(container?: HTMLElement | null): HTMLElement | ShadowRo
 		);
 	}
 
+	// A node from another document is refused outright rather than half-supported:
+	// `focusin` does not cross a document boundary either, so the focus guard would
+	// never fire and the scroll lock would be applied to the wrong body.
+	if (typeof document !== "undefined" && container.ownerDocument !== document) {
+		throw new Error("[KatanaUI] modal container must belong to the current document.");
+	}
+
 	return container;
 }
 
@@ -331,8 +338,14 @@ const open = new Map<string, Mounted>();
 let store: ModalStore | null = null;
 let sequence = 0;
 
-/** Detaches the shared document-level guard, installed while any dialog is open. */
-let releaseGuard: (() => void) | null = null;
+/**
+ * Teardown for the focus guard, keyed by the tree it was installed on.
+ *
+ * One guard per root, not one per dialog: a per-dialog listener would run
+ * `querySelectorAll` plus `getClientRects` — a forced synchronous layout — on
+ * every focus event, multiplied by the number of open dialogs.
+ */
+const guards = new Map<Document | ShadowRoot, () => void>();
 
 /** The topmost dialog — the last one inserted, which is `Map` insertion order. */
 function useTopmost(): Mounted | undefined {
@@ -341,17 +354,34 @@ function useTopmost(): Mounted | undefined {
 	return top;
 }
 
-/**
- * Installs the single document-level focus guard.
- *
- * One listener for the whole page, dispatching to the topmost dialog. A listener
- * per dialog would run `querySelectorAll` plus `getClientRects` — a forced
- * synchronous layout — on every focus event, multiplied by the number of dialogs.
- */
-function useEnsureGuard(): void {
-	if (releaseGuard || typeof document === "undefined") return;
+/** The tree a dialog lives in. `focusin` does not cross a shadow boundary. */
+function useRoot(dialog: HTMLElement): Document | ShadowRoot {
+	return dialog.getRootNode() as Document | ShadowRoot;
+}
 
-	const onFocusIn = (event: FocusEvent) => {
+/**
+ * Resolves the focused element from the dialog's own tree.
+ *
+ * `document.activeElement` is shadow-blind: for a dialog inside a shadow root it
+ * reports the *host*, which the dialog does not contain. Reading the root's own
+ * `activeElement` is correct in both the document and the shadow case.
+ *
+ * @param dialog - The dialog being examined.
+ * @returns The focused element, or `null`.
+ */
+function useActive(dialog: HTMLElement): HTMLElement | null {
+	const root = useRoot(dialog);
+	return ((root.activeElement ?? document.activeElement) as HTMLElement | null) ?? null;
+}
+
+/**
+ * Installs the focus guard on a dialog's tree, if it is not already there.
+ */
+function useEnsureGuard(dialog: HTMLElement): void {
+	const root = useRoot(dialog);
+	if (guards.has(root) || typeof root.addEventListener !== "function") return;
+
+	const onFocusIn = (event: Event) => {
 		const entry = useTopmost();
 		if (!entry) return;
 		const target = event.target as Node | null;
@@ -361,14 +391,17 @@ function useEnsureGuard(): void {
 		(useFocusables(entry.dialog)[0] ?? entry.dialog).focus();
 	};
 
-	document.addEventListener("focusin", onFocusIn);
-	releaseGuard = () => document.removeEventListener("focusin", onFocusIn);
+	root.addEventListener("focusin", onFocusIn);
+	guards.set(root, () => root.removeEventListener("focusin", onFocusIn));
 }
 
-function useReleaseGuard(): void {
-	if (open.size > 0 || !releaseGuard) return;
-	releaseGuard();
-	releaseGuard = null;
+function useReleaseGuard(dialog: HTMLElement): void {
+	if (open.size > 0) return;
+	const root = useRoot(dialog);
+	const release = guards.get(root);
+	if (!release) return;
+	release();
+	guards.delete(root);
 }
 
 function useRestoreFocus(restore: HTMLElement | null): void {
@@ -387,8 +420,10 @@ function useRestoreFocus(restore: HTMLElement | null): void {
 		restore.focus();
 		return;
 	}
-
-	document.body.focus?.();
+	// Deliberately no `document.body.focus()`: `<body>` is not focusable in every
+	// engine, and where it is, focusing it moves the caret to the document root —
+	// further away from the user's work, not closer. Removing the dialog already
+	// drops focus to the body, which is the outcome we wanted anyway.
 }
 
 function useClose(entry: Mounted, id: string): void {
@@ -403,9 +438,28 @@ function useClose(entry: Mounted, id: string): void {
 		if (entry.finished) return;
 		entry.finished = true;
 
+		// Lift the top layer here, not before the animation. Removing `[open]`
+		// triggers the UA rule `dialog:not([open]) { display: none }`, and a
+		// `display: none` element runs no animation — so calling `close()` up front
+		// suppressed the exit before it played a frame and every close fell through
+		// to the fallback timer. The backdrop has to survive it too, which is why
+		// this cannot move earlier.
+		//
+		// Guarded: a platform `close()` that throws must not abort the cleanup
+		// below, or the scroll lock, the DOM removal and `onClose` are all skipped.
+		try {
+			if (typeof entry.dialog.close === "function") {
+				if (entry.dialog.open) entry.dialog.close();
+			} else {
+				entry.dialog.removeAttribute("open");
+			}
+		} catch {
+			entry.dialog.removeAttribute("open");
+		}
+
 		unlockScroll();
 		entry.dialog.remove();
-		useReleaseGuard();
+		useReleaseGuard(entry.dialog);
 		entry.options.onClose?.(id);
 		if (entry.options.returnFocus !== false) useRestoreFocus(entry.restoreTarget);
 	};
@@ -416,30 +470,17 @@ function useClose(entry: Mounted, id: string): void {
 	entry.shell.classList.add("modal--leaving");
 	if (reduced) finish();
 	else {
-		// Bound to the shell and filtered by name. `transitionend` bubbles, and the
-		// kit's own buttons and inputs have background/border transitions, so a
-		// dialog-level listener would fire on unrelated descendants and complete
-		// the close early — then again from the fallback timer.
-		entry.shell.addEventListener(
-			"animationend",
-			(event) => {
-				if ((event as AnimationEvent).animationName !== "katana-modal-out") return;
-				finish();
-			},
-			{ once: true },
-		);
+		// No `once`: it would be consumed by the first `animationend` to arrive,
+		// including one from a caller's own animation inside `content`, and the real
+		// exit would never be observed. `entry.finished` already makes a repeat
+		// harmless, and the listener dies with the node in `finish`.
+		entry.shell.addEventListener("animationend", (event) => {
+			if ((event as AnimationEvent).animationName !== "katana-modal-out") return;
+			finish();
+		});
 	}
 
 	setTimeout(finish, MODAL_EXIT_FALLBACK_MS);
-
-	// `close()` is what lifts the top layer. Guarded, because the no-`showModal`
-	// fallback path has no `close()` — assuming it exists there turns the fallback
-	// into a TypeError that aborts a `closeAll()` sweep part-way.
-	if (typeof entry.dialog.close === "function") {
-		if (entry.dialog.open) entry.dialog.close();
-	} else {
-		entry.dialog.removeAttribute("open");
-	}
 }
 
 function useBuild(
@@ -573,7 +614,7 @@ function useOpen(options: ModalOptions = {}): ModalHandle {
 
 		const first = items[0];
 		const last = items[items.length - 1];
-		const active = document.activeElement as HTMLElement | null;
+		const active = useActive(dialog);
 		const inside = active !== null && dialog.contains(active);
 
 		if (event.shiftKey && (active === first || !inside)) {
@@ -602,7 +643,7 @@ function useOpen(options: ModalOptions = {}): ModalHandle {
 
 	open.set(id, entry);
 	lockScroll();
-	useEnsureGuard();
+	useEnsureGuard(dialog);
 
 	try {
 		// `showModal()` gives the top layer, the backdrop and inertness for the rest
@@ -616,7 +657,7 @@ function useOpen(options: ModalOptions = {}): ModalHandle {
 		open.delete(id);
 		unlockScroll();
 		dialog.remove();
-		useReleaseGuard();
+		useReleaseGuard(dialog);
 		throw error;
 	}
 
@@ -646,11 +687,14 @@ function useCloseAll(): void {
 		try {
 			useClose(entry, id);
 		} catch {
-			// A dialog that cannot be closed by the platform API is still removed
-			// from the registry and the DOM, so the sweep completes.
-			open.delete(id);
-			unlockScroll();
+			// `useClose` schedules `finish` before its only throw site, and `finish`
+			// owns this lock — claiming it here too would underflow the refcount past
+			// zero and unlock the page while a dialog is still open. Claim only what
+			// `finish` has not been scheduled to do.
+			entry.finished = true;
 			entry.dialog.remove();
+			open.delete(id);
+			entry.options.onClose?.(id);
 		}
 	}
 }
