@@ -2,6 +2,7 @@ import DefaultTheme from "vitepress/theme";
 
 import "@katanakit/ui/styles.css";
 import { installActiveNav } from "./active-nav";
+import ComponentContract from "./components/ComponentContract.vue";
 import HomeSections from "./components/HomeSections.vue";
 import HyperUiShowcase from "./components/HyperUiShowcase.vue";
 import Layout from "./Layout.vue";
@@ -16,6 +17,7 @@ export default {
 	extends: DefaultTheme,
 	Layout,
 	enhanceApp({ app, router }) {
+		app.component("ComponentContract", ComponentContract);
 		app.component("HyperUiShowcase", HyperUiShowcase);
 		app.component("HomeSections", HomeSections);
 		if (typeof document === "undefined") return;

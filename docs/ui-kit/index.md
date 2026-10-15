@@ -101,6 +101,7 @@ the same primitives the toolkit already guarantees.
 
 - [Components](./components/button.md) — button, input, card, badge, alert and toast foundations.
 - [SCSS framework](./css/index.md) — the framework behind the kit (vendored from `katanakit-css@0.12.5`): tokens, utilities, mixins and API reference.
+- [Testing](./testing.md) — the two suites that cover the kit, and what only a browser can prove.
 - [Architecture](./architecture.md) — layers, theming, distribution and patterns.
 - [Inventory](./inventory.md) — every planned page, block, layout and interaction.
 - [LLM files](./llm-files.md) — machine-readable artifacts for AI agents.

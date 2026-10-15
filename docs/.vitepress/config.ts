@@ -305,6 +305,7 @@ export default defineConfig({
 							{ text: "Toast", link: "/ui-kit/components/toast" },
 						],
 					},
+					{ text: "Testing", link: "/ui-kit/testing" },
 					{ text: "Architecture", link: "/ui-kit/architecture" },
 					{ text: "Inventory", link: "/ui-kit/inventory" },
 					{ text: "LLM Files", link: "/ui-kit/llm-files" },

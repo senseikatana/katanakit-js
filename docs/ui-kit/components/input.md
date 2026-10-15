@@ -35,6 +35,13 @@ form.append(root);
 useInput({ label: "Email", type: "email", error: "Enter a valid email." });
 ```
 
+<ComponentContract
+	name="Input"
+	root="field"
+	pure="inputClass"
+	factory="useInput"
+/>
+
 ## Options
 
 | Option        | Type                                                       | Default  | Notes                                        |

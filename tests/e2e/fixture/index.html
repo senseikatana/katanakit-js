@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<title>Katana UI — e2e fixture</title>
+		<link rel="stylesheet" href="/ui.css" />
+		<style>
+			/* The kit pins its stack to the viewport; this keeps the page tall
+			   enough that the fixture can scroll to the stack. */
+			body {
+				margin: 0;
+				min-height: 120vh;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="spawn-success" type="button">success</button>
+		<button id="spawn-error" type="button">error</button>
+		<button id="spawn-loading" type="button">loading</button>
+		<button id="spawn-timed" type="button">timed</button>
+		<button id="spawn-pinned" type="button">pinned</button>
+		<button id="spawn-update" type="button">update</button>
+		<button id="clear" type="button">clear</button>
+
+		<script type="module">
+			import { toast, buttonClass } from "/ui.js";
+
+			// Expose for the assertions, and prove the unprefixed CSS contract.
+			window.toast = toast;
+			window.buttonClass = buttonClass;
+
+			const spawn = (type, options) => () => toast[type]("Fixture toast", options);
+
+			document.getElementById("spawn-success").addEventListener("click", spawn("success"));
+			document.getElementById("spawn-error").addEventListener("click", spawn("error"));
+			document.getElementById("spawn-loading").addEventListener("click", spawn("loading"));
+			document.getElementById("spawn-timed").addEventListener("click", spawn("info", { duration: 1000 }));
+			document.getElementById("spawn-pinned").addEventListener("click", spawn("info", { duration: 0 }));
+			document.getElementById("spawn-update").addEventListener("click", () => {
+				const handle = toast.loading("Uploading…", { duration: 0 });
+				window.__handle = handle;
+				handle.update({ type: "success", message: "Done." });
+			});
+			document.getElementById("clear").addEventListener("click", () => toast.clear());
+		</script>
+	</body>
+</html>

@@ -92,3 +92,9 @@ docs/.changelog.md.tmp
 
 # Prisma local machine state
 .prisma/local.json
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

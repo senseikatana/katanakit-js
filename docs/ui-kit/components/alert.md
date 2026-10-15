@@ -38,6 +38,13 @@ useAlert({
 });
 ```
 
+<ComponentContract
+	name="Alert"
+	root="alert"
+	pure="alertClass"
+	factory="useAlert"
+/>
+
 ## Options
 
 | Option        | Type                                          | Default  | Notes                                  |

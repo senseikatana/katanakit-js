@@ -118,6 +118,15 @@ toast.info("Bottom center", { position: "bottom-center" });
 | `closeLabel`  | `string`                                          | `"Dismiss notification"` | Accessible name for that button.              |
 | `onClose`     | `(id: string) => void`                            | —        | Called once the toast leaves the DOM.                     |
 
+## Contract
+
+<ComponentContract
+	name="Toast"
+	root="toast"
+	pure="toastClass"
+	factory="useToast"
+/>
+
 ## Store API
 
 | Method                  | Returns        | Notes                                                   |
@@ -132,8 +141,23 @@ toast.info("Bottom center", { position: "bottom-center" });
 | `clear()`               | `void`         | Every toast across all positions.                        |
 
 `ToastHandle` is `{ id, update(partial), dismiss() }`. `toast` and `useToastStore()`
-hand back the same singleton; `ToastService.getInstance()` is the escape hatch for
-dependency-injection call sites.
+hand back the same singleton object, so you can pass the notifier around without
+wiring a local `const`:
+
+```ts
+import { useToastStore } from "@katanakit/ui";
+
+function notifyUser(notifier = useToastStore()) {
+	notifier.success("Done.");
+}
+```
+
+For call sites that cannot import a factory at all — a DI container, a framework
+plugin wiring — `ToastService.getInstance()` returns the identical store:
+
+```ts
+ToastService.getInstance().success("Done.");
+```
 
 ## Pure helpers
 

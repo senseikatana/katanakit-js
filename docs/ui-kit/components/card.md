@@ -21,6 +21,13 @@ grid.append(
 );
 ```
 
+<ComponentContract
+	name="Card"
+	root="card"
+	pure="cardClass"
+	factory="useCard"
+/>
+
 ## Options
 
 | Option     | Type                  | Default | Notes                                    |

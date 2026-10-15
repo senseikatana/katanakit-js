@@ -24,6 +24,13 @@ row.append(
 );
 ```
 
+<ComponentContract
+	name="Badge"
+	root="badge"
+	pure="badgeClass"
+	factory="useBadge"
+/>
+
 ## Options
 
 | Option    | Type                                                        | Default     | Notes             |

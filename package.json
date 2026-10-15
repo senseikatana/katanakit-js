@@ -146,29 +146,24 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-
 		"dev": "bunx lint-staged && node scripts/docs.mjs dev",
 		"dev:server": "tsx src/adapters/express/main.ts",
 		"dev:bun": "bun run src/adapters/bun/main.ts",
-
 		"check": "eslint ./src packages/ui/src && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
+		"test:e2e": "playwright test",
+		"test:all": "bun run check && bun run test:e2e",
 		"fix": "eslint --fix ./src packages/ui/src && tsc6 --noEmit && vitest run",
 		"examples:check": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
-
 		"clean": "node scripts/clean.mjs",
-
 		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions && bun run examples:check",
 		"build:ui": "bun run --filter @katanakit/ui build",
-
 		"docs": "bunx lint-staged && node scripts/docs.mjs build",
 		"docs:dev": "bunx lint-staged && node scripts/docs.mjs dev",
 		"docs:clean": "node scripts/docs.mjs clean",
 		"docs:preview": "node scripts/docs.mjs preview",
 		"docs:gh": "node scripts/docs.mjs gh",
-
 		"deploy": "node scripts/docs.mjs deploy",
 		"deploy:cf": "node scripts/docs.mjs deploy",
-
 		"release": "bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && bun run publish",
 		"publish": "node scripts/npm-publish.mjs"
 	},
@@ -284,6 +279,7 @@
 		"@faker-js/faker": "^10.6.0",
 		"@insforge/sdk": "^1.5.2",
 		"@nestjs/common": "^12.1.2",
+		"@playwright/test": "^1.64.1",
 		"@prisma/cli-engine": "0.7.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"@testing-library/react": "^16.3.3",

@@ -26,6 +26,7 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 ## Commands and verification
 
 - `bun run check` is the project gate: ESLint, root and UI typechecks, then Vitest. Run it for code changes.
+- `bun run test:e2e` runs the Playwright suite in `tests/e2e/` for `@katanakit/ui` (browser-only behaviour: the `@layer` cascade, animations, `animationend`, `prefers-reduced-motion`). jsdom has no animation engine, so `animationend` never fires there and those paths are unreachable from the unit suite — see `docs/ui-kit/testing.md`. `bun run test:all` runs both.
 - `bun run fix` applies ESLint fixes and runs typechecks/tests, but skips the UI typecheck; use `check` for the full gate.
 - Run one test file with `bunx vitest run <path>`. Tests live under `tests/` and `packages/**/tests/`; Vitest maps `@/` to `src`.
 - `bun run build` runs `check`, compiles `dist/`, builds the UI, synchronizes version references, and checks examples. The version-sync step can modify `package.json` and README/docs references; review those changes rather than discarding them blindly.

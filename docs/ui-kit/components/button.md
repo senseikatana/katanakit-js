@@ -34,6 +34,13 @@ useButton({ label: "Loading", loading: true });
 useButton({ label: "Disabled", disabled: true });
 ```
 
+<ComponentContract
+	name="Button"
+	root="btn"
+	pure="buttonClass"
+	factory="useButton"
+/>
+
 ## Options
 
 | Option     | Type                                             | Default     | Notes                                              |

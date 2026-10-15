@@ -79,6 +79,8 @@ Useful scripts:
 | | `bun run dev:server` | Express dev server (`tsx`); `bun run dev:bun` for the Bun adapter |
 | | `bun run docs:dev` | Alias of `dev` kept for discoverability |
 | **verify** | `bun run check` | ESLint + typecheck + tests (gate before build/publish) |
+| | `bun run test:e2e` | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
+| | `bun run test:all` | Unit suite + browser suite |
 | | `bun run fix` | Same as `check` with ESLint auto-fix (skips the UI typecheck) |
 | | `bun run examples:check` | Typechecks the query/seed examples against `dist/` |
 | **clean** | `bun run clean` | Removes every regenerable artifact (`-- --dry` previews) |
@@ -269,6 +271,7 @@ git tag --sort=-creatordate     # check tags
 - [ ] New contracts/types were added to `src/types/` (not re‑declared).
 - [ ] New framework code is reachable via a subpath, not the main barrel.
 - [ ] `bun run check` passes (ESLint + typecheck + tests).
+- [ ] `bun run test:e2e` passes when the change touches `packages/ui` (animations, cascade, focus, or anything timing-dependent).
 - [ ] Tests added/updated for the change.
 - [ ] Documentation and `CHANGELOG.md` updated if the public API changed.
 - [ ] Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/).
