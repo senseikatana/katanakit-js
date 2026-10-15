@@ -187,6 +187,19 @@ bun run clean          # purge every regenerable artifact (docs temp included)
 `.env` (see `.env.example`, never committed) or a `bunx wrangler login` session.
 It always builds first, so the published site is never a stale artifact.
 
+### GitHub Wiki synchronization
+
+The GitHub Wiki is a separate Git repository. The
+`.github/workflows/wiki-sync.yml` workflow regenerates its pages from the
+tracked Markdown in `README.md`, `docs/`, `examples/` and `packages/ui/` after
+those files change on `main`. It can also be run manually from the Actions tab.
+
+To authorize Wiki pushes, create a short-lived classic personal access token
+with the `public_repo` scope and add it under **Settings → Secrets and variables
+→ Actions** as `WIKI_SYNC_TOKEN`. Never commit the token or paste it into the
+workflow. The workflow only runs on `main`; local changes become automatic
+after they are committed and merged there.
+
 ::: warning Never run dev and docs/docs:gh at the same time
 VitePress shares `docs/.vitepress/.temp` between the dev server and the build,
 so running both corrupts it and the build fails with
@@ -203,8 +216,8 @@ and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
 
 ### Releasing (local)
 
-There is no GitHub Actions pipeline: `.github/` was removed, so releases are
-cut locally.
+There is no CI or release pipeline; releases are cut locally. The GitHub Wiki
+sync is the only automated workflow and does not build or publish releases.
 
 - **`useGit push --release` / `useGit release create`** — computes the bump
   level from Conventional Commits, then calls

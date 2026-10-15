@@ -82,7 +82,8 @@ const changelog = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8")
 		/^## \[([^\]]+)\] - (\d{4}-\d{2}-\d{2})[ \t]*$/gm,
 		(_, version, date) =>
 			`<a id="v${version.replace(/\./g, "-")}"></a>\n\n## [${version}] - ${date}`,
-	);
+	)
+	.replace(/^- \[ \] (.+)$/gm, "- ☒ **$1**");
 
 const page = [
 	"---",
@@ -251,8 +252,8 @@ function recentReleases() {
 		for (const rawLine of body.split(/\r?\n/)) {
 			const line = rawLine.trimEnd();
 			if (!/^-\s+/.test(line)) continue;
-			const bullet = line.replace(/^-\s+/, "");
-			items.push({ emoji: emojiFor(bullet), html: markdownToHtml(bullet) });
+			const bullet = line.replace(/^-\s+/, "").replace(/^\[ \]\s*/, "");
+			items.push({ emoji: emojiFor(bullet), html: `<strong>${markdownToHtml(bullet)}</strong>` });
 		}
 		if (items.length > 0) {
 			releases.push({ version: heading[1], date: heading[2], items });

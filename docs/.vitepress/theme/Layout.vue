@@ -3,6 +3,7 @@ import DefaultTheme from "vitepress/theme";
 import { useRoute } from "vitepress";
 import { nextTick, onBeforeUnmount, onMounted, watch } from "vue";
 
+import HomeEndcap from "./components/HomeEndcap.vue";
 import GitHubStars from "./components/GitHubStars.vue";
 import HeroInstall from "./components/HeroInstall.vue";
 import HomeAnnouncement from "./components/HomeAnnouncement.vue";
@@ -33,7 +34,10 @@ onBeforeUnmount(() => {
 	cancelAnimationFrame(frame);
 });
 
-watch(() => route.path, () => nextTick(decorate));
+watch(
+	() => route.path,
+	() => nextTick(decorate),
+);
 </script>
 
 <template>
@@ -56,6 +60,7 @@ watch(() => route.path, () => nextTick(decorate));
 		</template>
 		<template #home-features-after>
 			<HomeSections />
+			<HomeEndcap />
 		</template>
 		<template #layout-bottom>
 			<WhatNew />

@@ -27,6 +27,15 @@ function escapeHtml(value: string): string {
 		.replace(/'/g, "&#39;");
 }
 
+function isSafeMediaLink(value: string): boolean {
+	try {
+		const url = new URL(value, "https://katanakit.invalid");
+		return url.protocol === "http:" || url.protocol === "https:";
+	} catch {
+		return false;
+	}
+}
+
 /**
  * Extracts a YouTube video id from a watch / shorts / live / embed /
  * `youtu.be` URL or a bare 11-char id. Returns `null` when not matched.
@@ -256,8 +265,9 @@ export function useBuildVideoEmbed(options: SmartVideoOptions): MediaSource & { 
 	}
 
 	const safeSrc = escapeHtml(src);
+	const link = isSafeMediaLink(src) ? `<a href="${safeSrc}">${safeTitle}</a>` : safeTitle;
 	const html =
 		`<figure class="${escapeHtml(figureClass)}" style="aspect-ratio:${ratio}">` +
-		`<a href="${safeSrc}">${safeTitle}</a>${safeCaption}</figure>`;
+		`${link}${safeCaption}</figure>`;
 	return { ...source, html };
 }

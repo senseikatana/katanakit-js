@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vitepress";
+import { computed, onMounted, ref, watch } from "vue";
 
 import type { ChangelogRelease } from "../signals";
 import { siteSignals } from "../signals";
@@ -8,6 +9,7 @@ const CHANGELOG_URL = "/changelog";
 const STORAGE_KEY = "katanakit:whats-new-seen";
 /** Items shown per release — the panel is a summary, not the full changelog. */
 const ITEMS_PER_RELEASE = 5;
+const route = useRoute();
 
 const entry = computed(() => siteSignals().changelog ?? null);
 const open = ref(false);
@@ -15,9 +17,7 @@ const open = ref(false);
 /** A release reduced to the summary shown in the panel. */
 type ShownRelease = ChangelogRelease & { hidden: number };
 
-const title = computed(() =>
-	entry.value ? `Changelog ${formatDate(entry.value.date)}` : "",
-);
+const title = computed(() => (entry.value ? `Changelog ${formatDate(entry.value.date)}` : ""));
 
 /** Last 6 releases (3 when fewer exist), each capped for the summary view. */
 const releases = computed<ShownRelease[]>(() =>
@@ -31,8 +31,18 @@ const releases = computed<ShownRelease[]>(() =>
 function formatDate(iso: string): string {
 	const [year, month, day] = iso.split("-").map(Number);
 	const months = [
-		"January", "February", "March", "April", "May", "June",
-		"July", "August", "September", "October", "November", "December",
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
 	];
 	return `${months[(month ?? 1) - 1]} ${day}, ${year}`;
 }
@@ -40,8 +50,18 @@ function formatDate(iso: string): string {
 function shortDate(iso: string): string {
 	const [, month, day] = iso.split("-").map(Number);
 	const months = [
-		"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
 	];
 	return `${months[(month ?? 1) - 1]} ${day}`;
 }
@@ -63,13 +83,21 @@ function dismiss() {
 	}
 }
 
-onMounted(() => {
+function syncOpenState(path: string) {
+	if (path === "/") {
+		open.value = false;
+		return;
+	}
 	if (!entry.value) return;
 	if (seen() === entry.value.version) return;
-	// Open right away: the panel animates in through CSS, and a timer here only
-	// adds a window where a route change can remount the layout and close it.
 	open.value = true;
+}
+
+onMounted(() => {
+	syncOpenState(route.path);
 });
+
+watch(() => route.path, syncOpenState);
 </script>
 
 <template>
@@ -86,18 +114,20 @@ onMounted(() => {
 			<span class="whats-new__label">What's new</span>
 		</button>
 
-		<section v-show="open" id="whats-new-panel" class="whats-new__panel" role="dialog" aria-label="Changelog">
+		<section
+			v-show="open"
+			id="whats-new-panel"
+			class="whats-new__panel"
+			role="dialog"
+			aria-label="Changelog"
+		>
 			<header class="whats-new__header">
 				<h2>{{ title }}</h2>
 				<button class="whats-new__close" type="button" aria-label="Close" @click="dismiss">✕</button>
 			</header>
 
 			<div class="whats-new__body">
-				<section
-					v-for="release in releases"
-					:key="release.version"
-					class="whats-new__release"
-				>
+				<section v-for="release in releases" :key="release.version" class="whats-new__release">
 					<h3>
 						v{{ release.version }}
 						<span>{{ shortDate(release.date) }}</span>
@@ -107,9 +137,7 @@ onMounted(() => {
 							<span class="whats-new__emoji" aria-hidden="true">{{ item.emoji }}</span>
 							<span v-html="item.html" />
 						</li>
-						<li v-if="release.hidden" class="whats-new__more">
-							… and {{ release.hidden }} more
-						</li>
+						<li v-if="release.hidden" class="whats-new__more">… and {{ release.hidden }} more</li>
 					</ul>
 				</section>
 			</div>

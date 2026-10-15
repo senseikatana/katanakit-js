@@ -108,13 +108,18 @@ describe("seo.service", () => {
 			expect(tags).toContain('<meta property="article:tag" content="astro" />');
 		});
 
-		it("generates Twitter Card tags", () => {
+		it("generates Twitter Card tags from the resolved page and site defaults", () => {
 			const tags = useGenerateMetaTags(config, {
 				title: "Blog Post",
 			});
 
-			// Twitter tags are intentionally not emitted (HTML + Open Graph only).
-			expect(tags).not.toContain("twitter:card");
+			expect(tags).toContain('<meta name="twitter:card" content="summary_large_image" />');
+			expect(tags).toContain('<meta name="twitter:title" content="Blog Post | My Site" />');
+			expect(tags).toContain('<meta name="twitter:description" content="Site description" />');
+			expect(tags).toContain(
+				'<meta name="twitter:image" content="https://example.com/og-default.png" />',
+			);
+			expect(tags).toContain('<meta name="twitter:site" content="@johndoe" />');
 			expect(tags).toContain('<meta property="og:title"');
 		});
 
@@ -208,7 +213,13 @@ describe("seo.service", () => {
 				canonical: "https://example.com/",
 				robots: "index, follow",
 				rss: { enabled: true, path: "/rss.xml", limit: 20 },
-				seo: { noindex: false, canonical: true, openGraph: true, jsonLd: true },
+				seo: {
+					noindex: false,
+					canonical: true,
+					openGraph: true,
+					twitterCard: false,
+					jsonLd: true,
+				},
 			} satisfies UseSeoMetaOptions);
 
 			expect(seo.site).toBe("https://example.com");
@@ -241,6 +252,38 @@ describe("seo.service", () => {
 			);
 			expect(seo.html).toContain('<meta property="article:tag" content="typescript" />');
 			expect(seo.html).toContain('<meta name="robots" content="noindex, nofollow" />');
+		});
+
+		it("allows page-level Twitter card and metadata overrides", () => {
+			const seo = useSeoMeta(
+				{
+					title: "Blog Post",
+					twitterCard: "summary",
+					twitterTitle: "Short share title",
+					twitterDescription: "Share-specific description",
+					twitterImage: "/twitter.png",
+					twitterImageAlt: "Custom share image",
+					twitterCreator: "creator",
+				},
+				config,
+			);
+
+			expect(seo.html).toContain('<meta name="twitter:card" content="summary" />');
+			expect(seo.html).toContain('<meta name="twitter:title" content="Short share title" />');
+			expect(seo.html).toContain(
+				'<meta name="twitter:description" content="Share-specific description" />',
+			);
+			expect(seo.html).toContain(
+				'<meta name="twitter:image" content="https://example.com/twitter.png" />',
+			);
+			expect(seo.html).toContain('<meta name="twitter:image:alt" content="Custom share image" />');
+			expect(seo.html).toContain('<meta name="twitter:creator" content="@creator" />');
+		});
+
+		it("omits Twitter cards when disabled per page", () => {
+			const seo = useSeoMeta({ title: "Private page", seo: { twitterCard: false } }, config);
+
+			expect(seo.html).not.toContain("twitter:");
 		});
 
 		it("merges page meta with defaults when site fields omitted", () => {

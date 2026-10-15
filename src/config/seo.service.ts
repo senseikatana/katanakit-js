@@ -25,7 +25,7 @@ export type {
 
 /**
  * Result of {@link useSeoMeta}: `html` / `tags` for the head, plus **one**
- * flat object of resolved fields (site + HTML + OG). No duplicate
+ * flat object of resolved fields (site + HTML + OG + Twitter). No duplicate
  * `title` / `meta.title` / `config.title`.
  *
  * - `title` = document title (page)
@@ -95,6 +95,7 @@ export function useSeoMeta<OmitKeys extends keyof UseSeoMetaBase = never>(
 			noindex: config.seo.noindex,
 			canonical: config.seo.canonical,
 			openGraph: config.seo.openGraph,
+			twitterCard: config.seo.twitterCard,
 			jsonLd: config.seo.jsonLd,
 		},
 		nav: config.nav,
@@ -195,7 +196,7 @@ function assertSiteConfigSeo(config: SiteConfig, caller: string): void {
 	}
 	if ((config as SiteConfig).seo == null) {
 		throw new Error(
-			`[Seo] SiteConfig.seo is required (${caller}). Pass seo: { noindex, canonical, openGraph, jsonLd }.`,
+			`[Seo] SiteConfig.seo is required (${caller}). Pass seo: { noindex, canonical, openGraph, twitterCard, jsonLd }.`,
 		);
 	}
 }
@@ -223,11 +224,13 @@ function siteConfigToOpts(config: SiteConfig, caller = "siteConfigToOpts"): UseS
 		author: config.author,
 		ogImage: config.ogImage,
 		description: config.description,
+		twitterSite: config.twitter,
 		rss: config.rss,
 		seo: {
 			noindex: config.seo.noindex,
 			canonical: config.seo.canonical,
 			openGraph: config.seo.openGraph,
+			twitterCard: config.seo.twitterCard,
 			jsonLd: config.seo.jsonLd,
 		},
 		nav: config.nav,
@@ -269,7 +272,7 @@ function splitUseSeoMetaOptions(
 			noindex: seo?.noindex ?? defaults.seo.noindex,
 			canonical: seo?.canonical ?? defaults.seo.canonical,
 			openGraph: seo?.openGraph ?? defaults.seo.openGraph,
-			twitterCard: defaults.seo.twitterCard,
+			twitterCard: seo?.twitterCard ?? defaults.seo.twitterCard,
 			jsonLd: seo?.jsonLd ?? defaults.seo.jsonLd,
 		},
 		nav: nav ?? defaults.nav,
@@ -466,6 +469,13 @@ const SKIP_KEYS = new Set([
 	"rss",
 	"seo",
 	"nav",
+	"twitterCard",
+	"twitterTitle",
+	"twitterDescription",
+	"twitterImage",
+	"twitterImageAlt",
+	"twitterSite",
+	"twitterCreator",
 ]);
 
 function flattenSeoMetaToTags(input: SeoMetaInput, config?: SiteConfig): SeoTagNode[] {
@@ -515,6 +525,10 @@ function flattenSeoMetaToTags(input: SeoMetaInput, config?: SiteConfig): SeoTagN
 		}
 
 		pushScalarMeta(tags, key, raw);
+	}
+
+	if (config?.seo.twitterCard) {
+		tags.push(...flattenTwitterCard(input, config));
 	}
 
 	return tags;
@@ -573,6 +587,42 @@ function flattenOgImage(raw: unknown, config?: SiteConfig): SeoTagNode[] {
 			tags.push({ tag: "meta", attrs: { property: `${prop}:alt`, content: String(obj.alt) } });
 	}
 	return tags;
+}
+
+function flattenTwitterCard(input: SeoMetaInput, config: SiteConfig): SeoTagNode[] {
+	const image =
+		input.twitterImage != null
+			? absoluteUrl(input.twitterImage, config.site)
+			: resolveOgImageUrl(input, config);
+	const card = input.twitterCard ?? (image ? "summary_large_image" : "summary");
+	const tags: SeoTagNode[] = [{ tag: "meta", attrs: { name: "twitter:card", content: card } }];
+	const fields: [string, unknown][] = [
+		["twitter:title", input.twitterTitle ?? input.ogTitle ?? input.title],
+		["twitter:description", input.twitterDescription ?? input.ogDescription ?? input.description],
+		["twitter:image", image],
+		["twitter:image:alt", input.twitterImageAlt ?? input.ogImageAlt ?? resolveOgImageAlt(input)],
+		["twitter:site", normalizeTwitterHandle(input.twitterSite ?? config.twitter)],
+		["twitter:creator", normalizeTwitterHandle(input.twitterCreator)],
+	];
+
+	for (const [name, value] of fields) {
+		if (value != null && value !== "") {
+			tags.push({ tag: "meta", attrs: { name, content: String(value) } });
+		}
+	}
+	return tags;
+}
+
+function resolveOgImageAlt(input: SeoMetaInput): string | undefined {
+	const raw = input.ogImage;
+	if (raw == null || typeof raw === "string") return undefined;
+	const images = Array.isArray(raw) ? raw : [raw];
+	return images.find((image) => image && typeof image === "object" && image.alt)?.alt;
+}
+
+function normalizeTwitterHandle(handle?: string | null): string | undefined {
+	if (!handle) return undefined;
+	return handle.startsWith("@") ? handle : `@${handle}`;
 }
 
 function serializeRobots(value: string | SeoRobotsObject): string {

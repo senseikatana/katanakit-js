@@ -9,12 +9,11 @@ description: "Site-wide SEO config, per-page metas, canonical and robots control
 object goes in, one flat object comes out, plus `html` and `tags` ready to
 inject into `<head>`. Three design rules apply to every function on this page:
 
-1. **HTML + Open Graph only** — the service emits standard HTML head tags
-   (`<title>`, `<meta name>`, `<link rel="canonical">`) and Facebook Open Graph
-   (`og:*`, `article:*`). There are no Twitter, Apple or Microsoft tags; the
-   docs site layers its Twitter card manually on top of the generated fragment.
-2. **One flat input, one flat output** — site fields, page fields and Open
-   Graph fields live in the same object. The result never duplicates
+1. **HTML, Open Graph and Twitter cards** — the service emits standard HTML
+   head tags (`<title>`, `<meta name>`, `<link rel="canonical">`), Open Graph
+   (`og:*`, `article:*`) and optional Twitter/X card tags.
+2. **One flat input, one flat output** — site fields, page fields, Open Graph
+   and Twitter fields live in the same object. The result never duplicates
    `title` / `meta.title` / `config.title`: `title` is the **page** document
    title and `siteTitle` is the **brand**.
 3. **No DOM required** — every helper returns strings or plain objects, so the
@@ -101,7 +100,7 @@ const site: SiteConfig = defineSeoMetaConfig({
     noindex: false,
     canonical: true,
     openGraph: true,
-    twitterCard: false, // deprecated: kept for SiteConfig compatibility
+    twitterCard: true,
     jsonLd: true,
   },
   nav: [
@@ -130,7 +129,7 @@ in a module-level pointer, so there are no import side effects.
 | `lang` | `string` | Language code (`"en"`, `"es-ES"`). Returned as-is and mapped to `og:locale` with an underscore (`es_ES`). |
 | `author` | `string` | Default author for `<meta name="author">`, `article:author` and JSON-LD. |
 | `ogImage` | `string?` | Default share image, absolute or relative to `site`. |
-| `twitter` | `string?` | Deprecated — never read by `useSeoMeta` (HTML + Open Graph only). |
+| `twitter` | `string?` | Site account handle; adds `twitter:site` when Twitter cards are enabled. |
 | `rss.enabled` | `boolean` | Emits (or omits) the RSS autodiscovery `<link>` in the head. |
 | `rss.path` | `string` | Feed route such as `"/rss.xml"`; written verbatim into the link `href`. |
 | `rss.title` | `string?` | Feed title; defaults to `title`. |
@@ -139,7 +138,7 @@ in a module-level pointer, so there are no import side effects.
 | `seo.noindex` | `boolean` | When `true`, forces `robots="noindex, nofollow"` on pages that do not set `robots` explicitly. |
 | `seo.canonical` | `boolean` | When `true` (the demo default), emits `<link rel="canonical">` from the resolved page URL even without an explicit `canonical`. |
 | `seo.openGraph` | `boolean` | When `false`, strips every `og:*` and `article:*` tag from the result. |
-| `seo.twitterCard` | `boolean` | Deprecated — unused by this service. |
+| `seo.twitterCard` | `boolean` | Enables Twitter/X card tags; card size defaults to large-image when a share image exists. |
 | `seo.jsonLd` | `boolean` | When `true`, appends a JSON-LD `<script>` (`WebSite` or `Article`). |
 | `nav` | `Array?` | Optional `{ label, href, external }` list. Copied to the result untouched, so layout components can read navigation from the same object. |
 
@@ -291,6 +290,23 @@ Calling `useSeoMeta()` with `null` / a non-object throws
 | `ogImageWidth` | `string` or `number` | Scalar variant of `og:image:width`. |
 | `ogImageHeight` | `string` or `number` | Scalar variant of `og:image:height`. |
 | `ogImageAlt` | `string` | Scalar variant of `og:image:alt`. |
+
+#### Twitter/X card fields
+
+Twitter cards are disabled unless `seo.twitterCard` is `true`. When enabled,
+the card defaults to `summary_large_image` if a resolved share image exists,
+otherwise `summary`. Title, description and image inherit their Open Graph
+counterparts unless overridden.
+
+| Key | Type | Notes |
+| --- | --- | --- |
+| `twitterCard` | `"summary" \| "summary_large_image"` | Per-page card layout override. |
+| `twitterTitle` | `string` | Overrides the resolved Open Graph/page title. |
+| `twitterDescription` | `string` | Overrides the resolved Open Graph/page description. |
+| `twitterImage` | `string` | Absolute or site-relative image URL. |
+| `twitterImageAlt` | `string` | Image alt text; falls back to `ogImageAlt` or the Open Graph image object's `alt`. |
+| `twitterSite` | `string` | Site handle such as `"@katanakit"`; otherwise `SiteConfig.twitter` is used. |
+| `twitterCreator` | `string` | Optional creator handle. |
 
 #### Article extensions
 
@@ -624,8 +640,7 @@ const seo = useSeoMeta({
 This is the exact pattern the KatanaKit docs use: register once at module
 scope, then map the `tags` array to VitePress `HeadConfig` tuples inside
 `transformHead`. VitePress already owns `<title>`, so the `title` node is
-skipped; Twitter cards are layered manually because the service is HTML + Open
-Graph only.
+skipped. Open Graph and Twitter/X cards are emitted by the same helper call.
 
 ```ts
 // docs/.vitepress/config.ts
@@ -662,9 +677,6 @@ export default defineConfig({
       if (node.tag === "title") continue;
       head.push([node.tag, node.attrs ?? {}, node.text ?? ""]);
     }
-
-    head.push(["meta", { name: "twitter:card", content: "summary_large_image" }]);
-    head.push(["meta", { name: "twitter:image", content: "https://docs.example.com/og.png" }]);
 
     return head;
   },
