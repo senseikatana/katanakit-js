@@ -2,39 +2,40 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
+	toast,
 	TOAST_EXIT_FALLBACK_MS,
+	toastClass,
+	toastContainerClass,
 	useToast,
-	useToastClass,
 	useToastContainer,
-	useToastContainerClass,
 	useToastStore,
 } from "../src/index";
 
 /** Mirrors the component's private default so timing assertions read in real units. */
 const DEFAULT_DURATION = 5000;
 
-describe("useToastClass", () => {
+describe("toastClass", () => {
 	it("defaults to info at medium size and dismissible", () => {
-		expect(useToastClass()).toBe("kk-toast kk-toast--info kk-toast--md kk-toast--dismissible");
+		expect(toastClass()).toBe("kk-toast kk-toast--info kk-toast--md kk-toast--dismissible");
 	});
 
 	it("composes variant and size", () => {
-		expect(useToastClass({ type: "success", size: "sm" })).toBe(
+		expect(toastClass({ type: "success", size: "sm" })).toBe(
 			"kk-toast kk-toast--success kk-toast--sm kk-toast--dismissible",
 		);
 	});
 
 	it("drops the dismissible modifier when opted out", () => {
-		expect(useToastClass({ type: "error", dismissible: false })).toBe(
+		expect(toastClass({ type: "error", dismissible: false })).toBe(
 			"kk-toast kk-toast--error kk-toast--md",
 		);
 	});
 });
 
-describe("useToastContainerClass", () => {
+describe("toastContainerClass", () => {
 	it("defaults to the top-right anchor", () => {
-		expect(useToastContainerClass()).toBe("kk-toast-stack kk-toast-stack--top-right");
-		expect(useToastContainerClass({ position: "bottom-left" })).toBe(
+		expect(toastContainerClass()).toBe("kk-toast-stack kk-toast-stack--top-right");
+		expect(toastContainerClass({ position: "bottom-left" })).toBe(
 			"kk-toast-stack kk-toast-stack--bottom-left",
 		);
 	});
@@ -284,6 +285,30 @@ describe("useToastStore", () => {
 
 	it("hands back the same store on every call", () => {
 		expect(useToastStore()).toBe(useToastStore());
+	});
+
+	it("exposes the same store through the toast facade", () => {
+		expect(useToastStore()).toBe(toast);
+	});
+
+	it("mounts through the toast facade", () => {
+		// Arrange / Act
+		toast.success("Profile saved.");
+
+		// Assert
+		expect(document.querySelectorAll(".kk-toast--success")).toHaveLength(1);
+	});
+
+	it("resolves the store lazily, so the facade is safe to import", () => {
+		// Arrange — every method is a thin delegate; nothing runs until called
+		const methods = ["show", "info", "success", "warning", "error", "loading"] as const;
+
+		// Assert
+		for (const method of methods) {
+			expect(typeof toast[method]).toBe("function");
+		}
+		expect(typeof toast.dismiss).toBe("function");
+		expect(typeof toast.clear).toBe("function");
 	});
 
 	describe("close button", () => {

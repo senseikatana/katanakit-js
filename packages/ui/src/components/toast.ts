@@ -1,14 +1,29 @@
 /**
  * Toast notifications — framework-agnostic, zero runtime dependencies.
  *
- * Mirrors the dual surface of the rest of the kit:
+ * The everyday API mirrors react-toastify:
  *
- * - **Pure** — {@link useToastClass} and {@link useToastContainerClass} return
- *   plain strings and never touch the DOM, so Astro/Nuxt templates can render
- *   markup directly: `<div class={useToastClass({ type: "success" })}>`.
- * - **Imperative** — {@link useToastStore} is the programmatic manager
- *   (`toast.success("Saved")`); {@link useToast} builds a single detached
- *   element for hand-rolled stacks.
+ * ```ts
+ * import { toast } from "@katanakit/ui";
+ *
+ * toast.success("Profile saved.");
+ * toast.error("Upload failed.", { duration: 0 });
+ * ```
+ *
+ * Option names stay KatanaKit's own (`duration`, not react-toastify's
+ * `autoClose`) — `duration: 0` reads as "pin it" where `autoClose: false`
+ * reads like a boolean.
+ *
+ * Three surfaces, matching the rest of the kit:
+ *
+ * - **Facade** — the {@link toast} export. Lazy, so importing it during SSR is
+ *   safe; the DOM is only touched when a method is actually called.
+ * - **Pure** — {@link toastClass} and {@link toastContainerClass} return plain
+ *   strings and never touch the DOM, so Astro/Nuxt templates can render markup
+ *   directly: `<div class={toastClass({ type: "success" })}>`.
+ * - **Factories** — {@link useToastStore} (the singleton behind {@link toast}),
+ *   {@link useToast} for a single detached element, {@link useToastContainer}
+ *   for a hand-rolled stack.
  *
  * Accessibility: every stack is a polite live region (`role="region"` with
  * `aria-live="polite"`), and each toast escalates to `role="alert"` when its
@@ -33,7 +48,7 @@ export type ToastPosition =
 /** Toast sizes. */
 export type ToastSize = "sm" | "md" | "lg";
 
-/** Options accepted by {@link useToast}, {@link useToastClass} and the store. */
+/** Options accepted by {@link useToast}, {@link toastClass} and the store. */
 export interface ToastOptions {
 	/** Semantic variant (default: `"info"`). */
 	type?: ToastType;
@@ -132,11 +147,11 @@ const TYPE_ICON: Record<ToastType, string> = {
  *
  * @example
  * ```ts
- * useToastClass({ type: "success", size: "sm" });
+ * toastClass({ type: "success", size: "sm" });
  * // "kk-toast kk-toast--success kk-toast--sm kk-toast--dismissible"
  * ```
  */
-export function useToastClass(
+export function toastClass(
 	options: Pick<ToastOptions, "type" | "size" | "dismissible"> = {},
 ): string {
 	const classes = [
@@ -157,11 +172,11 @@ export function useToastClass(
  *
  * @example
  * ```ts
- * useToastContainerClass({ position: "bottom-center" });
+ * toastContainerClass({ position: "bottom-center" });
  * // "kk-toast-stack kk-toast-stack--bottom-center"
  * ```
  */
-export function useToastContainerClass(options: Pick<ToastOptions, "position"> = {}): string {
+export function toastContainerClass(options: Pick<ToastOptions, "position"> = {}): string {
 	return ["kk-toast-stack", `kk-toast-stack--${options.position ?? "top-right"}`].join(" ");
 }
 
@@ -171,7 +186,7 @@ export function useToastContainerClass(options: Pick<ToastOptions, "position"> =
 
 function requireDom(api: string): Document {
 	if (typeof document === "undefined") {
-		throw new Error(`[KatanaUI] ${api}() needs a DOM; use useToastClass() for SSR markup.`);
+		throw new Error(`[KatanaUI] ${api}() needs a DOM; use toastClass() for SSR markup.`);
 	}
 	return document;
 }
@@ -245,7 +260,7 @@ export function useToast(options: ToastOptions = {}): HTMLDivElement {
 
 	const variant = options.type ?? "info";
 	const toast = document.createElement("div");
-	toast.className = useToastClass(options);
+	toast.className = toastClass(options);
 	// Errors interrupt; everything else waits its turn.
 	toast.setAttribute("role", variant === "error" ? "alert" : "status");
 
@@ -301,7 +316,7 @@ export function useToastContainer(options: Pick<ToastOptions, "position"> = {}):
 	requireDom("useToastContainer");
 
 	const stack = document.createElement("div");
-	stack.className = useToastContainerClass(options);
+	stack.className = toastContainerClass(options);
 	stack.setAttribute("role", "region");
 	stack.setAttribute("aria-label", "Notifications");
 	stack.setAttribute("aria-live", "polite");
@@ -566,27 +581,19 @@ function useTrimStack(stack: HTMLDivElement): void {
 }
 
 /**
- * Returns the singleton toast manager.
+ * The singleton toast manager, behind a lazy facade.
  *
- * Repeated calls hand back the same store, so state survives module reloads
- * within a page. The returned object is a thin facade — it never needs to be
- * instantiated.
+ * Every method resolves the internal store on call, so *importing* this module
+ * during SSR is safe — `document` is only touched when a method actually runs,
+ * and then the friendly `requireDom` error fires.
  *
  * @returns The shared {@link ToastStore}.
- * @throws {Error} Outside a DOM environment.
- *
- * @example
- * ```ts
- * const toast = useToastStore();
- * toast.success("Profile saved.");
- * toast.error("Upload failed.", { duration: 0 });
- * ```
+ * @throws {Error} When a method is called outside a DOM environment.
  */
-export function useToastStore(): ToastStore {
-	requireDom("useToastStore");
+function useStore(): ToastStore {
+	requireDom("toast");
 
-	// Cached so repeated calls really do hand back the same facade, as the
-	// singleton contract promises — and so it is not reallocated per call.
+	// Cached so repeated calls hand back the same object.
 	store ??= {
 		show: useShow,
 		info: (message, options = {}) => useShow({ ...options, type: "info", message }),
@@ -607,6 +614,50 @@ export function useToastStore(): ToastStore {
 		},
 	};
 	return store;
+}
+
+/**
+ * Toast notifications — the react-toastify-shaped facade.
+ *
+ * ```ts
+ * import { toast } from "@katanakit/ui";
+ *
+ * toast.success("Profile saved.");
+ * toast.error("Upload failed.", { duration: 0 });
+ * ```
+ *
+ * Prefer this over {@link useToastStore} in application code. Both hand back
+ * the same singleton; this one is a stable module-level binding you can pass
+ * around without wiring a local `const`.
+ */
+export const toast: ToastStore = {
+	show: (options) => useStore().show(options),
+	info: (message, options) => useStore().info(message, options),
+	success: (message, options) => useStore().success(message, options),
+	warning: (message, options) => useStore().warning(message, options),
+	error: (message, options) => useStore().error(message, options),
+	loading: (message, options) => useStore().loading(message, options),
+	dismiss: (id) => useStore().dismiss(id),
+	clear: () => useStore().clear(),
+};
+
+/**
+ * Returns the singleton toast manager.
+ *
+ * Same store as the {@link toast} export — kept for the `use*` accessor
+ * convention and for dependency-injection call sites.
+ *
+ * @returns The shared {@link ToastStore}.
+ * @throws {Error} Outside a DOM environment.
+ *
+ * @example
+ * ```ts
+ * const notifier = useToastStore();
+ * notifier.success("Profile saved.");
+ * ```
+ */
+export function useToastStore(): ToastStore {
+	return toast;
 }
 
 /**

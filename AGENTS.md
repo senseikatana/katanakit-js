@@ -14,7 +14,7 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 - `src/core/services/` contains domain logic and should remain free of runtime I/O. `src/infrastructure/` owns runtime I/O; `src/adapters/` contains framework and platform integrations; `src/config/` contains site and SEO configuration.
 - Keep shared contracts in `src/types/index.ts` and validation schemas in `src/schemas/`. Prefer deriving types from schemas where practical; do not duplicate existing shapes.
 - Framework integrations must remain out of the main `src/index.ts` barrel. Expose and import them through their package subpaths declared in `package.json`.
-- Public methods use the `use*` prefix except `getInstance()`. Services are generally Singleton facades with destructured `use*` exports; `adapters/nuxt` is an intentional pure-function exception.
+- Public methods use the `use*` prefix except `getInstance()`. Services are generally Singleton facades with destructured `use*` exports; `adapters/nuxt` is an intentional pure-function exception. Pure value builders in `packages/ui` are a second exception: `toastClass()` and `toastContainerClass()` return strings and imply no lifecycle, so a `use*` prefix would be a lie. Component facades exported as stable module bindings (currently `toast`) follow the same rule.
 - Keep imports side-effect-free. Guard browser APIs (`window`, `document`, `navigator`) so browser-dependent code remains safe in Node/Bun and SSR.
 - For fallible async operations, use the Safe Result shape `{ data, error, ok }`; prefer existing helpers such as `useAttempt()`, `useTryJsonParse()`, and `useErrorNormalize()` at boundaries.
 - Optional integrations belong in `peerDependencies` with `peerDependenciesMeta.optional`, not in `dependencies`.

@@ -5,13 +5,29 @@ description: Transient notifications with a live-region stack, pause-on-hover co
 
 # Toast <span class="vp-new-badge">new</span>
 
-`useToastStore()` returns a singleton manager that mounts toasts into a live-region
-stack. `useToast(options)` builds a single detached element when you own the
-lifecycle yourself, and `useToastClass()` / `useToastContainerClass()` return plain
-class strings for SSR markup.
+```ts
+import { toast } from "@katanakit/ui";
+
+toast.success("Profile saved.");
+toast.error("Upload failed.", { duration: 0 });
+```
+
+The `toast` export is a lazy facade over a per-page singleton: importing it during
+SSR is safe, and `document` is only touched when a method actually runs.
+
+`toastClass()` and `toastContainerClass()` return plain class strings for SSR
+markup, `useToast()` builds a single detached element when you own the lifecycle
+yourself, and `useToastStore()` is the same store as `toast` under the `use*`
+accessor convention.
 
 No JSX, no framework runtime — the store talks to `document.body` directly, so the
 same code works from Astro, Nuxt, plain Node scripts or a static page.
+
+::: tip Names
+The call shape follows [react-toastify](https://fkhadra.github.io/react-toastify/),
+but the option names are ours. `duration: 0` reads as "pin it open"; react-toastify's
+`autoClose: false` reads like a boolean.
+:::
 
 ## Variants
 
@@ -24,9 +40,8 @@ dismiss or update it.
 </ClientOnly>
 
 ```ts
-import { useToastStore } from "@katanakit/ui";
+import { toast } from "@katanakit/ui";
 
-const toast = useToastStore();
 toast.info("Sync started.");
 toast.success("Profile saved.");
 toast.warning("Quota at 90%.");
@@ -116,8 +131,18 @@ toast.info("Bottom center", { position: "bottom-center" });
 | `dismiss(id?)`          | `void`         | One by id, or every toast when omitted.                  |
 | `clear()`               | `void`         | Every toast across all positions.                        |
 
-`ToastHandle` is `{ id, update(partial), dismiss() }`. `ToastService.getInstance()`
-returns the same store for dependency-injection call sites.
+`ToastHandle` is `{ id, update(partial), dismiss() }`. `toast` and `useToastStore()`
+hand back the same singleton; `ToastService.getInstance()` is the escape hatch for
+dependency-injection call sites.
+
+## Pure helpers
+
+| Helper                 | Returns                        | Use for                                   |
+| ---------------------- | ------------------------------ | ----------------------------------------- |
+| `toastClass(options)`  | `string`                       | `class={toastClass({ type: "success" })}` |
+| `toastContainerClass()`| `string`                       | The stack wrapper in a template.          |
+
+Both are pure and SSR-safe: no DOM, no state, just stable strings.
 
 ## Accessibility
 
@@ -129,26 +154,26 @@ returns the same store for dependency-injection call sites.
 - `prefers-reduced-motion: reduce` removes every animation and the slide-in transform.
 
 ::: info SSR
-`useToastStore()`, `useToast()` and `useToastContainer()` all need a DOM and throw
-with a pointer to the fix. On the server use `useToastClass()` and
-`useToastContainerClass()` — both are pure functions returning stable strings.
+`toast.*`, `useToast()` and `useToastContainer()` need a DOM and throw with a
+pointer to the fix — but only when called, never on import. On the server use
+`toastClass()` and `toastContainerClass()`, which are pure.
 :::
 
 ```astro
 ---
 // Astro: markup from the pure surface, behaviour from a client script
-import { useToastClass, useToastContainerClass } from "@katanakit/ui";
+import { toastClass, toastContainerClass } from "@katanakit/ui";
 ---
 
-<div class={useToastContainerClass({ position: "top-right" })} role="region" aria-label="Notifications">
-  <div class={useToastClass({ type: "success" })} role="status">
+<div class={toastContainerClass({ position: "top-right" })} role="region" aria-label="Notifications">
+  <div class={toastClass({ type: "success" })} role="status">
     <div class="kk-toast__content"><p class="kk-toast__message">Deployed.</p></div>
   </div>
 </div>
 
 <script>
-  import { useToastStore } from "@katanakit/ui";
-  useToastStore().success("Deployed.");
+  import { toast } from "@katanakit/ui";
+  toast.success("Deployed.");
 </script>
 ```
 
@@ -168,8 +193,7 @@ import { useToastClass, useToastContainerClass } from "@katanakit/ui";
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import type { ToastStore } from "@katanakit/ui";
-import { useToast, useToastStore } from "@katanakit/ui";
+import { toast, useToast } from "@katanakit/ui";
 
 // Importing is SSR-safe — only *calling* these needs a DOM. VitePress evaluates
 // this block during SSR, so every call is inside `onMounted` or a click handler,
@@ -193,16 +217,15 @@ onMounted(() => {
 });
 
 function runUpload() {
-	const handle = useToastStore().loading("Uploading 3 files…", { position: "bottom-right" });
+	const handle = toast.loading("Uploading 3 files…", { position: "bottom-right" });
 	window.setTimeout(() => handle.update({ type: "success", message: "3 files uploaded." }), 2500);
 }
 
 function runPause() {
-	useToastStore().success("Hover me — the countdown pauses.", { duration: 6000 });
+	toast.success("Hover me — the countdown pauses.", { duration: 6000 });
 }
 
 function runPositions() {
-	const store: ToastStore = useToastStore();
 	const spots = [
 		["top-right", "Top right"],
 		["top-center", "Top center"],
@@ -213,7 +236,7 @@ function runPositions() {
 	] as const;
 
 	for (const [position, label] of spots) {
-		store.info(label, { position, duration: 4000 });
+		toast.info(label, { position, duration: 4000 });
 	}
 }
 </script>
