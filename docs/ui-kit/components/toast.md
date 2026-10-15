@@ -118,8 +118,6 @@ toast.info("Bottom center", { position: "bottom-center" });
 | `closeLabel`  | `string`                                          | `"Dismiss notification"` | Accessible name for that button.              |
 | `onClose`     | `(id: string) => void`                            | —        | Called once the toast leaves the DOM.                     |
 
-## Contract
-
 <ComponentContract
 	name="Toast"
 	root="toast"

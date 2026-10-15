@@ -159,9 +159,136 @@ export function rewriteMarkdownLinks(markdown, sourcePath, pagesBySource) {
 	);
 }
 
-function cleanPage(sourcePath, content, pagesBySource) {
+/** Fenced code blocks, longest-delimiter aware, captured whole. */
+const FENCED_BLOCK = /(`{3,}[\s\S]*?`{3,}|~{3,}[\s\S]*?~{3,})/g;
+/** Placeholder used to park a fenced block while the prose around it is rewritten. */
+const PARKED_BLOCK = /\u0000([A-Za-z\d+/=]+)\u0000/g;
+
+/** VitePress container type to the GitHub alert it becomes on the Wiki. */
+const ALERT_TYPES = {
+	tip: "TIP",
+	info: "NOTE",
+	note: "NOTE",
+	important: "IMPORTANT",
+	warning: "WARNING",
+	caution: "CAUTION",
+	danger: "CAUTION",
+};
+
+/**
+ * Runs `transform` with every fenced code block parked out of the way.
+ *
+ * Without this, a fence demonstrating `<ClientOnly>` or a `:::` container would be
+ * rewritten as if it were live prose. Parking is lossless: the block is reinserted
+ * byte for byte once the transformation is done.
+ */
+function withParkedFences(markdown, transform) {
+	const parked = markdown.replace(FENCED_BLOCK, (fence) =>
+		`\u0000${Buffer.from(fence).toString("base64")}\u0000`,
+	);
+	return transform(parked).replace(PARKED_BLOCK, (_match, encoded) =>
+		Buffer.from(encoded, "base64").toString("utf8"),
+	);
+}
+
+/**
+ * `::: code-group` renders as tabs in VitePress and as nothing at all on the Wiki.
+ * Unwrapping keeps every block visible; the tab label is kept as a bold line so the
+ * reader still knows which block is which.
+ */
+function unwrapCodeGroups(markdown) {
+	return markdown.replace(
+		/^:::[ \t]*code-group[^\n]*\n([\s\S]*?)^:::[ \t]*$/gm,
+		(_match, body) =>
+			body.trim().replace(
+				/^(`{3,})([^\n]*?)[ \t]+\[([^\]]+)\][^\n]*$/gm,
+				(_fence, ticks, info, label) => `**${label.trim()}**\n\n${ticks}${info.trim()}`,
+			),
+	);
+}
+
+/** Renders `<ComponentContract>` as the Markdown table it is on the site. */
+function componentContractMarkdown({ root, pure, factory }) {
+	return [
+		"## Contract",
+		"",
+		"Every component in the kit follows one shape. Pure builders return a class string and",
+		"touch nothing; factories build a DOM element and need a browser.",
+		"",
+		"| Surface | Import | Needs a DOM |",
+		"| ------- | ------ | ----------- |",
+		`| Pure class builder | \`${pure}\` | No — safe during SSR |`,
+		`| Element factory | \`${factory}\` | Yes — throws with a pointer to the pure surface |`,
+		"",
+		"```ts",
+		"// Server and templates — pure",
+		`<div class={${pure}({ /* … */ })}></div>`,
+		"",
+		"// Browser — imperative",
+		`document.body.append(${factory}({ /* … */ }));`,
+		"```",
+		"",
+		`**Class names are unprefixed.** The root class is \`${root}\`, not \`kk-${root}\`, and every`,
+		"component rule is wrapped in `@layer katana`.",
+		"",
+		"That matters because these names collide 1:1 with [daisyUI](https://daisyui.com/components/).",
+		"Unlayered CSS always beats layered CSS regardless of specificity or import order, so",
+		"loading both is deterministic instead of \"whoever came last\". See",
+		"[why](/ui-kit/architecture#why-unprefixed-and-why-layer-katana).",
+		"",
+	].join("\n");
+}
+
+/** Expands the shared contract block, leaving any unknown component untouched. */
+function expandComponentContract(markdown) {
+	return markdown.replace(/<ComponentContract\b([\s\S]*?)\/>/g, (match, attributes) => {
+		const props = Object.fromEntries(
+			[...attributes.matchAll(/(\w+)\s*=\s*"([^"]*)"/g)].map(([, key, value]) => [key, value]),
+		);
+		return props.pure && props.factory ? componentContractMarkdown(props) : match;
+	});
+}
+
+/** Rewrites a `::: type Title` container as the equivalent GitHub alert. */
+function toAlert(type, title, body, original) {
+	const alert = ALERT_TYPES[type.toLowerCase()];
+	if (!alert) return original;
+	const quoted = body
+		.trim()
+		.split("\n")
+		.map((line) => (line.trim() ? `> ${line}` : ">"))
+		.join("\n");
+	const label = title.trim();
+	return [`> [!${alert}]`, label ? `> **${label}**` : "", quoted].filter(Boolean).join("\n");
+}
+
+function convertContainers(markdown) {
+	return markdown.replace(
+		/^:::[ \t]*(\w[\w-]*)[ \t]*(.*)$([\s\S]*?)^:::[ \t]*$/gm,
+		(match, type, title, body) => toAlert(type, title, body, match),
+	);
+}
+
+/** Drops VitePress-only markup the Wiki would otherwise print as literal text. */
+function normalizeInlineMarkup(markdown) {
+	return markdown
+		.replace(/<style\b[^>]*>[\s\S]*?<\/style>\s*/g, "")
+		.replace(/<script setup(?:\s[^>]*)?>[\s\S]*?<\/script>\s*/g, "")
+		.replace(/<\/?ClientOnly[^>]*>\s*/g, "")
+		.replace(/<\/?script[^>]*>\s*/g, "")
+		.replace(/<span class="vp-new-badge">\s*([\s\S]*?)\s*<\/span>/g, "**$1**");
+}
+
+/** Every VitePress construct the Wiki cannot render, turned into something it can. */
+function toWikiMarkdown(body) {
+	return withParkedFences(unwrapCodeGroups(body), (markdown) =>
+		expandComponentContract(convertContainers(normalizeInlineMarkup(markdown))),
+	);
+}
+
+export function cleanPage(sourcePath, content, pagesBySource) {
 	let { content: body } = splitFrontmatter(content);
-	body = body.replace(/<script setup(?:\s[^>]*)?>[\s\S]*?<\/script>\s*/g, "");
+	body = toWikiMarkdown(body);
 	if (sourcePath === "docs/index.md") {
 		return [
 			"# Documentation",
