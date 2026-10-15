@@ -19,9 +19,6 @@ declare global {
 	}
 }
 
-/** The three focusable labels the fixture renders inside each dialog. */
-const STOPS = ["Alpha", "Bravo", "Charlie"];
-
 test.beforeEach(async ({ page }) => {
 	await page.goto("/");
 	await page.evaluate(() => {

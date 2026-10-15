@@ -27,8 +27,10 @@
 		<button id="steal-focus" type="button">steal focus</button>
 		<button id="close-modal" type="button">close modals</button>
 
+		<div id="widgets"></div>
+
 		<script type="module">
-			import { toast, buttonClass, modal } from "/ui.js";
+			import { buttonClass, modal, toast, useSelect, useTabs } from "/ui.js";
 
 			// Exposed for the assertions. Importing the module is SSR-safe: nothing
 			// here touches the DOM until a handler runs.
@@ -90,6 +92,41 @@
 			);
 			document.getElementById("steal-focus").addEventListener("click", () => window.modalStealFocus());
 			document.getElementById("close-modal").addEventListener("click", () => modal.closeAll());
+
+			// ── Tabs and Select ────────────────────────────────────────────────
+			window.mountTabs = (mode = "automatic") => {
+				const host = document.getElementById("widgets");
+				host.replaceChildren();
+				host.append(
+					useTabs({
+						label: "Sections",
+						activation: mode,
+						tabs: [
+							{ id: "one", label: "One", content: "First panel" },
+							{ id: "two", label: "Two", content: "Second panel" },
+							{ id: "three", label: "Three", content: "Third panel", disabled: true },
+							{ id: "four", label: "Four", content: "Fourth panel" },
+						],
+					}).root,
+				);
+			};
+
+			window.mountSelect = () => {
+				const host = document.getElementById("widgets");
+				host.replaceChildren();
+				host.append(
+					useSelect({
+						label: "Country",
+						name: "country",
+						options: [
+							{ value: "es", label: "Spain" },
+							{ value: "ar", label: "Argentina" },
+							{ value: "br", label: "Brazil" },
+							{ value: "cl", label: "Chile", disabled: true },
+						],
+					}).root,
+				);
+			};
 		</script>
 	</body>
 </html>
