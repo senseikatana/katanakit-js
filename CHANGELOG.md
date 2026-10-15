@@ -8,6 +8,130 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.10.0] - 2026-10-15
+
+Highlights: fix(ui): harden toast lifecycle and unblock the docs build, plus 7 more changes.
+
+- [x] 🧪 test(ui): add a browser suite for what jsdom cannot prove
+  - `.gitignore`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/components/ComponentContract.vue`
+  - `docs/.vitepress/theme/index.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/ui-kit/components/alert.md`
+  - `docs/ui-kit/components/badge.md`
+  - `docs/ui-kit/components/button.md`
+  - `docs/ui-kit/components/card.md`
+  - `docs/ui-kit/components/input.md`
+  - `docs/ui-kit/components/toast.md`
+  - `docs/ui-kit/index.md`
+  - `docs/ui-kit/testing.md`
+  - `package.json`
+  - `playwright.config.ts`
+  - `scripts/serve-fixture.mjs`
+  - `tests/e2e/fixture/index.html`
+  - `tests/e2e/toast.browser.test.ts`
+  - `vitest.config.ts`
+- [x] ♻️ refactor(ui): unprefix component classes and unify the component contract
+  - `AGENTS.md`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/components/alert.md`
+  - `docs/ui-kit/components/badge.md`
+  - `docs/ui-kit/components/button.md`
+  - `docs/ui-kit/components/card.md`
+  - `docs/ui-kit/components/input.md`
+  - `docs/ui-kit/components/toast.md`
+  - `docs/ui-kit/css/reference/architecture.md`
+  - `docs/ui-kit/hyperui.md`
+  - `docs/ui-kit/index.md`
+  - `docs/ui-kit/roadmap.md`
+  - `packages/ui/README.md`
+  - `packages/ui/src/components/alert.ts`
+  - `packages/ui/src/components/badge.ts`
+  - `packages/ui/src/components/button.ts`
+  - `packages/ui/src/components/card.ts`
+  - `packages/ui/src/components/input.ts`
+  - `packages/ui/src/components/toast.ts`
+  - `packages/ui/src/styles/index.scss`
+  - `packages/ui/tests/alert.test.ts`
+  - `packages/ui/tests/badge.test.ts`
+  - `packages/ui/tests/button.test.ts`
+  - `packages/ui/tests/card.test.ts`
+  - `packages/ui/tests/input.test.ts`
+  - `packages/ui/tests/toast.test.ts`
+- [x] ♻️ refactor(ui): adopt a react-toastify-shaped toast facade
+  - `AGENTS.md`
+  - `docs/ui-kit/components/toast.md`
+  - `packages/ui/src/components/toast.ts`
+  - `packages/ui/tests/toast.test.ts`
+- [x] 🐛 fix(ui): harden toast lifecycle and unblock the docs build
+  - `docs/ui-kit/components/toast.md`
+  - `packages/ui/src/components/toast.ts`
+  - `packages/ui/tests/toast.test.ts`
+  - `scripts/clean.mjs`
+  - `scripts/docs.mjs`
+- [x] 🐛 fix: update documentation files and code for toast component
+  - `.env.example`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/guides/bun-adapter.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/components/toast.md`
+  - `docs/ui-kit/css/reference/architecture.md`
+  - `docs/ui-kit/index.md`
+  - `package.json`
+  - `packages/ui/README.md`
+  - `packages/ui/src/components/toast.ts`
+  - `packages/ui/src/index.ts`
+  - `packages/ui/src/styles/index.scss`
+  - `packages/ui/tests/toast.test.ts`
+  - `scripts/clean.mjs`
+  - `scripts/docs.mjs`
+  - `scripts/npm-publish.mjs`
+  - `scss/_variables.scss`
+  - `src/prisma/schema.d.ts`
+  - `src/prisma/schema.json`
+- [x] 📝 docs: automate Wiki sync and refresh documentation
+  - `.github/workflows/wiki-sync.yml`
+  - `.impeccable/design.json`
+  - `CONTRIBUTING.md`
+  - `DESIGN.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/Layout.vue`
+  - `docs/.vitepress/theme/components/HomeEndcap.vue`
+  - `docs/.vitepress/theme/components/WhatNew.vue`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/guides/services/seo.md`
+  - `docs/index.md`
+  - `docs/public/images/social-card.jpg`
+  - `scripts/docs-prepare.mjs`
+  - `scripts/sync-wiki.mjs`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/config/site.config.ts`
+  - `src/core/services/media.service.ts`
+  - `tests/media.service.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tests/sync-wiki.test.ts`
+- [x] 📦 build(docs): add a docs:deploy runner mode for Cloudflare Pages
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+  - `scripts/docs.mjs`
+- [x] 📦 build(deps): update wrangler to 4.149.0
+  - `bun.lock`
+  - `package.json`
+
 ## [6.9.1] - 2026-10-09
 
 What's news:
