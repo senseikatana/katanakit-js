@@ -8,6 +8,54 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.10.1] - 2026-10-15
+
+Highlights: feat(ui): add a modal with focus trap, portal and scroll lock and fix(ui): close the measured focus-trap gaps in the modal, plus 3 more changes.
+
+- [x] 🐛 fix(ui): close the measured focus-trap gaps in the modal
+  - `packages/ui/src/components/modal.ts`
+  - `tests/e2e/modal.browser.test.ts`
+- [x] 🐛 fix: update documentation and components for select and tabs
+  - `docs/.vitepress/config.ts`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/components/select.md`
+  - `docs/ui-kit/components/tabs.md`
+  - `docs/ui-kit/index.md`
+  - `packages/ui/src/components/select.ts`
+  - `packages/ui/src/components/tabs.ts`
+  - `packages/ui/src/index.ts`
+  - `packages/ui/src/styles/index.scss`
+  - `packages/ui/tests/tabs-select.test.ts`
+  - `tests/e2e/fixture/index.html`
+  - `tests/e2e/modal.browser.test.ts`
+  - `tests/e2e/tabs-select.browser.test.ts`
+- [x] 🐛 fix(ui): make the modal exit animation actually run
+  - `docs/ui-kit/components/modal.md`
+  - `packages/ui/src/components/modal.ts`
+  - `packages/ui/src/styles/index.scss`
+  - `packages/ui/tests/modal.test.ts`
+  - `tests/e2e/modal.browser.test.ts`
+- [x] 🚀 feat(ui): add a modal with focus trap, portal and scroll lock
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/components/modal.md`
+  - `docs/ui-kit/index.md`
+  - `packages/ui/src/components/modal.ts`
+  - `packages/ui/src/index.ts`
+  - `packages/ui/src/styles/index.scss`
+  - `packages/ui/tests/modal.test.ts`
+  - `tests/e2e/fixture/index.html`
+  - `tests/e2e/modal.browser.test.ts`
+- [x] 🔹 Add ordered HTTP request interceptors (#19)
+  - `docs/guides/services/http-client.md`
+  - `src/core/services/http.service.ts`
+  - `src/types/index.ts`
+  - `tests/http.service.test.ts`
+- [x] 🧪 test(ui): add a browser suite for what jsdom cannot prove
+
 ## [6.10.0] - 2026-10-15
 
 Highlights: fix(ui): harden toast lifecycle and unblock the docs build, plus 7 more changes.
