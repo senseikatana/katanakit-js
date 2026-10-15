@@ -302,6 +302,7 @@ export default defineConfig({
 							{ text: "Card", link: "/ui-kit/components/card" },
 							{ text: "Badge", link: "/ui-kit/components/badge" },
 							{ text: "Alert", link: "/ui-kit/components/alert" },
+							{ text: "Modal", link: "/ui-kit/components/modal" },
 							{ text: "Toast", link: "/ui-kit/components/toast" },
 						],
 					},

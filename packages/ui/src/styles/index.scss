@@ -619,3 +619,154 @@
 	}
 }
 }
+
+// ------------------------------------------------------------
+//  Modal
+//
+//  The dialog is a native top-layer element, so `position: fixed` and the
+//  backdrop come from the platform. Only the shell is styled here.
+// ------------------------------------------------------------
+
+.modal {
+	/* Native `<dialog>` centres itself and paints no chrome; these are the
+	   knobs that opt back into a themed surface. */
+	width: 100%;
+	max-width: none;
+	margin: auto;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--neutral-900);
+	font-family: var(--font-sans-serif);
+	overflow: visible;
+}
+
+.modal::backdrop {
+	background-color: rgb(0 0 0 / 0.6);
+}
+
+.modal__shell {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-4);
+	width: 100%;
+	max-height: calc(100vh - var(--spacing-12));
+	overflow-y: auto;
+	padding: var(--spacing-5);
+	border: 1px solid var(--neutral-200);
+	border-radius: var(--radius-lg);
+	background-color: var(--neutral-50);
+	box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1));
+	animation: katana-modal-in var(--duration-200) var(--ease-out) both;
+}
+
+.modal--sm .modal__shell {
+	max-width: 24rem;
+}
+
+.modal--md .modal__shell {
+	max-width: 32rem;
+}
+
+.modal--lg .modal__shell {
+	max-width: 48rem;
+}
+
+.modal--full .modal__shell {
+	max-width: min(72rem, calc(100vw - var(--spacing-8)));
+	max-height: calc(100vh - var(--spacing-8));
+}
+
+.modal__title {
+	margin: 0;
+	padding-right: var(--spacing-6);
+	font-size: 1.125rem;
+	font-weight: 600;
+	line-height: 1.35;
+}
+
+.modal__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+	font-size: 0.9375rem;
+	line-height: 1.5;
+	color: var(--neutral-700);
+}
+
+.modal__text {
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+
+.modal__footer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--spacing-3);
+	justify-content: flex-end;
+	padding-top: var(--spacing-2);
+}
+
+.modal__close {
+	position: absolute;
+	top: var(--spacing-3);
+	right: var(--spacing-3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
+	border: 0;
+	border-radius: var(--radius-sm);
+	background-color: transparent;
+	color: var(--neutral-500);
+	cursor: pointer;
+}
+
+.modal__close svg {
+	width: 1rem;
+	height: 1rem;
+}
+
+.modal__close:hover {
+	background-color: var(--neutral-100);
+	color: var(--neutral-900);
+}
+
+/* Reachable by keyboard, so the ring matters. */
+.modal__close:focus-visible {
+	outline: 2px solid var(--purple-500);
+	outline-offset: 2px;
+}
+
+@keyframes katana-modal-out {
+	to {
+		opacity: 0;
+		transform: translateY(0.25rem) scale(0.99);
+	}
+}
+
+.modal--leaving .modal__shell {
+	animation: katana-modal-out var(--duration-150) var(--ease-in) both;
+}
+
+@keyframes katana-modal-in {
+	from {
+		opacity: 0;
+		transform: translateY(0.5rem) scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.modal__shell,
+	.modal--leaving .modal__shell {
+		animation: none;
+	}
+}

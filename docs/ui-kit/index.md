@@ -8,7 +8,7 @@ description: Katana UI — the planned framework-agnostic UI kit built on top of
 ::: warning Status
 
 **Foundations available.** The first components (button, input, card, badge, alert,
-toast <span class="vp-new-badge">new</span>) live in the private `packages/ui` workspace (`@katanakit/ui`) and are styled with
+toast, modal <span class="vp-new-badge">new</span>) live in the private `packages/ui` workspace (`@katanakit/ui`) and are styled with
 the [SCSS framework](./css/index.md) vendored in `katanakit-js` (`scss/`). The package is **not published to npm yet** — inside
 this repo you import it by name, outside it you cannot install it. The rest of the kit
 is still planned; the name **Katana UI** is provisional.

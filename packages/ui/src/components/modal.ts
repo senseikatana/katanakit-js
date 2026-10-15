@@ -1,0 +1,717 @@
+/**
+ * Modal dialogs — native `<dialog>` in the top layer, with a focus trap.
+ *
+ * ## The portal decision
+ *
+ * The component owns the portal: it appends to `document.body` (or a `container`
+ * you pass) and removes itself on close. The alternative — leaving the portal to
+ * the consumer — keeps the factory "pure" at the cost of making every call site
+ * wire up the portal, the focus restoration and the scroll lock. Getting that
+ * wiring wrong is the normal failure mode, and it fails as *inaccessible*
+ * rather than as an error: focus lands nowhere and the keyboard user is stranded.
+ *
+ * `container` is the escape hatch for shadow DOM and for nesting a dialog inside
+ * a subtree. It must already be in the document.
+ *
+ * ## Focus management
+ *
+ * `showModal()` promotes the dialog to the top layer, renders `::backdrop`, fires
+ * `cancel` on <kbd>Escape</kbd>, and makes the rest of the document inert. On top
+ * of that the component adds the two things the native behaviour leaves open:
+ *
+ * - an explicit <kbd>Tab</kbd> cycle, because a browser will still let focus walk
+ *   out through its own chrome;
+ * - a `focusin` guard that pulls focus back if it escapes for any other reason.
+ *
+ * The guard listens on `document`, not on the dialog. That is not a stylistic
+ * choice: when focus is stolen the `focusin` event fires on the *outside* element
+ * and bubbles upward, so a dialog-scoped listener can never observe it. One guard
+ * is installed for the whole page and dispatches to the topmost dialog, rather
+ * than one per dialog, so a stack of dialogs does not thrash layout on every
+ * focus event.
+ *
+ * Focus is restored to whatever was focused before `open()`, unless that element
+ * is gone by the time the dialog closes — then it falls back to the topmost
+ * dialog still open, and finally to `<body>`.
+ *
+ * ## SSR
+ *
+ * {@link modalClass} and {@link modalContainerClass} are pure. The `modal` export
+ * is a lazy facade, so importing it during SSR is safe; only calling a method
+ * touches the DOM.
+ *
+ * @module ui/components/modal
+ */
+
+/* -------------------------------------------------------------------------- */
+/* Types                                                                      */
+/* -------------------------------------------------------------------------- */
+
+/** Dialog widths. */
+export type ModalSize = "sm" | "md" | "lg" | "full";
+
+/** Options accepted by {@link modalClass} and {@link modal.open}. */
+export interface ModalOptions {
+	/** Heading line, rendered as `<h2>`. */
+	title?: string;
+	/**
+	 * Accessible name for the dialog. Set this when there is no `title` — a
+	 * `role="dialog"` with neither `aria-labelledby` nor `aria-label` is unnamed,
+	 * and a screen reader announces nothing when it opens.
+	 */
+	ariaLabel?: string;
+	/** Short body text. Ignored when `content` is given. */
+	message?: string;
+	/**
+	 * Arbitrary body. A string is inserted with `textContent`, never parsed as
+	 * HTML, so untrusted text cannot inject markup. A `Node` is appended as-is.
+	 */
+	content?: string | Node;
+	/** Footer row. Same insertion rules as `content`. */
+	footer?: string | Node;
+	/** Width (default: `"md"`). */
+	size?: ModalSize;
+	/** Renders the close button (default: `true`). */
+	dismissible?: boolean;
+	/** Escape key and backdrop click close the dialog (default: `true`). */
+	dismissOnEscape?: boolean;
+	/** Accessible name for the close button (default: `"Close dialog"`). */
+	closeLabel?: string;
+	/** Portal target. Must already be attached to the document. */
+	container?: HTMLElement | null;
+	/** Element to focus on open (default: the first focusable, else the dialog). */
+	initialFocus?: HTMLElement | null;
+	/** Restore focus to the opener on close (default: `true`). */
+	returnFocus?: boolean;
+	/**
+	 * Called once the dialog has left the DOM.
+	 *
+	 * Do not synchronously reopen from here: the close bookkeeping is already
+	 * resolved before this runs, so it is safe, but a handler that reopens on
+	 * every close will grow the stack without bound.
+	 */
+	onClose?: (id: string) => void;
+}
+
+/** Live reference to an open dialog. */
+export interface ModalHandle {
+	/** Stable id assigned at creation. */
+	readonly id: string;
+	/** The `<dialog>` element, for content the options could not express. */
+	readonly dialog: HTMLDialogElement;
+	/** Closes the dialog, playing the exit animation. */
+	close(): void;
+}
+
+/** Programmatic dialog manager. */
+export interface ModalStore {
+	/** Opens a dialog and returns its handle. */
+	open(options?: ModalOptions): ModalHandle;
+	/** Closes one dialog by id, or every open dialog when omitted. */
+	close(id?: string): void;
+	/** Closes every open dialog. */
+	closeAll(): void;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Constants                                                                  */
+/* -------------------------------------------------------------------------- */
+
+/** Exit-animation safety net, mirroring the toast. */
+export const MODAL_EXIT_FALLBACK_MS = 250;
+
+/**
+ * Ceiling on simultaneously open dialogs.
+ *
+ * Without it, a runaway loop that opens a dialog per record — or per item in an
+ * API response — grows the top layer without bound and every dialog adds itself
+ * to the focus-trap work.
+ */
+export const MAX_OPEN_DIALOGS = 5;
+
+/** Valid {@link ModalSize} values, used to validate untyped input at runtime. */
+const SIZES: readonly ModalSize[] = ["sm", "md", "lg", "full"];
+
+/**
+ * Elements that can hold focus, in Tab order.
+ *
+ * `tabindex="-1"` is excluded on purpose: such an element is focusable
+ * programmatically but the browser skips it in the Tab cycle, so including it
+ * would make the wrap points disagree with what the browser actually does.
+ *
+ * The negation is repeated on every clause on purpose. A bare
+ * `[tabindex]:not([tabindex^="-"])` at the end is not enough: `button` matches
+ * through `button:not([disabled])` and never reaches that clause.
+ */
+const FOCUSABLE = [
+	'a[href]:not([tabindex^="-"])',
+	'area[href]:not([tabindex^="-"])',
+	'button:not([disabled]):not([tabindex^="-"])',
+	'input:not([disabled]):not([type="hidden"]):not([tabindex^="-"])',
+	'select:not([disabled]):not([tabindex^="-"])',
+	'textarea:not([disabled]):not([tabindex^="-"])',
+	'iframe:not([tabindex^="-"])',
+	'audio[controls]:not([tabindex^="-"])',
+	'video[controls]:not([tabindex^="-"])',
+	'[contenteditable]:not([contenteditable="false"]):not([tabindex^="-"])',
+	'[tabindex]:not([tabindex^="-"])',
+].join(", ");
+
+/** Inline SVG path for the close affordance. Authored constant, never user input. */
+const CLOSE_ICON =
+	'<path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.75" ' +
+	'stroke-linecap="round" fill="none"/>';
+
+/* -------------------------------------------------------------------------- */
+/* Pure surfaces (SSR-safe)                                                   */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Pure class list for a dialog — safe to call during SSR or inside a framework
+ * template.
+ *
+ * @param options - Size and dismissibility.
+ * @returns The `modal` class list.
+ *
+ * @example
+ * ```ts
+ * modalClass({ size: "lg" });
+ * // "modal modal--lg"
+ * ```
+ */
+export function modalClass(options: Pick<ModalOptions, "size" | "dismissible"> = {}): string {
+	// Validated, not trusted: the union is erased at runtime for JS consumers and
+	// for options arriving from JSON.
+	const size = SIZES.includes(options.size as ModalSize) ? (options.size as ModalSize) : "md";
+	return ["modal", `modal--${size}`].join(" ");
+}
+
+/**
+ * Pure class list for the page-level wrapper — safe to call during SSR.
+ *
+ * @returns The `modal-root` class list.
+ */
+export function modalContainerClass(): string {
+	return "modal-root";
+}
+
+/* -------------------------------------------------------------------------- */
+/* DOM helpers                                                                */
+/* -------------------------------------------------------------------------- */
+
+function requireDom(api: string): Document {
+	if (typeof document === "undefined") {
+		throw new Error(`[KatanaUI] ${api}() needs a DOM; use modalClass() for SSR markup.`);
+	}
+	return document;
+}
+
+/**
+ * Resolves the portal target.
+ *
+ * Accepts an element or a `ShadowRoot` (`nodeType` 1 and 11). Duck-typing on
+ * `appendChild` alone would also accept `document` itself, which would put the
+ * dialog outside `<html>`.
+ *
+ * @param container - Caller-supplied target, or `null` for the document body.
+ * @returns The element the dialog is appended to.
+ * @throws {Error} When the supplied target is neither an element nor a shadow root.
+ */
+function usePortalTarget(container?: HTMLElement | null): HTMLElement | ShadowRoot {
+	if (container === null || container === undefined) {
+		if (typeof document === "undefined") {
+			throw new Error("[KatanaUI] modal.open() needs a DOM; use modalClass() for SSR markup.");
+		}
+		return document.body;
+	}
+
+	const nodeType = (container as Node).nodeType;
+	if (nodeType !== 1 && nodeType !== 11) {
+		throw new Error(
+			"[KatanaUI] modal container must be an element or a ShadowRoot, and must already be in the document.",
+		);
+	}
+
+	return container;
+}
+
+/**
+ * Lists the tab-reachable elements inside a container, in document order.
+ *
+ * Visibility is checked with `getClientRects()` rather than `offsetParent`,
+ * because `offsetParent` is `null` for `position: fixed` elements — which
+ * includes anything already in a top-layer dialog.
+ *
+ * @param root - Element to search within.
+ * @returns The focusable descendants, filtered to the visible ones.
+ */
+function useFocusables(root: HTMLElement): HTMLElement[] {
+	return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+		(element) => element.getClientRects().length > 0,
+	);
+}
+
+/**
+ * Inserts dialog content, never parsing a string as HTML.
+ *
+ * @param parent - Element receiving the content.
+ * @param value - A `Node` to append, or a string inserted as text.
+ */
+function useInsert(parent: HTMLElement, value: string | Node): void {
+	// `ownerDocument`, not the global: with a `container` in another document the
+	// node must be created there, or adoption throws.
+	const doc = parent.ownerDocument;
+	if (typeof value === "string") {
+		const text = doc.createElement("p");
+		text.className = "modal__text";
+		text.textContent = value;
+		parent.append(text);
+		return;
+	}
+	parent.append(value);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Scroll lock                                                                */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Open dialogs holding the scroll lock.
+ *
+ * Refcounted because closing one dialog must not release the lock while another
+ * is still open — the failure being a scrollable page behind an open modal.
+ */
+let scrollLocks = 0;
+
+/** The value `body.style.overflow` held before the first lock, restored verbatim. */
+let previousOverflow: string | null = null;
+
+function lockScroll(): void {
+	if (typeof document === "undefined") return;
+	if (scrollLocks === 0) {
+		previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = "hidden";
+	}
+	scrollLocks += 1;
+}
+
+function unlockScroll(): void {
+	if (typeof document === "undefined") return;
+	scrollLocks = Math.max(0, scrollLocks - 1);
+	if (scrollLocks > 0 || previousOverflow === null) return;
+	document.body.style.overflow = previousOverflow;
+	previousOverflow = null;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Store                                                                      */
+/* -------------------------------------------------------------------------- */
+
+interface Mounted {
+	handle: ModalHandle;
+	options: ModalOptions;
+	dialog: HTMLDialogElement;
+	/** The animated shell; the exit animation is observed here, not on the dialog. */
+	shell: HTMLElement;
+	/** Element focused before the dialog opened. */
+	restoreTarget: HTMLElement | null;
+	closing: boolean;
+	finished: boolean;
+}
+
+/**
+ * Open dialogs, keyed by id.
+ *
+ * A single `Map` rather than a `Map` plus an order array: insertion order *is*
+ * the stack order, so the two can never drift apart, and `delete` + re-`set` is
+ * the LIFO move.
+ */
+const open = new Map<string, Mounted>();
+
+let store: ModalStore | null = null;
+let sequence = 0;
+
+/** Detaches the shared document-level guard, installed while any dialog is open. */
+let releaseGuard: (() => void) | null = null;
+
+/** The topmost dialog — the last one inserted, which is `Map` insertion order. */
+function useTopmost(): Mounted | undefined {
+	let top: Mounted | undefined;
+	for (const entry of open.values()) top = entry;
+	return top;
+}
+
+/**
+ * Installs the single document-level focus guard.
+ *
+ * One listener for the whole page, dispatching to the topmost dialog. A listener
+ * per dialog would run `querySelectorAll` plus `getClientRects` — a forced
+ * synchronous layout — on every focus event, multiplied by the number of dialogs.
+ */
+function useEnsureGuard(): void {
+	if (releaseGuard || typeof document === "undefined") return;
+
+	const onFocusIn = (event: FocusEvent) => {
+		const entry = useTopmost();
+		if (!entry) return;
+		const target = event.target as Node | null;
+		if (!target || entry.dialog.contains(target) || !entry.dialog.isConnected) return;
+		// Fall back to the dialog itself: without this the trap is a silent no-op
+		// whenever the dialog has no focusable children.
+		(useFocusables(entry.dialog)[0] ?? entry.dialog).focus();
+	};
+
+	document.addEventListener("focusin", onFocusIn);
+	releaseGuard = () => document.removeEventListener("focusin", onFocusIn);
+}
+
+function useReleaseGuard(): void {
+	if (open.size > 0 || !releaseGuard) return;
+	releaseGuard();
+	releaseGuard = null;
+}
+
+function useRestoreFocus(restore: HTMLElement | null): void {
+	if (typeof document === "undefined") return;
+
+	// Prefer a still-open dialog over a detached target: the element that had
+	// focus may belong to a dialog that is itself closing, and focusing it would
+	// trap focus in a detached subtree.
+	const top = useTopmost();
+	if (top) {
+		(useFocusables(top.dialog)[0] ?? top.dialog).focus();
+		return;
+	}
+
+	if (restore && restore.isConnected) {
+		restore.focus();
+		return;
+	}
+
+	document.body.focus?.();
+}
+
+function useClose(entry: Mounted, id: string): void {
+	// Idempotent at both levels: `closing` stops re-entry, `finished` stops the
+	// two completion paths from running twice.
+	if (entry.closing) return;
+	entry.closing = true;
+
+	open.delete(id);
+
+	const finish = () => {
+		if (entry.finished) return;
+		entry.finished = true;
+
+		unlockScroll();
+		entry.dialog.remove();
+		useReleaseGuard();
+		entry.options.onClose?.(id);
+		if (entry.options.returnFocus !== false) useRestoreFocus(entry.restoreTarget);
+	};
+
+	const reduced =
+		typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+	entry.shell.classList.add("modal--leaving");
+	if (reduced) finish();
+	else {
+		// Bound to the shell and filtered by name. `transitionend` bubbles, and the
+		// kit's own buttons and inputs have background/border transitions, so a
+		// dialog-level listener would fire on unrelated descendants and complete
+		// the close early — then again from the fallback timer.
+		entry.shell.addEventListener(
+			"animationend",
+			(event) => {
+				if ((event as AnimationEvent).animationName !== "katana-modal-out") return;
+				finish();
+			},
+			{ once: true },
+		);
+	}
+
+	setTimeout(finish, MODAL_EXIT_FALLBACK_MS);
+
+	// `close()` is what lifts the top layer. Guarded, because the no-`showModal`
+	// fallback path has no `close()` — assuming it exists there turns the fallback
+	// into a TypeError that aborts a `closeAll()` sweep part-way.
+	if (typeof entry.dialog.close === "function") {
+		if (entry.dialog.open) entry.dialog.close();
+	} else {
+		entry.dialog.removeAttribute("open");
+	}
+}
+
+function useBuild(
+	options: ModalOptions,
+	id: string,
+): { dialog: HTMLDialogElement; shell: HTMLElement } {
+	const dialog = document.createElement("dialog");
+	// Set before the children are built: the heading id is derived from it, and
+	// assigning it afterwards left every dialog sharing `modal-title`, so
+	// `aria-labelledby` announced the wrong dialog's title.
+	dialog.id = id;
+	dialog.className = modalClass(options);
+	// A dialog with no focusable children still needs to be able to take focus:
+	// without this, `showModal()` makes the page behind inert and focus has
+	// nowhere legitimate to land.
+	dialog.tabIndex = -1;
+	dialog.setAttribute("role", "dialog");
+	dialog.setAttribute("aria-modal", "true");
+	if (options.ariaLabel) dialog.setAttribute("aria-label", options.ariaLabel);
+
+	const shell = document.createElement("div");
+	shell.className = "modal__shell";
+
+	if (options.title) {
+		const heading = document.createElement("h2");
+		heading.className = "modal__title";
+		heading.id = `${id}-title`;
+		heading.textContent = options.title;
+		shell.append(heading);
+		dialog.setAttribute("aria-labelledby", heading.id);
+	} else if (!options.ariaLabel) {
+		// An unnamed `role="dialog"` is announced as nothing. Say so loudly rather
+		// than shipping a silently inaccessible overlay.
+		dialog.setAttribute("aria-label", "Dialog");
+	}
+
+	const body = document.createElement("div");
+	body.className = "modal__body";
+	if (options.content !== undefined) {
+		useInsert(body, options.content);
+	} else if (options.message) {
+		useInsert(body, options.message);
+	}
+	shell.append(body);
+
+	if (options.footer !== undefined) {
+		const footer = document.createElement("div");
+		footer.className = "modal__footer";
+		useInsert(footer, options.footer);
+		shell.append(footer);
+	}
+
+	if (options.dismissible !== false) {
+		const close = document.createElement("button");
+		close.type = "button";
+		close.className = "modal__close";
+		close.setAttribute("aria-label", options.closeLabel ?? "Close dialog");
+		// Reachable by keyboard on purpose. `aria-hidden` would discard the label
+		// and `tabindex="-1"` would remove it from the Tab cycle, which together
+		// left a keyboard-only user with no way out whenever `dismissOnEscape`
+		// was false.
+		close.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${CLOSE_ICON}</svg>`;
+		close.dataset.katanaModalClose = "";
+		shell.append(close);
+	}
+
+	dialog.append(shell);
+	return { dialog, shell };
+}
+
+function useOpen(options: ModalOptions = {}): ModalHandle {
+	requireDom("modal");
+
+	sequence += 1;
+	const id = `katana-modal-${sequence}`;
+
+	const { dialog, shell } = useBuild(options, id);
+
+	const restoreTarget =
+		typeof document === "undefined" ? null : (document.activeElement as HTMLElement | null);
+
+	const entry: Mounted = {
+		dialog,
+		shell,
+		options,
+		restoreTarget,
+		closing: false,
+		finished: false,
+		handle: {
+			id,
+			dialog,
+			close() {
+				useClose(entry, id);
+			},
+		},
+	};
+
+	// Escape. `cancel` is the native, cancellable form, so preventing its default
+	// is what keeps the dialog open when it must not close.
+	dialog.addEventListener("cancel", (event) => {
+		event.preventDefault();
+		if (options.dismissOnEscape === false) return;
+		useClose(entry, id);
+	});
+
+	// Backdrop click. `target === dialog` means the click landed on the backdrop
+	// rather than on the shell.
+	dialog.addEventListener("click", (event) => {
+		if (event.target !== dialog) return;
+		if (options.dismissOnEscape === false) return;
+		useClose(entry, id);
+	});
+
+	dialog.addEventListener("click", (event) => {
+		const target = event.target as Element | null;
+		if (!target?.closest?.("[data-katana-modal-close]")) return;
+		useClose(entry, id);
+	});
+
+	// Tab cycle. The native dialog traps focus for pointer and programmatic use,
+	// but a browser will still let <kbd>Tab</kbd> walk into its own chrome.
+	dialog.addEventListener("keydown", (event) => {
+		if (event.key !== "Tab") return;
+
+		const items = useFocusables(dialog);
+		if (items.length === 0) {
+			event.preventDefault();
+			dialog.focus();
+			return;
+		}
+
+		const first = items[0];
+		const last = items[items.length - 1];
+		const active = document.activeElement as HTMLElement | null;
+		const inside = active !== null && dialog.contains(active);
+
+		if (event.shiftKey && (active === first || !inside)) {
+			event.preventDefault();
+			last.focus();
+			return;
+		}
+		if (!event.shiftKey && (active === last || !inside)) {
+			event.preventDefault();
+			first.focus();
+		}
+	});
+
+	const target = usePortalTarget(options.container);
+	target.append(dialog);
+
+	// A detached target is an easy mistake — `shadowRoot` captured before attach,
+	// or a `div` that was never inserted. Without this the dialog is invisible
+	// and the scroll lock it engaged stays engaged forever.
+	if (!dialog.isConnected) {
+		target.removeChild(dialog);
+		throw new Error(
+			"[KatanaUI] modal container must be attached to the document before opening a dialog.",
+		);
+	}
+
+	open.set(id, entry);
+	lockScroll();
+	useEnsureGuard();
+
+	try {
+		// `showModal()` gives the top layer, the backdrop and inertness for the rest
+		// of the document. The attribute is the fallback for engines without it;
+		// the `focusin` guard still traps focus either way, because it is installed
+		// independently of inertness.
+		if (typeof dialog.showModal === "function") dialog.showModal();
+		else dialog.setAttribute("open", "");
+	} catch (error) {
+		// Never leave the lock engaged or a registry entry behind on a failed mount.
+		open.delete(id);
+		unlockScroll();
+		dialog.remove();
+		useReleaseGuard();
+		throw error;
+	}
+
+	// Evict the oldest rather than letting the stack grow without bound.
+	while (open.size > MAX_OPEN_DIALOGS) {
+		const oldest = open.keys().next();
+		if (oldest.done) break;
+		const stale = open.get(oldest.value);
+		if (!stale) break;
+		useClose(stale, oldest.value);
+	}
+
+	const first = options.initialFocus ?? useFocusables(dialog)[0] ?? dialog;
+	first.focus({ preventScroll: true });
+
+	return entry.handle;
+}
+
+/**
+ * Closes every open dialog without letting one failure abort the sweep.
+ *
+ * @returns Nothing; a throwing dialog must not leave the rest of the stack open
+ * with the page still locked.
+ */
+function useCloseAll(): void {
+	for (const [id, entry] of [...open]) {
+		try {
+			useClose(entry, id);
+		} catch {
+			// A dialog that cannot be closed by the platform API is still removed
+			// from the registry and the DOM, so the sweep completes.
+			open.delete(id);
+			unlockScroll();
+			entry.dialog.remove();
+		}
+	}
+}
+
+function useStore(): ModalStore {
+	store ??= {
+		open: useOpen,
+		close(id?: string) {
+			if (id !== undefined) {
+				const entry = open.get(id);
+				if (entry) useClose(entry, id);
+				return;
+			}
+			useCloseAll();
+		},
+		closeAll: useCloseAll,
+	};
+
+	return store;
+}
+
+/**
+ * Modal dialogs — a lazy facade over the per-page singleton.
+ *
+ * ```ts
+ * import { modal } from "@katanakit/ui";
+ *
+ * modal.open({ title: "Delete project?", message: "This cannot be undone." });
+ * ```
+ *
+ * Prefer this over {@link useModalStore} in application code; both hand back the
+ * same singleton.
+ */
+export const modal: ModalStore = {
+	open: (options) => useStore().open(options),
+	close: (id) => useStore().close(id),
+	closeAll: () => useStore().closeAll(),
+};
+
+/**
+ * Returns the singleton dialog manager.
+ *
+ * Same store as the {@link modal} export — kept for the `use*` accessor
+ * convention and for dependency-injection call sites.
+ *
+ * @returns The shared {@link ModalStore}.
+ * @throws {Error} Outside a DOM environment.
+ */
+export function useModalStore(): ModalStore {
+	return modal;
+}
+
+/**
+ * Singleton accessor for the dialog manager — escape hatch for call sites that
+ * cannot import the factory (DI containers, framework plugins).
+ *
+ * @returns The shared {@link ModalStore}.
+ */
+export const ModalService = {
+	/** Returns the shared {@link ModalStore}. */
+	getInstance(): ModalStore {
+		return modal;
+	},
+};
