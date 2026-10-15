@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+
 import { useErrorCustom } from "@/core/services/error.service";
 import { useToMiles } from "@/core/services/formatter.service";
 import { GeometryUtils } from "@/core/services/geometry.service";
@@ -65,23 +66,95 @@ describe("ReactiveService", () => {
 		const [count, setCount] = useCreateSignal(0);
 		let last = 0;
 
-		useCreateEffect(() => {
+		const dispose = useCreateEffect(() => {
 			last = count();
-		}, [count]);
+		});
 
 		setCount(5);
 
 		expect(count()).toBe(5);
 		expect(last).toBe(5);
+		dispose();
 	});
 
 	it("recomputes a memo when its dependency changes", () => {
 		const [count, setCount] = useCreateSignal(1);
-		const doubled = useCreateMemo(() => count() * 2, [count]);
+		const doubled = useCreateMemo(() => count() * 2);
 
 		expect(doubled()).toBe(2);
 		setCount(3);
 		expect(doubled()).toBe(6);
+		doubled.useDispose();
+	});
+
+	it("combines automatically tracked reads with explicit dependencies", () => {
+		const [tracked, setTracked] = useCreateSignal(0);
+		const [explicit, setExplicit] = useCreateSignal(0);
+		const values: number[] = [];
+
+		const dispose = useCreateEffect(() => {
+			values.push(tracked());
+		}, [explicit]);
+
+		setTracked(1);
+		setExplicit(1);
+
+		expect(values).toEqual([0, 1, 1]);
+		dispose();
+	});
+
+	it("replaces dynamic dependencies when an effect reruns", () => {
+		const [useLeft, setUseLeft] = useCreateSignal(true);
+		const [left, setLeft] = useCreateSignal(1);
+		const [right, setRight] = useCreateSignal(2);
+		const values: number[] = [];
+
+		const dispose = useCreateEffect(() => {
+			values.push(useLeft() ? left() : right());
+		});
+
+		setLeft(3);
+		setUseLeft(false);
+		setLeft(4);
+		setRight(5);
+
+		expect(values).toEqual([1, 3, 2, 5]);
+		dispose();
+	});
+
+	it("disposes effects idempotently and stops later updates", () => {
+		const [count, setCount] = useCreateSignal(0);
+		const cleanup = vi.fn();
+		const effect = vi.fn(() => {
+			count();
+			return cleanup;
+		});
+		const dispose = useCreateEffect(effect);
+
+		setCount(1);
+		dispose();
+		dispose();
+		setCount(2);
+
+		expect(effect).toHaveBeenCalledTimes(2);
+		expect(cleanup).toHaveBeenCalledTimes(2);
+	});
+
+	it("disposes a memo and stops tracking its current dependencies", () => {
+		const [useLeft, setUseLeft] = useCreateSignal(true);
+		const [left, setLeft] = useCreateSignal(1);
+		const [right, setRight] = useCreateSignal(2);
+		const selected = useCreateMemo(() => (useLeft() ? left() : right()));
+
+		expect(selected()).toBe(1);
+		setLeft(4);
+		expect(selected()).toBe(4);
+		setUseLeft(false);
+		expect(selected()).toBe(2);
+		selected.useDispose();
+		setRight(3);
+
+		expect(selected()).toBe(2);
 	});
 
 	it("supports nested batches without flushing early", () => {

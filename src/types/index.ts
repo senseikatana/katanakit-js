@@ -565,6 +565,10 @@ export interface SignalGetter<T> extends Subscribable<T> {
 	(): T;
 }
 
+export interface MemoSignalGetter<T> extends SignalGetter<T> {
+	useDispose: () => void;
+}
+
 export type SignalSetter<T> = (newValue: T | ((prev: T) => T)) => void;
 
 export interface ToggleSignalSetter {
@@ -575,8 +579,11 @@ export interface ToggleSignalSetter {
 /** Contract of the reactive facade. */
 export interface IReactiveService {
 	useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSetter<T>];
-	useCreateEffect(callback: () => void | (() => void), signals: Subscribable<unknown>[]): () => void;
-	useCreateMemo<T>(computation: () => T, signals: Subscribable<unknown>[]): SignalGetter<T>;
+	useCreateEffect(
+		callback: () => void | (() => void),
+		signals?: Subscribable<unknown>[],
+	): () => void;
+	useCreateMemo<T>(computation: () => T, signals?: Subscribable<unknown>[]): MemoSignalGetter<T>;
 	useCreateToggle(initialValue?: boolean): [SignalGetter<boolean>, ToggleSignalSetter];
 	useCreateStorageSignal<T>(
 		key: string,

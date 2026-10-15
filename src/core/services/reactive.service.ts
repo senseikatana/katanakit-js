@@ -1,5 +1,6 @@
 import { useGetStorage, useSetStorage } from "../../infrastructure/storage/storage.service.js";
 import type {
+	MemoSignalGetter,
 	SignalGetter,
 	SignalListener,
 	SignalSetter,
@@ -12,6 +13,16 @@ import { useLogger } from "./logger.service.js";
 // Module-level batching state.
 let isBatching = false;
 const batchQueue: Set<() => void> = new Set();
+
+interface ReactiveObserver {
+	dependencies: Set<Subscribable<unknown>>;
+}
+
+let activeObserver: ReactiveObserver | undefined;
+
+function trackDependency(dependency: Subscribable<unknown>): void {
+	activeObserver?.dependencies.add(dependency);
+}
 
 /**
  * Internal: schedules a notification function. If batching is active the
@@ -56,7 +67,10 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
 	let value = initialValue;
 	const listeners = new Set<SignalListener<T>>();
 
-	const get = (() => value) as SignalGetter<T>;
+	const get = (() => {
+		trackDependency(get);
+		return value;
+	}) as SignalGetter<T>;
 
 	const set: SignalSetter<T> = (nextValue) => {
 		const oldValue = value;
@@ -64,7 +78,7 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
 
 		if (value !== oldValue) {
 			NOTIFY(() => {
-				for (const listener of listeners) {
+				for (const listener of [...listeners]) {
 					try {
 						listener(value, oldValue);
 					} catch (error) {
@@ -109,46 +123,57 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
  */
 export function useCreateEffect(
 	callback: () => void | (() => void),
-	signals: Subscribable<unknown>[],
+	signals: Subscribable<unknown>[] = [],
 ): () => void {
 	let cleanup: void | (() => void);
+	let disposed = false;
+	const explicitDependencies = new Set(signals);
+	const subscriptions = new Map<Subscribable<unknown>, () => void>();
 
 	const execute = () => {
+		if (disposed) return;
 		if (typeof cleanup === "function") {
 			try {
 				cleanup();
 			} catch (error) {
 				useLogger("[createEffect] Previous cleanup error:", error, "error");
 			}
+			cleanup = undefined;
 		}
 
+		for (const unsubscribe of subscriptions.values()) unsubscribe();
+		subscriptions.clear();
+
+		const observer: ReactiveObserver = { dependencies: new Set(explicitDependencies) };
+		const previousObserver = activeObserver;
+		activeObserver = observer;
 		try {
 			cleanup = callback() as void | (() => void);
 		} catch (error) {
 			useLogger("[createEffect] Effect execution error:", error, "error");
+		} finally {
+			activeObserver = previousObserver;
+			for (const dependency of observer.dependencies) {
+				subscriptions.set(dependency, dependency.useSubscribe(execute));
+			}
 		}
 	};
-
-	const unsubscribes = signals.map((signal) => {
-		if (signal && typeof signal.useSubscribe === "function") {
-			return signal.useSubscribe(execute);
-		}
-		return () => {};
-	});
 
 	execute();
 
 	return () => {
+		if (disposed) return;
+		disposed = true;
 		if (typeof cleanup === "function") {
 			try {
 				cleanup();
 			} catch (error) {
 				useLogger("[createEffect] Final cleanup error:", error, "error");
 			}
+			cleanup = undefined;
 		}
-		for (const unsub of unsubscribes) {
-			unsub();
-		}
+		for (const unsubscribe of subscriptions.values()) unsubscribe();
+		subscriptions.clear();
 	};
 }
 
@@ -173,15 +198,16 @@ export function useCreateEffect(
  */
 export function useCreateMemo<T>(
 	computation: () => T,
-	signals: Subscribable<unknown>[],
-): SignalGetter<T> {
+	signals: Subscribable<unknown>[] = [],
+): MemoSignalGetter<T> {
 	const [get, set] = useCreateSignal<T>(computation());
 
-	useCreateEffect(() => {
+	const dispose = useCreateEffect(() => {
 		set(computation());
 	}, signals);
 
-	return get;
+	get.useDispose = dispose;
+	return get as MemoSignalGetter<T>;
 }
 
 /**
