@@ -5,7 +5,9 @@ import type {
 	ConfigFacade,
 	ConfigValues,
 	FetchOptions,
+	FetchRequest,
 	FetchResult,
+	RequestInterceptor,
 	UrlOptions,
 } from "../../types/index.js";
 import { useTryJsonParse } from "./result.service.js";
@@ -111,6 +113,9 @@ export class FetchApiManager {
 	/** Module-level API registry. */
 	private apis: ApisConfig = {};
 
+	/** Request interceptors in registration order. */
+	private requestInterceptors: { interceptor: RequestInterceptor }[] = [];
+
 	/**
 	 * Constructor privado - enforce singleton.
 	 */
@@ -166,6 +171,24 @@ export class FetchApiManager {
 	 */
 	useGetApis(): ApisConfig {
 		return { ...this.apis };
+	}
+
+	/**
+	 * Registers a request interceptor, which runs before `fetch` on every request.
+	 * Interceptors run sequentially in registration order and can mutate `url` or
+	 * `init`. The returned function unregisters this interceptor.
+	 *
+	 * @param interceptor - The function to run before the request is sent.
+	 * @returns A function that unregisters the interceptor.
+	 */
+	useAddRequestInterceptor(interceptor: RequestInterceptor): () => void {
+		const registration = { interceptor };
+		this.requestInterceptors.push(registration);
+
+		return () => {
+			const index = this.requestInterceptors.indexOf(registration);
+			if (index !== -1) this.requestInterceptors.splice(index, 1);
+		};
 	}
 
 	/**
@@ -284,11 +307,43 @@ export class FetchApiManager {
 			};
 		}
 
+		const interceptors = [...this.requestInterceptors];
+		let request: FetchRequest | undefined;
+		if (interceptors.length > 0) {
+			request = { url, init: { redirect: "error", ...init } };
+			try {
+				for (const { interceptor } of interceptors) {
+					await interceptor(request);
+				}
+
+				const requestUrl = new URL(request.url);
+				if (requestUrl.protocol !== "http:" && requestUrl.protocol !== "https:") {
+					throw new Error(`Request URL scheme "${requestUrl.protocol}" is not allowed.`);
+				}
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err);
+				url = request.url;
+				return {
+					data: null,
+					error: {
+						message: `Request Interceptor Error: ${message}`,
+						status: 0,
+					},
+					url,
+					status: 0,
+					ok: false,
+				};
+			}
+			url = request.url;
+		}
+
 		try {
 			// Fail closed on redirects: the scheme allow-list only validates the
 			// initial URL, so following a 3xx could steer the request to a private
 			// host (SSRF). Callers that need redirects can pass `redirect: "follow"`.
-			const response = await fetch(url, { redirect: "error", ...init });
+			const response = request
+				? await fetch(request.url, request.init)
+				: await fetch(url, { redirect: "error", ...init });
 
 			if (!response.ok) {
 				const errorDetails = await readBody(response, MAX_ERROR_BODY_CHARS);
@@ -519,6 +574,16 @@ export function defineApiConfig<T extends object>(
 /* -------------------------------------------------------------------------- */
 /* Wrappers (backward compatibility)                                          */
 /* -------------------------------------------------------------------------- */
+
+/**
+ * Registers a request interceptor on the singleton HTTP client.
+ *
+ * @param interceptor - The function to run before the request is sent.
+ * @returns A function that unregisters the interceptor.
+ */
+export function useAddRequestInterceptor(interceptor: RequestInterceptor): () => void {
+	return FetchApiManager.getInstance().useAddRequestInterceptor(interceptor);
+}
 
 /**
  * Registers (merges) API definitions into the client registry.

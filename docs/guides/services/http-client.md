@@ -528,6 +528,37 @@ refetching.
 
 ## Class access
 
+### Request interceptors
+
+Register an interceptor to inspect or modify the URL and `RequestInit` before a
+request reaches `fetch`. Interceptors run sequentially in registration order;
+each receives the changes made by the previous interceptor. They may be
+synchronous or asynchronous:
+
+```ts
+import { FetchApiManager } from "katanakit-js";
+
+const http = FetchApiManager.getInstance();
+const removeAuth = http.useAddRequestInterceptor(({ init }) => {
+  const headers = new Headers(init.headers);
+  headers.set("X-Example", "intercepted");
+  init.headers = headers;
+});
+
+const result = await http.useGet("service", "items");
+removeAuth();
+```
+
+`useAddRequestInterceptor()` returns a function that unregisters that
+interceptor. The interceptor list is captured when a request starts, so changes
+to registrations while a request is running apply to later requests. With no
+registered interceptors, requests keep the existing fetch behavior.
+
+If an interceptor throws or rejects, later interceptors and `fetch` are skipped.
+The request resolves to a failed `FetchResult` with status `0` and an error
+message prefixed with `Request Interceptor Error:`. Interceptor-modified URLs
+must remain absolute HTTP(S) URLs; other schemes fail with the same result.
+
 ### FetchApiManager.getInstance()
 
 The class enforces the singleton pattern with a private constructor; the only
@@ -553,6 +584,7 @@ Instance methods, in one table:
 | `useInit` | `(apisConfig: ApisConfig) => void` | Deprecated; merges into the registry. |
 | `useGetApis` | `() => ApisConfig` | Shallow copy of the registry. |
 | `useBuildUrl` | `(apiName, endpointName, options?) => string` | Synchronous; throws. |
+| `useAddRequestInterceptor` | `(interceptor: RequestInterceptor) => () => void` | Adds a FIFO request interceptor; returns its unregister function. |
 | `useFetch` | `<T>(apiName, endpointName, options?) => Promise<FetchResult<T>>` | Full option set. |
 | `useGet` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | URL options only. |
 | `usePost` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | Auto-serialized body. |
