@@ -4,7 +4,7 @@ export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 /** Button sizes. */
 export type ButtonSize = "sm" | "md" | "lg";
 
-/** Options for {@link useButton} and {@link useButtonClass}. */
+/** Options for {@link useButton} and {@link buttonClass}. */
 export interface ButtonOptions {
 	/** Visible label. */
 	label?: string;
@@ -24,26 +24,22 @@ export interface ButtonOptions {
 
 /**
  * Pure class list for a button — safe to use for SSR markup or framework
- * templates (`<button class={useButtonClass({ variant: "ghost" })}>`).
+ * templates (`<button class={buttonClass({ variant: "ghost" })}>`).
  *
  * @param options - Variant, size and loading state.
- * @returns The `kk-btn` class list.
+ * @returns The `btn` class list.
  *
  * @example
  * ```ts
- * useButtonClass({ variant: "danger", size: "sm" });
- * // "kk-btn kk-btn--danger kk-btn--sm"
+ * buttonClass({ variant: "danger", size: "sm" });
+ * // "btn btn--danger btn--sm"
  * ```
  */
-export function useButtonClass(
+export function buttonClass(
 	options: Pick<ButtonOptions, "variant" | "size" | "loading"> = {},
 ): string {
-	const classes = [
-		"kk-btn",
-		`kk-btn--${options.variant ?? "primary"}`,
-		`kk-btn--${options.size ?? "md"}`,
-	];
-	if (options.loading) classes.push("kk-btn--loading");
+	const classes = ["btn", `btn--${options.variant ?? "primary"}`, `btn--${options.size ?? "md"}`];
+	if (options.loading) classes.push("btn--loading");
 	return classes.join(" ");
 }
 
@@ -52,7 +48,7 @@ export function useButtonClass(
  *
  * @param options - Label, variant, size, state and click handler.
  * @returns The configured button.
- * @throws {Error} Outside a DOM environment (use {@link useButtonClass} for SSR).
+ * @throws {Error} Outside a DOM environment (use {@link buttonClass} for SSR).
  *
  * @example
  * ```ts
@@ -61,12 +57,12 @@ export function useButtonClass(
  */
 export function useButton(options: ButtonOptions = {}): HTMLButtonElement {
 	if (typeof document === "undefined") {
-		throw new Error("[KatanaUI] useButton() needs a DOM; use useButtonClass() for SSR markup.");
+		throw new Error("[KatanaUI] useButton() needs a DOM; use buttonClass() for SSR markup.");
 	}
 
 	const button = document.createElement("button");
 	button.type = options.type ?? "button";
-	button.className = useButtonClass(options);
+	button.className = buttonClass(options);
 	button.textContent = options.label ?? "";
 
 	if (options.loading) {

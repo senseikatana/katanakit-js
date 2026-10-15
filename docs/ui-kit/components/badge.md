@@ -5,12 +5,12 @@ description: Status pill with five semantic variants.
 
 # Badge
 
-`useBadge(options)` creates a `<span class="kk-badge">`; `useBadgeClass(options)`
+`useBadge(options)` creates a `<span class="badge">`; `badgeClass(options)`
 returns the classes for SSR markup.
 
 ## Variants
 
-<div ref="badges" class="kk-demo-row"></div>
+<div ref="badges" class="demo-row"></div>
 
 ```ts
 import { useBadge } from "@katanakit/ui";

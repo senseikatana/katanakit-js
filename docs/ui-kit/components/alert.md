@@ -5,14 +5,14 @@ description: Inline alert with semantic variants, title/message and accessible d
 
 # Alert
 
-`useAlert(options)` creates a `.kk-alert` with `role="alert"` for
+`useAlert(options)` creates a `.alert` with `role="alert"` for
 `warning`/`danger` and `role="status"` for `info`/`success`. Dismissible alerts get
-a button with `aria-label="Dismiss"`. `useAlertClass(options)` returns the classes
+a button with `aria-label="Dismiss"`. `alertClass(options)` returns the classes
 for SSR markup.
 
 ## Variants
 
-<div ref="alerts" class="kk-demo-stack"></div>
+<div ref="alerts" class="demo-stack"></div>
 
 ```ts
 import { useAlert } from "@katanakit/ui";
@@ -27,7 +27,7 @@ stack.append(
 
 ## Dismissible
 
-<div ref="dismissible" class="kk-demo-stack"></div>
+<div ref="dismissible" class="demo-stack"></div>
 
 ```ts
 useAlert({
@@ -49,7 +49,7 @@ useAlert({
 | `onDismiss`   | `() => void`                                  | —        | Called after the alert is removed.      |
 
 ::: info SSR
-The factory needs a DOM. On the server use `useAlertClass()` and render the
+The factory needs a DOM. On the server use `alertClass()` and render the
 markup yourself — the classes are stable strings.
 :::
 

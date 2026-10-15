@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from "vitest";
 
-import { useCard, useCardClass } from "../src/index";
+import { cardClass, useCard } from "../src/index";
 
-describe("useCardClass", () => {
+describe("cardClass", () => {
 	it("toggles the elevated modifier", () => {
-		expect(useCardClass()).toBe("kk-card");
-		expect(useCardClass({ elevated: true })).toBe("kk-card kk-card--elevated");
+		expect(cardClass()).toBe("card");
+		expect(cardClass({ elevated: true })).toBe("card card--elevated");
 	});
 });
 
@@ -15,9 +15,9 @@ describe("useCard", () => {
 		const card = useCard({ title: "Revenue", children: ["$12,400"], footer: "Updated now" });
 
 		expect(card.tagName).toBe("ARTICLE");
-		expect(card.querySelector(".kk-card__title")?.textContent).toBe("Revenue");
-		expect(card.querySelector(".kk-card__body")?.textContent).toBe("$12,400");
-		expect(card.querySelector(".kk-card__footer")?.textContent).toBe("Updated now");
+		expect(card.querySelector(".card__title")?.textContent).toBe("Revenue");
+		expect(card.querySelector(".card__body")?.textContent).toBe("$12,400");
+		expect(card.querySelector(".card__footer")?.textContent).toBe("Updated now");
 	});
 
 	it("accepts nodes as children", () => {
@@ -26,6 +26,6 @@ describe("useCard", () => {
 
 		const card = useCard({ children: [child] });
 
-		expect(card.querySelector(".kk-card__body span")?.textContent).toBe("Node child");
+		expect(card.querySelector(".card__body span")?.textContent).toBe("Node child");
 	});
 });

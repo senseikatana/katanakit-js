@@ -50,8 +50,37 @@ custom properties and lets the host application override them.
 The tokens come from the vendored framework and are **not namespaced**: the kit consumes
 the shared palette (`--neutral-*`, `--danger-*`, `--success-*`, `--warning-*`,
 `--info-*`), spacing (`--spacing-1…6`), radii (`--radius-sm|md|lg|full`) and
-typography tokens directly. Components are namespaced at the class level
-(`.kk-btn`, `.kk-card`, `.kk-alert`, …).
+typography tokens directly. Component classes are unprefixed too
+(`.btn`, `.card`, `.alert`, …).
+
+### Why unprefixed, and why `@layer katana`
+
+Unprefixed class names collide 1:1 with [daisyUI](https://daisyui.com/components/) —
+`.btn`, `.card`, `.badge`, `.alert`, `.toast`, `.input`, `.menu`, `.modal`, `.tabs`
+are all daisyUI component names as well. Two selectors with one class each have
+**equal specificity**, so the winner would be decided by import order: the same
+code would render differently depending on whether the kit or the preset was
+imported first, with no way to tell from reading it.
+
+Every component class is therefore wrapped in `@layer katana`:
+
+```css
+@layer katana {
+  .btn { … }
+  .btn--primary { … }
+}
+```
+
+Cascade layers resolve that by priority rather than by luck: **unlayered CSS always
+beats layered CSS**, regardless of specificity or order. A consumer who also loads
+daisyUI gets daisyUI's styling — deterministically, every time. Layered component
+CSS can never win an import-order accident.
+
+Theme tokens stay **outside** the layer, because a cascade layer cannot influence
+`:root`: the custom properties have to stay available to utilities and to consumer
+styles. The same reasoning keeps the kit's own `@keyframes` and the
+`--katana-toast-duration` custom property namespaced — neither is reachable by a
+class selector, so neither needs the layer, and both stay collision-proof.
 
 ```css
 /* Override a token for the whole app */
@@ -84,8 +113,8 @@ Current state of `packages/ui` (private workspace, not published to npm):
 | Entry points (today) | `.` → `dist/index.js` (the six component factories + `*Class` helpers) and `./styles.css` → `dist/styles.css`. Nothing else is exported. |
 | Peer dependencies | None for CSS — the built stylesheet embeds the vendored framework, so runtime consumers need no extra CSS. |
 | Build | `bun run build:ui` — `tsc6` to `dist/` + `sass` (`scss/main.scss` → `dist/base.css`, components → `dist/components.css`) + concat → `dist/styles.css`. |
-| Styling | One self-contained stylesheet (`@katanakit/ui/styles.css`) that emits the full vendored framework, dark tokens and the `.kk-*` classes. |
-| CSS isolation | Component selectors are namespaced (`.kk-*`); they never target host markup. Palette tokens are shared with the vendored framework (unprefixed). |
+| Styling | One self-contained stylesheet (`@katanakit/ui/styles.css`) that emits the full vendored framework, dark tokens and the `.*` classes. |
+| CSS isolation | Component selectors are namespaced (`.*`); they never target host markup. Palette tokens are shared with the vendored framework (unprefixed). |
 
 Planned, not yet implemented: per-component subpaths, `/tokens`, framework
 bindings (`/vue`, `/nuxt`, `/astro`, …) and the `/charts` entry point.

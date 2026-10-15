@@ -45,7 +45,7 @@ scss/
 ```bash
 bun run build:ui
 # packages/ui/dist/base.css        ← scss/main.scss
-# packages/ui/dist/components.css  ← .kk-* component classes
+# packages/ui/dist/components.css  ← component classes (inside @layer katana)
 # packages/ui/dist/styles.css      ← base + components (exported as katanakit-js/styles.css)
 ```
 

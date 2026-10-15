@@ -1,4 +1,4 @@
-/** Options for {@link useCard} and {@link useCardClass}. */
+/** Options for {@link useCard} and {@link cardClass}. */
 export interface CardOptions {
 	/** Optional header title. */
 	title?: string;
@@ -14,10 +14,10 @@ export interface CardOptions {
  * Pure class list for a card.
  *
  * @param options - Elevated state.
- * @returns The `kk-card` class list.
+ * @returns The `card` class list.
  */
-export function useCardClass(options: Pick<CardOptions, "elevated"> = {}): string {
-	return options.elevated ? "kk-card kk-card--elevated" : "kk-card";
+export function cardClass(options: Pick<CardOptions, "elevated"> = {}): string {
+	return options.elevated ? "card card--elevated" : "card";
 }
 
 /**
@@ -34,24 +34,24 @@ export function useCardClass(options: Pick<CardOptions, "elevated"> = {}): strin
  */
 export function useCard(options: CardOptions = {}): HTMLElement {
 	if (typeof document === "undefined") {
-		throw new Error("[KatanaUI] useCard() needs a DOM; use useCardClass() for SSR markup.");
+		throw new Error("[KatanaUI] useCard() needs a DOM; use cardClass() for SSR markup.");
 	}
 
 	const card = document.createElement("article");
-	card.className = useCardClass(options);
+	card.className = cardClass(options);
 
 	if (options.title) {
 		const header = document.createElement("header");
-		header.className = "kk-card__header";
+		header.className = "card__header";
 		const title = document.createElement("h3");
-		title.className = "kk-card__title";
+		title.className = "card__title";
 		title.textContent = options.title;
 		header.append(title);
 		card.append(header);
 	}
 
 	const body = document.createElement("div");
-	body.className = "kk-card__body";
+	body.className = "card__body";
 	for (const child of options.children ?? []) {
 		body.append(child);
 	}
@@ -59,7 +59,7 @@ export function useCard(options: CardOptions = {}): HTMLElement {
 
 	if (options.footer) {
 		const footer = document.createElement("footer");
-		footer.className = "kk-card__footer";
+		footer.className = "card__footer";
 		footer.textContent = options.footer;
 		card.append(footer);
 	}

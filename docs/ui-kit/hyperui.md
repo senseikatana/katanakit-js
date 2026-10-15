@@ -156,7 +156,7 @@ snippets, so the utilities never leak into the KatanaKit theme.
 
 Your project needs Tailwind CSS — HyperUI classes (`bg-gray-50`, `dark:…`) are plain
 Tailwind utilities. In KatanaKit's own component kit we use the vendored KatanaKit SCSS framework instead,
-so HyperUI markup is **not** drop-in for `.kk-*` pages.
+so HyperUI markup is **not** drop-in for `.*` pages.
 
 ## How this page works
 

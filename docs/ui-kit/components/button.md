@@ -5,12 +5,12 @@ description: Framework-agnostic button with variants, sizes, loading state and a
 
 # Button
 
-`useButton(options)` creates a styled `<button>`; `useButtonClass(options)` returns
+`useButton(options)` creates a styled `<button>`; `buttonClass(options)` returns
 the class list for SSR or framework templates.
 
 ## Variants
 
-<div ref="variants" class="kk-demo-row"></div>
+<div ref="variants" class="demo-row"></div>
 
 ```ts
 import { useButton } from "@katanakit/ui";
@@ -25,7 +25,7 @@ row.append(
 
 ## Sizes and states
 
-<div ref="states" class="kk-demo-row"></div>
+<div ref="states" class="demo-row"></div>
 
 ```ts
 useButton({ label: "Small", size: "sm" });
@@ -47,7 +47,7 @@ useButton({ label: "Disabled", disabled: true });
 | `onClick`  | `(event: MouseEvent) => void`                     | —           | Attached with `addEventListener`.                   |
 
 ::: info SSR
-The factories need a DOM. On the server use `useButtonClass()` and render the
+The factories need a DOM. On the server use `buttonClass()` and render the
 markup yourself — the classes are stable strings.
 :::
 

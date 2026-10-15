@@ -16,27 +16,25 @@ const DEFAULT_DURATION = 5000;
 
 describe("toastClass", () => {
 	it("defaults to info at medium size and dismissible", () => {
-		expect(toastClass()).toBe("kk-toast kk-toast--info kk-toast--md kk-toast--dismissible");
+		expect(toastClass()).toBe("toast toast--info toast--md toast--dismissible");
 	});
 
 	it("composes variant and size", () => {
 		expect(toastClass({ type: "success", size: "sm" })).toBe(
-			"kk-toast kk-toast--success kk-toast--sm kk-toast--dismissible",
+			"toast toast--success toast--sm toast--dismissible",
 		);
 	});
 
 	it("drops the dismissible modifier when opted out", () => {
-		expect(toastClass({ type: "error", dismissible: false })).toBe(
-			"kk-toast kk-toast--error kk-toast--md",
-		);
+		expect(toastClass({ type: "error", dismissible: false })).toBe("toast toast--error toast--md");
 	});
 });
 
 describe("toastContainerClass", () => {
 	it("defaults to the top-right anchor", () => {
-		expect(toastContainerClass()).toBe("kk-toast-stack kk-toast-stack--top-right");
+		expect(toastContainerClass()).toBe("toast-stack toast-stack--top-right");
 		expect(toastContainerClass({ position: "bottom-left" })).toBe(
-			"kk-toast-stack kk-toast-stack--bottom-left",
+			"toast-stack toast-stack--bottom-left",
 		);
 	});
 });
@@ -49,31 +47,31 @@ describe("useToast", () => {
 	});
 
 	it("hides the decorative icon from assistive tech", () => {
-		const icon = useToast({ type: "success" }).querySelector(".kk-toast__icon");
+		const icon = useToast({ type: "success" }).querySelector(".toast__icon");
 
 		expect(icon?.getAttribute("aria-hidden")).toBe("true");
 		expect(icon?.getAttribute("focusable")).toBe("false");
 	});
 
 	it("renders no icon for loading toasts", () => {
-		expect(useToast({ type: "loading" }).querySelector(".kk-toast__icon")).toBeNull();
+		expect(useToast({ type: "loading" }).querySelector(".toast__icon")).toBeNull();
 	});
 
 	it("renders title and message", () => {
 		const toast = useToast({ title: "Heads up", message: "Quota at 90%" });
 
-		expect(toast.querySelector(".kk-toast__title")?.textContent).toBe("Heads up");
-		expect(toast.querySelector(".kk-toast__message")?.textContent).toBe("Quota at 90%");
+		expect(toast.querySelector(".toast__title")?.textContent).toBe("Heads up");
+		expect(toast.querySelector(".toast__message")?.textContent).toBe("Quota at 90%");
 	});
 
 	it("labels the close button", () => {
 		const toast = useToast({ message: "Bye" });
-		const close = toast.querySelector(".kk-toast__close");
+		const close = toast.querySelector(".toast__close");
 
 		expect(close?.getAttribute("aria-label")).toBe("Dismiss notification");
 		expect(
 			useToast({ message: "Bye", closeLabel: "Cerrar" })
-				.querySelector(".kk-toast__close")
+				.querySelector(".toast__close")
 				?.getAttribute("aria-label"),
 		).toBe("Cerrar");
 	});
@@ -109,8 +107,8 @@ describe("useToastStore", () => {
 		useToastStore().success("Saved");
 
 		// Assert
-		const stack = document.querySelector(".kk-toast-stack--top-right");
-		expect(stack?.querySelectorAll(".kk-toast--success")).toHaveLength(1);
+		const stack = document.querySelector(".toast-stack--top-right");
+		expect(stack?.querySelectorAll(".toast--success")).toHaveLength(1);
 	});
 
 	it("routes each helper to its variant", () => {
@@ -125,21 +123,21 @@ describe("useToastStore", () => {
 		toast.loading("l");
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast--info")).toHaveLength(1);
-		expect(document.querySelectorAll(".kk-toast--success")).toHaveLength(1);
-		expect(document.querySelectorAll(".kk-toast--warning")).toHaveLength(1);
-		expect(document.querySelectorAll(".kk-toast--error")).toHaveLength(1);
-		expect(document.querySelectorAll(".kk-toast--loading")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast--info")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast--success")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast--warning")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast--error")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast--loading")).toHaveLength(1);
 	});
 
 	it("auto-dismisses after the default duration", () => {
 		// Arrange / Act
 		useToastStore().success("Saved");
-		expect(document.querySelector(".kk-toast")).not.toBeNull();
+		expect(document.querySelector(".toast")).not.toBeNull();
 
 		// Assert — the timer fires at 5s, then the exit fallback clears the node
 		vi.advanceTimersByTime(5000 + TOAST_EXIT_FALLBACK_MS);
-		expect(document.querySelector(".kk-toast")).toBeNull();
+		expect(document.querySelector(".toast")).toBeNull();
 	});
 
 	it("keeps loading toasts pinned indefinitely", () => {
@@ -148,7 +146,7 @@ describe("useToastStore", () => {
 
 		// Assert
 		vi.advanceTimersByTime(60_000);
-		expect(document.querySelector(".kk-toast--loading")).not.toBeNull();
+		expect(document.querySelector(".toast--loading")).not.toBeNull();
 	});
 
 	it("honours a zero duration", () => {
@@ -157,39 +155,39 @@ describe("useToastStore", () => {
 
 		// Assert
 		vi.advanceTimersByTime(60_000);
-		expect(document.querySelector(".kk-toast--error")).not.toBeNull();
+		expect(document.querySelector(".toast--error")).not.toBeNull();
 	});
 
 	it("pauses the countdown on hover and resumes it on leave", () => {
 		// Arrange
 		const toast = useToastStore().success("Saved");
-		const element = document.querySelector(".kk-toast") as HTMLElement;
+		const element = document.querySelector(".toast") as HTMLElement;
 		expect(element).not.toBeNull();
 
 		// Act — hover at 3s, stay for 10s
 		vi.advanceTimersByTime(3000);
 		element.dispatchEvent(new MouseEvent("mouseenter"));
-		expect(element.classList.contains("kk-toast--paused")).toBe(true);
+		expect(element.classList.contains("toast--paused")).toBe(true);
 		vi.advanceTimersByTime(10_000);
 
 		// Assert — still alive, because the timer froze with it
-		expect(document.querySelector(".kk-toast")).not.toBeNull();
+		expect(document.querySelector(".toast")).not.toBeNull();
 
 		// Act — leave; only the remaining 2s are left on the clock
 		element.dispatchEvent(new MouseEvent("mouseleave"));
 		vi.advanceTimersByTime(1999);
-		expect(document.querySelector(".kk-toast")).not.toBeNull();
+		expect(document.querySelector(".toast")).not.toBeNull();
 
 		// Assert — gone once the resumed countdown runs out
 		vi.advanceTimersByTime(1 + TOAST_EXIT_FALLBACK_MS);
-		expect(document.querySelector(".kk-toast")).toBeNull();
-		expect(toast.id).toMatch(/^kk-toast-\d+$/);
+		expect(document.querySelector(".toast")).toBeNull();
+		expect(toast.id).toMatch(/^toast-\d+$/);
 	});
 
 	it("pauses on keyboard focus too", () => {
 		// Arrange
 		useToastStore().success("Saved");
-		const element = document.querySelector(".kk-toast") as HTMLElement;
+		const element = document.querySelector(".toast") as HTMLElement;
 
 		// Act
 		vi.advanceTimersByTime(4000);
@@ -197,7 +195,7 @@ describe("useToastStore", () => {
 		vi.advanceTimersByTime(60_000);
 
 		// Assert
-		expect(document.querySelector(".kk-toast")).not.toBeNull();
+		expect(document.querySelector(".toast")).not.toBeNull();
 	});
 
 	it("dismisses by id and leaves siblings untouched", () => {
@@ -211,7 +209,7 @@ describe("useToastStore", () => {
 		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast")).toHaveLength(1);
 	});
 
 	it("removes every toast on clear", () => {
@@ -225,23 +223,23 @@ describe("useToastStore", () => {
 		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
-		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(0);
+		expect(document.querySelectorAll(".toast")).toHaveLength(0);
+		expect(document.querySelectorAll(".toast-stack")).toHaveLength(0);
 	});
 
 	it("updates a toast in place, keeping its id", () => {
 		// Arrange
 		const handle = useToastStore().loading("Uploading");
-		document.body.append(document.querySelector(".kk-toast") as HTMLElement);
+		document.body.append(document.querySelector(".toast") as HTMLElement);
 
 		// Act
 		handle.update({ type: "success", message: "Upload complete" });
 
 		// Assert
-		const updated = document.querySelector(".kk-toast") as HTMLElement;
+		const updated = document.querySelector(".toast") as HTMLElement;
 		expect(updated.dataset.toastId).toBe(handle.id);
-		expect(updated.classList.contains("kk-toast--success")).toBe(true);
-		expect(updated.querySelector(".kk-toast__message")?.textContent).toBe("Upload complete");
+		expect(updated.classList.contains("toast--success")).toBe(true);
+		expect(updated.querySelector(".toast__message")?.textContent).toBe("Upload complete");
 	});
 
 	it("invokes onClose with the toast id", () => {
@@ -254,7 +252,7 @@ describe("useToastStore", () => {
 
 		// Assert
 		expect(onClose).toHaveBeenCalledTimes(1);
-		expect(onClose.mock.calls[0][0]).toMatch(/^kk-toast-\d+$/);
+		expect(onClose.mock.calls[0][0]).toMatch(/^toast-\d+$/);
 	});
 
 	it("keeps separate stacks per position", () => {
@@ -266,10 +264,8 @@ describe("useToastStore", () => {
 		toast.info("left", { position: "bottom-left" });
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(2);
-		expect(document.querySelector(".kk-toast-stack--bottom-left .kk-toast")?.textContent).toContain(
-			"left",
-		);
+		expect(document.querySelectorAll(".toast-stack")).toHaveLength(2);
+		expect(document.querySelector(".toast-stack--bottom-left .toast")?.textContent).toContain("left");
 	});
 
 	it("drops the stack from the DOM once empty", () => {
@@ -278,9 +274,9 @@ describe("useToastStore", () => {
 		toast.info("bye", { duration: 1000 });
 
 		// Act / Assert
-		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast-stack")).toHaveLength(1);
 		vi.advanceTimersByTime(1000 + TOAST_EXIT_FALLBACK_MS);
-		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(0);
+		expect(document.querySelectorAll(".toast-stack")).toHaveLength(0);
 	});
 
 	it("hands back the same store on every call", () => {
@@ -296,7 +292,7 @@ describe("useToastStore", () => {
 		toast.success("Profile saved.");
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast--success")).toHaveLength(1);
+		expect(document.querySelectorAll(".toast--success")).toHaveLength(1);
 	});
 
 	it("resolves the store lazily, so the facade is safe to import", () => {
@@ -316,7 +312,7 @@ describe("useToastStore", () => {
 			// Arrange
 			const onClose = vi.fn();
 			const handle = useToastStore().show({ message: "bye", onClose, duration: 0 });
-			const close = document.querySelector<HTMLButtonElement>(".kk-toast__close");
+			const close = document.querySelector<HTMLButtonElement>(".toast__close");
 
 			// Act
 			close?.click();
@@ -325,7 +321,7 @@ describe("useToastStore", () => {
 			// Assert — a real id, never ""
 			expect(onClose).toHaveBeenCalledTimes(1);
 			expect(onClose).toHaveBeenCalledWith(handle.id);
-			expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+			expect(document.querySelectorAll(".toast")).toHaveLength(0);
 		});
 
 		it("does not leak the entry: the stack is pruned too", () => {
@@ -334,14 +330,14 @@ describe("useToastStore", () => {
 			toast.info("pinned", { duration: 0 });
 
 			// Act
-			document.querySelector<HTMLButtonElement>(".kk-toast__close")?.click();
+			document.querySelector<HTMLButtonElement>(".toast__close")?.click();
 			vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
 
 			// Assert
-			expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(0);
+			expect(document.querySelectorAll(".toast-stack")).toHaveLength(0);
 			// A later clear() must find nothing left to remove.
 			toast.clear();
-			expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+			expect(document.querySelectorAll(".toast")).toHaveLength(0);
 		});
 	});
 
@@ -364,7 +360,7 @@ describe("useToastStore", () => {
 		// Arrange
 		const onClose = vi.fn();
 		const handle = useToastStore().show({ message: "x", onClose, duration: 1000 });
-		const element = document.querySelector(".kk-toast") as HTMLElement;
+		const element = document.querySelector(".toast") as HTMLElement;
 
 		// Act
 		handle.dismiss();
@@ -385,22 +381,22 @@ describe("useToastStore", () => {
 		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
-		expect(document.querySelector(".kk-toast--success")).toBeNull();
+		expect(document.querySelectorAll(".toast")).toHaveLength(0);
+		expect(document.querySelector(".toast--success")).toBeNull();
 	});
 
 	it("creates the progress bar when a toast becomes timed", () => {
 		// Arrange — a pinned toast has no bar
 		const handle = useToastStore().show({ message: "x", duration: 0 });
-		expect(document.querySelectorAll(".kk-toast__progress")).toHaveLength(0);
+		expect(document.querySelectorAll(".toast__progress")).toHaveLength(0);
 
 		// Act
 		handle.update({ duration: 3000 });
-		const element = document.querySelector(".kk-toast") as HTMLElement;
+		const element = document.querySelector(".toast") as HTMLElement;
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast__progress")).toHaveLength(1);
-		expect(element.style.getPropertyValue("--kk-toast-duration")).toBe("3000ms");
+		expect(document.querySelectorAll(".toast__progress")).toHaveLength(1);
+		expect(element.style.getPropertyValue("--katana-toast-duration")).toBe("3000ms");
 	});
 
 	it("keeps a loading toast pinned even after a timed update", () => {
@@ -412,7 +408,7 @@ describe("useToastStore", () => {
 		vi.advanceTimersByTime(60_000);
 
 		// Assert
-		expect(document.querySelector(".kk-toast--loading")).not.toBeNull();
+		expect(document.querySelector(".toast--loading")).not.toBeNull();
 	});
 
 	it("caps the number of live toasts per stack", () => {
@@ -422,7 +418,7 @@ describe("useToastStore", () => {
 
 		// Assert — a rolling window of the newest 5, oldest evicted
 		vi.advanceTimersByTime(TOAST_EXIT_FALLBACK_MS);
-		const live = [...document.querySelectorAll(".kk-toast")];
+		const live = [...document.querySelectorAll(".toast")];
 		expect(live).toHaveLength(5);
 		expect(live.map((node) => node.textContent)).toEqual(["m7×", "m8×", "m9×", "m10×", "m11×"]);
 	});
@@ -433,7 +429,7 @@ describe("useToastStore", () => {
 
 		// Assert
 		vi.advanceTimersByTime(DEFAULT_DURATION + TOAST_EXIT_FALLBACK_MS);
-		expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+		expect(document.querySelectorAll(".toast")).toHaveLength(0);
 	});
 
 	it("ignores an infinite duration instead of dismissing instantly", () => {
@@ -442,24 +438,24 @@ describe("useToastStore", () => {
 
 		// Assert
 		vi.advanceTimersByTime(DEFAULT_DURATION + TOAST_EXIT_FALLBACK_MS);
-		expect(document.querySelectorAll(".kk-toast")).toHaveLength(0);
+		expect(document.querySelectorAll(".toast")).toHaveLength(0);
 	});
 
 	it("keeps the paused state across an update", () => {
 		// Arrange
 		const handle = useToastStore().success("Saved", { duration: 5000 });
-		const element = document.querySelector(".kk-toast") as HTMLElement;
+		const element = document.querySelector(".toast") as HTMLElement;
 		vi.advanceTimersByTime(1000);
 		element.dispatchEvent(new MouseEvent("mouseenter"));
 
 		// Act
 		handle.update({ message: "Saved (v2)" });
-		const updated = document.querySelector(".kk-toast") as HTMLElement;
+		const updated = document.querySelector(".toast") as HTMLElement;
 
 		// Assert — the pointer never left, so it must stay paused
-		expect(updated.classList.contains("kk-toast--paused")).toBe(true);
+		expect(updated.classList.contains("toast--paused")).toBe(true);
 		vi.advanceTimersByTime(60_000);
-		expect(document.querySelector(".kk-toast")).not.toBeNull();
+		expect(document.querySelector(".toast")).not.toBeNull();
 	});
 
 	it("keeps position on update rather than silently ignoring it", () => {
@@ -470,7 +466,7 @@ describe("useToastStore", () => {
 		handle.update({ position: "bottom-left" });
 
 		// Assert
-		expect(document.querySelectorAll(".kk-toast-stack")).toHaveLength(1);
-		expect(document.querySelector(".kk-toast-stack--top-right")).not.toBeNull();
+		expect(document.querySelectorAll(".toast-stack")).toHaveLength(1);
+		expect(document.querySelector(".toast-stack--top-right")).not.toBeNull();
 	});
 });

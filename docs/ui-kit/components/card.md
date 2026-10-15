@@ -5,12 +5,12 @@ description: Surface container with optional header, body children and footer.
 
 # Card
 
-`useCard(options)` creates an `<article class="kk-card">` with optional header, body
-and footer. `useCardClass(options)` returns the classes for SSR markup.
+`useCard(options)` creates an `<article class="card">` with optional header, body
+and footer. `cardClass(options)` returns the classes for SSR markup.
 
 ## Demo
 
-<div ref="cards" class="kk-demo-grid"></div>
+<div ref="cards" class="demo-grid"></div>
 
 ```ts
 import { useCard } from "@katanakit/ui";
@@ -25,9 +25,9 @@ grid.append(
 
 | Option     | Type                  | Default | Notes                                    |
 | ---------- | --------------------- | ------- | ---------------------------------------- |
-| `title`    | `string`              | —       | Renders `.kk-card__header` + title.       |
-| `children` | `Array<Node \| string>` | `[]`    | Appended to `.kk-card__body`.             |
-| `footer`   | `string`              | —       | Renders `.kk-card__footer`.               |
+| `title`    | `string`              | —       | Renders `.card__header` + title.       |
+| `children` | `Array<Node \| string>` | `[]`    | Appended to `.card__body`.             |
+| `footer`   | `string`              | —       | Renders `.card__footer`.               |
 | `elevated` | `boolean`             | `false` | Replaces the border with a shadow.        |
 
 ::: info Composition

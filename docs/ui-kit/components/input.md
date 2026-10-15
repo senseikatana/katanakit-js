@@ -5,13 +5,13 @@ description: Accessible text field with label, help/error wiring and invalid sta
 
 # Input
 
-`useInput(options)` returns `{ root, input }`: a `.kk-field` wrapper with the label
+`useInput(options)` returns `{ root, input }`: a `.field` wrapper with the label
 and message already wired through `for`, `aria-invalid` and `aria-describedby`.
-`useInputClass(options)` returns the control classes for SSR markup.
+`inputClass(options)` returns the control classes for SSR markup.
 
 ## Basic field
 
-<div ref="basic" class="kk-demo-stack"></div>
+<div ref="basic" class="demo-stack"></div>
 
 ```ts
 import { useInput } from "@katanakit/ui";
@@ -29,7 +29,7 @@ form.append(root);
 
 ## Error state
 
-<div ref="errors" class="kk-demo-stack"></div>
+<div ref="errors" class="demo-stack"></div>
 
 ```ts
 useInput({ label: "Email", type: "email", error: "Enter a valid email." });

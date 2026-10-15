@@ -22,22 +22,26 @@ API reference.
 ## Install and styles
 
 Import the stylesheet once (it ships the full vendored framework, dark-theme
-tokens and the `.kk-*` component classes) before using any factory:
+tokens and the `.*` component classes) before using any factory:
 
 ```ts
 import "@katanakit/ui/styles.css";
-import { useButton, useInput, useCard, useBadge, useAlert } from "@katanakit/ui";
+import { useButton, useInput, useCard, useBadge, useAlert, toast } from "@katanakit/ui";
 
 document.body.append(
 	useButton({ label: "Save" }),
 	useInput({ label: "Email", type: "email" }).root,
 );
+
+toast.success("Saved.");
 ```
 
 Every snippet below assumes that CSS import — without it the components render as
-unstyled markup. Dark mode follows the KatanaKit contract: set
-`data-theme="dark"` on the root element (the `ThemeService` in `katanakit-js`
-owns that attribute).
+unstyled markup. Component classes are unprefixed (`.btn`, `.card`, `.toast`, …) and
+live inside `@layer katana`, so they never win an import-order accident against
+another framework — see [Architecture](./architecture.md#why-unprefixed-and-why-layer-katana).
+Dark mode follows the KatanaKit contract: set `data-theme="dark"` on the root
+element (the `ThemeService` in `katanakit-js` owns that attribute).
 
 Katana UI is the planned UI kit for KatanaKit: design tokens, headless primitives,
 components, blocks, layouts and full application pages that reuse the toolkit's core

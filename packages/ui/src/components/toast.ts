@@ -143,23 +143,19 @@ const TYPE_ICON: Record<ToastType, string> = {
  * template.
  *
  * @param options - Variant, size and dismissibility.
- * @returns The `kk-toast` class list.
+ * @returns The `toast` class list.
  *
  * @example
  * ```ts
  * toastClass({ type: "success", size: "sm" });
- * // "kk-toast kk-toast--success kk-toast--sm kk-toast--dismissible"
+ * // "toast toast--success toast--sm toast--dismissible"
  * ```
  */
 export function toastClass(
 	options: Pick<ToastOptions, "type" | "size" | "dismissible"> = {},
 ): string {
-	const classes = [
-		"kk-toast",
-		`kk-toast--${options.type ?? "info"}`,
-		`kk-toast--${options.size ?? "md"}`,
-	];
-	if (options.dismissible !== false) classes.push("kk-toast--dismissible");
+	const classes = ["toast", `toast--${options.type ?? "info"}`, `toast--${options.size ?? "md"}`];
+	if (options.dismissible !== false) classes.push("toast--dismissible");
 	return classes.join(" ");
 }
 
@@ -168,16 +164,16 @@ export function toastClass(
  * framework template.
  *
  * @param options - Stack anchor.
- * @returns The `kk-toast-stack` class list.
+ * @returns The `toast-stack` class list.
  *
  * @example
  * ```ts
  * toastContainerClass({ position: "bottom-center" });
- * // "kk-toast-stack kk-toast-stack--bottom-center"
+ * // "toast-stack toast-stack--bottom-center"
  * ```
  */
 export function toastContainerClass(options: Pick<ToastOptions, "position"> = {}): string {
-	return ["kk-toast-stack", `kk-toast-stack--${options.position ?? "top-right"}`].join(" ");
+	return ["toast-stack", `toast-stack--${options.position ?? "top-right"}`].join(" ");
 }
 
 /* -------------------------------------------------------------------------- */
@@ -235,7 +231,7 @@ function buildIcon(type: ToastType): SVGSVGElement | null {
 	// The message text already carries the meaning — the glyph is decorative.
 	svg.setAttribute("aria-hidden", "true");
 	svg.setAttribute("focusable", "false");
-	svg.classList.add("kk-toast__icon");
+	svg.classList.add("toast__icon");
 	svg.innerHTML = TYPE_ICON[type];
 	return svg;
 }
@@ -268,16 +264,16 @@ export function useToast(options: ToastOptions = {}): HTMLDivElement {
 	if (icon) toast.append(icon);
 
 	const content = document.createElement("div");
-	content.className = "kk-toast__content";
+	content.className = "toast__content";
 	if (options.title) {
 		const title = document.createElement("p");
-		title.className = "kk-toast__title";
+		title.className = "toast__title";
 		title.textContent = options.title;
 		content.append(title);
 	}
 	if (options.message) {
 		const message = document.createElement("p");
-		message.className = "kk-toast__message";
+		message.className = "toast__message";
 		message.textContent = options.message;
 		content.append(message);
 	}
@@ -286,14 +282,14 @@ export function useToast(options: ToastOptions = {}): HTMLDivElement {
 	if (options.dismissible !== false) {
 		const close = document.createElement("button");
 		close.type = "button";
-		close.className = "kk-toast__close";
+		close.className = "toast__close";
 		close.setAttribute("aria-label", options.closeLabel ?? "Dismiss notification");
 		close.textContent = "×";
 		// Marked, not wired: the standalone builder has no id and no registry
 		// entry, so the store attaches the real handler (see useShow) and routes
 		// it through useRemove. Binding here would skip the exit animation and
 		// leak the entry in `mounted`.
-		close.dataset.kkToastClose = "";
+		close.dataset.katanaToastClose = "";
 		toast.append(close);
 	}
 
@@ -407,11 +403,11 @@ function useRemove(entry: Mounted, id: string): void {
 		// The bar's duration equals the dismiss timer, so without this filter it
 		// wins the race and the toast vanishes with no exit animation.
 		if (event.target !== entry.element) return;
-		if ((event as AnimationEvent).animationName !== "kk-toast-out") return;
+		if ((event as AnimationEvent).animationName !== "katana-toast-out") return;
 		finish();
 	};
 
-	entry.element.classList.add("kk-toast--leaving");
+	entry.element.classList.add("toast--leaving");
 	const reduced =
 		typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 	if (reduced) finish();
@@ -439,7 +435,7 @@ function useBindPause(entry: Mounted, id: string): void {
 		clearTimeout(entry.timer);
 		entry.timer = null;
 		entry.remaining = Math.max(0, entry.remaining - (Date.now() - entry.startedAt));
-		entry.element.classList.add("kk-toast--paused");
+		entry.element.classList.add("toast--paused");
 	};
 	const resume = (event?: Event) => {
 		if (entry.removing || entry.timer || entry.remaining <= 0) return;
@@ -447,7 +443,7 @@ function useBindPause(entry: Mounted, id: string): void {
 		// or the countdown restarts while focus is still within it.
 		const related = (event as FocusEvent | undefined)?.relatedTarget as Node | null | undefined;
 		if (related && entry.element.contains(related)) return;
-		entry.element.classList.remove("kk-toast--paused");
+		entry.element.classList.remove("toast--paused");
 		useSchedule(entry, id);
 	};
 
@@ -465,14 +461,14 @@ function useBindPause(entry: Mounted, id: string): void {
  * carried over — and a newly timed toast needs one created for the first time.
  */
 function useSyncProgressBar(entry: Mounted): void {
-	const existing = entry.element.querySelector<HTMLElement>(".kk-toast__progress");
+	const existing = entry.element.querySelector<HTMLElement>(".toast__progress");
 	if (entry.remaining <= 0) {
 		existing?.remove();
 		return;
 	}
 	if (existing) return;
 	const bar = document.createElement("span");
-	bar.className = "kk-toast__progress";
+	bar.className = "toast__progress";
 	// Purely decorative timing cue; the live region carries the message.
 	bar.setAttribute("aria-hidden", "true");
 	entry.element.append(bar);
@@ -482,7 +478,7 @@ function useSyncProgressBar(entry: Mounted): void {
 function useBindClose(entry: Mounted, id: string): void {
 	entry.element.addEventListener("click", (event) => {
 		const target = event.target as Element | null;
-		if (!target?.closest?.("[data-kk-toast-close]")) return;
+		if (!target?.closest?.("[data-katana-toast-close]")) return;
 		useRemove(entry, id);
 	});
 }
@@ -494,7 +490,7 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 	const stack = useStack(position);
 
 	sequence += 1;
-	const id = `kk-toast-${sequence}`;
+	const id = `toast-${sequence}`;
 
 	const entry: Mounted = {
 		element: useToast(options),
@@ -512,22 +508,22 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 
 				const replacement = useToast(merged);
 				replacement.dataset.toastId = id;
-				const bar = entry.element.querySelector<HTMLElement>(".kk-toast__progress");
+				const bar = entry.element.querySelector<HTMLElement>(".toast__progress");
 				if (bar) replacement.append(bar);
 				entry.element.replaceWith(replacement);
 				entry.element = replacement;
 
 				// Carry over an in-flight pause, and charge it for the elapsed time.
 				// `entry.timer` is null while paused — the class is the source of truth.
-				if (element.classList.contains("kk-toast--paused")) {
+				if (element.classList.contains("toast--paused")) {
 					entry.remaining = Math.max(0, entry.remaining - (Date.now() - entry.startedAt));
-					replacement.classList.add("kk-toast--paused");
+					replacement.classList.add("toast--paused");
 				}
 
 				entry.remaining = resolveDuration(merged);
 				// Set before insertion so the bar's animation starts at the right
 				// duration instead of flashing with the stylesheet fallback.
-				replacement.style.setProperty("--kk-toast-duration", `${entry.remaining}ms`);
+				replacement.style.setProperty("--katana-toast-duration", `${entry.remaining}ms`);
 				useSyncProgressBar(entry);
 
 				if (entry.timer) clearTimeout(entry.timer);
@@ -535,7 +531,7 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 				// Re-bind: the node the listeners were attached to is gone.
 				useBindPause(entry, id);
 				useBindClose(entry, id);
-				if (!replacement.classList.contains("kk-toast--paused")) useSchedule(entry, id);
+				if (!replacement.classList.contains("toast--paused")) useSchedule(entry, id);
 			},
 			dismiss() {
 				useRemove(entry, id);
@@ -550,7 +546,7 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 
 	const element = entry.element;
 	element.dataset.toastId = id;
-	element.style.setProperty("--kk-toast-duration", `${entry.remaining}ms`);
+	element.style.setProperty("--katana-toast-duration", `${entry.remaining}ms`);
 	useSyncProgressBar(entry);
 
 	// Pause on hover and on keyboard focus so the timer never races the user.
@@ -567,7 +563,7 @@ function useShow(options: ToastOptions = {}): ToastHandle {
 
 /** Dismisses the oldest toasts once a stack exceeds {@link MAX_PER_STACK}. */
 function useTrimStack(stack: HTMLDivElement): void {
-	const live = stack.querySelectorAll(".kk-toast:not(.kk-toast--leaving)");
+	const live = stack.querySelectorAll(".toast:not(.toast--leaving)");
 	const excess = live.length - MAX_PER_STACK;
 	if (excess <= 0) return;
 

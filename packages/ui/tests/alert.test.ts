@@ -1,13 +1,13 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from "vitest";
 
-import { useAlert, useAlertClass } from "../src/index";
+import { alertClass, useAlert } from "../src/index";
 
-describe("useAlertClass", () => {
+describe("alertClass", () => {
 	it("defaults to info and composes dismissal", () => {
-		expect(useAlertClass()).toBe("kk-alert kk-alert--info");
-		expect(useAlertClass({ variant: "danger", dismissible: true })).toBe(
-			"kk-alert kk-alert--danger kk-alert--dismissible",
+		expect(alertClass()).toBe("alert alert--info");
+		expect(alertClass({ variant: "danger", dismissible: true })).toBe(
+			"alert alert--danger alert--dismissible",
 		);
 	});
 });
@@ -26,8 +26,8 @@ describe("useAlert", () => {
 	it("renders title and message", () => {
 		const alert = useAlert({ title: "Heads up", message: "Quota at 90%" });
 
-		expect(alert.querySelector(".kk-alert__title")?.textContent).toBe("Heads up");
-		expect(alert.querySelector(".kk-alert__message")?.textContent).toBe("Quota at 90%");
+		expect(alert.querySelector(".alert__title")?.textContent).toBe("Heads up");
+		expect(alert.querySelector(".alert__message")?.textContent).toBe("Quota at 90%");
 	});
 
 	it("dismisses accessibly and calls back", () => {
@@ -35,7 +35,7 @@ describe("useAlert", () => {
 		const alert = useAlert({ message: "Bye", dismissible: true, onDismiss });
 		document.body.append(alert);
 
-		const close = alert.querySelector<HTMLButtonElement>(".kk-alert__close");
+		const close = alert.querySelector<HTMLButtonElement>(".alert__close");
 
 		expect(close?.getAttribute("aria-label")).toBe("Dismiss");
 		close?.click();

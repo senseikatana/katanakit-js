@@ -1,16 +1,16 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from "vitest";
 
-import { useButton, useButtonClass } from "../src/index";
+import { buttonClass, useButton } from "../src/index";
 
-describe("useButtonClass", () => {
+describe("buttonClass", () => {
 	it("defaults to primary/md", () => {
-		expect(useButtonClass()).toBe("kk-btn kk-btn--primary kk-btn--md");
+		expect(buttonClass()).toBe("btn btn--primary btn--md");
 	});
 
 	it("composes variant, size and loading", () => {
-		expect(useButtonClass({ variant: "danger", size: "sm", loading: true })).toBe(
-			"kk-btn kk-btn--danger kk-btn--sm kk-btn--loading",
+		expect(buttonClass({ variant: "danger", size: "sm", loading: true })).toBe(
+			"btn btn--danger btn--sm btn--loading",
 		);
 	});
 });
@@ -22,7 +22,7 @@ describe("useButton", () => {
 		expect(button.tagName).toBe("BUTTON");
 		expect(button.textContent).toBe("Save");
 		expect(button.type).toBe("button");
-		expect(button.classList.contains("kk-btn--secondary")).toBe(true);
+		expect(button.classList.contains("btn--secondary")).toBe(true);
 	});
 
 	it("disables and marks busy while loading", () => {

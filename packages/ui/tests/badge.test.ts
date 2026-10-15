@@ -1,15 +1,15 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from "vitest";
 
-import { useBadge, useBadgeClass } from "../src/index";
+import { badgeClass, useBadge } from "../src/index";
 
-describe("useBadgeClass", () => {
+describe("badgeClass", () => {
 	it("defaults to neutral", () => {
-		expect(useBadgeClass()).toBe("kk-badge kk-badge--neutral");
+		expect(badgeClass()).toBe("badge badge--neutral");
 	});
 
 	it("accepts semantic variants", () => {
-		expect(useBadgeClass({ variant: "success" })).toBe("kk-badge kk-badge--success");
+		expect(badgeClass({ variant: "success" })).toBe("badge badge--success");
 	});
 });
 
@@ -19,6 +19,6 @@ describe("useBadge", () => {
 
 		expect(badge.tagName).toBe("SPAN");
 		expect(badge.textContent).toBe("Paid");
-		expect(badge.classList.contains("kk-badge--success")).toBe(true);
+		expect(badge.classList.contains("badge--success")).toBe(true);
 	});
 });

@@ -1,7 +1,7 @@
 /** Input types supported by {@link useInput}. */
 export type InputType = "text" | "email" | "password" | "search" | "tel" | "url";
 
-/** Options for {@link useInput} and {@link useInputClass}. */
+/** Options for {@link useInput} and {@link inputClass}. */
 export interface InputOptions {
 	/** Field label. */
 	label?: string;
@@ -27,7 +27,7 @@ export interface InputOptions {
 
 /** Elements created by {@link useInput}. */
 export interface InputElements {
-	/** `.kk-field` wrapper (label + control + help/error). */
+	/** `.field` wrapper (label + control + help/error). */
 	root: HTMLDivElement;
 	/** The native `<input>`. */
 	input: HTMLInputElement;
@@ -39,10 +39,10 @@ let inputCounter = 0;
  * Pure class list for the input control.
  *
  * @param options - Error state.
- * @returns The `kk-input` class list.
+ * @returns The `input` class list.
  */
-export function useInputClass(options: Pick<InputOptions, "error"> = {}): string {
-	return options.error ? "kk-input kk-input--invalid" : "kk-input";
+export function inputClass(options: Pick<InputOptions, "error"> = {}): string {
+	return options.error ? "input input--invalid" : "input";
 }
 
 /**
@@ -61,24 +61,24 @@ export function useInputClass(options: Pick<InputOptions, "error"> = {}): string
  */
 export function useInput(options: InputOptions = {}): InputElements {
 	if (typeof document === "undefined") {
-		throw new Error("[KatanaUI] useInput() needs a DOM; use useInputClass() for SSR markup.");
+		throw new Error("[KatanaUI] useInput() needs a DOM; use inputClass() for SSR markup.");
 	}
 
 	inputCounter += 1;
-	const id = options.name ? `kk-${options.name}` : `kk-input-${inputCounter}`;
+	const id = options.name ? `${options.name}` : `input-${inputCounter}`;
 	const messageId = `${id}-message`;
 
 	const root = document.createElement("div");
-	root.className = "kk-field";
+	root.className = "field";
 
 	if (options.label) {
 		const label = document.createElement("label");
-		label.className = "kk-field__label";
+		label.className = "field__label";
 		label.htmlFor = id;
 		label.textContent = options.label;
 		if (options.required) {
 			const marker = document.createElement("span");
-			marker.className = "kk-field__required";
+			marker.className = "field__required";
 			marker.setAttribute("aria-hidden", "true");
 			marker.textContent = " *";
 			label.append(marker);
@@ -87,7 +87,7 @@ export function useInput(options: InputOptions = {}): InputElements {
 	}
 
 	const input = document.createElement("input");
-	input.className = useInputClass(options);
+	input.className = inputClass(options);
 	input.type = options.type ?? "text";
 	input.id = id;
 	if (options.name) input.name = options.name;
@@ -109,7 +109,7 @@ export function useInput(options: InputOptions = {}): InputElements {
 	const message = options.error ?? options.help;
 	if (message) {
 		const hint = document.createElement("p");
-		hint.className = options.error ? "kk-field__error" : "kk-field__help";
+		hint.className = options.error ? "field__error" : "field__help";
 		hint.id = messageId;
 		hint.textContent = message;
 		root.append(hint);

@@ -22,7 +22,7 @@ factories create DOM elements and throw outside a DOM environment.
 
 `@katanakit/ui/styles.css` is self-contained: it emits the full vendored
 framework (reset, tokens, utilities), the dark theme tokens
-(`:root[data-theme="dark"]`) and the `.kk-*` component classes.
+(`:root[data-theme="dark"]`) and the `.*` component classes.
 
 ```ts
 import "@katanakit/ui/styles.css";

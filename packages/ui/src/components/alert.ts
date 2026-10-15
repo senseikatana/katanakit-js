@@ -1,7 +1,7 @@
 /** Alert variants. */
 export type AlertVariant = "info" | "success" | "warning" | "danger";
 
-/** Options for {@link useAlert} and {@link useAlertClass}. */
+/** Options for {@link useAlert} and {@link alertClass}. */
 export interface AlertOptions {
 	/** Semantic variant (default: `"info"`). */
 	variant?: AlertVariant;
@@ -19,11 +19,11 @@ export interface AlertOptions {
  * Pure class list for an alert.
  *
  * @param options - Variant and dismissible state.
- * @returns The `kk-alert` class list.
+ * @returns The `alert` class list.
  */
-export function useAlertClass(options: Pick<AlertOptions, "variant" | "dismissible"> = {}): string {
-	const classes = ["kk-alert", `kk-alert--${options.variant ?? "info"}`];
-	if (options.dismissible) classes.push("kk-alert--dismissible");
+export function alertClass(options: Pick<AlertOptions, "variant" | "dismissible"> = {}): string {
+	const classes = ["alert", `alert--${options.variant ?? "info"}`];
+	if (options.dismissible) classes.push("alert--dismissible");
 	return classes.join(" ");
 }
 
@@ -44,25 +44,25 @@ export function useAlertClass(options: Pick<AlertOptions, "variant" | "dismissib
  */
 export function useAlert(options: AlertOptions = {}): HTMLDivElement {
 	if (typeof document === "undefined") {
-		throw new Error("[KatanaUI] useAlert() needs a DOM; use useAlertClass() for SSR markup.");
+		throw new Error("[KatanaUI] useAlert() needs a DOM; use alertClass() for SSR markup.");
 	}
 
 	const variant = options.variant ?? "info";
 	const alert = document.createElement("div");
-	alert.className = useAlertClass(options);
+	alert.className = alertClass(options);
 	alert.setAttribute("role", variant === "warning" || variant === "danger" ? "alert" : "status");
 
 	const content = document.createElement("div");
-	content.className = "kk-alert__content";
+	content.className = "alert__content";
 	if (options.title) {
 		const title = document.createElement("div");
-		title.className = "kk-alert__title";
+		title.className = "alert__title";
 		title.textContent = options.title;
 		content.append(title);
 	}
 	if (options.message) {
 		const message = document.createElement("div");
-		message.className = "kk-alert__message";
+		message.className = "alert__message";
 		message.textContent = options.message;
 		content.append(message);
 	}
@@ -71,7 +71,7 @@ export function useAlert(options: AlertOptions = {}): HTMLDivElement {
 	if (options.dismissible) {
 		const close = document.createElement("button");
 		close.type = "button";
-		close.className = "kk-alert__close";
+		close.className = "alert__close";
 		close.setAttribute("aria-label", "Dismiss");
 		close.textContent = "×";
 		close.addEventListener("click", () => {

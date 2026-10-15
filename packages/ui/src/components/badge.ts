@@ -1,7 +1,7 @@
 /** Semantic badge variants. */
 export type BadgeVariant = "neutral" | "info" | "success" | "warning" | "danger";
 
-/** Options for {@link useBadge} and {@link useBadgeClass}. */
+/** Options for {@link useBadge} and {@link badgeClass}. */
 export interface BadgeOptions {
 	/** Badge text. */
 	label?: string;
@@ -13,10 +13,10 @@ export interface BadgeOptions {
  * Pure class list for a badge.
  *
  * @param options - Variant.
- * @returns The `kk-badge` class list.
+ * @returns The `badge` class list.
  */
-export function useBadgeClass(options: Pick<BadgeOptions, "variant"> = {}): string {
-	return `kk-badge kk-badge--${options.variant ?? "neutral"}`;
+export function badgeClass(options: Pick<BadgeOptions, "variant"> = {}): string {
+	return `badge badge--${options.variant ?? "neutral"}`;
 }
 
 /**
@@ -33,11 +33,11 @@ export function useBadgeClass(options: Pick<BadgeOptions, "variant"> = {}): stri
  */
 export function useBadge(options: BadgeOptions = {}): HTMLSpanElement {
 	if (typeof document === "undefined") {
-		throw new Error("[KatanaUI] useBadge() needs a DOM; use useBadgeClass() for SSR markup.");
+		throw new Error("[KatanaUI] useBadge() needs a DOM; use badgeClass() for SSR markup.");
 	}
 
 	const badge = document.createElement("span");
-	badge.className = useBadgeClass(options);
+	badge.className = badgeClass(options);
 	badge.textContent = options.label ?? "";
 	return badge;
 }

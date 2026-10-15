@@ -36,7 +36,7 @@ is a polite `role="status"`. `loading` is indeterminate and stays pinned until y
 dismiss or update it.
 
 <ClientOnly>
-  <div ref="variants" class="kk-toast-demo"></div>
+  <div ref="variants" class="toast-demo"></div>
 </ClientOnly>
 
 ```ts
@@ -55,7 +55,7 @@ toast.loading("Uploading 3 files…");
 so a progress toast never jumps around the screen.
 
 <ClientOnly>
-  <div class="kk-toast-demo"><button type="button" class="kk-btn kk-btn--primary" @click="runUpload">Run the upload demo</button></div>
+  <div class="toast-demo"><button type="button" class="btn btn--primary" @click="runUpload">Run the upload demo</button></div>
 </ClientOnly>
 
 ```ts
@@ -85,7 +85,7 @@ with it via `animation-play-state` — the bar and the JS timer never desync. Ke
 users get the same courtesy as mouse users.
 
 <ClientOnly>
-  <div class="kk-toast-demo"><button type="button" class="kk-btn kk-btn--secondary" @click="runPause">Hover the toast</button></div>
+  <div class="toast-demo"><button type="button" class="btn btn--secondary" @click="runPause">Hover the toast</button></div>
 </ClientOnly>
 
 ## Positions
@@ -94,8 +94,8 @@ Six anchors: `top-right` (default), `top-center`, `top-left`, `bottom-right`,
 `bottom-center`, `bottom-left`. Each position gets its own stack, created lazily.
 
 <ClientOnly>
-  <div class="kk-toast-demo kk-toast-demo--wrap">
-    <button type="button" class="kk-btn kk-btn--ghost" @click="runPositions">Show all six</button>
+  <div class="toast-demo toast-demo--wrap">
+    <button type="button" class="btn btn--ghost" @click="runPositions">Show all six</button>
   </div>
 </ClientOnly>
 
@@ -167,7 +167,7 @@ import { toastClass, toastContainerClass } from "@katanakit/ui";
 
 <div class={toastContainerClass({ position: "top-right" })} role="region" aria-label="Notifications">
   <div class={toastClass({ type: "success" })} role="status">
-    <div class="kk-toast__content"><p class="kk-toast__message">Deployed.</p></div>
+    <div class="toast__content"><p class="toast__message">Deployed.</p></div>
   </div>
 </div>
 
@@ -178,14 +178,14 @@ import { toastClass, toastContainerClass } from "@katanakit/ui";
 ```
 
 <style scoped>
-.kk-toast-demo {
+.toast-demo {
 	display: flex;
 	gap: var(--spacing-3);
 	align-items: flex-start;
 	margin: var(--spacing-4) 0;
 }
 
-.kk-toast-demo--wrap {
+.toast-demo--wrap {
 	flex-wrap: wrap;
 }
 </style>
