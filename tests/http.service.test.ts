@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
 	defineApiConfig,
+	useAddRequestInterceptor,
 	useBuildApiUrl,
 	useBuildUrl,
 	useFetch,
@@ -302,6 +303,110 @@ describe("useFetch flat options", () => {
 		const init = fetchMock.mock.calls[0][1] as Record<string, unknown>;
 		for (const key of ["params", "query", "ignoreDefaultQuery", "urlOptions", "transform"]) {
 			expect(init).not.toHaveProperty(key);
+		}
+	});
+});
+
+describe("useFetch request interceptors", () => {
+	const okJson = (): Response =>
+		new Response(JSON.stringify({ ok: true }), {
+			status: 200,
+			headers: { "Content-Type": "application/json" },
+		});
+
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
+	it("runs interceptors in registration order and passes the modified request to fetch", async () => {
+		useInitApis({ interceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		const order: string[] = [];
+		const fetchMock = vi.fn().mockResolvedValue(okJson());
+		vi.stubGlobal("fetch", fetchMock);
+
+		const removeFirst = useAddRequestInterceptor(async (request) => {
+			await Promise.resolve();
+			order.push("first");
+			request.url += "?from=interceptor";
+			request.init.headers = { "X-First": "set" };
+		});
+		const removeSecond = useAddRequestInterceptor((request) => {
+			order.push("second");
+			expect(request.init.headers).toEqual({ "X-First": "set" });
+			request.init.method = "PATCH";
+		});
+
+		try {
+			const result = await useFetch("interceptorApi", "list");
+			expect(result.ok).toBe(true);
+			expect(order).toEqual(["first", "second"]);
+			expect(fetchMock).toHaveBeenCalledWith("https://example.com/list?from=interceptor", {
+				redirect: "error",
+				headers: { "X-First": "set" },
+				method: "PATCH",
+			});
+		} finally {
+			removeFirst();
+			removeSecond();
+		}
+	});
+
+	it("stops the chain and returns a safe error when an interceptor rejects", async () => {
+		useInitApis({ rejectedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		const fetchMock = vi.fn();
+		vi.stubGlobal("fetch", fetchMock);
+		const removeFailure = useAddRequestInterceptor(async () => {
+			throw new Error("blocked");
+		});
+		const nextInterceptor = vi.fn();
+		const removeNext = useAddRequestInterceptor(nextInterceptor);
+
+		try {
+			const result = await useFetch("rejectedInterceptorApi", "list");
+			expect(result).toMatchObject({
+				data: null,
+				error: { message: "Request Interceptor Error: blocked", status: 0 },
+				url: "https://example.com/list",
+				status: 0,
+				ok: false,
+			});
+			expect(nextInterceptor).not.toHaveBeenCalled();
+			expect(fetchMock).not.toHaveBeenCalled();
+		} finally {
+			removeFailure();
+			removeNext();
+		}
+	});
+
+	it("unregisters an interceptor and preserves the original fetch inputs", async () => {
+		useInitApis({ unsubscribedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		const interceptor = vi.fn();
+		const removeInterceptor = useAddRequestInterceptor(interceptor);
+		removeInterceptor();
+		const fetchMock = vi.fn().mockResolvedValue(okJson());
+		vi.stubGlobal("fetch", fetchMock);
+
+		await useFetch("unsubscribedInterceptorApi", "list");
+
+		expect(interceptor).not.toHaveBeenCalled();
+		expect(fetchMock).toHaveBeenCalledWith("https://example.com/list", { redirect: "error" });
+	});
+
+	it("rejects interceptor URL schemes outside HTTP and HTTPS", async () => {
+		useInitApis({ unsafeInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		const fetchMock = vi.fn();
+		vi.stubGlobal("fetch", fetchMock);
+		const removeInterceptor = useAddRequestInterceptor((request) => {
+			request.url = "javascript:alert(1)";
+		});
+
+		try {
+			const result = await useFetch("unsafeInterceptorApi", "list");
+			expect(result.ok).toBe(false);
+			expect(result.error?.message).toBe('Request Interceptor Error: Request URL scheme "javascript:" is not allowed.');
+			expect(fetchMock).not.toHaveBeenCalled();
+		} finally {
+			removeInterceptor();
 		}
 	});
 });

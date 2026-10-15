@@ -421,6 +421,15 @@ export type FetchResult<T = unknown> =
 			ok: false;
 	  };
 
+/** Mutable request inputs passed through registered HTTP request interceptors. */
+export interface FetchRequest {
+	url: string;
+	init: RequestInit;
+}
+
+/** Inspects or modifies a request before fetch; interceptors run in registration order. */
+export type RequestInterceptor = (request: FetchRequest) => void | Promise<void>;
+
 /** Contract of the fetch facade. */
 export interface IFetchApiManager {
 	/** @deprecated Use `defineApiConfig`. */
@@ -432,6 +441,7 @@ export interface IFetchApiManager {
 	useBuildUrl(apiName: string, endpointName: string, options?: UrlOptions): string;
 	/** @deprecated Use `useBuildUrl`. */
 	useBuildApiUrl(apiName: string, endpointName: string, options?: UrlOptions): string;
+	useAddRequestInterceptor(interceptor: RequestInterceptor): () => void;
 	useFetch<T = unknown>(
 		apiName: string,
 		endpointName: string,
