@@ -23,12 +23,12 @@
  *   out through its own chrome;
  * - a `focusin` guard that pulls focus back if it escapes for any other reason.
  *
- * The guard listens on `document`, not on the dialog. That is not a stylistic
- * choice: when focus is stolen the `focusin` event fires on the *outside* element
- * and bubbles upward, so a dialog-scoped listener can never observe it. One guard
- * is installed for the whole page and dispatches to the topmost dialog, rather
- * than one per dialog, so a stack of dialogs does not thrash layout on every
- * focus event.
+ * The guard listens on the dialog's own root, not on the dialog. That is not a
+ * stylistic choice: for a dialog inside a shadow root, focus events retarget to
+ * the *host*, so a dialog-scoped listener cannot observe focus inside its own
+ * subtree. Measured in Chromium: `focusin` does cross a plain shadow boundary
+ * normally, but not for a top-layer dialog in one — the top layer is the blocker,
+ * not the shadow root.
  *
  * Focus is restored to whatever was focused before `open()`, unless that element
  * is gone by the time the dialog closes — then it falls back to the topmost
@@ -375,24 +375,67 @@ function useActive(dialog: HTMLElement): HTMLElement | null {
 }
 
 /**
- * Installs the focus guard on a dialog's tree, if it is not already there.
+ * Installs the focus guards on a dialog's tree, if they are not already there.
+ *
+ * Two guards, because they catch different failures:
+ *
+ * - `focusin` — focus was *moved* to something outside the dialog, by script or
+ *   by a click. Note that on the `showModal()` path this is largely unreachable:
+ *   a top-layer dialog makes the rest of the document inert, and `.focus()` on an
+ *   inert element does nothing. It earns its keep on the no-`showModal` fallback,
+ *   which gets no inertness from the platform.
+ * - `focusout` with a `null` `relatedTarget` — focus *left the document* without
+ *   going anywhere: a `.blur()`, the focused element being removed from the DOM,
+ *   or a re-render replacing it. Those fire no `focusin` at all, so the guard above
+ *   never sees them.
  */
 function useEnsureGuard(dialog: HTMLElement): void {
 	const root = useRoot(dialog);
 	if (guards.has(root) || typeof root.addEventListener !== "function") return;
+
+	const pullBack = (dialogElement: HTMLElement) => {
+		// Fall back to the dialog itself: without this the trap is a silent no-op
+		// whenever the dialog has no focusable children.
+		(useFocusables(dialogElement)[0] ?? dialogElement).focus();
+	};
 
 	const onFocusIn = (event: Event) => {
 		const entry = useTopmost();
 		if (!entry) return;
 		const target = event.target as Node | null;
 		if (!target || entry.dialog.contains(target) || !entry.dialog.isConnected) return;
-		// Fall back to the dialog itself: without this the trap is a silent no-op
-		// whenever the dialog has no focusable children.
-		(useFocusables(entry.dialog)[0] ?? entry.dialog).focus();
+		pullBack(entry.dialog);
+	};
+
+	// `focusout` does not bubble, so this has to be capture-phase to be robust.
+	const onFocusOut = (event: Event) => {
+		const entry = useTopmost();
+		if (!entry || entry.closing) return;
+		// A move to a real element is the browser doing its job, not a leak. Only
+		// `null` means focus went nowhere — which is exactly what removal,
+		// re-render and `.blur()` all produce.
+		if ((event as FocusEvent).relatedTarget !== null) return;
+
+		// Deferred on purpose. When the focused element is removed, `focusout`
+		// fires *synchronously inside* the removal, while the element is still
+		// attached and still first in DOM order. Acting immediately would focus
+		// the very element about to disappear, and focus would then fall out of the
+		// dialog entirely. A microtask runs once the DOM has settled.
+		queueMicrotask(() => {
+			// The dialog may have closed in the meantime, and closing restores
+			// focus on purpose.
+			if (entry.finished || entry.closing) return;
+			if (!entry.dialog.isConnected) return;
+			pullBack(entry.dialog);
+		});
 	};
 
 	root.addEventListener("focusin", onFocusIn);
-	guards.set(root, () => root.removeEventListener("focusin", onFocusIn));
+	root.addEventListener("focusout", onFocusOut, true);
+	guards.set(root, () => {
+		root.removeEventListener("focusin", onFocusIn);
+		root.removeEventListener("focusout", onFocusOut, true);
+	});
 }
 
 function useReleaseGuard(dialog: HTMLElement): void {
@@ -605,6 +648,19 @@ function useOpen(options: ModalOptions = {}): ModalHandle {
 	dialog.addEventListener("keydown", (event) => {
 		if (event.key !== "Tab") return;
 
+		// Focus is in the browser's own chrome — the URL bar, devtools. No element
+		// in this document has it, `document.hasFocus()` is false, and
+		// `document.activeElement` still reports the last focused element, which
+		// makes the wrap branch below look applicable when it is not.
+		//
+		// Acting on it here is actively harmful: `preventDefault()` suppresses the
+		// browser's own recovery and re-focusing an element it already considers
+		// focused is a no-op, which turns a one-press detour into a permanent
+		// keyboard trap. Measured in Chromium — with the guard live, Tab kept the
+		// focus in chrome forever; with it neutralised, Chromium recovered on the
+		// next press.
+		if (typeof document !== "undefined" && !document.hasFocus()) return;
+
 		const items = useFocusables(dialog);
 		if (items.length === 0) {
 			event.preventDefault();
@@ -612,9 +668,14 @@ function useOpen(options: ModalOptions = {}): ModalHandle {
 			return;
 		}
 
+		const active = useActive(dialog);
+		// Focus is inside an iframe. `document.activeElement` reports the frame,
+		// and this Tab is already spent moving through the frame's own document, so
+		// intervening would double-step it.
+		if (active?.tagName === "IFRAME") return;
+
 		const first = items[0];
 		const last = items[items.length - 1];
-		const active = useActive(dialog);
 		const inside = active !== null && dialog.contains(active);
 
 		if (event.shiftKey && (active === first || !inside)) {

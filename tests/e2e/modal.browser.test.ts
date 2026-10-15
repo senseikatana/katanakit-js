@@ -165,6 +165,64 @@ test("exposes the close button to the keyboard", async ({ page }) => {
 	await expect(page.locator("dialog.modal")).toHaveCount(0);
 });
 
+/** Whether focus is currently inside the open dialog. */
+async function focusIsInside(page: import("@playwright/test").Page): Promise<boolean> {
+	return page.evaluate(() =>
+		Boolean(document.querySelector("dialog.modal")?.contains(document.activeElement)),
+	);
+}
+
+test("recovers when the focused element is removed", async ({ page }) => {
+	await page.click("#open-modal");
+	await expect(page.locator('[data-label="Alpha"]')).toBeFocused();
+
+	// Focus that leaves the document without going anywhere fires `focusout`
+	// with a null `relatedTarget` and no `focusin` at all — so the `focusin` guard
+	// cannot see it. This is the re-render case, and it used to strand the user
+	// outside the dialog with no focus indicator.
+	await page.evaluate(() => document.querySelector('[data-label="Alpha"]')?.remove());
+
+	// Focus lands on the first remaining control, not on the dialog itself.
+	await expect(page.locator('[data-label="Bravo"]')).toBeFocused();
+	expect(await focusIsInside(page)).toBe(true);
+});
+
+test("recovers focus after a blur with no new target", async ({ page }) => {
+	await page.click("#open-modal");
+	await expect(page.locator('[data-label="Alpha"]')).toBeFocused();
+
+	// `.blur()` moves focus nowhere and fires `focusout` with `relatedTarget: null`.
+	await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+
+	await expect(page.locator('[data-label="Alpha"]')).toBeFocused();
+	expect(await focusIsInside(page)).toBe(true);
+});
+
+test("recovers when the dialog body is replaced wholesale", async ({ page }) => {
+	await page.click("#open-modal");
+	await expect(page.locator('[data-label="Alpha"]')).toBeFocused();
+
+	// The re-render case in its bluntest form: everything inside is replaced, so
+	// the element that had focus no longer exists at all.
+	await page.evaluate(() => {
+		const body = document.querySelector(".modal__body");
+		if (body) body.replaceChildren();
+	});
+
+	expect(await focusIsInside(page)).toBe(true);
+});
+
+test("does not fight a normal in-dialog focus move", async ({ page }) => {
+	await page.click("#open-modal");
+
+	// The `focusout` guard keys on `relatedTarget === null`, so an ordinary move
+	// between two controls inside the dialog must not trigger a re-focus.
+	await page.locator('[data-label="Alpha"]').focus();
+	await page.locator('[data-label="Bravo"]').focus();
+
+	await expect(page.locator('[data-label="Bravo"]')).toBeFocused();
+});
+
 test("pulls focus back when something steals it", async ({ page }) => {
 	await page.click("#open-modal");
 	await expect(page.locator('[data-label="Alpha"]')).toBeFocused();
