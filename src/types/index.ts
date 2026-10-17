@@ -575,8 +575,11 @@ export interface ToggleSignalSetter {
 /** Contract of the reactive facade. */
 export interface IReactiveService {
 	useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSetter<T>];
-	useCreateEffect(callback: () => void | (() => void), signals: Subscribable<unknown>[]): () => void;
-	useCreateMemo<T>(computation: () => T, signals: Subscribable<unknown>[]): SignalGetter<T>;
+	useCreateEffect(
+		callback: () => void | (() => void),
+		signals?: Subscribable<unknown>[],
+	): () => void;
+	useCreateMemo<T>(computation: () => T, signals?: Subscribable<unknown>[]): SignalGetter<T>;
 	useCreateToggle(initialValue?: boolean): [SignalGetter<boolean>, ToggleSignalSetter];
 	useCreateStorageSignal<T>(
 		key: string,
