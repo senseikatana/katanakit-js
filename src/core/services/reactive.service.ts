@@ -12,6 +12,7 @@ import { useLogger } from "./logger.service.js";
 // Module-level batching state.
 let isBatching = false;
 const batchQueue: Set<() => void> = new Set();
+let trackSignalRead: ((signal: Subscribable<unknown>) => void) | undefined;
 
 /**
  * Internal: schedules a notification function. If batching is active the
@@ -56,7 +57,10 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
 	let value = initialValue;
 	const listeners = new Set<SignalListener<T>>();
 
-	const get = (() => value) as SignalGetter<T>;
+	const get = (function signalGetter() {
+		trackSignalRead?.(signalGetter as SignalGetter<T>);
+		return value;
+	}) as SignalGetter<T>;
 
 	const set: SignalSetter<T> = (nextValue) => {
 		const oldValue = value;
@@ -86,12 +90,13 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
 }
 
 /**
- * Creates a side effect that re-runs whenever any of the provided signals
- * emit a new value. An optional cleanup function returned from the callback
- * is invoked before each re-run and on disposal.
+ * Creates a side effect that re-runs whenever a signal read by the callback
+ * changes. Explicit dependencies can also be provided for compatibility.
+ * An optional cleanup function returned from the callback is invoked before
+ * each re-run and on disposal.
  *
  * @param callback - Effect body. May return a cleanup function.
- * @param signals - Array of subscribable signals to react to.
+ * @param signals - Optional explicit dependencies, in addition to tracked reads.
  * @returns A dispose function that tears down all subscriptions and runs
  *   the final cleanup.
  *
@@ -101,7 +106,7 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
  * const dispose = useCreateEffect(() => {
  *   console.log(`Hello, ${name()}!`);
  *   return () => console.log("cleaning up");
- * }, [name]);
+ * });
  *
  * setName("Katana"); // logs "Hello, Katana!"
  * dispose();         // logs "cleaning up"
@@ -109,36 +114,63 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
  */
 export function useCreateEffect(
 	callback: () => void | (() => void),
-	signals: Subscribable<unknown>[],
+	signals: Subscribable<unknown>[] = [],
 ): () => void {
 	let cleanup: void | (() => void);
+	let disposed = false;
+	const subscriptions = new Map<Subscribable<unknown>, () => void>();
+	const explicitDependencies = new Set(signals);
 
 	const execute = () => {
-		if (typeof cleanup === "function") {
+		if (disposed) return;
+
+		const previousCleanup = cleanup;
+		cleanup = undefined;
+		if (typeof previousCleanup === "function") {
 			try {
-				cleanup();
+				previousCleanup();
 			} catch (error) {
 				useLogger("[createEffect] Previous cleanup error:", error, "error");
 			}
 		}
 
+		const dependencies = new Set<Subscribable<unknown>>();
+		const previousTracker = trackSignalRead;
+		trackSignalRead = (signal) => dependencies.add(signal);
 		try {
 			cleanup = callback() as void | (() => void);
 		} catch (error) {
 			useLogger("[createEffect] Effect execution error:", error, "error");
+		} finally {
+			trackSignalRead = previousTracker;
+		}
+
+		for (const [signal, unsubscribe] of subscriptions) {
+			if (!dependencies.has(signal) && !explicitDependencies.has(signal)) {
+				unsubscribe();
+				subscriptions.delete(signal);
+			}
+		}
+
+		if (disposed) return;
+		for (const signal of [...explicitDependencies, ...dependencies]) {
+			if (!subscriptions.has(signal) && signal && typeof signal.useSubscribe === "function") {
+				subscriptions.set(signal, signal.useSubscribe(execute));
+			}
 		}
 	};
-
-	const unsubscribes = signals.map((signal) => {
-		if (signal && typeof signal.useSubscribe === "function") {
-			return signal.useSubscribe(execute);
-		}
-		return () => {};
-	});
 
 	execute();
 
 	return () => {
+		if (!disposed) {
+			disposed = true;
+			for (const unsubscribe of subscriptions.values()) {
+				unsubscribe();
+			}
+			subscriptions.clear();
+		}
+
 		if (typeof cleanup === "function") {
 			try {
 				cleanup();
@@ -146,26 +178,24 @@ export function useCreateEffect(
 				useLogger("[createEffect] Final cleanup error:", error, "error");
 			}
 		}
-		for (const unsub of unsubscribes) {
-			unsub();
-		}
 	};
 }
 
 /**
  * Creates a memoised signal whose value is derived from a computation.
- * The computation re-runs whenever any of the provided signals change.
+ * The computation re-runs whenever a signal it reads changes. Explicit
+ * dependencies can also be provided for compatibility.
  *
  * @typeParam T - The computed value type.
  * @param computation - Pure function that derives the value.
- * @param signals - Signals the computation depends on.
+ * @param signals - Optional explicit dependencies, in addition to tracked reads.
  * @returns A read-only getter for the memoised value.
  *
  * @example
  * ```ts
  * const [a, setA] = useCreateSignal(2);
  * const [b, setB] = useCreateSignal(3);
- * const sum = useCreateMemo(() => a() + b(), [a, b]);
+ * const sum = useCreateMemo(() => a() + b());
  * sum(); // 5
  * setA(10);
  * sum(); // 13
@@ -173,7 +203,7 @@ export function useCreateEffect(
  */
 export function useCreateMemo<T>(
 	computation: () => T,
-	signals: Subscribable<unknown>[],
+	signals: Subscribable<unknown>[] = [],
 ): SignalGetter<T> {
 	const [get, set] = useCreateSignal<T>(computation());
 

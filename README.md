@@ -55,6 +55,7 @@ adds validation and caching to this example.
 ## What it includes
 
 - HTTP clients with typed results and Zod validation
+- Framework-free reactive signals with automatically tracked effects and memos
 - TanStack Query caching and framework adapters for React, Vue, Solid, Svelte,
   Angular, Nuxt, and other runtimes
 - Services for logging, storage, filesystem access, dates, DOM, and more
