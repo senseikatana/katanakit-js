@@ -217,7 +217,25 @@ function chain() {
 
 	const args = ["build", "docs"];
 	if (mode === "gh") args.push("--base", "/katanakit-js/");
-	run("node_modules/.bin/vitepress", args);
+	try {
+		run("node_modules/.bin/vitepress", args);
+	} catch (error) {
+		// Two writers in `docs/.vitepress/.temp` (a manual `vitepress build`, a
+		// hand-deleted lock) produce two cryptic failures with no page in sight:
+		// `Cannot read properties of undefined (reading 'title')` and
+		// `Cannot find module '…/.temp/….js'`. Name the real cause once.
+		if (error?.status) {
+			console.error(
+				[
+					"docs: vitepress build failed — if the error above mentions `.temp/` or `createTitle`,",
+					"another process was writing docs/.vitepress/.temp while this build ran:",
+					"  → let the other session/build finish, then re-run `bun run docs`",
+					"  → never delete .cache/docs.lock.json by hand; the runner clears stale locks itself",
+				].join("\n"),
+			);
+		}
+		throw error;
+	}
 
 	if (mode === "preview") {
 		// Serves the build that just ran, so the preview is the complete site

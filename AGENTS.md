@@ -40,7 +40,7 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 - Docs follow Diátaxis: tutorials in `docs/tutorials/`, how-to guides in `docs/guides/`, reference generated in `docs/api/` plus the UI kit `reference/` pages, explanation in `docs/explanation/`. One page, one kind — do not mix them in a single page.
 - The "why" behind hard-to-reverse decisions lives in `docs/explanation/decisions/` (context, decision, consequences). Add a numbered record there instead of burying rationale in prose; superseded records are never rewritten.
 - `scripts/docs-prepare.mjs` generates `docs/api/`, `docs/changelog.md`, and `docs/.vitepress/theme/signals.json`; do not edit these generated files by hand.
-- `scripts/docs.mjs` manages shared VitePress temporary state. Do not run `bun run dev` concurrently with `bun run docs` or `bun run docs:gh`.
+- `scripts/docs.mjs` manages shared VitePress temporary state. Do not run `bun run dev` concurrently with `bun run docs` or `bun run docs:gh`. Never delete `.cache/docs.lock.json` by hand: the runner already clears locks whose owner is dead, and deleting a *live* one lets two builds write `docs/.vitepress/.temp` at once, which fails cryptically (`Cannot read properties of undefined (reading 'title')`, `Cannot find module '…/.temp/….js'`).
 - Production docs deploy to Cloudflare Pages with `bun run deploy` (`deploy:cf` is an alias): it builds, then publishes `docs/.vitepress/dist` to the `katanakit-docs` project via Wrangler. Credentials come from `CLOUDFLARE_API_TOKEN` in `.env` or a `bunx wrangler login` session. Keep Cloudflare as the hosting/storage provider; INSForge is the database fallback and Prisma is the local ORM.
 
 ## Git and releases
