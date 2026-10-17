@@ -7,12 +7,12 @@ description: "Framework-free signals, derived state, effects, batching and persi
 
 `reactive.service.ts` is a **function module**: standalone `use*` helpers with no
 instance to create and no runtime to bootstrap. A signal is a plain callable
-getter (`count()`) paired with a setter (`setCount(1)`); effects and memos
-subscribe to signals by passing their getters in an explicit dependency array.
-Dependency tracking is **push-based**: every signal owns a listener set and
-notifies it when the value changes. There is no proxy magic, no component tree
-and no scheduler — the primitives work in any JavaScript runtime that supports
-ES2015+.
+getter (`count()`) paired with a setter (`setCount(1)`). Effects and memos track
+the signals they read automatically; optional explicit dependency arrays remain
+available for compatibility. Dependency tracking is **push-based**: every
+signal owns a listener set and notifies it when the value changes. There is no
+proxy magic, no component tree and no scheduler — the primitives work in any
+JavaScript runtime that supports ES2015+.
 
 Use it when you need reactivity **without a framework**:
 
@@ -76,13 +76,13 @@ console.log(count()); // 0
 setCount(5);
 console.log(count()); // 5
 
-// Effect — re-runs when a subscribed signal changes (deps are explicit)
+// Effect — re-runs when a signal read by the callback changes
 const disposeEffect = useCreateEffect(() => {
   console.log("Count changed:", count());
-}, [count]);
+});
 
 // Memo — derived value, recomputed when count changes
-const doubled = useCreateMemo(() => count() * 2, [count]);
+const doubled = useCreateMemo(() => count() * 2);
 
 // Toggle — boolean signal with useSet/useToggle helpers
 const [isOpen, { useToggle }] = useCreateToggle(false);
@@ -262,18 +262,18 @@ pause instead of one per keystroke.
 
 ## Derived state
 
-### useCreateMemo(computation, signals)
+### useCreateMemo(computation, signals?)
 
-Creates a **read-only derived signal**. The computation runs once at creation
-and again whenever any dependency notifies; the result is stored in an internal
-signal and exposed as a `SignalGetter<T>`.
+Creates a **read-only derived signal**. The computation runs eagerly at
+creation and whenever any dependency notifies; the result is stored in an
+internal signal and exposed as a `SignalGetter<T>`.
 
 **Parameters**
 
 | Name          | Type                        | Description                                  |
 | ------------- | --------------------------- | -------------------------------------------- |
 | `computation` | `() => T`                   | Pure function deriving the value             |
-| `signals`     | `Subscribable<unknown>[]`   | Signals the computation depends on           |
+| `signals`     | `Subscribable<unknown>[]`   | Optional explicit dependencies, in addition to tracked reads |
 
 **Returns** `SignalGetter<T>` — callable, and subscribable through
 `useSubscribe`, which means a memo can be used as a dependency of effects and
@@ -285,7 +285,7 @@ import { useCreateSignal, useCreateMemo, useCreateEffect } from "katanakit-js";
 const [a, setA] = useCreateSignal(2);
 const [b, setB] = useCreateSignal(3);
 
-const sum = useCreateMemo(() => a() + b(), [a, b]);
+const sum = useCreateMemo(() => a() + b());
 sum(); // 5
 
 setA(10);
@@ -308,11 +308,14 @@ useCreateEffect(() => {
 - **No dispose function.** The internal effect subscribes to the dependency
   signals for the life of the graph. Create short-lived memos only when their
   dependencies are also short-lived, or rebuild the graph per request/widget.
-- **Empty dependency array.** `useCreateMemo(() => expensive(), [])` computes
-  exactly once and never recomputes — useful for constants, but a silent
-  bug when you forget a dependency.
-- **Composition.** Pass memos in the dependency array; they are plain
-  `Subscribable` values, so chains like `subtotal → tax → total` work.
+- **Dynamic dependencies.** Only signals read by the latest computation run
+  remain automatically subscribed. Switching branches removes subscriptions to
+  signals no longer read.
+- **Explicit dependencies.** The optional array is additive: listed signals
+  remain subscribed even if the computation does not read them. An empty array
+  does not disable automatic tracking.
+- **Composition.** Memos are plain `Subscribable` values, so chains like
+  `subtotal → tax → total` work; reading an upstream memo tracks it automatically.
 
 **Real use case** — derived totals in a cart: keep line items in a signal,
 derive the subtotal and the formatted total with memos, and let an effect
@@ -331,18 +334,18 @@ const total = useCreateMemo(() => subtotal() * 1.21, [subtotal]);
 
 ## Effects
 
-### useCreateEffect(callback, signals)
+### useCreateEffect(callback, signals?)
 
-Runs a side effect immediately, then again whenever a subscribed signal emits a
-new value. This is the bridge between the reactive graph and the outside world:
-DOM updates, logging, storage writes, network calls.
+Runs a side effect immediately, then again whenever a signal read by the
+callback emits a new value. This is the bridge between the reactive graph and
+the outside world: DOM updates, logging, storage writes, network calls.
 
 **Parameters**
 
 | Name       | Type                              | Description                                      |
 | ---------- | --------------------------------- | ------------------------------------------------ |
 | `callback` | `() => void \| (() => void)`      | Effect body; may return a cleanup function       |
-| `signals`  | `Subscribable<unknown>[]`         | Signals that re-trigger the effect               |
+| `signals`  | `Subscribable<unknown>[]`         | Optional explicit dependencies, in addition to tracked reads |
 
 **Returns** `() => void` — a dispose function that runs the final cleanup and
 unsubscribes from every dependency.
@@ -355,7 +358,7 @@ const [name, setName] = useCreateSignal("world");
 const dispose = useCreateEffect(() => {
   console.log(`Hello, ${name()}!`);
   return () => console.log("cleaning up");
-}, [name]);
+});
 
 setName("Katana"); // logs "cleaning up", then "Hello, Katana!"
 dispose();         // runs the final cleanup and unsubscribes
@@ -374,9 +377,10 @@ dispose();         // runs the final cleanup and unsubscribes
 - **Errors are contained.** Exceptions thrown by the callback or by a cleanup
   are caught and logged through [`useLogger()`](/guides/services/logger)
   (`[createEffect] ...`); they never propagate to the setter.
-- **Dependencies are explicit.** The effect does **not** inspect which signals
-  the callback reads. A dependency you forget to list will not re-trigger the
-  effect; an entry that does not implement `useSubscribe` is silently ignored.
+- **Dynamic dependencies.** The effect tracks signals read during each run.
+  When conditional reads change, subscriptions to signals no longer read are
+  removed. The optional explicit array keeps listed signals subscribed even if
+  they are not read; entries without `useSubscribe` are ignored.
 - **Batched notifications.** Inside `batch()`, the effect runs once per queued
   notification when the outermost batch flushes, reading the final state.
 
@@ -392,7 +396,7 @@ const dispose = useCreateEffect(() => {
   if (!root) return;
   useToggleClass(root, "dark", theme() === "dark");
   return () => useRemoveClass(root, "dark");
-}, [theme]);
+});
 ```
 
 ### useCreateBatch()

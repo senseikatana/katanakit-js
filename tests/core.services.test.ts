@@ -75,6 +75,38 @@ describe("ReactiveService", () => {
 		expect(last).toBe(5);
 	});
 
+	it("tracks effect reads and runs cleanup before reruns and disposal", () => {
+		const [count, setCount] = useCreateSignal(0);
+		const events: string[] = [];
+		const dispose = useCreateEffect(() => {
+			events.push(`effect:${count()}`);
+			return () => events.push(`cleanup:${count()}`);
+		});
+
+		setCount(1);
+		dispose();
+		setCount(2);
+
+		expect(events).toEqual(["effect:0", "cleanup:1", "effect:1", "cleanup:1"]);
+	});
+
+	it("updates automatically tracked effect dependencies when reads change", () => {
+		const [useLeft, setUseLeft] = useCreateSignal(true);
+		const [left, setLeft] = useCreateSignal("left");
+		const [right, setRight] = useCreateSignal("right");
+		const seen: string[] = [];
+		const dispose = useCreateEffect(() => {
+			seen.push(useLeft() ? left() : right());
+		});
+
+		setUseLeft(false);
+		setLeft("unused");
+		setRight("right updated");
+		dispose();
+
+		expect(seen).toEqual(["left", "right", "right updated"]);
+	});
+
 	it("recomputes a memo when its dependency changes", () => {
 		const [count, setCount] = useCreateSignal(1);
 		const doubled = useCreateMemo(() => count() * 2, [count]);
@@ -82,6 +114,34 @@ describe("ReactiveService", () => {
 		expect(doubled()).toBe(2);
 		setCount(3);
 		expect(doubled()).toBe(6);
+	});
+
+	it("automatically tracks memo reads and drops dependencies no longer read", () => {
+		const [useLeft, setUseLeft] = useCreateSignal(true);
+		const [left, setLeft] = useCreateSignal("left");
+		const [right, setRight] = useCreateSignal("right");
+		const selected = useCreateMemo(() => (useLeft() ? left() : right()));
+
+		expect(selected()).toBe("left");
+		setUseLeft(false);
+		expect(selected()).toBe("right");
+		setLeft("unused");
+		expect(selected()).toBe("right");
+		setRight("right updated");
+		expect(selected()).toBe("right updated");
+	});
+
+	it("retains explicitly subscribed effect dependencies", () => {
+		const [trigger, setTrigger] = useCreateSignal(0);
+		let runs = 0;
+		const dispose = useCreateEffect(() => {
+			runs += 1;
+		}, [trigger]);
+
+		setTrigger(1);
+		dispose();
+
+		expect(runs).toBe(2);
 	});
 
 	it("supports nested batches without flushing early", () => {
