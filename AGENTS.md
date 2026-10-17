@@ -19,7 +19,7 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 - Component class names in `packages/ui` are **unprefixed** (`.btn`, `.card`, `.toast`) and all wrapped in `@layer katana` in `packages/ui/src/styles/index.scss`. Unlayered CSS beats layered CSS regardless of specificity, which is what makes coexistence with daisyUI deterministic instead of import-order-dependent. Theme tokens stay outside the layer (a layer cannot influence `:root`); `@keyframes` and kit-private custom properties keep the `katana-` prefix.
 - Keep imports side-effect-free. Guard browser APIs (`window`, `document`, `navigator`) so browser-dependent code remains safe in Node/Bun and SSR.
 - For fallible async operations, use the Safe Result shape `{ data, error, ok }`; prefer existing helpers such as `useAttempt()`, `useTryJsonParse()`, and `useErrorNormalize()` at boundaries.
-- Optional integrations belong in `peerDependencies` with `peerDependenciesMeta.optional`, not in `dependencies`.
+- Optional integrations belong in `peerDependencies` with `peerDependenciesMeta.optional`, not in `dependencies`. `adapters/better-auth` is one: its social-provider id union is re-derived from `better-auth/social-providers` (type import plus a lazy runtime read), so `SocialProviderId` follows whatever the installed peer ships — never hand-list vendor ids.
 - Use explicit `.js` extensions for relative imports in `src/` (NodeNext ESM). The `@/` alias is for tests and examples, not source imports.
 - `src/prisma/schema.d.ts` and `src/prisma/schema.json` are generated. Edit `src/prisma/schema.prisma` and regenerate with `bunx --bun prisma contract emit`; Prisma config requires `DATABASE_URL`.
 

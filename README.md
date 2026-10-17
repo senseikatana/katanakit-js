@@ -60,7 +60,8 @@ adds validation and caching to this example.
   Angular, Nuxt, and other runtimes
 - Services for logging, storage, filesystem access, dates, DOM, and more
 - Optional integrations for services such as Notion, WordPress, InsForge,
-  Telegram, WhatsApp, and AI assistants
+  Telegram, WhatsApp, AI assistants, and social sign-in (Better Auth) with
+  validated multi-provider configuration
 
 Browse the [guides](https://docs.senseikatana.com/guides/getting-started),
 [service documentation](https://docs.senseikatana.com/guides/services/), and

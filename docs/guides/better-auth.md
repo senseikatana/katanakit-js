@@ -1,16 +1,18 @@
 ---
 title: Better Auth
-description: Auth client for five frameworks plus Safe Result session and handler helpers.
+description: Auth client for five frameworks, Safe Result session helpers and validated social provider configuration.
 ---
 
 # Better Auth
 
 [`Better Auth`](https://better-auth.com) is a framework-agnostic auth server for
-TypeScript. This adapter adds two things on top of the official integrations:
+TypeScript. This adapter adds three things on top of the official integrations:
 
 1. **One client factory for five frameworks** — only the entry you ask for is imported.
 2. **Safe Result wrappers** for the server calls, so a failed session lookup never
    throws inside middleware or a route handler.
+3. **Social provider validation** — every vendor in one checked call, so a missing
+   environment variable fails at startup instead of at sign-in.
 
 The server itself is still Better Auth's: mount `auth.handler`, keep `betterAuth()`
 exactly as the [official docs](https://better-auth.com/docs/integrations/astro) describe.
@@ -77,6 +79,66 @@ if (session.ok && session.data) {
 }
 ```
 
+## Social providers — one call, every vendor
+
+Better Auth ships **36 social providers** (Google, GitHub, Discord, Microsoft,
+LinkedIn, Apple, TikTok, Notion, Spotify…). `useSocialProviders` validates your
+`socialProviders` before `betterAuth()` ever sees it, so a missing environment
+variable fails at **startup** instead of when a visitor clicks *Sign in with
+Google*.
+
+```ts
+// auth.ts — top-level await is fine in ESM
+import { betterAuth } from "better-auth";
+import { useSocialProviders } from "katanakit-js/adapters/better-auth";
+
+const social = await useSocialProviders({
+	google: {
+		clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+		clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+	},
+	github: {
+		clientId: process.env.GITHUB_CLIENT_ID ?? "",
+		clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
+	},
+	discord: {
+		clientId: process.env.DISCORD_CLIENT_ID ?? "",
+		clientSecret: process.env.DISCORD_CLIENT_SECRET ?? "",
+	},
+});
+
+if (!social.ok) throw new Error(social.error.message);
+
+export const auth = betterAuth({ socialProviders: social.data /* storage, plugins… */ });
+```
+
+The result carries the same object you passed in — spread it straight into
+`socialProviders`. Every problem in the configuration is reported at once:
+
+| Message | Meaning |
+| ------- | ------- |
+| `unknown provider` | The id is not in the installed Better Auth catalog (a typo, or a vendor your peer version dropped). The message lists the ids that do exist. |
+| `missing a client identifier` | Neither `clientId` nor `clientKey` was configured. |
+| `clientId is empty` | An unset environment variable — `?? ""` makes it typecheck, not work. |
+| `clientSecret is empty` / `clientId is an empty array` | Same class of mistake. |
+
+Two configurations are passed through untouched, because their credentials only
+exist inside Better Auth:
+
+```ts
+await useSocialProviders({
+	google: () => ({ clientId: load("GOOGLE_ID"), clientSecret: load("GOOGLE_SECRET") }), // thunk
+	tiktok: { enabled: false }, // switched off — nothing to configure
+});
+```
+
+::: warning `clientSecret` is validated but never required
+TikTok identifies itself with `clientKey` (no `clientId`), and public PKCE
+clients carry no secret — so demanding both would reject valid setups. Type
+checking still enforces each vendor's own required fields; the helper only
+catches what TypeScript cannot see: empty values and unknown ids.
+:::
+
 ## Client — five frameworks, one factory
 
 ```ts
@@ -120,6 +182,7 @@ const authClient = await useAuthClient({
 | `useAuthSession(auth, request)`   | Session \| `null`                | the API call throws                |
 | `useAuthHandler(auth, request)`   | `Response`                       | the handler throws                 |
 | `useAstroAuthLocals(auth, request)` | `{ user, session }`            | the session lookup fails           |
+| `useSocialProviders(providers)`   | The validated `socialProviders`  | a credential is empty, missing or unknown |
 
 Everything returns `{ data, error, ok }` — no `try/catch` at the call site.
 
