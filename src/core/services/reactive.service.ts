@@ -57,10 +57,10 @@ export function useCreateSignal<T>(initialValue: T): [SignalGetter<T>, SignalSet
 	let value = initialValue;
 	const listeners = new Set<SignalListener<T>>();
 
-	const get = (function signalGetter() {
+	const get = function signalGetter() {
 		trackSignalRead?.(signalGetter as SignalGetter<T>);
 		return value;
-	}) as SignalGetter<T>;
+	} as SignalGetter<T>;
 
 	const set: SignalSetter<T> = (nextValue) => {
 		const oldValue = value;
