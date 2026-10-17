@@ -44,6 +44,7 @@ import {
 	LazyLoaderEntrySchema,
 	NumberFormatOptionsSchema,
 	ProductTypeSchema,
+	SalePriceOptionsSchema,
 	ScrollPositionSchema,
 	ValidationIssueSchema,
 	ViewportSizeSchema,
@@ -298,6 +299,18 @@ export type CurrencyFormatOptions = z.infer<typeof CurrencyFormatOptionsSchema>;
 
 export type NumberFormatOptions = z.infer<typeof NumberFormatOptionsSchema>;
 
+export type SalePriceOptions = z.infer<typeof SalePriceOptionsSchema>;
+
+/** Result of {@link useSalePrice}: the regular price, the discounted price and the rounded percentage taken off. */
+export interface SalePrice {
+	/** Regular price, echoed back for display. */
+	price: number;
+	/** Price after the discount, unrounded — let the currency formatter own the digits. */
+	salePrice: number;
+	/** Percentage taken off, rounded to two decimals (e.g. `40`, `12.5`). */
+	percentOff: number;
+}
+
 /* -------------------------------------------------------------------------- */
 /* Dates                                                                      */
 /* -------------------------------------------------------------------------- */
@@ -503,6 +516,7 @@ export interface IFormatterService {
 	useCapitalize(text: string, locale?: Locale): string;
 	useFormatCurrency(options: CurrencyFormatOptions): string;
 	useFormatNumber(value: number, locale?: Locale, digits?: number): string;
+	useSalePrice(options: SalePriceOptions): SalePrice;
 	useJsonParse<T = unknown>(json: string): T;
 	useJsonStringify(data: unknown): string;
 	useLowerCase(text: string, locale?: Locale): string;

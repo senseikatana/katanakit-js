@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+
 import { useErrorCustom } from "@/core/services/error.service";
 import { useToMiles } from "@/core/services/formatter.service";
 import { GeometryUtils } from "@/core/services/geometry.service";
@@ -198,6 +199,31 @@ describe("ConverterService", () => {
 		});
 		expect(withPercent).toBe(withFraction);
 		expect(withPercent).toMatch(/121/);
+	});
+
+	it("applies a sale discount as percent or fraction", async () => {
+		const { useSalePrice } = await import("@/core/services/formatter.service");
+		const withPercent = useSalePrice({ price: 29.99, discount: 40 });
+		const withFraction = useSalePrice({ price: 29.99, discount: 0.4 });
+
+		expect(withPercent).toEqual(withFraction);
+		expect(withPercent.price).toBe(29.99);
+		expect(withPercent.salePrice).toBeCloseTo(17.994, 10);
+		expect(withPercent.percentOff).toBe(40);
+	});
+
+	it("keeps the sale price unrounded and rounds only percentOff", async () => {
+		const { useSalePrice } = await import("@/core/services/formatter.service");
+		// 12.5% of 80 is exactly 10 — a rate that does not land on whole cents.
+		const sale = useSalePrice({ price: 80, discount: 0.125 });
+
+		expect(sale.salePrice).toBe(70);
+		expect(sale.percentOff).toBe(12.5);
+
+		// A price that multiplies into binary noise must not leak into display.
+		const noisy = useSalePrice({ price: 19.99, discount: 15 });
+		expect(noisy.salePrice).toBeCloseTo(16.9915, 10);
+		expect(noisy.percentOff).toBe(15);
 	});
 });
 

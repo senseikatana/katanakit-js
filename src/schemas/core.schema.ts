@@ -39,6 +39,17 @@ export const CurrencyFormatOptionsSchema = z.object({
 	locale: LocaleSchema.optional(),
 });
 
+/** Options for sale price arithmetic. */
+export const SalePriceOptionsSchema = z.object({
+	/** Regular price, before the discount. */
+	price: z.number(),
+	/**
+	 * Discount rate: percentage when `> 1` (e.g. `40` → 40%), or decimal
+	 * fraction when in `(0, 1]` (e.g. `0.4` → 40%). Same convention as `taxes`.
+	 */
+	discount: z.number(),
+});
+
 /** Options for plain number formatting. */
 export const NumberFormatOptionsSchema = z.object({
 	locale: LocaleSchema.optional(),

@@ -1,4 +1,9 @@
-import type { CurrencyFormatOptions, Locale } from "../../types/index.js";
+import type {
+	CurrencyFormatOptions,
+	Locale,
+	SalePrice,
+	SalePriceOptions,
+} from "../../types/index.js";
 
 /** International statute mile in kilometers (shared by both directions). */
 const KM_PER_MILE = 1.60934;
@@ -111,6 +116,42 @@ export function useFormatCurrency(options: CurrencyFormatOptions): string {
 	const total = amount * (1 + taxRate);
 
 	return new Intl.NumberFormat(locale, { style: "currency", currency }).format(total);
+}
+
+/**
+ * Pure: applies a discount to a price and reports what was taken off.
+ *
+ * `discount` accepts either a percentage (`40` → 40%) or a decimal fraction
+ * (`0.4` → 40%) — the same convention as `taxes` in {@link useFormatCurrency}.
+ * Values `> 1` are treated as percentages; values in `(0, 1]` as fractions.
+ * Prefer an explicit fraction when you need a rate ≤ 1%.
+ *
+ * The returned `salePrice` is unrounded, so it survives markup chains (10% +
+ * 20% of the same base) without accumulating error; pass it straight to
+ * {@link useFormatCurrency} to get the digits the currency demands. Only
+ * `percentOff` is rounded, because it exists to be displayed.
+ *
+ * @param options - Price and discount rate.
+ * @returns The regular price, the discounted price and the rounded percentage.
+ *
+ * @example
+ * ```ts
+ * import { useFormatCurrency, useSalePrice } from "katanakit-js";
+ *
+ * const sale = useSalePrice({ price: 29.99, discount: 40 });
+ * // { price: 29.99, salePrice: 17.994, percentOff: 40 }
+ *
+ * useFormatCurrency({ amount: sale.salePrice, currency: "EUR", locale: "es" }); // "17,99 €"
+ * ```
+ */
+export function useSalePrice(options: SalePriceOptions): SalePrice {
+	const { price, discount } = options;
+	const rate = discount > 1 ? discount / 100 : discount;
+	const salePrice = price * (1 - rate);
+
+	// `19.99 * 0.6` is 11.994000000000002 in IEEE-754: round the percentage
+	// that users read, and leave the price to the currency formatter.
+	return { price, salePrice, percentOff: Math.round(rate * 10000) / 100 };
 }
 
 /**
