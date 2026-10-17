@@ -8,6 +8,34 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.11.0] - 2026-10-17
+
+Highlights: feat: add banner component with custom layouts, tones, and actions, plus 2 more changes.
+
+- [x] 🚀 feat: add banner component with custom layouts, tones, and actions
+  - `packages/ui/src/components/banner.ts`
+  - `packages/ui/src/index.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/schemas/core.schema.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+- [x] 🚀 feat(better-auth): validate social provider configuration
+  - `AGENTS.md`
+  - `README.md`
+  - `docs/guides/better-auth.md`
+  - `src/adapters/better-auth/index.ts`
+  - `src/adapters/better-auth/social-providers.ts`
+  - `tests/better-auth.providers.test.ts`
+- [x] 🔹 Track signal dependencies automatically in effects and memos (#20)
+  - `README.md`
+  - `docs/guides/services/reactive.md`
+  - `src/core/services/reactive.service.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+- [x] 🐛 fix(docs): render the component contract and VitePress markup on the Wiki
+- [x] 🐛 fix(ui): close the measured focus-trap gaps in the modal
+- [x] 🐛 fix: update documentation and components for select and tabs
+
 ## [6.10.2] - 2026-10-15
 
 Highlights: fix(docs): render the component contract and VitePress markup on the Wiki.
