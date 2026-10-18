@@ -302,6 +302,12 @@ the site over REST and that changes what it can do about roles.
 API *does* expose is `roles`, `capabilities` and `extra_capabilities` on a user,
 but only with `context=edit` and an authenticated caller holding `list_users`.
 
+::: tip The role still has to exist in WordPress
+Declaring it here does not create it. For the wp-cli command, the mu-plugin
+that does, and the capability rules that keep it from becoming a hole, see
+[WordPress Roles](/guides/wordpress-roles).
+:::
+
 So the adapter splits the job in two:
 
 | Task | Reachable over REST? | Adapter method |
@@ -472,7 +478,8 @@ is how a green badge ends up hiding a hole.
 
 - **A role is not a capability grant.** Declaring `wpCapabilities` changes
   nothing on the site. The role itself must already exist in WordPress; the
-  declaration is the specification, not the implementation.
+  declaration is the specification, not the implementation. [WordPress
+  Roles](/guides/wordpress-roles) creates it.
 - **`roles`, `capabilities` and `extra_capabilities` need `context=edit`.**
   Reading users with the default context returns no roles at all, and an audit
   built on that reports every capability missing. The role methods ask for the
@@ -501,6 +508,7 @@ is how a green badge ends up hiding a hole.
 
 ## Related
 
+- [WordPress Roles](/guides/wordpress-roles) — creating the roles this page declares, in wp-cli or PHP.
 - [Astro Adapter](/guides/services/astro-adapter) — turning these calls into static routes.
 - [Query Client](/guides/query-client) — caching and invalidating CMS reads.
 - [HTTP Client](/guides/services/http-client) — the underlying Safe Result and options.

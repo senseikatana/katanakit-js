@@ -235,6 +235,7 @@ export default defineConfig({
 				items: [
 					{ text: "Notion", link: "/guides/notion" },
 					{ text: "WordPress", link: "/guides/wordpress" },
+					{ text: "WordPress Roles", link: "/guides/wordpress-roles" },
 					{ text: "InsForge", link: "/guides/insforge" },
 					{ text: "Assistant (Kitt)", link: "/guides/assistant" },
 				],
