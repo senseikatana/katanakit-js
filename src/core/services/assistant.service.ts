@@ -158,7 +158,7 @@ export class AssistantService implements IAssistantService {
 	/**
 	 * Creates a new conversation session.
 	 *
-	 * @param channel - Optional channel tag (e.g. `"rest"`, `"telegram"`, `"whatsapp"`).
+	 * @param channel - Optional free-form channel tag (e.g. `"rest"`).
 	 * @returns The new session id.
 	 */
 	async useCreateSession(channel?: string): Promise<string> {
@@ -271,7 +271,7 @@ export function useInitAssistant(config: AssistantInitConfig = {}): void {
 /**
  * Creates a new conversation session.
  *
- * @param channel - Optional channel tag (e.g. `"rest"`, `"telegram"`, `"whatsapp"`).
+ * @param channel - Optional free-form channel tag (e.g. `"rest"`).
  * @returns The new session id.
  *
  * @example

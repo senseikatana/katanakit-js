@@ -235,8 +235,6 @@ export default defineConfig({
 					{ text: "Notion", link: "/guides/notion" },
 					{ text: "WordPress", link: "/guides/wordpress" },
 					{ text: "InsForge", link: "/guides/insforge" },
-					{ text: "Telegram", link: "/guides/telegram" },
-					{ text: "WhatsApp", link: "/guides/whatsapp" },
 					{ text: "Assistant (Kitt)", link: "/guides/assistant" },
 				],
 			},

@@ -1,6 +1,6 @@
 ---
 title: Assistant (Kitt)
-description: Wire a provider-agnostic AI assistant — one-shot chat, tool-calling agents and sessions over REST, Telegram or WhatsApp.
+description: Wire a provider-agnostic AI assistant — one-shot chat, tool-calling agents and sessions over REST.
 ---
 
 # Assistant (Kitt)
@@ -15,9 +15,8 @@ Three levels, pick the one you need:
 - **One-shot chat** — `useChat()` answers a single conversation turn.
 - **Tool-calling agent** — `useRunAgent()` runs an autonomous loop that can
   read, write and execute through the tools you hand it.
-- **Session-aware bots** — `useInitAssistant()` + `useReply()` add sessions and
-  channels: REST (below), [Telegram](/guides/telegram) and
-  [WhatsApp](/guides/whatsapp).
+- **Session-aware bots** — `useInitAssistant()` + `useReply()` add sessions over
+  the REST channel (below).
 
 ## When to use Kitt — and when not
 
@@ -144,8 +143,7 @@ curl -X POST http://localhost:3000/assistant/chat \
   -d '{"message":"What are your hours?"}'
 ```
 
-`POST /chat` and `POST /whatsapp/webhook` are rate-limited by default
-(20 req/min and 60 req/min per IP). Override through the router options:
+`POST /chat` is rate-limited by default (20 req/min per IP). Override through the router options:
 
 ```ts
 app.use(
@@ -184,11 +182,6 @@ is a generic digital assistant with two demo tools: `readFile` on
 DASHSCOPE_API_KEY=
 PORT=3000
 KITT_CHANNEL=rest
-TELEGRAM_BOT_TOKEN=
-WHATSAPP_TOKEN=
-WHATSAPP_PHONE_NUMBER_ID=
-WHATSAPP_VERIFY_TOKEN=
-WHATSAPP_APP_SECRET=
 DATABASE_URL=
 ```
 
@@ -203,6 +196,4 @@ for your product FAQ, CRM or ticket system — keep the
 
 ## Related
 
-- [Telegram](/guides/telegram) — long polling, no public URL required.
-- [WhatsApp](/guides/whatsapp) — Meta Cloud API webhooks with signature verification.
 - [Express Server](/guides/services/express-server) — the reference server the REST channel mounts on.

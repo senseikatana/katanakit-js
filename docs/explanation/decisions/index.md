@@ -34,6 +34,7 @@ implementation detail: the [Architecture](/guides/architecture) page and the
 | [ADR-0003](/explanation/decisions/adr-0003-adapter-subpath-exports) | Framework adapters only on subpath exports | Accepted | 2026-09-20 |
 | [ADR-0004](/explanation/decisions/adr-0004-hexagonal-core) | Hexagonal layout with a pure core | Accepted | 2026-09-03 |
 | [ADR-0005](/explanation/decisions/adr-0005-docs-as-code) | Docs as code: generated reference, four page kinds | Accepted | 2026-09-26 |
+| [ADR-0006](/explanation/decisions/adr-0006-retire-telegram-whatsapp-adapters) | Retire the Telegram and WhatsApp adapters | Accepted (amends ADR-0003) | 2026-10-18 |
 
 ## Adding a record
 

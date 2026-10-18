@@ -220,8 +220,6 @@ is `undefined`. The compiler catches it — write `async function () { … }`.
 | Notion | `defineNotionConfig` | yes |
 | WordPress | `defineWordPressConfig` | yes |
 | InsForge | `defineInsforgeConfig` | yes |
-| Telegram | `defineTelegramConfig` | no (config only) |
-| WhatsApp | `defineWhatsAppConfig` | no (config only) |
 
 The old `useInit*` functions still work and are marked `@deprecated` — they are
 a one-for-one rename of the config half; the full migration table lives in
@@ -234,7 +232,7 @@ The site has four kinds of pages, one per reader need:
 | If you want to… | Read |
 | ---------------------------------------------------------- | ---------------------------------------------------------- |
 | **Learn by building**, step by step | [Tutorial: Your First API Client](/tutorials/first-api-client) |
-| **Do a specific task** — HTTP client, framework, filesystem, bots | [Guides](/guides/services/) — [HTTP Client](/guides/services/http-client), [Query Client](/guides/query-client), [Filesystem](/guides/filesystem), [Notion](/guides/notion), [WordPress](/guides/wordpress), [InsForge](/guides/insforge), [Telegram](/guides/telegram), [WhatsApp](/guides/whatsapp), [Kitt assistant](/guides/assistant) |
+| **Do a specific task** — HTTP client, framework, filesystem, bots | [Guides](/guides/services/) — [HTTP Client](/guides/services/http-client), [Query Client](/guides/query-client), [Filesystem](/guides/filesystem), [Notion](/guides/notion), [WordPress](/guides/wordpress), [InsForge](/guides/insforge), [Kitt assistant](/guides/assistant) |
 | **Look up an exact fact** — signature, option, error code | [Service pages](/guides/services/) and the generated [API Reference](/api/) |
 | **Understand why** it is built this way | [Why KatanaKit](/explanation/why-katanakit), [Architecture](/guides/architecture), [Decisions (ADRs)](/explanation/decisions/) |
 

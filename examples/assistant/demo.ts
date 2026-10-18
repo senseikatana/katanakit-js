@@ -4,13 +4,9 @@
  * In a consumer app:
  *   import { useInitAssistant, useReply } from "katanakit-js";
  *   import { useStartAssistant } from "katanakit-js/adapters/assistant";
- *   import { defineTelegramConfig, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
- *   import { defineWhatsAppConfig, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
  *
  * Run from this repo:
  *   DASHSCOPE_API_KEY=... bun run examples/assistant/demo.ts
- *   KITT_CHANNEL=telegram TELEGRAM_BOT_TOKEN=... bun run examples/assistant/demo.ts
- *   KITT_CHANNEL=whatsapp WHATSAPP_TOKEN=... WHATSAPP_PHONE_NUMBER_ID=... WHATSAPP_VERIFY_TOKEN=... bun run examples/assistant/demo.ts
  */
 import "dotenv/config";
 
@@ -19,14 +15,6 @@ import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { useStartAssistant } from "../../src/adapters/assistant/assistant.service.js";
-import {
-	defineTelegramConfig,
-	useStartTelegramPolling,
-} from "../../src/adapters/telegram/telegram.service.js";
-import {
-	defineWhatsAppConfig,
-	useStartWhatsApp,
-} from "../../src/adapters/whatsapp/whatsapp.service.js";
 import { useInitAssistant } from "../../src/core/services/assistant.service.js";
 import type { AiTool } from "../../src/types/index.js";
 
@@ -89,26 +77,5 @@ useInitAssistant({
 	maxSteps: 6,
 });
 
-const channel = process.env.KITT_CHANNEL ?? "rest";
-
-if (channel === "telegram") {
-	const token = process.env.TELEGRAM_BOT_TOKEN;
-	if (!token) throw new Error("TELEGRAM_BOT_TOKEN is required for KITT_CHANNEL=telegram");
-	defineTelegramConfig({ token });
-	await useStartTelegramPolling();
-} else if (channel === "whatsapp") {
-	const token = process.env.WHATSAPP_TOKEN;
-	const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-	const verifyToken = process.env.WHATSAPP_VERIFY_TOKEN;
-	const appSecret = process.env.WHATSAPP_APP_SECRET;
-	if (!token || !phoneNumberId || !verifyToken || !appSecret) {
-		throw new Error(
-			"WHATSAPP_TOKEN, WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_VERIFY_TOKEN and WHATSAPP_APP_SECRET are required",
-		);
-	}
-	defineWhatsAppConfig({ token, phoneNumberId, verifyToken, appSecret });
-	useStartWhatsApp(Number(process.env.PORT ?? 3000), process.env.HOST ?? "localhost");
-} else {
-	console.log(`Kitt REST demo. Knowledge base: ${knowledgePath}`);
-	useStartAssistant(Number(process.env.PORT ?? 3000), process.env.HOST ?? "localhost");
-}
+console.log(`Kitt REST demo. Knowledge base: ${knowledgePath}`);
+useStartAssistant(Number(process.env.PORT ?? 3000), process.env.HOST ?? "localhost");

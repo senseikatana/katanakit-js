@@ -251,7 +251,7 @@ and the client is not exported from the main barrel.
 
 | Pattern    | Where                                                              |
 | ---------- | ------------------------------------------------------------------ |
-| Singleton  | every service (`FetchApiManager`, `LoggerService`, `ExpressService`, `TelegramService`, `WordPressService`, `NotionService`, `InsForgeService`, `AssistantService`, `QueryService`, ...) |
+| Singleton  | every service (`FetchApiManager`, `LoggerService`, `ExpressService`, `WordPressService`, `NotionService`, `InsForgeService`, `AssistantService`, `QueryService`, ...) |
 | Facade     | `FetchApiManager`, `DomService`, `AstroService`, `RssService`, `AppUtils` |
 | Strategy   | `AccessService` (`HierarchicalAccessStrategy` / `FlatAccessStrategy`), `AgentService` (`OpenAiCompatibleStrategy`), storage backends, generator crypto/UUID, worker |
 | Factory    | `QueryClientFactory` (per-request `QueryClient` for SSR); debounce/throttle/timeout factories in `TimingService`; crypto strategies in `GeneratorService` |
@@ -264,7 +264,7 @@ and the client is not exported from the main barrel.
 Stateful services follow **Singleton + (Strategy | Decorator | Factory)**:
 
 - **Singleton** — one instance owns the configuration/state
-  (`ExpressService`, `TelegramService`, `WordPressService`, `FetchApiManager`,
+  (`ExpressService`, `WordPressService`, `FetchApiManager`,
   `AssistantService`, `QueryService`).
 - **Singleton + Strategy** — the singleton delegates a swappable algorithm:
   `AccessService.useSetStrategy(new FlatAccessStrategy())` and

@@ -11,8 +11,6 @@ npm install katanakit-js express dotenv
 ```ts
 import { useInitAssistant, useReply } from "katanakit-js";
 import { useStartAssistant } from "katanakit-js/adapters/assistant";
-import { defineTelegramConfig, useStartTelegramPolling } from "katanakit-js/adapters/telegram";
-import { defineWhatsAppConfig, useStartWhatsApp } from "katanakit-js/adapters/whatsapp";
 ```
 
 ## 2. Environment
@@ -20,11 +18,6 @@ import { defineWhatsAppConfig, useStartWhatsApp } from "katanakit-js/adapters/wh
 ```env
 DASHSCOPE_API_KEY=sk-...
 PORT=3000
-KITT_CHANNEL=rest          # rest | telegram | whatsapp
-TELEGRAM_BOT_TOKEN=
-WHATSAPP_TOKEN=
-WHATSAPP_PHONE_NUMBER_ID=
-WHATSAPP_VERIFY_TOKEN=
 # Optional persistence
 DATABASE_URL=postgresql://user:password@localhost:5432/mydb
 ```
@@ -34,19 +27,6 @@ DATABASE_URL=postgresql://user:password@localhost:5432/mydb
 ```bash
 bun run examples/assistant/demo.ts
 # POST http://localhost:3000/assistant/chat  { "message": "What are your hours?" }
-```
-
-Telegram:
-
-```bash
-KITT_CHANNEL=telegram TELEGRAM_BOT_TOKEN=... bun run examples/assistant/demo.ts
-```
-
-WhatsApp (needs a public HTTPS URL for the webhook):
-
-```bash
-KITT_CHANNEL=whatsapp bun run examples/assistant/demo.ts
-# GET/POST http://localhost:3000/whatsapp/webhook
 ```
 
 ## 4. Tools in this demo
