@@ -8,6 +8,21 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.11.1] - 2026-10-18
+
+Highlights: fix: update README.md: improve KatanaKit JS documentation, plus 2 more changes.
+
+- [x] 🐛 fix: update README.md: improve KatanaKit JS documentation
+  - `README.md`
+- [x] 💄 style(core): apply prettier formatting to the signal tracking helper
+  - `src/core/services/reactive.service.ts`
+- [x] 🐛 fix(docs): explain the .temp corruption failures in the build runner
+  - `AGENTS.md`
+  - `scripts/docs.mjs`
+- [x] 🚀 feat: add banner component with custom layouts, tones, and actions
+- [x] 🚀 feat(better-auth): validate social provider configuration
+- [x] 🔹 Track signal dependencies automatically in effects and memos (#20)
+
 ## [6.11.0] - 2026-10-17
 
 Highlights: feat: add banner component with custom layouts, tones, and actions, plus 2 more changes.
