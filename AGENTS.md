@@ -25,14 +25,49 @@ TypeScript service toolkit using ESM and hexagonal architecture. Bun is the pack
 
 ## Commands and verification
 
-- `bun run check` is the project gate: ESLint, root and UI typechecks, then Vitest. Run it for code changes.
-- `bun run test:e2e` runs the Playwright suite in `tests/e2e/` for `@katanakit/ui` (browser-only behaviour: the `@layer` cascade, animations, `animationend`, `prefers-reduced-motion`). jsdom has no animation engine, so `animationend` never fires there and those paths are unreachable from the unit suite — see `docs/ui-kit/testing.md`. `bun run test:all` runs both.
-- `bun run lint:fix` applies ESLint auto-fixes to `src` and the UI package; `bun run check` is the full gate.
+Scripts are grouped so nothing runs twice. The shipping commands chain them in one order:
+**tests → build → docs → deploy**, each step exactly once.
+
+**Quality gate** — run this before anything else:
+
+- `bun run check` — ESLint, root and UI typechecks, then Vitest. This is the gate.
+- `bun run test`, `bun run typecheck`, `bun run lint` — the three pieces of `check`, usable alone.
+- `bun run test:e2e` — the Playwright suite in `tests/e2e/` for `@katanakit/ui` (browser-only behaviour: the `@layer` cascade, animations, `animationend`, `prefers-reduced-motion`). jsdom has no animation engine, so `animationend` never fires there and those paths are unreachable from the unit suite — see `docs/ui-kit/testing.md`. `bun run test:all` runs `check` plus e2e.
+- `bun run lint:fix` applies ESLint auto-fixes to `src` and the UI package.
 - Run one test file with `bunx vitest run <path>`. Tests live under `tests/` and `packages/**/tests/`; Vitest maps `@/` to `src`.
-- `bun run build` runs `check`, compiles `dist/`, builds the UI, synchronizes version references, and checks examples. The version-sync step can modify `package.json` and README/docs references; review those changes rather than discarding them blindly.
-- `bun run build` type-checks the examples as its last step, so a change to examples or package exports is covered by the build itself.
-- ESLint uses flat config in `eslint.config.mjs`; do not add `.eslintrc` files. Prettier runs through ESLint.
-- `bun run dev` starts the VitePress docs site and the Express API side by side via `concurrently`. `bun run dev:api` runs the Express server alone, `bun run dev:bun` the Bun one.
+
+**Build** — `clean` runs here and nowhere else:
+
+- `bun run build` — `clean`, then `build:lib` and `build:examples`.
+- `bun run build:lib` — `tsc` + `tsc-alias`, `build:ui`, copies `styles.css` into `dist/`, then synchronizes version references. That step can modify `package.json` and README/docs references; review those changes rather than discarding them blindly.
+- `bun run build:examples` type-checks the examples as its last step, so a change to examples or package exports is covered.
+
+`build` deliberately does **not** run `check`. Call `bun run check && bun run build`, or use a shipping script below — chaining `check` into `build` made the tests run twice.
+
+**Docs** — production build by default, `:dev` for the server:
+
+- `bun run docs` — production build (`node scripts/docs.mjs build`).
+- `bun run docs:dev` — VitePress dev server. `bun run docs:preview` serves the built site.
+- `bun run docs:clean` — purges shared VitePress temp state.
+
+**Shipping** — each runs `check`, then `build`, then its deployment:
+
+- `bun run deploy` — Cloudflare Pages. `bun run deploy:gh` — GitHub Pages.
+- `bun run release` — npm publish via `scripts/npm-publish.mjs`.
+
+All three pass `--skip-ui` to `scripts/docs.mjs`, because `build` has already produced
+`packages/ui/dist/styles.css`. Without the flag `chain()` rebuilds it.
+
+`node scripts/docs.mjs` with **no mode argument prints usage and exits 1** — it is not a
+build. Always pass an explicit mode (`build`, `deploy`, `gh`, `dev`, `preview`, `clean`).
+
+**Dev** — suffix `:dev`, never run as part of a shipping script:
+
+- `bun run dev` — VitePress and the Express API side by side via `concurrently`.
+- `bun run api:dev` — the Express server alone. `bun run docs:dev` — docs alone.
+- `bun run bun:dev` — the Bun server.
+
+ESLint uses flat config in `eslint.config.mjs`; do not add `.eslintrc` files. Prettier runs through ESLint.
 
 ## Documentation
 

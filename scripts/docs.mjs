@@ -198,7 +198,12 @@ function deployToCloudflare() {
 }
 
 function chain() {
-	run("bun", ["run", "build:ui"]);
+	// `bun run build` already produces packages/ui/dist/styles.css and the npm
+	// package copies it. Rebuilding it here is pure duplication when the docs build
+	// was chained after one — so the caller can opt out with `--skip-ui`.
+	if (!process.argv.includes("--skip-ui")) {
+		run("bun", ["run", "build:ui"]);
+	}
 	run("node", [join(ROOT, "scripts", "docs-prepare.mjs")]);
 
 	if (mode === "dev") {

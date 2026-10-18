@@ -292,6 +292,40 @@ Runnable projects live in [`examples/`](./examples):
 
 ---
 
+## Boilerplates and gists
+
+Copy-paste starting points, kept in sync with this repository. Each one is a complete
+file set with a README, and each was verified by building it against the version it names.
+
+### Boilerplates
+
+Ready-to-run project scaffolds using `katanakit-js` where it removes boilerplate.
+
+| Gist | What it scaffolds |
+| --- | --- |
+| [Nuxt 4](https://gist.github.com/senseikatana/0833bd560e547bdebf752b291a65ca8e) | `nuxt.config.ts`, `runtimeConfig` vs `app.config`, route rules, error page, API routes with `useEventResponse` / `useUnwrap` |
+| [Astro 7](https://gist.github.com/senseikatana/7b6595e7b51fe39fc7459442de9ba196) | Content collections, `getStaticPaths` with `useAstroPathsFrom`, pagination, tag pages, RSS endpoint |
+| [React 19 + Vite 8](https://gist.github.com/senseikatana/8d4a152a98c6f99b3c2745b0787fb393) | `createRoot`, error boundary, `useQuery` + `useSafeQueryFn`, mutations, typed env |
+| [VS Code snippets](https://gist.github.com/senseikatana/2dea6c57e380e0c617a9b8662f9a163e) | 36 whole-file scaffolds — type `nuxt-config`, `astro-static-paths`, `react-main`, … |
+
+### Standalone source
+
+Single-file extracts of the services, for reading and adapting without installing
+anything. Useful when you want the source in front of you; prefer the package otherwise.
+
+| Gist | Covers |
+| --- | --- |
+| [DOM](https://gist.github.com/senseikatana/011bc24c3fcc95f6c3338265294abbe7) | SSR-safe element helpers, sanitised attribute writes |
+| [Dates](https://gist.github.com/senseikatana/77bd2ebb10233aab44dc84093dfccfe5) | Temporal calendar arithmetic |
+| [API Manager](https://gist.github.com/senseikatana/7e76dcb54999fd9c4823c59998ff4e57) | Named endpoints, interceptors, Safe Results |
+| [Reactive Core](https://gist.github.com/senseikatana/e06a918763c314932f96ff42513431e9) | Signals, effects, memos, batching |
+| [Safe Result](https://gist.github.com/senseikatana/402c590c99287bb80667420c0d96e0d5) | Errors as values |
+| [Query Adapters](https://gist.github.com/senseikatana/b2bc514e42533c218820cf86c879aa5d) | TanStack Query bindings for React, Vue, Svelte, Solid, Angular |
+
+The same links live in the docs sidebar under **Boilerplates**.
+
+---
+
 ## Documentation
 
 The site follows [Diátaxis](https://diataxis.fr): one page, one kind.

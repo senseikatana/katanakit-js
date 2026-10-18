@@ -141,20 +141,34 @@
 	},
 	"scripts": {
 		"prepare": "husky",
+
+		"clean": "node scripts/clean.mjs",
+
 		"lint": "eslint ./src packages/ui/src",
 		"lint:fix": "eslint --fix ./src packages/ui/src",
-		"clean": "node scripts/clean.mjs",
-		"build": "bun run clean && bun run check && tsc6 -p tsconfig.json && tsc-alias -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions && tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
-		"build:ui": "bun run --filter @katanakit/ui build",
-		"dev": "bunx lint-staged && concurrently -n docs,api -c magenta,cyan --kill-others \"node scripts/docs.mjs dev\" \"tsx src/adapters/express/main.ts\"",
-		"dev:api": "tsx src/adapters/express/main.ts",
-		"dev:bun": "bun run src/adapters/bun/main.ts",
-		"check": "bun run lint && tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit && vitest run",
+		"typecheck": "tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit",
+		"test": "vitest run",
 		"test:e2e": "playwright test",
+		"check": "bun run lint && bun run typecheck && bun run test",
 		"test:all": "bun run check && bun run test:e2e",
-		"deploy": "bunx lint-staged && node scripts/docs.mjs && node scripts/docs.mjs deploy",
-		"deploy:gh": "bunx lint-staged && node scripts/docs.mjs gh",
-		"release": "bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && node scripts/npm-publish.mjs"
+
+		"build:ui": "bun run --filter @katanakit/ui build",
+		"build:lib": "tsc6 -p tsconfig.json && tsc-alias -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions",
+		"build:examples": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
+		"build": "bun run clean && bun run build:lib && bun run build:examples",
+
+		"docs": "node scripts/docs.mjs",
+		"docs:preview": "node scripts/docs.mjs preview",
+		"docs:clean": "node scripts/docs.mjs clean",
+
+		"deploy": "bun run check && bun run build && node scripts/docs.mjs deploy --skip-ui",
+		"deploy:gh": "bun run check && bun run build && node scripts/docs.mjs gh --skip-ui",
+		"release": "bun run check && bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && node scripts/npm-publish.mjs",
+
+		"dev": "bunx lint-staged && concurrently -n docs,api -c magenta,cyan --kill-others \"bun run docs:dev\" \"bun run api:dev\"",
+		"docs:dev": "node scripts/docs.mjs dev",
+		"api:dev": "tsx src/adapters/express/main.ts",
+		"bun:dev": "bun run src/adapters/bun/main.ts"
 	},
 	"lint-staged": {
 		"**/*.{ts,tsx}": "eslint --fix --quiet"

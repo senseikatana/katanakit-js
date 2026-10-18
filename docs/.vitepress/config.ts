@@ -186,6 +186,60 @@ export default defineConfig({
 				],
 			},
 			{
+				// Copy-paste starting points. External gists rather than docs pages:
+				// each is a file set you drop into a project, not prose to read.
+				text: "Boilerplates",
+				collapsed: true,
+				items: [
+					{
+						text: "Nuxt 4",
+						link: "https://gist.github.com/senseikatana/0833bd560e547bdebf752b291a65ca8e",
+					},
+					{
+						text: "Astro 7",
+						link: "https://gist.github.com/senseikatana/7b6595e7b51fe39fc7459442de9ba196",
+					},
+					{
+						text: "React 19 + Vite 8",
+						link: "https://gist.github.com/senseikatana/8d4a152a98c6f99b3c2745b0787fb393",
+					},
+					{
+						text: "VS Code Snippets",
+						link: "https://gist.github.com/senseikatana/2dea6c57e380e0c617a9b8662f9a163e",
+					},
+					{
+						text: "Standalone source extracts",
+						collapsed: true,
+						items: [
+							{
+								text: "DOM",
+								link: "https://gist.github.com/senseikatana/011bc24c3fcc95f6c3338265294abbe7",
+							},
+							{
+								text: "Dates",
+								link: "https://gist.github.com/senseikatana/77bd2ebb10233aab44dc84093dfccfe5",
+							},
+							{
+								text: "API Manager",
+								link: "https://gist.github.com/senseikatana/7e76dcb54999fd9c4823c59998ff4e57",
+							},
+							{
+								text: "Reactive Core",
+								link: "https://gist.github.com/senseikatana/e06a918763c314932f96ff42513431e9",
+							},
+							{
+								text: "Safe Result",
+								link: "https://gist.github.com/senseikatana/402c590c99287bb80667420c0d96e0d5",
+							},
+							{
+								text: "Query Adapters",
+								link: "https://gist.github.com/senseikatana/b2bc514e42533c218820cf86c879aa5d",
+							},
+						],
+					},
+				],
+			},
+			{
 				text: "Core Services",
 				collapsed: true,
 				items: [
