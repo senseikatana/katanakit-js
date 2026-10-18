@@ -8,6 +8,40 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.13.1] - 2026-10-18
+
+Highlights: feat: updated documentation and scripts, plus 2 more changes.
+
+- [x] 🚀 feat: updated documentation and scripts
+  - `AGENTS.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `scripts/docs.mjs`
+- [x] 📝 docs(wordpress): add the WordPress Roles guide for the PHP side
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/wordpress-roles.md`
+  - `docs/guides/wordpress.md`
+- [x] 🚀 feat(access): add capability guards for Astro, Next and Nuxt
+  - `README.md`
+  - `docs/guides/framework-adapters.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/wordpress.md`
+  - `package.json`
+  - `src/adapters/astro/access.guard.ts`
+  - `src/adapters/astro/index.ts`
+  - `src/adapters/next/access.guard.ts`
+  - `src/adapters/next/index.ts`
+  - `src/adapters/nuxt/access.guard.ts`
+  - `src/adapters/nuxt/index.ts`
+  - `tests/meta-guards.test.ts`
+- [x] 🐛 fix: update dates service to correctly handle datetime parsing with offsets
+- [x] 🚀 feat: update WordPress roles declaration and audit
+- [x] 🚀 feat: update examples and scripts with new WordPress API usage and comments
+
 ## [6.13.0] - 2026-10-18
 
 Highlights: feat: update WordPress roles declaration and audit and fix: update dates service to correctly handle datetime parsing with offsets, plus 3 more changes.
