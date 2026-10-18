@@ -132,18 +132,21 @@ export function useCreateAssistantRouter(options: AssistantRouterOptions = {}): 
 			const subject = options.resolveSubject ? useRequireSubject(request, response) : null;
 			if (options.resolveSubject && subject === null) return;
 
+			// A session id supplied by the caller must already belong to this
+			// subject.
 			if (sessionId && subject !== null) {
 				if (useRejectForeignSession(response, sessionId, subject)) return;
 				owners.set(sessionId, subject);
 			}
 
 			const result = await useReply(sessionId, message);
-			const nextId = result.ok ? result.data.sessionId : undefined;
 
-			// Claim ownership of sessions this request created. `useReply` mints an
-			// id when none was supplied, so it is only known after the call.
-			if (nextId && subject !== null) {
-				if (useRejectForeignSession(response, nextId, subject)) return;
+			// `useReply` mints the id when none was supplied, so it is only known
+			// afterwards. That session is ours by construction — claim it outright
+			// rather than running the ownership check, which would reject it for
+			// having no recorded owner.
+			const nextId = result.ok ? result.data.sessionId : undefined;
+			if (nextId && subject !== null && !owners.has(nextId)) {
 				owners.set(nextId, subject);
 			}
 

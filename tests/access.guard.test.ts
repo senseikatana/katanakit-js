@@ -96,6 +96,7 @@ describe("useRequireCapability", () => {
 		useRegisterRole({
 			slug: "member",
 			label: "Member",
+			rank: 5,
 			capabilities: ["conversations:use", "content:create"],
 		});
 		const response = createResponse();

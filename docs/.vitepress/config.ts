@@ -200,6 +200,7 @@ export default defineConfig({
 					{ text: "Error Helpers", link: "/guides/services/error-helpers" },
 					{ text: "Generator", link: "/guides/services/generator" },
 					{ text: "Dates", link: "/guides/services/dates" },
+					{ text: "Arrays", link: "/guides/services/arrays" },
 					{ text: "Geometry", link: "/guides/services/geometry" },
 					{ text: "Timing", link: "/guides/services/timing" },
 					{ text: "Viewport", link: "/guides/services/viewport" },
@@ -245,6 +246,7 @@ export default defineConfig({
 					{ text: "Query Client", link: "/guides/query-client" },
 					{ text: "Framework Adapters", link: "/guides/framework-adapters" },
 					{ text: "Better Auth", link: "/guides/better-auth" },
+					{ text: "Access Control", link: "/guides/access-control" },
 				],
 			},
 			{

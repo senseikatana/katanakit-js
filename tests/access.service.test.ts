@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
+
 import {
 	useCan,
 	useCapabilitiesFor,
@@ -86,6 +87,7 @@ describe("AccessService", () => {
 			useRegisterRole({
 				slug: "member",
 				label: "Member",
+				rank: 5,
 				capabilities: ["conversations:use", "content:create"],
 			});
 
@@ -97,6 +99,7 @@ describe("AccessService", () => {
 			const definition = {
 				slug: "member" as const,
 				label: "Member",
+				rank: 5,
 				capabilities: ["conversations:use" as const],
 			};
 			useRegisterRole(definition);
@@ -104,6 +107,45 @@ describe("AccessService", () => {
 			definition.capabilities.push("system:admin");
 
 			expect(useCan(member, "system:admin")).toBe(false);
+		});
+
+		it("registers a deployment-specific role that inherits by rank", () => {
+			useRegisterRole({
+				slug: "rrhh",
+				label: "RRHH",
+				rank: 4,
+				capabilities: ["nomina:aprobar"],
+			});
+
+			// rank 4 sits at `member`'s level, so it inherits nothing above it.
+			expect(useCan({ id: 4, roles: ["rrhh"] }, "conversations:use")).toBe(true);
+			expect(useCan({ id: 4, roles: ["rrhh"] }, "nomina:aprobar")).toBe(true);
+			expect(useCan({ id: 4, roles: ["rrhh"] }, "content:create")).toBe(false);
+		});
+
+		it("rejects a malformed definition instead of poisoning the registry", () => {
+			expect(() =>
+				useRegisterRole({
+					slug: "broken",
+					label: "Broken",
+					rank: 4,
+					// not namespaced — the shape the schema rejects
+					capabilities: ["nominaaprobar" as AccessCapability],
+				}),
+			).toThrow(/rejected role definition "broken"/);
+
+			expect(useRoles().some((role) => role.slug === "broken")).toBe(false);
+		});
+
+		it("rejects a definition whose slug is not a slug", () => {
+			expect(() =>
+				useRegisterRole({
+					slug: "Not A Role" as AccessRole,
+					label: "Bad",
+					rank: 4,
+					capabilities: ["nomina:aprobar" as AccessCapability],
+				}),
+			).toThrow(/rejected role definition/);
 		});
 	});
 
@@ -120,6 +162,7 @@ describe("AccessService", () => {
 			useRegisterRole({
 				slug: "guest",
 				label: "Guest",
+				rank: 6,
 				capabilities: ["content:create"],
 			});
 			expect(useCan(guest, "content:create")).toBe(true);

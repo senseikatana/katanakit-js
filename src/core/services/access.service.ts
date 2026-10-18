@@ -1,3 +1,4 @@
+import { AccessRoleDefinitionSchema } from "../../schemas/access.schema.js";
 import type {
 	AccessCapability,
 	AccessRole,
@@ -36,30 +37,20 @@ export interface IAccessStrategy {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Role ranks: lower number = more privileged. Higher-privilege roles inherit
- * the capabilities of every role below them (e.g. `admin` can do everything
- * `editor` can).
- */
-const ROLE_RANK: Record<AccessRole, number> = {
-	owner: 0,
-	admin: 1,
-	editor: 2,
-	author: 3,
-	member: 4,
-	guest: 5,
-};
-
-/**
  * Default role registry: each role lists only the capabilities it adds on top
  * of the roles below it. `guest` adds none - read access is public by default.
+ *
+ * `rank` is data, not a lookup table. That is what lets a registered role
+ * inherit from the built-ins instead of silently inheriting nothing.
  */
 const DEFAULT_ROLES: AccessRoleDefinition[] = (
 	[
-		{ slug: "owner", label: "Owner", capabilities: ["roles:assign", "system:admin"] },
-		{ slug: "admin", label: "Admin", capabilities: ["members:manage"] },
+		{ slug: "owner", label: "Owner", rank: 0, capabilities: ["roles:assign", "system:admin"] },
+		{ slug: "admin", label: "Admin", rank: 1, capabilities: ["members:manage"] },
 		{
 			slug: "editor",
 			label: "Editor",
+			rank: 2,
 			capabilities: [
 				"content:publish",
 				"content:edit:any",
@@ -70,16 +61,39 @@ const DEFAULT_ROLES: AccessRoleDefinition[] = (
 		{
 			slug: "author",
 			label: "Author",
+			rank: 3,
 			capabilities: ["content:create", "content:edit:own", "content:delete:own"],
 		},
-		{ slug: "member", label: "Member", capabilities: ["conversations:use"] },
-		{ slug: "guest", label: "Guest", capabilities: [] },
+		{ slug: "member", label: "Member", rank: 4, capabilities: ["conversations:use"] },
+		{ slug: "guest", label: "Guest", rank: 5, capabilities: [] },
 	] satisfies AccessRoleDefinition[]
 ).map((role) => Object.freeze(useCopy(role)));
 
 /** Copies a definition so callers never hold (or mutate) live registry state. */
 function useCopy(definition: AccessRoleDefinition): AccessRoleDefinition {
 	return { ...definition, capabilities: [...definition.capabilities] };
+}
+
+/**
+ * Validates a definition before it reaches the registry.
+ *
+ * The registry stores plain objects, so a malformed definition would otherwise
+ * poison every check silently — a missing `rank` makes `definition.rank >= rank`
+ * compare `undefined`, which is never true, and the role silently inherits
+ * nothing while still appearing in `useRoles()`. Failing at the door is the
+ * only version of this that is safe.
+ */
+function useValidated(definition: AccessRoleDefinition): AccessRoleDefinition {
+	const parsed = AccessRoleDefinitionSchema.safeParse(definition);
+	if (!parsed.success) {
+		const details = parsed.error.issues
+			.map((issue) => `${issue.path.join(".") || "<root>"}: ${issue.message}`)
+			.join("; ");
+		throw new Error(
+			`[AccessService] rejected role definition "${definition?.slug ?? "?"}" — ${details}`,
+		);
+	}
+	return parsed.data;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -124,11 +138,11 @@ export class HierarchicalAccessStrategy implements IAccessStrategy {
 	 * ```
 	 */
 	useCapabilitiesFor(role: AccessRole): AccessCapability[] {
-		const rank = ROLE_RANK[this.useDefinitionFor(role).slug];
+		const rank = this.useDefinitionFor(role).rank;
 		const capabilities = new Set<AccessCapability>();
 
 		for (const definition of this.registry.values()) {
-			if (ROLE_RANK[definition.slug] >= rank) {
+			if (definition.rank >= rank) {
 				for (const capability of definition.capabilities) {
 					capabilities.add(capability);
 				}
@@ -139,11 +153,14 @@ export class HierarchicalAccessStrategy implements IAccessStrategy {
 
 	/**
 	 * Registers (or replaces) a role definition. Use it to extend a built-in
-	 * role's capabilities, e.g. grant `content:create` to `member`. The definition
-	 * is copied, so mutating the caller's object afterwards has no effect.
+	 * role's capabilities, e.g. grant `content:create` to `member`, or to add
+	 * a deployment-specific role that inherits from the built-ins by rank.
+	 * The definition is copied, so mutating the caller's object afterwards
+	 * has no effect.
 	 */
 	useRegisterRole(definition: AccessRoleDefinition): void {
-		this.registry.set(definition.slug, Object.freeze(useCopy(definition)));
+		const validated = useValidated(definition);
+		this.registry.set(validated.slug, Object.freeze(useCopy(validated)));
 	}
 
 	/** Restores the built-in role registry (mainly for tests). */
@@ -156,9 +173,7 @@ export class HierarchicalAccessStrategy implements IAccessStrategy {
 
 	/** Lists every registered role definition. Returns copies, not live state. */
 	useRoles(): AccessRoleDefinition[] {
-		return [...this.registry.values()]
-			.sort((a, b) => ROLE_RANK[a.slug] - ROLE_RANK[b.slug])
-			.map(useCopy);
+		return [...this.registry.values()].sort((a, b) => a.rank - b.rank).map(useCopy);
 	}
 
 	/** Exact role membership - no hierarchy involved. */
@@ -210,7 +225,8 @@ export class FlatAccessStrategy implements IAccessStrategy {
 	}
 
 	useRegisterRole(definition: AccessRoleDefinition): void {
-		this.registry.set(definition.slug, Object.freeze(useCopy(definition)));
+		const validated = useValidated(definition);
+		this.registry.set(validated.slug, Object.freeze(useCopy(validated)));
 	}
 
 	useResetRoles(): void {
@@ -221,7 +237,7 @@ export class FlatAccessStrategy implements IAccessStrategy {
 	}
 
 	useRoles(): AccessRoleDefinition[] {
-		return [...this.registry.values()].map(useCopy);
+		return [...this.registry.values()].sort((a, b) => a.rank - b.rank).map(useCopy);
 	}
 
 	useHasRole(subject: AccessSubject, role: AccessRole): boolean {

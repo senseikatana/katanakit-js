@@ -5,6 +5,12 @@ description: Auth client for five frameworks, Safe Result session helpers and va
 
 # Better Auth
 
+> **Authentication, not authorization.** This page answers *who the user is*.
+> Whether they may perform a given action is a separate question, answered by
+> [`AccessService`](/guides/access-control). The two are independent: a user can
+> be fully authenticated and still be refused a capability, and that refusal is
+> a `403`, not a `401`.
+
 [`Better Auth`](https://better-auth.com) is a framework-agnostic auth server for
 TypeScript. This adapter adds three things on top of the official integrations:
 
