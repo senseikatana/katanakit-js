@@ -217,4 +217,40 @@ describe("useDateOrder", () => {
 			useDateOrder("2026-03-01", "2026-04-01"),
 		);
 	});
+
+	// Regression: `Temporal.PlainDateTime.from` rejects only the `Z` designator. It
+	// accepts a numeric offset and silently discards it, so choosing the parser by
+	// trial and error made `+02:00` lose its offset while `Z` kept it.
+	describe("timezone offsets are not discarded", () => {
+		it("orders two instants that differ by an hour", () => {
+			expect(useDateOrder("2024-06-15T12:00:00Z", "2024-06-15T13:00:00Z")).toBe("before");
+			expect(useDateOrder("2024-06-15T13:00:00Z", "2024-06-15T12:00:00Z")).toBe("after");
+		});
+
+		it("honours a numeric offset rather than the wall clock it spells", () => {
+			// 12:00+02:00 is 10:00Z, so it comes before 11:00Z. Reading it as a bare
+			// 12:00 would report "after".
+			expect(useDateOrder("2024-06-15T12:00:00+02:00", "2024-06-15T11:00:00Z")).toBe("before");
+		});
+
+		it("recognises the same instant written with different offsets", () => {
+			// Both are 10:00Z.
+			expect(useDateOrder("2024-06-15T12:00:00+02:00", "2024-06-15T11:00:00+01:00")).toBe("same");
+			expect(useDateOrder("2024-06-15T12:00:00Z", "2024-06-15T12:00:00+00:00")).toBe("same");
+		});
+
+		it("handles a negative offset", () => {
+			// 12:00-05:00 is 17:00Z, which is after 12:00Z.
+			expect(useDateOrder("2024-06-15T12:00:00-05:00", "2024-06-15T12:00:00Z")).toBe("after");
+		});
+
+		it("reports the real gap in hours between two offsets", () => {
+			expect(useDateBetween("2024-06-15T12:00:00+02:00", "2024-06-15T12:00:00Z", "hours")).toBe(2);
+		});
+
+		it("still treats a bare datetime as local wall clock", () => {
+			// No offset means nothing to convert, so it must not be read as UTC.
+			expect(useDateOrder("2024-06-15T12:00:00", "2024-06-15T13:00:00")).toBe("before");
+		});
+	});
 });

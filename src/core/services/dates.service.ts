@@ -24,6 +24,21 @@ const SUB_DAY_UNITS: ReadonlySet<DateUnit> = new Set<DateUnit>(["hours", "minute
  */
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
+/**
+ * A datetime that names its own offset: `...Z`, `...+02:00`, `...-05:30`, `...+02`.
+ *
+ * This check cannot be delegated to a `try/catch` around `PlainDateTime.from`. That
+ * parser rejects only the `Z` designator and **silently accepts and discards** numeric
+ * offsets — `PlainDateTime.from("12:00+02:00")` yields `12:00`, quietly shifting the
+ * answer by two hours instead of failing. Deciding the parser by trial and error
+ * therefore routes `Z` to the correct `Instant` branch while quietly sending `+02:00`
+ * down the lossy one. Shape is the only reliable signal, so the offset is detected up
+ * front.
+ *
+ * The leading `T` keeps a bare date from matching on its own `-DD` day component.
+ */
+const HAS_OFFSET = /T.*(?:[Zz]|[+-]\d{2}(?::?\d{2})?)$/;
+
 /** A calendar date or date-time, the two shapes the arithmetic helpers accept. */
 type Comparable = Temporal.PlainDate | Temporal.PlainDateTime;
 
@@ -126,8 +141,10 @@ export class DatesService {
 	/**
 	 * Parses a string into the shape its own syntax implies.
 	 *
-	 * A `Z` or numeric offset needs `Instant`, which `PlainDateTime` rejects —
-	 * dropping the offset instead would silently shift the answer by hours.
+	 * A `Z` or numeric offset names an absolute instant, so it goes through `Instant`
+	 * and lands in the local zone. Dropping the offset instead would silently shift the
+	 * answer by hours, so the offset-bearing branch is chosen by {@link HAS_OFFSET},
+	 * never by trial.
 	 */
 	private fromString(text: string, promote: boolean): Comparable {
 		if (DATE_ONLY.test(text)) {
@@ -135,12 +152,14 @@ export class DatesService {
 			return promote ? date.toPlainDateTime() : date;
 		}
 
-		try {
+		// Bare datetime — a local wall-clock reading, with no offset to apply.
+		if (!HAS_OFFSET.test(text)) {
 			return Temporal.PlainDateTime.from(text);
-		} catch {
-			const zoned = Temporal.Instant.from(text).toZonedDateTimeISO(Temporal.Now.timeZoneId());
-			return promote ? zoned.toPlainDateTime() : zoned.toPlainDate();
 		}
+
+		// Offset-bearing — resolve to the real instant, then read it in the local zone.
+		const zoned = Temporal.Instant.from(text).toZonedDateTimeISO(Temporal.Now.timeZoneId());
+		return promote ? zoned.toPlainDateTime() : zoned.toPlainDate();
 	}
 
 	/**
@@ -273,7 +292,11 @@ export class DatesService {
 	 * ```
 	 */
 	useDateOrder(date1: TemporalInput, date2: TemporalInput): DateOrder {
-		return useOrder(this.toComparable(date1, false), this.toComparable(date2, false));
+		// Promote unconditionally. `useOrder` normalises both sides to `PlainDateTime`
+		// anyway, so a date-only input lands on midnight and keeps its usual meaning —
+		// whereas leaving an offset-bearing input unpromoted collapses it to a
+		// `PlainDate`, reporting two instants an hour apart as "same".
+		return useOrder(this.toComparable(date1, true), this.toComparable(date2, true));
 	}
 
 	/**
