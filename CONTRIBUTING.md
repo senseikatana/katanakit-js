@@ -23,12 +23,18 @@ These rules keep the codebase consistent and maintainable. Please read
 3. **`use*` convention** — every public method (except `getInstance()`) uses the
    `use` prefix (like React hooks), e.g. `useInit`, `useFetch`, `useLogger`,
    `useCreateSignal`. This makes the API consistent and predictable.
-4. **Pure ESM with `.js` extensions** — the package is `"type": "module"` and
-   compiles with `module: nodenext`. All relative imports **must** use an
-   explicit `.js` extension (e.g. `import { useLogger } from
-   "./logger.service.js"`). Do not import without the extension and do not add
-   new `@/`-aliased imports inside `src/`; the `@/` alias exists for the test
-   suite and examples only.
+4. **`@/` alias in `src/`, `.js` extensions preserved** — the package is
+   `"type": "module"` and compiles with `module: nodenext`. Import across folders
+   with the alias, never a `../../` chain: `import { useLogger } from
+   "@/core/services/logger.service.js"`. Keep the `.js` extension — it is what
+   makes the output valid ESM — and keep a same-folder `./x.js` relative, where
+   it is already the shortest form.
+
+   `tsc` resolves the alias for typechecking but does **not** rewrite it in the
+   emitted JavaScript, so `bun run build` runs `tsc-alias` immediately after
+   `tsc6`. If you add an alias or a tsconfig, add it to that chain — otherwise
+   the published `dist/` ships imports that Node cannot resolve, and the failure
+   only appears when someone installs the package.
 5. **Destructured exports** — services expose their methods as arrow-function
    class fields and re-export them destructured at the bottom of the module
    (`export const { useLogger, ... } = LoggerService.getInstance();`) so consumers
@@ -72,34 +78,35 @@ bun install
 
 Useful scripts:
 
-| Command                 | Description                                            |
-| Layer | Script | What it does |
-| --- | --- | --- |
-| **develop** | `bun run dev` | Docs site dev server (VitePress), after lint-staged |
-| | `bun run dev:server` | Express dev server (`tsx`); `bun run dev:bun` for the Bun adapter |
-| | `bun run docs:dev` | Alias of `dev` kept for discoverability |
-| **verify** | `bun run check` | ESLint + typecheck + tests (gate before build/publish) |
-| | `bun run test:coverage` | Unit suite + coverage report into `coverage/` (opt-in, not part of the gate) |
-| | `bun run test:e2e` | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
-| | `bun run test:all` | Unit suite + browser suite |
-| | `bun run fix` | Same as `check` with ESLint auto-fix (skips the UI typecheck) |
-| | `bun run examples:check` | Typechecks the query/seed examples against `dist/` |
-| **clean** | `bun run clean` | Removes every regenerable artifact (`-- --dry` previews) |
-| **build** | `bun run build` | `clean` → `check` → compile to `dist/` → build the UI → sync version references |
-| | `bun run build:ui` | Builds `@katanakit/ui` (vendored framework + components CSS) |
-| | `bun run docs` | Builds the docs site into `docs/.vitepress/dist/` |
-| | `bun run docs:preview` | Build, then serve that build on `:4173` |
-| **deploy** | `bun run deploy` | Builds, then publishes to Cloudflare Pages (docs.senseikatana.com) |
-| | `bun run docs:gh` | Manual preview on the gh-pages branch (no Actions) |
-| **publish** | `bun run release` | `build` → write CHANGELOG section → `publish` |
-| | `bun run publish` | Preflight + `npm publish` (`-- --check` to stop at preflight) |
+| Layer       | Script                 | What it does |
+| ----------- | ---------------------- | ------------ |
+| **lint**    | `bun run lint`         | ESLint over `src` and the UI package |
+|             | `bun run lint:fix`     | Same, with auto-fix applied |
+| **build**   | `bun run clean`        | Removes every regenerable artifact (`-- --dry` previews) |
+|             | `bun run build`        | `clean` → `check` → compile to `dist/` → build the UI → sync versions → typecheck the examples |
+|             | `bun run build:ui`     | Builds `@katanakit/ui` (vendored framework + components CSS) |
+| **develop** | `bun run dev`          | Docs site (VitePress) **and** the Express API, side by side via `concurrently` |
+|             | `bun run dev:api`      | Express dev server alone (`tsx`) |
+|             | `bun run dev:bun`      | Bun adapter server alone |
+| **verify**  | `bun run check`        | `lint` → typecheck (root + UI) → unit tests. **The gate.** |
+|             | `bun run test:e2e`     | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
+|             | `bun run test:all`     | `check` then the browser suite |
+| **ship**    | `bun run deploy`       | Builds the docs site, then publishes it to Cloudflare Pages (docs.senseikatana.com) |
+|             | `bun run deploy:gh`    | Builds with the GitHub Pages base and publishes to the gh-pages branch |
+|             | `bun run release`      | `build` → write the CHANGELOG section → preflight → `npm publish` |
 
-`build` and `release` never compile or publish unless `check` passes.
+At most three commands per job, so the list stays learnable. Coverage is the one
+thing without a script — run `bunx vitest run --coverage` when you need it.
+
+`build` and `release` never compile or publish unless `check` passes. `deploy`
+builds before it publishes: `scripts/docs.mjs deploy` refuses to run without a
+build already present, so the two are chained in the script rather than left as
+two steps to remember.
 
 ## Test coverage
 
 ```bash
-bun run test:coverage
+bunx vitest run --coverage
 ```
 
 This runs the unit suite once and writes the report to `coverage/` (already
@@ -204,7 +211,7 @@ When you change a public API:
 - First ask **"which document is no longer true because of this change?"** and
   update it in the same pull request — docs travel with the code.
 - **API Reference is auto-generated** from JSDoc/TSDoc comments in `src/` by
-  TypeDoc (`bun run docs:prepare` writes `docs/api/` and the VitePress sidebar).
+  TypeDoc (`scripts/docs-prepare.mjs` writes `docs/api/` and the VitePress sidebar).
   Write good doc comments on your exported functions and types — they become
   the public API docs automatically.
 - Update the matching entry in the README Features list and the docs page that
@@ -242,7 +249,7 @@ description: Cache, retry and invalidate server state.
 ```bash
 bun run dev            # generate API + changelog, then live‑reloading server
 bun run docs           # static build into docs/.vitepress/dist/
-bun run docs:preview   # build, then serve that build on :4173
+bunx vitepress preview docs   # serve the build on :4173
 bun run deploy         # build, then publish to Cloudflare Pages (docs.senseikatana.com)
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
 bun run clean          # purge every regenerable artifact (docs temp included)
@@ -294,7 +301,7 @@ sync is the only automated workflow and does not build or publish releases.
 - **`bun run release`** — `build` + changelog `--write` + `bun run
   publish`. Use it for the full path once the release is tagged with
   `useGit`.
-- **`bun run publish`** — preflight only + publish: verifies a clean tree,
+- **`scripts/npm-publish.mjs`** — preflight only + publish: verifies a clean tree,
   `v<version>` present locally and on origin, a `## [<version>]` CHANGELOG
   section, synced README/docs version refs, a built `dist/` and that the
   version is not already on npm; then runs `npm publish --access public`. Use
@@ -334,7 +341,7 @@ git tag --sort=-creatordate     # check tags
 - [ ] New contracts/types were added to `src/types/` (not re‑declared).
 - [ ] New framework code is reachable via a subpath, not the main barrel.
 - [ ] `bun run check` passes (ESLint + typecheck + tests).
-- [ ] `bun run test:coverage` run when tests changed — coverage does not drop below the floors in `vitest.config.ts`.
+- [ ] `bunx vitest run --coverage` run when tests changed — coverage does not drop below the floors in `vitest.config.ts`.
 - [ ] `bun run test:e2e` passes when the change touches `packages/ui` (animations, cascade, focus, or anything timing-dependent).
 - [ ] Tests added/updated for the change.
 - [ ] Documentation and `CHANGELOG.md` updated if the public API changed.

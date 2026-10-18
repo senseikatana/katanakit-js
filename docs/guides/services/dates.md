@@ -46,21 +46,29 @@ injection or legacy code. The related types (`TemporalInput`, `Locale`,
 
 ```ts
 import {
-  useNow, useNowDateTime, useAddDays, useSubtractDays,
+  useNow, useNowDateTime, useDateAdd, useDateSubtract,
   useFirstDayOfMonth, useLastDayOfMonth,
-  useIsEqual, useIsBefore, useDiff, useFormat,
+  useIsEqual, useIsBefore, useFormat,
+  useDateBetween, useDateOrder, useDurationBetween,
 } from "katanakit-js";
 
 const today = useNow();                        // "2026-10-05"
 const stamp = useNowDateTime();                // "2026-10-05T17:28:45.227125197"
-const due = useAddDays(today, 30);             // "2026-11-04"
-const issued = useSubtractDays(today, 7);      // "2026-09-28"
+const due = useDateAdd(today, 30, "days");     // "2026-11-04"
+const issued = useDateSubtract(today, 7, "days"); // "2026-09-28"
 const first = useFirstDayOfMonth(today);       // "2026-10-01"
 const last = useLastDayOfMonth(today);         // "2026-10-31"
 const overdue = useIsBefore(due, today);       // false
 const same = useIsEqual(due, today);           // false
-const span = useDiff(issued, today);           // "0 years, 0 months and 7 days"
+const age = useDateBetween(issued, today, "days");    // 7
+const months = useDateBetween(issued, today, "months"); // 0
+const state = useDateOrder(due, today);        // "after"
 useFormat(due, "en", { dateStyle: "long" });   // "November 4, 2026"
+
+const tenure = useDurationBetween("2020-01-01", "2022-04-16");
+tenure.years;  // 2
+tenure.months; // 3
+tenure.days;   // 15
 ```
 
 ## Creating
@@ -208,46 +216,114 @@ useSubtractDays("2024-03-01", 1);  // "2024-02-29"
 `useSubtractDays(useNow(), 30)` gives the inclusive lower bound for a "last 30
 days" query without recomputing timestamps.
 
-### useDiff(start, end)
+### useDateBetween(start, end, unit?)
 
-`useDiff(start: string | Temporal.PlainDate, end: string | Temporal.PlainDate): string`
+`useDateBetween(start: TemporalInput, end: TemporalInput, unit?: DateUnit): number`
 
-Returns the human-readable distance between two calendar dates, balanced into
-years, months and days via `start.until(end, { largestUnit: "year" })`.
+The number of whole `unit`s between two dates. Signed, never fractional,
+defaulting to `days`.
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `start` | `string \| Temporal.PlainDate` | required | Range start. |
-| `end` | `string \| Temporal.PlainDate` | required | Range end. |
+| `start` | `TemporalInput` | required | Range start. |
+| `end` | `TemporalInput` | required | Range end. |
+| `unit` | `DateUnit` | `"days"` | Granularity to report. |
 
-**Returns** `string` — always the same shape:
-`"X years, Y months and Z days"`. Months and days are carried into the largest
-unit, so 15 months reads as `"1 years, 3 months and ..."`. The wording is fixed
-English — it is not localized and not pluralized, so `1 years` is expected;
-format the parts yourself when you need grammatically correct output.
+`DateUnit` is `"years" | "quarters" | "months" | "weeks" | "days" | "hours" |
+"minutes"` — the same vocabulary Notion uses in its formula editor, so a
+spreadsheet built there translates without a lookup table.
+
+```ts
+import { useDateBetween, useNow } from "katanakit-js";
+
+useDateBetween("2020-01-01", "2022-04-16");            // 836
+useDateBetween("2020-01-01", "2022-04-16", "months");  // 27
+useDateBetween("2020-01-01", "2022-04-16", "years");   // 2
+useDateBetween("2022-04-16", "2020-01-01", "days");   // -836
+```
 
 **Edge cases**
 
-- Reversed arguments produce **negative components**, not an absolute value:
-  `useDiff("2022-04-16", "2020-01-01")` returns
-  `"-2 years, -3 months and -15 days"`. Swap the arguments for a positive
-  distance.
-- The same date yields `"0 years, 0 months and 0 days"`.
-- The result is calendar-based, not millisecond-based, so month lengths and DST
-  never skew the day count.
+- **Reversed arguments give a negative number**, never an absolute value.
+  `useDateBetween(end, start)` is exactly `-useDateBetween(start, end)` for
+  every unit — a property worth relying on.
+- **Never fractional.** `total()` reports `0.0849` years across a single month,
+  because a year is not a whole number of months. The result is truncated to an
+  integer: one month is `0` years.
+- **Quarters are three months**, truncated toward zero. 4 months is
+  `1` quarter, not `1.33`.
+- **Calendar-based, not millisecond-based.** February gives 28 days in 2026 and
+  29 in 2024, and DST never shifts a day count.
+- **Sub-day units need a time to mean anything.** Two bare dates are read as
+  midnight, so a 31-day gap reports `744` hours. The span is unchanged; only
+  the scale is.
+- **An unknown unit falls back to `"days"`** instead of throwing, so a value
+  arriving from a form or an API cannot crash a render.
+
+**Real use case** — an age field: `useDateBetween(birthday, useNow(), "years")`
+is a number you can compare, threshold and sort, which is exactly what a
+parsed-string diff cannot give you.
+
+### useDurationBetween(start, end)
+
+`useDurationBetween(start: TemporalInput, end: TemporalInput): Temporal.Duration`
+
+The balanced breakdown, as Temporal's own `Duration`. Use this when you need
+the parts separately rather than a single number.
 
 ```ts
-import { useDiff } from "katanakit-js";
+import { useDurationBetween } from "katanakit-js";
 
-useDiff("2020-01-01", "2022-04-16"); // "2 years, 3 months and 15 days"
-useDiff("2024-06-15", "2024-06-15"); // "0 years, 0 months and 0 days"
-useDiff("2022-04-16", "2020-01-01"); // "-2 years, -3 months and -15 days"
+const span = useDurationBetween("2020-01-01", "2022-04-16");
+span.years;   // 2
+span.months;  // 3
+span.days;    // 15
+
+useDurationBetween("2022-04-16", "2020-01-01").years; // -2
 ```
 
-**Real use case** — a "member for" badge: `useDiff(user.createdAt, useNow())`
-renders tenure without pulling a date library into the view layer.
+Months and days carry into the largest unit, so 15 months reads as
+`1 year, 3 months`. Asking for `years` and `months` separately and adding them
+gives the same figure as the duration.
 
-## Boundaries
+### useDateAdd(date, amount, unit) / useDateSubtract(date, amount, unit)
+
+`useDateAdd(date: TemporalInput, amount: number, unit: DateUnit): string`
+
+Returns the date a given number of units away, as an ISO string. Calendar
+semantics throughout: adding one month to the 31st lands on the 28th of a
+shorter February rather than overflowing into March.
+
+```ts
+import { useDateAdd, useDateSubtract } from "katanakit-js";
+
+useDateAdd("2026-01-31", 1, "months");   // "2026-02-28"  (not 2026-03-03)
+useDateAdd("2026-01-01", 2, "quarters"); // "2026-07-01"
+useDateAdd("2026-01-01", 3, "years");    // "2029-01-01"
+useDateSubtract(useNow(), 90, "days");  // the quarter's start
+```
+
+A negative `amount` moves backwards, so `useDateAdd(d, -7, "days")` and
+`useDateSubtract(d, 7, "days")` agree. `useAddDays()` and `useSubtractDays()`
+remain as the two-argument shorthand for the common day case.
+
+### useDateOrder(date1, date2)
+
+`useDateOrder(date1: TemporalInput, date2: TemporalInput): "before" | "after" | "same"`
+
+A three-way comparison. `useIsBefore()` answers yes/no; this answers *which
+way*, which is what a range filter or a sort actually needs.
+
+```ts
+import { useDateOrder } from "katanakit-js";
+
+useDateOrder("2026-03-01", "2026-04-01"); // "before"
+useDateOrder("2026-04-01", "2026-03-01"); // "after"
+useDateOrder("2026-03-01", "2026-03-01"); // "same"
+```
+
+Compares down to the minute when a time is present. A bare date reads as
+midnight, so `useDateOrder("2026-03-01", "2026-03-01T00:00:01")` is `"before"`.
 
 ### useFirstDayOfMonth(date = Temporal.Now.plainDateISO())
 

@@ -35,6 +35,9 @@ implementation detail: the [Architecture](/guides/architecture) page and the
 | [ADR-0004](/explanation/decisions/adr-0004-hexagonal-core) | Hexagonal layout with a pure core | Accepted | 2026-09-03 |
 | [ADR-0005](/explanation/decisions/adr-0005-docs-as-code) | Docs as code: generated reference, four page kinds | Accepted | 2026-09-26 |
 | [ADR-0006](/explanation/decisions/adr-0006-retire-telegram-whatsapp-adapters) | Retire the Telegram and WhatsApp adapters | Accepted (amends ADR-0003) | 2026-10-18 |
+| [ADR-0007](/explanation/decisions/adr-0007-wordpress-roles-declared-not-created) | WordPress roles are declared in the app, not created over REST | Accepted | 2026-10-18 |
+| [ADR-0008](/explanation/decisions/adr-0008-access-is-three-orthogonal-axes) | Access is three orthogonal axes, not one role ladder | Accepted | 2026-10-18 |
+| [ADR-0009](/explanation/decisions/adr-0009-alias-imports-in-src) | The `@/` alias is used in `src/`, rewritten by `tsc-alias` | Accepted | 2026-10-18 |
 
 ## Adding a record
 

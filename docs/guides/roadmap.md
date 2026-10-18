@@ -8,7 +8,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 6.10.0)
+## Shipped (as of 6.12.0)
 
 ### Architecture and packaging
 
@@ -87,6 +87,5 @@ Legend: `[x]` done · `[ ]` planned.
       See the [UI Kit roadmap](../ui-kit/roadmap.md).
 - [ ] Deno / Cloudflare Workers compatibility pass.
 - [ ] More geometry (3D solids) and unit-system conversions.
-- [ ] i18n and relative-time output for `DatesService.useDiff`.
 - [ ] E2E tests for the Express adapter.
 - [ ] AbortController support in `useInterval`/timeout helpers.

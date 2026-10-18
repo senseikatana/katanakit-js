@@ -292,7 +292,199 @@ const full = await useWpGetPosts({
 });
 ```
 
-## 9. Framework examples
+## 9. Roles and capabilities without PHP
+
+A dashboard usually ships no PHP: no plugin, no theme, no `wp-cli`. It talks to
+the site over REST and that changes what it can do about roles.
+
+**WordPress has no roles or capabilities REST endpoint.** `add_role()` and
+`add_cap()` are PHP-only, and there is nothing to POST them to. What the REST
+API *does* expose is `roles`, `capabilities` and `extra_capabilities` on a user,
+but only with `context=edit` and an authenticated caller holding `list_users`.
+
+So the adapter splits the job in two:
+
+| Task | Reachable over REST? | Adapter method |
+| --- | --- | --- |
+| Declare the site's roles | No — PHP only | `useWpDefineRoles()` |
+| Make them usable by guards | Local | `useWpSyncRoles()` |
+| Assign a role to a user | Yes | `useWpAssignRole()` |
+| Read who holds a role | Yes | `useWpGetUsersByRole()` |
+| Check the site grants what you declared | Yes (read-only) | `useWpAuditRole()` |
+
+### Declare
+
+A role carries **two** capability vocabularies, and they are not the same thing:
+
+- `capabilities` — the toolkit's namespaced capabilities (`orders:read:own`).
+  These drive `useCan()` and the framework guards, so dashboard routes and the
+  rest of the app speak one language.
+- `wpCapabilities` — WordPress' own snake_case names (`read_private_orders`).
+  These are the declaration the site must actually hold, and the baseline
+  `useWpAuditRole()` compares against.
+
+Never derive one from the other. `orders:read:own` is a policy decision;
+`read_private_orders` is a WordPress permission. Collapsing them hides who is
+allowed to touch somebody else's record.
+
+```ts
+import {
+	defineWordPressConfig,
+	useWpDefineRoles,
+	useWpSyncRoles,
+} from "katanakit-js/adapters/wordpress";
+
+defineWordPressConfig({
+	baseUrl: "https://mysite.com",
+	auth: { type: "application-passwords", username: "admin", password: "xxxx xxxx xxxx" },
+});
+
+useWpDefineRoles([
+	{
+		slug: "store_customer",
+		label: "Store Customer",
+		rank: 5,
+		capabilities: ["orders:read:own", "orders:update:own", "orders:cancel:own"],
+		wpCapabilities: ["read", "read_order", "edit_order", "edit_orders"],
+	},
+	{
+		slug: "store_manager",
+		label: "Store Manager",
+		rank: 1,
+		capabilities: ["orders:read:any", "orders:update:any", "orders:cancel:any"],
+		wpCapabilities: [
+			"read",
+			"read_order",
+			"edit_order",
+			"edit_orders",
+			"edit_others_orders",
+			"read_private_orders",
+		],
+	},
+]);
+
+// Publish the declarations to the access service — without this, `useCan()`
+// throws on the unknown slug.
+useWpSyncRoles();
+```
+
+`rank` places the role on the toolkit ladder (lower is more privileged,
+`owner` is `0`). It is an integer, so a custom role **shares** a rung with a
+built-in instead of sitting between two: `store_customer` at `5` inherits from
+`guest` and adds its own capabilities. A shared rank means equal privilege,
+not a conflict.
+
+### Use them as a subject
+
+`useWpAsSubject()` mirrors a user's roles verbatim into an
+[`AccessSubject`](/guides/access-control), so the guards accept it directly:
+
+```ts
+import { useCan } from "katanakit-js";
+import { useWpAsSubject, useWpGetCurrentUser } from "katanakit-js/adapters/wordpress";
+
+const me = await useWpGetCurrentUser();
+if (me.ok) {
+	const subject = useWpAsSubject(me.data);
+	useCan(subject, "orders:read:own"); // true for a store_customer
+}
+```
+
+It mirrors instead of filtering unknown slugs on purpose: a subject quietly
+stripped of its roles fails closed and looks like a missing grant. Unknown roles
+throw instead — which is exactly why `useWpSyncRoles()` belongs right after the
+declarations.
+
+The subject composes with the rest of the access kit. A dashboard that shares
+one order with one person reaches for `useGrantAwareCan()` — the subject's
+global roles answer *"what class of thing may they ever do"*, a grant answers
+*"may they do it to this one"*:
+
+```ts
+import { useGrantAwareCan } from "katanakit-js";
+
+const decision = useGrantAwareCan({
+	subject,
+	resource: { type: "order", id: orderId },
+	capability: "orders:read:any",
+	useGrants: ({ subject, resource }) => listSharedOrders(subject.id, resource),
+});
+```
+
+### Assign
+
+```ts
+import { useWpAssignRole, useWpUnassignRole, useWpGetUsersByRole } from "katanakit-js/adapters/wordpress";
+
+const assigned = await useWpAssignRole(42, "store_customer");
+
+if (!assigned.ok && assigned.status === 422) {
+	// WordPress accepted the request but dropped the slug: the site has no such
+	// role. Create it in WordPress — a plugin, an mu-plugin, or wp-cli.
+	console.error(assigned.error.message);
+}
+
+await useWpUnassignRole(42, "store_customer");
+const customers = await useWpGetUsersByRole("store_customer", { per_page: 50 });
+```
+
+That `422` is the whole reason `useWpAssignRole()` exists instead of a plain
+`useWpUpdateUser()`. **WordPress silently discards a role slug it does not
+know** and still answers `200` with the user unchanged, so a naive assignment
+reports success for a grant that never happened. The adapter re-reads the roles
+on the response and fails loudly instead.
+
+Unassignment is idempotent: removing a role the user does not hold already
+satisfies the request, and nothing there can be silently ignored.
+
+### Audit
+
+The declaration is only worth something if the site agrees with it:
+
+```ts
+import { useWpAuditRole } from "katanakit-js/adapters/wordpress";
+
+const audit = await useWpAuditRole("store_customer");
+
+if (audit.ok) {
+	console.log(audit.data.status); // "verified" | "partial" | "unverifiable"
+	console.log(audit.data.holders);
+	console.log(audit.data.missing);   // declared, absent from a holder
+	console.log(audit.data.undeclared); // granted by the site, not declared
+}
+```
+
+- `verified` — every holder reports every declared `wpCapability`.
+- `partial` — at least one declared capability is absent from some holder.
+- `unverifiable` — nobody holds the role, so there is nothing to compare
+  against. Never reported as `verified`: an empty holder list is not proof.
+
+`granted` is the **intersection** across holders, not the union. A capability
+only one holder has is not a capability the role grants, and treating it as one
+is how a green badge ends up hiding a hole.
+
+### Pitfalls
+
+- **A role is not a capability grant.** Declaring `wpCapabilities` changes
+  nothing on the site. The role itself must already exist in WordPress; the
+  declaration is the specification, not the implementation.
+- **`roles`, `capabilities` and `extra_capabilities` need `context=edit`.**
+  Reading users with the default context returns no roles at all, and an audit
+  built on that reports every capability missing. The role methods ask for the
+  context explicitly — a bare `useWpGetUsers()` does not.
+- **Capabilities are global names, not per-post-type.** `edit_published_orders`
+  says nothing about `orders` being the only thing it reaches; that scoping
+  lives in the post type's capability map on the PHP side. `read` on a customer
+  role is not restricted to the store.
+- **Meta capabilities need their `_others_` counterpart.** `read_order` and
+  `edit_order` are checked against a specific post id; without
+  `read_private_orders` / `edit_others_orders` they pass only for the holder's
+  own records. Granting the singular forms alone is the safe direction.
+- **Reading capabilities requires `list_users`.** A subscriber-level token gets
+  `401`/`403` on every role call, and the audit surfaces it as a failed request
+  rather than as a missing capability.
+
+## 10. Framework examples
 
 | Framework | Example | Description |
 | --- | --- | --- |
@@ -307,3 +499,4 @@ const full = await useWpGetPosts({
 - [Astro Adapter](/guides/services/astro-adapter) — turning these calls into static routes.
 - [Query Client](/guides/query-client) — caching and invalidating CMS reads.
 - [HTTP Client](/guides/services/http-client) — the underlying Safe Result and options.
+- [Access Control](/guides/access-control) — the roles, capabilities and guards `useWpSyncRoles()` feeds.

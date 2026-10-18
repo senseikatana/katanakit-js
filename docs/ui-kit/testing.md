@@ -14,7 +14,7 @@ halves and neither runtime covers both on its own.
 | Browser | `bun run test:e2e` | Chromium | The cascade, real animations, `animationend` timing, `prefers-reduced-motion` |
 | Both | `bun run test:all` | | |
 
-Coverage for the kit's components is measured by `bun run test:coverage`
+Coverage for the kit's components is measured by `bunx vitest run --coverage`
 (see [CONTRIBUTING.md](https://github.com/senseikatana/katanakit-js/blob/dev/CONTRIBUTING.md#test-coverage)).
 It does not gate `check` or `build`.
 

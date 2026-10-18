@@ -189,9 +189,38 @@ useRegisterRole({
 });
 ```
 
-> Registering a new `slug` requires widening `AccessRoleSchema`, which is a
-> change to the public enum. Prefer **assigning existing roles** unless the
-> domain genuinely needs a new one.
+> `slug` and the capabilities are format-validated strings, not a closed enum, so
+> a role the domain needs is registerable directly. What you lose is the
+> compile-time check on a misspelled *built-in* slug: it now fails at runtime
+> with `Unknown access role` instead of at build time. Prefer **assigning
+> existing roles** unless the domain genuinely needs a new one.
+
+## Registering your own roles
+
+`rank` lives on the definition, so a registered role inherits from the built-ins
+on equal terms. A deployment that reports on fiscal quarters registers the unit
+it actually uses:
+
+```ts
+import { useRegisterRole, useResetRoles } from "katanakit-js";
+
+useRegisterRole({
+  slug: "rrhh",
+  label: "RRHH",
+  // Lower rank = more privileged. Anywhere from `member` (4) upward inherits
+  // the assistant capability; above `editor` (2) it also inherits publishing.
+  rank: 3,
+  capabilities: ["nomina:aprobar", "expediente:firmar"],
+});
+
+useCan({ id: 1, roles: ["rrhh"] }, "nomina:aprobar");  // true
+useCan({ id: 1, roles: ["rrhh"] }, "content:create");   // inherited from author
+useCan({ id: 1, roles: ["rrhh"] }, "content:publish");  // false — below editor
+```
+
+`useRegisterRole()` **validates before storing** and throws with the offending
+field on a bad definition. A malformed role cannot silently poison the registry
+— the failure is loud and immediate.
 
 `useResetRoles()` restores the built-ins — useful between tests, since the
 registry is process-global.
@@ -218,9 +247,142 @@ router.put("/articles/:id", (req, res) => {
 Skipping the resource check and trusting `edit:own` alone is an IDOR. The role
 narrows the set; your handler confirms membership.
 
+## Resource grants — a role scoped to one thing
+
+A global role answers *"what class of thing may this person ever do"*. It does
+not answer *"may they do it to **this** document"*. The moment someone is given
+access to one file and nothing else, you need a second axis.
+
+A `Grant` is a role scoped to a resource, using **the same registry** — so
+`viewer`, `commenter` and `editor` mean whatever your deployment registered them
+to mean. There is one vocabulary, not two.
+
+```ts
+import { useGrantAwareCan } from "katanakit-js";
+
+const decision = useGrantAwareCan({
+  subject,                                    // from useResolveSubject()
+  resource: { type: "expediente", id: 42 },
+  capability: "expediente:read",
+  useGrants: ({ subject, resource }) => listShares(subject.id, resource),
+});
+
+decision.allowed; // boolean
+decision.source;  // "role" | "grant" | "none" — why, for your audit log
+decision.via;     // the granted role, when source is "grant"
+```
+
+Global roles are checked first, then grants for that exact resource. Three
+invariants worth knowing:
+
+- **Expiry is evaluated by the core**, not by your resolver, so revoking access
+  is deleting one row rather than auditing every query that might have cached
+  the role. A `Grant` may carry `expiresAt`.
+- **An unreadable `expiresAt` counts as expired**, not as open. A share whose
+  deadline cannot be parsed is a share nobody meant to leave running.
+- **A missing `useGrants` denies.** It does not skip the check — a typo in the
+  resolver name must not open a route.
+
+## The authentication seam
+
+`AccessService` answers *what may you do*. It does not answer *who are you*, and
+it must never learn which provider produced that answer. The kit normalises the
+credential result into a single `Principal` so this page's logic never branches
+on it.
+
+```ts
+import { AuthService, useResolveSubject } from "katanakit-js";
+import { useBetterAuthProvider } from "katanakit-js/adapters/better-auth";
+
+AuthService.getInstance().useRegister(useBetterAuthProvider(auth));
+
+// The seam between the two concepts. The role lookup is injected, so the core
+// stays free of I/O.
+const subject = await useResolveSubject("better-auth", request, (principal) =>
+  directory.rolesFor(principal.subject),
+);
+```
+
+Three results, and the difference between the first two is the whole point:
+
+| Situation | Result |
+| --- | --- |
+| Nobody signed in | `{ ok: true, data: null }` → answer `401` |
+| Signed in, no roles | `{ ok: true, data: { roles: [] } }` → answer `403` |
+| The provider failed | `{ ok: false, error }` → answer `500` |
+
+An anonymous visitor is a **value**, not an error. Collapsing it into a failure
+turns a broken identity provider into a public route, and the symptom reads as
+"nobody is logged in" rather than "the backend is down". An unknown provider id
+is `ok: false` for the same reason — a typo must not quietly open a guard.
+
+**A credential method never grants elevation.** Signing in with Google proves
+*"I control this account"* — a genuinely strong claim — and says nothing about
+employment. A deployment that allows self-registration therefore creates an
+identity with no scope and no elevated role; elevation requires someone with the
+authority to grant it.
+
+The same reasoning keeps your own role table even with SSO: a personal email
+account has no concept of your employment relationship and cannot be revoked on
+offboarding. Only your table can say no.
+
+## The user directory
+
+`DirectoryService` wraps a repository you implement and enforces the rules that
+otherwise live in a code review nobody reads:
+
+```ts
+import { DirectoryService } from "katanakit-js";
+
+const directory = new DirectoryService({ repository });
+
+await directory.useList({ limit: 50, role: "admin" });
+await directory.useAddRole(actor, id, "editor");
+await directory.useRemoveRole(actor, id, "editor");
+await directory.useSuspend(actor, id, "contract ended");
+await directory.useReactivate(actor, id);
+await directory.useDelete(actor, id);
+```
+
+The invariants:
+
+- **The last active holder of a role cannot lose it.** A *suspended* holder does
+  not rescue them — counting them would let the system drop to zero live
+  administrators. The refusal names the way out: promote someone else first.
+- **Nobody may suspend, delete or demote themselves.** Removing your own roles
+  is the change with no undo and no second pair of hands.
+- **You cannot grant a role more privileged than the best one you hold.** A role
+  you could never grant is a role you may never revoke either — that is the
+  direction privilege is lost, and the direction an attacker moves in.
+- **`owner` is never assigned through these paths.** Use a dedicated ownership
+  transfer; `useUpdate({ roles: ["owner"] })` is refused too, not just
+  `useAddRole`.
+- **`useSuspend` is soft offboarding**, and it is not `useDelete`. Removing the
+  row loses the evidence the account existed; leaving it "inactive" in a
+  provider with no such state means the person can still sign in.
+
+Every refusal carries a stable `code` — `last_owner`, `self_suspension`,
+`privilege_escalation`, `already_suspended`, `deactivated_identity` — so a UI
+can branch on it instead of matching message text:
+
+```ts
+const result = await directory.useSuspend(actor, id);
+if (!result.ok && result.error.code === "last_owner") {
+  showMessage("Promote another owner before suspending this account.");
+}
+```
+
+**Deliberately not here:** deleting a provider account, revoking a live session
+or forcing a password change. A directory row disappearing must never be the
+only thing that happens on offboarding — those belong to the provider you
+actually use.
+
 ## Related
 
 - [Better Auth](/guides/better-auth) — the authentication half.
+- [InsForge](/guides/insforge) — the other shipped provider.
 - [Error Handling](/guides/errors) — Safe Results and the error shapes used by
   the guard.
+- [ADR-0008](/explanation/decisions/adr-0008-access-is-three-orthogonal-axes) —
+  why the axes are split this way.
 - [API Reference](/api/classes/AccessService) — generated from source.
