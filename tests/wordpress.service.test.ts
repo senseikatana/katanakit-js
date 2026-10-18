@@ -2,7 +2,6 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
 	defineWordPressConfig,
-	useInitWordPress,
 	useWpCreatePost,
 	useWpGetPosts,
 } from "@/adapters/wordpress/wordpress.service";
@@ -20,7 +19,7 @@ afterEach(() => {
 
 describe("wordpress.service", () => {
 	it("lists posts and returns titles", async () => {
-		useInitWordPress({ baseUrl: "https://example.com" });
+		defineWordPressConfig({ baseUrl: "https://example.com" });
 		vi.stubGlobal(
 			"fetch",
 			vi.fn().mockResolvedValue(jsonResponse([{ id: 1, title: { rendered: "Hello World" } }])),
@@ -31,7 +30,7 @@ describe("wordpress.service", () => {
 	});
 
 	it("rejects malformed list payloads with 502", async () => {
-		useInitWordPress({ baseUrl: "https://example.com" });
+		defineWordPressConfig({ baseUrl: "https://example.com" });
 		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ items: "nope" })));
 		const result = await useWpGetPosts();
 		expect(result.ok).toBe(false);
@@ -39,7 +38,7 @@ describe("wordpress.service", () => {
 	});
 
 	it("rejects array items with wrong types with 502", async () => {
-		useInitWordPress({ baseUrl: "https://example.com" });
+		defineWordPressConfig({ baseUrl: "https://example.com" });
 		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse([{ id: "nan" }])));
 		const result = await useWpGetPosts();
 		expect(result.ok).toBe(false);
@@ -47,7 +46,7 @@ describe("wordpress.service", () => {
 	});
 
 	it("rejects create post without title with 400 and no fetch", async () => {
-		useInitWordPress({ baseUrl: "https://example.com" });
+		defineWordPressConfig({ baseUrl: "https://example.com" });
 		const fetchMock = vi.fn().mockResolvedValue(jsonResponse({}));
 		vi.stubGlobal("fetch", fetchMock);
 		const result = await useWpCreatePost({ content: "No title" } as never);
@@ -57,7 +56,7 @@ describe("wordpress.service", () => {
 	});
 
 	it("throws on invalid init config", () => {
-		expect(() => useInitWordPress({} as never)).toThrow();
+		expect(() => defineWordPressConfig({} as never)).toThrow();
 	});
 });
 

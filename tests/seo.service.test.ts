@@ -9,8 +9,6 @@ import {
 	useSeoMeta,
 	useSeoMetaConfig,
 	type UseSeoMetaOptions,
-	useSeoTag,
-	useSeoTags,
 	useTitle,
 } from "@/config/seo.service";
 import { type SiteConfig, siteConfig } from "@/config/site.config";
@@ -63,7 +61,7 @@ describe("seo.service", () => {
 		it("adds noindex when requested", () => {
 			const tags = useGenerateMetaTags(config, {
 				title: "Private",
-				noindex: true,
+				robots: "noindex, nofollow",
 			});
 			expect(tags).toContain('<meta name="robots" content="noindex, nofollow" />');
 		});
@@ -90,10 +88,11 @@ describe("seo.service", () => {
 				title: "Blog Post",
 				url: "https://example.com/blog/post/",
 				ogType: "article",
-				publishedTime: "2024-01-15T00:00:00Z",
-				modifiedTime: "2024-01-16T00:00:00Z",
+				articlePublishedTime: "2024-01-15T00:00:00Z",
+				articleModifiedTime: "2024-01-16T00:00:00Z",
 				author: "Jane Doe",
-				tags: ["typescript", "astro"],
+				articleAuthor: ["Jane Doe"],
+				articleTag: ["typescript", "astro"],
 			});
 
 			expect(tags).toContain('<meta property="og:type" content="article" />');
@@ -159,41 +158,6 @@ describe("seo.service", () => {
 			expect(tags).toContain("<title>Blog Post | My Site</title>");
 			expect(tags).toContain('rel="alternate"');
 			expect(tags).toContain("application/rss+xml");
-		});
-	});
-
-	describe("useSeoTag", () => {
-		it("returns html, tags, and resolved fields (framework-agnostic)", () => {
-			const seo = useSeoTag(config, {
-				title: "Blog Post",
-				description: "A great post",
-				url: "https://example.com/blog/post/",
-			});
-
-			expect(seo.title).toBe("Blog Post | My Site");
-			expect(seo.description).toBe("A great post");
-			expect(seo.url).toBe("https://example.com/blog/post/");
-			expect(seo.ogImage).toBe("https://example.com/og-default.png");
-			expect(seo.site).toBe("https://example.com");
-			expect(seo.siteTitle).toBe("My Site");
-			expect(seo.html).toContain("<title>Blog Post | My Site</title>");
-			expect(seo.html).toContain('rel="alternate"');
-			expect(seo.tags.some((t) => t.tag === "title" && t.text === "Blog Post | My Site")).toBe(true);
-			expect(seo.tags.some((t) => t.tag === "link" && t.attrs?.rel === "alternate")).toBe(true);
-		});
-
-		it("falls back to site defaults when page fields are omitted", () => {
-			const seo = useSeoTag(config, { title: "My Site" });
-
-			expect(seo.title).toBe("My Site");
-			expect(seo.description).toBe("Site description");
-			expect(seo.url).toBe("https://example.com");
-		});
-
-		it("keeps useSeoTags as an alias", () => {
-			expect(useSeoTags(config, { title: "Alias" }).title).toBe(
-				useSeoTag(config, { title: "Alias" }).title,
-			);
 		});
 	});
 
@@ -309,11 +273,6 @@ describe("seo.service", () => {
 	});
 
 	describe("SiteConfig validation (IG008)", () => {
-		it("useSeoTag names the missing seo field instead of a TypeError", () => {
-			const broken = { ...config, seo: undefined as unknown as SiteConfig["seo"] };
-			expect(() => useSeoTag(broken, { title: "Post" })).toThrow("SiteConfig.seo is required");
-		});
-
 		it("useGenerateMetaTags names the missing seo field", () => {
 			const broken = { ...config, seo: undefined as unknown as SiteConfig["seo"] };
 			expect(() => useGenerateMetaTags(broken, { title: "Post" })).toThrow(
@@ -349,20 +308,8 @@ describe("seo.service", () => {
 			);
 		});
 
-		it("useSeoTag rejects a null config with an explicit error", () => {
-			expect(() => useSeoTag(null as unknown as SiteConfig, { title: "Post" })).toThrow(
-				"SiteConfig is required",
-			);
-		});
-
 		it("useRssHeadLink rejects a null config with an explicit error", () => {
 			expect(() => useRssHeadLink(null as unknown as SiteConfig)).toThrow("SiteConfig is required");
-		});
-
-		it("nav stays optional and does not throw", () => {
-			const withoutNav = { ...config };
-			delete withoutNav.nav;
-			expect(() => useSeoTag(withoutNav, { title: "Post" })).not.toThrow();
 		});
 	});
 

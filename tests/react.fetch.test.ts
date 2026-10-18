@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { useRequest } from "@/adapters/react/fetch.js";
 import { useWatch } from "@/adapters/react/watch.js";
-import { useInit } from "@/core/services/http.service.js";
+import { defineApiConfig } from "@/core/services/http.service.js";
 
 afterEach(() => {
 	cleanup();
@@ -21,7 +21,7 @@ function jsonResponse(body: unknown, status = 200): Response {
 
 describe("react/useRequest", () => {
 	it("resolves data into state on success", async () => {
-		useInit({ api: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
 		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ name: "pikachu" })));
 
 		function Pokemon(): ReactNode {
@@ -38,7 +38,7 @@ describe("react/useRequest", () => {
 		await waitFor(() => expect(screen.getByTestId("name").textContent).toBe("pikachu"));
 	});
 	it("forwards URL options to the built request URL", async () => {
-		useInit({ api: { baseUri: "https://example.com", endpoints: { item: "/items/:id" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { item: "/items/:id" } } });
 		const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ id: 7 }));
 		vi.stubGlobal("fetch", fetchMock);
 

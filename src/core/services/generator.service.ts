@@ -45,13 +45,6 @@ export const LazyNodeCryptoStrategy: ICryptoStrategy = {
 
 		return `${actualSalt}:${hash}`;
 	},
-
-	/**
-	 * @deprecated Use {@link LazyNodeCryptoStrategy.useHash} — this is PBKDF2 hashing, not encryption.
-	 */
-	async useEncrypt(plainText: string, salt?: string): Promise<string> {
-		return LazyNodeCryptoStrategy.useHash(plainText, salt);
-	},
 };
 
 /**
@@ -194,23 +187,6 @@ export function useToken(): number {
  * ```
  */
 export async function useHash(plainText: string, salt?: string): Promise<string> {
-	return LazyNodeCryptoStrategy.useHash(plainText, salt);
-}
-
-/**
- * @deprecated Use {@link useHash} — this is PBKDF2 hashing, not encryption.
- *
- * @param plainText - The text to hash.
- * @param salt - Optional hex salt.
- * @returns `"salt:hashHex"`.
- *
- * @example
- * ```ts
- * import { useHash } from "katanakit-js";
- * const digest = await useHash("secret");
- * ```
- */
-export async function useEncrypt(plainText: string, salt?: string): Promise<string> {
 	return LazyNodeCryptoStrategy.useHash(plainText, salt);
 }
 

@@ -124,8 +124,3 @@ export function useRequest<T>(
 
 	return { data, error, loading, refetch };
 }
-
-/**
- * @deprecated Use {@link useRequest} — renamed for brevity.
- */
-export const useKatanaFetch = useRequest;

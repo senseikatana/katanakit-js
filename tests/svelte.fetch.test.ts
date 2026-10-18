@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { useRequest } from "@/adapters/svelte/fetch.js";
 import { useWatch } from "@/adapters/svelte/watch.js";
-import { useInit } from "@/core/services/http.service.js";
+import { defineApiConfig } from "@/core/services/http.service.js";
 
 afterEach(() => {
 	vi.unstubAllGlobals();
@@ -18,7 +18,7 @@ function jsonResponse(body: unknown, status = 200): Response {
 
 describe("svelte/useRequest", () => {
 	it("resolves data into a store on success", async () => {
-		useInit({ api: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
 		vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ name: "pikachu" })));
 
 		const { data } = useRequest<{ name: string }>("api", "list");
@@ -26,7 +26,7 @@ describe("svelte/useRequest", () => {
 		await vi.waitFor(() => expect(get(data)).toEqual({ name: "pikachu" }));
 	});
 	it("forwards URL options to the built request URL", async () => {
-		useInit({ api: { baseUri: "https://example.com", endpoints: { item: "/items/:id" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { item: "/items/:id" } } });
 		const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ id: 7 }));
 		vi.stubGlobal("fetch", fetchMock);
 

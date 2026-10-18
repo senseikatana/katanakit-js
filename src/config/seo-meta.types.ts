@@ -179,24 +179,6 @@ export type UseSeoMetaOptions<OmitKeys extends keyof UseSeoMetaBase = never> = O
 	OmitKeys
 >;
 
-/**
- * Legacy page meta. Prefer {@link UseSeoMetaOptions}.
- * @deprecated
- */
-export interface SeoMeta {
-	title: string;
-	description?: string;
-	canonical?: string;
-	url?: string;
-	ogImage?: string;
-	ogType?: "website" | "article" | "profile";
-	publishedTime?: string;
-	modifiedTime?: string;
-	author?: string;
-	tags?: string[];
-	noindex?: boolean;
-}
-
 export interface SeoTagNode {
 	tag: "title" | "meta" | "link" | "script";
 	attrs?: Record<string, string>;

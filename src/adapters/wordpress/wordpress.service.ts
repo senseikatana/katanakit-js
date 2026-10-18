@@ -1224,34 +1224,8 @@ export function defineWordPressConfig<T extends WordPressConfig>(
 ): ConfigFacade<T> {
 	const { config: cfg, methods } = useSplitConfig(input);
 	// Zod strips the method entries, so the whole literal is safe to validate.
-	useInitWordPress(input);
+	WordPressService.getInstance().useInit(input as never);
 	return { config: cfg, ...methods } as ConfigFacade<T>;
-}
-
-/**
- * Registers the WordPress REST API configuration. Call this once before
- * any other WordPress function.
- *
- * @deprecated Use {@link defineWordPressConfig}, which registers the config and
- * returns it with any methods declared on the same literal.
- *
- * Supports multiple auth methods: Application Passwords (recommended for
- * plugins), JWT tokens, Basic Auth, and nonce-based auth for themes.
- *
- * @param cfg - Site URL, authentication method, and optional API namespace.
- *
- * @example
- * ```ts
- * import { useInitWordPress } from "katanakit-js/adapters/wordpress";
- *
- * useInitWordPress({
- *   baseUrl: "https://mysite.com",
- *   auth: { type: "application-passwords", username: "admin", password: "xxxx xxxx xxxx" },
- * });
- * ```
- */
-export function useInitWordPress(cfg: WordPressConfig): void {
-	WordPressService.getInstance().useInit(cfg);
 }
 
 /* -------------------------------------------------------------------------- */

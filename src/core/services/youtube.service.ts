@@ -11,7 +11,7 @@ import type {
 	YoutubeVideoPage,
 } from "@/types/index.js";
 
-import { useGet, useInitApis } from "./http.service.js";
+import { defineApiConfig, useGet } from "./http.service.js";
 import { useBuildYoutubeEmbedUrl, useBuildYoutubeThumbnail } from "./media.service.js";
 import { useValidate } from "./validation.service.js";
 
@@ -40,7 +40,7 @@ let youtubeConfig: YoutubeApiConfig = { apiKey: "", channelId: "" };
  */
 export function useInitYoutube(config: YoutubeApiConfig): void {
 	youtubeConfig = { ...config };
-	useInitApis({
+	defineApiConfig({
 		[YOUTUBE_API_NAME]: {
 			baseUri: YOUTUBE_BASE_URI,
 			endpoints: {

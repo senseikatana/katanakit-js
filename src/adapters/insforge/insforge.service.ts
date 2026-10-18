@@ -570,33 +570,12 @@ export function defineInsforgeConfig<T extends IfConfig>(
 ): ConfigFacade<T> {
 	const { config, methods } = useSplitConfig(input);
 	// Zod strips the method entries, so the whole literal is safe to validate.
-	useInitInsforge(input);
+	InsForgeService.getInstance().useInit(input as never);
 	return { config, ...methods } as ConfigFacade<T>;
 }
 
 /**
- * Registers the InsForge client. Call once per app. Prefer `apiKey`
- * (server-only, admin) or `anonKey` (browser-safe) depending on the runtime.
- *
- * @deprecated Use {@link defineInsforgeConfig}, which registers the config and
- * returns it with any methods declared on the same literal.
- *
- * @param config - Backend URL + credentials + optional schema.
- * @throws {Error} If the config fails validation.
- *
- * @example
- * ```ts
- * import { useInitInsforge } from "katanakit-js/adapters/insforge";
- *
- * useInitInsforge({ baseUrl: "https://app.insforge.app", anonKey: "…" });
- * ```
- */
-export function useInitInsforge(config: IfConfig): void {
-	InsForgeService.getInstance().useInit(config);
-}
-
-/**
- * Returns the initialized client (or `null` before `useInitInsforge`).
+ * Returns the initialized client (or `null` before init).
  * Exposed for advanced use - the wrappers cover the supported surface.
  *
  * @returns The InsForge client or `null`.

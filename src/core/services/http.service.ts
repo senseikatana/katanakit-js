@@ -280,20 +280,12 @@ export class FetchApiManager {
 	async useFetch<T = unknown>(
 		apiName: string,
 		endpointName: string,
-		{ params, query, ignoreDefaultQuery, urlOptions, transform, ...init }: FetchOptions<T> = {},
+		{ params, query, ignoreDefaultQuery, transform, ...init }: FetchOptions<T> = {},
 	): Promise<FetchResult<T>> {
 		let url = "";
 
-		// The flat keys and the deprecated `urlOptions` nest describe the same
-		// thing; the flat form wins. `undefined` means "not given", so it must not
-		// overwrite a value coming from the legacy nest.
-		const buildOptions: UrlOptions = { ...urlOptions };
-		if (params !== undefined) buildOptions.params = params;
-		if (query !== undefined) buildOptions.query = query;
-		if (ignoreDefaultQuery !== undefined) buildOptions.ignoreDefaultQuery = ignoreDefaultQuery;
-
 		try {
-			url = this.useBuildUrl(apiName, endpointName, buildOptions);
+			url = this.useBuildUrl(apiName, endpointName, { params, query, ignoreDefaultQuery });
 		} catch (err: unknown) {
 			const message = err instanceof Error ? err.message : String(err);
 			return {
@@ -522,7 +514,7 @@ export class FetchApiManager {
  *
  * Registers every {@link ApiEntry} you list and returns them alongside the
  * props, flags and methods declared on the same literal, so one `export default`
- * is the whole setup: no second `useInitApis(...)` step.
+ * is the whole setup: no second registration step.
  *
  * Only object entries shaped like `{ baseUri, endpoints }` reach the registry;
  * boolean flags are kept on `config` for your own methods to read.
@@ -566,7 +558,7 @@ export function defineApiConfig<T extends object>(
 			);
 		}
 	}
-	useInitApis(registered);
+	FetchApiManager.getInstance().useInit(registered);
 
 	// `methods` is a generic spread, so TS cannot prove the exact facade shape.
 	return { config, ...methods } as ConfigFacade<T>;
@@ -584,36 +576,6 @@ export function defineApiConfig<T extends object>(
  */
 export function useAddRequestInterceptor(interceptor: RequestInterceptor): () => void {
 	return FetchApiManager.getInstance().useAddRequestInterceptor(interceptor);
-}
-
-/**
- * Registers (merges) API definitions into the client registry.
- *
- * @deprecated Use {@link defineApiConfig}, which registers the config and
- * returns it with any methods declared on the same literal.
- *
- * @param apisConfig - The API definitions to merge into the registry.
- *
- * @example
- * ```ts
- * import { useInit } from "katanakit-js";
- *
- * useInit({ pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { pokemonById: "/pokemon/:id/" } } });
- * ```
- */
-export function useInit(apisConfig: ApisConfig): void {
-	FetchApiManager.getInstance().useInit(apisConfig);
-}
-
-/**
- * Registers (merges) API definitions into the client registry.
- *
- * @deprecated Use {@link defineApiConfig}.
- *
- * @param apisConfig - The API definitions to merge into the registry.
- */
-export function useInitApis(apisConfig: ApisConfig): void {
-	useInit(apisConfig);
 }
 
 /**
@@ -664,25 +626,6 @@ export function useBuildUrl(
 	options: UrlOptions = {},
 ): string {
 	return FetchApiManager.getInstance().useBuildUrl(apiName, endpointName, options);
-}
-
-/**
- * Builds a safe http(s) URL from a registered API + endpoint.
- *
- * @deprecated Use {@link useBuildUrl}. Behaviourally identical wrapper kept
- * for backwards compatibility - scheduled for removal in the next major.
- *
- * @param apiName - The registered API key.
- * @param endpointName - The endpoint key within the API.
- * @param options - Optional URL building options.
- * @returns The fully constructed URL string.
- */
-export function useBuildApiUrl(
-	apiName: string,
-	endpointName: string,
-	options: UrlOptions = {},
-): string {
-	return useBuildUrl(apiName, endpointName, options);
 }
 
 /**

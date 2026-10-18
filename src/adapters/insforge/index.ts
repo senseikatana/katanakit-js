@@ -18,7 +18,6 @@ export {
 	useIfSelect,
 	useIfUpdate,
 	useIfUpload,
-	useInitInsforge,
 } from "./insforge.service.js";
 export type {
 	IfConfig,

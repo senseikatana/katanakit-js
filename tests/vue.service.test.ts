@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { ref } from "vue";
 
 import { useRequest } from "@/adapters/vue/vue.service";
-import { useInit } from "@/core/services/http.service";
+import { defineApiConfig } from "@/core/services/http.service";
 
 function jsonResponse(body: unknown, status = 200): Response {
 	return new Response(JSON.stringify(body), {
@@ -17,7 +17,7 @@ describe("Vue adapter — useRequest", () => {
 	});
 
 	it("resolves data into reactive state on success", async () => {
-		useInit({ api: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
 		vi.stubGlobal(
 			"fetch",
 			vi.fn().mockImplementation(() => Promise.resolve(jsonResponse({ items: [1, 2, 3] }))),
@@ -33,7 +33,7 @@ describe("Vue adapter — useRequest", () => {
 	});
 
 	it("captures the safe error on failure without throwing", async () => {
-		useInit({ api: { baseUri: "https://example.com", endpoints: { missing: "/missing" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { missing: "/missing" } } });
 		vi.stubGlobal(
 			"fetch",
 			vi.fn().mockImplementation(() => Promise.resolve(jsonResponse({}, 404))),
@@ -49,7 +49,7 @@ describe("Vue adapter — useRequest", () => {
 	});
 
 	it("refetches automatically when the reactive options ref changes", async () => {
-		useInit({ api: { baseUri: "https://example.com", endpoints: { item: "/items/:id" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { item: "/items/:id" } } });
 		const fetchMock = vi.fn().mockImplementation(() => Promise.resolve(jsonResponse({ id: 1 })));
 		vi.stubGlobal("fetch", fetchMock);
 

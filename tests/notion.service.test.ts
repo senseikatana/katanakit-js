@@ -2,7 +2,6 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
 	defineNotionConfig,
-	useInitNotion,
 	useNotionGetPage,
 	useNotionSearchContent,
 } from "@/adapters/notion/notion.service";
@@ -21,7 +20,7 @@ afterEach(() => {
 describe("notion.service", () => {
 	describe("useNotionGetPage", () => {
 		it("returns the page on success", async () => {
-			useInitNotion({ token: "secret_test" });
+			defineNotionConfig({ token: "secret_test" });
 			vi.stubGlobal(
 				"fetch",
 				vi.fn().mockResolvedValue(
@@ -45,7 +44,7 @@ describe("notion.service", () => {
 		});
 
 		it("returns 502 for a malformed page payload", async () => {
-			useInitNotion({ token: "secret_test" });
+			defineNotionConfig({ token: "secret_test" });
 			vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ object: "page", id: 42 })));
 			const result = await useNotionGetPage("page-id");
 			expect(result.ok).toBe(false);
@@ -58,7 +57,7 @@ describe("notion.service", () => {
 
 	describe("useNotionSearchContent", () => {
 		it("returns 400 without fetch for an invalid filter value", async () => {
-			useInitNotion({ token: "secret_test" });
+			defineNotionConfig({ token: "secret_test" });
 			const fetchMock = vi.fn().mockResolvedValue(jsonResponse({}));
 			vi.stubGlobal("fetch", fetchMock);
 			const result = await useNotionSearchContent({
@@ -70,9 +69,9 @@ describe("notion.service", () => {
 		});
 	});
 
-	describe("useInitNotion", () => {
+	describe("defineNotionConfig", () => {
 		it("throws for a bad config", () => {
-			expect(() => useInitNotion({ token: 42 } as unknown as { token: string })).toThrow(
+			expect(() => defineNotionConfig({ token: 42 } as unknown as { token: string })).toThrow(
 				/\[Notion\] Invalid config/,
 			);
 		});

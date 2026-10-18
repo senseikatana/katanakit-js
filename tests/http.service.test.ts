@@ -3,13 +3,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
 	defineApiConfig,
 	useAddRequestInterceptor,
-	useBuildApiUrl,
 	useBuildUrl,
 	useFetch,
 	useGet,
 	useGetApis,
-	useInit,
-	useInitApis,
 	usePost,
 } from "@/core/services/http.service";
 import type { UrlOptions } from "@/types/index";
@@ -19,7 +16,7 @@ describe("FetchApiManager", () => {
 		vi.unstubAllGlobals();
 	});
 	it("builds a URL with path params and query params", () => {
-		useInitApis({
+		defineApiConfig({
 			pokeapi: {
 				baseUri: "https://pokeapi.co/api/v2",
 				endpoints: { pokemonById: "/pokemon/:id/" },
@@ -35,7 +32,7 @@ describe("FetchApiManager", () => {
 	});
 
 	it("encodes path params safely", () => {
-		useInit({
+		defineApiConfig({
 			api: {
 				baseUri: "https://example.com",
 				endpoints: { user: "/users/:name" },
@@ -48,7 +45,7 @@ describe("FetchApiManager", () => {
 	});
 
 	it("registers apis and exposes a shallow copy", () => {
-		useInitApis({ sample: { baseUri: "https://sample.com", endpoints: { all: "/all" } } });
+		defineApiConfig({ sample: { baseUri: "https://sample.com", endpoints: { all: "/all" } } });
 		const apis = useGetApis();
 		expect(apis.sample).toBeDefined();
 		apis.sample = { baseUri: "https://mutated.com", endpoints: {} };
@@ -63,7 +60,7 @@ describe("FetchApiManager", () => {
 	});
 
 	it("returns a safe result on a successful JSON response", async () => {
-		useInitApis({ okApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		defineApiConfig({ okApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
 
 		const fetchMock = vi.fn().mockResolvedValue(
 			new Response(JSON.stringify({ items: [1, 2, 3] }), {
@@ -81,7 +78,9 @@ describe("FetchApiManager", () => {
 	});
 
 	it("returns a safe error result on a 4xx response with non-JSON body", async () => {
-		useInitApis({ failApi: { baseUri: "https://example.com", endpoints: { missing: "/missing" } } });
+		defineApiConfig({
+			failApi: { baseUri: "https://example.com", endpoints: { missing: "/missing" } },
+		});
 
 		const fetchMock = vi.fn().mockResolvedValue(
 			new Response("Not Found plain text", {
@@ -102,7 +101,7 @@ describe("FetchApiManager", () => {
 	});
 
 	it("handles 204 No Content without failing JSON parse", async () => {
-		useInitApis({ emptyApi: { baseUri: "https://example.com", endpoints: { noop: "/noop" } } });
+		defineApiConfig({ emptyApi: { baseUri: "https://example.com", endpoints: { noop: "/noop" } } });
 
 		const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 204 }));
 		vi.stubGlobal("fetch", fetchMock);
@@ -117,7 +116,7 @@ describe("FetchApiManager", () => {
 
 	it("posts FormData without forcing JSON Content-Type", async () => {
 		const { usePost } = await import("@/core/services/http.service");
-		useInitApis({ upload: { baseUri: "https://example.com", endpoints: { file: "/upload" } } });
+		defineApiConfig({ upload: { baseUri: "https://example.com", endpoints: { file: "/upload" } } });
 
 		const fetchMock = vi.fn().mockResolvedValue(
 			new Response(JSON.stringify({ ok: true }), {
@@ -139,7 +138,7 @@ describe("FetchApiManager", () => {
 
 	it("patches JSON bodies with application/json", async () => {
 		const { usePatch } = await import("@/core/services/http.service");
-		useInitApis({ api: { baseUri: "https://example.com", endpoints: { item: "/item" } } });
+		defineApiConfig({ api: { baseUri: "https://example.com", endpoints: { item: "/item" } } });
 
 		const fetchMock = vi.fn().mockResolvedValue(
 			new Response(JSON.stringify({ ok: true }), {
@@ -246,7 +245,9 @@ describe("useFetch flat options", () => {
 	});
 
 	it("builds the URL from top-level `params` and `query`", async () => {
-		useInitApis({ flatapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } } });
+		defineApiConfig({
+			flatapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } },
+		});
 		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
 		vi.stubGlobal("fetch", fetchMock);
 
@@ -260,36 +261,8 @@ describe("useFetch flat options", () => {
 		expect(url).toBe("https://example.com/items/7?limit=2");
 	});
 
-	it("still honours the legacy `urlOptions` nest", async () => {
-		useInitApis({ legacyapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } } });
-		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
-		vi.stubGlobal("fetch", fetchMock);
-
-		await useFetch("legacyapi", "byId", {
-			urlOptions: { params: { id: 9 }, query: { limit: 1 } },
-		});
-
-		const [url] = fetchMock.mock.calls[0] as [string];
-		expect(url).toBe("https://example.com/items/9?limit=1");
-	});
-
-	it("lets the flat form win when both are given", async () => {
-		useInitApis({ bothapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } } });
-		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
-		vi.stubGlobal("fetch", fetchMock);
-
-		await useFetch("bothapi", "byId", {
-			params: { id: 1 },
-			query: { limit: 5 },
-			urlOptions: { params: { id: 2 }, query: { limit: 9 } },
-		});
-
-		const [url] = fetchMock.mock.calls[0] as [string];
-		expect(url).toBe("https://example.com/items/1?limit=5");
-	});
-
 	it("keeps its own options out of the RequestInit passed to fetch", async () => {
-		useInitApis({ cleanapi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		defineApiConfig({ cleanapi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
 		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
 		vi.stubGlobal("fetch", fetchMock);
 
@@ -301,7 +274,7 @@ describe("useFetch flat options", () => {
 		});
 
 		const init = fetchMock.mock.calls[0][1] as Record<string, unknown>;
-		for (const key of ["params", "query", "ignoreDefaultQuery", "urlOptions", "transform"]) {
+		for (const key of ["params", "query", "ignoreDefaultQuery", "transform"]) {
 			expect(init).not.toHaveProperty(key);
 		}
 	});
@@ -319,7 +292,9 @@ describe("useFetch request interceptors", () => {
 	});
 
 	it("runs interceptors in registration order and passes the modified request to fetch", async () => {
-		useInitApis({ interceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		defineApiConfig({
+			interceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
+		});
 		const order: string[] = [];
 		const fetchMock = vi.fn().mockResolvedValue(okJson());
 		vi.stubGlobal("fetch", fetchMock);
@@ -352,7 +327,7 @@ describe("useFetch request interceptors", () => {
 	});
 
 	it("stops the chain and returns a safe error when an interceptor rejects", async () => {
-		useInitApis({
+		defineApiConfig({
 			rejectedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
 		});
 		const fetchMock = vi.fn();
@@ -381,7 +356,7 @@ describe("useFetch request interceptors", () => {
 	});
 
 	it("unregisters an interceptor and preserves the original fetch inputs", async () => {
-		useInitApis({
+		defineApiConfig({
 			unsubscribedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
 		});
 		const interceptor = vi.fn();
@@ -397,7 +372,7 @@ describe("useFetch request interceptors", () => {
 	});
 
 	it("rejects interceptor URL schemes outside HTTP and HTTPS", async () => {
-		useInitApis({
+		defineApiConfig({
 			unsafeInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
 		});
 		const fetchMock = vi.fn();
@@ -431,7 +406,7 @@ describe("useFetch transform", () => {
 	});
 
 	beforeEach(() => {
-		useInitApis({
+		defineApiConfig({
 			transformapi: { baseUri: "https://example.com", endpoints: { raw: "/raw" } },
 		});
 	});
@@ -497,13 +472,13 @@ describe("useFetch transform", () => {
 	});
 });
 
-describe("useBuildApiUrl", () => {
+describe("useBuildUrl", () => {
 	it("is the deprecated alias of useBuildUrl", () => {
-		useInitApis({
+		defineApiConfig({
 			aliasapi: { baseUri: "https://example.com", endpoints: { byId: "/items/:id" } },
 		});
 
-		expect(useBuildApiUrl("aliasapi", "byId", { params: { id: 4 } })).toBe(
+		expect(useBuildUrl("aliasapi", "byId", { params: { id: 4 } })).toBe(
 			useBuildUrl("aliasapi", "byId", { params: { id: 4 } }),
 		);
 	});
@@ -522,26 +497,13 @@ describe("useFetch URL option merge", () => {
 
 	/** Registered with `defaultQueryParams` so the merge path is exercised. */
 	beforeEach(() => {
-		useInitApis({
+		defineApiConfig({
 			mergeapi: {
 				baseUri: "https://example.com",
 				endpoints: { list: "/list", byId: "/items/:id", create: "/items" },
 				defaultQueryParams: { list: { apiKey: "secret", page: 1 } },
 			},
 		});
-	});
-
-	it("merges flat and legacy keys key-by-key, not object-by-object", async () => {
-		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
-		vi.stubGlobal("fetch", fetchMock);
-
-		await useFetch("mergeapi", "byId", {
-			urlOptions: { params: { id: 9 } }, // legacy supplies params
-			query: { limit: 3 }, // flat supplies query
-		});
-
-		const [url] = fetchMock.mock.calls[0] as [string];
-		expect(url).toBe("https://example.com/items/9?limit=3");
 	});
 
 	it("merges flat query into the endpoint defaultQueryParams", async () => {
@@ -575,19 +537,6 @@ describe("useFetch URL option merge", () => {
 		expect(url).toBe("https://example.com/list");
 	});
 
-	it("lets flat `ignoreDefaultQuery: false` beat a legacy `true`", async () => {
-		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
-		vi.stubGlobal("fetch", fetchMock);
-
-		await useFetch("mergeapi", "list", {
-			ignoreDefaultQuery: false,
-			urlOptions: { ignoreDefaultQuery: true },
-		});
-
-		const [url] = fetchMock.mock.calls[0] as [string];
-		expect(url).toBe("https://example.com/list?apiKey=secret&page=1");
-	});
-
 	it("forwards URL options from the useGet/usePost wrappers", async () => {
 		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
 		vi.stubGlobal("fetch", fetchMock);
@@ -601,20 +550,5 @@ describe("useFetch URL option merge", () => {
 		// serializeBody's JSON Content-Type must survive the URL options pass-through
 		const init = fetchMock.mock.calls[1][1] as RequestInit;
 		expect(init.headers).toEqual({ "Content-Type": "application/json" });
-	});
-
-	it("ignores stray non-URL keys a JS caller puts in urlOptions", async () => {
-		const fetchMock = vi.fn().mockResolvedValue(okJson({ ok: true }));
-		vi.stubGlobal("fetch", fetchMock);
-
-		// JS callers have no excess-property checks — simulate one.
-		await usePost("mergeapi", "create", { name: "x" }, {
-			method: "PATCH",
-			headers: { Authorization: "Bearer nope" },
-		} as unknown as UrlOptions);
-
-		const init = fetchMock.mock.calls[0][1] as RequestInit;
-		expect(init.method).toBe("POST"); // the wrapper's verb wins
-		expect(init.headers).toEqual({ "Content-Type": "application/json" }); // not clobbered
 	});
 });

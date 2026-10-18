@@ -1,6 +1,5 @@
 export {
 	defineWordPressConfig,
-	useInitWordPress,
 	useWpAssignRole,
 	useWpAsSubject,
 	useWpAuditRole,

@@ -1,7 +1,6 @@
 export type {
 	SeoArrayable,
 	SeoBooleanable,
-	SeoMeta,
 	SeoMetaArticle,
 	SeoMetaFlat,
 	SeoMetaInput,
@@ -9,7 +8,6 @@ export type {
 	SeoRobotsObject,
 	SeoTagNode,
 	SeoTagResult,
-	SeoTagsResult,
 	UseSeoMetaBase,
 	UseSeoMetaOptions,
 } from "./seo.service.js";
@@ -22,8 +20,6 @@ export {
 	useRssHeadLink,
 	useSeoMeta,
 	useSeoMetaConfig,
-	useSeoTag,
-	useSeoTags,
 	useTitle,
 } from "./seo.service.js";
 export { type SiteConfig, siteConfig } from "./site.config.js";

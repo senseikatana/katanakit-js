@@ -415,14 +415,6 @@ export interface FetchOptions<T = any> extends RequestInit {
 	query?: QueryParams;
 	/** Skip the endpoint's `defaultQueryParams` instead of merging them. */
 	ignoreDefaultQuery?: boolean;
-	/**
-	 * Nested form of {@link FetchOptions.params}, {@link FetchOptions.query} and
-	 * {@link FetchOptions.ignoreDefaultQuery}.
-	 *
-	 * @deprecated Pass them at the top level instead. Kept for backwards
-	 * compatibility and scheduled for removal in the next major.
-	 */
-	urlOptions?: UrlOptions;
 	/** Maps the parsed response body to `T` before it is returned. */
 	transform?: (input: unknown) => T | Promise<T>;
 }
@@ -470,15 +462,9 @@ export type RequestInterceptor = (request: FetchRequest) => void | Promise<void>
 
 /** Contract of the fetch facade. */
 export interface IFetchApiManager {
-	/** @deprecated Use `defineApiConfig`. */
-	useInit(apis: ApisConfig): void;
-	/** @deprecated Use `defineApiConfig`. */
-	useInitApis(apis: ApisConfig): void;
 	useGetApis(): ApisConfig;
 	useGetApisConfig(): ApisConfig;
 	useBuildUrl(apiName: string, endpointName: string, options?: UrlOptions): string;
-	/** @deprecated Use `useBuildUrl`. */
-	useBuildApiUrl(apiName: string, endpointName: string, options?: UrlOptions): string;
 	useAddRequestInterceptor(interceptor: RequestInterceptor): () => void;
 	useFetch<T = unknown>(
 		apiName: string,
@@ -567,8 +553,6 @@ export interface IConverterService {
 /** Contract for a crypto strategy. */
 export interface ICryptoStrategy {
 	useHash(plainText: string, salt?: string): Promise<string>;
-	/** @deprecated Use {@link useHash}. */
-	useEncrypt(plainText: string, salt?: string): Promise<string>;
 }
 
 /** Contract for a UUID strategy. */
@@ -1117,8 +1101,6 @@ export type NotionSearchResult = z.infer<typeof NotionSearchResultSchema>;
 
 /** Contract of the Notion adapter facade. */
 export interface INotionService {
-	/** @deprecated Use `defineNotionConfig`. */
-	useInitNotion(config: NotionConfig): void;
 	useNotionGetPage(pageId: string): Promise<FetchResult<NotionPage>>;
 	useNotionCreatePage(
 		parent: NotionParent,
@@ -1323,8 +1305,6 @@ export type WpBatchResult = z.infer<typeof WpBatchResultSchema>;
 
 /** Contract of the WordPress adapter facade. */
 export interface IWordPressService {
-	/** @deprecated Use `defineWordPressConfig`. */
-	useInitWordPress(config: WordPressConfig): void;
 	useWpGetPosts(options?: WpQueryParams): Promise<FetchResult<WpPost[]>>;
 	useWpGetPost(id: number, options?: WpQueryParams): Promise<FetchResult<WpPost>>;
 	useWpCreatePost(data: WpPostCreate): Promise<FetchResult<WpPost>>;

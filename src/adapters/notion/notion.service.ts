@@ -513,29 +513,8 @@ export function defineNotionConfig<T extends NotionConfig>(
 ): ConfigFacade<T> {
 	const { config: cfg, methods } = useSplitConfig(input);
 	// Zod strips the method entries, so the whole literal is safe to validate.
-	useInitNotion(input);
+	NotionService.getInstance().useInit(input as never);
 	return { config: cfg, ...methods } as ConfigFacade<T>;
-}
-
-/**
- * Registers the Notion API configuration. Call this once before any other
- * Notion function.
- *
- * @deprecated Use {@link defineNotionConfig}, which registers the config and
- * returns it with any methods declared on the same literal.
- *
- * @param cfg - Integration token (starts with "ntn_" or "secret_"), optional
- *   API version and base URL.
- *
- * @example
- * ```ts
- * import { useInitNotion } from "katanakit-js/adapters/notion";
- *
- * useInitNotion({ token: process.env.NOTION_TOKEN });
- * ```
- */
-export function useInitNotion(cfg: NotionConfig): void {
-	NotionService.getInstance().useInit(cfg);
 }
 
 /* -------------------------------------------------------------------------- */

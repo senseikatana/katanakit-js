@@ -17,7 +17,6 @@ import {
 	useIfSelect,
 	useIfUpdate,
 	useIfUpload,
-	useInitInsforge,
 } from "@/adapters/insforge/insforge.service";
 
 /** Builds a thenable builder that records chained calls. */
@@ -84,13 +83,17 @@ describe("insforge.service", () => {
 		});
 	});
 
-	describe("useInitInsforge", () => {
+	describe("defineInsforgeConfig", () => {
 		it("throws on invalid config", () => {
-			expect(() => useInitInsforge({ baseUrl: "" })).toThrow(/Invalid config/);
+			expect(() => defineInsforgeConfig({ baseUrl: "" })).toThrow(/Invalid config/);
 		});
 
 		it("creates a browser client with anonKey and schema", () => {
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon", schema: "analytics" });
+			defineInsforgeConfig({
+				baseUrl: "https://x.insforge.app",
+				anonKey: "anon",
+				schema: "analytics",
+			});
 			expect(createClientMock).toHaveBeenCalledWith({
 				baseUrl: "https://x.insforge.app",
 				anonKey: "anon",
@@ -100,7 +103,7 @@ describe("insforge.service", () => {
 		});
 
 		it("prefers the admin client when apiKey is provided", () => {
-			useInitInsforge({ baseUrl: "https://x.insforge.app", apiKey: "secret" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", apiKey: "secret" });
 			expect(createAdminClientMock).toHaveBeenCalledWith({
 				baseUrl: "https://x.insforge.app",
 				apiKey: "secret",
@@ -134,7 +137,7 @@ describe("insforge.service", () => {
 	describe("useIfSelect", () => {
 		it("returns rows and applies filters, order, limit and offset", async () => {
 			const { table, builder } = setupClient({ data: [{ id: 1 }], error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfSelect<{ id: number }>({
 				table: "posts",
@@ -155,7 +158,7 @@ describe("insforge.service", () => {
 
 		it("rejects an empty table without touching the client", async () => {
 			const { database } = setupClient({ data: [], error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfSelect({ table: "" });
 
@@ -166,7 +169,7 @@ describe("insforge.service", () => {
 
 		it("maps SDK errors to a Safe Result", async () => {
 			setupClient({ data: null, error: { message: "RLS denied", statusCode: 403 } });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfSelect({ table: "posts" });
 
@@ -181,7 +184,7 @@ describe("insforge.service", () => {
 	describe("writes", () => {
 		it("inserts rows and returns created rows", async () => {
 			const { table } = setupClient({ data: [{ id: 9 }], error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfInsert("posts", [{ title: "Hi" }]);
 
@@ -191,7 +194,7 @@ describe("insforge.service", () => {
 
 		it("refuses to insert an empty batch", async () => {
 			const { table } = setupClient({ data: [], error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfInsert("posts", []);
 
@@ -202,7 +205,7 @@ describe("insforge.service", () => {
 
 		it("refuses mass updates without filters", async () => {
 			const { table } = setupClient({ data: [], error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfUpdate({ table: "posts", filters: {} }, { title: "x" });
 
@@ -213,7 +216,7 @@ describe("insforge.service", () => {
 
 		it("updates with filters", async () => {
 			const { builder } = setupClient({ data: [{ id: 1 }], error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfUpdate({ table: "posts", filters: { id: 1 } }, { title: "x" });
 
@@ -223,7 +226,7 @@ describe("insforge.service", () => {
 
 		it("deletes with filters", async () => {
 			const { builder } = setupClient({ data: [{ id: 2 }], error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfDelete({ table: "posts", filters: { id: 2 } });
 
@@ -235,7 +238,7 @@ describe("insforge.service", () => {
 	describe("storage", () => {
 		it("uploads a file", async () => {
 			const { bucket } = setupClient({ data: null, error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const result = await useIfUpload({ bucket: "media", path: "a.png" }, new Blob(["x"]));
 
@@ -245,7 +248,7 @@ describe("insforge.service", () => {
 
 		it("lists objects and builds public URLs", async () => {
 			setupClient({ data: null, error: null });
-			useInitInsforge({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
+			defineInsforgeConfig({ baseUrl: "https://x.insforge.app", anonKey: "anon" });
 
 			const listed = await useIfListObjects("media", { prefix: "2024/" });
 			const publicUrl = useIfGetPublicUrl({ bucket: "media", path: "a.png" });

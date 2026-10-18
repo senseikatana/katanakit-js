@@ -1,6 +1,5 @@
 export {
 	defineNotionConfig,
-	useInitNotion,
 	useNotionAppendBlocks,
 	useNotionArchivePage,
 	useNotionCreateDatabase,

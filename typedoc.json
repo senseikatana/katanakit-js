@@ -21,6 +21,7 @@
 	"indexFormat": "table",
 	"excludePrivate": true,
 	"excludeInternal": true,
+	"excludeExternals": true,
 	"externalSymbolLinkMappings": {
 		"@tanstack/query-core": {
 			"functionalUpdate": "#"

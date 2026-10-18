@@ -1,5 +1,4 @@
 import type {
-	SeoMeta,
 	SeoMetaInput,
 	SeoOgImageObject,
 	SeoRobotsObject,
@@ -12,7 +11,6 @@ import { type SiteConfig, siteConfig as defaultSiteConfig } from "./site.config.
 export type {
 	SeoArrayable,
 	SeoBooleanable,
-	SeoMeta,
 	SeoMetaArticle,
 	SeoMetaFlat,
 	SeoMetaInput,
@@ -37,9 +35,6 @@ export type SeoTagResult = UseSeoMetaOptions & {
 	tags: SeoTagNode[];
 	jsonLd?: Record<string, unknown>;
 };
-
-/** @deprecated Use {@link SeoTagResult}. */
-export type SeoTagsResult = SeoTagResult;
 
 /**
  * SEO helper: one flat object in → one flat object out (+ html/tags).
@@ -167,18 +162,6 @@ export function useSeoMetaConfig(): SiteConfig {
 export function useResetSeoMetaConfig(): void {
 	registeredSiteConfig = null;
 }
-
-/**
- * @deprecated Prefer {@link useSeoMeta} with a unified flat object.
- * Legacy: `useSeoTag(siteConfig, { title, description, ... })`.
- */
-export function useSeoTag(config: SiteConfig, meta: SeoMeta): SeoTagResult {
-	assertSiteConfigSeo(config, "useSeoTag");
-	return useSeoMeta({ ...siteConfigToOpts(config, "useSeoTag"), ...legacySeoMetaToInput(meta) });
-}
-
-/** @deprecated Prefer {@link useSeoMeta}. */
-export const useSeoTags = useSeoTag;
 
 /**
  * Fail-fast guard for legacy `SiteConfig` inputs.
@@ -311,12 +294,12 @@ export function useApplySeoTag(
 }
 
 /** HTML string of meta tags (no RSS). Prefer {@link useSeoMeta}. */
-export function useGenerateMetaTags(config: SiteConfig, meta: SeoMeta): string {
+export function useGenerateMetaTags(config: SiteConfig, meta: SeoMetaInput): string {
 	assertSiteConfigSeo(config, "useGenerateMetaTags");
 	assertSiteConfigRss(config, "useGenerateMetaTags");
 	const { tags } = useSeoMeta({
 		...siteConfigToOpts({ ...config, rss: { ...config.rss, enabled: false } }, "useGenerateMetaTags"),
-		...legacySeoMetaToInput(meta),
+		...meta,
 	});
 	return serializeSeoTags(tags.filter((t) => !(t.tag === "link" && t.attrs?.rel === "alternate")));
 }
@@ -337,48 +320,9 @@ export function useRssHeadLink(config: SiteConfig): string {
 	return node ? serializeSeoTag(node) : "";
 }
 
-/** Full `<head>` HTML (meta + RSS). Accepts legacy `SeoMeta` or flat {@link SeoMetaInput}. */
-export function useHeadTags(config: SiteConfig, meta: SeoMeta | SeoMetaInput): string {
-	if (isLegacySeoMeta(meta)) {
-		return useSeoTag(config, meta).html;
-	}
+/** Full `<head>` HTML (meta + RSS) from a flat {@link SeoMetaInput}. */
+export function useHeadTags(config: SiteConfig, meta: SeoMetaInput): string {
 	return useSeoMeta({ ...siteConfigToOpts(config, "useHeadTags"), ...meta }).html;
-}
-
-function isLegacySeoMeta(meta: SeoMeta | SeoMetaInput): meta is SeoMeta {
-	return (
-		"publishedTime" in meta ||
-		"modifiedTime" in meta ||
-		"noindex" in meta ||
-		("tags" in meta && !("articleTag" in meta))
-	);
-}
-
-// --- Merge & legacy ---
-
-function legacySeoMetaToInput(meta: SeoMeta): SeoMetaInput {
-	const input: SeoMetaInput = {
-		title: meta.title,
-	};
-	if (meta.description != null) input.description = meta.description;
-	if (meta.canonical != null) input.canonical = meta.canonical;
-	if (meta.url != null) {
-		input.url = meta.url;
-		input.ogUrl = meta.url;
-	}
-	if (meta.ogImage != null) input.ogImage = meta.ogImage;
-	if (meta.ogType != null) input.ogType = meta.ogType;
-	if (meta.author != null) input.author = meta.author;
-	if (meta.ogType === "article") {
-		if (meta.publishedTime != null) input.articlePublishedTime = meta.publishedTime;
-		if (meta.modifiedTime != null) input.articleModifiedTime = meta.modifiedTime;
-		if (meta.tags != null) input.articleTag = meta.tags;
-		if (meta.author) input.articleAuthor = [meta.author];
-	}
-	if (meta.noindex) {
-		input.robots = "noindex, nofollow";
-	}
-	return input;
 }
 
 function mergeSeoDefaults(input: SeoMetaInput, config?: SiteConfig): SeoMetaInput {

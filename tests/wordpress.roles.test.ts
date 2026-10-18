@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
-	useInitWordPress,
+	defineWordPressConfig,
 	useWpAssignRole,
 	useWpAsSubject,
 	useWpAuditRole,
@@ -51,7 +51,7 @@ function user(id: number, roles: string[], capabilities: Record<string, boolean>
 }
 
 beforeEach(() => {
-	useInitWordPress({ baseUrl: "https://example.com" });
+	defineWordPressConfig({ baseUrl: "https://example.com" });
 	useWpResetRoles();
 	useResetAccessRoles();
 });
