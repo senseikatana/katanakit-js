@@ -1,9 +1,7 @@
-import { useGetStorage, useSetStorage } from "../../infrastructure/storage/storage.service.js";
 import type {
 	SignalGetter,
 	SignalListener,
 	SignalSetter,
-	StorageTarget,
 	Subscribable,
 	ToggleSignalSetter,
 } from "../../types/index.js";
@@ -235,53 +233,6 @@ export function useCreateToggle(initialValue = false): [SignalGetter<boolean>, T
 	const toggle = () => set((prev) => !prev);
 
 	return [get, { useSet: set, useToggle: toggle }];
-}
-
-/**
- * Creates a signal that persists its value to a storage backend
- * (localStorage, sessionStorage, etc.). Reads the initial value from
- * storage on creation.
- *
- * @typeParam T - The signal value type.
- * @param key - Storage key.
- * @param fallbackValue - Value used when the key is not in storage.
- * @param target - Storage backend (defaults to `"localStorage"`).
- * @returns A tuple of `[getter, setter]`. The setter writes through to
- *   storage.
- *
- * @example
- * ```ts
- * const [theme, setTheme] = useCreateStorageSignal("theme", "dark");
- * theme(); // "dark" (or whatever was stored)
- * setTheme("light"); // persists to localStorage
- * ```
- */
-export function useCreateStorageSignal<T>(
-	key: string,
-	fallbackValue: T,
-	target: StorageTarget = "localStorage",
-): [SignalGetter<T>, SignalSetter<T>] {
-	let initial: T = fallbackValue;
-
-	// StorageStrategy implementations never throw: unavailable backends return null.
-	const stored = useGetStorage<T>(key, target);
-	if (stored !== null && stored !== undefined) {
-		initial = stored;
-	}
-
-	const [get, set] = useCreateSignal<T>(initial);
-
-	const setWithStorage: SignalSetter<T> = (nextValue) => {
-		set((prev) => {
-			const newValue = typeof nextValue === "function" ? (nextValue as (p: T) => T)(prev) : nextValue;
-
-			useSetStorage(key, newValue, target);
-
-			return newValue;
-		});
-	};
-
-	return [get, setWithStorage];
 }
 
 /**

@@ -595,11 +595,6 @@ export interface IReactiveService {
 	): () => void;
 	useCreateMemo<T>(computation: () => T, signals?: Subscribable<unknown>[]): SignalGetter<T>;
 	useCreateToggle(initialValue?: boolean): [SignalGetter<boolean>, ToggleSignalSetter];
-	useCreateStorageSignal<T>(
-		key: string,
-		fallbackValue: T,
-		target?: StorageTarget,
-	): [SignalGetter<T>, SignalSetter<T>];
 	useCreateDebouncedSignal<T>(
 		initialValue: T,
 		delayMs?: number,
