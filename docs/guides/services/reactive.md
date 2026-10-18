@@ -454,6 +454,13 @@ written back on every setter call. It composes the
 [Storage](/guides/services/storage) service, inheriting its SSR-safe and
 private-mode-safe behavior.
 
+Because it is the one reactive helper that performs I/O, it is implemented in
+the infrastructure layer (`storage/storage-signal.service.ts`) rather than in
+`core/`, and still exported from the main barrel — the import below is
+unchanged. See
+[ADR-0004](/explanation/decisions/adr-0004-hexagonal-core) for the layering
+rule and the regression test that enforces it.
+
 **Parameters**
 
 | Name            | Type                          | Default          | Description                              |

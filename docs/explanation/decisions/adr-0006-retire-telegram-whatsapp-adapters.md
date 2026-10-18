@@ -1,11 +1,11 @@
 ---
 title: "ADR-0006: Retire the Telegram and WhatsApp adapters"
-description: Both channel adapters are removed from the exports map in v7; the rule in ADR-0003 stands, its list is shorter.
+description: Both channel adapters are removed from the exports map in 6.11.2; the rule in ADR-0003 stands, its list is shorter.
 ---
 
 # ADR-0006: Retire the Telegram and WhatsApp adapters
 
-**Status:** Accepted · **Date:** 2026-10-18 (released in v7.0.0)
+**Status:** Accepted · **Date:** 2026-10-18 (released in **6.11.2**)
 **Amends:** [ADR-0003](/explanation/decisions/adr-0003-adapter-subpath-exports)
 
 ## Context
@@ -44,9 +44,13 @@ imported by `src/adapters/assistant`, so a consumer of
 must for `express` and `cors`. This closes the ADR-0003 peer-dependency rule
 violation for every remaining adapter.
 
-This is a **breaking change**, released as **7.0.0**. ADR-0003's *rule* — every
-adapter lives on a subpath, every framework is an optional peer — is unchanged
-and still applies to the 24 remaining subpaths. Only its enumeration shrinks.
+This is a **breaking change**: the subpaths were declared in `exports`, so a
+consumer importing them on `^6.11.2` gets `ERR_PACKAGE_PATH_NOT_EXPORTED`
+without ever having agreed to a major. It shipped as a patch release and its
+commit subjects were typed `fix:`, which understates it for anyone scanning
+the changelog for removals. ADR-0003's *rule* — every adapter lives on a
+subpath, every framework is an optional peer — is unchanged and still applies
+to the 24 remaining subpaths. Only its enumeration shrinks.
 
 ADR-0003 is left untouched on purpose. Its list was accurate when written, and
 a superseded record is not rewritten; this record amends it.

@@ -67,10 +67,17 @@ reach for concrete `window`/`fetch` globals directly.
 ### `core/services/` — the pure layer
 
 Nineteen service modules with pure logic. This layer never touches `window`,
-`document`, `fetch`, the filesystem or any framework, with two pragmatic
-exceptions that are clearly documented in code: `http.service.ts` wraps the
-global `fetch` (available in Node 18+/Bun/browsers) and `reactive.service.ts`
-persists via injected storage functions from `infrastructure`.
+`document`, `fetch`, the filesystem or any framework, with one pragmatic
+exception that is clearly documented in code: `http.service.ts` wraps the
+global `fetch` (available in Node 18+/Bun/browsers). The storage-backed
+signal `useCreateStorageSignal` lives in
+`infrastructure/storage/storage-signal.service.ts`, so no module in `core/`
+imports `infrastructure/` — `tests/architecture.test.ts` enforces it.
+
+Two breaches remain open and are tracked in
+[ADR-0004](/explanation/decisions/adr-0004-hexagonal-core): `agent.service.ts`
+falls back to `process.env.DASHSCOPE_API_KEY`, and
+`OpenAiCompatibleStrategy` calls `fetch` directly.
 
 | File                   | Exports (public facade)                     |
 | ---------------------- | ------------------------------------------- |

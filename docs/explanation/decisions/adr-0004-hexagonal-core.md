@@ -1,6 +1,6 @@
 ---
 title: "ADR-0004: Hexagonal layout with a pure core"
-description: Four layers — shared types, pure core services, infrastructure with I/O, framework adapters — with two documented pragmatic exceptions.
+description: Four layers — shared types, pure core services, infrastructure with I/O, framework adapters — with one documented pragmatic exception.
 ---
 
 # ADR-0004: Hexagonal layout with a pure core
@@ -29,12 +29,29 @@ Four layers with one direction of dependency, described in full on the
 4. `adapters/` — framework entry points, published on subpaths
    ([ADR-0003](/explanation/decisions/adr-0003-adapter-subpath-exports)).
 
-Plus `config/` (site + SEO) and an optional `prisma/` layer. Two pragmatic
-exceptions are documented in code rather than hidden: `http.service.ts` wraps
-the global `fetch` (present in every supported runtime), and
-`reactive.service.ts` persists through injected storage functions instead of
-importing infrastructure. `db.ts` is the only module that reads the
-environment, and it is not part of the public barrel.
+Plus `config/` (site + SEO) and an optional `prisma/` layer. One pragmatic
+exception is documented in code rather than hidden: `http.service.ts` wraps the
+global `fetch` (present in every supported runtime).
+
+The second historical exception — `reactive.service.ts` "persists through
+injected storage functions" — was removed. `useCreateStorageSignal` is the one
+reactive helper that performs real I/O, so it now lives in
+`infrastructure/storage/storage-signal.service.ts` alongside the storage
+helpers it calls. Core holds only pure signal primitives. Nothing in `core/`
+imports `infrastructure/`, and `tests/architecture.test.ts` fails the build if
+that ever changes again.
+
+`db.ts` does not exist, so the claim it carried ("the only module that reads
+the environment") was false. Two known breaches remain open:
+
+- `agent.service.ts` reads `process.env.DASHSCOPE_API_KEY` as a documented
+  fallback when no `apiKey` is passed, and it is reachable from the main barrel.
+- `OpenAiCompatibleStrategy.requestCompletion` calls `fetch` directly, making
+  core a second `fetch` owner next to `http.service.ts`.
+
+Removing either is a behaviour change, not a cleanup, so both are recorded here
+rather than silently deleted. `tests/architecture.test.ts` enforces the half
+that is true today: no module in `core/` imports `infrastructure/`.
 
 ## Consequences
 
