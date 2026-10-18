@@ -90,13 +90,13 @@ async function completeReply(
  * Aplica el patrón Singleton: una única instancia mantiene el store de
  * conversaciones, las herramientas y el presupuesto de pasos del agente.
  * El store es intercambiable (Strategy implícita: in-memory por defecto,
- * Prisma u otro persistente vía `useInit`), y la lógica de completado
+ * Prisma u otro persistente vía `useInitAssistant`), y la lógica de completado
  * delega en {@link AgentService}.
  *
  * @example
  * ```ts
  * const assistant = AssistantService.getInstance();
- * assistant.useInit({ model: "qwen3.8-max" });
+ * assistant.useInitAssistant({ model: "qwen3.8-max" });
  * const result = await assistant.useReply(undefined, "Hello!");
  * ```
  */
@@ -139,7 +139,7 @@ export class AssistantService implements IAssistantService {
 	 *
 	 * @example
 	 * ```ts
-	 * AssistantService.getInstance().useInit({ model: "qwen3.8-max" });
+	 * AssistantService.getInstance().useInitAssistant({ model: "qwen3.8-max" });
 	 * ```
 	 */
 	useInitAssistant(config: AssistantInitConfig = {}): void {
