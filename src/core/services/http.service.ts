@@ -9,7 +9,8 @@ import type {
 	FetchResult,
 	RequestInterceptor,
 	UrlOptions,
-} from "../../types/index.js";
+} from "@/types/index.js";
+
 import { useTryJsonParse } from "./result.service.js";
 import { useSplitConfig } from "./utils.service.js";
 

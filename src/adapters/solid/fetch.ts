@@ -1,7 +1,7 @@
 import { createSignal, onCleanup, type Signal } from "solid-js";
 
-import { useFetch } from "../../core/services/http.service.js";
-import type { ApiError, UrlOptions } from "../../types/index.js";
+import { useFetch } from "@/core/services/http.service.js";
+import type { ApiError, UrlOptions } from "@/types/index.js";
 
 /** Reactive state exposed by the {@link useRequest} primitive (Solid accessors). */
 export interface RequestState<T = unknown> {

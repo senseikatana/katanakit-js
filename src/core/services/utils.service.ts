@@ -1,4 +1,4 @@
-import type { ConfigData, ConfigMethodEntries } from "../../types/index.js";
+import type { ConfigData, ConfigMethodEntries } from "@/types/index.js";
 
 /**
  * UtilsService - Singleton para utilidades genéricas.

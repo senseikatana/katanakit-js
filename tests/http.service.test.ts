@@ -8,9 +8,9 @@ import {
 	useFetch,
 	useGet,
 	useGetApis,
-	usePost,
 	useInit,
 	useInitApis,
+	usePost,
 } from "@/core/services/http.service";
 import type { UrlOptions } from "@/types/index";
 
@@ -352,7 +352,9 @@ describe("useFetch request interceptors", () => {
 	});
 
 	it("stops the chain and returns a safe error when an interceptor rejects", async () => {
-		useInitApis({ rejectedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		useInitApis({
+			rejectedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
+		});
 		const fetchMock = vi.fn();
 		vi.stubGlobal("fetch", fetchMock);
 		const removeFailure = useAddRequestInterceptor(async () => {
@@ -379,7 +381,9 @@ describe("useFetch request interceptors", () => {
 	});
 
 	it("unregisters an interceptor and preserves the original fetch inputs", async () => {
-		useInitApis({ unsubscribedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		useInitApis({
+			unsubscribedInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
+		});
 		const interceptor = vi.fn();
 		const removeInterceptor = useAddRequestInterceptor(interceptor);
 		removeInterceptor();
@@ -393,7 +397,9 @@ describe("useFetch request interceptors", () => {
 	});
 
 	it("rejects interceptor URL schemes outside HTTP and HTTPS", async () => {
-		useInitApis({ unsafeInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } } });
+		useInitApis({
+			unsafeInterceptorApi: { baseUri: "https://example.com", endpoints: { list: "/list" } },
+		});
 		const fetchMock = vi.fn();
 		vi.stubGlobal("fetch", fetchMock);
 		const removeInterceptor = useAddRequestInterceptor((request) => {
@@ -403,7 +409,9 @@ describe("useFetch request interceptors", () => {
 		try {
 			const result = await useFetch("unsafeInterceptorApi", "list");
 			expect(result.ok).toBe(false);
-			expect(result.error?.message).toBe('Request Interceptor Error: Request URL scheme "javascript:" is not allowed.');
+			expect(result.error?.message).toBe(
+				'Request Interceptor Error: Request URL scheme "javascript:" is not allowed.',
+			);
 			expect(fetchMock).not.toHaveBeenCalled();
 		} finally {
 			removeInterceptor();
@@ -500,7 +508,6 @@ describe("useBuildApiUrl", () => {
 		);
 	});
 });
-
 
 describe("useFetch URL option merge", () => {
 	const okJson = (payload: unknown): Response =>

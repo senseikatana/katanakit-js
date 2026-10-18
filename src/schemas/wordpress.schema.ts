@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { AccessCapabilitySchema, AccessRoleSchema } from "@/schemas/access.schema.js";
+
 /** Authentication methods for WordPress. */
 export const WordPressAuthSchema = z.discriminatedUnion("type", [
 	z.object({
@@ -378,6 +380,16 @@ export const WpCommentResponseSchema = WpCommentSchema.partial();
 /** List of comments. */
 export const WpCommentListSchema = z.array(WpCommentResponseSchema);
 
+/**
+ * Capability map as WordPress reports it: `{ manage_options: true, … }`.
+ *
+ * Only present with `context=edit`, which requires an authenticated caller
+ * holding `list_users`. That makes it a verification tool, never a
+ * registration one — WordPress exposes no endpoint that creates a role or
+ * attaches a capability to one.
+ */
+export const WpCapabilityMapSchema = z.record(z.string(), z.boolean());
+
 /** A WordPress user. */
 export const WpUserSchema = z.looseObject({
 	id: z.number(),
@@ -395,6 +407,11 @@ export const WpUserSchema = z.looseObject({
 	roles: z.array(z.string()),
 	avatar_urls: z.record(z.string(), z.string()),
 	meta: z.record(z.string(), z.unknown()),
+	registered_date: z.string().optional(),
+	/** Effective capabilities, `context=edit` only. */
+	capabilities: WpCapabilityMapSchema.optional(),
+	/** Per-user capability overrides, `context=edit` only. */
+	extra_capabilities: WpCapabilityMapSchema.optional(),
 });
 
 /** Payload for creating a WordPress user. */
@@ -422,6 +439,85 @@ export const WpUserResponseSchema = WpUserSchema.partial();
 
 /** List of users. */
 export const WpUserListSchema = z.array(WpUserResponseSchema);
+
+/**
+ * A WordPress capability name: `edit_orders`, `read_private_orders`,
+ * `manage_options`. Snake_case, the vocabulary WordPress itself uses.
+ */
+export const WpCapabilitySchema = z
+	.string()
+	.min(1)
+	.max(64)
+	.regex(
+		/^[a-z][a-z0-9_]*$/,
+		"WordPress capability must be lowercase snake_case (e.g. edit_orders)",
+	);
+
+/**
+ * A role declaration, the PHP-free replacement for `add_role()`.
+ *
+ * `add_role()` and `add_cap()` have no REST equivalent — WordPress ships no
+ * roles or capabilities endpoint — so a dashboard that ships no PHP cannot
+ * mutate the site's role registry. What it *can* do is declare the model it
+ * expects and then verify the site agrees, which is what this schema carries.
+ *
+ * Both vocabularies are kept on purpose:
+ *
+ * - `capabilities` are the toolkit's namespaced capabilities
+ *   (`orders:read:own`). They drive `useCan()` and the framework guards, so
+ *   dashboard routes and UI read the same vocabulary as the rest of the kit.
+ * - `wpCapabilities` are WordPress' own snake_case names. They are the
+ *   declaration a plugin or `wp-cli` must reproduce, and the baseline
+ *   {@link WpRoleAuditSchema} compares the live site against.
+ *
+ * Never derive one from the other: `orders:read:own` is a policy statement,
+ * `read_private_orders` is a WordPress permission. Collapsing them hides who
+ * is allowed to touch someone else's record.
+ */
+export const WpRoleDefinitionSchema = z.object({
+	slug: AccessRoleSchema,
+	label: z.string().min(1),
+	/**
+	 * Position in the toolkit hierarchy, lower is more privileged. Integers
+	 * only, so a custom role shares a rung with a built-in rather than
+	 * sitting between two: a `store_customer` at `5` inherits from `guest`
+	 * and adds its own capabilities. A shared rank means equal privilege, not
+	 * a conflict.
+	 */
+	rank: z.number().int().nonnegative(),
+	capabilities: z.array(AccessCapabilitySchema),
+	wpCapabilities: z.array(WpCapabilitySchema).default([]),
+});
+
+/** A declared role registry. */
+export const WpRoleRegistrySchema = z.array(WpRoleDefinitionSchema);
+
+/**
+ * How a declaration compares to the live site.
+ *
+ * - `verified` — every holder reports every declared `wpCapability`.
+ * - `partial` — at least one declared capability is absent from some holder.
+ * - `unverifiable` — no user holds the role, so nothing can be confirmed.
+ */
+export const WpRoleAuditStatusSchema = z.enum(["verified", "partial", "unverifiable"]);
+
+/**
+ * The result of auditing a declared role against what WordPress reports for
+ * the users that hold it.
+ *
+ * `granted` is the intersection across holders, not the union: a capability
+ * only one holder has is not a capability the role grants, and treating it as
+ * one is how a "verified" badge ends up hiding a hole.
+ */
+export const WpRoleAuditSchema = z.object({
+	slug: AccessRoleSchema,
+	status: WpRoleAuditStatusSchema,
+	holders: z.number().int().nonnegative(),
+	declared: z.array(WpCapabilitySchema),
+	granted: z.array(WpCapabilitySchema),
+	missing: z.array(WpCapabilitySchema),
+	undeclared: z.array(WpCapabilitySchema),
+});
 
 /** Common query parameters for WordPress REST API list endpoints. */
 export const WpQueryParamsSchema = z

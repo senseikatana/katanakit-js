@@ -1,12 +1,14 @@
 import type { z } from "zod";
 
-import { useAttempt } from "../../core/services/result.service.js";
-import { useSplitConfig } from "../../core/services/utils.service.js";
-import { useValidate } from "../../core/services/validation.service.js";
+import { AccessService } from "@/core/services/access.service.js";
+import { useAttempt } from "@/core/services/result.service.js";
+import { useSplitConfig } from "@/core/services/utils.service.js";
+import { useValidate } from "@/core/services/validation.service.js";
 import {
 	WordPressConfigSchema,
 	WpBatchOperationSchema,
 	WpBatchResultSchema,
+	WpCapabilitySchema,
 	WpCategoryCreateSchema,
 	WpCategoryListSchema,
 	WpCategoryResponseSchema,
@@ -27,6 +29,8 @@ import {
 	WpPostListSchema,
 	WpPostResponseSchema,
 	WpPostUpdateSchema,
+	WpRoleDefinitionSchema,
+	WpRoleRegistrySchema,
 	WpTagCreateSchema,
 	WpTagListSchema,
 	WpTagResponseSchema,
@@ -35,8 +39,10 @@ import {
 	WpUserListSchema,
 	WpUserResponseSchema,
 	WpUserUpdateSchema,
-} from "../../schemas/wordpress.schema.js";
+} from "@/schemas/wordpress.schema.js";
 import type {
+	AccessRole,
+	AccessSubject,
 	ConfigFacade,
 	FetchResult,
 	WordPressConfig,
@@ -58,16 +64,32 @@ import type {
 	WpPostCreate,
 	WpPostUpdate,
 	WpQueryParams,
+	WpRoleAudit,
+	WpRoleDefinition,
 	WpTag,
 	WpTagCreate,
 	WpTagUpdate,
 	WpUser,
 	WpUserCreate,
 	WpUserUpdate,
-} from "../../types/index.js";
+} from "@/types/index.js";
 
 /** Default WordPress REST API namespace. */
 const WP_API_NAMESPACE = "wp/v2";
+
+/**
+ * Context that unlocks `roles`, `capabilities` and `extra_capabilities` on the
+ * users endpoint. Anything below reads those fields, so they all ask for it
+ * explicitly instead of relying on the endpoint's default.
+ */
+const WP_USER_EDIT_FIELDS = "id,slug,name,roles,capabilities,extra_capabilities";
+
+/**
+ * HTTP status for a request WordPress accepted but did not honour — today only
+ * one case: assigning a role the site does not know, which WordPress drops
+ * without an error instead of rejecting.
+ */
+const WP_ROLE_NOT_APPLIED = 422;
 
 /**
  * Converts query params to URL search params.
@@ -164,6 +186,15 @@ export class WordPressService {
 
 	/** Registered WordPress configuration. */
 	private config: WordPressConfig | null = null;
+
+	/**
+	 * Declared roles, keyed by slug.
+	 *
+	 * This is the PHP-free substitute for `add_role()`: the REST API cannot
+	 * create a role, so the model is declared here and audited against the
+	 * live site with {@link WordPressService.useAuditRole}.
+	 */
+	private roles: Map<string, WpRoleDefinition> = new Map();
 
 	/**
 	 * Constructor privado - enforce singleton.
@@ -728,6 +759,305 @@ export class WordPressService {
 	async useDeleteUser(id: number, reassign?: number): Promise<FetchResult<WpUser>> {
 		const qs = reassign ? `?reassign=${reassign}` : "";
 		return this.useRequest<WpUser>(`/users/${id}${qs}`, { method: "DELETE" }, WpUserResponseSchema);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Roles & Capabilities                                                    */
+	/* ---------------------------------------------------------------------- */
+
+	/**
+	 * Declares a set of roles, replacing any previous declaration for the same
+	 * slugs.
+	 *
+	 * All definitions are validated before any is stored: a registry left half
+	 * registered after a typo is worse than one that failed loudly.
+	 *
+	 * @param definitions - Role declarations to register.
+	 * @throws {Error} If any definition is invalid.
+	 *
+	 * @example
+	 * ```ts
+	 * useWpDefineRoles([
+	 *   {
+	 *     slug: "store_customer",
+	 *     label: "Store Customer",
+	 *     rank: 5,
+	 *     capabilities: ["orders:read:own", "orders:update:own"],
+	 *     wpCapabilities: ["read", "read_order", "edit_order"],
+	 *   },
+	 * ]);
+	 * ```
+	 */
+	useDefineRoles(definitions: WpRoleDefinition[]): void {
+		const parsed = useValidate(WpRoleRegistrySchema, definitions);
+		if (!parsed.ok) {
+			throw new Error("[WordPress] Invalid role definitions: " + parsed.error.message);
+		}
+		const entries = parsed.data.map((definition) => this.useFreezeRole(definition));
+		for (const entry of entries) {
+			this.roles.set(entry.slug, entry);
+		}
+	}
+
+	/** Declares or replaces a single role. */
+	useRegisterRole(definition: WpRoleDefinition): void {
+		const parsed = useValidate(WpRoleDefinitionSchema, definition);
+		if (!parsed.ok) {
+			throw new Error("[WordPress] Invalid role definition: " + parsed.error.message);
+		}
+		this.roles.set(parsed.data.slug, this.useFreezeRole(parsed.data));
+	}
+
+	/** Lists every declared role, ordered from most to least privileged. */
+	useRoles(): WpRoleDefinition[] {
+		return [...this.roles.values()]
+			.sort((a, b) => a.rank - b.rank)
+			.map((definition) => this.useCopyRole(definition));
+	}
+
+	/** Returns a declared role, or `undefined` when the slug was never declared. */
+	useGetRole(slug: AccessRole): WpRoleDefinition | undefined {
+		const found = this.roles.get(slug);
+		return found ? this.useCopyRole(found) : undefined;
+	}
+
+	/** Clears the declared roles. Does not touch the access-service registry. */
+	useResetRoles(): void {
+		this.roles.clear();
+	}
+
+	/**
+	 * Publishes every declared role to the access service, so `useCan()` and the
+	 * framework guards understand WordPress role slugs.
+	 *
+	 * Declaring a role is not enough: until it is synced, `useCan()` throws on
+	 * the unknown slug. Call this once at boot, right after the declarations.
+	 *
+	 * @example
+	 * ```ts
+	 * defineWordPressConfig({ baseUrl: "https://mysite.com" });
+	 * useWpDefineRoles([/* … *\/]);
+	 * useWpSyncRoles();
+	 * ```
+	 */
+	useSyncRoles(): void {
+		const access = AccessService.getInstance();
+		for (const definition of this.roles.values()) {
+			access.useRegisterRole({
+				slug: definition.slug,
+				label: definition.label,
+				rank: definition.rank,
+				capabilities: [...definition.capabilities],
+			});
+		}
+	}
+
+	/**
+	 * Turns a WordPress user into an access subject.
+	 *
+	 * Mirrors the roles verbatim instead of filtering unknown ones: a subject
+	 * quietly stripped of its roles fails closed and looks like a missing
+	 * grant. Pair it with {@link WordPressService.useSyncRoles}.
+	 *
+	 * @example
+	 * ```ts
+	 * const me = await useWpGetCurrentUser();
+	 * if (me.ok) useCan(useWpAsSubject(me.data), "orders:read:own");
+	 * ```
+	 */
+	useAsSubject(user: WpUser): AccessSubject {
+		return { id: user.id, roles: [...user.roles] as AccessRole[] };
+	}
+
+	/**
+	 * Adds a role to a user and confirms WordPress applied it.
+	 *
+	 * WordPress silently drops a role slug it does not know — the response is a
+	 * `200` with the user unchanged — so a plain update would report success for
+	 * a grant that never happened. This verifies the returned `roles` and
+	 * fails with `422` when the role is missing, which means the site has no
+	 * such role and it must be created by a plugin, an mu-plugin or `wp-cli`.
+	 */
+	async useAssignRole(userId: number, role: string): Promise<FetchResult<WpUser>> {
+		return this.useApplyRole(userId, role, true);
+	}
+
+	/**
+	 * Removes a role from a user.
+	 *
+	 * Idempotent by design: removing a role the user does not hold is already
+	 * the requested state, so it succeeds instead of raising. Unlike assignment,
+	 * nothing here can be silently ignored by WordPress.
+	 */
+	async useUnassignRole(userId: number, role: string): Promise<FetchResult<WpUser>> {
+		return this.useApplyRole(userId, role, false);
+	}
+
+	/**
+	 * Lists the users holding a role.
+	 *
+	 * Requests `context=edit` because `roles` is not part of the default
+	 * `context=view` payload.
+	 */
+	async useGetUsersByRole(role: string, options?: WpQueryParams): Promise<FetchResult<WpUser[]>> {
+		return this.useRequest<WpUser[]>(
+			`/users${buildQueryParams({
+				...options,
+				roles: role,
+				context: "edit",
+				_fields: options?._fields ?? WP_USER_EDIT_FIELDS,
+			})}`,
+			{},
+			WpUserListSchema,
+		);
+	}
+
+	/**
+	 * Compares a declared role against what the live site reports.
+	 *
+	 * `granted` is the intersection across holders: a capability only one
+	 * holder has is not a capability the role grants. With no holders there is
+	 * nothing to compare against, so the status is `unverifiable` — never
+	 * `verified`.
+	 *
+	 * @param slug - Role slug to audit.
+	 * @param maxHolders - Cap on the holders inspected (default `100`).
+	 */
+	async useAuditRole(slug: string, maxHolders = 100): Promise<FetchResult<WpRoleAudit>> {
+		const declared = this.roles.get(slug);
+		const declaredWp = declared?.wpCapabilities ?? [];
+		const holders: WpUser[] = [];
+		let page = 1;
+
+		// Roles and capabilities only appear with `context=edit`; without it the
+		// audit would compare an empty map and report every capability missing.
+		while (holders.length < maxHolders) {
+			const perPage = Math.min(100, maxHolders - holders.length);
+			const batch = await this.useGetUsersByRole(slug, { page, per_page: perPage });
+			if (!batch.ok) return batch;
+			holders.push(...batch.data);
+			if (batch.data.length < perPage) break;
+			page++;
+		}
+
+		const common = holders.length > 0 ? this.useCommonCapabilities(holders) : new Set<string>();
+		const granted = declaredWp.filter((capability) => common.has(capability));
+		const declaredSet = new Set(declaredWp);
+
+		return {
+			data: {
+				slug: declared?.slug ?? (slug as AccessRole),
+				status:
+					holders.length === 0
+						? "unverifiable"
+						: granted.length === declaredWp.length
+							? "verified"
+							: "partial",
+				holders: holders.length,
+				declared: [...declaredWp],
+				granted,
+				missing: declaredWp.filter((capability) => !common.has(capability)),
+				undeclared: [...common].filter((capability) => !declaredSet.has(capability)).sort(),
+			},
+			error: null,
+			url: "",
+			status: 200,
+			ok: true,
+		};
+	}
+
+	/**
+	 * Capability names every holder has, role caps and per-user extras alike.
+	 * @internal
+	 */
+	private useCommonCapabilities(holders: WpUser[]): Set<string> {
+		let common: Set<string> | null = null;
+		for (const holder of holders) {
+			// `extra_capabilities` are per-user overrides, so they win over the
+			// role caps in `capabilities` — including a deliberate `false`.
+			const effective = { ...holder.capabilities, ...holder.extra_capabilities };
+			const own = new Set(
+				Object.keys(effective).filter((capability) => effective[capability] === true),
+			);
+			const previous: Set<string> = common ?? own;
+			common = new Set([...previous].filter((capability) => own.has(capability)));
+		}
+		return common ?? new Set<string>();
+	}
+
+	/**
+	 * Rewrites a user's role list with or without `role`.
+	 * @internal
+	 */
+	private async useApplyRole(
+		userId: number,
+		role: string,
+		add: boolean,
+	): Promise<FetchResult<WpUser>> {
+		const parsedRole = useValidate(WpCapabilitySchema, role);
+		if (!parsedRole.ok) return invalidInput(parsedRole);
+
+		const current = await this.useRequest<WpUser>(
+			`/users/${userId}?context=edit&_fields=${WP_USER_EDIT_FIELDS}`,
+			{},
+			WpUserResponseSchema,
+		);
+		if (!current.ok) return current;
+
+		const held = current.data.roles ?? [];
+		const next = add
+			? held.includes(role)
+				? held
+				: [...held, role]
+			: held.filter((entry) => entry !== role);
+
+		// Already in the requested state: no request needed, and no chance of
+		// WordPress rewriting the rest of the profile.
+		if (next.length === held.length) {
+			return { ...current, data: current.data };
+		}
+
+		const updated = await this.useUpdateUser(userId, { roles: next });
+		if (!updated.ok) return updated;
+
+		// A `200` here does not mean the grant landed. WordPress drops slugs it
+		// does not know, so the only proof is the roles on the response.
+		const applied = add && !(updated.data.roles ?? []).includes(role);
+		if (applied) {
+			return {
+				data: null as never,
+				error: {
+					message:
+						`WordPress did not apply the role "${role}": the site has no such role. ` +
+						"Create it in WordPress (plugin, mu-plugin or wp-cli role add) — the REST API cannot.",
+					status: WP_ROLE_NOT_APPLIED,
+					details: { requested: role, applied: updated.data.roles ?? [] },
+				},
+				url: updated.url,
+				status: WP_ROLE_NOT_APPLIED,
+				ok: false,
+			};
+		}
+
+		return updated;
+	}
+
+	/** Freezes a validated definition so the registry cannot be mutated in place. */
+	private useFreezeRole(definition: WpRoleDefinition): WpRoleDefinition {
+		return Object.freeze({
+			...definition,
+			capabilities: [...definition.capabilities],
+			wpCapabilities: [...definition.wpCapabilities],
+		});
+	}
+
+	/** Copies a definition so callers never hold live registry state. */
+	private useCopyRole(definition: WpRoleDefinition): WpRoleDefinition {
+		return {
+			...definition,
+			capabilities: [...definition.capabilities],
+			wpCapabilities: [...definition.wpCapabilities],
+		};
 	}
 
 	/* ---------------------------------------------------------------------- */
@@ -1519,6 +1849,135 @@ export async function useWpUpdateUser(
  */
 export async function useWpDeleteUser(id: number, reassign?: number): Promise<FetchResult<WpUser>> {
 	return WordPressService.getInstance().useDeleteUser(id, reassign);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Roles & Capabilities wrappers                                               */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Declares the site's roles, replacing any previous declaration for the same
+ * slugs. Validates the whole registry before storing any of it.
+ *
+ * @param definitions - Role declarations to register.
+ * @throws {Error} If any definition is invalid.
+ *
+ * @example
+ * ```ts
+ * useWpDefineRoles([
+ *   {
+ *     slug: "store_customer",
+ *     label: "Store Customer",
+ *     rank: 5,
+ *     capabilities: ["orders:read:own", "orders:update:own"],
+ *     wpCapabilities: ["read", "read_order", "edit_order"],
+ *   },
+ * ]);
+ * ```
+ */
+export function useWpDefineRoles(definitions: WpRoleDefinition[]): void {
+	WordPressService.getInstance().useDefineRoles(definitions);
+}
+
+/** Declares or replaces a single role. */
+export function useWpRegisterRole(definition: WpRoleDefinition): void {
+	WordPressService.getInstance().useRegisterRole(definition);
+}
+
+/** Lists every declared role, ordered from most to least privileged. */
+export function useWpRoles(): WpRoleDefinition[] {
+	return WordPressService.getInstance().useRoles();
+}
+
+/** Returns a declared role, or `undefined` when the slug was never declared. */
+export function useWpGetRole(slug: AccessRole): WpRoleDefinition | undefined {
+	return WordPressService.getInstance().useGetRole(slug);
+}
+
+/** Clears the declared roles. Does not touch the access-service registry. */
+export function useWpResetRoles(): void {
+	WordPressService.getInstance().useResetRoles();
+}
+
+/**
+ * Publishes every declared role to the access service so `useCan()` and the
+ * framework guards understand WordPress role slugs. Call once at boot.
+ */
+export function useWpSyncRoles(): void {
+	WordPressService.getInstance().useSyncRoles();
+}
+
+/**
+ * Turns a WordPress user into an access subject for `useCan()` and the guards.
+ *
+ * @example
+ * ```ts
+ * const me = await useWpGetCurrentUser();
+ * if (me.ok) useCan(useWpAsSubject(me.data), "orders:read:own");
+ * ```
+ */
+export function useWpAsSubject(user: WpUser): AccessSubject {
+	return WordPressService.getInstance().useAsSubject(user);
+}
+
+/**
+ * Adds a role to a user and confirms WordPress applied it.
+ *
+ * Fails with `422` when the site does not know the role: WordPress drops unknown
+ * slugs silently, so the response is the only place that can catch it.
+ *
+ * @example
+ * ```ts
+ * const result = await useWpAssignRole(42, "store_customer");
+ * if (!result.ok && result.status === 422) {
+ *   console.error("Create the role in WordPress first");
+ * }
+ * ```
+ */
+export async function useWpAssignRole(userId: number, role: string): Promise<FetchResult<WpUser>> {
+	return WordPressService.getInstance().useAssignRole(userId, role);
+}
+
+/** Removes a role from a user. Idempotent. */
+export async function useWpUnassignRole(
+	userId: number,
+	role: string,
+): Promise<FetchResult<WpUser>> {
+	return WordPressService.getInstance().useUnassignRole(userId, role);
+}
+
+/**
+ * Lists the users holding a role (`context=edit`, so `roles` is included).
+ *
+ * @example
+ * ```ts
+ * const result = await useWpGetUsersByRole("store_customer", { per_page: 50 });
+ * ```
+ */
+export async function useWpGetUsersByRole(
+	role: string,
+	options?: WpQueryParams,
+): Promise<FetchResult<WpUser[]>> {
+	return WordPressService.getInstance().useGetUsersByRole(role, options);
+}
+
+/**
+ * Compares a declared role against what the live site reports for its holders.
+ *
+ * @param slug - Role slug to audit.
+ * @param maxHolders - Cap on the holders inspected (default `100`).
+ *
+ * @example
+ * ```ts
+ * const audit = await useWpAuditRole("store_customer");
+ * if (audit.ok) console.log(audit.data.status, audit.data.missing);
+ * ```
+ */
+export async function useWpAuditRole(
+	slug: string,
+	maxHolders = 100,
+): Promise<FetchResult<WpRoleAudit>> {
+	return WordPressService.getInstance().useAuditRole(slug, maxHolders);
 }
 
 /**

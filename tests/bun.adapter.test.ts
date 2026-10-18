@@ -9,9 +9,9 @@ import {
 	useDummyJsonProductSearch,
 	useDummyJsonUserById,
 } from "@/adapters/bun/dummyjson.service.js";
-import { defineApiConfig } from "@/core/services/http.service.js";
 import { useBuildDummyJsonRoutes } from "@/adapters/bun/routes.js";
 import { dummyJsonSeed, useGetDummyJsonSeed } from "@/adapters/bun/seed.js";
+import { defineApiConfig } from "@/core/services/http.service.js";
 
 afterEach(() => {
 	vi.unstubAllGlobals();

@@ -8,7 +8,7 @@ import type {
 	AiResult,
 	AiTool,
 	AiToolCall,
-} from "../../types/index.js";
+} from "@/types/index.js";
 
 /** Default endpoint for Alibaba Cloud Model Studio (DashScope) compatible mode. */
 export const KITT_BASE_URL = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1";

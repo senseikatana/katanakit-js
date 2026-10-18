@@ -63,6 +63,26 @@ export const AppDateFormatOptionsSchema = z.object({
 	day: z.enum(["numeric", "2-digit"]).optional(),
 });
 
+/**
+ * Granularity of a date calculation, matching Notion's formula vocabulary.
+ *
+ * Quarters are included because a calendar quarter is the unit a business
+ * actually reports in, and it is exactly three months — no extra calendar
+ * concept needed. Ordered coarsest to finest so a sorted union stays readable.
+ */
+export const DateUnitSchema = z.enum([
+	"years",
+	"quarters",
+	"months",
+	"weeks",
+	"days",
+	"hours",
+	"minutes",
+]);
+
+/** Relative ordering of two dates, matching Notion's `dateOrder()`. */
+export const DateOrderSchema = z.enum(["before", "after", "same"]);
+
 /** Options for number formatting in geometry calculations. */
 export const GeometryFormatOptionsSchema = z.object({
 	locale: z.string().optional(),

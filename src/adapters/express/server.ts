@@ -3,7 +3,8 @@ import type { IncomingMessage } from "node:http";
 import cors from "cors";
 import express, { type Application, type NextFunction, type Request, type Response } from "express";
 
-import { useLogger } from "../../core/services/logger.service.js";
+import { useLogger } from "@/core/services/logger.service.js";
+
 import router from "./router.js";
 
 /** An HTTP request augmented with the raw JSON body captured during parsing. */

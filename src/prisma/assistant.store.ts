@@ -1,4 +1,5 @@
-import type { AiMessage, AiRole, ConversationStore } from "../types/index.js";
+import type { AiMessage, AiRole, ConversationStore } from "@/types/index.js";
+
 import { usePrismaClient } from "./use-prisma.js";
 
 /**

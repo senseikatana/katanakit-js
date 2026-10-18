@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/query-core";
-import { effectScope } from "vue";
 import { describe, expect, it, vi } from "vitest";
+import { effectScope } from "vue";
 
 import { useMutation, useQuery } from "@/adapters/vue/query.js";
 

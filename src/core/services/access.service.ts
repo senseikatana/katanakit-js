@@ -1,10 +1,10 @@
-import { AccessRoleDefinitionSchema } from "../../schemas/access.schema.js";
+import { AccessRoleDefinitionSchema } from "@/schemas/access.schema.js";
 import type {
 	AccessCapability,
 	AccessRole,
 	AccessRoleDefinition,
 	AccessSubject,
-} from "../../types/index.js";
+} from "@/types/index.js";
 
 /* -------------------------------------------------------------------------- */
 /* Strategy contract                                                          */

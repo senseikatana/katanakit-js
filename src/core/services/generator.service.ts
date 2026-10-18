@@ -1,4 +1,4 @@
-import type { ICryptoStrategy, IUuidStrategy } from "../../types/index.js";
+import type { ICryptoStrategy, IUuidStrategy } from "@/types/index.js";
 
 /**
  * Lazy Node.js `crypto` strategy for PBKDF2 hashing.

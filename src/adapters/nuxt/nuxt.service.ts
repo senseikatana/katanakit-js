@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 
-import type { FetchResult } from "../../types/index.js";
+import type { FetchResult } from "@/types/index.js";
 
 type H3CreateError = (input: {
 	statusCode?: number;

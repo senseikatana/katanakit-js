@@ -16,7 +16,7 @@ import {
 	watch,
 } from "vue";
 
-import { useQueryClient } from "../../core/services/query.service.js";
+import { useQueryClient } from "@/core/services/query.service.js";
 
 /**
  * Vue composable for a cached query, backed by TanStack Query Core.

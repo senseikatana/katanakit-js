@@ -2,14 +2,15 @@ import {
 	YoutubeChannelsResponseSchema,
 	YoutubePlaylistItemsResponseSchema,
 	YoutubeVideosResponseSchema,
-} from "../../schemas/youtube.schema.js";
+} from "@/schemas/youtube.schema.js";
 import type {
 	FetchResult,
 	YoutubeApiConfig,
 	YoutubeListParams,
 	YoutubeVideoNormalized,
 	YoutubeVideoPage,
-} from "../../types/index.js";
+} from "@/types/index.js";
+
 import { useGet, useInitApis } from "./http.service.js";
 import { useBuildYoutubeEmbedUrl, useBuildYoutubeThumbnail } from "./media.service.js";
 import { useValidate } from "./validation.service.js";

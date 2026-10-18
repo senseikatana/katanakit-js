@@ -6,7 +6,7 @@ import {
 	type QueryObserverOptions,
 } from "@tanstack/query-core";
 
-import { useQueryClient } from "../../core/services/query.service.js";
+import { useQueryClient } from "@/core/services/query.service.js";
 
 /**
  * Vanilla (framework-free) query binding — plain TypeScript / JavaScript, no framework.

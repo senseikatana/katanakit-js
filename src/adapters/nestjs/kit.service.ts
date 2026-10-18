@@ -1,9 +1,10 @@
 import { Inject, Injectable, type OnModuleInit } from "@nestjs/common";
 import type { QueryClient } from "@tanstack/query-core";
 
-import { FetchApiManager } from "../../core/services/http.service.js";
-import { useInitQueryClient, useQueryClient } from "../../core/services/query.service.js";
-import type { ApisConfig, FetchOptions, FetchResult, UrlOptions } from "../../types/index.js";
+import { FetchApiManager } from "@/core/services/http.service.js";
+import { useInitQueryClient, useQueryClient } from "@/core/services/query.service.js";
+import type { ApisConfig, FetchOptions, FetchResult, UrlOptions } from "@/types/index.js";
+
 import { KATANA_KIT_OPTIONS, type KatanaKitModuleOptions } from "./options.js";
 
 /**

@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+
 import {
 	useBuildYoutubeRssUrl,
 	useGetChannelVideos,
@@ -196,11 +197,13 @@ describe("youtube.service", () => {
 			useInitYoutube({ apiKey: "", channelId: CHANNEL_ID });
 			vi.stubGlobal(
 				"fetch",
-				vi.fn().mockResolvedValue(
-					textResponse(
-						`<feed><entry><yt:videoId>dQw4w9WgXcQ</yt:videoId><title>T</title><published>2024-01-15T00:00:00+00:00</published></entry></feed>`,
+				vi
+					.fn()
+					.mockResolvedValue(
+						textResponse(
+							`<feed><entry><yt:videoId>dQw4w9WgXcQ</yt:videoId><title>T</title><published>2024-01-15T00:00:00+00:00</published></entry></feed>`,
+						),
 					),
-				),
 			);
 			const result = await useGetChannelVideosRss();
 			expect(result.ok).toBe(true);

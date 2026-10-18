@@ -75,9 +75,9 @@ describe("defineWordPressConfig", () => {
 	});
 
 	it("validates the config", () => {
-		expect(() =>
-			defineWordPressConfig({ baseUrl: 42 } as unknown as { baseUrl: string }),
-		).toThrow(/\[WordPress\] Invalid config/);
+		expect(() => defineWordPressConfig({ baseUrl: 42 } as unknown as { baseUrl: string })).toThrow(
+			/\[WordPress\] Invalid config/,
+		);
 	});
 
 	it("registers so the rest of the service works without a separate init", async () => {

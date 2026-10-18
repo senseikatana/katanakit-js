@@ -1,9 +1,4 @@
-import type {
-	CurrencyFormatOptions,
-	Locale,
-	SalePrice,
-	SalePriceOptions,
-} from "../../types/index.js";
+import type { CurrencyFormatOptions, Locale, SalePrice, SalePriceOptions } from "@/types/index.js";
 
 /** International statute mile in kilometers (shared by both directions). */
 const KM_PER_MILE = 1.60934;

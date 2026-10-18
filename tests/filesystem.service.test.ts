@@ -283,9 +283,9 @@ describe("path.service", () => {
 			join(workspace, "data", "books.json"),
 		);
 		await expect(useJoinPath("data", "books.json")).resolves.toBe(join("data", "books.json"));
-		await expect(
-			useGetRelativePath(workspace, join(workspace, "data", "books.json")),
-		).resolves.toBe(join("data", "books.json"));
+		await expect(useGetRelativePath(workspace, join(workspace, "data", "books.json"))).resolves.toBe(
+			join("data", "books.json"),
+		);
 	});
 
 	it("exposes basename and extension helpers", async () => {

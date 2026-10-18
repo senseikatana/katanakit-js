@@ -1,12 +1,16 @@
-import type { ThemeMode, ThemeOptions } from "../../types/index.js";
 import {
 	useAddClass,
 	useGetRoot,
 	useOn,
 	useRemoveClass,
 	useSetAttribute,
-} from "../dom/dom.service.js";
-import { useGetStorage, useRemoveStorage, useSetStorage } from "../storage/storage.service.js";
+} from "@/infrastructure/dom/dom.service.js";
+import {
+	useGetStorage,
+	useRemoveStorage,
+	useSetStorage,
+} from "@/infrastructure/storage/storage.service.js";
+import type { ThemeMode, ThemeOptions } from "@/types/index.js";
 
 // ============================================================
 // Constants and helpers

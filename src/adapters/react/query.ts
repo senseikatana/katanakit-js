@@ -10,7 +10,7 @@ import {
 } from "@tanstack/query-core";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 
-import { useQueryClient } from "../../core/services/query.service.js";
+import { useQueryClient } from "@/core/services/query.service.js";
 
 /**
  * React hook for a cached query, backed by TanStack Query Core.

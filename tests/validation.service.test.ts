@@ -1,5 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
+
+import { useParseSmartVideoOptions } from "@/core/services/media.service";
+import { useValidate } from "@/core/services/validation.service";
+import { useGetUploadsPlaylistId, useInitYoutube } from "@/core/services/youtube.service";
 import {
 	AiMessageSchema,
 	AiRoleSchema,
@@ -12,9 +16,6 @@ import {
 	YoutubeListParamsSchema,
 	YoutubeVideoNormalizedSchema,
 } from "@/schemas/index.js";
-import { useValidate } from "@/core/services/validation.service";
-import { useParseSmartVideoOptions } from "@/core/services/media.service";
-import { useGetUploadsPlaylistId, useInitYoutube } from "@/core/services/youtube.service";
 
 afterEach(() => {
 	vi.unstubAllGlobals();

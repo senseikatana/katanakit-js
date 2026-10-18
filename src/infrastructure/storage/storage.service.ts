@@ -1,5 +1,5 @@
-import { useTryJsonParse } from "../../core/services/result.service.js";
-import type { StorageStrategy, StorageTarget } from "../../types/index.js";
+import { useTryJsonParse } from "@/core/services/result.service.js";
+import type { StorageStrategy, StorageTarget } from "@/types/index.js";
 
 // ============================================================
 // Strategy factories (plain objects implementing StorageStrategy)

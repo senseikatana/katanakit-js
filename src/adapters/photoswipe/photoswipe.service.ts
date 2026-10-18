@@ -1,7 +1,7 @@
 import type { DataSource, PhotoSwipeOptions, SlideData } from "photoswipe";
 import type PhotoSwipeLightbox from "photoswipe/lightbox";
 
-import type { SafeResult } from "../../types/index.js";
+import type { SafeResult } from "@/types/index.js";
 
 /** Error carried by every PhotoSwipe call — never thrown. */
 export interface PhotoSwipeError {

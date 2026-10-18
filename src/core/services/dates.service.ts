@@ -1,7 +1,51 @@
 import { Temporal } from "@js-temporal/polyfill";
 
-import type { Locale, TemporalInput } from "../../types/index.js";
+import { DateUnitSchema } from "@/schemas/core.schema.js";
+import type { DateOrder, DateUnit, Locale, TemporalInput } from "@/types/index.js";
+
 import { useLogger } from "./logger.service.js";
+
+/**
+ * Units finer than a calendar day.
+ *
+ * Temporal's `PlainDate` has no sub-day arithmetic at all — asking it for
+ * hours throws rather than assuming midnight. Promoting to `PlainDateTime` is
+ * what makes `useDateBetween(a, b, "hours")` answerable.
+ */
+const SUB_DAY_UNITS: ReadonlySet<DateUnit> = new Set<DateUnit>(["hours", "minutes"]);
+
+/**
+ * A string that is nothing but a calendar date: `YYYY-MM-DD`.
+ *
+ * This exists because `Temporal.PlainDate.from` happily **accepts**
+ * `"2026-03-01T09:00:00"` and silently discards the time, so a bare
+ * try/catch around `PlainDate` cannot tell the two apart. Shape is the
+ * only reliable signal.
+ */
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+
+/** A calendar date or date-time, the two shapes the arithmetic helpers accept. */
+type Comparable = Temporal.PlainDate | Temporal.PlainDateTime;
+
+/** Narrows a validated unit, falling back to `days` for anything unexpected. */
+function useUnit(unit: unknown): DateUnit {
+	const parsed = DateUnitSchema.safeParse(unit);
+	return parsed.success ? parsed.data : "days";
+}
+
+/**
+ * Three-way comparison across both comparable shapes.
+ *
+ * Going through `PlainDateTime` rather than calling each type's own
+ * `compare` means one code path decides the ordering, instead of a branch per
+ * shape that could disagree about what a bare date means.
+ */
+function useOrder(a: Comparable, b: Comparable): DateOrder {
+	const left = a instanceof Temporal.PlainDateTime ? a : a.toPlainDateTime();
+	const right = b instanceof Temporal.PlainDateTime ? b : b.toPlainDateTime();
+	const compared = Temporal.PlainDateTime.compare(left, right);
+	return compared < 0 ? "before" : compared > 0 ? "after" : "same";
+}
 
 /**
  * DatesService - Singleton para operaciones de fechas.
@@ -47,24 +91,189 @@ export class DatesService {
 	}
 
 	/**
-	 * Returns a human-readable diff between two dates as years, months, and days.
+	 * Normalises any accepted input into the narrowest shape that can carry the
+	 * requested arithmetic.
 	 *
-	 * @param start - Start date (ISO string or `PlainDate`).
-	 * @param end - End date (ISO string or `PlainDate`).
-	 * @returns A formatted string, e.g. `"2 years, 3 months and 15 days"`.
+	 * Promotes a bare calendar date to midnight, which is what makes a sub-day
+	 * unit answerable at all: `useDateBetween(a, b, "hours")` across two
+	 * date-only inputs returns 744 for a 31-day gap rather than throwing. It
+	 * does not change the span, only the scale it is reported in.
+	 */
+	private toComparable(date: TemporalInput, promote: boolean): Comparable {
+		if (typeof date === "string") return this.fromString(date, promote);
+
+		if (date instanceof Temporal.PlainDate) {
+			return promote ? date.toPlainDateTime() : date;
+		}
+		if (date instanceof Temporal.PlainDateTime) return date;
+		if (date instanceof Temporal.ZonedDateTime) {
+			return promote ? date.toPlainDateTime() : date.toPlainDate();
+		}
+		if (date instanceof Temporal.Instant) {
+			const zoned = date.toZonedDateTimeISO(Temporal.Now.timeZoneId());
+			return promote ? zoned.toPlainDateTime() : zoned.toPlainDate();
+		}
+		if (date instanceof Date) return this.toComparable(date.getTime(), promote);
+		if (typeof date === "number") {
+			const zoned = Temporal.Instant.fromEpochMilliseconds(date).toZonedDateTimeISO(
+				Temporal.Now.timeZoneId(),
+			);
+			return promote ? zoned.toPlainDateTime() : zoned.toPlainDate();
+		}
+		return date;
+	}
+
+	/**
+	 * Parses a string into the shape its own syntax implies.
+	 *
+	 * A `Z` or numeric offset needs `Instant`, which `PlainDateTime` rejects —
+	 * dropping the offset instead would silently shift the answer by hours.
+	 */
+	private fromString(text: string, promote: boolean): Comparable {
+		if (DATE_ONLY.test(text)) {
+			const date = Temporal.PlainDate.from(text);
+			return promote ? date.toPlainDateTime() : date;
+		}
+
+		try {
+			return Temporal.PlainDateTime.from(text);
+		} catch {
+			const zoned = Temporal.Instant.from(text).toZonedDateTimeISO(Temporal.Now.timeZoneId());
+			return promote ? zoned.toPlainDateTime() : zoned.toPlainDate();
+		}
+	}
+
+	/**
+	 * Returns the whole number of `unit`s between two dates.
+	 *
+	 * Signed, like Notion's `dateBetween`: a later `end` is positive, an
+	 * earlier one negative. Never fractional — `total()` reports `0.0849` years
+	 * across a month because a year is not a whole number of months, and a
+	 * fractional year count is noise for a calendar API.
+	 *
+	 * @param start - Range start (any `TemporalInput`).
+	 * @param end - Range end (any `TemporalInput`).
+	 * @param unit - Granularity to report; defaults to `days`.
 	 *
 	 * @example
 	 * ```ts
-	 * useDiff("2020-01-01", "2022-04-16");
-	 * // "2 years, 3 months and 15 days"
+	 * useDateBetween("2020-01-01", "2022-04-16");            // 836
+	 * useDateBetween("2020-01-01", "2022-04-16", "months");  // 27
+	 * useDateBetween("2022-04-16", "2020-01-01", "days");   // -836
 	 * ```
 	 */
-	useDiff(start: string | Temporal.PlainDate, end: string | Temporal.PlainDate): string {
-		const startDate = this.toPlainDate(start);
-		const endDate = this.toPlainDate(end);
-		const duration = startDate.until(endDate, { largestUnit: "year" });
+	useDateBetween(start: TemporalInput, end: TemporalInput, unit: DateUnit = "days"): number {
+		const resolved = useUnit(unit);
+		const subDay = SUB_DAY_UNITS.has(resolved);
+		const from = this.toComparable(start, subDay);
+		const to = this.toComparable(end, subDay);
 
-		return `${duration.years} years, ${duration.months} months and ${duration.days} days`;
+		// Quarters are exactly three months; Temporal has no quarter arithmetic,
+		// so derive the month count and divide rather than inventing a calendar.
+		if (resolved === "quarters") {
+			const months = from
+				.until(to, { largestUnit: "year" })
+				.total({ unit: "months", relativeTo: from });
+			return Math.trunc(months / 3);
+		}
+
+		// `relativeTo` is mandatory whenever the duration spans months: without a
+		// starting point, `total()` cannot know how long "one month" was.
+		return Math.trunc(
+			from.until(to, { largestUnit: "year" }).total({ unit: resolved, relativeTo: from }),
+		);
+	}
+
+	/**
+	 * Returns the balanced breakdown of the span between two dates, without
+	 * collapsing it to prose or to a single number.
+	 *
+	 * The shape is Temporal's own, so `.years`, `.months` and `.days` are
+	 * available separately — which a single formatted string cannot give you
+	 * without parsing English out of it.
+	 *
+	 * @example
+	 * ```ts
+	 * const span = useDurationBetween("2020-01-01", "2022-04-16");
+	 * span.years;  // 2
+	 * span.months; // 3
+	 * span.days;   // 15
+	 * ```
+	 */
+	useDurationBetween(start: TemporalInput, end: TemporalInput): Temporal.Duration {
+		const from = this.toComparable(start, false);
+		const to = this.toComparable(end, false);
+		return from.until(to, { largestUnit: "year" });
+	}
+
+	/**
+	 * Returns the date a given number of units away, preserving calendar
+	 * semantics — adding one month to the 31st lands on the 31st of a shorter
+	 * month, not on an overflow.
+	 *
+	 * @param date - Starting date.
+	 * @param amount - Signed amount; negative moves backwards.
+	 * @param unit - Granularity to move by.
+	 *
+	 * @example
+	 * ```ts
+	 * useDateAdd("2026-01-31", 1, "months");  // "2026-02-28"
+	 * useDateAdd(useNow(), 14, "days");       // two weeks out
+	 * useDateAdd("2026-01-01", 2, "quarters");// "2026-07-01"
+	 * ```
+	 */
+	useDateAdd(date: TemporalInput, amount: number, unit: DateUnit): string {
+		return this.shift(date, amount, unit, "add");
+	}
+
+	/** Subtracts units from a date. The mirror of {@link useDateAdd}. */
+	useDateSubtract(date: TemporalInput, amount: number, unit: DateUnit): string {
+		return this.shift(date, amount, unit, "subtract");
+	}
+
+	/** Shared implementation for add/subtract, so neither can drift. */
+	private shift(
+		date: TemporalInput,
+		amount: number,
+		unit: DateUnit,
+		direction: "add" | "subtract",
+	): string {
+		const resolved = useUnit(unit);
+		const value = Number.isFinite(amount) ? amount : 0;
+		const subDay = SUB_DAY_UNITS.has(resolved);
+		const from = this.toComparable(date, subDay);
+
+		const fields: Record<DateUnit, number> = {
+			years: value,
+			// A quarter is three months; there is no shorter honest answer.
+			quarters: value * 3,
+			months: value,
+			weeks: value,
+			days: value,
+			hours: value,
+			minutes: value,
+		};
+
+		const shifted = from[direction]({
+			[resolved === "quarters" ? "months" : resolved]: fields[resolved],
+		} as never);
+		return shifted.toString();
+	}
+
+	/**
+	 * Returns which of two dates comes first.
+	 *
+	 * A three-way comparison is what a date range filter actually needs —
+	 * `before` and `after` answer different queries, and collapsing them into
+	 * a boolean loses the direction you were asked about.
+	 *
+	 * @example
+	 * ```ts
+	 * useDateOrder(deadline, useNow()); // "before" | "after" | "same"
+	 * ```
+	 */
+	useDateOrder(date1: TemporalInput, date2: TemporalInput): DateOrder {
+		return useOrder(this.toComparable(date1, false), this.toComparable(date2, false));
 	}
 
 	/**
@@ -268,27 +477,78 @@ export class DatesService {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Wrappers (backward compatibility)                                          */
+/* Wrappers                                                                   */
 /* -------------------------------------------------------------------------- */
 
 /**
- * Returns a human-readable diff between two dates as years, months, and days.
- *
- * @param start - Start date (ISO string or `PlainDate`).
- * @param end - End date (ISO string or `PlainDate`).
- * @returns A formatted string, e.g. `"2 years, 3 months and 15 days"`.
+ * Returns the whole number of `unit`s between two dates. Signed, never
+ * fractional, and defaulting to `days`.
  *
  * @example
  * ```ts
- * useDiff("2020-01-01", "2022-04-16");
- * // "2 years, 3 months and 15 days"
+ * useDateBetween("2020-01-01", "2022-04-16");           // 836
+ * useDateBetween("2020-01-01", "2022-04-16", "months"); // 27
+ * useDateBetween(issued, useNow(), "days");            // age in days
  * ```
  */
-export function useDiff(
-	start: string | Temporal.PlainDate,
-	end: string | Temporal.PlainDate,
-): string {
-	return DatesService.getInstance().useDiff(start, end);
+export function useDateBetween(
+	start: TemporalInput,
+	end: TemporalInput,
+	unit: DateUnit = "days",
+): number {
+	return DatesService.getInstance().useDateBetween(start, end, unit);
+}
+
+/**
+ * Returns the balanced breakdown between two dates as a `Temporal.Duration`.
+ *
+ * @example
+ * ```ts
+ * const span = useDurationBetween("2020-01-01", "2022-04-16");
+ * span.years; // 2
+ * span.days;  // 15
+ * ```
+ */
+export function useDurationBetween(start: TemporalInput, end: TemporalInput): Temporal.Duration {
+	return DatesService.getInstance().useDurationBetween(start, end);
+}
+
+/**
+ * Returns the date a given number of units away, with calendar semantics.
+ *
+ * @example
+ * ```ts
+ * useDateAdd("2026-01-31", 1, "months");  // "2026-02-28"
+ * useDateAdd("2026-01-01", 2, "quarters"); // "2026-07-01"
+ * ```
+ */
+export function useDateAdd(date: TemporalInput, amount: number, unit: DateUnit): string {
+	return DatesService.getInstance().useDateAdd(date, amount, unit);
+}
+
+/**
+ * Subtracts units from a date, with calendar semantics.
+ *
+ * @example
+ * ```ts
+ * useDateSubtract(useNow(), 30, "days");
+ * ```
+ */
+export function useDateSubtract(date: TemporalInput, amount: number, unit: DateUnit): string {
+	return DatesService.getInstance().useDateSubtract(date, amount, unit);
+}
+
+/**
+ * Returns whether the first date comes before, after, or at the same time as
+ * the second.
+ *
+ * @example
+ * ```ts
+ * useDateOrder(deadline, useNow()); // "before"
+ * ```
+ */
+export function useDateOrder(date1: TemporalInput, date2: TemporalInput): DateOrder {
+	return DatesService.getInstance().useDateOrder(date1, date2);
 }
 
 /**

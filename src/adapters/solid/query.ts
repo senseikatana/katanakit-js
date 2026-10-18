@@ -10,7 +10,7 @@ import {
 import { createEffect, onCleanup } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { useQueryClient } from "../../core/services/query.service.js";
+import { useQueryClient } from "@/core/services/query.service.js";
 
 /** Options for the Solid binding: a plain object or a reactive getter. */
 export type SolidQueryOptions<TQueryFnData, TError, TData> =

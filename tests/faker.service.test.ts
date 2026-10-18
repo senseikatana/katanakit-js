@@ -61,8 +61,8 @@ describe("faker.service", () => {
 	});
 
 	it("generates primitives with the expected shape", async () => {
-		const [email, fullName, firstName, lastName, phone, company, url, text, flag] =
-			await Promise.all([
+		const [email, fullName, firstName, lastName, phone, company, url, text, flag] = await Promise.all(
+			[
 				useFakeEmail(),
 				useFakeFullName(),
 				useFakeFirstName(),
@@ -72,7 +72,8 @@ describe("faker.service", () => {
 				useFakeUrl(),
 				useFakeText(5),
 				useFakeBoolean(),
-			]);
+			],
+		);
 
 		expect(email).toContain("@");
 		expect(fullName.length).toBeGreaterThan(0);

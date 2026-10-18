@@ -10,8 +10,8 @@ import {
 	watch,
 } from "vue";
 
-import { useFetch } from "../../core/services/http.service.js";
-import type { ApiError, FetchResult, UrlOptions } from "../../types/index.js";
+import { useFetch } from "@/core/services/http.service.js";
+import type { ApiError, FetchResult, UrlOptions } from "@/types/index.js";
 
 /**
  * Reactive state exposed by the {@link useRequest} composable.

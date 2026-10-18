@@ -1,5 +1,5 @@
-import { useFetch } from "../../core/services/http.service.js";
-import type { FetchResult } from "../../types/index.js";
+import { useFetch } from "@/core/services/http.service.js";
+import type { FetchResult } from "@/types/index.js";
 
 /** Base URL of the public dummyjson.com REST API. */
 export const DUMMYJSON_BASE_URL = "https://dummyjson.com";

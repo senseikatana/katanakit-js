@@ -1,4 +1,4 @@
-import type { LogLevel } from "../../types/index.js";
+import type { LogLevel } from "@/types/index.js";
 
 /**
  * LoggerService - Singleton para logging

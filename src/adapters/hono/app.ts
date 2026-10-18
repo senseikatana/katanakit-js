@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { secureHeaders } from "hono/secure-headers";
 
-import { useLogger } from "../../core/services/logger.service.js";
+import { useLogger } from "@/core/services/logger.service.js";
 
 /** Options accepted by {@link useCreateApp}. */
 export interface HonoAppOptions {

@@ -9,7 +9,7 @@ import {
 } from "@tanstack/query-core";
 import { type Readable, readable } from "svelte/store";
 
-import { useQueryClient } from "../../core/services/query.service.js";
+import { useQueryClient } from "@/core/services/query.service.js";
 
 /**
  * Svelte store factory for a cached query, backed by TanStack Query Core.

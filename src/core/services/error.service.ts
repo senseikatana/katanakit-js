@@ -1,4 +1,4 @@
-import type { ApiError, ISerializedError } from "../../types/index.js";
+import type { ApiError, ISerializedError } from "@/types/index.js";
 
 /** Default error messages by HTTP status code. */
 const ERROR_DEFAULTS: Record<number, string> = {

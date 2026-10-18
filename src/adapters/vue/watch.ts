@@ -1,11 +1,6 @@
 import { getCurrentInstance, onUnmounted, watch } from "vue";
 
-import type {
-	WatchCallback,
-	WatchOptions,
-	WatchSource,
-	WatchStopHandle,
-} from "../../types/index.js";
+import type { WatchCallback, WatchOptions, WatchSource, WatchStopHandle } from "@/types/index.js";
 
 /**
  * Generic reactive watcher for any Vue state.

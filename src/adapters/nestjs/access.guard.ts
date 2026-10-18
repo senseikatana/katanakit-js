@@ -6,8 +6,8 @@ import {
 	UnauthorizedException,
 } from "@nestjs/common";
 
-import { useCan } from "../../core/services/access.service.js";
-import type { AccessCapability, AccessSubject } from "../../types/index.js";
+import { useCan } from "@/core/services/access.service.js";
+import type { AccessCapability, AccessSubject } from "@/types/index.js";
 
 /**
  * Builds a Nest guard that requires an access capability, mirroring the

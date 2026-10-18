@@ -4,7 +4,8 @@ import type {
 	SignalSetter,
 	Subscribable,
 	ToggleSignalSetter,
-} from "../../types/index.js";
+} from "@/types/index.js";
+
 import { useLogger } from "./logger.service.js";
 
 // Module-level batching state.

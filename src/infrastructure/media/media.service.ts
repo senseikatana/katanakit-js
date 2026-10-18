@@ -1,4 +1,4 @@
-import { useIsBrowser } from "../dom/dom.service.js";
+import { useIsBrowser } from "@/infrastructure/dom/dom.service.js";
 
 /**
  * Hydrates click-to-play facades rendered by `useBuildVideoEmbed`.

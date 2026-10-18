@@ -1,4 +1,4 @@
-import type { FakeVehicle } from "../../types/index.js";
+import type { FakeVehicle } from "@/types/index.js";
 
 // ============================================================
 // Faker facade — generic fake data for tests, seeds and forms.

@@ -1,8 +1,8 @@
 import type { z } from "zod";
 
-import { useAttempt } from "../../core/services/result.service.js";
-import { useSplitConfig } from "../../core/services/utils.service.js";
-import { useValidate } from "../../core/services/validation.service.js";
+import { useAttempt } from "@/core/services/result.service.js";
+import { useSplitConfig } from "@/core/services/utils.service.js";
+import { useValidate } from "@/core/services/validation.service.js";
 import {
 	NotionBlockListSchema,
 	NotionBlockResponseSchema,
@@ -15,7 +15,7 @@ import {
 	NotionSearchResultSchema,
 	NotionUserListSchema,
 	NotionUserResponseSchema,
-} from "../../schemas/notion.schema.js";
+} from "@/schemas/notion.schema.js";
 import type {
 	ConfigFacade,
 	FetchResult,
@@ -35,7 +35,7 @@ import type {
 	NotionSort,
 	NotionUser,
 	NotionUserList,
-} from "../../types/index.js";
+} from "@/types/index.js";
 
 /** Default Notion API base URL. */
 const NOTION_API_BASE = "https://api.notion.com/v1";

@@ -1,6 +1,6 @@
 import type { z } from "zod";
 
-import type { FetchResult } from "../../types/index.js";
+import type { FetchResult } from "@/types/index.js";
 
 /**
  * ValidationService - Singleton para validaciones.

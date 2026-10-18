@@ -4,7 +4,7 @@ import type {
 	CollectionEntryLike,
 	PaginationProps,
 	PathsOptions,
-} from "../../types/index.js";
+} from "@/types/index.js";
 
 /**
  * Convert a collection into Astro-compatible static paths.

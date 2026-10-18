@@ -12,7 +12,7 @@ import {
 	type RefetchOptions,
 } from "@tanstack/query-core";
 
-import { useQueryClient } from "../../core/services/query.service.js";
+import { useQueryClient } from "@/core/services/query.service.js";
 
 /** Signal-based query result returned by {@link useQuery}. */
 export interface AngularQueryResult<TData = unknown, TError = Error> {

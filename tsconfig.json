@@ -19,8 +19,11 @@
     "rootDir": "src",
     "paths": {
       "@/*": ["./src/*"],
+      "~/*": ["./src/*"],
       "@/adapters/*": ["./src/adapters/*"],
-      "@/config/*": ["./src/config/*"]
+      "@/config/*": ["./src/config/*"],
+      "~#/adapters/*": ["./src/adapters/*"],
+      "~#/config/*": ["./src/config/*"]
     }
   },
   "include": ["src/**/*.ts"],

@@ -1,6 +1,6 @@
 import type { QueryClientConfig } from "@tanstack/query-core";
 
-import type { ApisConfig } from "../../types/index.js";
+import type { ApisConfig } from "@/types/index.js";
 
 /**
  * Injection token for the options passed to `KatanaKitModule.forRoot()`.

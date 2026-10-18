@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 
-import type { ProductType } from "../../types/index.js";
+import type { ProductType } from "@/types/index.js";
 
 /** Module-level products storage. */
 const products: ProductType[] = [];

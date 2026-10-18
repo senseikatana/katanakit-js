@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useFetch } from "../../core/services/http.service.js";
-import type { ApiError, UrlOptions } from "../../types/index.js";
+import { useFetch } from "@/core/services/http.service.js";
+import type { ApiError, UrlOptions } from "@/types/index.js";
 
 /** Reactive state exposed by the {@link useRequest} hook. */
 export interface RequestState<T = unknown> {

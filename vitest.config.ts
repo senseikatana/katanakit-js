@@ -65,7 +65,7 @@ export default defineConfig({
 			// `bun run test:e2e` covers instead), so a per-file floor would be
 			// permanently red and therefore meaningless.
 			//
-			// These only ever apply to `bun run test:coverage`. `check` and `build`
+			// These only ever apply to `bunx vitest run --coverage`. `check` and `build`
 			// invoke `vitest run` without `--coverage`, so this cannot fail a gate.
 			thresholds: {
 				statements: 57,

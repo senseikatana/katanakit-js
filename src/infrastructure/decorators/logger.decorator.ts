@@ -1,5 +1,5 @@
-import { useLogger } from "../../core/services/logger.service.js";
-import type { LogLevel } from "../../types/index.js";
+import { useLogger } from "@/core/services/logger.service.js";
+import type { LogLevel } from "@/types/index.js";
 
 /**
  * LoggerDecorator - Decorator Pattern para trazado de llamadas.

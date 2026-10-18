@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { reactive, ref } from "vue";
+
 import { useKatanaWatch, useWatch } from "@/adapters/vue/watch";
 
 describe("Vue adapter — useKatanaWatch", () => {

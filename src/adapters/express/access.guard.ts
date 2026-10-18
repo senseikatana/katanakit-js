@@ -1,7 +1,7 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 
-import { useCan } from "../../core/services/access.service.js";
-import type { AccessCapability, AccessSubject } from "../../types/index.js";
+import { useCan } from "@/core/services/access.service.js";
+import type { AccessCapability, AccessSubject } from "@/types/index.js";
 
 /**
  * Builds an Express guard that requires an access capability.

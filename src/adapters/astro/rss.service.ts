@@ -1,5 +1,5 @@
-import type { SiteConfig } from "../../config/site.config.js";
-import type { RssConfig, RssItem, RssResult } from "../../types/index.js";
+import type { SiteConfig } from "@/config/site.config.js";
+import type { RssConfig, RssItem, RssResult } from "@/types/index.js";
 
 /**
  * Escape special XML characters in a string.

@@ -1,5 +1,6 @@
-import { useCreateSignal } from "../../core/services/reactive.service.js";
-import type { SignalGetter, SignalSetter, StorageTarget } from "../../types/index.js";
+import { useCreateSignal } from "@/core/services/reactive.service.js";
+import type { SignalGetter, SignalSetter, StorageTarget } from "@/types/index.js";
+
 import { useGetStorage, useSetStorage } from "./storage.service.js";
 
 /**

@@ -14,14 +14,14 @@ import {
 	AccessSubjectSchema,
 	BUILT_IN_CAPABILITIES,
 	BUILT_IN_ROLE_SLUGS,
-} from "../schemas/access.schema.js";
+} from "@/schemas/access.schema.js";
 import {
 	AiFunctionCallSchema,
 	AiMessageSchema,
 	AiProviderConfigSchema,
 	AiRoleSchema,
 	AiToolCallSchema,
-} from "../schemas/ai.schema.js";
+} from "@/schemas/ai.schema.js";
 import {
 	ApiErrorSchema,
 	HttpMethodSchema,
@@ -30,7 +30,7 @@ import {
 	SerializedErrorSchema,
 	StorageTargetSchema,
 	ThemeModeSchema,
-} from "../schemas/common.schema.js";
+} from "@/schemas/common.schema.js";
 import {
 	AgentDataSchema,
 	AgentStepSchema,
@@ -40,6 +40,8 @@ import {
 	AstroServiceErrorSchema,
 	CurrencyFormatOptionsSchema,
 	CurrencySchema,
+	DateOrderSchema,
+	DateUnitSchema,
 	FieldErrorsSchema,
 	GeometryFormatOptionsSchema,
 	GeoPositionSchema,
@@ -50,8 +52,8 @@ import {
 	ScrollPositionSchema,
 	ValidationIssueSchema,
 	ViewportSizeSchema,
-} from "../schemas/core.schema.js";
-import { FakeVehicleSchema } from "../schemas/faker.schema.js";
+} from "@/schemas/core.schema.js";
+import { FakeVehicleSchema } from "@/schemas/faker.schema.js";
 import {
 	FileEncodingSchema,
 	FileHashAlgorithmSchema,
@@ -60,7 +62,7 @@ import {
 	ReadDirEntrySchema,
 	ReadDirOptionsSchema,
 	WriteFileOptionsSchema,
-} from "../schemas/filesystem.schema.js";
+} from "@/schemas/filesystem.schema.js";
 import {
 	IfConfigSchema,
 	IfInsertRowsSchema,
@@ -72,14 +74,14 @@ import {
 	IfTableQuerySchema,
 	IfUpdatePatchSchema,
 	IfWriteQuerySchema,
-} from "../schemas/insforge.schema.js";
+} from "@/schemas/insforge.schema.js";
 import {
 	MediaProviderSchema,
 	MediaSourceSchema,
 	SmartVideoOptionsSchema,
 	YoutubeEmbedOptionsSchema,
 	YoutubeThumbnailQualitySchema,
-} from "../schemas/media.schema.js";
+} from "@/schemas/media.schema.js";
 import {
 	NotionBlockListSchema,
 	NotionBlockSchema,
@@ -99,8 +101,8 @@ import {
 	NotionSortSchema,
 	NotionUserListSchema,
 	NotionUserSchema,
-} from "../schemas/notion.schema.js";
-import { RssConfigSchema, RssItemSchema } from "../schemas/rss.schema.js";
+} from "@/schemas/notion.schema.js";
+import { RssConfigSchema, RssItemSchema } from "@/schemas/rss.schema.js";
 import {
 	WordPressAuthSchema,
 	WordPressConfigSchema,
@@ -108,6 +110,8 @@ import {
 	WpBaseEntitySchema,
 	WpBatchOperationSchema,
 	WpBatchResultSchema,
+	WpCapabilityMapSchema,
+	WpCapabilitySchema,
 	WpCategoryCreateSchema,
 	WpCategorySchema,
 	WpCategoryUpdateSchema,
@@ -125,13 +129,17 @@ import {
 	WpPostSchema,
 	WpPostUpdateSchema,
 	WpQueryParamsSchema,
+	WpRoleAuditSchema,
+	WpRoleAuditStatusSchema,
+	WpRoleDefinitionSchema,
+	WpRoleRegistrySchema,
 	WpTagCreateSchema,
 	WpTagSchema,
 	WpTagUpdateSchema,
 	WpUserCreateSchema,
 	WpUserSchema,
 	WpUserUpdateSchema,
-} from "../schemas/wordpress.schema.js";
+} from "@/schemas/wordpress.schema.js";
 import {
 	YoutubeApiConfigSchema,
 	YoutubeChannelsResponseSchema,
@@ -141,7 +149,7 @@ import {
 	YoutubeVideoPageSchema,
 	YoutubeVideosResponseSchema,
 	YoutubeVideoThumbnailsSchema,
-} from "../schemas/youtube.schema.js";
+} from "@/schemas/youtube.schema.js";
 
 /* -------------------------------------------------------------------------- */
 /* Logging                                                                    */
@@ -326,14 +334,29 @@ export type TemporalInput =
 	| Temporal.ZonedDateTime
 	| Temporal.Instant;
 
+/** Granularity accepted by the calendar arithmetic helpers. */
+export type DateUnit = z.infer<typeof DateUnitSchema>;
+
+/** Relative ordering of two dates. */
+export type DateOrder = z.infer<typeof DateOrderSchema>;
+
 export type AppDateFormatOptions = z.infer<typeof AppDateFormatOptionsSchema>;
 
 /** Backwards-compatible alias for {@link AppDateFormatOptions}. */
 export type DateFormatOptions = AppDateFormatOptions;
 
-/** Contract of the dates facade. */
+/**
+ * Contract of the dates facade.
+ *
+ * `useDateBetween`, `useDateAdd`, `useDateSubtract` and `useDateOrder` are the
+ * arithmetic primitives; `useDurationBetween` is the structured breakdown.
+ */
 export interface DatesServiceTypes {
-	useDiff(start: string | Temporal.PlainDate, end: string | Temporal.PlainDate): string;
+	useDateBetween(start: TemporalInput, end: TemporalInput, unit?: DateUnit): number;
+	useDurationBetween(start: TemporalInput, end: TemporalInput): Temporal.Duration;
+	useDateAdd(date: TemporalInput, amount: number, unit: DateUnit): string;
+	useDateSubtract(date: TemporalInput, amount: number, unit: DateUnit): string;
+	useDateOrder(date1: TemporalInput, date2: TemporalInput): DateOrder;
 	useFormat(dateInput: TemporalInput, locale?: Locale, options?: Intl.DateTimeFormatOptions): string;
 	useNow(): string;
 	useNowDateTime(): string;
@@ -1217,6 +1240,30 @@ export type WpCommentUpdate = z.infer<typeof WpCommentUpdateSchema>;
 /** A WordPress user. */
 export type WpUser = z.infer<typeof WpUserSchema>;
 
+/** Capability map as WordPress reports it (`{ manage_options: true }`). */
+export type WpCapabilityMap = z.infer<typeof WpCapabilityMapSchema>;
+
+/** A WordPress capability name (`edit_orders`). */
+export type WpCapability = z.infer<typeof WpCapabilitySchema>;
+
+/**
+ * A role declaration: the PHP-free replacement for `add_role()`.
+ *
+ * Holds both capability vocabularies — the toolkit's namespaced capabilities
+ * (used by `useCan()` and the framework guards) and WordPress' own snake_case
+ * names (declared for the site, verified with `useWpAuditRole`).
+ */
+export type WpRoleDefinition = z.infer<typeof WpRoleDefinitionSchema>;
+
+/** A declared role registry. */
+export type WpRoleRegistry = z.infer<typeof WpRoleRegistrySchema>;
+
+/** Verification outcome of a declared role: `verified`, `partial`, `unverifiable`. */
+export type WpRoleAuditStatus = z.infer<typeof WpRoleAuditStatusSchema>;
+
+/** A declared role compared against what the live site reports. */
+export type WpRoleAudit = z.infer<typeof WpRoleAuditSchema>;
+
 /** Payload for creating a WordPress user. */
 export type WpUserCreate = z.infer<typeof WpUserCreateSchema>;
 
@@ -1314,6 +1361,17 @@ export interface IWordPressService {
 	useWpCreateUser(data: WpUserCreate): Promise<FetchResult<WpUser>>;
 	useWpUpdateUser(id: number, data: WpUserUpdate): Promise<FetchResult<WpUser>>;
 	useWpDeleteUser(id: number, reassign?: number): Promise<FetchResult<WpUser>>;
+	useWpDefineRoles(definitions: WpRoleDefinition[]): void;
+	useWpRegisterRole(definition: WpRoleDefinition): void;
+	useWpRoles(): WpRoleDefinition[];
+	useWpGetRole(slug: AccessRole): WpRoleDefinition | undefined;
+	useWpResetRoles(): void;
+	useWpSyncRoles(): void;
+	useWpAsSubject(user: WpUser): AccessSubject;
+	useWpAssignRole(userId: number, role: string): Promise<FetchResult<WpUser>>;
+	useWpUnassignRole(userId: number, role: string): Promise<FetchResult<WpUser>>;
+	useWpGetUsersByRole(role: string, options?: WpQueryParams): Promise<FetchResult<WpUser[]>>;
+	useWpAuditRole(slug: string, maxHolders?: number): Promise<FetchResult<WpRoleAudit>>;
 	useWpGetCustomPosts(postType: string, options?: WpQueryParams): Promise<FetchResult<unknown[]>>;
 	useWpGetCustomPost(
 		postType: string,

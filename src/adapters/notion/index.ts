@@ -1,21 +1,3 @@
-export type {
-	NotionBlock,
-	NotionBlockList,
-	NotionConfig,
-	NotionDatabase,
-	NotionDatabaseQuery,
-	NotionFilter,
-	NotionPage,
-	NotionPageList,
-	NotionParent,
-	NotionPropertySchema,
-	NotionRichText,
-	NotionSearchQuery,
-	NotionSearchResult,
-	NotionSort,
-	NotionUser,
-	NotionUserList,
-} from "../../types/index.js";
 export {
 	defineNotionConfig,
 	useInitNotion,
@@ -38,3 +20,21 @@ export {
 	useNotionUpdateDatabase,
 	useNotionUpdatePage,
 } from "./notion.service.js";
+export type {
+	NotionBlock,
+	NotionBlockList,
+	NotionConfig,
+	NotionDatabase,
+	NotionDatabaseQuery,
+	NotionFilter,
+	NotionPage,
+	NotionPageList,
+	NotionParent,
+	NotionPropertySchema,
+	NotionRichText,
+	NotionSearchQuery,
+	NotionSearchResult,
+	NotionSort,
+	NotionUser,
+	NotionUserList,
+} from "@/types/index.js";

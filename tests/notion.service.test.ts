@@ -92,9 +92,9 @@ describe("notion.service", () => {
 		});
 
 		it("validates the config (Zod strips the declared methods)", () => {
-			expect(() =>
-				defineNotionConfig({ token: 42 } as unknown as { token: string }),
-			).toThrow(/\[Notion\] Invalid config/);
+			expect(() => defineNotionConfig({ token: 42 } as unknown as { token: string })).toThrow(
+				/\[Notion\] Invalid config/,
+			);
 		});
 
 		it("leaves the registered config free of methods", () => {

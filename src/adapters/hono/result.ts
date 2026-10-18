@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
-import type { FetchResult } from "../../types/index.js";
+import type { FetchResult } from "@/types/index.js";
 
 /**
  * Maps a KatanaKit Safe Result to a Hono JSON response.

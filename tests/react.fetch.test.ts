@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { createElement, type ReactNode } from "react";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { createElement, type ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { useRequest } from "@/adapters/react/fetch.js";

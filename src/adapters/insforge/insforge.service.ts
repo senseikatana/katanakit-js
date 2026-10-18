@@ -1,7 +1,7 @@
 import { createAdminClient, createClient, type InsForgeClient } from "@insforge/sdk";
 
-import { useSplitConfig } from "../../core/services/utils.service.js";
-import { useValidate } from "../../core/services/validation.service.js";
+import { useSplitConfig } from "@/core/services/utils.service.js";
+import { useValidate } from "@/core/services/validation.service.js";
 import {
 	IfBucketSchema,
 	IfConfigSchema,
@@ -14,7 +14,7 @@ import {
 	IfTableQuerySchema,
 	IfUpdatePatchSchema,
 	IfWriteQuerySchema,
-} from "../../schemas/insforge.schema.js";
+} from "@/schemas/insforge.schema.js";
 import type {
 	ApiError,
 	ConfigFacade,
@@ -28,7 +28,7 @@ import type {
 	IfTableQuery,
 	IfUpdatePatch,
 	IfWriteQuery,
-} from "../../types/index.js";
+} from "@/types/index.js";
 
 /** Outcome envelope returned by awaitable PostgREST builders. */
 interface IfOutcome {

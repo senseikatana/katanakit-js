@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import type { NotionFilter } from "../types/index.js";
+import type { NotionFilter } from "@/types/index.js";
 
 /** Config for the Notion API integration. */
 export const NotionConfigSchema = z.object({

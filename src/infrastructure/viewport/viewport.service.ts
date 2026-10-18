@@ -1,4 +1,4 @@
-import type { ScrollOptions, ScrollPosition, ViewportSize } from "../../types/index.js";
+import type { ScrollOptions, ScrollPosition, ViewportSize } from "@/types/index.js";
 
 // ============================================================
 // Internal helpers

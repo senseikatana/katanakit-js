@@ -1,8 +1,8 @@
 import { onDestroy } from "svelte";
 import { type Readable, writable } from "svelte/store";
 
-import { useFetch } from "../../core/services/http.service.js";
-import type { ApiError, UrlOptions } from "../../types/index.js";
+import { useFetch } from "@/core/services/http.service.js";
+import type { ApiError, UrlOptions } from "@/types/index.js";
 
 /** Reactive state exposed by the {@link useRequest} factory (Svelte stores). */
 export interface RequestState<T = unknown> {

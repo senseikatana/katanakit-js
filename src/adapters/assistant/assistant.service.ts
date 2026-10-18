@@ -1,13 +1,13 @@
 import { type Request, type RequestHandler, type Response, Router } from "express";
 import rateLimit from "express-rate-limit";
 
+import { useExpressGetApp, useExpressStart } from "@/adapters/express/server.js";
 import {
 	useGetHistory,
 	useReply,
 	useResetSession,
 	useSessionExists,
-} from "../../core/services/assistant.service.js";
-import { useExpressGetApp, useExpressStart } from "../express/server.js";
+} from "@/core/services/assistant.service.js";
 
 /** Options for the assistant HTTP router. */
 export interface AssistantRouterOptions {

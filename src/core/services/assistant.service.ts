@@ -6,7 +6,8 @@ import type {
 	AssistantResult,
 	ConversationStore,
 	IAssistantService,
-} from "../../types/index.js";
+} from "@/types/index.js";
+
 import { useChat, useInitAgent, useRunAgent } from "./agent.service.js";
 
 /**

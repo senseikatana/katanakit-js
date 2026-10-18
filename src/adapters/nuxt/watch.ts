@@ -1,1 +1,1 @@
-export { useKatanaWatch, useWatch } from "../vue/watch.js";
+export { useKatanaWatch, useWatch } from "@/adapters/vue/watch.js";

@@ -1,11 +1,12 @@
-import { SmartVideoOptionsSchema } from "../../schemas/media.schema.js";
+import { SmartVideoOptionsSchema } from "@/schemas/media.schema.js";
 import type {
 	FetchResult,
 	MediaSource,
 	SmartVideoOptions,
 	YoutubeEmbedOptions,
 	YoutubeThumbnailQuality,
-} from "../../types/index.js";
+} from "@/types/index.js";
+
 import { useValidate } from "./validation.service.js";
 
 const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;

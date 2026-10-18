@@ -1,4 +1,4 @@
-import type { GeometryFormatOptions } from "../../types/index.js";
+import type { GeometryFormatOptions } from "@/types/index.js";
 
 /**
  * Pure helper: formats a numeric geometry result via `Intl`.

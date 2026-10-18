@@ -9,7 +9,8 @@ import type {
 	ReadDirEntry,
 	ReadDirOptions,
 	WriteFileOptions,
-} from "../../types/index.js";
+} from "@/types/index.js";
+
 import { useGetDirname, useIsNode, useJoinPath, useResolvePath } from "./path.service.js";
 
 // ============================================================

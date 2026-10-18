@@ -1,4 +1,5 @@
-import type { ApiError, SafeResult } from "../../types/index.js";
+import type { ApiError, SafeResult } from "@/types/index.js";
+
 import { useErrorNormalize } from "./error.service.js";
 
 /**

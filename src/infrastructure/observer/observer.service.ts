@@ -1,11 +1,11 @@
-import { useLogger } from "../../core/services/logger.service.js";
+import { useLogger } from "@/core/services/logger.service.js";
 import type {
 	LazyLoaderEntry,
 	ObserverCallback,
 	ObserverConfig,
 	ObserverEntry,
 	ObserverTarget,
-} from "../../types/index.js";
+} from "@/types/index.js";
 
 // ============================================================
 // Module-level state

@@ -1,7 +1,7 @@
 import type { Context, MiddlewareHandler } from "hono";
 
-import { useCan } from "../../core/services/access.service.js";
-import type { AccessCapability, AccessSubject } from "../../types/index.js";
+import { useCan } from "@/core/services/access.service.js";
+import type { AccessCapability, AccessSubject } from "@/types/index.js";
 
 /**
  * Builds a Hono middleware that requires an access capability, mirroring the

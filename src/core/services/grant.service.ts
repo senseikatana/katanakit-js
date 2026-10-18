@@ -1,5 +1,6 @@
-import type { AccessResource, Grant } from "../../schemas/grant.schema.js";
-import type { AccessCapability, AccessRole, AccessSubject } from "../../types/index.js";
+import type { AccessResource, Grant } from "@/schemas/grant.schema.js";
+import type { AccessCapability, AccessRole, AccessSubject } from "@/types/index.js";
+
 import { AccessService } from "./access.service.js";
 
 /* -------------------------------------------------------------------------- */
@@ -97,8 +98,18 @@ export function useGrantAwareCan(options: GrantAwareOptions): ResourceAccessDeci
 	for (const grant of useGrants({ subject, resource })) {
 		if (!useGrantApplies(grant, resource, at)) continue;
 		const granted: AccessSubject = { id: grant.subjectId, roles: [grant.role] };
-		if (service.useCan(granted, capability)) {
-			return { allowed: true, source: "grant", via: grant.role };
+		// A grant is *data*, not configuration: a row left behind by an earlier
+		// deployment can name a role this one never registered. The registry
+		// throws on an unknown role — loudly and correctly for a global role,
+		// which is configuration — but here the right answer is to skip the row.
+		// Otherwise one stale share takes a route down instead of merely
+		// granting nothing.
+		try {
+			if (service.useCan(granted, capability)) {
+				return { allowed: true, source: "grant", via: grant.role };
+			}
+		} catch {
+			continue;
 		}
 	}
 

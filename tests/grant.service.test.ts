@@ -133,6 +133,39 @@ describe("useGrantAwareCan", () => {
 
 			expect(decision).toEqual({ allowed: true, source: "grant", via: "lector" });
 		});
+
+		it("skips a grant naming a role this deployment never registered", () => {
+			// A row left behind by an earlier deployment must deny, not throw —
+			// one stale share should not take a route down.
+			const decision = useGrantAwareCan({
+				subject: { id: 7, roles: [] },
+				resource: expediente,
+				capability: "content:create",
+				useGrants: () => [grant({ role: "retired-role" })],
+				access: globals,
+			});
+
+			expect(decision).toEqual({ allowed: false, source: "none" });
+		});
+
+		it("still honours a valid grant after skipping a stale one", () => {
+			globals.useRegisterRole({
+				slug: "lector",
+				label: "Lector",
+				rank: 5,
+				capabilities: ["expediente:read"],
+			});
+
+			const decision = useGrantAwareCan({
+				subject: { id: 7, roles: [] },
+				resource: expediente,
+				capability: "expediente:read",
+				useGrants: () => [grant({ role: "retired-role" }), grant({ role: "lector" })],
+				access: globals,
+			});
+
+			expect(decision).toEqual({ allowed: true, source: "grant", via: "lector" });
+		});
 	});
 
 	describe("expiry", () => {

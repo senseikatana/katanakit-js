@@ -4,7 +4,7 @@ import type { SolidAuthClient } from "better-auth/solid";
 import type { SvelteAuthClient } from "better-auth/svelte";
 import type { VueAuthClient } from "better-auth/vue";
 
-import type { SafeResult } from "../../types/index.js";
+import type { SafeResult } from "@/types/index.js";
 
 /** Framework clients shipped by Better Auth — one `createAuthClient` per entry. */
 export type AuthFramework = "vanilla" | "react" | "vue" | "svelte" | "solid";

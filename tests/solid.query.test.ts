@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { type QueryObserverResult, QueryClient } from "@tanstack/query-core";
+import { QueryClient, type QueryObserverResult } from "@tanstack/query-core";
 import { createRoot } from "solid-js";
 import { describe, expect, it, vi } from "vitest";
 

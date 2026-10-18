@@ -5,7 +5,7 @@ import {
 	useLoggerError,
 	useLoggerTable,
 	useLoggerWarn,
-} from "../../core/services/logger.service.js";
+} from "@/core/services/logger.service.js";
 
 /** Renders any Nest log payload as the string KatanaKit's logger expects. */
 function format(message: unknown): string {

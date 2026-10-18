@@ -1,4 +1,5 @@
-import { defineApiConfig } from "../../core/services/http.service.js";
+import { defineApiConfig } from "@/core/services/http.service.js";
+
 import { dummyJsonApiConfig } from "./dummyjson.service.js";
 import { useBunStart } from "./server.js";
 

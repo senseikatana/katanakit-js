@@ -4,7 +4,7 @@ import {
 	type QueryFunctionContext,
 } from "@tanstack/query-core";
 
-import type { FetchResult } from "../../types/index.js";
+import type { FetchResult } from "@/types/index.js";
 
 /**
  * Query engine — a thin facade over {@link https://tanstack.com/query | TanStack Query Core}.

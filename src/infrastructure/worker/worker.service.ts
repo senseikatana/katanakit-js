@@ -1,4 +1,4 @@
-import type { WorkerFunc, WorkerPoolEntry } from "../../types/index.js";
+import type { WorkerFunc, WorkerPoolEntry } from "@/types/index.js";
 
 // ============================================================
 // Module-level state

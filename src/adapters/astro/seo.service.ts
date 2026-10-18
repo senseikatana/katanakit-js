@@ -13,7 +13,7 @@ export type {
 	SeoTagsResult,
 	UseSeoMetaBase,
 	UseSeoMetaOptions,
-} from "../../config/seo.service.js";
+} from "@/config/seo.service.js";
 export {
 	useApplySeoTag,
 	useGenerateMetaTags,
@@ -23,5 +23,5 @@ export {
 	useSeoTag,
 	useSeoTags,
 	useTitle,
-} from "../../config/seo.service.js";
-export { type SiteConfig, siteConfig } from "../../config/site.config.js";
+} from "@/config/seo.service.js";
+export { type SiteConfig, siteConfig } from "@/config/site.config.js";
