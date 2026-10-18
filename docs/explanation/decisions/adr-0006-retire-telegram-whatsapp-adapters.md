@@ -22,9 +22,8 @@ defects that the Safe Result contract exists to prevent:
 - The WhatsApp webhook acknowledged `200` **before** attempting the reply
   ("ack fast so Meta does not retry"), so a failed send could never be retried
   by the provider and never surfaced an error on either end.
-- Both adapters depended on `express-rate-limit`, which is declared as a hard
-  runtime `dependency` even though it is reachable only from these two
-  subpaths.
+- Both adapters depended on `express-rate-limit`, which was declared as a hard
+  runtime `dependency` even though it is reachable only from subpath adapters.
 
 The adapters were never used by the maintainer. The maintenance cost was real
 and the correctness cost was a silent failure mode, not a loud one.
@@ -36,6 +35,14 @@ their guide pages, and the `./adapters/telegram` and `./adapters/whatsapp`
 entries from `package.json#exports`. The assistant keeps its REST channel, its
 session store and its free-form `channel` tag — only the two shipped channel
 implementations go away.
+
+In the same change, `express-rate-limit` moves from `dependencies` to
+`peerDependencies` with `peerDependenciesMeta.optional`, and is pinned in
+`devDependencies` so the repository still resolves it. It is statically
+imported by `src/adapters/assistant`, so a consumer of
+`katanakit-js/adapters/assistant` must install it — exactly as they already
+must for `express` and `cors`. This closes the ADR-0003 peer-dependency rule
+violation for every remaining adapter.
 
 This is a **breaking change**, released as **7.0.0**. ADR-0003's *rule* — every
 adapter lives on a subpath, every framework is an optional peer — is unchanged
@@ -57,10 +64,9 @@ pin `^6` or call the provider API directly. The assistant loses its
 long-polling channel, which needed no public URL, and its Meta webhook
 integration with `X-Hub-Signature-256` verification.
 
-**Not fixed by this record.** `express-rate-limit` remains a hard runtime
-`dependency`. It is now reachable only from `src/adapters/assistant`, which
-still imports it, so the ADR-0003 peer-dependency rule is still violated —
-narrower, but not closed. Moving it to an optional peer is separate work.
+**Also fixed here.** `express-rate-limit` is no longer a hard runtime
+`dependency`. It is an optional peer, declared alongside `express` and `cors`,
+which the assistant adapter already required.
 
 ## Links
 

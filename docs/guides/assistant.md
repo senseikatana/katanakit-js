@@ -111,6 +111,11 @@ omitted; pass `result.data.sessionId` on later turns. Also on the main barrel:
 
 ## 5. REST channel
 
+`katanakit-js/adapters/assistant` mounts on Express, so it declares `express`
+(`>=5`), `cors` (`>=2.8`) and `express-rate-limit` (`>=8`) as optional peer
+dependencies. Install the ones you use — the assistant itself needs none of
+them for the in-process helpers above.
+
 ```ts
 import { useStartAssistant, useCreateAssistantRouter } from "katanakit-js/adapters/assistant";
 
