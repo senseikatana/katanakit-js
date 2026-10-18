@@ -27,7 +27,7 @@ ones are plain components to drop into an app. The `.ts`/`.tsx` files are
 type-checked on demand, deliberately **outside** `bun run check`:
 
 ```bash
-bun run examples:check
+bun run build   # type-checks the examples as its last step
 ```
 
 ## The helpers (what each one is for)

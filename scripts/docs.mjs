@@ -229,7 +229,7 @@ function chain() {
 				[
 					"docs: vitepress build failed — if the error above mentions `.temp/` or `createTitle`,",
 					"another process was writing docs/.vitepress/.temp while this build ran:",
-					"  → let the other session/build finish, then re-run `bun run docs`",
+					"  → let the other session/build finish, then re-run `bun run deploy`",
 					"  → never delete .cache/docs.lock.json by hand; the runner clears stale locks itself",
 				].join("\n"),
 			);

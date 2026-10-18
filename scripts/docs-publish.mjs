@@ -6,7 +6,7 @@
  * index untouched (the `gh-pages` npm package staged the whole working tree,
  * `node_modules/` included, in the project index).
  *
- * Run via `bun run docs:gh`, which builds with the GitHub Pages base first.
+ * Run via `bun run deploy:gh`, which builds with the GitHub Pages base first.
  */
 import { execFileSync } from "node:child_process";
 import { cpSync, existsSync, mkdtempSync, readdirSync, rmSync } from "node:fs";

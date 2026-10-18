@@ -10,13 +10,18 @@
  * would happily delete tracked sources, so every target is named explicitly
  * and anything outside this list is never considered.
  *
- * `rimraf` is deliberately not used — `fs.rmSync(…, { recursive, force })` is
- * native on the Node floor declared in `engines.node`, and `scripts/docs.mjs`
- * already removes trees that way.
+ * `rimraf` backs the removal itself. Node's `fs.rmSync` is available on the
+ * floor declared in `engines.node`, but it surfaces Windows' EBUSY/EPERM on
+ * files another process still holds — a dev server with the file mapped, an
+ * indexer, an antivirus scan — and gives up. `rimraf` retries those and
+ * clears the read-only bit before unlinking, so the same command works on a
+ * Windows checkout instead of failing halfway with a half-deleted `dist`.
  */
-import { existsSync, readdirSync, rmSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import { dirname, isAbsolute, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { rimrafSync } from "rimraf";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -27,14 +32,14 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const TARGETS = [
 	["dist", "bun run build"],
 	["packages/ui/dist", "bun run build:ui"],
-	["docs/api", "bun run docs"],
-	["docs/changelog.md", "bun run docs"],
-	["docs/.vitepress/dist", "bun run docs"],
-	["docs/.vitepress/cache", "bun run docs"],
-	["docs/.vitepress/.temp", "bun run docs"],
-	["docs/.vitepress/theme/signals.json", "bun run docs"],
-	[".vitepress", "bun run docs"],
-	[".cache", "bun run docs"],
+	["docs/api", "bun run deploy"],
+	["docs/changelog.md", "bun run deploy"],
+	["docs/.vitepress/dist", "bun run deploy"],
+	["docs/.vitepress/cache", "bun run deploy"],
+	["docs/.vitepress/.temp", "bun run deploy"],
+	["docs/.vitepress/theme/signals.json", "bun run deploy"],
+	[".vitepress", "bun run deploy"],
+	[".cache", "bun run deploy"],
 	["node_modules/.vite", "bun run dev"],
 ];
 
@@ -55,7 +60,7 @@ function directorySize(directory) {
 	for (const entry of entries) {
 		const child = join(directory, entry.name);
 		// A symlink is not walked into: `statSync` would follow it and double-count
-		// (or loop on a cycle). `rmSync` unlinks the link itself either way.
+		// (or loop on a cycle). `rimrafSync` unlinks the link itself either way.
 		if (entry.isSymbolicLink()) continue;
 		// One unreadable entry must never abort the sweep part-way through.
 		try {
@@ -125,7 +130,7 @@ const width = Math.max(...rows.map((row) => row.label.length));
 console.log(dry ? "clean (dry run) — would remove:" : "clean: removing");
 
 for (const row of rows) {
-	if (!dry) rmSync(row.absolute, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+	if (!dry) rimrafSync(row.absolute, { maxRetries: 10, retryDelay: 200 });
 	console.log(`  ${row.label.padEnd(width)}  ${format(row.size).padStart(9)}  (${row.restore})`);
 }
 

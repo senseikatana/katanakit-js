@@ -14,52 +14,60 @@
 
 import {
 	defineWordPressConfig,
-	useWpGetPosts,
-	useWpGetPost,
-	useWpCreatePost,
-	useWpUpdatePost,
-	useWpDeletePost,
-	useWpGetPages,
-	useWpGetPage,
+	useWpAssignRole,
+	useWpAsSubject,
+	useWpAuditRole,
+	useWpBatch,
+	useWpCreateCategory,
+	useWpCreateComment,
+	useWpCreateCustomPost,
 	useWpCreatePage,
-	useWpUpdatePage,
-	useWpDeletePage,
-	useWpGetMedia,
-	useWpGetMediaItem,
-	useWpUploadMedia,
-	useWpUpdateMedia,
+	useWpCreatePost,
+	useWpCreateTag,
+	useWpCreateUser,
+	useWpDefineRoles,
+	useWpDeleteCategory,
+	useWpDeleteComment,
+	useWpDeleteCustomPost,
 	useWpDeleteMedia,
+	useWpDeletePage,
+	useWpDeletePost,
+	useWpDeleteTag,
+	useWpDeleteUser,
+	useWpFindPostBySlug,
 	useWpGetCategories,
 	useWpGetCategory,
-	useWpCreateCategory,
-	useWpUpdateCategory,
-	useWpDeleteCategory,
-	useWpGetTags,
-	useWpGetTag,
-	useWpCreateTag,
-	useWpUpdateTag,
-	useWpDeleteTag,
-	useWpGetComments,
 	useWpGetComment,
-	useWpCreateComment,
-	useWpUpdateComment,
-	useWpDeleteComment,
-	useWpGetUsers,
-	useWpGetUser,
+	useWpGetComments,
 	useWpGetCurrentUser,
-	useWpCreateUser,
-	useWpUpdateUser,
-	useWpDeleteUser,
-	useWpGetCustomPosts,
 	useWpGetCustomPost,
-	useWpCreateCustomPost,
-	useWpUpdateCustomPost,
-	useWpDeleteCustomPost,
-	useWpBatch,
+	useWpGetCustomPosts,
+	useWpGetMedia,
+	useWpGetMediaItem,
+	useWpGetPage,
+	useWpGetPages,
+	useWpGetPost,
+	useWpGetPosts,
+	useWpGetTag,
+	useWpGetTags,
+	useWpGetUser,
+	useWpGetUsers,
+	useWpGetUsersByRole,
 	useWpListAllPosts,
+	useWpRoles,
 	useWpSearchAllPosts,
-	useWpFindPostBySlug,
+	useWpSyncRoles,
+	useWpUpdateCategory,
+	useWpUpdateComment,
+	useWpUpdateCustomPost,
+	useWpUpdateMedia,
+	useWpUpdatePage,
+	useWpUpdatePost,
+	useWpUpdateTag,
+	useWpUpdateUser,
+	useWpUploadMedia,
 } from "../../src/adapters/wordpress/index.js";
+import { useCan } from "../../src/core/services/access.service.js";
 
 /* ------------------------------------------------------------------ */
 /* 1. Init — register credentials once                                 */
@@ -795,7 +803,81 @@ async function deleteUser(id: number): Promise<void> {
 }
 
 /* ------------------------------------------------------------------ */
-/* 9. Custom Post Types — generic CRUD                                 */
+/* 9. Roles — declare, sync, audit (no PHP on your side)               */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A dashboard cannot create a WordPress role: the REST API has no roles
+ * endpoint. What it can do is declare the model it expects and then check that
+ * the site agrees, which is what these three steps do.
+ */
+async function roles(): Promise<void> {
+	console.log("\n--- Roles ---");
+
+	useWpDefineRoles([
+		{
+			slug: "store_customer",
+			label: "Store Customer",
+			// Same rung as `guest`: inherits from it and adds what the store needs.
+			rank: 5,
+			capabilities: ["orders:read:own", "orders:update:own"],
+			// What the site itself must grant — verified by the audit below.
+			wpCapabilities: ["read", "read_order", "edit_order"],
+		},
+	]);
+	useWpSyncRoles();
+
+	console.log(
+		`  Declared: ${useWpRoles()
+			.map((role) => role.slug)
+			.join(", ")}`,
+	);
+
+	const me = await useWpGetCurrentUser();
+	if (me.ok) {
+		const subject = useWpAsSubject(me.data);
+		console.log(`  You hold: ${subject.roles.join(", ")}`);
+		console.log(`  Can read own orders: ${useCan(subject, "orders:read:own")}`);
+	}
+
+	const holders = await useWpGetUsersByRole("store_customer", { per_page: 5 });
+	if (holders.ok) {
+		console.log(`  Holders: ${holders.data.length}`);
+	} else {
+		console.error("  Error:", holders.error.message);
+	}
+
+	const audit = await useWpAuditRole("store_customer");
+	if (audit.ok) {
+		const { status, holders: count, missing, undeclared } = audit.data;
+		console.log(`  Audit: ${status} (${count} holder${count === 1 ? "" : "s"})`);
+		if (missing.length) console.log(`    missing on site: ${missing.join(", ")}`);
+		if (undeclared.length) console.log(`    granted but undeclared: ${undeclared.join(", ")}`);
+	} else {
+		console.error("  Error:", audit.error.message);
+	}
+}
+
+// await assignRole(42, "store_customer"); // 422 when the site has no such role
+
+async function assignRole(userId: number, role: string): Promise<void> {
+	console.log(`\n--- Assign Role: ${role} ---`);
+
+	const result = await useWpAssignRole(userId, role);
+
+	if (result.ok) {
+		console.log(`  Roles now: ${result.data.roles.join(", ")}`);
+	} else if (result.status === 422) {
+		// WordPress drops unknown role slugs silently — this is the adapter
+		// telling us the site has no such role. Create it in WordPress.
+		console.error("  Role not registered on the site:", result.error.message);
+	} else {
+		console.error("  Error:", result.error.message);
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* 10. Custom Post Types — generic CRUD                                */
 /* ------------------------------------------------------------------ */
 
 async function listCustomPosts(postType: string): Promise<void> {
@@ -865,7 +947,7 @@ async function deleteCustomPost(postType: string, id: number): Promise<void> {
 }
 
 /* ------------------------------------------------------------------ */
-/* 10. Batch — multiple requests in one call                           */
+/* 11. Batch — multiple requests in one call                           */
 /* ------------------------------------------------------------------ */
 
 async function batchOperations(): Promise<void> {
@@ -949,6 +1031,10 @@ async function main(): Promise<void> {
 	// await createUser();      // uncomment to test
 	// await updateUser(1);     // uncomment to test
 	// await deleteUser(1);     // uncomment to test
+
+	// Roles — declares the model, checks the site agrees. Needs `list_users`.
+	await roles();
+	// await assignRole(42, "store_customer"); // uncomment to test
 
 	// Custom Post Types
 	// await listCustomPosts("product");     // uncomment with your CPT slug

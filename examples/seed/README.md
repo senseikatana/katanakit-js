@@ -19,7 +19,7 @@ bun run examples/seed/seed-data.ts
 bun run examples/seed/seed-data.ts /tmp/my-seed
 ```
 
-The script is type-checked by `bun run examples:check`, deliberately **outside**
+The script is type-checked by the last step of `bun run build`, deliberately **outside**
 `bun run check`.
 
 ## Determinism
