@@ -8,6 +8,45 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.11.2] - 2026-10-18
+
+Highlights: fix: retire telegram whatsapp adapters: remove dependencies and update docu, plus 2 more changes.
+
+- [x] 🐛 fix: retire telegram whatsapp adapters: remove dependencies and update docu
+  - `bun.lock`
+  - `docs/explanation/decisions/adr-0006-retire-telegram-whatsapp-adapters.md`
+  - `docs/guides/assistant.md`
+  - `package.json`
+- [x] 🐛 fix: retire telegram and whatsapp adapters: remove both channel adapters fr
+  - `.env.example`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/explanation/decisions/adr-0006-retire-telegram-whatsapp-adapters.md`
+  - `docs/explanation/decisions/index.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/assistant.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/telegram.md`
+  - `docs/guides/upgrade-to/v6.md`
+  - `docs/guides/whatsapp.md`
+  - `examples/assistant/README.md`
+  - `examples/assistant/demo.ts`
+  - `package.json`
+  - `src/adapters/telegram/index.ts`
+  - `src/adapters/telegram/main.ts`
+  - `src/adapters/telegram/telegram.service.ts`
+  - `src/adapters/whatsapp/index.ts`
+  - `src/adapters/whatsapp/main.ts`
+  - `src/adapters/whatsapp/whatsapp.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `tests/telegram.service.test.ts`
+  - `tests/whatsapp.service.test.ts`
+- [x] 🐛 fix: add gga configuration file
+  - `.gga`
+- [x] 🐛 fix: update README.md: improve KatanaKit JS documentation
+- [x] 💄 style(core): apply prettier formatting to the signal tracking helper
+- [x] 🐛 fix(docs): explain the .temp corruption failures in the build runner
+
 ## [6.11.1] - 2026-10-18
 
 Highlights: fix: update README.md: improve KatanaKit JS documentation, plus 2 more changes.
