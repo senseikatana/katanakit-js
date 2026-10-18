@@ -8,6 +8,34 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.12.0] - 2026-10-18
+
+Highlights: feat: add subject resolution and ownership management for sessions closes #6 and fix(docs): correct AssistantService JSDoc to the real method name, plus 3 more changes.
+
+- [x] 🚀 feat: add subject resolution and ownership management for sessions closes #6
+  - `src/adapters/assistant/assistant.service.ts`
+- [x] 📝 docs: align ADR-0004, ADR-0006 and guides with the shipped code
+  - `docs/explanation/decisions/adr-0004-hexagonal-core.md`
+  - `docs/explanation/decisions/adr-0006-retire-telegram-whatsapp-adapters.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/services/reactive.md`
+  - `docs/guides/upgrade-to/v6.md`
+- [x] 🐛 fix(docs): correct AssistantService JSDoc to the real method name
+  - `src/core/services/assistant.service.ts`
+- [x] ♻️ refactor(core): move useCreateStorageSignal to infrastructure
+  - `src/core/services/reactive.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/storage/storage-signal.service.ts`
+  - `src/types/index.ts`
+  - `tests/architecture.test.ts`
+- [x] 🧪 test(coverage): establish Vitest coverage baseline and reporting
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `docs/ui-kit/testing.md`
+  - `package.json`
+  - `vitest.config.ts`
+- [x] 🐛 fix: retire telegram whatsapp adapters: remove dependencies and update docu
+
 ## [6.11.2] - 2026-10-18
 
 Highlights: fix: retire telegram whatsapp adapters: remove dependencies and update docu, plus 2 more changes.
