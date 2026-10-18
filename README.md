@@ -1,4 +1,4 @@
-# `katanakit-js`
+# KatanaKit JS:
 
 A framework-agnostic TypeScript toolkit for the services most projects need:
 typed HTTP, validation, caching, filesystem and browser utilities, and
