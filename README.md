@@ -244,11 +244,11 @@ One import path per runtime, so a bundle only ever contains what it uses:
 ```ts
 import { useAuthClient } from "katanakit-js/adapters/vue";
 import { useRequireCapability } from "katanakit-js/adapters/express";
-import { useAstroAuthLocals } from "katanakit-js/adapters/astro";
+import { useAstroAuthLocals } from "katanakit-js/adapters/better-auth";
 ```
 
 Available entry points: `express`, `hono`, `bun`, `nestjs`, `nuxt`, `vue`,
-`astro`, `react`, `solid`, `svelte`, `angular`, `vanilla`, `better-auth`,
+`astro`, `next`, `react`, `solid`, `svelte`, `angular`, `vanilla`, `better-auth`,
 `insforge`, `assistant`, `notion`, `wordpress`, `photoswipe`, plus `/schemas`,
 `/prisma` and `/styles.css`.
 

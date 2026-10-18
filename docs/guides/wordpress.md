@@ -395,6 +395,11 @@ stripped of its roles fails closed and looks like a missing grant. Unknown roles
 throw instead — which is exactly why `useWpSyncRoles()` belongs right after the
 declarations.
 
+The subject plugs straight into `useRequireCapability()` — one guard per
+framework, same `401`/`403` semantics everywhere. See
+[Capability guards](/guides/framework-adapters#capability-guards) for the Astro,
+Next, Nuxt, Hono and Express wiring.
+
 The subject composes with the rest of the access kit. A dashboard that shares
 one order with one person reaches for `useGrantAwareCan()` — the subject's
 global roles answer *"what class of thing may they ever do"*, a grant answers

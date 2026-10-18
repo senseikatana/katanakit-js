@@ -109,6 +109,7 @@ import { AstroService, RssService } from "katanakit-js/adapters/astro";
 import { useUnwrap } from "katanakit-js/adapters/nuxt";
 import { useRequest } from "katanakit-js/adapters/vue";
 import { ServerExpress } from "katanakit-js/adapters/express";
+import { useRequireCapability } from "katanakit-js/adapters/next"; // also on /astro, /nuxt, /hono, /express, /nestjs
 ```
 
 Every public `use*` helper lives on the main barrel (`katanakit-js`). Framework

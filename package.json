@@ -42,6 +42,11 @@
 			"import": "./dist/adapters/astro/index.js",
 			"default": "./dist/adapters/astro/index.js"
 		},
+		"./adapters/next": {
+			"types": "./dist/adapters/next/index.d.ts",
+			"import": "./dist/adapters/next/index.js",
+			"default": "./dist/adapters/next/index.js"
+		},
 		"./adapters/photoswipe": {
 			"types": "./dist/adapters/photoswipe/index.d.ts",
 			"import": "./dist/adapters/photoswipe/index.js",

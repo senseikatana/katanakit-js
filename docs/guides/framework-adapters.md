@@ -206,6 +206,98 @@ useWatch(() => product, (next, prev) => console.log(next, prev));
 </script>
 ```
 
+## Capability guards
+
+`useRequireCapability()` turns an access capability into whatever a framework
+uses to gate a request. Every adapter answers the same two refusals the same
+way:
+
+| | Anonymous | Authenticated, missing capability |
+| --- | --- | --- |
+| Message | `Authentication required` | `Missing capability: <capability>` |
+| Server guards (Express, Hono, Nest) | `401` | `403` |
+| Astro / Next — defaults | `401` | `403` |
+| Astro / Next — with `redirectTo` | redirect | redirect to `forbiddenTo` |
+| Nuxt route middleware | `redirectTo` | `forbiddenTo` |
+
+Both bodies are the toolkit's `{ ok, data, error }` envelope. A subject with a
+role the registry does not know is treated as **unauthorized**, never as an
+error — a typo in a role slug must not become an open route.
+
+The subject is resolved by the caller, because the toolkit ships no auth
+provider. A WordPress backend resolves it from the user it just fetched:
+
+```ts
+import { useWpAsSubject } from "katanakit-js/adapters/wordpress";
+
+const subject = useWpAsSubject(wpUser); // { id, roles }
+```
+
+::: code-group
+
+```ts [Astro]
+// src/middleware.ts
+import { defineMiddleware } from "astro:middleware";
+import { useRequireCapability } from "katanakit-js/adapters/astro";
+
+const guard = useRequireCapability(
+  "orders:read:any",
+  (context) => resolveSubject(context.locals.user),
+  { redirectTo: "/login", forbiddenTo: "/403" },
+);
+
+export const onRequest = defineMiddleware((context, next) =>
+  context.url.pathname.startsWith("/admin") ? guard(context, next) : next(),
+);
+```
+
+```ts [Next.js]
+// proxy.ts  (Next.js 16+; use middleware.ts on 15 and earlier)
+import { useRequireCapability } from "katanakit-js/adapters/next";
+
+export const proxy = useRequireCapability(
+  "orders:read:any",
+  (request) => resolveSubject(readUserFromCookie(request.headers.get("cookie"))),
+  { redirectTo: "/login", forbiddenTo: "/403" },
+);
+
+export const config = { matcher: ["/admin/:path*"] };
+```
+
+```ts [Nuxt]
+// middleware/admin.ts
+import { useRequireCapability } from "katanakit-js/adapters/nuxt";
+
+export default defineNuxtRouteMiddleware(
+  useRequireCapability(
+    "orders:read:any",
+    (to) => resolveSubject(readUserFromCookie(to)),
+    { redirectTo: "/login", forbiddenTo: "/403" },
+  ),
+);
+```
+
+```ts [Hono]
+import { useRequireCapability } from "katanakit-js/adapters/hono";
+
+app.post("/orders/:id/publish", useRequireCapability("orders:update:any", resolve), handler);
+```
+
+:::
+
+Two things are different per platform, and both are the platform's doing:
+
+- **A page navigation cannot receive a JSON body.** Astro and Next therefore
+  take `redirectTo`; leaving it out reproduces the server guards exactly, which
+  is what an API route wants. `forbiddenTo` is separate because a subject who
+  *is* signed in and lacks the capability must not be sent back to sign-in.
+- **Nuxt's route layer has no HTTP status at all.** A route middleware either
+  navigates or aborts, so the refusals are destinations rather than codes.
+  Omitting them aborts the navigation with no error page — give both.
+
+Server routes in Nuxt are a different path: `useUnwrap()` and `useSafeResponse()`
+on an H3 event already carry the status code.
+
 ## Sharing state across frameworks
 
 All adapters share the same global [`QueryClient`](./query-client.md) singleton (unless you pass your own instance), so cached data is shared across adapters and even across frameworks in the same app. The `queryKey` is the single source of truth for identity and invalidation.
