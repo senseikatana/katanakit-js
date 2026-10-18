@@ -8,6 +8,176 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.13.0] - 2026-10-18
+
+Highlights: feat: update WordPress roles declaration and audit and fix: update dates service to correctly handle datetime parsing with offsets, plus 3 more changes.
+
+- [x] 🐛 fix: update dates service to correctly handle datetime parsing with offsets
+  - `src/core/services/dates.service.ts`
+  - `tests/dates.service.test.ts`
+- [x] 🚀 feat: update WordPress roles declaration and audit
+  - `docs/explanation/decisions/adr-0007-wordpress-roles-declared-not-created.md`
+  - `docs/explanation/decisions/adr-0008-access-is-three-orthogonal-axes.md`
+  - `docs/explanation/decisions/adr-0009-alias-imports-in-src.md`
+  - `src/adapters/angular/fetch.ts`
+  - `src/adapters/angular/index.ts`
+  - `src/adapters/angular/query.ts`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/adapters/assistant/main.ts`
+  - `src/adapters/astro/astro.service.ts`
+  - `src/adapters/astro/rss.service.ts`
+  - `src/adapters/astro/seo.service.ts`
+  - `src/adapters/better-auth/better-auth.provider.ts`
+  - `src/adapters/better-auth/client.ts`
+  - `src/adapters/better-auth/index.ts`
+  - `src/adapters/bun/dummyjson.service.ts`
+  - `src/adapters/bun/main.ts`
+  - `src/adapters/express/access.guard.ts`
+  - `src/adapters/express/products.controller.ts`
+  - `src/adapters/express/server.ts`
+  - `src/adapters/hono/access.guard.ts`
+  - `src/adapters/hono/app.ts`
+  - `src/adapters/hono/result.ts`
+  - `src/adapters/insforge/index.ts`
+  - `src/adapters/insforge/insforge.provider.ts`
+  - `src/adapters/insforge/insforge.service.ts`
+  - `src/adapters/nestjs/access.guard.ts`
+  - `src/adapters/nestjs/kit.service.ts`
+  - `src/adapters/nestjs/logger.service.ts`
+  - `src/adapters/nestjs/options.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/nuxt/nuxt.service.ts`
+  - `src/adapters/nuxt/watch.ts`
+  - `src/adapters/photoswipe/photoswipe.service.ts`
+  - `src/adapters/react/fetch.ts`
+  - `src/adapters/react/index.ts`
+  - `src/adapters/react/query.ts`
+  - `src/adapters/solid/fetch.ts`
+  - `src/adapters/solid/index.ts`
+  - `src/adapters/solid/query.ts`
+  - `src/adapters/svelte/fetch.ts`
+  - `src/adapters/svelte/index.ts`
+  - `src/adapters/svelte/query.ts`
+  - `src/adapters/vanilla/index.ts`
+  - `src/adapters/vanilla/query.ts`
+  - `src/adapters/vue/index.ts`
+  - `src/adapters/vue/query.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/adapters/vue/watch.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/core/index.ts`
+  - `src/core/services/access.service.ts`
+  - `src/core/services/agent.service.ts`
+  - `src/core/services/assistant.service.ts`
+  - `src/core/services/auth.service.ts`
+  - `src/core/services/dates.service.ts`
+  - `src/core/services/directory.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/faker.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/grant.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/logger.service.ts`
+  - `src/core/services/media.service.ts`
+  - `src/core/services/query.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/result.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/utils.service.ts`
+  - `src/core/services/validation.service.ts`
+  - `src/core/services/youtube.service.ts`
+  - `src/infrastructure/decorators/logger.decorator.ts`
+  - `src/infrastructure/filesystem/filesystem.service.ts`
+  - `src/infrastructure/media/media.service.ts`
+  - `src/infrastructure/observer/observer.service.ts`
+  - `src/infrastructure/sensors/sensors.service.ts`
+  - `src/infrastructure/storage/storage-signal.service.ts`
+  - `src/infrastructure/storage/storage.service.ts`
+  - `src/infrastructure/theme/theme.service.ts`
+  - `src/infrastructure/viewport/viewport.service.ts`
+  - `src/infrastructure/worker/worker.service.ts`
+  - `src/prisma/assistant.store.ts`
+  - `src/schemas/core.schema.ts`
+  - `src/schemas/directory.schema.ts`
+  - `src/schemas/index.ts`
+  - `src/schemas/notion.schema.ts`
+  - `src/schemas/wordpress.schema.ts`
+  - `src/types/index.ts`
+  - `tests/auth.service.test.ts`
+  - `tests/better-auth.provider.test.ts`
+  - `tests/bun.adapter.test.ts`
+  - `tests/dates.service.test.ts`
+  - `tests/directory.service.test.ts`
+  - `tests/express.server.test.ts`
+  - `tests/faker.service.test.ts`
+  - `tests/filesystem.service.test.ts`
+  - `tests/grant.service.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/insforge.provider.test.ts`
+  - `tests/notion.service.test.ts`
+  - `tests/react.fetch.test.ts`
+  - `tests/solid.query.test.ts`
+  - `tests/validation.service.test.ts`
+  - `tests/vue.query.test.ts`
+  - `tests/vue.service.test.ts`
+  - `tests/vue.watch.test.ts`
+  - `tests/wordpress.roles.test.ts`
+  - `tests/wordpress.service.test.ts`
+  - `tests/youtube.service.test.ts`
+  - `tsconfig.json`
+  - `vitest.config.ts`
+- [x] 🚀 feat: update examples and scripts with new WordPress API usage and comments
+  - `examples/query/README.md`
+  - `examples/seed/README.md`
+  - `examples/wordpress/demo.ts`
+  - `package.json`
+  - `scripts/clean.mjs`
+  - `scripts/docs-prepare.mjs`
+  - `scripts/docs-publish.mjs`
+  - `scripts/docs.mjs`
+  - `scripts/npm-publish.mjs`
+  - `scripts/setup-cloudflare.mjs`
+- [x] 🚀 feat: update documentation and configuration files
+  - `.gitignore`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `bun.lock`
+  - `docs/explanation/decisions/index.md`
+  - `docs/guides/access-control.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/guides/services/dates.md`
+  - `docs/guides/wordpress.md`
+  - `docs/ui-kit/testing.md`
+- [x] 🚀 feat(tests): add a, AccessCapabilitySchema and AccessResourceSchema
+  - `RELEASE-DRAFT.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/access-control.md`
+  - `docs/guides/better-auth.md`
+  - `docs/guides/services/arrays.md`
+  - `src/adapters/assistant/assistant.service.ts`
+  - `src/core/index.ts`
+  - `src/core/services/access.service.ts`
+  - `src/core/services/array.service.ts`
+  - `src/core/services/grant.service.ts`
+  - `src/schemas/access.schema.ts`
+  - `src/schemas/grant.schema.ts`
+  - `src/schemas/identity.schema.ts`
+  - `src/schemas/index.ts`
+  - `src/types/index.ts`
+  - `tests/access.guard.test.ts`
+  - `tests/access.service.test.ts`
+  - `tests/array.service.test.ts`
+  - `tests/assistant.router.test.ts`
+  - `tests/grant.service.test.ts`
+- [x] 🚀 feat: add subject resolution and ownership management for sessions closes #6
+
 ## [6.12.0] - 2026-10-18
 
 Highlights: feat: add subject resolution and ownership management for sessions closes #6 and fix(docs): correct AssistantService JSDoc to the real method name, plus 3 more changes.
