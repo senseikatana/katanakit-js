@@ -79,6 +79,7 @@ Useful scripts:
 | | `bun run dev:server` | Express dev server (`tsx`); `bun run dev:bun` for the Bun adapter |
 | | `bun run docs:dev` | Alias of `dev` kept for discoverability |
 | **verify** | `bun run check` | ESLint + typecheck + tests (gate before build/publish) |
+| | `bun run test:coverage` | Unit suite + coverage report into `coverage/` (opt-in, not part of the gate) |
 | | `bun run test:e2e` | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
 | | `bun run test:all` | Unit suite + browser suite |
 | | `bun run fix` | Same as `check` with ESLint auto-fix (skips the UI typecheck) |
@@ -94,6 +95,68 @@ Useful scripts:
 | | `bun run publish` | Preflight + `npm publish` (`-- --check` to stop at preflight) |
 
 `build` and `release` never compile or publish unless `check` passes.
+
+## Test coverage
+
+```bash
+bun run test:coverage
+```
+
+This runs the unit suite once and writes the report to `coverage/` (already
+gitignored). It is **not** part of `check` or `build`: those run `vitest run`
+without `--coverage`, so coverage never gates a release. Run it when you add
+tests, when you touch a module you know is uncovered, and before a release.
+
+The provider is **`@vitest/coverage-v8`**, pinned to `5.0.3` because Vitest's peer
+range is an exact version match, not a caret. V8 coverage needs Node's native
+coverage API, which works here only because Vitest forks its worker pool with
+Node even though Bun launches the CLI — **do not** run the suite with `--bun`.
+
+### Reading the output
+
+`text` prints a per-file table grouped by directory. The four columns are
+`% Stmts`, `% Branch`, `% Funcs`, `% Lines`, and the last column lists the
+uncovered **line ranges** — click through them in the HTML report rather than
+guessing from the percentages.
+
+The report is scoped to what actually ships: `src/**/*.ts` and
+`packages/ui/src/**/*.ts`. The `include` list is explicit on purpose. Without
+it the V8 provider only reports the modules it happened to load, which hides
+every file no test touches — the opposite of what a coverage report is for.
+Barrels (`**/index.ts`), type-only modules and generated `.d.ts` files are
+excluded because they compile to **0 statements**; all 28 barrels and both
+type-only modules verify as `0/0`, so excluding them removes a zero
+denominator rather than hiding untested code.
+
+### Baseline
+
+Measured on `dev` with 554 tests across 51 files and 108 measured source
+files. Reproducible: consecutive runs report identical totals. Re-measure and
+update this table whenever you add tests.
+
+| Metric | Baseline | Floor | Covered |
+| --- | --- | --- | --- |
+| Statements | 62.89% | 57 | 3019/4800 |
+| Branches | 55.05% | 50 | 1589/2886 |
+| Functions | 55.52% | 50 | 688/1239 |
+| Lines | 65.28% | 60 | 2858/4378 |
+
+The `thresholds` in `vitest.config.ts` are **ratchet floors, not targets**. Each
+one is the measured baseline minus about 5 points of headroom, so ordinary
+refactors do not trip it but a genuine regression — quietly deleting a suite —
+does. **Raise them as coverage improves.** If you add tests, update this table
+and the floors in the same commit.
+
+There is deliberately **no `perFile` threshold**. 20 measured files contain real
+code at 0%, and several of them (`viewport`, `sensors`, `observer`, `worker`)
+only work against a real browser — the runtime `bun run test:e2e` provides, not
+jsdom. A per-file floor would be permanently red, and a permanently red gate is
+ignored rather than obeyed.
+
+Biggest gaps at the baseline: `viewport.service.ts` (117 statements, 0%),
+`worker.service.ts` (85, 0%), `observer.service.ts` (66, 0%),
+`sensors.service.ts` (62, 0%), `dates.service.ts` (43, 0%),
+`products.controller.ts` (37, 0%), `generator.service.ts` (33, 0%).
 
 ## Directory layout
 
@@ -271,6 +334,7 @@ git tag --sort=-creatordate     # check tags
 - [ ] New contracts/types were added to `src/types/` (not re‑declared).
 - [ ] New framework code is reachable via a subpath, not the main barrel.
 - [ ] `bun run check` passes (ESLint + typecheck + tests).
+- [ ] `bun run test:coverage` run when tests changed — coverage does not drop below the floors in `vitest.config.ts`.
 - [ ] `bun run test:e2e` passes when the change touches `packages/ui` (animations, cascade, focus, or anything timing-dependent).
 - [ ] Tests added/updated for the change.
 - [ ] Documentation and `CHANGELOG.md` updated if the public API changed.

@@ -14,6 +14,10 @@ halves and neither runtime covers both on its own.
 | Browser | `bun run test:e2e` | Chromium | The cascade, real animations, `animationend` timing, `prefers-reduced-motion` |
 | Both | `bun run test:all` | | |
 
+Coverage for the kit's components is measured by `bun run test:coverage`
+(see [CONTRIBUTING.md](https://github.com/senseikatana/katanakit-js/blob/dev/CONTRIBUTING.md#test-coverage)).
+It does not gate `check` or `build`.
+
 `bun run build` runs the unit suite as its gate. The browser suite is separate
 because it needs a browser binary — run it before a release, not on every save.
 
