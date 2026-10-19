@@ -8,6 +8,88 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [6.13.2] - 2026-10-19
+
+Highlights: fix(currency): improve currency conversion and formatting, add ECB referenc, plus 1 more change.
+
+- [x] 🐛 fix(currency): improve currency conversion and formatting, add ECB referenc
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/explanation/decisions/adr-0010-use-prefix-on-callbacks.md`
+  - `docs/explanation/decisions/adr-0011-no-static-business-methods.md`
+  - `docs/explanation/decisions/adr-0012-currency-adapter-in-infrastructure.md`
+  - `docs/explanation/decisions/adr-0013-round-money-with-intl.md`
+  - `docs/explanation/decisions/adr-0014-frankfurter-ecb-rates.md`
+  - `docs/explanation/decisions/index.md`
+  - `docs/explanation/index.md`
+  - `docs/explanation/service-architecture.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/currency.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/services/arrays.md`
+  - `docs/guides/services/converter.md`
+  - `docs/guides/services/error-helpers.md`
+  - `docs/guides/services/formatter.md`
+  - `docs/guides/services/generator.md`
+  - `docs/guides/services/geometry.md`
+  - `docs/guides/services/index.md`
+  - `docs/guides/services/reactive.md`
+  - `docs/guides/services/timing.md`
+  - `package.json`
+  - `src/core/index.ts`
+  - `src/core/services/converter.service.ts`
+  - `src/core/services/currency.service.ts`
+  - `src/core/services/error.service.ts`
+  - `src/core/services/faker.service.ts`
+  - `src/core/services/formatter.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/geometry.service.ts`
+  - `src/core/services/media.service.ts`
+  - `src/core/services/reactive.service.ts`
+  - `src/core/services/result.service.ts`
+  - `src/core/services/timing.service.ts`
+  - `src/core/services/youtube.service.ts`
+  - `src/infrastructure/currency/currency.service.ts`
+  - `src/infrastructure/currency/frankfurter.service.ts`
+  - `src/infrastructure/currency/index.ts`
+  - `src/infrastructure/index.ts`
+  - `src/schemas/core.schema.ts`
+  - `src/types/index.ts`
+  - `tests/core.services.test.ts`
+  - `tests/currency.service.test.ts`
+- [x] 🐛 fix: update adapters and services (wordpress, vue, seo, etc)
+  - `src/adapters/astro/seo.service.ts`
+  - `src/adapters/insforge/index.ts`
+  - `src/adapters/insforge/insforge.service.ts`
+  - `src/adapters/notion/index.ts`
+  - `src/adapters/notion/notion.service.ts`
+  - `src/adapters/vue/vue.service.ts`
+  - `src/adapters/wordpress/index.ts`
+  - `src/adapters/wordpress/wordpress.service.ts`
+  - `src/config/index.ts`
+  - `src/config/seo-meta.types.ts`
+  - `src/config/seo.service.ts`
+  - `src/core/services/generator.service.ts`
+  - `src/core/services/http.service.ts`
+  - `src/core/services/youtube.service.ts`
+  - `src/types/index.ts`
+  - `tests/angular.fetch.test.ts`
+  - `tests/http.service.test.ts`
+  - `tests/insforge.service.test.ts`
+  - `tests/notion.service.test.ts`
+  - `tests/react.fetch.test.ts`
+  - `tests/seo.service.test.ts`
+  - `tests/solid.fetch.test.ts`
+  - `tests/svelte.fetch.test.ts`
+  - `tests/vue.service.test.ts`
+  - `tests/wordpress.roles.test.ts`
+  - `tests/wordpress.service.test.ts`
+  - `typedoc.json`
+- [x] 🚀 feat: updated documentation and scripts
+- [x] 📝 docs(wordpress): add the WordPress Roles guide for the PHP side
+- [x] 🚀 feat(access): add capability guards for Astro, Next and Nuxt
+- [x] 🐛 fix: update dates service to correctly handle datetime parsing with offsets
+
 ## [6.13.1] - 2026-10-18
 
 Highlights: feat: updated documentation and scripts, plus 2 more changes.
