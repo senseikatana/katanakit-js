@@ -38,6 +38,11 @@ implementation detail: the [Architecture](/guides/architecture) page and the
 | [ADR-0007](/explanation/decisions/adr-0007-wordpress-roles-declared-not-created) | WordPress roles are declared in the app, not created over REST | Accepted | 2026-10-18 |
 | [ADR-0008](/explanation/decisions/adr-0008-access-is-three-orthogonal-axes) | Access is three orthogonal axes, not one role ladder | Accepted | 2026-10-18 |
 | [ADR-0009](/explanation/decisions/adr-0009-alias-imports-in-src) | The `@/` alias is used in `src/`, rewritten by `tsc-alias` | Accepted | 2026-10-18 |
+| [ADR-0010](/explanation/decisions/adr-0010-use-prefix-on-callbacks) | The `use*` prefix is kept; `on*` is reserved for Observer callbacks | Accepted | 2026-10-19 |
+| [ADR-0011](/explanation/decisions/adr-0011-no-static-business-methods) | No static business methods — Singleton plus DI instead | Accepted | 2026-10-19 |
+| [ADR-0012](/explanation/decisions/adr-0012-currency-adapter-in-infrastructure) | The currency rate adapter lives in `src/infrastructure/` | Accepted | 2026-10-19 |
+| [ADR-0013](/explanation/decisions/adr-0013-round-money-with-intl) | Money is rounded with `Intl.NumberFormat`, not `Math.round` | Accepted | 2026-10-19 |
+| [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates) | Frankfurter/ECB reference rates behind the provider port | Accepted | 2026-10-19 |
 
 ## Adding a record
 

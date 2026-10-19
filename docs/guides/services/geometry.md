@@ -5,9 +5,12 @@ description: "Pure area, perimeter and volume calculations with Intl-formatted s
 
 # Geometry
 
-`geometry.service.ts` is a **pure math module** exported as the `GeometryUtils`
-object. There is no class to instantiate, no I/O, no state and no dependency on
-the DOM or Node APIs — every call takes numbers and returns a string.
+`geometry.service.ts` is **pure math** behind three Singleton classes —
+`GeometryAreaService`, `GeometryPerimeterService` and `GeometryVolumeService` —
+composed into the `GeometryUtils` object (each namespace holds the matching
+class's `getInstance()`). There is no I/O, no configuration and no dependency
+on the DOM or Node APIs — every call takes numbers and returns a string, and
+you never create an instance yourself.
 
 The API is grouped into three namespaces:
 

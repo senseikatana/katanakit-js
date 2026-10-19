@@ -10,12 +10,17 @@ over a **pure core**, with the runtime I/O isolated behind it and SSR guards
 where the browser or Node/Bun is touched. Two public shapes exist, and both are
 re-exported as `use*` helpers from the package root:
 
-- **Singleton facade classes** — `FetchApiManager`, `DatesService`,
-  `LoggerService`, … expose `use*` methods and a `getInstance()` accessor.
-- **Function modules with strategies** — DOM, storage, theme, viewport, observer
-  and friends ship standalone `use*` functions; behavior is swapped through
-  strategy objects (for example, `LocalStorageStrategy`,
-  `SessionStorageStrategy` and `MemoryStorageStrategy` behind the storage API).
+- **Singleton facade classes** — every `src/core/services/` module is one:
+  `FormatterService`, `UnitConverterService`, `CurrencyConverterService`,
+  `LoggerService`, `DatesService`, `FetchApiManager`, … expose `use*` methods
+  and a `getInstance()` accessor (plus `create()` where dependencies are
+  injected). [Service architecture](/explanation/service-architecture) explains
+  the pattern vocabulary and the `use*` vs `on*` naming rule.
+- **Function modules with strategies** — the infrastructure modules (DOM,
+  storage, theme, viewport, observer and friends) ship standalone `use*`
+  functions; behavior is swapped through strategy objects (for example,
+  `LocalStorageStrategy`, `SessionStorageStrategy` and `MemoryStorageStrategy`
+  behind the storage API).
 
 ```ts
 // Class-based facade
@@ -45,6 +50,7 @@ and one section per method with runnable examples.
 | [Reactive](/guides/services/reactive)           | Signals, effects, memos and toggles for reactive state.                  |
 | [Formatter](/guides/services/formatter)         | Locale-aware number, currency and date formatting.                       |
 | [Converter](/guides/services/converter)         | Unit conversions for temperature, distance and weight.                   |
+| [Currency Conversion](/guides/currency)         | Convert amounts against ECB reference rates, with pluggable providers.  |
 | [Error Helpers](/guides/services/error-helpers) | Attempt, JSON parsing, normalize and serialize for unknown throws.       |
 | [Generator](/guides/services/generator)         | IDs, slugs, tokens and other generated values with zero dependencies.    |
 | [Dates](/guides/services/dates)                 | Temporal-based date math: now, add or subtract days, boundaries.         |

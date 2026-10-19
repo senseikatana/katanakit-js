@@ -37,6 +37,55 @@ export const CurrencyFormatOptionsSchema = z.object({
 	 */
 	taxes: z.number().optional(),
 	locale: LocaleSchema.optional(),
+	/**
+	 * Exact number of fraction digits in the output. Omit it to keep each
+	 * currency's own digits as `Intl` defines them (`"¥100"`, `"$1.00"`);
+	 * pass `2` to pin exactly two decimals (`"¥100.00"`).
+	 */
+	digits: z.number().int().nonnegative().optional(),
+});
+
+/** Options for a currency conversion between two ISO currencies. */
+export const CurrencyConvertOptionsSchema = z.object({
+	/** Amount to convert, in units of `from`. */
+	amount: z.number(),
+	/** Source currency. */
+	from: CurrencySchema,
+	/** Target currency. */
+	to: CurrencySchema,
+});
+
+/** A dated snapshot of exchange rates quoted against one base currency. */
+export const CurrencyRateSnapshotSchema = z.object({
+	/** Base currency the rates are quoted against. */
+	base: CurrencySchema,
+	/** ISO date (`YYYY-MM-DD`) the rates belong to. */
+	date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	/**
+	 * Quote currency → units of quote per 1 unit of `base`. Keys are the source's
+	 * own vocabulary (loose on purpose: providers know currencies this kit does
+	 * not, and an unknown key must not invalidate the snapshot).
+	 */
+	rates: z.record(z.string(), z.number()),
+});
+
+/** Result of a conversion: the math plus the rate and date it came from. */
+export const CurrencyConversionSchema = z.object({
+	/** Amount given to the conversion, echoed back. */
+	amount: z.number(),
+	/** Source currency. */
+	from: CurrencySchema,
+	/** Target currency. */
+	to: CurrencySchema,
+	/** Units of `to` per 1 unit of `from` on `date`. Full source precision. */
+	rate: z.number(),
+	/**
+	 * `amount * rate` rounded to exactly 2 decimals (money, symmetric
+	 * half-expand). The rate keeps its precision; the amount is what you settle.
+	 */
+	converted: z.number(),
+	/** ISO date (`YYYY-MM-DD`) the rate belongs to. */
+	date: z.string(),
 });
 
 /** Options for sale price arithmetic. */

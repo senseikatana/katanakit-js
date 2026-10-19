@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { useToMiles } from "@/core/services/converter.service";
 import { useErrorCustom } from "@/core/services/error.service";
-import { useToMiles } from "@/core/services/formatter.service";
 import { GeometryUtils } from "@/core/services/geometry.service";
 import {
 	useCreateBatch,
@@ -21,6 +21,13 @@ import {
 describe("GeometryUtils", () => {
 	it("computes the rectangle area", () => {
 		expect(GeometryUtils.area.useRectangle(5, 10)).toBe("50.00");
+	});
+
+	it("keeps working when a shape method is destructured", () => {
+		// Public call style: the namespace methods must not depend on `this`.
+		const { useRectangle, useCircle } = GeometryUtils.area;
+		expect(useRectangle(5, 10)).toBe("50.00");
+		expect(useCircle(3)).toBe("28.27");
 	});
 
 	it("computes the circle area", () => {
@@ -177,7 +184,7 @@ describe("ConverterService", () => {
 	});
 
 	it("round-trips miles ↔ kilometers with a shared constant", async () => {
-		const { useToKilometers } = await import("@/core/services/formatter.service");
+		const { useToKilometers } = await import("@/core/services/converter.service");
 		const miles = Number.parseFloat(useToMiles(16.0934, "en", 5));
 		const backKm = Number.parseFloat(useToKilometers(miles, "en", 5));
 		expect(backKm).toBeCloseTo(16.0934, 4);

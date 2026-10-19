@@ -5,7 +5,8 @@ description: "Framework-free signals, derived state, effects, batching and persi
 
 # Reactive
 
-`reactive.service.ts` is a **function module**: standalone `use*` helpers with no
+`reactive.service.ts` hosts the Singleton facade `ReactiveService` — the
+signals kernel — whose methods are re-exported as thin `use*` wrappers: no
 instance to create and no runtime to bootstrap. A signal is a plain callable
 getter (`count()`) paired with a setter (`setCount(1)`). Effects and memos track
 the signals they read automatically; optional explicit dependency arrays remain

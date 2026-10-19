@@ -5,16 +5,24 @@ description: "Unit conversions for temperature, distance and weight — every us
 
 # Converter
 
-The converter helpers are the **unit-conversion half of `formatter.service.ts`**.
-Like the rest of the module they are standalone `use*` functions: no singleton,
-no setup, no state, and safe to call from any environment because the only
-runtime dependency is `Intl`.
+The converter helpers live in `converter.service.ts` behind
+**`UnitConverterService`**, the Singleton facade for physical unit
+conversions. Like every core service, its methods are re-exported as thin
+`use*` wrappers, so there is no setup at the call site, and they are safe to
+call from any environment because the only runtime dependency is `Intl`.
+
+The service never formats numbers itself: it delegates to an injected
+`IFormatterService` (dependency injection — swap it with
+`UnitConverterService.create(formatter)` or `useSetFormatter()`, defaulting to
+`FormatterService`).
 
 Every helper does exactly two things:
 
 1. applies a fixed conversion formula to a `number`, then
-2. hands the result to [`useFormatNumber()`](/guides/services/formatter), which
-   formats it with the requested locale and **fixed** fraction digits.
+2. hands the result to the injected formatter —
+   [`useFormatNumber()`](/guides/services/formatter) on the default
+   `FormatterService` — which formats it with the requested locale and
+   **fixed** fraction digits.
 
 Four rules apply to all of them:
 

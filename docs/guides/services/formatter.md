@@ -5,10 +5,12 @@ description: "Locale-aware number, currency, date and text formatting — every 
 
 # Formatter
 
-`formatter.service.ts` is a **function module**: every export is a standalone
-`use*` helper with no singleton and no setup. All helpers are pure, stateless
-and **SSR-safe** — they depend only on `Intl` and `JSON`, so they behave the
-same in the browser, Node, Bun and edge runtimes.
+`formatter.service.ts` is a **Singleton facade** (`FormatterService`) over pure
+formatting logic. Every export is re-exported as a thin `use*` wrapper that
+delegates to `FormatterService.getInstance()`, so there is no setup at the call
+site. All helpers are pure, stateless and **SSR-safe** — they depend only on
+`Intl` and `JSON`, so they behave the same in the browser, Node, Bun and edge
+runtimes.
 
 Three rules shape the whole module:
 
@@ -21,8 +23,9 @@ Three rules shape the whole module:
    Numbers and currency delegate to `Intl.NumberFormat`; dates delegate to
    `Intl.DateTimeFormat` through Temporal; text uses the built-in case methods.
 
-The unit-conversion helpers that share this source file (`useToCelsius()`,
-`useToKilometers()`, `useToKilos()` and the rest) are documented on the
+The unit-conversion helpers (`useToCelsius()`, `useToKilometers()`,
+`useToKilos()` and the rest) live in `converter.service.ts` behind
+`UnitConverterService`; they are documented on the
 [Converter](/guides/services/converter) page.
 
 ## Quick example
@@ -110,6 +113,7 @@ configured through a single options object:
 | `currency` | `Currency` | `"USD"` | One of the supported ISO codes. |
 | `taxes` | `number` | `0` | Tax rate added to the amount. |
 | `locale` | `Locale` | `"en"` | Controls separators, symbol and spacing. |
+| `digits` | `number` | the currency's own | Exact fraction digits. Omit to keep `Intl`'s per-currency digits (`"¥100"`); pass `2` to pin exactly two (`"¥100.00"`). |
 
 **Supported currencies:** `EUR`, `USD`, `GBP`, `JPY`, `CAD`, `MXN`, `CHF`,
 `AUD`, `BRL`, `CNY`, `ARS`, `COP`, `CLP`.
@@ -134,12 +138,17 @@ useFormatCurrency({ amount: 100, currency: "USD" });                           /
 useFormatCurrency({ amount: 100, taxes: 21 });                                  // "$121.00"
 useFormatCurrency({ amount: 100, taxes: 0.21, locale: "es" });                  // "121,00 US$"
 useFormatCurrency({ amount: 100, taxes: 0.21, currency: "EUR", locale: "es" }); // "121,00 €"
+useFormatCurrency({ amount: 100, currency: "JPY" });                            // "¥100"
+useFormatCurrency({ amount: 100, currency: "JPY", digits: 2 });                 // "¥100.00"
 ```
 
 **Edge cases**
 
-- Fraction digits come from the currency, not from a parameter: `USD` renders
-  two decimals, `JPY` renders none (`"￥1,235"`). There is no `digits` option.
+- By default, fraction digits come from the currency, not from a parameter:
+  `USD` renders two decimals, `JPY` renders none (`"¥100"`). The optional
+  `digits` pins an exact count for every currency — `digits: 2` renders
+  `"¥100.00"` even for `JPY`. The currency-conversion helpers pin `digits: 2`
+  for you (see [Currency Conversion](/guides/currency)).
 - Only the 13 codes above typecheck. At runtime the string reaches `Intl`
   unchanged, so an unknown-but-well-formed code still renders (the code itself
   is shown), while a malformed code throws `RangeError`.
@@ -321,7 +330,7 @@ throwing, and validate the parsed shape with a schema before using it.
 ## Related
 
 - [Converter](/guides/services/converter) — temperature, distance, height and
-  weight conversions from the same source file.
+  weight conversions.
 - [Dates](/guides/services/dates) — the full Temporal toolkit behind
   `useFormat()`.
 - [Generator](/guides/services/generator) — `useSlugify()` and other string

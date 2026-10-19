@@ -5,8 +5,9 @@ description: "Managed timeouts, intervals, debounce, throttle, retries and timeo
 
 # Timing
 
-`timing.service.ts` is a **function module**: standalone `use*` helpers with no
-instance to create. The public surface covers three jobs — one-shot delays,
+`timing.service.ts` hosts the Singleton facade `TimingService`, whose methods
+are re-exported as thin `use*` wrappers, so there is no instance to create.
+The public surface covers three jobs — one-shot delays,
 recurring timers, and rate-limiting wrappers — plus `useSleep()` and
 `useRetry()`, re-exported here from `utils.service.ts` because they belong to
 the same timing toolbox. Every function is imported directly from

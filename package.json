@@ -157,7 +157,7 @@
 		"build:examples": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"build": "bun run clean && bun run build:lib && bun run build:examples",
 
-		"docs": "node scripts/docs.mjs",
+		"docs": "node scripts/docs.mjs build",
 		"docs:preview": "node scripts/docs.mjs preview",
 		"docs:clean": "node scripts/docs.mjs clean",
 

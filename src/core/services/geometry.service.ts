@@ -1,8 +1,11 @@
 import type { GeometryFormatOptions } from "@/types/index.js";
 
 /**
- * Pure helper: formats a numeric geometry result via `Intl`.
- * Stateless — input → formatted string only.
+ * Formats a numeric geometry result via `Intl`, optionally with a unit suffix.
+ *
+ * Module-level on purpose: the three shape classes share it, and their public
+ * methods must stay free of `this` so that destructuring keeps working —
+ * `const { useRectangle } = GeometryUtils.area` is valid call style.
  *
  * @param value - The numeric value to format.
  * @param options - Formatting options (locale, digits, unit).
@@ -19,10 +22,28 @@ function formatGeometry(value: number, options: GeometryFormatOptions = {}): str
 }
 
 /**
- * Pure area calculations for geometric shapes.
- * All functions are stateless — input → formatted string only.
+ * GeometryAreaService — pure area calculations for geometric shapes.
+ * All methods are stateless — input → formatted string only.
+ *
+ * Applies the **Singleton** pattern (one shared instance via
+ * {@link GeometryAreaService.getInstance}), exposed publicly through the
+ * `GeometryUtils.area` facade. Every public method uses the `use*` prefix
+ * per `CONTRIBUTING.md`.
  */
-const area = {
+export class GeometryAreaService {
+	private static instance: GeometryAreaService;
+
+	/** Private constructor — enforce Singleton. */
+	private constructor() {}
+
+	/** Returns the shared instance (Singleton). */
+	static getInstance(): GeometryAreaService {
+		if (!GeometryAreaService.instance) {
+			GeometryAreaService.instance = new GeometryAreaService();
+		}
+		return GeometryAreaService.instance;
+	}
+
 	/**
 	 * Calculates the area of a rectangle.
 	 *
@@ -41,7 +62,7 @@ const area = {
 	 */
 	useRectangle(width: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(width * height, options);
-	},
+	}
 
 	/**
 	 * Calculates the area of a square.
@@ -59,7 +80,7 @@ const area = {
 	 */
 	useSquare(side: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(side ** 2, options);
-	},
+	}
 
 	/**
 	 * Calculates the area of a triangle.
@@ -78,7 +99,7 @@ const area = {
 	 */
 	useTriangle(base: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry((base * height) / 2, options);
-	},
+	}
 
 	/**
 	 * Calculates the area of a circle.
@@ -96,7 +117,7 @@ const area = {
 	 */
 	useCircle(radius: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(Math.PI * radius ** 2, options);
-	},
+	}
 
 	/**
 	 * Calculates the area of a trapezoid.
@@ -121,7 +142,7 @@ const area = {
 		options?: GeometryFormatOptions,
 	): string {
 		return formatGeometry(((parallelSide1 + parallelSide2) * height) / 2, options);
-	},
+	}
 
 	/**
 	 * Calculates the area of a regular hexagon.
@@ -139,7 +160,7 @@ const area = {
 	 */
 	useHexagon(side: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(((3 * Math.sqrt(3)) / 2) * side ** 2, options);
-	},
+	}
 
 	/**
 	 * Calculates the area of an ellipse.
@@ -158,7 +179,7 @@ const area = {
 	 */
 	useEllipse(semiMajor: number, semiMinor: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(Math.PI * semiMajor * semiMinor, options);
-	},
+	}
 
 	/**
 	 * Calculates the area of a parallelogram.
@@ -177,14 +198,32 @@ const area = {
 	 */
 	useParallelogram(base: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(base * height, options);
-	},
-};
+	}
+}
 
 /**
- * Pure perimeter calculations for geometric shapes.
- * All functions are stateless — input → formatted string only.
+ * GeometryPerimeterService — pure perimeter calculations for geometric shapes.
+ * All methods are stateless — input → formatted string only.
+ *
+ * Applies the **Singleton** pattern (one shared instance via
+ * {@link GeometryPerimeterService.getInstance}), exposed publicly through the
+ * `GeometryUtils.perimeter` facade. Every public method uses the `use*` prefix
+ * per `CONTRIBUTING.md`.
  */
-const perimeter = {
+export class GeometryPerimeterService {
+	private static instance: GeometryPerimeterService;
+
+	/** Private constructor — enforce Singleton. */
+	private constructor() {}
+
+	/** Returns the shared instance (Singleton). */
+	static getInstance(): GeometryPerimeterService {
+		if (!GeometryPerimeterService.instance) {
+			GeometryPerimeterService.instance = new GeometryPerimeterService();
+		}
+		return GeometryPerimeterService.instance;
+	}
+
 	/**
 	 * Calculates the perimeter of a rectangle.
 	 *
@@ -203,7 +242,7 @@ const perimeter = {
 	 */
 	useRectangle(width: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(2 * (width + height), options);
-	},
+	}
 
 	/**
 	 * Calculates the perimeter of a square.
@@ -221,7 +260,7 @@ const perimeter = {
 	 */
 	useSquare(side: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(4 * side, options);
-	},
+	}
 
 	/**
 	 * Calculates the perimeter of a triangle.
@@ -241,7 +280,7 @@ const perimeter = {
 	 */
 	useTriangle(side1: number, side2: number, side3: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(side1 + side2 + side3, options);
-	},
+	}
 
 	/**
 	 * Calculates the perimeter (circumference) of a circle.
@@ -259,7 +298,7 @@ const perimeter = {
 	 */
 	useCircle(radius: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(2 * Math.PI * radius, options);
-	},
+	}
 
 	/**
 	 * Calculates the perimeter of a regular hexagon.
@@ -277,7 +316,7 @@ const perimeter = {
 	 */
 	useHexagon(side: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(6 * side, options);
-	},
+	}
 
 	/**
 	 * Calculates the perimeter of a trapezoid.
@@ -304,7 +343,7 @@ const perimeter = {
 		options?: GeometryFormatOptions,
 	): string {
 		return formatGeometry(side1 + side2 + side3 + side4, options);
-	},
+	}
 
 	/**
 	 * Calculates the perimeter of an ellipse using Ramanujan's approximation II.
@@ -332,7 +371,7 @@ const perimeter = {
 		const h = ((a - b) / sum) ** 2;
 		const perimeterValue = Math.PI * sum * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
 		return formatGeometry(perimeterValue, options);
-	},
+	}
 
 	/**
 	 * Calculates the perimeter of a parallelogram.
@@ -351,14 +390,32 @@ const perimeter = {
 	 */
 	useParallelogram(side1: number, side2: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(2 * (side1 + side2), options);
-	},
-};
+	}
+}
 
 /**
- * Pure volume calculations for 3D geometric shapes.
- * All functions are stateless — input → formatted string only.
+ * GeometryVolumeService — pure volume calculations for 3D geometric shapes.
+ * All methods are stateless — input → formatted string only.
+ *
+ * Applies the **Singleton** pattern (one shared instance via
+ * {@link GeometryVolumeService.getInstance}), exposed publicly through the
+ * `GeometryUtils.volume` facade. Every public method uses the `use*` prefix
+ * per `CONTRIBUTING.md`.
  */
-const volume = {
+export class GeometryVolumeService {
+	private static instance: GeometryVolumeService;
+
+	/** Private constructor — enforce Singleton. */
+	private constructor() {}
+
+	/** Returns the shared instance (Singleton). */
+	static getInstance(): GeometryVolumeService {
+		if (!GeometryVolumeService.instance) {
+			GeometryVolumeService.instance = new GeometryVolumeService();
+		}
+		return GeometryVolumeService.instance;
+	}
+
 	/**
 	 * Calculates the volume of a cube.
 	 *
@@ -376,7 +433,7 @@ const volume = {
 	 */
 	useCube(side: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(side ** 3, options);
-	},
+	}
 
 	/**
 	 * Calculates the volume of a box (rectangular prism).
@@ -396,7 +453,7 @@ const volume = {
 	 */
 	useBox(length: number, width: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(length * width * height, options);
-	},
+	}
 
 	/**
 	 * Calculates the volume of a sphere.
@@ -414,7 +471,7 @@ const volume = {
 	 */
 	useSphere(radius: number, options?: GeometryFormatOptions): string {
 		return formatGeometry((4 / 3) * Math.PI * radius ** 3, options);
-	},
+	}
 
 	/**
 	 * Calculates the volume of a cylinder.
@@ -433,7 +490,7 @@ const volume = {
 	 */
 	useCylinder(radius: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry(Math.PI * radius ** 2 * height, options);
-	},
+	}
 
 	/**
 	 * Calculates the volume of a cone.
@@ -452,7 +509,7 @@ const volume = {
 	 */
 	useCone(radius: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry((1 / 3) * Math.PI * radius ** 2 * height, options);
-	},
+	}
 
 	/**
 	 * Calculates the volume of a pyramid.
@@ -471,12 +528,16 @@ const volume = {
 	 */
 	usePyramid(baseArea: number, height: number, options?: GeometryFormatOptions): string {
 		return formatGeometry((1 / 3) * baseArea * height, options);
-	},
-};
+	}
+}
 
 /**
  * Consolidated pure geometry utilities namespace.
  * Groups area, perimeter and volume calculations (no shared mutable state).
+ *
+ * Applies the **Facade** pattern: exposes the three Singleton services
+ * ({@link GeometryAreaService}, {@link GeometryPerimeterService},
+ * {@link GeometryVolumeService}) under `area`, `perimeter` and `volume`.
  *
  * @example
  * ```ts
@@ -488,7 +549,7 @@ const volume = {
  * ```
  */
 export const GeometryUtils = {
-	area,
-	perimeter,
-	volume,
+	area: GeometryAreaService.getInstance(),
+	perimeter: GeometryPerimeterService.getInstance(),
+	volume: GeometryVolumeService.getInstance(),
 };

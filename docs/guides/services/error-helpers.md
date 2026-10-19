@@ -5,9 +5,10 @@ description: "Safe Results and the useAttempt, useTryJsonParse, useErrorNormaliz
 
 # Error Helpers
 
-`error.service.ts` and `result.service.ts` are **function modules**: standalone
-`use*` helpers with no instance to create. They implement the Safe Result
-contract shared across the library, so three design rules apply to every
+`error.service.ts` and `result.service.ts` host the Singleton facades
+`ErrorService` and `ResultService`; their methods are re-exported as thin
+`use*` wrappers, so there is no instance to create. They implement the Safe
+Result contract shared across the library, so three design rules apply to every
 function on this page:
 
 1. **Fallible operations never throw.** `useAttempt()` returns a Safe Result for

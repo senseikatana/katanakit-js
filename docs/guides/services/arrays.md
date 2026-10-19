@@ -5,8 +5,9 @@ description: "Null-safe, type-safe helpers for filtering, mapping and shaping co
 
 # Arrays
 
-`array.service.ts` is a **function module**: standalone `use*` helpers, no
-instance to create. They exist for one reason:
+`array.service.ts` hosts the Singleton facade `ArrayService`, whose methods
+are re-exported as thin `use*` helpers — no instance to create. They exist for
+one reason:
 
 > **`products.filter()` throws when the API did not return `products`.**
 

@@ -5,9 +5,10 @@ description: "RFC 4122 UUIDs, incremental IDs, 6-digit tokens, PBKDF2-SHA512 has
 
 # Generator
 
-`generator.service.ts` is a **function module**: standalone `use*` helpers plus
-two exported strategy objects, with **zero runtime dependencies** and no
-instance to create. Two design rules apply to every export:
+`generator.service.ts` hosts the Singleton facade `GeneratorService`, whose
+methods are re-exported as thin `use*` wrappers, plus two exported strategy
+objects. It has **zero runtime dependencies** and no instance to create. Two
+design rules apply to every export:
 
 1. **Strategy-driven crypto** — `useUuid()` delegates to `NativeUuidStrategy`
    and the hash helpers delegate to `LazyNodeCryptoStrategy`. Both satisfy the
@@ -19,8 +20,8 @@ instance to create. Two design rules apply to every export:
    is safely SSR-compatible; the hash functions themselves need a Node/Bun
    runtime.
 
-Everything is synchronous except the hash helpers. The only module-level state
-is the numeric counter behind `useNumericId()`.
+Everything is synchronous except the hash helpers. The only state is the
+numeric counter behind `useNumericId()`, owned by the singleton.
 
 ## Quick example
 

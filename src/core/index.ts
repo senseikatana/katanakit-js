@@ -3,6 +3,8 @@ export * from "./services/agent.service.js";
 export * from "./services/array.service.js";
 export * from "./services/assistant.service.js";
 export * from "./services/auth.service.js";
+export * from "./services/converter.service.js";
+export * from "./services/currency.service.js";
 export * from "./services/dates.service.js";
 export * from "./services/directory.service.js";
 export * from "./services/error.service.js";

@@ -1,10 +1,10 @@
 # KatanaKit JS
 
 A framework-agnostic TypeScript toolkit for the services most projects need:
-typed HTTP, validation, caching, reactive signals, authorization, and browser
-utilities. It ships ESM, is safe to import during SSR, and keeps every optional
-framework integration on its own package entry point — so a Vue app never pulls
-React, and a server build never pulls the DOM.
+typed HTTP, validation, caching, reactive signals, authorization, currency
+conversion, and browser utilities. It ships ESM, is safe to import during SSR,
+and keeps every optional framework integration on its own package entry point —
+so a Vue app never pulls React, and a server build never pulls the DOM.
 
 [Documentation](https://docs.senseikatana.com/) ·
 [Getting started](https://docs.senseikatana.com/guides/getting-started) ·
@@ -116,6 +116,36 @@ if (parsed.ok) {
 ---
 
 ## What it includes
+
+### Currency conversion — ECB reference rates
+
+Convert an amount between two currencies in one call. Rates come from
+[Frankfurter](https://www.frankfurter.app/) (ECB daily reference rates, no API
+key), every call returns a Safe Result and never throws, and the rate source is
+a port — swap in a live-market provider when you need one:
+
+```ts
+import { useConvertCurrency, useFormatCurrency } from "katanakit-js";
+
+const result = await useConvertCurrency({ amount: 100, from: "USD", to: "EUR" });
+if (result.ok) {
+  result.data.converted; // 88.87 — money: exactly 2 decimals (symmetric rounding)
+  result.data.rate;      // 0.88865 — full precision from the source
+  result.data.date;      // the day the ECB rate belongs to
+
+  // Conversion and formatting are separate concerns — compose them:
+  useFormatCurrency({ amount: result.data.converted, currency: "EUR", locale: "es", digits: 2 });
+  // "88,87 €"
+}
+```
+
+These are **reference rates, not intraday forex quotes**: published around
+14:15 CET on working days, with no bid/ask spread. `ARS`, `COP` and `CLP` are
+not covered by the default source, so those pairs return an explicit error
+instead of a wrong number. Subscribe to rate updates with `useSubscribeRates()`,
+or implement `ICurrencyRateProvider` and inject it for live quotes.
+
+→ [Currency conversion guide](https://docs.senseikatana.com/guides/currency)
 
 ### Authorization — roles, capabilities and resource grants
 
@@ -271,6 +301,19 @@ Notion uses in its formula editor — `years`, `quarters`, `months`, `weeks`,
 `days`, `hours`, `minutes`.
 
 → [All services](https://docs.senseikatana.com/guides/services/)
+
+### One service shape
+
+Every core service is a **Singleton facade class** — `getInstance()` plus
+`use*` methods — re-exported as thin `use*` functions, so the call style is the
+same whether you reach for `FormatterService`, `UnitConverterService` or
+`CurrencyConverterService`. The pattern vocabulary is small and fixed:
+**Singleton**, **Facade**, **Observer**, **Strategy** and **Dependency
+Injection** (`create()` builds an isolated instance with injected
+collaborators). Public methods use the `use*` prefix; `on*` is reserved
+exclusively for Observer callbacks the service invokes.
+
+→ [Service architecture](https://docs.senseikatana.com/explanation/service-architecture)
 
 ---
 

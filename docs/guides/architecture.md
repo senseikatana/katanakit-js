@@ -29,13 +29,13 @@ and [ADR-0003: Subpath adapters](/explanation/decisions/adr-0003-adapter-subpath
    │                   core/services/                 │  pure domain services
    │  logger · http · formatter · converter · error   │  (no I/O: no window,
    │  generator · dates · geometry · timing · utils   │   document, fetch, fs)
-   │  reactive                                         │
+   │  reactive · currency                             │
    └───────────┬──────────────────────────────────────┘
                │  owned I/O lives one layer out
    ┌───────────▼──────────────────────────────────────┐
    │              infrastructure/                      │  browser/runtime adapters
    │  dom · storage · viewport · sensors              │  (guard or fall back in SSR)
-   │  observer · worker · theme                        │
+   │  observer · worker · theme · currency            │
    └───────────┬──────────────────────────────────────┘
                │  framework-facing entry points
    ┌───────────▼──────────────────────────────────────┐
@@ -66,7 +66,7 @@ reach for concrete `window`/`fetch` globals directly.
 
 ### `core/services/` — the pure layer
 
-Nineteen service modules with pure logic. This layer never touches `window`,
+Twenty-five service modules with pure logic. This layer never touches `window`,
 `document`, `fetch`, the filesystem or any framework, with one pragmatic
 exception that is clearly documented in code: `http.service.ts` wraps the
 global `fetch` (available in Node 18+/Bun/browsers). The storage-backed
@@ -81,15 +81,17 @@ falls back to `process.env.DASHSCOPE_API_KEY`, and
 
 | File                   | Exports (public facade)                     |
 | ---------------------- | ------------------------------------------- |
-| `logger.service.ts`    | `useLogger`, `useLoggerTable`, `useLoggerClear` |
+| `logger.service.ts`    | `LoggerService`, `useLogger`, `useLoggerTable`, `useLoggerClear` |
 | `http.service.ts`      | `FetchApiManager`                           |
-| `formatter.service.ts` | `FormatterService`, `ConverterService`      |
-| `error.service.ts`     | `useErrorNormalize`, `useErrorSerialize`, `useErrorCustom`     |
-| `result.service.ts`    | `useAttempt`, `useTryJsonParse`             |
+| `formatter.service.ts` | `FormatterService`                          |
+| `converter.service.ts` | `UnitConverterService` (injects `IFormatterService`) |
+| `currency.service.ts`  | `CurrencyConverterService` (port: `ICurrencyRateProvider`) |
+| `error.service.ts`     | `ErrorService`, `useErrorNormalize`, `useErrorSerialize`, `useErrorCustom`     |
+| `result.service.ts`    | `ResultService`, `useAttempt`, `useTryJsonParse`             |
 | `generator.service.ts` | `GeneratorService`, `LazyNodeCryptoStrategy`, `NativeUuidStrategy` |
-| `faker.service.ts`     | `useFake*` helpers (`useFakeEmail`, `useFakeList`, `useFakeSeed`, …) over an optional, lazy-loaded `@faker-js/faker` peer — see [Faker](/guides/faker) |
+| `faker.service.ts`     | `FakerService` + `useFake*` wrappers (`useFakeEmail`, `useFakeList`, `useFakeSeed`, …) over an optional, lazy-loaded `@faker-js/faker` peer — see [Faker](/guides/faker) |
 | `dates.service.ts`     | `DatesService` (Temporal polyfill adapter)  |
-| `geometry.service.ts`  | `GeometryUtils` (`area`/`perimeter`/`volume`) |
+| `geometry.service.ts`  | `GeometryAreaService`, `GeometryPerimeterService`, `GeometryVolumeService`, composed as `GeometryUtils` |
 | `timing.service.ts`    | `TimingService`                             |
 | `utils.service.ts`     | `DataUtils`, `SystemUtils`, `AppUtils`      |
 | `reactive.service.ts`  | `ReactiveService` (signals kernel)          |
@@ -113,7 +115,9 @@ export function useLogger(message: string, data?: unknown, level: LogLevel = "lo
 ```
 
 Some services additionally expose `create()` (or an injectable strategy) for
-non-singleton, isolated instances — useful in tests:
+non-singleton, isolated instances — dependency injection for tests, per-request
+clients and custom collaborators (`CurrencyConverterService.create({
+provider: fakeRates })`):
 
 ### `infrastructure/` — the adapter layer
 
@@ -125,6 +129,13 @@ gracefully when `window`/`document`/`navigator` is absent.
 - `storage/` — `StorageService` over `localStorage`/`sessionStorage` with
   `LocalStorageStrategy`, `SessionStorageStrategy` and an in-memory
   `MemoryStorageStrategy` SSR fallback.
+- `currency/` — `FrankfurterCurrencyProvider` (ECB reference rates, fetched
+  through `FetchApiManager`) and the flat helpers (`useCurrencyConverter`,
+  `useConvertCurrency`, …) that wire it into `CurrencyConverterService`: the
+  composition point between the pure core and the I/O. The core only knows the
+  `ICurrencyRateProvider` port — see
+  [Currency Conversion](/guides/currency) and
+  [ADR-0012](/explanation/decisions/adr-0012-currency-adapter-in-infrastructure).
 - `filesystem/` — Node/Bun helpers over `node:fs/promises` (read/write/append,
   JSON, directories, stats, copy/move/remove, hashing) plus `path.service.ts`.
   Built-ins load through dynamic `import()`; every fallible call returns a Safe
@@ -139,8 +150,8 @@ gracefully when `window`/`document`/`navigator` is absent.
   `IntersectionObserver`.
 - `worker/` — `WorkerService` (one-shot workers and worker pools with an
   SSR/main-thread fallback).
-- `theme/` — `ThemeService` (mode switching over DOM + storage + a
-  media-query listener), exported as `THEME_SERVICE`.
+- `theme/` — theme mode switching over DOM + storage + a media-query listener
+  (`useInitTheme`, `useToggleTheme`, `useGetThemeMode`, …).
 - `decorators/` — composable function decorators (Decorator Pattern) that add
   behaviour without touching the wrapped function:
   - `RetryDecorator(fn, retries?, delayMs?)` — re-runs a failing async function
@@ -165,9 +176,10 @@ and gives stable named exports to the default-exported classes
 
 ### `adapters/` — the framework layer
 
-- `astro/` — `AstroService` (converts collections into `getStaticPaths`
-  payloads, Safe Result style), `RssService` (RSS 2.0 XML generation and
-  Astro `GET` endpoints), and SEO re-exports (`useSeoTag`, `useHeadTags`,
+- `astro/` — pure `use*` helpers: `useAstroPathsFrom` (converts collections
+  into `getStaticPaths` payloads, Safe Result style), the RSS family
+  (`useAstroGenerateRss`, `useAstroCreateRssEndpoint`, …) for RSS 2.0 XML and
+  Astro `GET` endpoints, and SEO re-exports (`useSeoTag`, `useHeadTags`,
   …) for Layout frontmatter. Published as `katanakit-js/adapters/astro`
   (Astro + RSS also available from the main barrel).
 - `express/` — a reference Express server (`ServerExpress`), a demo
@@ -232,10 +244,11 @@ and the client is not exported from the main barrel.
 ## Package layout and ESM
 
 - **Pure ESM.** `package.json` has `"type": "module"`, `"module":
-  "nodenext"` and `"exports"`. Source imports are relative and always carry an
-  explicit `.js` extension (e.g. `import { useLogger } from
-  "./logger.service.js"`) so the emitted `dist/` resolves identically under
-  Node's ESM loader and bundlers.
+  "nodenext"` and `"exports"`. Imports always carry an explicit `.js`
+  extension (e.g. `import { useLogger } from
+  "@/core/services/logger.service.js"`), and cross-folder imports use the `@/`
+  alias, so the emitted `dist/` resolves identically under Node's ESM loader
+  and bundlers once `tsc-alias` has rewritten the alias (ADR-0009).
 - **Exports map.**
 
   | Import specifier                  | What it exposes                               |
@@ -249,7 +262,10 @@ and the client is not exported from the main barrel.
   | `katanakit-js/adapters/better-auth` | Auth client factory + session helpers       |
 
 - **`@/` alias** maps to `src/` in `tsconfig.json` and `vitest.config.ts`. It is
-  used by the test suite and the examples, not by library source files.
+  the standard cross-folder import form inside `src/` itself — same-folder
+  imports stay relative (`./x.js`), and `tsc-alias` rewrites the alias in the
+  build output. See
+  [ADR-0009](/explanation/decisions/adr-0009-alias-imports-in-src).
 - **No side effects on import.** Barrel files only re-export; strategy
   instantiation happens lazily inside services. `db.ts` is the only module that
   reads the environment, and it is never part of the public barrel.
@@ -259,16 +275,17 @@ and the client is not exported from the main barrel.
 | Pattern    | Where                                                              |
 | ---------- | ------------------------------------------------------------------ |
 | Singleton  | every service (`FetchApiManager`, `LoggerService`, `ExpressService`, `WordPressService`, `NotionService`, `InsForgeService`, `AssistantService`, `QueryService`, ...) |
-| Facade     | `FetchApiManager`, `DomService`, `AstroService`, `RssService`, `AppUtils` |
+| Facade     | `FetchApiManager`, `CurrencyConverterService`, `DomService`, `AppUtils` |
 | Strategy   | `AccessService` (`HierarchicalAccessStrategy` / `FlatAccessStrategy`), `AgentService` (`OpenAiCompatibleStrategy`), storage backends, generator crypto/UUID, worker |
 | Factory    | `QueryClientFactory` (per-request `QueryClient` for SSR); debounce/throttle/timeout factories in `TimingService`; crypto strategies in `GeneratorService` |
-| Observer   | `ReactiveService` signals, `ObserverService`, theme media query    |
-| Decorator  | `RetryDecorator`, `CacheDecorator`, `LoggerDecorator` (`infrastructure/decorators/`); `ConverterService` decorating `FormatterService` |
+| Observer   | `ReactiveService` signals, `ObserverService`, theme media query, `CurrencyConverterService` (`onRatesUpdate` / `onRatesError`) |
+| Dependency Injection | `UnitConverterService` → `IFormatterService`, `CurrencyConverterService` → `ICurrencyRateProvider`, access/crypto strategies — injected via `create()` or `useSet*` |
+| Decorator  | `RetryDecorator`, `CacheDecorator`, `LoggerDecorator` (`infrastructure/decorators/`) |
 | Adapter    | `DatesService` (Temporal), infrastructure layer, framework adapters |
 
 ### How the patterns fit together
 
-Stateful services follow **Singleton + (Strategy | Decorator | Factory)**:
+Stateful services follow **Singleton + (Strategy | Decorator | Factory | Observer | DI)**:
 
 - **Singleton** — one instance owns the configuration/state
   (`ExpressService`, `WordPressService`, `FetchApiManager`,
@@ -282,10 +299,16 @@ Stateful services follow **Singleton + (Strategy | Decorator | Factory)**:
 - **Singleton + Factory** — the singleton fabricates collaborators through a
   single creation point (`QueryClientFactory.create()` for per-request SSR
   clients vs. the shared `QueryService` singleton).
+- **Singleton + Observer + DI** — `CurrencyConverterService` owns the rate
+  cache, notifies `onRatesUpdate` / `onRatesError` subscribers and fetches
+  through an injected `ICurrencyRateProvider`; `useConvertCurrency()` is the
+  Facade layered on top.
 
 SOLID is preserved because the client only knows the contracts
-(`IAccessStrategy`, `IAiProviderStrategy`, `StorageStrategy`, `I*Service`
-facades), never the concrete implementations.
+(`IAccessStrategy`, `IAiProviderStrategy`, `StorageStrategy`,
+`ICurrencyRateProvider`, `I*Service` facades), never the concrete
+implementations. [Service architecture](/explanation/service-architecture)
+walks through the vocabulary with the currency converter as the worked example.
 
 ## Conventions
 
@@ -299,6 +322,13 @@ facades), never the concrete implementations.
   are the exception to the `use*` rule: `RetryDecorator`/`CacheDecorator`/
   `LoggerDecorator` use PascalCase because they are composables, not API
   functions. See [ADR-0002](/explanation/decisions/adr-0002-singleton-facades).
+- **`on*` is for callbacks only** — the `on*` prefix marks Observer callbacks
+  the service invokes (`onRatesUpdate`, `onRatesError`), never an imperative
+  method; registration stays a `use*` call (`useSubscribe`). Statics are
+  limited to `getInstance()` and `create(options)` — there are no static
+  business methods. See
+  [ADR-0010](/explanation/decisions/adr-0010-use-prefix-on-callbacks) and
+  [ADR-0011](/explanation/decisions/adr-0011-no-static-business-methods).
 - **Safe Result** — fallible operations return a discriminated union
   `{ data, error, ok }` instead of throwing. The generic `SafeResult<T, E>` is
   the base of `FetchResult<T>`, `FilesystemResult<T>`, `AstroServiceResult<T>`,

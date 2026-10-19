@@ -99,13 +99,13 @@ import {
   useFormatCurrency,
   useNow,
   useChunk,
-  ThemeService,
-  AstroService,
-  RssService,
+  useInitTheme,
+  useAstroPathsFrom,
+  useAstroGenerateRss,
 } from "katanakit-js";
 
 // Optional narrower / framework-only subpaths
-import { AstroService, RssService } from "katanakit-js/adapters/astro";
+import { useAstroPathsFrom, useAstroGenerateRss } from "katanakit-js/adapters/astro";
 import { useUnwrap } from "katanakit-js/adapters/nuxt";
 import { useRequest } from "katanakit-js/adapters/vue";
 import { ServerExpress } from "katanakit-js/adapters/express";
