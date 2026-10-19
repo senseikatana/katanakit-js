@@ -8,6 +8,26 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.0.0] - 2026-10-19
+
+Highlights: fix!: update currency conversion guide and resolve cross-rates through a pi.
+
+- [x] 🐛 fix!: update currency conversion guide and resolve cross-rates through a pi
+  - `README.md`
+  - `docs/explanation/decisions/adr-0015-cross-rates-through-a-pivot.md`
+  - `docs/explanation/decisions/index.md`
+  - `docs/guides/currency.md`
+  - `src/core/services/currency.service.ts`
+  - `src/infrastructure/currency/currency.service.ts`
+  - `src/schemas/core.schema.ts`
+  - `src/types/index.ts`
+  - `tests/currency.service.test.ts`
+- [x] 🐛 fix(currency): improve currency conversion and formatting, add ECB referenc
+- [x] 🐛 fix: update adapters and services (wordpress, vue, seo, etc)
+- [x] 🚀 feat: updated documentation and scripts
+- [x] 📝 docs(wordpress): add the WordPress Roles guide for the PHP side
+- [x] 🚀 feat(access): add capability guards for Astro, Next and Nuxt
+
 ## [6.13.2] - 2026-10-19
 
 Highlights: fix(currency): improve currency conversion and formatting, add ECB referenc, plus 1 more change.
