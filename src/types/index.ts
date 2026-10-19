@@ -602,14 +602,24 @@ export interface CurrencyConverterServiceOptions {
 	provider?: ICurrencyRateProvider;
 	/** Cache time-to-live in milliseconds. Defaults to 10 minutes. */
 	ttlMs?: number;
+	/**
+	 * Currency every rate is quoted against before a pair is resolved by
+	 * division. Defaults to `"USD"`.
+	 *
+	 * Sources round their quotes (Frankfurter keeps 5 decimal places), so a
+	 * small quote such as `KRW → USD` is starved of significant digits. Quoting
+	 * everything against one pivot and dividing keeps the precision on the side
+	 * of the pair that is well conditioned.
+	 */
+	pivot?: Currency;
 }
 
 /** Contract of the currency conversion facade. */
 export interface ICurrencyConverterService {
 	useConvert(options: CurrencyConvertOptions): Promise<SafeResult<CurrencyConversion>>;
 	useGetRate(from: Currency, to: Currency): Promise<SafeResult<number>>;
-	useRefreshRates(base: Currency): Promise<SafeResult<CurrencyRateSnapshot>>;
-	useGetSnapshot(base: Currency): CurrencyRateSnapshot | null;
+	useRefreshRates(): Promise<SafeResult<CurrencyRateSnapshot>>;
+	useGetSnapshot(): CurrencyRateSnapshot | null;
 	useSubscribe(events: CurrencyRateEvents): () => void;
 }
 

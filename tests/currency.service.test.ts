@@ -10,8 +10,8 @@ import type {
 } from "@/types/index";
 
 /**
- * ECB reference rates for 2026-10-16, quoted against USD.
- * Cross-checked live against api.frankfurter.dev and open.er-api.com.
+ * Real USD-quoted rates as the ECB source (Frankfurter) returns them, observed
+ * on 2026-10-16 and 2026-10-19.
  */
 const ECB_USD: Record<string, number> = {
 	EUR: 0.88865,
@@ -19,6 +19,8 @@ const ECB_USD: Record<string, number> = {
 	JPY: 158.02,
 	MXN: 18.3835,
 	BRL: 5.0828,
+	CAD: 1.4074,
+	NZD: 1.7632,
 };
 
 /** Fake rate source: no I/O, injected through the port (DI). */
@@ -227,17 +229,17 @@ describe("CurrencyConverterService", () => {
 			const service = serviceWith(provider);
 
 			await service.useGetRate("USD", "EUR");
-			await service.useRefreshRates("USD");
+			await service.useRefreshRates();
 
 			expect(provider.useFetchRates).toHaveBeenCalledTimes(2);
 		});
 
 		it("exposes the cached snapshot without fetching", async () => {
 			const service = serviceWith(fakeProvider());
-			expect(service.useGetSnapshot("USD")).toBeNull();
+			expect(service.useGetSnapshot()).toBeNull();
 
 			await service.useGetRate("USD", "EUR");
-			expect(service.useGetSnapshot("USD")?.date).toBe("2026-10-16");
+			expect(service.useGetSnapshot()?.date).toBe("2026-10-16");
 		});
 
 		it("drops every snapshot on useClearCache", async () => {
@@ -247,7 +249,7 @@ describe("CurrencyConverterService", () => {
 			await service.useGetRate("USD", "EUR");
 			service.useClearCache();
 
-			expect(service.useGetSnapshot("USD")).toBeNull();
+			expect(service.useGetSnapshot()).toBeNull();
 			await service.useGetRate("USD", "EUR");
 			expect(provider.useFetchRates).toHaveBeenCalledTimes(2);
 		});
@@ -411,6 +413,65 @@ describe("FormatterService currency output", () => {
 	});
 });
 
+describe("CurrencyConverterService major pairs", () => {
+	it("resolves the majors both ways from one snapshot", async () => {
+		const service = serviceWith(fakeProvider());
+		const pairs: [Currency, Currency, number][] = [
+			["USD", "EUR", 0.88865],
+			["EUR", "USD", 1 / 0.88865],
+			["CAD", "EUR", 0.88865 / 1.4074],
+			["GBP", "EUR", 0.88865 / 0.74989],
+			["NZD", "EUR", 0.88865 / 1.7632],
+			["EUR", "GBP", 0.74989 / 0.88865],
+		];
+
+		for (const [from, to, expected] of pairs) {
+			const result = await service.useGetRate(from, to);
+			expect(result.ok, `${from} → ${to}`).toBe(true);
+			if (!result.ok) return;
+			expect(result.data).toBeCloseTo(expected, 10);
+		}
+	});
+
+	it("is exactly reciprocal: rate(A→B) × rate(B→A) = 1", async () => {
+		const service = serviceWith(fakeProvider());
+		const forward = await service.useGetRate("EUR", "GBP");
+		const backward = await service.useGetRate("GBP", "EUR");
+
+		expect(forward.ok && backward.ok).toBe(true);
+		if (!forward.ok || !backward.ok) return;
+		// Both sides come from the same snapshot, so the product is exactly 1 —
+		// no drift between the two directions of a pair.
+		expect(forward.data * backward.data).toBeCloseTo(1, 12);
+	});
+
+	it("keeps the precision a rounded small quote would destroy", async () => {
+		// The ECB source rounds quotes to 5 decimal places, so the direct quote
+		// for KRW → USD arrives as 0.00075 and has already lost digits. The
+		// service divides through the pivot instead: 1 / 1329.49 = 0.00075217…
+		const result = await serviceWith(fakeProvider({ KRW: 1329.49 })).useGetRate("KRW", "USD");
+
+		expect(result.ok).toBe(true);
+		if (!result.ok) return;
+
+		// On 1M KRW the rounded quote says 750.00 USD; the precise one 752.17.
+		expect(1_000_000 * result.data).toBeCloseTo(752.17, 2);
+		expect(1_000_000 * result.data).not.toBeCloseTo(750, 1);
+	});
+
+	it("quotes every rate against a configurable pivot", async () => {
+		const provider = fakeProvider({ USD: 1.1225, GBP: 0.84205 }, "2026-10-19");
+		const service = CurrencyConverterService.create({ provider, pivot: "EUR" });
+
+		const rate = await service.useGetRate("EUR", "USD");
+
+		expect(rate.ok).toBe(true);
+		if (!rate.ok) return;
+		expect(rate.data).toBe(1.1225);
+		expect(provider.useFetchRates).toHaveBeenCalledWith("EUR");
+	});
+});
+
 describe("CurrencyConverterService concurrency", () => {
 	it("collapses concurrent requests for one base into a single fetch", async () => {
 		const provider = fakeProvider();
@@ -458,7 +519,7 @@ describe("CurrencyConverterService concurrency", () => {
 		await pending;
 
 		// The superseded snapshot must not have been cached…
-		expect(service.useGetSnapshot("USD")).toBeNull();
+		expect(service.useGetSnapshot()).toBeNull();
 		// …and the new provider's rate is the one served.
 		const fresh = await service.useGetRate("USD", "EUR");
 		expect(fresh.ok && fresh.data).toBe(0.5);
@@ -471,7 +532,7 @@ describe("CurrencyConverterService concurrency", () => {
 		await service.useGetRate("USD", "EUR");
 		service.useSetProvider(provider);
 
-		expect(service.useGetSnapshot("USD")).not.toBeNull();
+		expect(service.useGetSnapshot()).not.toBeNull();
 		expect(provider.useFetchRates).toHaveBeenCalledTimes(1);
 	});
 });

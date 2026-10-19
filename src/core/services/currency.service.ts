@@ -17,6 +17,14 @@ import { useAttempt } from "./result.service.js";
 /** Default cache time-to-live: 10 minutes. */
 const DEFAULT_TTL_MS = 10 * 60 * 1000;
 
+/**
+ * Default pivot currency.
+ *
+ * Quotes are stored against this currency and every pair is resolved by
+ * division, so a small quote never carries the rounding of the source.
+ */
+const DEFAULT_PIVOT: Currency = "USD";
+
 /** Actionable error returned when no rate source has been injected. */
 const NO_PROVIDER_MESSAGE =
 	"No exchange-rate provider configured. Use useCurrencyConverter() from " +
@@ -78,14 +86,16 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 	private provider: ICurrencyRateProvider | null;
 	/** Cache time-to-live in milliseconds. */
 	private ttlMs: number;
-	/** Snapshot cache keyed by base currency. */
-	private readonly cache = new Map<string, RateCacheEntry>();
-	/** In-flight fetches keyed by base currency (single-flight). */
-	private readonly inFlight = new Map<string, Promise<SafeResult<CurrencyRateSnapshot>>>();
-	/** Highest fetch sequence that already wrote for a base. */
-	private readonly lastWrite = new Map<string, number>();
+	/** Snapshot cache: one entry, quoted against the pivot. */
+	private cacheEntry: RateCacheEntry | null = null;
+	/** In-flight fetch (single-flight). */
+	private inFlight: Promise<SafeResult<CurrencyRateSnapshot>> | null = null;
 	/** Observer subscribers. */
 	private readonly subscribers = new Set<CurrencyRateEvents>();
+	/** Currency every rate is quoted against before a pair is divided. */
+	private readonly pivot: Currency;
+	/** Fetch sequence of the last response that was stored. */
+	private lastWrite = 0;
 	/** Monotonic fetch sequence — orders writes across overlapping requests. */
 	private fetchSeq = 0;
 	/** Fetch sequences below this one belong to a previous configuration. */
@@ -95,6 +105,7 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 	private constructor(options: CurrencyConverterServiceOptions = {}) {
 		this.provider = options.provider ?? null;
 		this.ttlMs = options.ttlMs ?? DEFAULT_TTL_MS;
+		this.pivot = options.pivot ?? DEFAULT_PIVOT;
 	}
 
 	/** Returns the shared instance (Singleton). */
@@ -213,14 +224,14 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 					to,
 					rate: 1,
 					converted: this.roundAmount(amount, 2),
-					date: this.currentDate(from),
+					date: this.currentDate(),
 				},
 				error: null,
 				ok: true,
 			};
 		}
 
-		const snapshot = await this.loadRates(from);
+		const snapshot = await this.loadRates();
 		if (!snapshot.ok) return snapshot;
 
 		const rate = this.resolveRate(snapshot.data, from, to);
@@ -256,30 +267,30 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 	async useGetRate(from: Currency, to: Currency): Promise<SafeResult<number>> {
 		if (from === to) return { data: 1, error: null, ok: true };
 
-		const snapshot = await this.loadRates(from);
+		const snapshot = await this.loadRates();
 		if (!snapshot.ok) return snapshot;
 		return this.resolveRate(snapshot.data, from, to);
 	}
 
 	/**
-	 * Forces a rate refresh for `base`, bypassing the cache (Observer fires
-	 * `onRatesUpdate` when it succeeds).
+	 * Forces a rate refresh, bypassing the cache (Observer fires `onRatesUpdate`
+	 * when it succeeds).
 	 *
-	 * @param base - Currency to fetch rates for.
-	 * @returns `{ data, error, ok }` — never throws.
+	 * @returns `{ data, error, ok }` with the snapshot quoted against the pivot.
+	 * Never throws.
 	 */
-	async useRefreshRates(base: Currency): Promise<SafeResult<CurrencyRateSnapshot>> {
-		return this.loadRates(base, true);
+	async useRefreshRates(): Promise<SafeResult<CurrencyRateSnapshot>> {
+		return this.loadRates(true);
 	}
 
 	/**
-	 * Returns the cached snapshot for `base` without fetching.
+	 * Returns the cached snapshot without fetching — every rate quoted against
+	 * the pivot currency.
 	 *
-	 * @param base - Base currency.
 	 * @returns The cached snapshot, or `null` when nothing was fetched yet.
 	 */
-	useGetSnapshot(base: Currency): CurrencyRateSnapshot | null {
-		return this.cache.get(base)?.snapshot ?? null;
+	useGetSnapshot(): CurrencyRateSnapshot | null {
+		return this.cacheEntry?.snapshot ?? null;
 	}
 
 	/**
@@ -297,34 +308,34 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 	/**
 	 * Cache-aware rate loader.
 	 *
-	 * Serves the cache while it is fresh, collapses concurrent requests for the
-	 * same base into a single fetch (single-flight), and writes through a
-	 * monotonic sequence so a slower response can never overwrite a newer one.
+	 * Serves the cache while it is fresh, collapses concurrent requests into a
+	 * single fetch (single-flight), and writes through a monotonic sequence so a
+	 * slower response can never overwrite a newer one. Every snapshot is quoted
+	 * against the pivot currency — see {@link CurrencyConverterService.resolveRate}.
 	 */
-	private async loadRates(base: Currency, force = false): Promise<SafeResult<CurrencyRateSnapshot>> {
+	private async loadRates(force = false): Promise<SafeResult<CurrencyRateSnapshot>> {
 		if (!force) {
-			const cached = this.cache.get(base);
+			const cached = this.cacheEntry;
 			if (cached && (this.ttlMs === 0 || Date.now() - cached.fetchedAt < this.ttlMs)) {
 				return { data: cached.snapshot, error: null, ok: true };
 			}
 
-			const pending = this.inFlight.get(base);
-			if (pending) return pending;
+			if (this.inFlight) return this.inFlight;
 		}
 
 		const seq = ++this.fetchSeq;
-		const request = this.fetchRates(base, seq);
-		this.inFlight.set(base, request);
+		const request = this.fetchRates(seq);
+		this.inFlight = request;
 
 		try {
 			return await request;
 		} finally {
-			if (this.inFlight.get(base) === request) this.inFlight.delete(base);
+			if (this.inFlight === request) this.inFlight = null;
 		}
 	}
 
 	/** Performs the fetch through the provider port and stores the result. */
-	private async fetchRates(base: Currency, seq: number): Promise<SafeResult<CurrencyRateSnapshot>> {
+	private async fetchRates(seq: number): Promise<SafeResult<CurrencyRateSnapshot>> {
 		if (!this.provider) {
 			const error: ApiError = { message: NO_PROVIDER_MESSAGE, status: 0 };
 			this.notifyRatesError(error);
@@ -334,7 +345,7 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 		const provider = this.provider;
 		// Defensive: the port says implementations never throw, but this facade
 		// still owns the no-throw promise if a third-party provider misbehaves.
-		const attempt = await useAttempt(() => provider.useFetchRates(base));
+		const attempt = await useAttempt(() => provider.useFetchRates(this.pivot));
 		if (!attempt.ok) {
 			this.notifyRatesError(attempt.error);
 			return attempt;
@@ -347,11 +358,11 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 		}
 
 		// Drop a response whose configuration was replaced mid-flight, and one
-		// that a newer fetch for the same base has already superseded.
-		if (seq < this.minSeq || seq <= (this.lastWrite.get(base) ?? 0)) return result;
+		// that a newer fetch has already superseded.
+		if (seq < this.minSeq || seq <= this.lastWrite) return result;
 
-		this.lastWrite.set(base, seq);
-		this.cache.set(base, { snapshot: result.data, fetchedAt: Date.now() });
+		this.lastWrite = seq;
+		this.cacheEntry = { snapshot: result.data, fetchedAt: Date.now() };
 		this.notifyRatesUpdate(result.data);
 		return result;
 	}
@@ -362,13 +373,18 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 	 */
 	private invalidate(): void {
 		this.minSeq = ++this.fetchSeq;
-		this.cache.clear();
-		this.lastWrite.clear();
+		this.cacheEntry = null;
+		this.lastWrite = 0;
 	}
 
 	/**
 	 * Pure rate math over a snapshot: units of `to` per 1 unit of `from`.
 	 * The snapshot base itself counts as `1` and is absent from `rates`.
+	 *
+	 * Dividing two quotes instead of consuming the source's direct quote for the
+	 * pair is deliberate. Sources round their quotes — Frankfurter keeps 5
+	 * decimal places — so a small quote such as `KRW → USD` arrives as `0.00075`
+	 * and has already lost digits. `1 / USD.KRW` has not.
 	 */
 	private resolveRate(
 		snapshot: CurrencyRateSnapshot,
@@ -408,8 +424,8 @@ export class CurrencyConverterService implements ICurrencyConverterService {
 	 * Date to report on a conversion that needs no rate: the cached snapshot's
 	 * date when there is one, otherwise today's ISO date.
 	 */
-	private currentDate(base: Currency): string {
-		return this.cache.get(base)?.snapshot.date ?? new Date().toISOString().slice(0, 10);
+	private currentDate(): string {
+		return this.cacheEntry?.snapshot.date ?? new Date().toISOString().slice(0, 10);
 	}
 
 	/**

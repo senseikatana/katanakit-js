@@ -12,19 +12,44 @@ export const GeoPositionSchema = z.object({
 
 /** Supported ISO currency codes. */
 export const CurrencySchema = z.enum([
-	"EUR",
+	// Majors — the most traded pairs.
 	"USD",
+	"EUR",
 	"GBP",
 	"JPY",
-	"CAD",
-	"MXN",
 	"CHF",
+	"CAD",
 	"AUD",
+	"NZD",
+	// Americas.
+	"MXN",
 	"BRL",
-	"CNY",
 	"ARS",
 	"COP",
 	"CLP",
+	// Europe, non-euro.
+	"SEK",
+	"NOK",
+	"DKK",
+	"PLN",
+	"CZK",
+	"HUF",
+	"RON",
+	"TRY",
+	"ISK",
+	// Asia-Pacific & Middle East.
+	"CNY",
+	"HKD",
+	"SGD",
+	"INR",
+	"KRW",
+	"THB",
+	"IDR",
+	"MYR",
+	"PHP",
+	"ILS",
+	// Africa.
+	"ZAR",
 ]);
 
 /** Options for currency formatting. */

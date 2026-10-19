@@ -89,27 +89,40 @@ without making any request.
 
 ## 3. Read a rate and control the cache
 
-`useGetExchangeRate()` returns just the rate. Snapshots are cached **per base
-currency** with a TTL of 10 minutes, and concurrent calls for the same base
-collapse into a single request:
+`useGetExchangeRate()` returns just the rate. Rates are cached as **one snapshot
+quoted against a pivot currency** (USD by default) with a TTL of 10 minutes, and
+concurrent calls collapse into a single request:
 
 ```ts
 import { useCurrencyConverter, useGetExchangeRate, useRefreshExchangeRates } from "katanakit-js";
 
 const rate = await useGetExchangeRate("USD", "EUR");
-if (rate.ok) console.log(rate.data); // 0.88865
+if (rate.ok) console.log(rate.data); // 0.89087
 
 // Tune the cache once, at startup:
 useCurrencyConverter({ ttlMs: 5 * 60 * 1000 }); // 5 minutes
 // ttlMs: 0 → cached until you clear it explicitly.
 
 // Bypass the cache when you need a fresh quote now:
-await useRefreshExchangeRates("USD");
+await useRefreshExchangeRates();
 ```
 
-The facade gives you the remaining cache controls: `useGetSnapshot(base)`
-reads the cached snapshot without fetching, and `useClearCache()` drops
-everything (including responses that are still in flight).
+### Why a pivot?
+
+Sources round their quotes — Frankfurter keeps 5 decimal places — so a small
+quote arrives already short of digits: `KRW → USD` is published as `0.00075`
+when the rate is `0.00075217`. On 1M KRW that is 750.00 USD instead of 752.17.
+
+So every rate is stored against **one pivot** and each pair is resolved by
+division: `rate(A → B) = pivot[B] / pivot[A]`. The rounding then sits on the
+well-conditioned side of the pair, and both directions are exactly reciprocal —
+`rate(A→B) × rate(B→A) = 1`, with no drift between them. Move the pivot closer
+to your usual pairs with `useCurrencyConverter({ pivot: "EUR" })`, or set it on
+`CurrencyConverterService.create({ pivot })`.
+
+The facade gives you the remaining cache controls: `useGetSnapshot()` reads the
+cached snapshot without fetching, and `useClearCache()` drops everything
+(including responses that are still in flight).
 
 ## 4. Subscribe to rate updates
 
@@ -177,11 +190,19 @@ provider you injected yourself.
 
 ## Rate coverage
 
-The kit typechecks 13 currencies: `EUR`, `USD`, `GBP`, `JPY`, `CAD`, `MXN`,
-`CHF`, `AUD`, `BRL`, `CNY`, `ARS`, `COP`, `CLP`. Frankfurter covers the ECB
-set — **not** `ARS`, `COP` or `CLP`. Pairs involving those three return an
-explicit `404` error instead of a wrong number; that is the deal, and the
-provider swap above is the escape hatch.
+The kit typechecks **33 currencies**: the 30 the ECB source covers, plus `ARS`,
+`COP` and `CLP` for formatting.
+
+- **Majors** — `USD`, `EUR`, `GBP`, `JPY`, `CHF`, `CAD`, `AUD`, `NZD`.
+- **Americas** — `MXN`, `BRL`, `ARS`, `COP`, `CLP`.
+- **Europe, non-euro** — `SEK`, `NOK`, `DKK`, `PLN`, `CZK`, `HUF`, `RON`, `TRY`, `ISK`.
+- **Asia-Pacific & Middle East** — `CNY`, `HKD`, `SGD`, `INR`, `KRW`, `THB`, `IDR`, `MYR`, `PHP`, `ILS`.
+- **Africa** — `ZAR`.
+
+Frankfurter covers the ECB set — **not** `ARS`, `COP` or `CLP`. Pairs involving
+those three return an explicit `404` error instead of a wrong number; that is
+the deal, and the provider swap above is the escape hatch. Formatting
+(`useFormatCurrency`) works for all 33.
 
 ::: warning These are reference rates, not a forex quote
 The default source returns **ECB daily reference rates**: published around
@@ -203,6 +224,10 @@ Frankfurter client on top of the kit's HTTP API.
 ## Related
 
 - [Errors & Results](/guides/errors) — the Safe Result contract in depth.
+- [ADR-0015](/explanation/decisions/adr-0015-cross-rates-through-a-pivot) — why
+  pairs divide through a pivot instead of consuming the source's quote.
+- [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates) — why ECB
+  reference rates, and the provider port as the escape hatch.
 - [Formatter](/guides/services/formatter) — `useFormatCurrency()` and the
   `digits` option.
 - [Service architecture](/explanation/service-architecture) — why the rate

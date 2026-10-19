@@ -102,18 +102,16 @@ export async function useGetExchangeRate(
 /**
  * Forces a rate refresh, bypassing the cache. Subscribers get `onRatesUpdate`.
  *
- * @param base - Currency to fetch rates for.
- * @returns `{ data, error, ok }` — never throws.
+ * @returns `{ data, error, ok }` with the snapshot quoted against the pivot.
+ * Never throws.
  *
  * @example
  * ```ts
- * await useRefreshExchangeRates("USD");
+ * await useRefreshExchangeRates();
  * ```
  */
-export async function useRefreshExchangeRates(
-	base: Currency,
-): Promise<SafeResult<CurrencyRateSnapshot>> {
-	return useCurrencyConverter().useRefreshRates(base);
+export async function useRefreshExchangeRates(): Promise<SafeResult<CurrencyRateSnapshot>> {
+	return useCurrencyConverter().useRefreshRates();
 }
 
 /**

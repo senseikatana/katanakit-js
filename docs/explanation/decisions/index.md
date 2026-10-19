@@ -43,6 +43,7 @@ implementation detail: the [Architecture](/guides/architecture) page and the
 | [ADR-0012](/explanation/decisions/adr-0012-currency-adapter-in-infrastructure) | The currency rate adapter lives in `src/infrastructure/` | Accepted | 2026-10-19 |
 | [ADR-0013](/explanation/decisions/adr-0013-round-money-with-intl) | Money is rounded with `Intl.NumberFormat`, not `Math.round` | Accepted | 2026-10-19 |
 | [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates) | Frankfurter/ECB reference rates behind the provider port | Accepted | 2026-10-19 |
+| [ADR-0015](/explanation/decisions/adr-0015-cross-rates-through-a-pivot) | Cross-rates divide through a pivot currency | Accepted | 2026-10-19 |
 
 ## Adding a record
 

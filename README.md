@@ -140,10 +140,14 @@ if (result.ok) {
 ```
 
 These are **reference rates, not intraday forex quotes**: published around
-14:15 CET on working days, with no bid/ask spread. `ARS`, `COP` and `CLP` are
-not covered by the default source, so those pairs return an explicit error
-instead of a wrong number. Subscribe to rate updates with `useSubscribeRates()`,
-or implement `ICurrencyRateProvider` and inject it for live quotes.
+14:15 CET on working days, with no bid/ask spread. **33 currencies** typecheck —
+all the majors (`USD`, `EUR`, `GBP`, `JPY`, `CHF`, `CAD`, `AUD`, `NZD`) and the
+usual traded set. `ARS`, `COP` and `CLP` format fine but are not covered by the
+default source, so those pairs return an explicit error instead of a wrong
+number. Pairs are resolved by dividing through a pivot currency, so a small
+quote never loses precision and both directions are exactly reciprocal.
+Subscribe to rate updates with `useSubscribeRates()`, or implement
+`ICurrencyRateProvider` and inject it for live quotes.
 
 → [Currency conversion guide](https://docs.senseikatana.com/guides/currency)
 
