@@ -7,13 +7,18 @@
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"bin": {
-		"katanakit-keys": "./dist/adapters/cli/bin.js"
+		"kai": "./dist/adapters/cli/bin.js"
 	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js",
 			"default": "./dist/index.js"
+		},
+		"./adapters/cli": {
+			"types": "./dist/adapters/cli/index.d.ts",
+			"import": "./dist/adapters/cli/index.js",
+			"default": "./dist/adapters/cli/index.js"
 		},
 		"./adapters/express": {
 			"types": "./dist/adapters/express/index.d.ts",
@@ -137,7 +142,8 @@
 		"node": ">=22.18.0"
 	},
 	"workspaces": [
-		"packages/ui"
+		"packages/ui",
+		"packages/katanakitai"
 	],
 	"publishConfig": {
 		"access": "public"
