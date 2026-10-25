@@ -282,15 +282,19 @@ function newPagePaths() {
 		.split("\n")
 		.map((tag) => tag.trim())
 		.filter((tag) => /^v\d+\.\d+\.\d+$/.test(tag));
-	// Badges cover the cycle that is shipping now, and mark what is new for
-	// the reader: pages added since the last release tag. `-M` collapses the
+	// Badges cover what the reader has not seen yet: pages added since the
+	// *previous* release tag, so a page the newest release just shipped keeps
+	// its "new" pill until the next release retires it. `-M` collapses the
 	// moves a migration/revert produces into renames, and the filter keeps only
 	// `A` (added), so an edit to an existing page or a pure move never shows a
-	// "new" pill. The baseline is the newest tag: HEAD is what is shipping.
-	const range = tags[0] ? `${tags[0]}..HEAD` : "";
+	// "new" pill. HEAD is what is shipping.
+	const base = tags[1] ?? tags[0];
+	const range = base ? `${base}..HEAD` : "";
 	if (range) {
-		const check = run("rev-parse", "--verify", "--quiet", range);
-		if (!check) console.warn(`docs: baseline ${range} is not available (shallow clone?); no new-page badges`);
+		const check = run("rev-parse", "--verify", "--quiet", `${base}^{commit}`);
+		if (!check) {
+			console.warn(`docs: baseline ${base} is not available (shallow clone?); new-page badges may be incomplete`);
+		}
 	}
 	const tracked = range
 		? run("diff", "-M", "--name-only", "--diff-filter=A", range, "--", "docs")
