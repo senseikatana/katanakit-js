@@ -8,6 +8,7 @@ export * from "./filesystem.schema.js";
 export * from "./grant.schema.js";
 export * from "./identity.schema.js";
 export * from "./insforge.schema.js";
+export * from "./keyvault.schema.js";
 export * from "./media.schema.js";
 export * from "./notion.schema.js";
 export * from "./rss.schema.js";

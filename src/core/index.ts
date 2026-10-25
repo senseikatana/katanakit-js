@@ -1,5 +1,6 @@
 export * from "./services/access.service.js";
 export * from "./services/agent.service.js";
+export * from "./services/agentconfig.service.js";
 export * from "./services/array.service.js";
 export * from "./services/assistant.service.js";
 export * from "./services/auth.service.js";
@@ -14,7 +15,9 @@ export * from "./services/generator.service.js";
 export * from "./services/geometry.service.js";
 export * from "./services/grant.service.js";
 export * from "./services/http.service.js";
+export * from "./services/keyvault.service.js";
 export * from "./services/logger.service.js";
+export * from "./services/mcp.service.js";
 export * from "./services/media.service.js";
 export * from "./services/query.service.js";
 export * from "./services/reactive.service.js";
