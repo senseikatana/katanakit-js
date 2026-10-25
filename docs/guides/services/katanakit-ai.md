@@ -16,15 +16,15 @@ re-encrypted blobs you can move anywhere, and no secret is ever sent anywhere.
 ## Install
 
 ```bash
-npm install -g katanakitai      # or: bun add -g katanakitai
+npm install -g katanakit-js     # or: bun add -g katanakit-js
 kai help
 ```
 
 No install needed — run it straight from npm:
 
 ```bash
-npx katanakitai keys list       # npm
-bunx katanakitai keys list      # bun
+npx katanakit-js keys list      # npm
+bunx katanakit-js keys list     # bun
 ```
 
 ## How it works
