@@ -4,8 +4,8 @@
 	"description": "katanakitAI — API keys, MCP servers and AI agent configuration in one encrypted vault. The `kai` CLI for KatanaKit.",
 	"type": "module",
 	"bin": {
-		"kai": "./bin/kai.mjs",
-		"katanakitai": "./bin/kai.mjs"
+		"kai": "bin/kai.mjs",
+		"katanakitai": "bin/kai.mjs"
 	},
 	"files": [
 		"bin",
