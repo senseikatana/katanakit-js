@@ -38,6 +38,7 @@ npm install katanakit-js
 | Section         | Pages                                                                                                                                                                                |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Getting Started** | [Install and first styles](/ui-kit/css/getting-started)                                                                                                                         |
+| **Integrations** | [Tailwind CSS & presets](/ui-kit/css/integrations/tailwind)                                                                                                                      |
 | **Foundations** | [Design Tokens](/ui-kit/css/core/tokens) · [Colors](/ui-kit/css/core/colors) · [Breakpoints](/ui-kit/css/core/breakpoints) · [Dark Mode](/ui-kit/css/core/dark-mode) · [@apply](/ui-kit/css/core/apply) |
 | **Mixins**      | [Grid](/ui-kit/css/mixins/grid) · [Flexbox](/ui-kit/css/mixins/flex)                                                                                                                 |
 | **Utilities**   | [Spacing](/ui-kit/css/utilities/padding) · [Display](/ui-kit/css/utilities/display) · [Typography](/ui-kit/css/utilities/typography) · [Effects](/ui-kit/css/utilities/effects) · [Grid Classes](/ui-kit/css/utilities/grid-classes) and 20 more |

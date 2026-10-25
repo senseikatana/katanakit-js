@@ -42,13 +42,25 @@ test("applies the compiled stylesheet with unprefixed classes", async ({ page })
 });
 
 test("puts component CSS inside @layer katana", async ({ page }) => {
+	// Assert the layer that actually holds the component rule, not the first
+	// layer block in the document: the kit's preflight has its own lower layer
+	// (`katana-reset`) and is declared first on purpose.
 	const layered = await page.evaluate(() => {
-		for (const sheet of document.styleSheets) {
-			for (const rule of sheet.cssRules) {
+		const find = (rules, layer) => {
+			for (const rule of rules) {
 				if (rule.constructor.name === "CSSLayerBlockRule") {
-					return rule.name;
+					const found = find(rule.cssRules, rule.name);
+					if (found) return found;
+				} else if (rule.selectorText === ".toast") {
+					return layer;
 				}
 			}
+			return null;
+		};
+
+		for (const sheet of document.styleSheets) {
+			const name = find(sheet.cssRules, null);
+			if (name) return name;
 		}
 		return null;
 	});

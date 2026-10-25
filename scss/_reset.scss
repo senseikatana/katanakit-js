@@ -23,6 +23,13 @@
   --root-font-size: 62.5%;       // 10px on a 16px browser → 1rem = 10px
 }
 
+// Everything below lives in its own layer, declared before the component
+// layer (`@layer katana`), so component rules win over this preflight.
+// Unlayered consumer CSS still wins over both — the kit's coexistence
+// guarantee is unchanged; only the kit's own reset stops eating its
+// components' padding, border and background.
+@layer katana-reset {
+
 // Universal reset: every element and pseudo-element starts with zero
 // margin/padding, border-box sizing and no border.
 *,
@@ -273,3 +280,6 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
+
+}
+

@@ -353,6 +353,7 @@ Runnable projects live in [`examples/`](./examples):
 | [`notion`](./examples/notion) · [`wordpress`](./examples/wordpress) | Content integrations |
 | [`agent`](./examples/agent) · [`observer`](./examples/observer) · [`geometry`](./examples/geometry) | Agent providers, watchers, geometry helpers |
 | [`seed`](./examples/seed) | Faker-driven test data |
+| [`dashboard`](./examples/dashboard) | Every documented UI component composed into a full admin dashboard |
 
 ---
 

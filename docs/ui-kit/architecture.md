@@ -77,6 +77,13 @@ beats layered CSS**, regardless of specificity or order. A consumer who also loa
 daisyUI gets daisyUI's styling — deterministically, every time. Layered component
 CSS can never win an import-order accident.
 
+The kit's own preflight follows the same rule from the other side: it lives in
+`@layer katana-reset`, declared **before** `katana`, so the universal reset
+(zero margin/padding/border) loses to the component rules instead of erasing
+their padding. Utilities stay unlayered on purpose — `.p-4` has to be able to
+adjust `.btn` without a layer deciding for it. Consumers composing the kit with
+their own layer statement must include `katana-reset` before `katana`.
+
 Theme tokens stay **outside** the layer, because a cascade layer cannot influence
 `:root`: the custom properties have to stay available to utilities and to consumer
 styles. The same reasoning keeps the kit's own `@keyframes` and the

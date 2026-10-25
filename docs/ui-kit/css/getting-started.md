@@ -84,6 +84,7 @@ Override any `!default` map before importing:
 
 ## Next steps
 
+- [Tailwind CSS & presets](/ui-kit/css/integrations/tailwind) — compose with Tailwind 4, FlyonUI or daisyUI
 - [Design Tokens](/ui-kit/css/core/tokens) — all token maps and access functions
 - [Colors](/ui-kit/css/core/colors) · [Dark Mode](/ui-kit/css/core/dark-mode) — palettes and theming
 - [Breakpoints](/ui-kit/css/core/breakpoints) — responsive mixins

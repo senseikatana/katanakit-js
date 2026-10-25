@@ -380,6 +380,7 @@ export default defineConfig({
 				items: [
 					{ text: "Overview", link: "/ui-kit/css/" },
 					{ text: "Getting Started", link: "/ui-kit/css/getting-started" },
+					{ text: "Tailwind & Presets", link: "/ui-kit/css/integrations/tailwind" },
 					{
 						text: "Foundations",
 						collapsed: true,
