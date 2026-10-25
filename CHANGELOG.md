@@ -12,6 +12,20 @@ the [project repository](https://github.com/senseikatana/katanakit-js).
 
 What's news:
 
+- [ ] feat(cli): add the katanakitai npm package for npx and bunx
+  - `bun.lock`
+  - `package.json`
+  - `packages/katanakitai/README.md`
+  - `packages/katanakitai/bin/kai.mjs`
+  - `packages/katanakitai/package.json`
+- [ ] feat(ai): rebrand the toolbox as katanakitAI and shorten the command to kai
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/services/katanakit-ai.md`
+  - `docs/guides/services/key-vault.md`
+  - `src/adapters/cli/bin.ts`
+  - `src/adapters/cli/index.ts`
+  - `src/infrastructure/vault/vault.store.ts`
 - [ ] feat(agents): add agent config emission and katanakit-keys CLI
   - `README.md`
   - `docs/.vitepress/config.ts`
