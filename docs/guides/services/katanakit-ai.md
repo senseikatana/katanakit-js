@@ -1,21 +1,35 @@
 ---
-title: Key Vault
-description: Manage API keys, MCP servers and AI agent configuration from one encrypted vault.
+title: katanakitAI
+description: Manage AI provider API keys, MCP servers and coding-agent configuration from one encrypted vault.
 ---
 
-# Key Vault
+# katanakitAI
 
-The key vault stores your AI provider API keys **encrypted at rest** and turns
-them into working configuration for the coding agents you use — including MCP
-server registration. It ships as toolkit services plus a CLI, `katanakit-keys`,
+The AI toolbox of KatanaKit: it stores your AI provider API keys **encrypted at
+rest** and turns them into working configuration for the coding agents you use —
+including MCP server registration. It ships as toolkit services plus a CLI, `kai`,
 so the same vault can back a script, a CI job or your terminal.
 
 Everything is local-first: the vault lives on your machine, backups are
 re-encrypted blobs you can move anywhere, and no secret is ever sent anywhere.
 
+## Install
+
+```bash
+npm install -g katanakitai      # or: bun add -g katanakitai
+kai help
+```
+
+No install needed — run it straight from npm:
+
+```bash
+npx katanakitai keys list       # npm
+bunx katanakitai keys list      # bun
+```
+
 ## How it works
 
-Three pure services plus one infrastructure adapter:
+Core services plus one infrastructure adapter and the CLI:
 
 | Layer | Module | Responsibility |
 | --- | --- | --- |
@@ -23,28 +37,29 @@ Three pure services plus one infrastructure adapter:
 | Core | `mcp.service.ts` | MCP server registry + OpenCode `mcp.servers` emission |
 | Core | `agentconfig.service.ts` | Per-agent config emission ("auto configuration" + "manual connection") |
 | Infrastructure | `vault.store.ts` | scrypt + AES-256-GCM envelope, atomic writes, owner-only file mode |
+| CLI | `adapters/cli` (`kai`) | `keys`, `mcp` and `agents` command groups |
 
-The vault file is `~/.config/katanakit-keys/vault.enc.json` (override with
-`KATANAKIT_KEYS_VAULT`). Every command needs `KATANAKIT_KEYS_PASSPHRASE`.
+The vault file is `~/.config/katanakitai/vault.enc.json` (override with
+`KATANAKITAI_VAULT`). Every vault command needs `KATANAKITAI_PASSPHRASE`.
 
 ## CLI cookbook
 
 ### Store a key
 
 ```bash
-export KATANAKIT_KEYS_PASSPHRASE="…"
-katanakit-keys keys add openai --label ci --secret "sk-…"
+export KATANAKITAI_PASSPHRASE="…"
+kai keys add openai --label ci --secret "sk-…"
 # or pipe it, so the secret never touches shell history:
-echo "sk-…" | katanakit-keys keys add openai --label ci
+echo "sk-…" | kai keys add openai --label ci
 ```
 
 ### List, reveal, rotate, revoke
 
 ```bash
-katanakit-keys keys list            # masked secrets only
-katanakit-keys keys reveal <id>     # the ONLY place a secret is printed
-katanakit-keys keys rotate <id> --secret "sk-new…"
-katanakit-keys keys revoke <id>
+kai keys list            # masked secrets only
+kai keys reveal <id>     # the ONLY place a secret is printed
+kai keys rotate <id> --secret "sk-new…"
+kai keys revoke <id>
 ```
 
 Rotation keeps the record id stable, so generated configs stay valid.
@@ -52,9 +67,9 @@ Rotation keeps the record id stable, so generated configs stay valid.
 ### Register an MCP server
 
 ```bash
-katanakit-keys mcp add context7 --url https://mcp.context7.com/mcp
-katanakit-keys mcp add playwright --command "bunx @playwright/mcp"
-katanakit-keys mcp add private --url https://mcp.example.com/mcp \
+kai mcp add context7 --url https://mcp.context7.com/mcp
+kai mcp add playwright --command "bunx @playwright/mcp"
+kai mcp add private --url https://mcp.example.com/mcp \
   --header 'Authorization=Bearer {env:PRIVATE_MCP_TOKEN}'
 ```
 
@@ -64,9 +79,9 @@ generated config keeps the indirection.
 ### Generate agent configuration
 
 ```bash
-katanakit-keys agents list
-katanakit-keys agents config opencode --key <keyId>
-katanakit-keys agents config claude-code --key <keyId> --write
+kai agents list
+kai agents config opencode --key <keyId>
+kai agents config claude-code --key <keyId> --write
 ```
 
 The output mirrors every agent-setup UI:
@@ -85,7 +100,7 @@ existing file without `--force`.
 ### Back up the vault
 
 ```bash
-katanakit-keys keys export --out ~/backups/keys.enc.json
+kai keys export --out ~/backups/keys.enc.json
 ```
 
 The backup is sealed with the same passphrase — safe to push to your own
@@ -123,7 +138,7 @@ await useSaveVaultFile(path, vaultData, passphrase);
   parameters stored inside the envelope so they stay upgradeable.
 - A wrong passphrase and a tampered file fail the same way — the error never
   says which one it was.
-- `keys list` and every config preview mask secrets; only `keys reveal` and an
-  explicit `--reveal`/`--write` show real values.
+- `kai keys list` and every config preview mask secrets; only `kai keys reveal`
+  and an explicit `--reveal`/`--write` show real values.
 - The vault file and generated files are written with owner-only permissions
   (`600`).

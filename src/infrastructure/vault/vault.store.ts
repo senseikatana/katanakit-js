@@ -52,8 +52,8 @@ export class VaultStore {
 	}
 
 	/**
-	 * Resolves the vault file location: `KATANAKIT_KEYS_VAULT` when set,
-	 * otherwise `$XDG_CONFIG_HOME/katanakit-keys/vault.enc.json` (defaulting to
+	 * Resolves the vault file location: `KATANAKITAI_VAULT` when set,
+	 * otherwise `$XDG_CONFIG_HOME/katanakitai/vault.enc.json` (defaulting to
 	 * `~/.config`).
 	 *
 	 * @returns The absolute vault file path.
@@ -61,10 +61,10 @@ export class VaultStore {
 	async useVaultPath(): Promise<string> {
 		const { join } = await import("node:path");
 		const { homedir } = await import("node:os");
-		const override = process.env.KATANAKIT_KEYS_VAULT?.trim();
+		const override = process.env.KATANAKITAI_VAULT?.trim();
 		if (override) return override;
 		const configHome = process.env.XDG_CONFIG_HOME?.trim() || join(homedir(), ".config");
-		return join(configHome, "katanakit-keys", "vault.enc.json");
+		return join(configHome, "katanakitai", "vault.enc.json");
 	}
 
 	/**
