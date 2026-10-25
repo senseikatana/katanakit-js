@@ -23,11 +23,15 @@
  *
  * ## Environment
  *
- * Set `DATABASE_URL` in your `.env` file:
+ * `DATABASE_URL` must be present in the process environment — this module
+ * never loads `.env` files itself (no side effects on import):
  *
  * ```env
  * DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
  * ```
+ *
+ * Bun reads `.env` automatically; on Node run the app with
+ * `node --env-file=.env`, or let your framework load it.
  *
  * ## Usage
  *
@@ -43,8 +47,6 @@
  *
  * @module prisma/use-prisma
  */
-
-import "dotenv/config";
 
 import postgres from "@prisma/orm-postgres/runtime";
 
@@ -77,7 +79,7 @@ export function usePrismaClient(datasourceUrl?: string): ReturnType<typeof postg
 		const url = datasourceUrl ?? process.env.DATABASE_URL;
 		if (!url) {
 			throw new Error(
-				"[usePrismaClient] DATABASE_URL is not set. Copy .env.example to .env and configure it.",
+				"[usePrismaClient] DATABASE_URL is not set. Export it in the environment (Bun and `node --env-file=.env` read .env) or pass a URL.",
 			);
 		}
 		client = postgres<Contract>({

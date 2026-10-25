@@ -27,9 +27,9 @@ and [ADR-0003: Subpath adapters](/explanation/decisions/adr-0003-adapter-subpath
                │  implements / consumes contracts
    ┌───────────▼──────────────────────────────────────┐
    │                   core/services/                 │  pure domain services
-   │  logger · http · formatter · converter · error   │  (no I/O: no window,
-   │  generator · dates · geometry · timing · utils   │   document, fetch, fs)
-   │  reactive · currency                             │
+   │  logger · http · formatter · converter · error   │  (no platform I/O: no
+   │  generator · dates · geometry · timing · utils   │   fs, no framework;
+   │  reactive · currency                             │   fetch = ADR-0004 exception)
    └───────────┬──────────────────────────────────────┘
                │  owned I/O lives one layer out
    ┌───────────▼──────────────────────────────────────┐
@@ -234,8 +234,9 @@ SiteConfig, useSeoMeta } from "katanakit-js"`) and from
   Prisma ORM contract-first syntax).
 - `schema.json` / `schema.d.ts` — generated contract artifacts
   (**do not edit**; regenerate with `prisma contract emit`).
-- `db.ts` — the typed database client built with `@prisma/orm-postgres` from
-  the contract and `DATABASE_URL` (read from `dotenv`).
+- `use-prisma.ts` — `usePrismaClient()`, the typed database client built with
+  `@prisma/orm-postgres` from the contract and `DATABASE_URL`, read from the
+  environment on first call (the package never loads `.env` itself).
 - `prisma.config.ts` (repo root) — Prisma CLI/ORM configuration.
 
 This layer is optional: `@prisma/orm-postgres` is an optional peer dependency
@@ -267,8 +268,9 @@ and the client is not exported from the main barrel.
   build output. See
   [ADR-0009](/explanation/decisions/adr-0009-alias-imports-in-src).
 - **No side effects on import.** Barrel files only re-export; strategy
-  instantiation happens lazily inside services. `db.ts` is the only module that
-  reads the environment, and it is never part of the public barrel.
+  instantiation happens lazily inside services, and so do environment reads:
+  `usePrismaClient()` resolves `DATABASE_URL` on first call, never at import,
+  and it is not exported from the main barrel.
 
 ## Design patterns in use
 

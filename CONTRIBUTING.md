@@ -11,9 +11,15 @@ These rules keep the codebase consistent and maintainable. Please read
 [Architecture](https://docs.senseikatana.com/guides/architecture) for the full context behind each rule.
 
 1. **Hexagonal layering** — keep the pure `core` layer (`src/core/services/`)
-   free of browser/runtime I/O. Adapters that own I/O live in
-   `src/infrastructure/` (DOM, storage, viewport, sensors, observer, worker,
-   theme). Framework-facing adapters live in `src/adapters/` (`astro/`,
+   free of platform I/O: no filesystem, no unguarded browser globals, and no
+   static `node:*` imports — a platform module may only enter through a lazy
+   `import()` inside a method (`generator.service.ts`'s `node:crypto` pattern).
+   Universal runtime APIs (`fetch`, `URL`, `crypto`, guarded `process.env`) are
+   allowed — `http.service.ts` wraps the global `fetch` by design, and
+   [ADR-0004](https://docs.senseikatana.com/explanation/decisions/adr-0004-hexagonal-core)
+   records the rule plus its open exceptions. Adapters that own platform I/O
+   live in `src/infrastructure/` (DOM, storage, viewport, sensors, observer,
+   worker, theme). Framework-facing adapters live in `src/adapters/` (`astro/`,
    `express/`, `nuxt/`), site config/SEO in `src/config/`. Put new capabilities
    in the layer that matches their responsibility.
 2. **Design patterns** — services are Singleton facades and use
@@ -168,7 +174,7 @@ Biggest gaps at the baseline: `viewport.service.ts` (117 statements, 0%),
 ## Directory layout
 
 - `src/types/` — single source of truth for all contracts and domain types.
-- `src/core/services/` — pure domain services (no I/O).
+- `src/core/services/` — pure domain services (no platform I/O).
 - `src/infrastructure/` — adapters that own browser/runtime I/O.
 - `src/adapters/` — framework adapters (`astro/`, `express/`, `vue/`, `nuxt/`).
 - `src/adapters/notion/` — Notion REST API adapter.
