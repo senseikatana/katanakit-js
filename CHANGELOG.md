@@ -8,6 +8,67 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.2] - 2026-10-25
+
+Highlights: feat: update architecture and prisma.ts and fix(docs): keep the new badge through the release that ships the page, plus 7 more changes.
+
+- 🚀 feat: update architecture and prisma.ts `02e7e77`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `docs/explanation/service-architecture.md`
+  - `docs/guides/architecture.md`
+  - `package.json`
+  - `src/prisma/use-prisma.ts`
+- 🐛 fix(docs): keep the new badge through the release that ships the page `bdbe683`
+  - `scripts/docs-prepare.mjs`
+- 🧹 chore(cli): ship katanakitAI inside katanakit-js, no separate package `3cfa219`
+  - `README.md`
+  - `bun.lock`
+  - `docs/guides/services/katanakit-ai.md`
+  - `package.json`
+  - `packages/katanakitai/README.md`
+  - `packages/katanakitai/bin/kai.mjs`
+  - `packages/katanakitai/package.json`
+- 🐛 fix(cli): use npm's canonical bin paths without the ./ prefix `6492a46`
+  - `package.json`
+  - `packages/katanakitai/package.json`
+- 🚀 feat(cli): add the katanakitai npm package for npx and bunx `3d3b504`
+  - `bun.lock`
+  - `package.json`
+  - `packages/katanakitai/README.md`
+  - `packages/katanakitai/bin/kai.mjs`
+  - `packages/katanakitai/package.json`
+- 🚀 feat(ai): rebrand the toolbox as katanakitAI and shorten the command to kai `94844b3`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/services/katanakit-ai.md`
+  - `docs/guides/services/key-vault.md`
+  - `src/adapters/cli/bin.ts`
+  - `src/adapters/cli/index.ts`
+  - `src/infrastructure/vault/vault.store.ts`
+- 🚀 feat(agents): add agent config emission and katanakit-keys CLI `d8ddec7`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/services/key-vault.md`
+  - `package.json`
+  - `src/adapters/cli/bin.ts`
+  - `src/core/services/agentconfig.service.ts`
+  - `tests/agentconfig.service.test.ts`
+- 🚀 feat(mcp): add MCP server registry with OpenCode config emission `ad8ecee`
+  - `src/core/services/mcp.service.ts`
+  - `tests/mcp.service.test.ts`
+- 🚀 feat(keyvault): add encrypted API key vault with lifecycle and masking `1541a3d`
+  - `src/core/index.ts`
+  - `src/core/services/keyvault.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/vault/vault.store.ts`
+  - `src/schemas/index.ts`
+  - `src/schemas/keyvault.schema.ts`
+  - `src/types/index.ts`
+  - `tests/keyvault.service.test.ts`
+  - `tests/vault.store.test.ts`
+
 ## [7.1.1] - 2026-10-25
 
 Highlights: feat: update architecture and prisma.ts and fix(docs): keep the new badge through the release that ships the page.
