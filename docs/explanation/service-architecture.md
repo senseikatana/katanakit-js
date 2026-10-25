@@ -98,9 +98,14 @@ prefix alone. A code review can flag a new `on*` method that should be a
 
 ## Why the core has no I/O
 
-`src/core/services/` is pure domain logic. It never calls `fetch`, never reads
-the filesystem, never touches the DOM. When a domain operation *needs* the
-outside world — exchange rates are the worked example — the dependency is
+`src/core/services/` is pure domain logic. It never reads the filesystem and
+never touches the DOM; its direct contact with the outside world is limited to
+universal runtime APIs — chiefly `http.service.ts` wrapping the global `fetch`,
+present in every supported runtime and recorded as the pragmatic exception in
+[ADR-0004](/explanation/decisions/adr-0004-hexagonal-core) — together with the
+two breaches still open there (`agent.service.ts`'s environment fallback and
+its OpenAI-compatible strategy's own `fetch`). When a domain operation *needs*
+the outside world — exchange rates are the worked example — the dependency is
 expressed as a **port**: an interface in the shared kernel
 (`ICurrencyRateProvider` in `src/types/`), not an import from an
 implementation.
@@ -127,8 +132,8 @@ follow:
   [ADR-0012](/explanation/decisions/adr-0012-currency-adapter-in-infrastructure)
   and
   [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates)).
-- **Runtime I/O stays in one layer.** The Frankfurter adapter itself performs
-  its request through the kit's own HTTP manager (`FetchApiManager`), so
+- **Infrastructure's network I/O goes through the kit's HTTP manager.** The
+  Frankfurter adapter performs its request through `FetchApiManager`, so
   interceptors, Safe Results and the anti-SSRF redirect policy apply to
   internal traffic too.
 
