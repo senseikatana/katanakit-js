@@ -8,6 +8,20 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.0.1] - 2026-10-25
+
+Highlights: fix: update katanakit-js version in filesystem and getting-started guides.
+
+- [x] 🐛 fix: update katanakit-js version in filesystem and getting-started guides
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+- [x] 🐛 fix!: update currency conversion guide and resolve cross-rates through a pi
+- [x] 🐛 fix(currency): improve currency conversion and formatting, add ECB referenc
+- [x] 🐛 fix: update adapters and services (wordpress, vue, seo, etc)
+- [x] 🚀 feat: updated documentation and scripts
+- [x] 📝 docs(wordpress): add the WordPress Roles guide for the PHP side
+
 ## [7.0.0] - 2026-10-19
 
 Highlights: fix!: update currency conversion guide and resolve cross-rates through a pi.
