@@ -261,6 +261,7 @@ export default defineConfig({
 					{ text: "Viewport", link: "/guides/services/viewport" },
 					{ text: "Observer", link: "/guides/services/observer" },
 					{ text: "Worker", link: "/guides/services/worker" },
+					{ text: "katanakitAI", link: "/guides/services/katanakit-ai" },
 				],
 			},
 			{

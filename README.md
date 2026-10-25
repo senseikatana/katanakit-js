@@ -248,6 +248,23 @@ publicly readable route.
 → [Better Auth guide](https://docs.senseikatana.com/guides/better-auth) ·
 [InsForge guide](https://docs.senseikatana.com/guides/insforge)
 
+### katanakitAI — API keys, MCP and agent config
+
+One encrypted vault for AI provider keys, MCP server registration and
+per-agent configuration. Local-first: scrypt + AES-256-GCM at rest, masked
+secrets everywhere except an explicit reveal, and encrypted backups you can
+store anywhere. Run it as `kai` (installed) or without installing via
+`npx katanakitai` / `bunx katanakitai`.
+
+```bash
+kai keys add openai --label ci            # secret via --secret or stdin
+kai mcp add context7 --url https://mcp.context7.com/mcp
+kai agents config opencode --key <id>     # auto config + manual connection
+kai keys export --out ~/backups/keys.enc.json
+```
+
+See [katanakitAI](https://docs.senseikatana.com/guides/services/katanakit-ai) for the full guide.
+
 ### Reactive signals
 
 Framework-free reactivity with automatically tracked dependencies. No build step,
