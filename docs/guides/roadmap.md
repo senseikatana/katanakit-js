@@ -8,7 +8,7 @@ are welcome — pick something and open a pull request.
 
 Legend: `[x]` done · `[ ]` planned.
 
-## Shipped (as of 6.13.0)
+## Shipped (as of 7.0.0)
 
 ### Architecture and packaging
 
