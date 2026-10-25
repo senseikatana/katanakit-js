@@ -1,10 +1,36 @@
 /**
  * Katana Admin — dashboard example.
  *
- * Every interactive piece below comes from `@katanakit/ui`, the same
- * factories documented in the UI kit pages. The file is plain ESM with no
- * bundler and no framework runtime; it imports the built package directly.
+ * Every interactive piece comes from the library: the `@katanakit/ui`
+ * component factories plus the toolkit services — DomService, ObserverService,
+ * ThemeService and TimingService. No native `IntersectionObserver`,
+ * `localStorage`, `setTimeout` or `querySelector` calls.
+ *
+ * Plain ESM with no bundler and no framework runtime: it imports the compiled
+ * package directly (`bun run build` first).
  */
+import { useDebounce, useSetTimeout } from "../../dist/core/services/timing.service.js";
+import {
+	useAppend,
+	useCreateElement,
+	useGetAttribute,
+	useGetElementById,
+	useOn,
+	useQuerySelectorAll,
+	useSetAttribute,
+	useSetHtml,
+	useSetText,
+	useToggleClass,
+} from "../../dist/infrastructure/dom/dom.service.js";
+import {
+	useObserverCreate,
+	useObserverObserveAll,
+} from "../../dist/infrastructure/observer/observer.service.js";
+import {
+	useGetResolved,
+	useInitTheme,
+	useToggleTheme,
+} from "../../dist/infrastructure/theme/theme.service.js";
 import {
 	modal,
 	toast,
@@ -18,29 +44,38 @@ import {
 } from "../../packages/ui/dist/index.js";
 
 /* -------------------------------------------------------------------------- */
-/* DOM helpers                                                                */
+/* DOM helpers — DomService, not raw DOM                                      */
 /* -------------------------------------------------------------------------- */
 
+const byId = (id) => useGetElementById(id);
+
 const el = (tag, className, text) => {
-	const node = document.createElement(tag);
-	if (className) node.className = className;
-	if (text !== undefined) node.textContent = text;
+	const node = useCreateElement(tag);
+	if (className) useSetAttribute(node, "class", className);
+	if (text !== undefined) useSetText(node, text);
 	return node;
 };
 
+const appendAll = (parent, ...nodes) => {
+	for (const node of nodes) useAppend(parent, node);
+};
+
 const mount = (id, ...nodes) => {
-	const host = document.getElementById(id);
+	const host = byId(id);
 	if (!host) throw new Error(`[dashboard] missing mount point #${id}`);
-	host.replaceChildren(...nodes);
+	useSetHtml(host, "");
+	appendAll(host, ...nodes);
 };
 
 const panel = (className, ...nodes) => {
 	const node = el("div", className);
-	node.append(...nodes);
+	appendAll(node, ...nodes);
 	return node;
 };
 
 const row = (...nodes) => panel("row", ...nodes);
+
+const on = (id, event, handler) => useOn(byId(id), event, handler);
 
 /* -------------------------------------------------------------------------- */
 /* Overview                                                                   */
@@ -73,7 +108,7 @@ mount(
 		variant: "info",
 		title: "Demo data",
 		message:
-			"Figures are mocked. Only components, tokens and utilities come from katanakit-js.",
+			"Figures are mocked. Only components, tokens and services come from katanakit-js.",
 		dismissible: true,
 		onDismiss: () => toast.success("Alert dismissed."),
 	}),
@@ -84,13 +119,13 @@ const revenuePanel = () => {
 	const bars = el("div", "bars");
 	for (const height of heights) {
 		const bar = el("div", "bar");
-		bar.style.height = `${height}%`;
-		bars.append(bar);
+		useSetAttribute(bar, "style", `height:${height}%`);
+		useAppend(bars, bar);
 	}
 
 	const labels = el("div", "bar-labels");
 	for (const month of ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"]) {
-		labels.append(el("span", null, month));
+		useAppend(labels, el("span", null, month));
 	}
 
 	return panel(
@@ -111,7 +146,8 @@ const customersPanel = () => {
 
 	const list = el("div", "stack");
 	for (const [name, total] of customers) {
-		list.append(
+		useAppend(
+			list,
 			panel(
 				"row row--between",
 				el("span", null, name),
@@ -132,7 +168,8 @@ const activityPanel = () => {
 
 	const list = el("div", "stack");
 	for (const [date, text] of events) {
-		list.append(
+		useAppend(
+			list,
 			panel(
 				"row row--between",
 				el("span", null, text),
@@ -273,7 +310,7 @@ mount(
 	statusSelect.root,
 );
 
-document.getElementById("order-form").addEventListener("submit", (event) => {
+on("order-form", "submit", (event) => {
 	event.preventDefault();
 	const name = customerInput.input.value.trim();
 	if (!name) {
@@ -350,7 +387,8 @@ mount(
 
 const confirmFooter = (label, onConfirm) => {
 	const footer = el("div", "row");
-	footer.append(
+	appendAll(
+		footer,
 		useButton({ label: "Cancel", variant: "ghost", onClick: () => modal.close() }),
 		useButton({
 			label,
@@ -367,10 +405,11 @@ const confirmFooter = (label, onConfirm) => {
 const openFormDialog = () => {
 	const name = useInput({ label: "Workspace name", name: "workspace-name", value: "Katana" });
 	const content = el("div", "form-grid");
-	content.append(name.root);
+	useAppend(content, name.root);
 
 	const footer = el("div", "row");
-	footer.append(
+	appendAll(
+		footer,
 		useButton({ label: "Cancel", variant: "ghost", onClick: () => modal.close() }),
 		useButton({
 			label: "Rename",
@@ -437,7 +476,7 @@ mount(
 		variant: "primary",
 		onClick: () => {
 			const handle = toast.loading("Syncing orders…");
-			setTimeout(() => {
+			useSetTimeout(() => {
 				handle.update({
 					type: "success",
 					title: "Sync complete",
@@ -469,8 +508,8 @@ const statusMeta = {
 	failed: ["danger", "Failed"],
 };
 
-const ordersCount = document.getElementById("orders-count");
-const ordersBody = document.getElementById("orders-body");
+const ordersCount = byId("orders-count");
+const ordersBody = byId("orders-body");
 
 const renderOrders = (query = "") => {
 	const needle = query.trim().toLowerCase();
@@ -481,30 +520,31 @@ const renderOrders = (query = "") => {
 			order.customer.toLowerCase().includes(needle),
 	);
 
-	ordersBody.replaceChildren();
+	useSetHtml(ordersBody, "");
 
 	if (visible.length === 0) {
 		const emptyRow = el("tr");
 		const cell = el("td", "cell-empty", `No orders match “${query.trim()}”.`);
-		cell.colSpan = 6;
-		emptyRow.append(cell);
-		ordersBody.append(emptyRow);
+		useSetAttribute(cell, "colspan", "6");
+		useAppend(emptyRow, cell);
+		useAppend(ordersBody, emptyRow);
 	} else {
 		for (const order of visible) {
 			const [variant, label] = statusMeta[order.status];
 			const rowEl = el("tr");
 
-			rowEl.append(el("td", "font-medium", order.id));
-			rowEl.append(el("td", null, order.customer));
-			rowEl.append(el("td", "text-neutral-500", order.date));
-			rowEl.append(el("td", "text-right", order.total));
+			useAppend(rowEl, el("td", "font-medium", order.id));
+			useAppend(rowEl, el("td", null, order.customer));
+			useAppend(rowEl, el("td", "text-neutral-500", order.date));
+			useAppend(rowEl, el("td", "text-right", order.total));
 
 			const statusCell = el("td");
-			statusCell.append(useBadge({ label, variant }));
-			rowEl.append(statusCell);
+			useAppend(statusCell, useBadge({ label, variant }));
+			useAppend(rowEl, statusCell);
 
 			const actionCell = el("td", "text-right");
-			actionCell.append(
+			useAppend(
+				actionCell,
 				useButton({
 					label: "View",
 					size: "sm",
@@ -517,71 +557,58 @@ const renderOrders = (query = "") => {
 						}),
 				}),
 			);
-			rowEl.append(actionCell);
+			useAppend(rowEl, actionCell);
 
-			ordersBody.append(rowEl);
+			useAppend(ordersBody, rowEl);
 		}
 	}
 
-	ordersCount.textContent = `${visible.length} order${visible.length === 1 ? "" : "s"}`;
+	useSetText(ordersCount, `${visible.length} order${visible.length === 1 ? "" : "s"}`);
 };
+
+const filterOrders = useDebounce((value) => renderOrders(String(value)), 120);
 
 const ordersSearch = useInput({
 	type: "search",
 	placeholder: "Filter by order or customer…",
-	onInput: (value) => renderOrders(value),
+	onInput: (value) => filterOrders(value),
 });
-ordersSearch.input.setAttribute("aria-label", "Filter orders");
+useSetAttribute(ordersSearch.input, "aria-label", "Filter orders");
 mount("orders-search", ordersSearch.root);
 renderOrders();
 
 /* -------------------------------------------------------------------------- */
-/* Settings: theme, toasts, danger zone                                       */
+/* Settings: theme (ThemeService), toasts, danger zone                        */
 /* -------------------------------------------------------------------------- */
 
-const themeButton = document.getElementById("theme-toggle");
-const themeButton2 = document.getElementById("theme-toggle-2");
+const themeButtons = [byId("theme-toggle"), byId("theme-toggle-2")];
 
-const setTheme = (dark) => {
-	document.documentElement.dataset.theme = dark ? "dark" : "";
-	for (const button of [themeButton, themeButton2]) {
-		button.textContent = dark ? "Light mode" : "Dark mode";
-		button.setAttribute("aria-pressed", String(dark));
-	}
-};
-
-const toggleTheme = () => {
-	const dark = document.documentElement.dataset.theme !== "dark";
-	setTheme(dark);
-	toast.info(`${dark ? "Dark" : "Light"} mode on — same tokens, inverted palette.`);
-};
-
-try {
-	setTheme(localStorage.getItem("katana-example-theme") === "dark");
-} catch {
-	setTheme(false);
-}
-
-themeButton.addEventListener("click", () => {
-	toggleTheme();
-	try {
-		localStorage.setItem(
-			"katana-example-theme",
-			document.documentElement.dataset.theme === "dark" ? "dark" : "light",
-		);
-	} catch {
-		// Storage can be unavailable; the toggle still works for this session.
-	}
+useInitTheme({
+	storageKey: "katana-example-theme",
+	defaultMode: "light",
+	onChange: (_mode, resolved) => {
+		for (const button of themeButtons) {
+			useSetText(button, resolved === "dark" ? "Light mode" : "Dark mode");
+			useSetAttribute(button, "aria-pressed", String(resolved === "dark"));
+		}
+	},
 });
 
-themeButton2.addEventListener("click", toggleTheme);
+const toggleTheme = () => {
+	useToggleTheme();
+	toast.info(
+		`${useGetResolved() === "dark" ? "Dark" : "Light"} mode on — same tokens, inverted palette.`,
+	);
+};
 
-document.getElementById("clear-toasts").addEventListener("click", () => {
+for (const button of themeButtons) useOn(button, "click", toggleTheme);
+
+on("clear-toasts", "click", () => {
 	toast.clear();
 	toast.info("Toast stack cleared.");
 });
 
-document.getElementById("danger-action").addEventListener("click", () => {
+on("danger-action", "click", () => {
 	modal.open({
 		title: "Delete workspace?",
 		message: "Every project, order and API key is removed. This cannot be undone.",
@@ -592,7 +619,7 @@ document.getElementById("danger-action").addEventListener("click", () => {
 	});
 });
 
-document.getElementById("new-order").addEventListener("click", () => {
+on("new-order", "click", () => {
 	const name = useInput({
 		label: "Customer name",
 		name: "new-customer",
@@ -608,10 +635,11 @@ document.getElementById("new-order").addEventListener("click", () => {
 	const amount = useInput({ label: "Amount (USD)", name: "new-amount", value: "0.00" });
 
 	const content = el("div", "form-grid");
-	content.append(name.root, email.root, amount.root);
+	appendAll(content, name.root, email.root, amount.root);
 
 	const footer = el("div", "row");
-	footer.append(
+	appendAll(
+		footer,
 		useButton({ label: "Cancel", variant: "ghost", onClick: () => modal.close() }),
 		useButton({
 			label: "Create order",
@@ -632,29 +660,27 @@ document.getElementById("new-order").addEventListener("click", () => {
 });
 
 /* -------------------------------------------------------------------------- */
-/* Scrollspy                                                                  */
+/* Scrollspy — ObserverService, not a raw IntersectionObserver                */
 /* -------------------------------------------------------------------------- */
 
-const navLinks = [...document.querySelectorAll(".nav__link")];
+const navLinks = useQuerySelectorAll(".nav__link");
 const linkBySection = new Map(
-	navLinks.map((link) => [link.getAttribute("href").slice(1), link]),
+	navLinks.map((link) => [useGetAttribute(link, "href").slice(1), link]),
 );
 
 const setActive = (id) => {
-	for (const link of navLinks) link.classList.toggle("is-active", link === linkBySection.get(id));
+	for (const link of navLinks) {
+		useToggleClass(link, "is-active", link === linkBySection.get(id));
+	}
 };
 
 setActive("overview");
 
-const observer = new IntersectionObserver(
-	(entries) => {
-		for (const entry of entries) {
-			if (entry.isIntersecting) setActive(entry.target.id);
-		}
-	},
-	{ rootMargin: "-30% 0px -60% 0px" },
+// `autoUnobserve = false`: the scrollspy needs every intersection, not the first.
+useObserverCreate(
+	"dashboard-scrollspy",
+	(entry) => setActive(entry.target.id),
+	{ rootMargin: "-30% 0px -60% 0px", threshold: 0 },
+	false,
 );
-
-for (const section of document.querySelectorAll("main .section")) {
-	observer.observe(section);
-}
+useObserverObserveAll("dashboard-scrollspy", "main .section");

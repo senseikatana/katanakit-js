@@ -20,6 +20,16 @@ function onKeydown(event: KeyboardEvent) {
 }
 
 onMounted(() => {
+	// VitePress' `nav-bar-title-after` slot renders inside the title anchor, and
+	// a dropdown nested in a link both navigates on click and nests interactive
+	// content. Move the flyout next to the anchor once it is mounted (it is
+	// client-only, so this never touches the SSR output).
+	const el = root.value;
+	const anchor = el?.closest("a.title");
+	if (el && anchor?.parentElement) {
+		anchor.parentElement.insertBefore(el, anchor.nextSibling);
+	}
+
 	document.addEventListener("click", onDocumentClick);
 	document.addEventListener("keydown", onKeydown);
 });

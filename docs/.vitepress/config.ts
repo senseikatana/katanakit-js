@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -32,33 +31,6 @@ function pageUrl(relativePath: string): string {
 		.replace(/\.md$/, "")
 		.replace(/\/$/, "");
 	return clean ? `${DOCS_ORIGIN}/${clean}` : `${DOCS_ORIGIN}/`;
-}
-
-/**
- * Releases section: the changelog plus one anchor per previous major (each one
- * pointing at that major's newest release). Reads the signals that
- * `scripts/docs-prepare.mjs` writes; a fresh clone degrades to a single link.
- */
-function releaseSidebarItems(): { text: string; link: string }[] {
-	type VersionSignal = { version: string; anchor: string; major?: string };
-	try {
-		const file = fileURLToPath(new URL("./theme/signals.json", import.meta.url));
-		const signals = JSON.parse(readFileSync(file, "utf8")) as {
-			versions?: { latest: VersionSignal; previous: VersionSignal[] } | null;
-		};
-		if (!signals.versions) throw new Error("signals without versions");
-		const { latest, previous } = signals.versions;
-		return [
-			{ text: "Changelog", link: "/changelog" },
-			{ text: `v${latest.version} (latest)`, link: `/changelog${latest.anchor}` },
-			...previous.map((release) => ({
-				text: `v${release.major}.x`,
-				link: `/changelog${release.anchor}`,
-			})),
-		];
-	} catch {
-		return [{ text: "Changelog", link: "/changelog" }];
-	}
 }
 
 /**
@@ -168,7 +140,6 @@ export default defineConfig({
 			{ text: "Tutorial", link: "/tutorials/first-api-client", activeMatch: "^/tutorials/" },
 			{ text: "Guides", link: "/guides/getting-started", activeMatch: "^/guides/" },
 			{ text: "UI Kit", link: "/ui-kit/", activeMatch: "^/ui-kit/" },
-			{ text: "Releases", link: "/changelog" },
 			{ text: "API Reference", link: "/api/" },
 		],
 		// Every top-level entry is a collapsed group, so navigation always shows
@@ -441,11 +412,6 @@ export default defineConfig({
 						],
 					},
 				],
-			},
-			{
-				text: "Releases",
-				collapsed: true,
-				items: releaseSidebarItems(),
 			},
 			{
 				// VitePress server-renders the sidebar into **every** page, so the

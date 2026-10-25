@@ -1,9 +1,12 @@
 # Dashboard example
 
 A complete admin dashboard built **only** with the documented katanakit-js
-pieces: the `@katanakit/ui` component factories and the KatanaKit CSS
-framework. No framework runtime, no bundler, no build step for this example —
-plain `<script type="module">` importing the compiled package.
+pieces: the `@katanakit/ui` component factories, the toolkit services
+(DomService, ObserverService, ThemeService, TimingService) and the KatanaKit CSS
+framework. No framework runtime and no bundler — plain
+`<script type="module">` importing the compiled package. No native
+`IntersectionObserver`, `localStorage`, `setTimeout` or `querySelector` in the
+example: the services wrap them.
 
 The page structure takes its cues from the common admin-template groups
 (products, users, orders, settings…) but every line of markup, copy and mock
@@ -27,7 +30,11 @@ assets are vendored.
 | Toasts | `toast.info/success/warning/error/loading`, `handle.update()` |
 | Orders table | `useInput()` search filter, badges, row actions in a modal |
 | Utilities | spacing, colours, typography, grid and effects classes |
-| Settings | `data-theme="dark"` toggle, destructive flow in a modal |
+| Settings | `useInitTheme()` / `useToggleTheme()` (ThemeService + StorageService), destructive flow in a modal |
+| Sidebar scrollspy | `useObserverCreate()` / `useObserverObserveAll()` (ObserverService) |
+| Orders filter | `useDebounce()` (TimingService) |
+| Loading toast timer | `useSetTimeout()` (TimingService) |
+| DOM assembly | `useCreateElement()`, `useAppend()`, `useSetAttribute()`, `useSetText()`, `useSetHtml()`, `useOn()` (DomService) |
 
 Docs: [components](https://docs.senseikatana.com/ui-kit/components/button) ·
 [CSS framework](https://docs.senseikatana.com/ui-kit/css/) ·
@@ -39,17 +46,16 @@ From the repository root:
 
 ```bash
 bun install
-bun run build:ui   # compiles @katanakit/ui (ESM + base/components CSS)
+bun run build      # compiles the library (dist/) and @katanakit/ui (ESM + CSS)
 bunx serve .       # or: python3 -m http.server 8080
 ```
 
 Open `http://localhost:3000/examples/dashboard/` (or `:8080` with Python).
-`bun run build` also works and additionally produces the published
-`dist/styles.css`.
 
-The example links `packages/ui/dist/styles.css` and imports
-`packages/ui/dist/index.js`, so it always reflects the workspace source
-instead of a published copy.
+The example links `packages/ui/dist/styles.css`, imports the component
+factories from `packages/ui/dist/index.js` and the services from the library's
+`dist/` modules, so it always reflects the workspace source instead of a
+published copy.
 
 ## Notes
 

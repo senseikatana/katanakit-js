@@ -42,9 +42,13 @@ watch(
 
 <template>
 	<DefaultTheme.Layout>
+		<template #nav-bar-title-after>
+			<ClientOnly>
+				<VersionFlyout />
+			</ClientOnly>
+		</template>
 		<template #nav-bar-content-after>
 			<GitHubStars />
-			<VersionFlyout />
 		</template>
 		<template #home-hero-info-before>
 			<HomeAnnouncement />
