@@ -8,6 +8,33 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.4] - 2026-10-25
+
+Maintenance release with 1 change.
+
+- 📝 docs(guides): add artifacts, file and from `4c122db`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/explanation/decisions/adr-0016-universal-runtime-apis-in-core.md`
+  - `docs/explanation/decisions/index.md`
+  - `docs/explanation/service-architecture.md`
+  - `docs/explanation/why-katanakit.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/assistant.md`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `package.json`
+  - `scripts/copy-prisma-artifacts.mjs`
+  - `scripts/verify-package.mjs`
+- 🐛 fix(docs): update documentation and layout components `d1e4441`
+- 🐛 fix: update documentation and examples for katanakit-js 7.1.2 `ca83b8c`
+- 🚀 feat: update changelog title to uppercase `1cced8a`
+- 🚀 feat: update architecture and prisma.ts `02e7e77`
+- 🐛 fix(docs): keep the new badge through the release that ships the page `bdbe683`
+
 ## [7.1.3] - 2026-10-25
 
 Highlights: feat: update changelog title to uppercase and fix(docs): update documentation and layout components, plus 1 more change.
