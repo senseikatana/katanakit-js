@@ -26,8 +26,10 @@ npm install katanakit-js
 bun add katanakit-js
 ```
 
-Only `@js-temporal/polyfill` is a runtime dependency. `express`, `cors`,
-`dotenv` and `vue` are optional peer dependencies.
+Runtime dependencies are `@js-temporal/polyfill`, `@tanstack/query-core` and
+`zod`. Framework integrations are optional peers (`express`, `hono`, `cors`,
+`vue`, `react`, `better-auth`, …). The `/prisma` subpath additionally needs
+`@prisma/orm-postgres`.
 
 ### CDN (ESM in the browser)
 
@@ -57,10 +59,10 @@ bundler or import map:
 |-----|---------------|--------|
 | **jsDelivr `/+esm`** | `https://cdn.jsdelivr.net/npm/katanakit-js/+esm` | Recommended for `<script type="module">` |
 | **esm.sh** | `https://esm.sh/katanakit-js` | Alternative ESM CDN |
-| **Raw package file** | `https://cdn.jsdelivr.net/npm/katanakit-js/dist/index.js` | Needs a bundler or an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) for `@js-temporal/polyfill` |
+| **Raw package file** | `https://cdn.jsdelivr.net/npm/katanakit-js/dist/index.js` | Needs a bundler or an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) for `@js-temporal/polyfill`, `zod` and `@tanstack/query-core` |
 | **unpkg** | `https://unpkg.com/katanakit-js/dist/index.js` | Same caveat as the raw file |
 
-Pin a version in production (e.g. `katanakit-js@7.1.2/+esm`) instead of
+Pin a version in production (e.g. `katanakit-js@7.1.3/+esm`) instead of
 floating `@latest`. There is **no IIFE/UMD** build — only ESM
 (`"type": "module"`).
 

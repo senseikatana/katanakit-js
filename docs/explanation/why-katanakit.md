@@ -35,9 +35,10 @@ query cache next week — and nothing forces the rest.
    payloads lie; `{ data, error, ok }` plus Zod validation at the boundary
    make both facts visible in the types. See the
    [Tutorial](/tutorials/first-api-client) for what that feels like in use.
-4. **Install only what you use.** Runtime dependencies are counted — one
-   (`@js-temporal/polyfill`). Framework packages, faker, photoswipe and the
-   database client are optional peers, loaded only when imported.
+4. **Install only what you use.** Runtime dependencies are counted — three
+   (`@js-temporal/polyfill`, `zod`, `@tanstack/query-core`). Framework packages,
+   faker, photoswipe and the database client are optional peers, loaded only
+   when imported.
 5. **Docs that cannot drift.** The API reference is generated from the source
    on every docs build, so a signature cannot silently disagree with its
    documentation ([ADR-0005](/explanation/decisions/adr-0005-docs-as-code)).

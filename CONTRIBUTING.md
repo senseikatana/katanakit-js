@@ -15,9 +15,11 @@ These rules keep the codebase consistent and maintainable. Please read
    static `node:*` imports — a platform module may only enter through a lazy
    `import()` inside a method (`generator.service.ts`'s `node:crypto` pattern).
    Universal runtime APIs (`fetch`, `URL`, `crypto`, guarded `process.env`) are
-   allowed — `http.service.ts` wraps the global `fetch` by design, and
+   allowed — `http.service.ts` wraps the global `fetch` by design;
    [ADR-0004](https://docs.senseikatana.com/explanation/decisions/adr-0004-hexagonal-core)
-   records the rule plus its open exceptions. Adapters that own platform I/O
+   and
+   [ADR-0016](https://docs.senseikatana.com/explanation/decisions/adr-0016-universal-runtime-apis-in-core)
+   record the boundary. Adapters that own platform I/O
    live in `src/infrastructure/` (DOM, storage, viewport, sensors, observer,
    worker, theme). Framework-facing adapters live in `src/adapters/` (`astro/`,
    `express/`, `nuxt/`), site config/SEO in `src/config/`. Put new capabilities

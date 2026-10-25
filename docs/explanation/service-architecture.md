@@ -96,19 +96,19 @@ The payoff is mechanical: in any call site you can tell who calls whom from the
 prefix alone. A code review can flag a new `on*` method that should be a
 `use*` method (or the reverse) without knowing the module.
 
-## Why the core has no I/O
+## Why the core has no platform I/O
 
 `src/core/services/` is pure domain logic. It never reads the filesystem and
 never touches the DOM; its direct contact with the outside world is limited to
 universal runtime APIs — chiefly `http.service.ts` wrapping the global `fetch`,
-present in every supported runtime and recorded as the pragmatic exception in
-[ADR-0004](/explanation/decisions/adr-0004-hexagonal-core) — together with the
-two breaches still open there (`agent.service.ts`'s environment fallback and
-its OpenAI-compatible strategy's own `fetch`). When a domain operation *needs*
-the outside world — exchange rates are the worked example — the dependency is
-expressed as a **port**: an interface in the shared kernel
-(`ICurrencyRateProvider` in `src/types/`), not an import from an
-implementation.
+present in every supported runtime. [ADR-0004](/explanation/decisions/adr-0004-hexagonal-core)
+introduced the layout and
+[ADR-0016](/explanation/decisions/adr-0016-universal-runtime-apis-in-core)
+draws the boundary: universal APIs are allowed, platform modules only through a
+lazy `import()`. When a domain operation *needs* the outside world — exchange
+rates are the worked example — the dependency is expressed as a **port**: an
+interface in the shared kernel (`ICurrencyRateProvider` in `src/types/`), not
+an import from an implementation.
 
 ```
 src/core/services/currency.service.ts     knows ICurrencyRateProvider (port)

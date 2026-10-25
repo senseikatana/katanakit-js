@@ -25,9 +25,9 @@ bun add katanakit-js
 pnpm add katanakit-js
 ```
 
-Requires **Node.js >= 22.18** or **Bun >= 1.2**. Nothing else is a hard
-dependency — Zod and Prisma are only needed if you use the modules that
-import them.
+Requires **Node.js >= 22.18** or **Bun >= 1.2**. Runtime dependencies are
+`zod`, `@tanstack/query-core` and `@js-temporal/polyfill`. Prisma is only
+needed for the optional `/prisma` subpath — `bun add @prisma/orm-postgres`.
 
 Framework integrations are optional peers. Install the one you need:
 

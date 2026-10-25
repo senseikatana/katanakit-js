@@ -719,10 +719,13 @@
 
 /* Features heading */
 
+/* Air below the "Sharp tools, zero surprises" text, before the feature cards.
+   `.VPHomeFeatures` itself has no vertical padding in VitePress (only the
+   lateral 24/48/64px), so this block owns the whole gap. */
 .home-features-heading {
 	max-width: 1152px;
 	margin: 0 auto;
-	padding: 64px 24px 20px;
+	padding: 64px 24px 40px;
 	text-align: center;
 }
 

@@ -161,7 +161,7 @@
 		"test:all": "bun run check && bun run test:e2e",
 
 		"build:ui": "bun run --filter @katanakit/ui build",
-		"build:lib": "tsc6 -p tsconfig.json && tsc-alias -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/generate-release-notes.mjs --sync-versions",
+		"build:lib": "tsc6 -p tsconfig.json && tsc-alias -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/copy-prisma-artifacts.mjs && node scripts/generate-release-notes.mjs --sync-versions && node scripts/verify-package.mjs",
 		"build:examples": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"build": "bun run clean && bun run build:lib && bun run build:examples",
 

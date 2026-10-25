@@ -162,8 +162,16 @@ app.use(
 ## 6. Persistence
 
 Memory by default (`useCreateMemoryStore()`); history is lost on process
-restart. With `DATABASE_URL` set, use Prisma — the `Conversation` and `Message`
-models are already in `src/prisma/schema.prisma`:
+restart. For a database, install the optional Prisma peer — it is not part of
+the core package:
+
+```bash
+bun add @prisma/orm-postgres
+```
+
+With `DATABASE_URL` set (Bun reads `.env`; on Node run `node --env-file=.env`),
+use Prisma — the `Conversation` and `Message` models ship in
+`dist/prisma/schema.prisma` (source: `src/prisma/schema.prisma`):
 
 ```ts
 import { useInitAssistant } from "katanakit-js";
@@ -173,8 +181,8 @@ useInitAssistant({ store: useCreatePrismaStore() });
 // or: { store: PrismaConversationStore }
 ```
 
-If your app owns the database, run `prisma contract emit` then
-`prisma db init` there.
+If your app owns the database, copy that schema into your project, then run
+`prisma contract emit` and `prisma db init` there.
 
 ## 7. Try it in this repo
 

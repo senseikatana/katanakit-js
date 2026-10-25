@@ -29,7 +29,7 @@ and [ADR-0003: Subpath adapters](/explanation/decisions/adr-0003-adapter-subpath
    │                   core/services/                 │  pure domain services
    │  logger · http · formatter · converter · error   │  (no platform I/O: no
    │  generator · dates · geometry · timing · utils   │   fs, no framework;
-   │  reactive · currency                             │   fetch = ADR-0004 exception)
+   │  reactive · currency                             │   fetch allowed (ADR-0016))
    └───────────┬──────────────────────────────────────┘
                │  owned I/O lives one layer out
    ┌───────────▼──────────────────────────────────────┐
@@ -62,22 +62,22 @@ type in the library: the strategy contracts (`StorageStrategy`, `ICryptoStrategy
 [API Reference](/api/#interfaces).
 
 Services implement these contracts; adapters consume them. Domain rules never
-reach for concrete `window`/`fetch` globals directly.
+reach for concrete `window` globals or provider SDKs directly; `http.service.ts`
+is the documented `fetch` facade
+([ADR-0016](/explanation/decisions/adr-0016-universal-runtime-apis-in-core)).
 
 ### `core/services/` — the pure layer
 
 Twenty-five service modules with pure logic. This layer never touches `window`,
-`document`, `fetch`, the filesystem or any framework, with one pragmatic
-exception that is clearly documented in code: `http.service.ts` wraps the
-global `fetch` (available in Node 18+/Bun/browsers). The storage-backed
-signal `useCreateStorageSignal` lives in
+`document`, the filesystem or any framework. It may use the universal runtime
+APIs every supported runtime provides — `fetch` (`http.service.ts` is the HTTP
+facade), `URL`, `crypto` and guarded `process.env` — per
+[ADR-0016](/explanation/decisions/adr-0016-universal-runtime-apis-in-core).
+Platform modules enter only through a lazy `import()` inside a method, as
+`generator.service.ts` does with `node:crypto`. The storage-backed signal
+`useCreateStorageSignal` lives in
 `infrastructure/storage/storage-signal.service.ts`, so no module in `core/`
 imports `infrastructure/` — `tests/architecture.test.ts` enforces it.
-
-Two breaches remain open and are tracked in
-[ADR-0004](/explanation/decisions/adr-0004-hexagonal-core): `agent.service.ts`
-falls back to `process.env.DASHSCOPE_API_KEY`, and
-`OpenAiCompatibleStrategy` calls `fetch` directly.
 
 | File                   | Exports (public facade)                     |
 | ---------------------- | ------------------------------------------- |
@@ -230,8 +230,9 @@ SiteConfig, useSeoMeta } from "katanakit-js"`) and from
 
 ### `prisma/` — database layer (optional)
 
-- `schema.prisma` — the Prisma schema (`User`, `Post` models,
-  Prisma ORM contract-first syntax).
+- `schema.prisma` — the Prisma schema (`Account`, `Post`, `Conversation`,
+  `Message` models, Prisma ORM contract-first syntax; packaged at
+  `dist/prisma/schema.prisma`).
 - `schema.json` / `schema.d.ts` — generated contract artifacts
   (**do not edit**; regenerate with `prisma contract emit`).
 - `use-prisma.ts` — `usePrismaClient()`, the typed database client built with
@@ -240,7 +241,8 @@ SiteConfig, useSeoMeta } from "katanakit-js"`) and from
 - `prisma.config.ts` (repo root) — Prisma CLI/ORM configuration.
 
 This layer is optional: `@prisma/orm-postgres` is an optional peer dependency
-and the client is not exported from the main barrel.
+(install it with `bun add @prisma/orm-postgres`) and the client is not exported
+from the main barrel.
 
 ## Package layout and ESM
 
