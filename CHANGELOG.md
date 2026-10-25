@@ -8,6 +8,39 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.3] - 2026-10-25
+
+Highlights: feat: update changelog title to uppercase and fix(docs): update documentation and layout components, plus 1 more change.
+
+- 🐛 fix(docs): update documentation and layout components `d1e4441`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/Layout.vue`
+  - `docs/.vitepress/theme/components/VersionFlyout.vue`
+  - `docs/.vitepress/theme/style.css`
+  - `examples/dashboard/README.md`
+  - `examples/dashboard/dashboard.js`
+- 🐛 fix: update documentation and examples for katanakit-js 7.1.2 `ca83b8c`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+  - `docs/ui-kit/architecture.md`
+  - `docs/ui-kit/css/getting-started.md`
+  - `docs/ui-kit/css/index.md`
+  - `docs/ui-kit/css/integrations/tailwind.md`
+  - `examples/dashboard/README.md`
+  - `examples/dashboard/dashboard.css`
+  - `examples/dashboard/dashboard.js`
+  - `examples/dashboard/index.html`
+  - `packages/ui/src/styles/index.scss`
+  - `scss/_reset.scss`
+  - `tests/e2e/toast.browser.test.ts`
+- 🚀 feat: update changelog title to uppercase `1cced8a`
+- 🚀 feat: update architecture and prisma.ts `02e7e77`
+- 🐛 fix(docs): keep the new badge through the release that ships the page `bdbe683`
+- 🧹 chore(cli): ship katanakitAI inside katanakit-js, no separate package `3cfa219`
+
 ## [7.1.2] - 2026-10-25
 
 Highlights: feat: update architecture and prisma.ts and fix(docs): keep the new badge through the release that ships the page, plus 7 more changes.
