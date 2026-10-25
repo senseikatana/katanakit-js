@@ -8,6 +8,25 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.1] - 2026-10-25
+
+Highlights: feat: update architecture and prisma.ts and fix(docs): keep the new badge through the release that ships the page.
+
+- 🚀 feat: update architecture and prisma.ts `9ee48f7`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `docs/explanation/service-architecture.md`
+  - `docs/guides/architecture.md`
+  - `package.json`
+  - `src/prisma/use-prisma.ts`
+- 🐛 fix(docs): keep the new badge through the release that ships the page `d727575`
+  - `scripts/docs-prepare.mjs`
+- 🧹 chore(cli): ship katanakitAI inside katanakit-js, no separate package `c34163a`
+- 🐛 fix(cli): use npm's canonical bin paths without the ./ prefix `965b8c7`
+- 🚀 feat: katanakitAI — encrypted key vault, MCP registry and agent config CLI (#24) `a796b2a`
+- 🚀 feat: update documentation for katanakit-js v7.0.1 (#23) `f044cae`
+
 ## [7.1.0] - 2026-10-25
 
 What's news:
