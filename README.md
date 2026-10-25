@@ -253,8 +253,8 @@ publicly readable route.
 One encrypted vault for AI provider keys, MCP server registration and
 per-agent configuration. Local-first: scrypt + AES-256-GCM at rest, masked
 secrets everywhere except an explicit reveal, and encrypted backups you can
-store anywhere. Run it as `kai` (installed) or without installing via
-`npx katanakitai` / `bunx katanakitai`.
+store anywhere. Run it as `kai` (installed) or without installing via `npx katanakit-js` /
+`bunx katanakit-js`.
 
 ```bash
 kai keys add openai --label ci            # secret via --secret or stdin

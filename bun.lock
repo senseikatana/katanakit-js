@@ -105,17 +105,6 @@
         "vue",
       ],
     },
-    "packages/katanakitai": {
-      "name": "katanakitai",
-      "version": "1.0.0",
-      "bin": {
-        "kai": "./bin/kai.mjs",
-        "katanakitai": "./bin/kai.mjs",
-      },
-      "dependencies": {
-        "katanakit-js": "workspace:*",
-      },
-    },
     "packages/ui": {
       "name": "@katanakit/ui",
       "version": "0.0.0",
@@ -1428,10 +1417,6 @@
     "json-with-bigint": ["json-with-bigint@3.5.12", "", {}, "sha512-uwbF/wSSuOgC7qqlq27Xp5B6a2MHVug3t0idZdTqu0JnlFvgJuH7ju+KAk/J06C7GfhoYy2gnb9wz2INqcne7w=="],
 
     "jsonc-parser": ["jsonc-parser@3.3.1", "", {}, "sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ=="],
-
-    "katanakit-js": ["katanakit-js@root:", {}],
-
-    "katanakitai": ["katanakitai@workspace:packages/katanakitai"],
 
     "keyv": ["keyv@5.6.0", "", { "dependencies": { "@keyv/serialize": "^1.1.1" } }, "sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw=="],
 
