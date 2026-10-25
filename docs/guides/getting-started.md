@@ -62,7 +62,7 @@ bundler or import map:
 | **Raw package file** | `https://cdn.jsdelivr.net/npm/katanakit-js/dist/index.js` | Needs a bundler or an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) for `@js-temporal/polyfill`, `zod` and `@tanstack/query-core` |
 | **unpkg** | `https://unpkg.com/katanakit-js/dist/index.js` | Same caveat as the raw file |
 
-Pin a version in production (e.g. `katanakit-js@7.1.3/+esm`) instead of
+Pin a version in production (e.g. `katanakit-js@7.1.4/+esm`) instead of
 floating `@latest`. There is **no IIFE/UMD** build — only ESM
 (`"type": "module"`).
 
