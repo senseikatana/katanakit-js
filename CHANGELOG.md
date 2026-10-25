@@ -8,6 +8,36 @@ For installation and usage, see the
 [published release notes](https://docs.senseikatana.com/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.0] - 2026-10-25
+
+What's news:
+
+- [ ] feat(agents): add agent config emission and katanakit-keys CLI
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/services/key-vault.md`
+  - `package.json`
+  - `src/adapters/cli/bin.ts`
+  - `src/core/services/agentconfig.service.ts`
+  - `tests/agentconfig.service.test.ts`
+- [ ] feat(mcp): add MCP server registry with OpenCode config emission
+  - `src/core/services/mcp.service.ts`
+  - `tests/mcp.service.test.ts`
+- [ ] feat(keyvault): add encrypted API key vault with lifecycle and masking
+  - `src/core/index.ts`
+  - `src/core/services/keyvault.service.ts`
+  - `src/infrastructure/index.ts`
+  - `src/infrastructure/vault/vault.store.ts`
+  - `src/schemas/index.ts`
+  - `src/schemas/keyvault.schema.ts`
+  - `src/types/index.ts`
+  - `tests/keyvault.service.test.ts`
+  - `tests/vault.store.test.ts`
+- [ ] feat: update documentation for katanakit-js v7.0.1 (#23)
+  - `docs/guides/filesystem.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/roadmap.md`
+
 ## [7.0.1] - 2026-10-25
 
 Highlights: fix: update katanakit-js version in filesystem and getting-started guides.
