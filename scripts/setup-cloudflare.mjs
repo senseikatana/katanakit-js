@@ -28,9 +28,11 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API = "https://api.cloudflare.com/client/v4";
 
 const PROJECTS = [
-	// The docs build is mounted at /en/docs/ (see scripts/docs.mjs), so the
-	// Pages project owns the apex and every future root route can live beside it.
-	{ name: "katanakit-docs", domain: "senseikatana.com", build: "bun run deploy" },
+	// The apexes (senseikatana.com, samuraicoder.dev) serve other apps, so the
+	// Pages project must NOT own them: the Worker in workers/docs-proxy owns
+	// /en/docs/* there. docs.senseikatana.com stays attached only as a legacy
+	// redirector — _redirects 301s it to the canonical host.
+	{ name: "katanakit-docs", domain: "docs.senseikatana.com", build: "bun run deploy" },
 ];
 
 const args = process.argv.slice(2);

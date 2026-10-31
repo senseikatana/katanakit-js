@@ -14,13 +14,16 @@
 	// The Worker only fires on these routes; everything else stays with
 	// whatever already serves the zone (the extranet app, samurai site, etc.).
 	"routes": [
-		// Primary — production docs
+		// Primary — production docs (bare path and every descendant)
+		{ "pattern": "senseikatana.com/en/docs", "zone_name": "senseikatana.com" },
 		{ "pattern": "senseikatana.com/en/docs/*", "zone_name": "senseikatana.com" },
 
 		// Secondary — backup / vanity domain
+		{ "pattern": "samuraicoder.dev/en/docs", "zone_name": "samuraicoder.dev" },
 		{ "pattern": "samuraicoder.dev/en/docs/*", "zone_name": "samuraicoder.dev" },
 
 		// Testing only — katanakami.com (uncomment when the zone is added)
+		// { "pattern": "katanakami.com/en/docs", "zone_name": "katanakami.com" },
 		// { "pattern": "katanakami.com/en/docs/*", "zone_name": "katanakami.com" }
 	],
 
