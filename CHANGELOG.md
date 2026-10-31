@@ -8,6 +8,70 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.7] - 2026-10-31
+
+Highlights: feat(docs): split the Docs section into /start and fix the tab layout and fix(workers): drop the Pages service binding and use the public Pages URL, plus 5 more changes.
+
+- 🧹 chore(.tmp-httpcrawl.mjs): add bad, BASE and checkOne `6f4971f`
+  - `.tmp-httpcrawl.mjs`
+- 🚀 feat(docs): split the Docs section into /start and fix the tab layout `4d2ade0`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/explanation/decisions/adr-0001-safe-results.md`
+  - `docs/explanation/decisions/adr-0002-singleton-facades.md`
+  - `docs/explanation/decisions/adr-0003-adapter-subpath-exports.md`
+  - `docs/explanation/decisions/adr-0004-hexagonal-core.md`
+  - `docs/explanation/decisions/adr-0006-retire-telegram-whatsapp-adapters.md`
+  - `docs/explanation/decisions/adr-0016-universal-runtime-apis-in-core.md`
+  - `docs/explanation/decisions/index.md`
+  - `docs/explanation/index.md`
+  - `docs/explanation/service-architecture.md`
+  - `docs/guides/access-control.md`
+  - `docs/guides/architecture.md`
+  - `docs/guides/currency.md`
+  - `docs/guides/errors.md`
+  - `docs/guides/getting-started.md`
+  - `docs/guides/hono.md`
+  - `docs/guides/insforge.md`
+  - `docs/guides/nestjs.md`
+  - `docs/guides/roadmap.md`
+  - `docs/guides/services/arrays.md`
+  - `docs/guides/services/error-helpers.md`
+  - `docs/guides/services/express-server.md`
+  - `docs/guides/services/formatter.md`
+  - `docs/guides/services/http-client.md`
+  - `docs/guides/services/logger.md`
+  - `docs/guides/services/nuxt-adapter.md`
+  - `docs/guides/services/storage.md`
+  - `docs/guides/upgrade-to/v5.md`
+  - `docs/index.md`
+  - `docs/public/_redirects`
+  - `docs/start/architecture.md`
+  - `docs/start/errors.md`
+  - `docs/start/getting-started.md`
+  - `docs/start/roadmap.md`
+  - `docs/tutorials/first-api-client.md`
+  - `docs/ui-kit/roadmap.md`
+  - `scripts/serve-docs.mjs`
+- 🚀 feat(docs): add section tabs with per-section sidebars `7dfaea0`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/theme/style.css`
+- 🧹 chore(workers): drop katanakami.com references `b646aa0`
+  - `workers/docs-proxy/README.md`
+  - `workers/docs-proxy/wrangler.jsonc`
+- 🚀 feat(workers): keep the docs proxy on senseikatana.com only `756f740`
+  - `workers/docs-proxy/src/index.ts`
+  - `workers/docs-proxy/wrangler.jsonc`
+- 🐛 fix(workers): drop the Pages service binding and use the public Pages URL `0b4509f`
+  - `workers/docs-proxy/src/index.ts`
+  - `workers/docs-proxy/wrangler.jsonc`
+- 🚀 feat(docs): retire docs.senseikatana.com and route the apexes through the proxy worker `58f3005`
+  - `docs/public/_redirects`
+  - `scripts/setup-cloudflare.mjs`
+  - `workers/docs-proxy/wrangler.jsonc`
+
 ## [7.1.6] - 2026-10-31
 
 What's news:
