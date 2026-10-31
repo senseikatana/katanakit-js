@@ -8,6 +8,23 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.2.2] - 2026-10-31
+
+Maintenance release with 1 change.
+
+- 📝 docs(scripts): add candidate, countThrees and isForbiddenVersion `d78bbd9`
+  - `CONTRIBUTING.md`
+  - `docs/guides/filesystem.md`
+  - `scripts/generate-release-notes.mjs`
+  - `scripts/npm-publish.mjs`
+  - `scripts/version-policy.mjs`
+  - `tests/version-policy.test.ts`
+- 🚀 feat(docs): rebuild the changelog page as one collapsible card per release `82fa443`
+- ⏪ revert(docs): drop the hero typewriter and restore the original heading size `07a34bf`
+- 🚀 feat(docs): type the hero heading in and drop the duplicated brand name `73e44bd`
+- 🧹 chore(release): v7.1.9 `1951246`
+- 🧹 chore(scripts): drop the demo api server and add a real preview command `9545c95`
+
 ## [7.2.1] - 2026-10-31
 
 Highlights: feat(docs): rebuild the changelog page as one collapsible card per release, plus 2 more changes.
