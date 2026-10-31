@@ -25,6 +25,8 @@
 // 21. Grid CSS classes (.grid-cols-*, .col-span-*, .row-span-*, .grid-flow-*, .container)
 // 22. Flex CSS classes (.flex-1, .grow, .shrink, .order-*)
 // 23. Position utilities (.top-*, .inset-*, etc.)
+// 24. Auto-grid, animations, helpers and content compositions
+//     ([data-auto-grid], [data-animation], .sr-only, .size-content…)
 //
 //  To compose a smaller custom stylesheet, import the modules
 //  individually instead:
@@ -38,6 +40,10 @@
 @use "functions" as f;
 @use "mixins" as m;
 @use "utilities" as u;
+@use "auto-grid";
+@use "animations";
+@use "content";
+@use "helpers";
 
 // ── 1. Reset / Preflight ──────────────────────────────────
 // (loaded by @use "reset" above — emits box-sizing, margin/padding

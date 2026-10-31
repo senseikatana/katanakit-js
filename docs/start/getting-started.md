@@ -29,7 +29,7 @@ bun add katanakit-js
 Runtime dependencies are `@js-temporal/polyfill`, `@tanstack/query-core` and
 `zod`. Framework integrations are optional peers (`express`, `hono`, `cors`,
 `vue`, `react`, `better-auth`, …). The `/prisma` subpath additionally needs
-`@prisma/orm-postgres`.
+`@prisma/orm-postgres`, and `/drizzle` needs `drizzle-orm` + `pg`.
 
 ### CDN (ESM in the browser)
 

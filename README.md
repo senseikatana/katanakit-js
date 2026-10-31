@@ -26,8 +26,9 @@ pnpm add katanakit-js
 ```
 
 Requires **Node.js >= 22.18** or **Bun >= 1.2**. Runtime dependencies are
-`zod`, `@tanstack/query-core` and `@js-temporal/polyfill`. Prisma is only
-needed for the optional `/prisma` subpath — `bun add @prisma/orm-postgres`.
+`zod`, `@tanstack/query-core` and `@js-temporal/polyfill`. Prisma and
+Drizzle ORM are only needed for their optional subpaths —
+`bun add @prisma/orm-postgres`, or `bun add drizzle-orm pg`.
 
 Framework integrations are optional peers. Install the one you need:
 
@@ -300,7 +301,7 @@ import { useAstroAuthLocals } from "katanakit-js/adapters/better-auth";
 
 Available entry points: `express`, `hono`, `bun`, `nestjs`, `nuxt`, `vue`,
 `astro`, `next`, `react`, `solid`, `svelte`, `angular`, `vanilla`, `better-auth`,
-`insforge`, `assistant`, `notion`, `wordpress`, `photoswipe`, plus `/schemas`,
+`insforge`, `drizzle`, `assistant`, `notion`, `wordpress`, `photoswipe`, plus `/schemas`,
 `/prisma` and `/styles.css`.
 
 → [Framework adapters](https://senseikatana.com/en/docs/guides/framework-adapters)
@@ -369,6 +370,7 @@ Runnable projects live in [`examples/`](./examples):
 | [`query`](./examples/query) | TanStack Query caching and framework adapters |
 | [`astro`](./examples/astro) | SSR-safe imports and the Astro integration |
 | [`vue`](./examples/vue) | Reactive signals inside Vue |
+| [`drizzle`](./examples/drizzle) | The Drizzle tables, lazy client and typed queries |
 | [`prisma`](./examples/prisma) | The Prisma contract and typed queries |
 | [`assistant`](./examples/assistant) | The AI assistant with a capability guard |
 | [`notion`](./examples/notion) · [`wordpress`](./examples/wordpress) | Content integrations |

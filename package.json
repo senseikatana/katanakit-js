@@ -115,6 +115,11 @@
 			"import": "./dist/adapters/nestjs/index.js",
 			"default": "./dist/adapters/nestjs/index.js"
 		},
+		"./adapters/drizzle": {
+			"types": "./dist/adapters/drizzle/index.d.ts",
+			"import": "./dist/adapters/drizzle/index.js",
+			"default": "./dist/adapters/drizzle/index.js"
+		},
 		"./prisma": {
 			"types": "./dist/prisma/index.d.ts",
 			"import": "./dist/prisma/index.js",
@@ -220,6 +225,7 @@
 		"@prisma/orm-postgres": ">=8.0.0-rc.18",
 		"cors": ">=2.8.0",
 		"dotenv": ">=18.0.5",
+		"drizzle-orm": ">=1.0.0-rc.5",
 		"express": ">=5.0.0",
 		"express-rate-limit": ">=8.0.0",
 		"hono": ">=4.0.0",
@@ -229,6 +235,7 @@
 		"svelte": ">=3.0.0",
 		"vue": ">=3.0.0",
 		"photoswipe": ">=5.0.0",
+		"pg": ">=8.0.0",
 		"better-auth": ">=1.0.0"
 	},
 	"peerDependenciesMeta": {
@@ -251,6 +258,9 @@
 			"optional": true
 		},
 		"dotenv": {
+			"optional": true
+		},
+		"drizzle-orm": {
 			"optional": true
 		},
 		"express": {
@@ -280,6 +290,9 @@
 		"photoswipe": {
 			"optional": true
 		},
+		"pg": {
+			"optional": true
+		},
 		"better-auth": {
 			"optional": true
 		}
@@ -299,6 +312,7 @@
 		"@types/cors": "2.8.19",
 		"@types/express": "5.0.6",
 		"@types/node": "26.6.4",
+		"@types/pg": "8.23.1",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
 		"@vitest/coverage-v8": "5.0.3",
@@ -306,6 +320,7 @@
 		"bun-types": "^1.4.2",
 		"cors": "2.8.6",
 		"dotenv": "18.0.5",
+		"drizzle-orm": "1.0.0-rc.5",
 		"eslint": "^10.12.0",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-prettier": "^5.5.6",
@@ -317,6 +332,7 @@
 		"husky": "^9.1.7",
 		"jsdom": "^30.1.2",
 		"lint-staged": "^17.6.0",
+		"pg": "8.23.1",
 		"photoswipe": "^5.4.4",
 		"prettier": "^3.9.9",
 		"prisma": "8.0.0-rc.22",

@@ -10,6 +10,7 @@
 		}
 	},
 	"include": [
+		"examples/drizzle/drizzle.service.ts",
 		"examples/query/vanilla.ts",
 		"examples/query/react.tsx",
 		"examples/query/angular.ts",

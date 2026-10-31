@@ -480,6 +480,7 @@ export default defineConfig({
 						{ text: "WordPress", link: "/guides/wordpress" },
 						{ text: "WordPress Roles", link: "/guides/wordpress-roles" },
 						{ text: "InsForge", link: "/guides/insforge" },
+						{ text: "Drizzle", link: "/guides/drizzle" },
 						{ text: "Assistant (Kitt)", link: "/guides/assistant" },
 					],
 				},

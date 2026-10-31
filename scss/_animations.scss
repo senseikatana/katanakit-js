@@ -1,0 +1,99 @@
+// ============================================================
+//  ANIMATIONS
+//  Opt-in entrance animations driven by data attributes:
+//  [data-animation="blink|fade-in|pop-up|spin"] plus
+//  [data-animation-delay="0.25s|0.5s|0.75s|1s"].
+//
+//  Modernized from the legacy scss/base layer (2026-10-31): keyframe
+//  names carry the katana- prefix — @keyframes names are global, so
+//  an unprefixed "spin" would silently clash with a consumer's own
+//  keyframes — and prefers-reduced-motion collapses the animations
+//  without leaving fade-in content invisible.
+// ============================================================
+
+@keyframes katana-blink {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes katana-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes katana-pop-up {
+  0% {
+    transform: scale(0.1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes katana-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+[data-animation="blink"] {
+  animation: katana-blink 0.25s ease-in-out 2;
+}
+
+[data-animation="fade-in"] {
+  opacity: 0;
+  animation: katana-fade-in 0.5s ease-in-out forwards;
+}
+
+[data-animation="pop-up"] {
+  animation: katana-pop-up 1.5s ease-in-out forwards;
+}
+
+[data-animation="spin"] {
+  animation: katana-spin 0.15s linear 5;
+}
+
+[data-animation-delay="0.25s"] {
+  animation-delay: 0.25s;
+}
+
+[data-animation-delay="0.5s"] {
+  animation-delay: 0.5s;
+}
+
+[data-animation-delay="0.75s"] {
+  animation-delay: 0.75s;
+}
+
+[data-animation-delay="1s"] {
+  animation-delay: 1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animation] {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

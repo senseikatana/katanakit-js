@@ -244,6 +244,20 @@ This layer is optional: `@prisma/orm-postgres` is an optional peer dependency
 (install it with `bun add @prisma/orm-postgres`) and the client is not exported
 from the main barrel.
 
+### `adapters/drizzle/` — database layer, Drizzle (optional)
+
+- `schema.ts` — the `conversations` and `messages` tables, shaped after the
+  Prisma contract so both integrations describe the same database.
+- `use-drizzle.ts` — `useDrizzleClient()`, the singleton client built with
+  Drizzle ORM over the node-postgres driver (`pg`); `DATABASE_URL` is read on
+  first call, never at import.
+- `assistant.store.ts` — `useCreateDrizzleStore()` / `DrizzleConversationStore`
+  for the assistant, mirroring the Prisma store.
+
+Also optional: `drizzle-orm` and `pg` are optional peer dependencies (install
+them with `bun add drizzle-orm pg`) and the adapter is not exported from the
+main barrel.
+
 ## Package layout and ESM
 
 - **Pure ESM.** `package.json` has `"type": "module"`, `"module":
@@ -272,7 +286,8 @@ from the main barrel.
 - **No side effects on import.** Barrel files only re-export; strategy
   instantiation happens lazily inside services, and so do environment reads:
   `usePrismaClient()` resolves `DATABASE_URL` on first call, never at import,
-  and it is not exported from the main barrel.
+  and it is not exported from the main barrel — `useDrizzleClient()` follows
+  the same rule.
 
 ## Design patterns in use
 

@@ -8,6 +8,12 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.2.3] - 2026-10-31
+
+What's news:
+
+- [ ] Tooling, documentation and test updates.
+
 ## [7.2.2] - 2026-10-31
 
 Maintenance release with 1 change.

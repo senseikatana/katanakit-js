@@ -1,0 +1,119 @@
+// ============================================================
+//  CONTENT COMPOSITIONS
+//  Opt-in helpers for article-like content: incremented ordered
+//  lists, consistent child sizes (.size-content) and vertical
+//  rhythm between blocks (.space-content).
+//
+//  Modernized from the legacy scss/base layer (2026-10-31): values
+//  now come from the shared --spacing-* tokens and the framework
+//  breakpoint mixins. The global list markers dropped out: the
+//  reset owns list styling (list-style: none) on purpose.
+// ============================================================
+@use "mixins" as m;
+
+ol.incremented {
+  counter-reset: item;
+
+  ol {
+    counter-reset: item;
+  }
+
+  ol,
+  ul {
+    margin: var(--spacing-3) 0 0 var(--spacing-4);
+  }
+
+  li {
+    display: block;
+    margin-bottom: var(--spacing-2);
+
+    @include m.md {
+      margin-bottom: var(--spacing-3);
+    }
+
+    &::before {
+      content: counters(item, ".") ". ";
+      counter-increment: item;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    p {
+      display: inline;
+    }
+  }
+
+  ul {
+    li::before {
+      content: "";
+    }
+  }
+}
+
+.size-content {
+  > p,
+  > p > a,
+  > span,
+  > dl p,
+  > dl a,
+  > dl dt,
+  > ul li,
+  > ol li,
+  > ul li *:not(span),
+  > ol li *:not(span),
+  > a:not([class]) {
+    font-size: 1rem;
+    line-height: 1.5;
+
+    @include m.lg {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.space-content {
+  > * + *,
+  > dl > * + * {
+    margin-top: var(--spacing-6);
+    margin-bottom: 0;
+  }
+
+  > h2 {
+    margin-top: var(--spacing-12);
+
+    @include m.lg {
+      margin-top: var(--spacing-16);
+    }
+  }
+
+  > h3 {
+    margin-top: var(--spacing-8);
+
+    @include m.lg {
+      margin-top: var(--spacing-12);
+    }
+  }
+
+  > h4 {
+    margin-top: var(--spacing-6);
+
+    @include m.lg {
+      margin-top: var(--spacing-8);
+    }
+  }
+
+  > h5,
+  > h6 {
+    margin-top: var(--spacing-4);
+
+    @include m.lg {
+      margin-top: var(--spacing-6);
+    }
+  }
+
+  > *:first-child {
+    margin-top: 0;
+  }
+}

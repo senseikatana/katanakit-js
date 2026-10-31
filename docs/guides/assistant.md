@@ -184,6 +184,27 @@ useInitAssistant({ store: useCreatePrismaStore() });
 If your app owns the database, copy that schema into your project, then run
 `prisma contract emit` and `prisma db init` there.
 
+### Drizzle instead of Prisma
+
+The Drizzle adapter ships the same `conversations` and `messages` tables for
+`drizzle-orm` + `pg`:
+
+```bash
+bun add drizzle-orm pg
+```
+
+```ts
+import { useInitAssistant } from "katanakit-js";
+import { useCreateDrizzleStore, DrizzleConversationStore } from "katanakit-js/adapters/drizzle";
+
+useInitAssistant({ store: useCreateDrizzleStore() });
+// or: { store: DrizzleConversationStore }
+```
+
+Push the tables with [`drizzle-kit`](https://orm.drizzle.team/docs/kit-overview)
+(`drizzle-kit push`) or generate migrations from
+`src/adapters/drizzle/schema.ts`.
+
 ## 7. Try it in this repo
 
 [`examples/assistant/`](https://github.com/senseikatana/katanakit-js/tree/main/examples/assistant)

@@ -1,0 +1,30 @@
+// ============================================================
+//  AUTO-GRID COMPOSITION
+//  Attribute-driven auto grid: [data-auto-grid] lays its children
+//  in one column, [data-auto-grid="2..6"] spreads them from the md
+//  breakpoint on. [data-grid-center] centers the items both ways.
+//
+//  Modernized from the legacy scss/base layer (2026-10-31): gap now
+//  comes from the shared --spacing-* tokens, the breakpoint from the
+//  framework mixins, and the obsolete grid-gap alias is gone.
+// ============================================================
+@use "mixins" as m;
+
+[data-auto-grid] {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+}
+
+@for $i from 2 through 6 {
+  [data-auto-grid="#{$i}"] {
+    @include m.md {
+      grid-template-columns: repeat(#{$i}, 1fr);
+    }
+  }
+}
+
+[data-grid-center] {
+  justify-items: center;
+  align-items: center;
+}

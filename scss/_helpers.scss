@@ -1,0 +1,44 @@
+// ============================================================
+//  HELPERS
+//  Small one-off utilities: screen-reader-only text, contents
+//  passthrough and one-shot alignment helpers.
+//
+//  Modernized from the legacy scss/base layer (2026-10-31): the
+//  sr-only pattern uses clip-path (clip is deprecated).
+// ============================================================
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.contents {
+  display: contents;
+}
+
+.align-center {
+  display: grid;
+  place-items: center;
+}
+
+.align-horizontal {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.align-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
