@@ -29,6 +29,8 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
 const DEST = join(root, "docs", "public", "hyperui");
 const DOCS_PUBLIC = join(root, "docs", "public");
+/** Public path of the docs mount; every generated absolute link needs it. */
+const DOCS_BASE = "/en/docs";
 const MD_PATH = join(root, "docs", "ui-kit", "hyperui.md");
 const UPSTREAM = "https://github.com/markmead/hyperui.git";
 
@@ -39,6 +41,20 @@ const CATEGORY_BLURBS = {
 	neobrutalism: "Bold borders, hard shadows, flat colors.",
 	templates: "Full-page templates — dashboards, storefronts, inboxes.",
 };
+
+/** Every `.html` file under a tree, recursively. */
+function htmlFiles(dir) {
+	const out = [];
+	const walk = (current) => {
+		for (const entry of readdirSync(current, { withFileTypes: true })) {
+			const full = join(current, entry.name);
+			if (entry.isDirectory()) walk(full);
+			else if (entry.name.endsWith(".html")) out.push(full);
+		}
+	};
+	walk(dir);
+	return out;
+}
 
 const titleCase = (s) =>
 	s
@@ -63,7 +79,10 @@ function ensureUpstream(srcOpt) {
 	const tmp = mkdtempSync(join(tmpdir(), "hyperui-"));
 	sh(`git clone --depth 1 --filter=blob:none --sparse ${UPSTREAM} repo`, tmp);
 	const dir = join(tmp, "repo");
-	sh("git sparse-checkout set public/examples public/component.css public/component.js", dir);
+	sh(
+		"git sparse-checkout set --skip-checks public/examples public/component.css public/component.js public/blog.css",
+		dir,
+	);
 	sh("git checkout", dir);
 	const sha = sh("git rev-parse HEAD", dir);
 	return { dir, sha, tmp: true };
@@ -148,8 +167,21 @@ function main() {
 	mkdirSync(DEST, { recursive: true });
 	cpSync(examplesDir, DEST, { recursive: true });
 	cpSync(join(dir, "LICENSE"), join(DEST, "LICENSE"));
-	for (const asset of ["component.css", "component.js"]) {
+	for (const asset of ["component.css", "component.js", "blog.css"]) {
 		cpSync(join(dir, "public", asset), join(DOCS_PUBLIC, asset));
+	}
+
+	// The vendored examples keep upstream's root-absolute asset paths
+	// (`/component.css`, `/blog.css`), which 404 under the /en/docs mount.
+	// Rewrite only those references; the markup itself stays upstream's.
+	for (const file of htmlFiles(DEST)) {
+		const original = readFileSync(file, "utf8");
+		const patched = original
+			.replaceAll('href="/component.css"', `href="${DOCS_BASE}/component.css"`)
+			.replaceAll('href="/component.js"', `href="${DOCS_BASE}/component.js"`)
+			.replaceAll('src="/component.js"', `src="${DOCS_BASE}/component.js"`)
+			.replaceAll('href="/blog.css"', `href="${DOCS_BASE}/blog.css"`);
+		if (patched !== original) writeFileSync(file, patched);
 	}
 
 	const categories = readdirSync(DEST, { withFileTypes: true })
@@ -188,7 +220,7 @@ function main() {
 				join(compDir, "index.html"),
 				pageShell({
 					title: `${titleCase(comp)} — ${titleCase(cat)}`,
-					breadcrumb: `<a href="/hyperui/">hyperui</a> / <a href="../">../${cat}</a> / ${comp}`,
+					breadcrumb: `<a href="${DOCS_BASE}/hyperui/">hyperui</a> / <a href="../">../${cat}</a> / ${comp}`,
 					upstreamPath: `${cat}/${comp}`,
 					body: cards,
 				}),
@@ -205,7 +237,7 @@ function main() {
 			join(catDir, "index.html"),
 			pageShell({
 				title: `${titleCase(cat)} — HyperUI`,
-				breadcrumb: `<a href="/hyperui/">hyperui</a> / ${cat}`,
+				breadcrumb: `<a href="${DOCS_BASE}/hyperui/">hyperui</a> / ${cat}`,
 				upstreamPath: cat,
 				body: `<div class="hk-grid">\n${cards}\n</div>`,
 			}),

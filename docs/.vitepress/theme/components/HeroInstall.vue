@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { withBase } from "vitepress";
 import { computed, onBeforeUnmount, ref } from "vue";
 
 import { siteSignals } from "../signals";
@@ -50,7 +51,7 @@ onBeforeUnmount(() => clearTimeout(timer));
 		<p v-if="version" class="home-install__meta">
 			Currently <b>v{{ version }}</b>
 			<span aria-hidden="true">·</span>
-			<a href="/changelog">Releases</a>
+			<a :href="withBase('/changelog')">Releases</a>
 			<span aria-hidden="true">·</span>
 			<a :href="REPO" target="_blank" rel="noreferrer noopener">GitHub</a>
 		</p>

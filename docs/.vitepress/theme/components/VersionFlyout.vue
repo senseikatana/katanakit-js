@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { withBase } from "vitepress";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 import { siteSignals } from "../signals";
@@ -92,7 +93,7 @@ onBeforeUnmount(() => {
 					<span class="version-flyout__hint">v{{ release.major }}.x</span>
 				</a>
 			</template>
-			<a class="version-flyout__item version-flyout__item--all" href="/changelog" role="menuitem">
+			<a class="version-flyout__item version-flyout__item--all" :href="withBase('/changelog')" role="menuitem">
 				All releases
 			</a>
 		</div>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { withBase } from "vitepress";
 const linkGroups = [
 	{
 		title: "Learn",
 		links: [
-			{ label: "Getting started", href: "/guides/getting-started" },
+			{ label: "Getting started", href: "/start/getting-started" },
 			{ label: "First API client", href: "/tutorials/first-api-client" },
-			{ label: "Error handling", href: "/guides/errors" },
+			{ label: "Error handling", href: "/start/errors" },
 		],
 	},
 	{
@@ -40,10 +41,10 @@ const linkGroups = [
 					<p>Start with a working API client, then add validation and caching as your app grows.</p>
 				</div>
 				<div class="home-cta__actions">
-					<a class="home-cta__button" href="/tutorials/first-api-client">
+					<a class="home-cta__button" :href="withBase('/tutorials/first-api-client')">
 						Build your first API client <span aria-hidden="true">→</span>
 					</a>
-					<a class="home-cta__text-link" href="/guides/getting-started">
+					<a class="home-cta__text-link" :href="withBase('/start/getting-started')">
 						Read the getting started guide
 					</a>
 				</div>
@@ -53,7 +54,7 @@ const linkGroups = [
 		<footer class="home-footer">
 			<div class="home-footer__inner">
 				<div class="home-footer__brand">
-					<a class="home-footer__wordmark" href="/">KatanaKit</a>
+					<a class="home-footer__wordmark" :href="withBase('/')">KatanaKit</a>
 					<p>Typed TypeScript services, designed to work across runtimes and frameworks.</p>
 				</div>
 
@@ -66,7 +67,7 @@ const linkGroups = [
 					<h2>{{ group.title }}</h2>
 					<ul>
 						<li v-for="link in group.links" :key="link.label">
-							<a :href="link.href">{{ link.label }}</a>
+							<a :href="withBase(link.href)">{{ link.label }}</a>
 						</li>
 					</ul>
 				</nav>

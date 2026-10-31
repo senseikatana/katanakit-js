@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute } from "vitepress";
+import { useRoute, withBase } from "vitepress";
 import { computed, onMounted, ref, watch } from "vue";
 
 import type { ChangelogRelease } from "../signals";
@@ -143,7 +143,7 @@ watch(() => route.path, syncOpenState);
 			</div>
 
 			<footer class="whats-new__footer">
-				<a class="whats-new__cta" :href="CHANGELOG_URL">See Full Changelog</a>
+				<a class="whats-new__cta" :href="withBase(CHANGELOG_URL)">See Full Changelog</a>
 			</footer>
 		</section>
 	</div>

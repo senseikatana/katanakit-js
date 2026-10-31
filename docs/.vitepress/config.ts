@@ -176,6 +176,31 @@ const docsSidebar = [
 	},
 ];
 
+/**
+ * Rewrites relative `href` targets to absolute, base-prefixed URLs.
+ *
+ * TypeDoc links between symbols as `./classes/X`. A relative href resolves
+ * against the *served* URL, and `/en/docs/api` has no trailing slash, so the
+ * browser would look one directory too high (`/en/docs/classes/X` → 404).
+ * Resolving every relative href against the page's own directory removes the
+ * whole class of bug — including for anyone opening a clean URL by hand.
+ */
+function absolutizeHrefs(html: string, id: string): string {
+	// `id` is the absolute path of the emitted file (…/dist/api/index.html),
+	// so the page directory is what follows the last `/dist/` segment.
+	const marker = id.lastIndexOf("/dist/");
+	const rel = marker === -1 ? id : id.slice(marker + "/dist/".length);
+	const dir = rel.replace(/[^/]*$/, "");
+	const from = `https://docs.local${DOCS_BASE}/${dir}`;
+	return html.replace(/(\shref=")(?![\w+.-]+:|\/|#)([^"]+)"/g, (match, pre, href) => {
+		try {
+			return `${pre}${new URL(href, from).pathname}"`;
+		} catch {
+			return match;
+		}
+	});
+}
+
 export default defineConfig({
 	title: "KatanaKit",
 	description:
@@ -222,7 +247,7 @@ export default defineConfig({
 	},
 	transformHtml(code, id) {
 		if (!id.endsWith(".html")) return code;
-		return reorderHead(code);
+		return reorderHead(absolutizeHrefs(code, id));
 	},
 	vite: {
 		plugins: [tailwindcss()],

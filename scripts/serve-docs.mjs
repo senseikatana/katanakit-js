@@ -36,17 +36,22 @@ function loadRedirects() {
 		.map(([from, to, status]) => ({ from, to, status: Number(status ?? 301) }));
 }
 
-/** Expands `:splat` in the destination, Cloudflare-style. */
+/** Expands `:splat` in the destination, Cloudflare-style, and keeps absolute
+ *  same-site targets local so the preview never bounces out to production. */
 function applyRedirect(pathname, rules) {
+	const localize = (target) =>
+		target.startsWith("https://senseikatana.com/")
+			? target.slice("https://senseikatana.com".length)
+			: target;
 	for (const rule of rules) {
 		if (rule.from.includes("*")) {
 			const [prefix, suffix = ""] = rule.from.split("*");
 			if (!pathname.startsWith(prefix) || !pathname.endsWith(suffix)) continue;
 			const splat = pathname.slice(prefix.length, pathname.length - suffix.length);
-			return rule.to.replace(":splat", splat);
+			return localize(rule.to.replace(":splat", splat));
 		}
-		if (pathname === rule.from) return rule.to;
-		if (pathname === `${rule.from}/`) return rule.to;
+		if (pathname === rule.from) return localize(rule.to);
+		if (pathname === `${rule.from}/`) return localize(rule.to);
 	}
 	return null;
 }

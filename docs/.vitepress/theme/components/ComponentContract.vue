@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { withBase } from "vitepress";
 /**
  * The shared API contract for every Katana UI component.
  *
@@ -67,7 +68,7 @@ document.body.append({{ factory }}({ /* … */ }));</code></pre>
 				<a href="https://daisyui.com/components/" target="_blank" rel="noreferrer">daisyUI</a>.
 				Unlayered CSS always beats layered CSS regardless of specificity or import order, so
 				loading both is deterministic instead of "whoever came last".
-				See <a href="/ui-kit/architecture#why-unprefixed-and-why-layer-katana">why</a>.
+				See <a :href="withBase('/ui-kit/architecture#why-unprefixed-and-why-layer-katana')">why</a>.
 			</p>
 		</div>
 	</div>
