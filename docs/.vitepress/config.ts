@@ -430,6 +430,7 @@ export default defineConfig({
 					items: [
 						{ text: "Overview", link: "/guides/services/" },
 						{ text: "HTTP Client", link: "/guides/services/http-client" },
+					{ text: "External APIs", link: "/guides/services/external-apis" },
 						{ text: "Logger", link: "/guides/services/logger" },
 						{ text: "Storage", link: "/guides/services/storage" },
 					{ text: "Forms", link: "/guides/services/forms" },

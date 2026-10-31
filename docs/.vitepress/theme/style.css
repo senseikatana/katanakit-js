@@ -658,6 +658,71 @@
 	background: var(--vp-c-bg-soft);
 }
 
+/* ── Swagger viewers (OpenAPI reference per external API) ── */
+
+.swagger-viewer {
+	margin: 22px 0;
+	overflow: hidden;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 14px;
+	background: var(--vp-c-bg-soft);
+}
+
+.swagger-viewer__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--vp-c-divider);
+	font-size: 13px;
+}
+
+.swagger-viewer__title strong {
+	color: var(--vp-c-text-1);
+	font-weight: 600;
+}
+
+.swagger-viewer__title em {
+	margin-left: 8px;
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-family: var(--vp-font-family-mono);
+	font-size: 11.5px;
+	font-style: normal;
+}
+
+.swagger-viewer__actions {
+	display: flex;
+	gap: 8px;
+	flex-shrink: 0;
+}
+
+.swagger-viewer__actions a {
+	padding: 4px 10px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	background: var(--vp-c-bg);
+	color: var(--vp-c-text-2);
+	font-size: 12px;
+	line-height: 1.6;
+	text-decoration: none;
+	transition:
+		border-color 0.2s,
+		color 0.2s;
+}
+
+.swagger-viewer__actions a:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
+}
+
+.swagger-viewer__frame {
+	display: block;
+	width: 100%;
+	border: 0;
+	background: #fff;
+}
+
 /* ── Home: hero (Bootstrap-inspired, centered) ── */
 
 .VPHome {

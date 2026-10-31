@@ -427,6 +427,95 @@ in the current API. For any method without a helper, call
 const result = await useFetch("myApi", "corsProbe", { method: "OPTIONS" });
 ```
 
+## Full CRUD, end to end
+
+The complete cycle on one resource, with the real DummyJSON post shape
+(`id`, `title`, `body`, `tags`, `reactions`, `views`, `userId`). Every step
+returns the same `FetchResult<T>`, so the error branch never changes shape:
+
+```ts
+import {
+  defineApiConfig,
+  useDelete,
+  useGetApi,
+  usePatch,
+  usePost,
+  usePut,
+} from "katanakit-js";
+
+defineApiConfig({
+  dummyjson: {
+    baseUri: "https://dummyjson.com",
+    endpoints: {
+      posts: "/posts",
+      postById: "/posts/:id",
+      addPost: "/posts/add",
+    },
+  },
+});
+
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+  tags: string[];
+  views: number;
+  userId: number;
+}
+
+// 1. CREATE — POST /posts/add returns the new resource (id assigned).
+const created = await usePost<Post>("dummyjson", "addPost", {
+  title: "Shipping Safe Results",
+  body: "A guide to error-free HTTP.",
+  userId: 5,
+});
+if (!created.ok) return report(created.error);
+
+// 2. READ ONE — GET /posts/:id
+const fetched = await useGetApi<Post>("dummyjson", "postById", { params: { id: 1 } });
+if (!fetched.ok) return report(fetched.error);
+console.log(fetched.data.title);
+
+// 3. UPDATE — PUT replaces the whole resource.
+const replaced = await usePut<Post>(
+  "dummyjson",
+  "postById",
+  { ...fetched.data, title: "Shipping Safe Results (v2)" },
+  { params: { id: 1 } },
+);
+if (!replaced.ok) return report(replaced.error);
+
+// 4. PARTIAL UPDATE — PATCH sends only the changed field.
+const patched = await usePatch<Post>(
+  "dummyjson",
+  "postById",
+  { title: "Shipping Safe Results (final)" },
+  { params: { id: 1 } },
+);
+if (!patched.ok) return report(patched.error);
+
+// 5. DELETE — the payload echoes the removed resource.
+const deleted = await useDelete<Post & { isDeleted: boolean }>("dummyjson", "postById", {
+  params: { id: 1 },
+});
+if (deleted.ok) console.log(deleted.data.id, deleted.data.isDeleted); // 1 true
+
+// 6. LIST — pagination through `limit` and `skip`.
+const page = await useGetApi<{ posts: Post[]; total: number; skip: number; limit: number }>(
+  "dummyjson",
+  "posts",
+  { query: { limit: 10, skip: 0 } },
+);
+if (page.ok) console.log(page.data.posts.length, "of", page.data.total); // 10 of 251
+```
+
+Two things worth knowing about this sandbox: writes are **simulated** — the
+API echoes a coherent response (`id: 252`, `isDeleted: true`) without storing
+anything — and `PATCH` merges the field you send while `PUT` expects the whole
+resource. Both behaviours match a real backend, which is exactly why the
+example is useful. For a full `PUT`, spread the fetched resource like step 3
+does.
+
 ## GraphQL and Apollo
 
 GraphQL is one POST away: a single request to one endpoint carries a `query`

@@ -5,6 +5,7 @@ import { installActiveNav } from "./active-nav";
 import ComponentContract from "./components/ComponentContract.vue";
 import HomeSections from "./components/HomeSections.vue";
 import HyperUiShowcase from "./components/HyperUiShowcase.vue";
+import SwaggerViewer from "./components/SwaggerViewer.vue";
 import Layout from "./Layout.vue";
 import TailwindShowcase from "./components/TailwindShowcase.vue";
 import "./style.css";
@@ -20,6 +21,7 @@ export default {
 	enhanceApp({ app, router }) {
 		app.component("ComponentContract", ComponentContract);
 		app.component("HyperUiShowcase", HyperUiShowcase);
+		app.component("SwaggerViewer", SwaggerViewer);
 		app.component("TailwindShowcase", TailwindShowcase);
 		app.component("HomeSections", HomeSections);
 		if (typeof document === "undefined") return;
