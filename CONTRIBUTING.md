@@ -253,6 +253,8 @@ description: Cache, retry and invalidate server state.
   frontmatter (Vue-in-Markdown). VitePress does **not** support MDX.
 - Use `::: code‑group` for tabbed code samples and `::: warning` for callouts.
 - `docs/api/` and `docs/changelog.md` are generated — never hand‑edit them.
+  The changelog page (one single title, one `<details>` card per release) is
+  built by `scripts/docs-prepare.mjs`; change the title or the layout there.
 
 ### Running the docs locally
 

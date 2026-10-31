@@ -427,6 +427,196 @@
 	font-style: italic;
 }
 
+/* ── Changelog page: one collapsible card per release ── */
+
+.changelog-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0 0 34px;
+}
+
+.changelog-stats span {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 6px;
+	padding: 4px 11px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-2);
+	font-size: 12.5px;
+	line-height: 1.5;
+}
+
+.changelog-stats strong {
+	color: var(--vp-c-text-1);
+	font-family: var(--vp-font-family-mono);
+	font-size: 12px;
+}
+
+.changelog-release {
+	margin: 10px 0;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 12px;
+	background: var(--vp-c-bg);
+	scroll-margin-top: calc(var(--vp-nav-height) + 16px);
+	transition:
+		border-color 0.25s,
+		box-shadow 0.25s;
+}
+
+.changelog-release:hover {
+	border-color: var(--vp-c-brand-1);
+}
+
+.changelog-release[open] {
+	border-color: color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+	box-shadow: var(--vp-shadow-1);
+}
+
+/* The collapsed row: version pill · badge · date · changes · chevron. */
+.changelog-release summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 11px 15px;
+	border-radius: 11px;
+	cursor: pointer;
+	list-style: none;
+	user-select: none;
+}
+
+.changelog-release summary:hover {
+	background: var(--vp-c-bg-soft);
+}
+
+.changelog-release summary:focus-visible {
+	outline: 2px solid var(--vp-c-brand-1);
+	outline-offset: -2px;
+}
+
+.changelog-release summary::-webkit-details-marker {
+	display: none;
+}
+
+.changelog-release summary::after {
+	width: 7px;
+	height: 7px;
+	margin: 0 2px 0 auto;
+	border-right: 2px solid var(--vp-c-text-3, var(--vp-c-text-2));
+	border-bottom: 2px solid var(--vp-c-text-3, var(--vp-c-text-2));
+	transform: rotate(-45deg);
+	transition: transform 0.2s;
+	content: "";
+}
+
+.changelog-release[open] summary::after {
+	transform: rotate(45deg);
+}
+
+.changelog-release__version {
+	padding: 2px 9px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 7px;
+	background: var(--vp-c-bg-alt);
+	color: var(--vp-c-text-1);
+	font-family: var(--vp-font-family-mono);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	transition:
+		border-color 0.25s,
+		background-color 0.25s,
+		color 0.25s;
+}
+
+.changelog-release[open] .changelog-release__version {
+	border-color: color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+	background: color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+	color: var(--vp-c-brand-1);
+}
+
+.changelog-release__badge {
+	padding: 2px 9px;
+	border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+	border-radius: 999px;
+	color: var(--vp-c-brand-1);
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+}
+
+.changelog-release__date,
+.changelog-release__count {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-size: 12.5px;
+}
+
+.changelog-release__body {
+	padding: 2px 15px 14px;
+	border-top: 1px solid var(--vp-c-divider);
+	font-size: 14px;
+	animation: changelog-card-in 0.18s ease-out;
+}
+
+@keyframes changelog-card-in {
+	from {
+		opacity: 0;
+		transform: translateY(-3px);
+	}
+}
+
+.changelog-release__body > :first-child {
+	margin-top: 12px;
+}
+
+.changelog-release__body p {
+	line-height: 1.7;
+}
+
+.changelog-release__body ul {
+	margin: 8px 0 0;
+}
+
+.changelog-release__body ul ul {
+	margin: 2px 0 6px;
+}
+
+.changelog-release__body ul ul li {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-size: 12.5px;
+	line-height: 1.65;
+}
+
+.changelog-release__body h4 {
+	margin: 18px 0 6px;
+	color: var(--vp-c-text-2);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+	.changelog-release__count {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.changelog-release__body {
+		animation: none;
+	}
+
+	.changelog-release summary::after {
+		transition: none;
+	}
+}
+
 /* ── HyperUI showcase (iframe preview + copy bar) ── */
 
 .hyperui-demo {
