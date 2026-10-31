@@ -5,6 +5,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "strict": true,
+    "jsx": "react-jsx",
     "experimentalDecorators": true,
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -26,6 +27,6 @@
       "~#/config/*": ["./src/config/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist", "examples", "tests"]
 }

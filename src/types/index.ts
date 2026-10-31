@@ -23,6 +23,7 @@ export * from "./core/errors.js";
 export * from "./core/faker.js";
 export * from "./core/filesystem.js";
 export * from "./core/formatter.js";
+export * from "./core/forms.js";
 export * from "./core/generator.js";
 export * from "./core/geometry.js";
 export * from "./core/http.js";

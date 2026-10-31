@@ -28,7 +28,7 @@ export default defineConfig({
 	base: "/",
 	test: {
 		environment: "node",
-		include: ["tests/**/*.test.ts", "packages/**/tests/**/*.test.ts"],
+		include: ["tests/**/*.test.ts", "tests/**/*.test.tsx", "packages/**/tests/**/*.test.ts"],
 		// `tests/e2e/` is Playwright's, not Vitest's. It runs against a real
 		// browser (`bun run test:e2e`) and Playwright's fixtures make no sense
 		// inside Vitest, which reports them as a load error.

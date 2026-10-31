@@ -1,4 +1,5 @@
 export * from "./fetch.js";
+export * from "./forms.js";
 export * from "./query.js";
 export * from "./watch.js";
 export {

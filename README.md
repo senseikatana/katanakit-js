@@ -323,6 +323,27 @@ Notion uses in its formula editor — `years`, `quarters`, `months`, `weeks`,
 
 → [All services](https://senseikatana.com/en/docs/guides/services/)
 
+### Native forms, validated with Zod
+
+```tsx
+import { Form, Field, Input, Submit } from "katanakit-js/adapters/react";
+
+<Form schema={SignUpSchema} onSubmit={(values) => signUp(values)}>
+  <Field name="email" label="Email" hint="Only used for receipts.">
+    <Input type="email" autoComplete="email" required />
+  </Field>
+  <Submit pendingLabel="Creating account…">Create account</Submit>
+</Form>;
+```
+
+Fields stay uncontrolled — typing re-renders nothing — and the schema you
+already write decides the messages. Errors render inside each field with
+`aria-invalid` + `aria-describedby`, the first invalid field takes focus, and
+the submit button reports `aria-busy` until an async `onSubmit` settles. No
+`react-hook-form`, no resolvers: `FormData` in, typed values out.
+
+→ [Forms guide](https://senseikatana.com/en/docs/guides/services/forms)
+
 ### One service shape
 
 Every core service is a **Singleton facade class** — `getInstance()` plus

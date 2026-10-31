@@ -432,6 +432,7 @@ export default defineConfig({
 						{ text: "HTTP Client", link: "/guides/services/http-client" },
 						{ text: "Logger", link: "/guides/services/logger" },
 						{ text: "Storage", link: "/guides/services/storage" },
+					{ text: "Forms", link: "/guides/services/forms" },
 						{ text: "DOM", link: "/guides/services/dom" },
 						{ text: "Reactive", link: "/guides/services/reactive" },
 						{ text: "Formatter", link: "/guides/services/formatter" },
