@@ -8,6 +8,17 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.2.0] - 2026-10-31
+
+Version bump that consolidates the 7.1.8 and 7.1.9 lines — the forms system,
+the external-API guides and the tooling cleanup — for the first npm publish of
+the 7.x series. See [7.1.8] and [7.1.9] for the changes behind it.
+
+What's news:
+
+- [ ] `feat(forms)`, the OpenAPI references and `chore(scripts)` from the
+  sections below, consolidated under one tag.
+
 ## [7.1.9] - 2026-10-31
 
 What's news:
