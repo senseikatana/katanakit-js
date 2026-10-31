@@ -8,6 +8,19 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.9] - 2026-10-31
+
+What's news:
+
+- [ ] chore(scripts): drop the demo api server and add a real preview command
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `docs/guides/filesystem.md`
+  - `package.json`
+- [ ] build(package.json): update 1 file (+1/-1)
+  - `package.json`
+
 ## [7.1.8] - 2026-10-31
 
 Highlights: feat(forms): native form validation with Zod and React components and fix(docs): keep VitePress from scanning the reference snippets, plus 7 more changes.
