@@ -27,15 +27,7 @@
 		// { "pattern": "katanakami.com/en/docs/*", "zone_name": "katanakami.com" }
 	],
 
-	// Service Binding: lets the Worker call the Pages project without an
-	// external HTTP round-trip (same-account, same-region, free).
-	// If the binding fails to resolve (project not yet deployed), the Worker
-	// falls back to an HTTP fetch of the public Pages URL.
-	"services": [
-		{
-			"binding": "DOCS_PAGES",
-			"service": "katanakit-docs",
-			"environment": "production"
-		}
-	]
+	// No Service Binding: a Pages project is not a Workers service, so the
+	// proxy fetches the public Pages URL. Cloudflare still routes that fetch
+	// same-region, so the extra hop is a few milliseconds.
 }
