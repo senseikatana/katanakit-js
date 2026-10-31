@@ -205,6 +205,10 @@ function absolutizeHrefs(html: string, id: string): string {
 
 export default defineConfig({
 	title: "KatanaKit",
+	// `docs/public/` is copied verbatim, but VitePress also *scans* it for
+	// pages: the reference material under `public/snippets` carries .md files
+	// that are not valid Vue SFCs and would fail the build.
+	srcExclude: ["public/snippets/**"],
 	description:
 		"A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
 	base: `${DOCS_BASE}/`,
