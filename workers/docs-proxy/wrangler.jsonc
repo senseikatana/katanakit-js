@@ -1,0 +1,38 @@
+// Reverse-proxy Worker: mounts the katanakit-docs Pages project under /en/docs/
+// on the apex domains that already serve other applications.
+//
+// Deploy: `npx wrangler deploy -c workers/docs-proxy/wrangler.jsonc`
+//
+// Routes are per-zone. The zones must exist in the same Cloudflare account.
+// Add or remove domains here; the Worker code is domain-agnostic.
+{
+	"$schema": "https://unpkg.com/wrangler/config-schema.json",
+	"name": "katanakit-docs-proxy",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-01-01",
+
+	// The Worker only fires on these routes; everything else stays with
+	// whatever already serves the zone (the extranet app, samurai site, etc.).
+	"routes": [
+		// Primary — production docs
+		{ "pattern": "senseikatana.com/en/docs/*", "zone_name": "senseikatana.com" },
+
+		// Secondary — backup / vanity domain
+		{ "pattern": "samuraicoder.dev/en/docs/*", "zone_name": "samuraicoder.dev" },
+
+		// Testing only — katanakami.com (uncomment when the zone is added)
+		// { "pattern": "katanakami.com/en/docs/*", "zone_name": "katanakami.com" }
+	],
+
+	// Service Binding: lets the Worker call the Pages project without an
+	// external HTTP round-trip (same-account, same-region, free).
+	// If the binding fails to resolve (project not yet deployed), the Worker
+	// falls back to an HTTP fetch of the public Pages URL.
+	"services": [
+		{
+			"binding": "DOCS_PAGES",
+			"service": "katanakit-docs",
+			"environment": "production"
+		}
+	]
+}

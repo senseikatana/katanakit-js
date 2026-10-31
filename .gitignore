@@ -101,3 +101,8 @@ docs/public/tailwind-components/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Worker build artifacts
+workers/docs-proxy/node_modules/
+workers/docs-proxy/dist/
+.workers/

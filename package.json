@@ -166,6 +166,7 @@
 		"docs:clean": "node scripts/docs.mjs clean",
 		"deploy": "bun run check && bun run build && node scripts/docs.mjs deploy --skip-ui",
 		"deploy:gh": "bun run check && bun run build && node scripts/docs.mjs gh --skip-ui",
+		"deploy:proxy": "bunx wrangler deploy -c workers/docs-proxy/wrangler.jsonc",
 		"release": "bun run check && bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && node scripts/npm-publish.mjs",
 		"dev": "bunx lint-staged && concurrently -n docs,api -c magenta,cyan --kill-others \"bun run docs:dev\" \"bun run api:dev\"",
 		"docs:dev": "node scripts/docs.mjs dev",

@@ -276,6 +276,13 @@ serves a deployment at the domain root. Keep a redirect rule on the legacy
 `https://senseikatana.com/en/docs/:splat` — one Pages project cannot answer two
 hostnames with different roots.
 
+Apex domains that serve other applications (`senseikatana.com`,
+`samuraicoder.dev`) get `/en/docs/` through the reverse-proxy Worker in
+`workers/docs-proxy/`. Deploy it with `bun run deploy:proxy` after a docs
+deploy. The Worker uses a Service Binding to the Pages project (no HTTP hop);
+it falls back to an HTTP fetch of `katanakit-docs.pages.dev` when the binding
+is not yet wired.
+
 ### GitHub Wiki synchronization
 
 The GitHub Wiki is a separate Git repository. The
