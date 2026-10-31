@@ -6,6 +6,7 @@ import { nextTick, onBeforeUnmount, onMounted, watch } from "vue";
 import HomeEndcap from "./components/HomeEndcap.vue";
 import GitHubStars from "./components/GitHubStars.vue";
 import HeroInstall from "./components/HeroInstall.vue";
+import HeroTypewriter from "./components/HeroTypewriter.vue";
 import HomeAnnouncement from "./components/HomeAnnouncement.vue";
 import VersionFlyout from "./components/VersionFlyout.vue";
 import WhatNew from "./components/WhatNew.vue";
@@ -52,6 +53,10 @@ watch(
 		</template>
 		<template #home-hero-info-before>
 			<HomeAnnouncement />
+		</template>
+		<!-- Replaces the default heading + tagline: the hero types itself in. -->
+		<template #home-hero-info>
+			<HeroTypewriter />
 		</template>
 		<template #home-hero-actions-after>
 			<HeroInstall />

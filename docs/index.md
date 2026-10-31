@@ -4,7 +4,6 @@ title: KatanaKit
 description: A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.
 
 hero:
- name: KatanaKit
  text: A sharp TypeScript service toolkit
  tagline: Framework-agnostic, hexagonal and SSR-safe. HTTP with Safe Results, Zod validation, query cache, filesystem helpers, fake data and an OpenAI-compatible assistant.
  actions:
