@@ -34,21 +34,6 @@ never by mutating the registry per request.
 import { defineApiConfig, useGetApi, usePost } from "katanakit-js";
 
 defineApiConfig({
-  pokeapi: {
-    baseUri: "https://pokeapi.co/api/v2",
-    endpoints: {
-      pokemonById: "/pokemon/:id/",
-      pokemons: "/pokemon/",
-    },
-    defaultQueryParams: { pokemons: { limit: 20 } },
-  },
-  jsonplaceholder: {
-    baseUri: "https://jsonplaceholder.typicode.com",
-    endpoints: {
-      posts: "/posts",
-      postById: "/posts/:id",
-    },
-  },
   hpApi: {
     baseUri: "https://hp-api.onrender.com",
     endpoints: {
@@ -58,35 +43,43 @@ defineApiConfig({
       spells: "/api/spells",
     },
   },
+  dummyjson: {
+    baseUri: "https://dummyjson.com",
+    endpoints: {
+      products: "/products",
+      productById: "/products/:id",
+      searchProducts: "/products/search",
+      addProduct: "/products/add",
+      users: "/users",
+    },
+    defaultQueryParams: { products: { limit: 20 } },
+  },
 });
 
-interface Pokemon {
-  name: string;
+interface Product {
   id: number;
-  types: { type: { name: string } }[];
+  title: string;
+  price: number;
+  rating: number;
+  stock: number;
 }
 
-const result = await useGetApi<Pokemon>("pokeapi", "pokemonById", {
-  params: { id: 25 },
+const result = await useGetApi<Product>("dummyjson", "productById", {
+  params: { id: 1 },
 });
 
 if (result.ok) {
-  console.log(result.data.name);   // "pikachu"
-  console.log(result.status);      // 200
+  console.log(result.data.title); // "Essence Mascara Lash Princess"
+  console.log(result.data.price); // 9.99
+  console.log(result.status);     // 200
 } else {
   console.error(result.error.status, result.error.message);
 }
-
-await usePost("jsonplaceholder", "posts", {
-  title: "Hello World",
-  body: "My first post",
-  userId: 1,
-});
 ```
 
-Several APIs coexist in one registry — a demo REST API, a public dataset and a
-niche one — and each keeps its own base URI, path params and defaults. Adding a
-fourth is three lines, not a new client:
+Both APIs coexist in one registry — a niche public dataset and a sandbox with
+realistic pagination — and each keeps its own base URI, path params and
+defaults. Adding a third is three lines, not a new client:
 
 ```ts
 interface Spell {
@@ -98,8 +91,21 @@ interface Spell {
 const spells = await useGetApi<Spell[]>("hpApi", "spells");
 if (spells.ok) console.log(spells.data.length); // 77
 
+const phones = await useGetApi<{ products: Product[]; total: number }>(
+  "dummyjson",
+  "searchProducts",
+  { query: { q: "phone" } },
+);
+if (phones.ok) console.log(phones.data.total); // 194 products, filtered by q
+
 const gryffindor = await useGetApi<{ name: string }[]>("hpApi", "houseCharacters", {
   params: { house: "gryffindor" },
+});
+
+// POST works the same way: JSON body, Safe Result back.
+const created = await usePost<{ id: number; title: string }>("dummyjson", "addProduct", {
+  title: "Handmade ceramic mug",
+  price: 24.5,
 });
 ```
 
@@ -116,11 +122,11 @@ with no second registration step.
 import { defineApiConfig, useFetch } from "katanakit-js";
 
 export default defineApiConfig({
-  pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
+  dummyjson: { baseUri: "https://dummyjson.com", endpoints: { byId: "/products/:id" } },
   debug: true,
-  getPokemon: async function () {
-    if (this.config.debug) console.log("fetching pokemon");
-    return useFetch("pokeapi", "byId", { params: { id: 25 } });
+  getProduct: async function () {
+    if (this.config.debug) console.log("fetching product");
+    return useFetch("dummyjson", "byId", { params: { id: 1 } });
   },
 });
 ```
@@ -138,8 +144,8 @@ Rules the function enforces:
   `[FetchApiManager] defineApiConfig: "<name>" is not an API entry (expected an
   object with baseUri and endpoints).`
 
-TypeScript infers the registry keys from the literal, so `api.config.pokeapi`
-is typed as `ApiEntry` and `api.getPokemon()` keeps its return type.
+TypeScript infers the registry keys from the literal, so `api.config.dummyjson`
+is typed as `ApiEntry` and `api.getProduct()` keeps its return type.
 
 **Real use case** — `src/apis/config.ts` can own every integration (CMS,
 analytics, commerce), expose boolean feature flags, and export typed methods
@@ -161,7 +167,7 @@ later definition wins for identical keys:
 import { useInit } from "katanakit-js";
 
 useInit({
-  pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
+  dummyjson: { baseUri: "https://dummyjson.com", endpoints: { byId: "/products/:id" } },
 });
 ```
 
@@ -200,8 +206,8 @@ the string:
 ```ts
 import { useBuildUrl } from "katanakit-js";
 
-useBuildUrl("pokeapi", "pokemonById", { params: { id: 25 } });
-// → "https://pokeapi.co/api/v2/pokemon/25/"
+useBuildUrl("dummyjson", "productById", { params: { id: 1 } });
+// → "https://dummyjson.com/products/1"
 ```
 
 How the pieces are assembled:
@@ -222,7 +228,7 @@ the process. It throws on an unregistered API, an unknown endpoint and a
 disallowed scheme.
 
 ```ts
-useBuildUrl("pokeapi", "pokemonById");              // throws: endpoint is missing :id
+useBuildUrl("dummyjson", "productById");              // throws: endpoint is missing :id
 useBuildUrl("nope", "byId");                        // throws: API not registered
 ```
 
@@ -259,13 +265,13 @@ nesting:
 ```ts
 import { useFetch } from "katanakit-js";
 
-const result = await useFetch<{ results: unknown[] }>("pokeapi", "pokemons", {
+const result = await useFetch<{ products: unknown[] }>("dummyjson", "products", {
   method: "GET",
   query: { limit: 2 },
   headers: { Authorization: `Bearer ${token}` },
 });
 
-if (result.ok) console.log(result.data.results);
+if (result.ok) console.log(result.data.products);
 ```
 
 What the method does, in order:
@@ -294,7 +300,7 @@ What the method does, in order:
 backend's validation message.
 
 ```ts
-const result = await useFetch("jsonplaceholder", "posts", {
+const result = await useFetch("dummyjson", "posts", {
   method: "POST",
   body: { title: "Hello" },
   headers: { Authorization: `Bearer ${token}` },
@@ -312,13 +318,13 @@ response shape:
 ```ts
 import { useGetApi } from "katanakit-js";
 
-const result = await useGetApi<Pokemon>("pokeapi", "pokemonById", {
-  params: { id: 25 },
+const result = await useGetApi<Product>("dummyjson", "productById", {
+  params: { id: 1 },
 });
 
 if (result.ok) {
-  console.log(result.data.name);   // "pikachu"
-  console.log(result.data.types);  // [{ type: { name: "electric" } }]
+  console.log(result.data.title);  // "Essence Mascara Lash Princess"
+  console.log(result.data.price);  // 9.99
 } else {
   console.error(result.error.status, result.error.message);
 }
@@ -329,9 +335,11 @@ as a query param and read `result.status` to distinguish "no results" (`200`)
 from a backend failure (`5xx`).
 
 ```ts
-const result = await useGetApi<Post[]>("jsonplaceholder", "posts", {
-  query: { q: term, _limit: 10 },
-});
+const result = await useGetApi<{ products: Product[]; total: number }>(
+  "dummyjson",
+  "searchProducts",
+  { query: { q: term, limit: 10 } },
+);
 ```
 
 ### usePost(apiName, endpointName, body?, urlOptions?)
@@ -343,7 +351,7 @@ argument, so `params` and `query` work exactly as in GET:
 ```ts
 import { usePost } from "katanakit-js";
 
-const result = await usePost<Post>("jsonplaceholder", "posts", {
+const result = await usePost<Post>("dummyjson", "posts", {
   title: "Hello World",
   body: "My first post",
   userId: 1,
@@ -371,7 +379,7 @@ rules as `usePost()`.
 ```ts
 import { usePut } from "katanakit-js";
 
-await usePut("jsonplaceholder", "postById", { title: "Updated" }, {
+await usePut("dummyjson", "postById", { title: "Updated" }, {
   params: { id: 1 },
 });
 ```
@@ -386,7 +394,7 @@ PATCH helper for partial updates.
 ```ts
 import { usePatch } from "katanakit-js";
 
-await usePatch("jsonplaceholder", "postById", { title: "New title" }, {
+await usePatch("dummyjson", "postById", { title: "New title" }, {
   params: { id: 1 },
 });
 ```
@@ -402,7 +410,7 @@ DELETE helper. It takes no body; pass identifiers through `params` or `query`.
 ```ts
 import { useDelete } from "katanakit-js";
 
-await useDelete("jsonplaceholder", "postById", { params: { id: 1 } });
+await useDelete("dummyjson", "postById", { params: { id: 1 } });
 ```
 
 **Real use case** — delete the row from a list, then branch on `result.ok` to
@@ -590,18 +598,18 @@ interface UrlOptions {
 import { defineApiConfig, useGetApi } from "katanakit-js";
 
 defineApiConfig({
-  pokeapi: {
-    baseUri: "https://pokeapi.co/api/v2",
-    endpoints: { pokemons: "/pokemon/" },
-    defaultQueryParams: { pokemons: { limit: 20 } },
+  dummyjson: {
+    baseUri: "https://dummyjson.com",
+    endpoints: { products: "/products" },
+    defaultQueryParams: { products: { limit: 20 } },
   },
 });
 
-await useGetApi("pokeapi", "pokemons", { query: { offset: 40 } });
-// → /pokemon/?limit=20&offset=40
+await useGetApi("dummyjson", "products", { query: { skip: 40 } });
+// → /products?limit=20&skip=40
 
-await useGetApi("pokeapi", "pokemons", { query: { limit: 5 }, ignoreDefaultQuery: true });
-// → /pokemon/?limit=5
+await useGetApi("dummyjson", "products", { query: { limit: 5 }, ignoreDefaultQuery: true });
+// → /products?limit=5
 ```
 
 ### RequestInit passthrough
@@ -628,19 +636,19 @@ be async. If it throws, the request is still a failed result:
 `data: null`.
 
 ```ts
-interface PokemonPage {
-  names: string[];
+interface ProductTitles {
+  titles: string[];
 }
 
-const result = await useFetch<PokemonPage>("pokeapi", "pokemons", {
+const result = await useFetch<ProductTitles>("dummyjson", "products", {
   query: { limit: 20 },
   transform: (body) => {
-    const { results } = body as { results: { name: string }[] };
-    return { names: results.map((p) => p.name) };
+    const { products } = body as { products: { title: string }[] };
+    return { titles: products.map((product) => product.title) };
   },
 });
 
-if (result.ok) console.log(result.data.names);
+if (result.ok) console.log(result.data.titles);
 ```
 
 **Real use case** — API normalization: keep the raw transport untouched and map
@@ -745,10 +753,10 @@ import { FetchApiManager } from "katanakit-js";
 const http = FetchApiManager.getInstance();
 
 http.useInit({
-  pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
+  dummyjson: { baseUri: "https://dummyjson.com", endpoints: { byId: "/products/:id" } },
 });
 
-const result = await http.useFetch<Pokemon>("pokeapi", "byId", { params: { id: 25 } });
+const result = await http.useFetch<Product>("dummyjson", "byId", { params: { id: 1 } });
 ```
 
 Instance methods, in one table:
