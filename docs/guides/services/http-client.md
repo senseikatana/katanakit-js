@@ -49,6 +49,15 @@ defineApiConfig({
       postById: "/posts/:id",
     },
   },
+  hpApi: {
+    baseUri: "https://hp-api.onrender.com",
+    endpoints: {
+      characters: "/api/characters",
+      characterById: "/api/characters/:id",
+      houseCharacters: "/api/characters/house/:house",
+      spells: "/api/spells",
+    },
+  },
 });
 
 interface Pokemon {
@@ -72,6 +81,25 @@ await usePost("jsonplaceholder", "posts", {
   title: "Hello World",
   body: "My first post",
   userId: 1,
+});
+```
+
+Several APIs coexist in one registry — a demo REST API, a public dataset and a
+niche one — and each keeps its own base URI, path params and defaults. Adding a
+fourth is three lines, not a new client:
+
+```ts
+interface Spell {
+  id: string;
+  name: string;
+  description: string;
+}
+
+const spells = await useGetApi<Spell[]>("hpApi", "spells");
+if (spells.ok) console.log(spells.data.length); // 77
+
+const gryffindor = await useGetApi<{ name: string }[]>("hpApi", "houseCharacters", {
+  params: { house: "gryffindor" },
 });
 ```
 
@@ -390,6 +418,152 @@ in the current API. For any method without a helper, call
 ```ts
 const result = await useFetch("myApi", "corsProbe", { method: "OPTIONS" });
 ```
+
+## GraphQL and Apollo
+
+GraphQL is one POST away: a single request to one endpoint carries a `query`
+plus `variables`, and the response contains **exactly the shape you asked
+for** — several related resources in one round trip, with no over-fetching and
+no `?include=` gymnastics. The toolkit makes the call without any new
+dependency; Apollo Client is the step up when the whole app speaks GraphQL.
+
+### Option A — the toolkit makes the call
+
+Point an API at the GraphQL endpoint and post `{ query, variables }`. This is
+the same `usePost()` used above, so the Safe Result, headers and `transform`
+hooks all behave identically:
+
+```ts
+defineApiConfig({
+  countries: {
+    baseUri: "https://countries.trevorblades.com",
+    endpoints: { graphql: "/graphql" },
+  },
+});
+
+interface CountryDetail {
+  country: {
+    name: string;
+    capital: string;
+    currency: string;
+    languages: { name: string }[];
+  };
+}
+
+const result = await usePost<{ data: CountryDetail }>("countries", "graphql", {
+  query: `
+    query Country($code: ID!) {
+      country(code: $code) {
+        name
+        capital
+        currency
+        languages { name }
+      }
+    }
+  `,
+  variables: { code: "ES" },
+});
+
+if (result.ok) {
+  const { country } = result.data.data;
+  console.log(country.name, country.capital); // "Spain" "Madrid"
+}
+```
+
+The response is `unknown` until you prove its shape — validate at the boundary
+exactly like any REST payload, and a schema change upstream becomes a field
+error instead of a runtime surprise:
+
+```ts
+import { useValidate } from "katanakit-js";
+import { z } from "zod";
+
+const parsed = useValidate(
+  z.object({
+    data: z.object({
+      country: z.object({
+        name: z.string(),
+        capital: z.string(),
+        currency: z.string().nullable(),
+        languages: z.array(z.object({ name: z.string() })),
+      }),
+    }),
+  }),
+  result.data,
+);
+if (parsed.ok) useCountry(parsed.data.data.country);
+```
+
+### Option B — Apollo Client
+
+Reach for [Apollo Client](https://www.apollographql.com/docs/react) when
+GraphQL is the app's primary data layer and you want its normalized cache,
+fragments, subscriptions, optimistic updates and devtools:
+
+```bash
+npm install @apollo/client graphql
+```
+
+```tsx
+import { ApolloClient, ApolloProvider, gql, InMemoryCache, useQuery } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "https://countries.trevorblades.com/graphql",
+  cache: new InMemoryCache(),
+});
+
+const COUNTRY = gql`
+  query Country($code: ID!) {
+    country(code: $code) {
+      name
+      capital
+      currency
+    }
+  }
+`;
+
+function CountryCard({ code }: { code: string }) {
+  const { data, loading, error } = useQuery(COUNTRY, { variables: { code } });
+  if (loading) return <p>Loading…</p>;
+  if (error) return <p role="alert">{error.message}</p>;
+  return (
+    <p>
+      {data.country.name} — {data.country.capital} ({data.country.currency})
+    </p>
+  );
+}
+
+export function App() {
+  return (
+    <ApolloProvider client={client}>
+      <CountryCard code="ES" />
+    </ApolloProvider>
+  );
+}
+```
+
+Apollo and the toolkit do not compete: both sit on the global `fetch`, the
+registry you registered above keeps working for the REST APIs, and you can
+route one endpoint or the other per screen. The toolkit deliberately does not
+bundle Apollo — it is an optional client, like React itself.
+
+### REST or GraphQL?
+
+| | REST (this client) | GraphQL (Apollo) |
+| --- | --- | --- |
+| Shape of the response | fixed by the endpoint | chosen by the query |
+| Related resources | one request each, or an `?include=` enum | one query, one round trip |
+| Caching | `QueryClient` + your keys | normalized cache, free |
+| Errors | `{ ok, error, status }` Safe Results | `error` per operation, `data` may be partial |
+| Cost | a URL per resource | a client library and a schema to learn |
+| Best when | a few stable endpoints, boring data | many entities the UI composes differently each screen |
+
+They mix: keep `useGetApi()` for the stable REST APIs — auth, uploads, health —
+and let Apollo own the screens where one view reads six related entities.
+
+> Serving your own GraphQL? The client side does not change: whatever your
+> schema is built on (schema-first, code-first, Prisma-backed resolvers), the
+> request is still `POST { query, variables }` and Option A applies unchanged.
 
 ## Configuration
 
