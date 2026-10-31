@@ -106,3 +106,6 @@ docs/public/tailwind-components/
 workers/docs-proxy/node_modules/
 workers/docs-proxy/dist/
 .workers/
+
+# Local reference material (third-party checkouts, personal archives)
+reference/
