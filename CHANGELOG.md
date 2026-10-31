@@ -8,6 +8,20 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.1.6] - 2026-10-31
+
+What's news:
+
+- [ ] feat(workers): add docs proxy for apex domains
+  - `.gitignore`
+  - `CONTRIBUTING.md`
+  - `package.json`
+  - `workers/docs-proxy/README.md`
+  - `workers/docs-proxy/src/index.ts`
+  - `workers/docs-proxy/wrangler.jsonc`
+- [ ] fix(docs): check the nested build before deploying
+  - `scripts/docs.mjs`
+
 ## [7.1.5] - 2026-10-31
 
 What's news:
