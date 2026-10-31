@@ -22,11 +22,14 @@ const failed = ref(false);
 const copied = ref(false);
 let copyTimer: ReturnType<typeof setTimeout> | undefined;
 
+/** Public assets live under the VitePress base (`/en/docs/`), not the origin root. */
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 async function load() {
 	failed.value = false;
 	const url = dark.value && props.darkSrc ? props.darkSrc : props.src;
 	try {
-		const response = await fetch(url);
+		const response = await fetch(withBase(url));
 		if (!response.ok) throw new Error(String(response.status));
 		const parsed = new DOMParser().parseFromString(await response.text(), "text/html");
 		markup.value = parsed.body.innerHTML;

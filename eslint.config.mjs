@@ -16,6 +16,8 @@ export default defineConfig(
 			"**/*.js",
 			"**/*.cjs",
 			"scripts/**",
+			// Copy-paste snippet content, not compiled library source.
+			"packages/ui/tailwind/**",
 			"src/prisma/schema.d.ts",
 			"src/prisma/schema.json",
 		],

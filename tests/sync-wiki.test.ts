@@ -19,8 +19,8 @@ describe("sync-wiki", () => {
 		]);
 		const markdown = [
 			"[Errors](../guides/errors.md#safe-results)",
-			"[Tutorial](https://docs.senseikatana.com/tutorials/first-api-client)",
-			"[Reference](https://docs.senseikatana.com/api/)",
+			"[Tutorial](https://senseikatana.com/en/docs/tutorials/first-api-client)",
+			"[Reference](https://senseikatana.com/en/docs/api/)",
 			"`[not a link](../guides/errors.md)`",
 			"```md",
 			"[also not a link](../guides/errors.md)",
@@ -31,7 +31,7 @@ describe("sync-wiki", () => {
 			[
 				"[Errors](Docs-Guides-Errors#safe-results)",
 				"[Tutorial](Docs-Tutorials-First-api-client)",
-				"[Reference](https://docs.senseikatana.com/api/)",
+				"[Reference](https://senseikatana.com/en/docs/api/)",
 				"`[not a link](../guides/errors.md)`",
 				"```md",
 				"[also not a link](../guides/errors.md)",

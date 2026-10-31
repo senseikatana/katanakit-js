@@ -6,7 +6,10 @@ import { defineConfig, type HeadConfig } from "vitepress";
 import { defineSeoMetaConfig, useSeoMeta } from "../../src/config/seo.service.js";
 import type { SiteConfig } from "../../src/config/site.config.js";
 
-const DOCS_ORIGIN = "https://docs.senseikatana.com";
+const SITE_ORIGIN = "https://senseikatana.com";
+/** Every docs route lives under the language + section prefix. */
+const DOCS_BASE = "/en/docs";
+const DOCS_ORIGIN = `${SITE_ORIGIN}${DOCS_BASE}`;
 const DOCS_OG_IMAGE = `${DOCS_ORIGIN}/images/social-card.jpg`;
 const DOCS_KEYWORDS =
 	"katanakit, typescript, hexagonal architecture, api, rest, graphql, safe results, zod, query client";
@@ -80,13 +83,22 @@ export default defineConfig({
 	title: "KatanaKit",
 	description:
 		"A sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
-	base: "/",
+	base: `${DOCS_BASE}/`,
 	cleanUrls: true,
 	// Move the per-page hash map/site data (~100 KB inlined on every page) to a
 	// shared chunk: smaller pages to deploy, one extra cached request.
 	metaChunk: true,
 	lastUpdated: true,
-	sitemap: { hostname: "https://docs.senseikatana.com" },
+	// VitePress writes page paths without `base`, so the prefix is applied here
+	// to every sitemap entry (`/` included).
+	sitemap: {
+		hostname: SITE_ORIGIN,
+		transformItems: (items) =>
+			items.map((item) => ({
+				...item,
+				url: `${DOCS_BASE}/${item.url.replace(/^\/+/, "")}`,
+			})),
+	},
 	// Only tags the SEO helper cannot generate live here; the rest is per-page
 	// (transformHead) and reordered to the top of <head> (transformHtml).
 	head: [["meta", { name: "theme-color", content: "#0a0a0a" }]],
@@ -335,6 +347,16 @@ export default defineConfig({
 							{ text: "Select", link: "/ui-kit/components/select" },
 							{ text: "Modal", link: "/ui-kit/components/modal" },
 							{ text: "Toast", link: "/ui-kit/components/toast" },
+						],
+					},
+					{
+						text: "Tailwind Components",
+						collapsed: true,
+						items: [
+							{ text: "Overview", link: "/ui-kit/tailwind-components/" },
+							{ text: "Shared UI", link: "/ui-kit/tailwind-components/shared" },
+							{ text: "Features", link: "/ui-kit/tailwind-components/features" },
+							{ text: "Catalog", link: "/ui-kit/tailwind-components/catalog" },
 						],
 					},
 					{ text: "Testing", link: "/ui-kit/testing" },

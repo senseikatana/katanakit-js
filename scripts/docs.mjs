@@ -19,7 +19,16 @@
  * build.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+	copyFileSync,
+	existsSync,
+	mkdirSync,
+	readdirSync,
+	readFileSync,
+	renameSync,
+	rmSync,
+	writeFileSync,
+} from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -34,6 +43,8 @@ const ROOT_VITEPRESS_DIR = join(ROOT, ".vitepress");
 
 const CLOUDFLARE_PROJECT = "katanakit-docs";
 const CLOUDFLARE_BRANCH = "main";
+/** Public path of the docs section, relative to the site origin. */
+const DOCS_BASE = "en/docs";
 
 const MODES = new Set(["dev", "build", "preview", "deploy", "gh"]);
 const mode = (process.argv[2] ?? "").toLowerCase();
@@ -163,6 +174,29 @@ function hasWranglerSession() {
 }
 
 /** Uploads the built site to the Cloudflare Pages project behind the docs domain. */
+/**
+ * Moves the built site under `dist/en/docs/` so a root-served deployment answers
+ * every URL with the `/en/docs/` prefix VitePress wrote into the HTML.
+ *
+ * `_redirects` and `_headers` are host conventions and must stay at the root;
+ * the 404 page is copied (not moved) because Pages looks it up at `/404.html`.
+ */
+function mountUnderBase() {
+	const mount = join(DIST_DIR, DOCS_BASE);
+	const topSegment = DOCS_BASE.split("/")[0];
+	remove(join(DIST_DIR, topSegment));
+	mkdirSync(mount, { recursive: true });
+
+	for (const entry of readdirSync(DIST_DIR)) {
+		if (entry === topSegment || entry === "_redirects" || entry === "_headers") continue;
+		renameSync(join(DIST_DIR, entry), join(mount, entry));
+	}
+
+	const notFound = join(mount, "404.html");
+	if (existsSync(notFound)) copyFileSync(notFound, join(DIST_DIR, "404.html"));
+	console.log(`docs: mounted the build at /${DOCS_BASE}/`);
+}
+
 function deployToCloudflare() {
 	if (!existsSync(join(DIST_DIR, "index.html"))) {
 		console.error("docs: no build to deploy — expected docs/.vitepress/dist/index.html");
@@ -205,6 +239,7 @@ function chain() {
 		run("bun", ["run", "build:ui"]);
 	}
 	run("node", [join(ROOT, "scripts", "docs-prepare.mjs")]);
+	run("node", [join(ROOT, "scripts", "sync-tailwind-components.mjs")]);
 
 	if (mode === "dev") {
 		// `--host` is not optional in practice: Vite defaults to binding loopback
@@ -242,21 +277,23 @@ function chain() {
 		throw error;
 	}
 
+	// Cloudflare serves a Pages deployment at the domain root, while VitePress
+	// emits every page at the output root and only prefixes *URLs* with `base`.
+	// Nesting the tree under `en/docs/` is what makes /en/docs/<route> resolve;
+	// `_redirects` and the root 404 stay at the top for Pages' own conventions.
+	// GitHub Pages serves the branch at a subpath already, so its build stays flat.
+	if (mode !== "gh") mountUnderBase();
+
 	if (mode === "preview") {
 		// Serves the build that just ran, so the preview is the complete site
 		// (UI CSS, TypeDoc reference and changelog included), never a stale one.
 		// `--strictPort` keeps it non-interactive: without it a busy port makes
 		// VitePress prompt for another one while we hold the lock, and a
 		// non-TTY run (CI) would hang there forever.
-		console.log("docs: preview server starting on http://localhost:4173/");
-		run("node_modules/.bin/vitepress", [
-			"preview",
-			"docs",
-			"--port",
-			"4173",
-			"--strictPort",
-			"--host",
-		]);
+		console.log(`docs: preview server starting on http://localhost:4173/${DOCS_BASE}/`);
+		// `vitepress preview` mounts dist at `base`, which now double-prefixes the
+		// nested build; this server mirrors Cloudflare Pages instead.
+		run("node", [join(ROOT, "scripts", "serve-docs.mjs"), "--port", "4173", "--host"]);
 		return;
 	}
 

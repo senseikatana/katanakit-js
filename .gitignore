@@ -47,6 +47,9 @@ docs/api/
 docs/changelog.md
 docs/.changelog.md.tmp
 
+# Preview copies of packages/ui/tailwind/html (scripts/sync-tailwind-components.mjs)
+docs/public/tailwind-components/
+
 # Docs deploy runs locally (`bun run deploy`) — the GitHub Actions copy
 # kept failing with "Deploy failed", so it stays untracked.
 .github/workflows/deploy.yml

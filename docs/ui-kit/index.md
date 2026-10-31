@@ -100,6 +100,8 @@ the same primitives the toolkit already guarantees.
 ## Read next
 
 - [Components](./components/button.md) — button, input, card, badge, alert and toast foundations.
+- [Tailwind Components](./tailwind-components/index.md) — 592 Tailwind CSS 4 snippets in HTML and React TSX.
+- [HyperUI](./hyperui.md) — free Tailwind catalog, vendored with live previews.
 - [SCSS framework](./css/index.md) — the framework behind the kit (vendored from `katanakit-css@0.12.5`): tokens, utilities, mixins and API reference.
 - [Testing](./testing.md) — the two suites that cover the kit, and what only a browser can prove.
 - [Architecture](./architecture.md) — layers, theming, distribution and patterns.

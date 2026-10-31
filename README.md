@@ -6,11 +6,11 @@ conversion, and browser utilities. It ships ESM, is safe to import during SSR,
 and keeps every optional framework integration on its own package entry point —
 so a Vue app never pulls React, and a server build never pulls the DOM.
 
-[Documentation](https://docs.senseikatana.com/) ·
-[Getting started](https://docs.senseikatana.com/guides/getting-started) ·
-[Tutorial](https://docs.senseikatana.com/tutorials/first-api-client) ·
-[API reference](https://docs.senseikatana.com/api/) ·
-[Changelog](https://docs.senseikatana.com/changelog) ·
+[Documentation](https://senseikatana.com/en/docs/) ·
+[Getting started](https://senseikatana.com/en/docs/guides/getting-started) ·
+[Tutorial](https://senseikatana.com/en/docs/tutorials/first-api-client) ·
+[API reference](https://senseikatana.com/en/docs/api/) ·
+[Changelog](https://senseikatana.com/en/docs/changelog) ·
 [Release history](./CHANGELOG.md)
 
 ---
@@ -36,7 +36,7 @@ bun add better-auth @insforge/sdk   # only if you use those adapters
 bun add express hono                 # only if you run a server
 ```
 
-See the [installation guide](https://docs.senseikatana.com/guides/getting-started)
+See the [installation guide](https://senseikatana.com/en/docs/guides/getting-started)
 for CDN usage and integration requirements.
 
 ---
@@ -86,7 +86,7 @@ type SafeResult<T, E> =
 succeeded and the answer is legitimately nothing* — a missing record is not an
 error, and the two are never collapsed into one.
 
-The [error handling guide](https://docs.senseikatana.com/guides/errors) covers
+The [error handling guide](https://senseikatana.com/en/docs/guides/errors) covers
 the error shapes and the helpers that build them.
 
 ### Validate at the boundary
@@ -149,7 +149,7 @@ quote never loses precision and both directions are exactly reciprocal.
 Subscribe to rate updates with `useSubscribeRates()`, or implement
 `ICurrencyRateProvider` and inject it for live quotes.
 
-→ [Currency conversion guide](https://docs.senseikatana.com/guides/currency)
+→ [Currency conversion guide](https://senseikatana.com/en/docs/guides/currency)
 
 ### Authorization — roles, capabilities and resource grants
 
@@ -213,7 +213,7 @@ if (!result.ok) {
 The last active holder of a role cannot lose it, nobody can suspend or demote
 themselves, and `owner` is never assigned through these paths.
 
-→ [Access control guide](https://docs.senseikatana.com/guides/access-control)
+→ [Access control guide](https://senseikatana.com/en/docs/guides/access-control)
 
 ### Authentication — one port, any provider
 
@@ -245,8 +245,8 @@ national-identity integration — they all implement the same `IAuthProvider`.
 failure is `ok: false`. Flattening those two turns a broken provider into a
 publicly readable route.
 
-→ [Better Auth guide](https://docs.senseikatana.com/guides/better-auth) ·
-[InsForge guide](https://docs.senseikatana.com/guides/insforge)
+→ [Better Auth guide](https://senseikatana.com/en/docs/guides/better-auth) ·
+[InsForge guide](https://senseikatana.com/en/docs/guides/insforge)
 
 ### katanakitAI — API keys, MCP and agent config
 
@@ -263,7 +263,7 @@ kai agents config opencode --key <id>     # auto config + manual connection
 kai keys export --out ~/backups/keys.enc.json
 ```
 
-See [katanakitAI](https://docs.senseikatana.com/guides/services/katanakit-ai) for the full guide.
+See [katanakitAI](https://senseikatana.com/en/docs/guides/services/katanakit-ai) for the full guide.
 
 ### Reactive signals
 
@@ -286,7 +286,7 @@ useCreateEffect(() => {
 Works identically in Node and in the browser — the effect simply does not run
 where there is no DOM to update.
 
-→ [Reactive guide](https://docs.senseikatana.com/guides/services/reactive)
+→ [Reactive guide](https://senseikatana.com/en/docs/guides/services/reactive)
 
 ### Framework adapters
 
@@ -303,7 +303,7 @@ Available entry points: `express`, `hono`, `bun`, `nestjs`, `nuxt`, `vue`,
 `insforge`, `assistant`, `notion`, `wordpress`, `photoswipe`, plus `/schemas`,
 `/prisma` and `/styles.css`.
 
-→ [Framework adapters](https://docs.senseikatana.com/guides/framework-adapters)
+→ [Framework adapters](https://senseikatana.com/en/docs/guides/framework-adapters)
 
 ### Typed HTTP, dates, arrays and more
 
@@ -321,7 +321,7 @@ useDateOrder("2026-04-01", "2026-03-01");             // "after"
 Notion uses in its formula editor — `years`, `quarters`, `months`, `weeks`,
 `days`, `hours`, `minutes`.
 
-→ [All services](https://docs.senseikatana.com/guides/services/)
+→ [All services](https://senseikatana.com/en/docs/guides/services/)
 
 ### One service shape
 
@@ -334,7 +334,7 @@ Injection** (`create()` builds an isolated instance with injected
 collaborators). Public methods use the `use*` prefix; `on*` is reserved
 exclusively for Observer callbacks the service invokes.
 
-→ [Service architecture](https://docs.senseikatana.com/explanation/service-architecture)
+→ [Service architecture](https://senseikatana.com/en/docs/explanation/service-architecture)
 
 ---
 
@@ -397,13 +397,13 @@ The site follows [Diátaxis](https://diataxis.fr): one page, one kind.
 
 | Kind | Where | Read it when |
 | --- | --- | --- |
-| Tutorial | [first-api-client](https://docs.senseikatana.com/tutorials/first-api-client) | You are learning the toolkit end to end |
-| How-to | [guides](https://docs.senseikatana.com/guides/getting-started) | You know the goal and need the steps |
-| Reference | [API reference](https://docs.senseikatana.com/api/) | You need exact signatures |
-| Explanation | [why KatanaKit](https://docs.senseikatana.com/explanation/why-katanakit) · [decisions](https://docs.senseikatana.com/explanation/decisions/) | You want the reasoning behind a choice |
+| Tutorial | [first-api-client](https://senseikatana.com/en/docs/tutorials/first-api-client) | You are learning the toolkit end to end |
+| How-to | [guides](https://senseikatana.com/en/docs/guides/getting-started) | You know the goal and need the steps |
+| Reference | [API reference](https://senseikatana.com/en/docs/api/) | You need exact signatures |
+| Explanation | [why KatanaKit](https://senseikatana.com/en/docs/explanation/why-katanakit) · [decisions](https://senseikatana.com/en/docs/explanation/decisions/) | You want the reasoning behind a choice |
 
 Architecture decisions are recorded as ADRs and are never rewritten — see the
-[decisions index](https://docs.senseikatana.com/explanation/decisions/).
+[decisions index](https://senseikatana.com/en/docs/explanation/decisions/).
 
 ---
 

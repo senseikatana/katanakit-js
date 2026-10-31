@@ -1,2 +1,4 @@
-/docs/*  /:splat  301
-/docs    /        301
+# Legacy docs paths (pre /en/docs migration) and root entry point.
+/ /en/docs/ 301
+/docs/* /en/docs/:splat 301
+/docs /en/docs/ 301

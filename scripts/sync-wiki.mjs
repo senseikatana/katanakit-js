@@ -5,7 +5,9 @@ import { dirname, join, posix, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const DOCS_ORIGIN = "https://docs.senseikatana.com";
+const SITE_ORIGIN = "https://senseikatana.com";
+const DOCS_BASE = "/en/docs";
+const DOCS_ORIGIN = `${SITE_ORIGIN}${DOCS_BASE}`;
 const REPOSITORY = process.env.GITHUB_REPOSITORY ?? "senseikatana/katanakit-js";
 const MANIFEST = ".katanakit-wiki-manifest.json";
 
@@ -62,8 +64,9 @@ function sourcePageTargets(sourcePath, destination, pagesBySource) {
 		} catch {
 			return null;
 		}
-		if (url.origin !== DOCS_ORIGIN) return null;
-		rawPath = url.pathname;
+		if (url.origin !== SITE_ORIGIN) return null;
+		if (url.pathname !== DOCS_BASE && !url.pathname.startsWith(`${DOCS_BASE}/`)) return null;
+		rawPath = url.pathname.slice(DOCS_BASE.length) || "/";
 		suffix = `${url.search}${url.hash}`;
 		docsRootPath = true;
 	} else {
@@ -302,7 +305,7 @@ export function cleanPage(sourcePath, content, pagesBySource) {
 			`- [Explanation and decisions](${pagesBySource.get("docs/explanation/index.md")})`,
 			`- [UI Kit](${pagesBySource.get("docs/ui-kit/index.md")})`,
 			"",
-			`The complete documentation site and generated API reference are available at [docs.senseikatana.com](${DOCS_ORIGIN}/).`,
+			`The complete documentation site and generated API reference are available at [senseikatana.com/en/docs](${DOCS_ORIGIN}/).`,
 			"",
 		]
 			.join("\n")

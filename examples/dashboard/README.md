@@ -36,9 +36,9 @@ assets are vendored.
 | Loading toast timer | `useSetTimeout()` (TimingService) |
 | DOM assembly | `useCreateElement()`, `useAppend()`, `useSetAttribute()`, `useSetText()`, `useSetHtml()`, `useOn()` (DomService) |
 
-Docs: [components](https://docs.senseikatana.com/ui-kit/components/button) ·
-[CSS framework](https://docs.senseikatana.com/ui-kit/css/) ·
-[Tailwind & presets](https://docs.senseikatana.com/ui-kit/css/integrations/tailwind).
+Docs: [components](https://senseikatana.com/en/docs/ui-kit/components/button) ·
+[CSS framework](https://senseikatana.com/en/docs/ui-kit/css/) ·
+[Tailwind & presets](https://senseikatana.com/en/docs/ui-kit/css/integrations/tailwind).
 
 ## Run it
 
@@ -66,6 +66,6 @@ published copy.
   writes the attribute, nothing recompiles.
 - To compose the same CSS with a Tailwind 4 pipeline (optionally FlyonUI or
   daisyUI), follow
-  [Tailwind & presets](https://docs.senseikatana.com/ui-kit/css/integrations/tailwind).
+  [Tailwind & presets](https://senseikatana.com/en/docs/ui-kit/css/integrations/tailwind).
 - `@katanakit/ui` is not published yet (roadmap phase 5); the example imports
   the workspace build on purpose.

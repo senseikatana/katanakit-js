@@ -149,9 +149,7 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-
 		"clean": "node scripts/clean.mjs",
-
 		"lint": "eslint ./src packages/ui/src",
 		"lint:fix": "eslint --fix ./src packages/ui/src",
 		"typecheck": "tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit",
@@ -159,20 +157,16 @@
 		"test:e2e": "playwright test",
 		"check": "bun run lint && bun run typecheck && bun run test",
 		"test:all": "bun run check && bun run test:e2e",
-
 		"build:ui": "bun run --filter @katanakit/ui build",
 		"build:lib": "tsc6 -p tsconfig.json && tsc-alias -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/copy-prisma-artifacts.mjs && node scripts/generate-release-notes.mjs --sync-versions && node scripts/verify-package.mjs",
 		"build:examples": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
 		"build": "bun run clean && bun run build:lib && bun run build:examples",
-
 		"docs": "node scripts/docs.mjs build",
 		"docs:preview": "node scripts/docs.mjs preview",
 		"docs:clean": "node scripts/docs.mjs clean",
-
 		"deploy": "bun run check && bun run build && node scripts/docs.mjs deploy --skip-ui",
 		"deploy:gh": "bun run check && bun run build && node scripts/docs.mjs gh --skip-ui",
 		"release": "bun run check && bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && node scripts/npm-publish.mjs",
-
 		"dev": "bunx lint-staged && concurrently -n docs,api -c magenta,cyan --kill-others \"bun run docs:dev\" \"bun run api:dev\"",
 		"docs:dev": "node scripts/docs.mjs dev",
 		"api:dev": "tsx src/adapters/express/main.ts",
@@ -299,6 +293,7 @@
 		"@playwright/test": "^1.64.1",
 		"@prisma/cli-engine": "0.7.0",
 		"@prisma/orm-postgres": "8.0.0-rc.18",
+		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.3",
 		"@testing-library/react": "^16.3.3",
 		"@types/cors": "2.8.19",

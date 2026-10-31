@@ -8,7 +8,7 @@ repository.
 ## The development contract
 
 These rules keep the codebase consistent and maintainable. Please read
-[Architecture](https://docs.senseikatana.com/guides/architecture) for the full context behind each rule.
+[Architecture](https://senseikatana.com/en/docs/guides/architecture) for the full context behind each rule.
 
 1. **Hexagonal layering** — keep the pure `core` layer (`src/core/services/`)
    free of platform I/O: no filesystem, no unguarded browser globals, and no
@@ -16,9 +16,9 @@ These rules keep the codebase consistent and maintainable. Please read
    `import()` inside a method (`generator.service.ts`'s `node:crypto` pattern).
    Universal runtime APIs (`fetch`, `URL`, `crypto`, guarded `process.env`) are
    allowed — `http.service.ts` wraps the global `fetch` by design;
-   [ADR-0004](https://docs.senseikatana.com/explanation/decisions/adr-0004-hexagonal-core)
+   [ADR-0004](https://senseikatana.com/en/docs/explanation/decisions/adr-0004-hexagonal-core)
    and
-   [ADR-0016](https://docs.senseikatana.com/explanation/decisions/adr-0016-universal-runtime-apis-in-core)
+   [ADR-0016](https://senseikatana.com/en/docs/explanation/decisions/adr-0016-universal-runtime-apis-in-core)
    record the boundary. Adapters that own platform I/O
    live in `src/infrastructure/` (DOM, storage, viewport, sensors, observer,
    worker, theme). Framework-facing adapters live in `src/adapters/` (`astro/`,
@@ -51,8 +51,10 @@ These rules keep the codebase consistent and maintainable. Please read
    `SensorsUtils`, `WorkerService`), exporting the singleton instance or a
    stable `getInstance()` is acceptable — document the choice.
 6. **Single source of truth for types** — every contract and shared domain type
-   lives in `src/types/index.ts`. Services reference these interfaces (`I*`,
-   `LogStrategy`, `StorageStrategy`, ...) instead of re-declaring shapes.
+   lives under `src/types/`: `core/` for services, `adapters/` for frameworks and
+   integrations, `cli/` for CLI features. `src/types/index.ts` is the barrel.
+   Services reference these interfaces (`I*`, `LogStrategy`, `StorageStrategy`,
+   ...) instead of re-declaring shapes.
 7. **Framework adapters as subpaths** — anything that imports a framework
    (`express`, `h3`/Nuxt, `vue`/`astro`) must not be re-exported from the main
    barrel `src/index.ts`. Expose it through the `exports` map in
@@ -99,7 +101,7 @@ Useful scripts:
 | **verify**  | `bun run check`        | `lint` → typecheck (root + UI) → unit tests. **The gate.** |
 |             | `bun run test:e2e`     | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
 |             | `bun run test:all`     | `check` then the browser suite |
-| **ship**    | `bun run deploy`       | Builds the docs site, then publishes it to Cloudflare Pages (docs.senseikatana.com) |
+| **ship**    | `bun run deploy`       | Builds the docs site, then publishes it to Cloudflare Pages (senseikatana.com/en/docs/) |
 |             | `bun run deploy:gh`    | Builds with the GitHub Pages base and publishes to the gh-pages branch |
 |             | `bun run release`      | `build` → write the CHANGELOG section → preflight → `npm publish` |
 
@@ -192,7 +194,7 @@ Biggest gaps at the baseline: `viewport.service.ts` (117 statements, 0%),
 ## Updating documentation
 
 The public documentation site lives at
-**[docs.senseikatana.com](https://docs.senseikatana.com/)** and
+**[senseikatana.com/en/docs](https://senseikatana.com/en/docs/)** and
 is built with VitePress. The source is in `docs/`.
 
 ### The four kinds of documentation
@@ -258,7 +260,7 @@ description: Cache, retry and invalidate server state.
 bun run dev            # generate API + changelog, then live‑reloading server
 bun run docs           # static build into docs/.vitepress/dist/
 bunx vitepress preview docs   # serve the build on :4173
-bun run deploy         # build, then publish to Cloudflare Pages (docs.senseikatana.com)
+bun run deploy         # build, then publish to Cloudflare Pages (senseikatana.com/en/docs/)
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
 bun run clean          # purge every regenerable artifact (docs temp included)
 ```
@@ -266,6 +268,13 @@ bun run clean          # purge every regenerable artifact (docs temp included)
 `deploy` needs Cloudflare credentials: either `CLOUDFLARE_API_TOKEN` in
 `.env` (see `.env.example`, never committed) or a `bunx wrangler login` session.
 It always builds first, so the published site is never a stale artifact.
+
+The VitePress config mounts every route under `/en/docs/`, and
+`scripts/docs.mjs` nests the build output to match, because Cloudflare Pages
+serves a deployment at the domain root. Keep a redirect rule on the legacy
+`docs.senseikatana.com` host pointing at
+`https://senseikatana.com/en/docs/:splat` — one Pages project cannot answer two
+hostnames with different roots.
 
 ### GitHub Wiki synchronization
 
@@ -373,4 +382,4 @@ not be tolerated.
 
 - [Open an issue](https://github.com/senseikatana/katanakit-js/issues) for bugs
 - [Start a discussion](https://github.com/senseikatana/katanakit-js/discussions) for questions
-- [Read the docs](https://docs.senseikatana.com/) for guides and API reference
+- [Read the docs](https://senseikatana.com/en/docs/) for guides and API reference
