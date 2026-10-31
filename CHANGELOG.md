@@ -8,6 +8,39 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.2.4] - 2026-10-31
+
+Highlights: feat: updates documentation, tests, and tooling across 23 files.
+
+- 🚀 feat: updates documentation, tests, and tooling across 23 files `0542810`
+  - `README.md`
+  - `bun.lock`
+  - `docs/.vitepress/config.ts`
+  - `docs/guides/assistant.md`
+  - `docs/guides/drizzle.md`
+  - `docs/guides/filesystem.md`
+  - `docs/start/architecture.md`
+  - `docs/start/getting-started.md`
+  - `examples/drizzle/drizzle.service.ts`
+  - `package.json`
+  - `scripts/verify-package.mjs`
+  - `scss/_animations.scss`
+  - `scss/_auto-grid.scss`
+  - `scss/_content.scss`
+  - `scss/_helpers.scss`
+  - `scss/main.scss`
+  - `src/adapters/drizzle/assistant.store.ts`
+  - `src/adapters/drizzle/index.ts`
+  - `src/adapters/drizzle/schema.ts`
+  - `src/adapters/drizzle/use-drizzle.ts`
+  - `tests/drizzle.store.test.ts`
+  - `tsconfig.examples.json`
+- 📝 docs(scripts): add candidate, countThrees and isForbiddenVersion `d78bbd9`
+- 🚀 feat(docs): rebuild the changelog page as one collapsible card per release `82fa443`
+- ⏪ revert(docs): drop the hero typewriter and restore the original heading size `07a34bf`
+- 🚀 feat(docs): type the hero heading in and drop the duplicated brand name `73e44bd`
+- 🧹 chore(release): v7.1.9 `1951246`
+
 ## [7.2.3] - 2026-10-31
 
 What's news:
