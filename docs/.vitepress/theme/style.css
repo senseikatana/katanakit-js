@@ -584,6 +584,56 @@
 	font-size: 13px;
 }
 
+/* ── Navbar: section tabs (Rocket/Mintlify-style pills) ── */
+
+.VPNavBarMenu .VPNavBarMenuLink {
+	height: 34px;
+	margin: 0 2px;
+	padding: 0 13px;
+	border-radius: 999px;
+	font-size: 13.5px;
+	line-height: 34px;
+	color: var(--vp-c-text-2);
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink:hover {
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-1);
+}
+
+.VPNavBarMenu .VPNavBarMenuLink.active {
+	background: var(--vp-c-brand-soft, rgba(88, 101, 242, 0.12));
+	color: var(--vp-c-brand-1);
+	font-weight: 600;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink svg {
+	flex-shrink: 0;
+	opacity: 0.75;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink.active svg {
+	opacity: 1;
+}
+
+/* Mobile screen menu: same pills, left-aligned. */
+.VPNavScreenMenu .VPNavScreenMenuLink {
+	border-bottom: none;
+	border-radius: 999px;
+	margin: 2px 0;
+	padding: 8px 14px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.VPNavScreenMenu .VPNavScreenMenuLink:hover {
+	background: var(--vp-c-bg-soft);
+}
+
 /* ── Home: hero (Bootstrap-inspired, centered) ── */
 
 .VPHome {
