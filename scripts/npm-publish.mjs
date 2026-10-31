@@ -3,15 +3,17 @@
  * Publishes the current `package.json` version to npm, but only after the
  * whole release is coherent. Preflight, in order:
  *
- *   1. the working tree is clean and the branch has no unpushed commits
- *   2. `v<version>` exists locally and on origin
- *   3. HEAD contains the tagged commit and the shipped paths (src, scss,
+ *   1. the version does not repeat the digit 3 (skipped release numbers:
+ *      two or more 3s, `7.3.3` / `7.3.13` — see scripts/version-policy.mjs)
+ *   2. the working tree is clean and the branch has no unpushed commits
+ *   3. `v<version>` exists locally and on origin
+ *   4. HEAD contains the tagged commit and the shipped paths (src, scss,
  *      package.json, tsconfig) are identical between the tag and HEAD, so the
  *      tarball cannot diverge from the release
- *   4. CHANGELOG.md has a `## [<version>]` section
- *   5. README/docs version refs are synced (`--sync-versions` is a no-op)
- *   6. `dist/` exists and is newer than its sources (npm publishes dist)
- *   7. the version is not already on the registry
+ *   5. CHANGELOG.md has a `## [<version>]` section
+ *   6. README/docs version refs are synced (`--sync-versions` is a no-op)
+ *   7. `dist/` exists and is newer than its sources (npm publishes dist)
+ *   8. the version is not already on the registry
  *
  * Then runs `npm publish --access public` with inherited stdio, so npm's web
  * 2FA approval (EOTP: open the printed URL) can complete in a real terminal.
@@ -26,6 +28,8 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { isForbiddenVersion, nextAllowedVersion } from "./version-policy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PKG = "katanakit-js";
@@ -71,6 +75,14 @@ const SHIPPED_PATHS = ["src", "packages/ui/src", "scss", "package.json", "tsconf
 
 const version = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version;
 const tag = `v${version}`;
+
+if (isForbiddenVersion(version)) {
+	fail(
+		`${PKG}@${version} repite el dígito 3 (dos o más) y es una versión salteada.`,
+		`Bumpeá a ${nextAllowedVersion(version)} (package.json, CHANGELOG y tag) y reintentá.`,
+	);
+}
+
 console.log(`\n📦 ${PKG}@${version} (tag ${tag})\n`);
 
 if (run("git", ["status", "--porcelain"])) {

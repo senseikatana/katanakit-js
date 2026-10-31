@@ -14,6 +14,10 @@
  *   node scripts/generate-release-notes.mjs --refresh             # regenerate ALL sections with current format
  *   node scripts/generate-release-notes.mjs --all --json
  *
+ * A version that repeats the digit 3 (two or more 3s, `7.3.3` / `7.3.13`)
+ * is skipped: --write and the version sync refuse it, naming the next
+ * allowed number (scripts/version-policy.mjs).
+ *
  * Every version section is a "What's news:" checklist: one '- [ ]' task per
  * commit (its full Conventional Commit subject) followed by the files it
  * touched, so nothing generated is left out of GitHub or the docs site.
@@ -25,6 +29,8 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { isForbiddenVersion, nextAllowedVersion } from "./version-policy.mjs";
 
 const REPO = "senseikatana/katanakit-js";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -218,6 +224,17 @@ function compareSemver(a, b) {
 	return 0;
 }
 
+/**
+ * A version that repeats the digit 3 is never written, synced or released:
+ * the script names the next allowed number and stops before touching files.
+ */
+function rejectForbiddenVersion(version, context) {
+	if (!isForbiddenVersion(version)) return;
+	console.error(`${context}: ${version} repeats the digit 3 — a skipped release number.`);
+	console.error(`  → Use ${nextAllowedVersion(version)} instead (scripts/version-policy.mjs).`);
+	process.exit(1);
+}
+
 /** Files whose prose pins a version number; refreshed so docs never go stale. */
 const VERSIONED_DOCS = [
 	"README.md",
@@ -227,6 +244,7 @@ const VERSIONED_DOCS = [
 ];
 
 function syncVersionRefs(version) {
+	rejectForbiddenVersion(version, "sync-versions");
 	// package.json first: it is the version npm publishes, so a tag created
 	// outside this script (`useGit release create`) must be mirrored back.
 	// (repos without package.json only sync the docs below)
@@ -365,6 +383,7 @@ if (syncVersions) {
 		console.error("Usage: node scripts/generate-release-notes.mjs <tag> --write");
 		process.exit(1);
 	}
+	rejectForbiddenVersion(tag.replace(/^v/, ""), "write");
 	let tagged = true;
 	try {
 		execFileSync("git", ["rev-parse", "-q", "--verify", `refs/tags/${tag}`], { cwd: ROOT });

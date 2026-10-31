@@ -312,6 +312,13 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and keeps a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)-style
 `CHANGELOG.md`. The current version is tracked in `package.json`.
 
+A release number that repeats the digit 3 — two or more 3s, close together
+or not, in any major version — is skipped: `7.3.3` ships as `7.3.4`,
+`7.3.13` as `7.3.14`. The rule applies going forward only: existing tags and
+releases are never rewritten. It lives in `scripts/version-policy.mjs`; the
+release scripts refuse a forbidden version and name the next allowed one
+instead.
+
 ### Releasing (local)
 
 There is no CI or release pipeline; releases are cut locally. The GitHub Wiki
