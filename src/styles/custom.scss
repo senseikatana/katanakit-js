@@ -1,0 +1,62 @@
+// Estilos personalizados que combinan Bulma y TailwindCSS
+
+// Ejemplo de componente usando clases de Bulma
+.bulma-card {
+  @extend .card;
+  
+  .card-header {
+    @extend .card-header;
+    background-color: $katana-primary;
+    color: white;
+  }
+  
+  .card-content {
+    @extend .card-content;
+  }
+  
+  .card-footer {
+    @extend .card-footer;
+    background-color: $katana-neutral-100;
+    border-top-color: $katana-neutral-200;
+  }
+}
+
+// Ejemplo de componente usando clases de TailwindCSS
+.tailwind-button {
+  @apply px-4 py-2 rounded font-medium transition-colors;
+  
+  &.primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+  }
+  
+  &.secondary {
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+  }
+}
+
+// Mixins para combinar ambos frameworks
+@mixin bulma-button {
+  @extend .button;
+  
+  &.is-primary {
+    background-color: $katana-primary;
+    color: white;
+  }
+  
+  &.is-secondary {
+    background-color: $katana-secondary;
+    color: white;
+  }
+}
+
+@mixin tailwind-button {
+  @apply px-4 py-2 rounded font-medium transition-colors;
+  
+  &.is-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+  }
+  
+  &.is-secondary {
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+  }
+}

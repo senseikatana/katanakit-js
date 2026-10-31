@@ -1,0 +1,30 @@
+// Importar Bulma
+@import 'bulma/sass/utilities/_all.sass';
+
+// Importar colores en OKLCH
+@import './oklch-colors.scss';
+
+// Importar variables personalizadas si las tienes
+@import './variables.scss';
+
+// Configuración global de tamaño de fuente
+html {
+  font-size: 10px;
+}
+
+// Importar componentes de Bulma
+@import 'bulma/sass/base/_all.sass';
+@import 'bulma/sass/components/_all.sass';
+@import 'bulma/sass/elements/_all.sass';
+@import 'bulma/sass/form/_all.sass';
+@import 'bulma/sass/grid/_all.sass';
+@import 'bulma/sass/helpers/_all.sass';
+@import 'bulma/sass/layout/_all.sass';
+
+// Importar TailwindCSS (si lo necesitas como utility-first)
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+// Estilos personalizados
+@import './custom.scss';

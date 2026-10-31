@@ -13,13 +13,15 @@ const here = dirname(fileURLToPath(import.meta.url));
 const pkgDir = join(here, "..");
 
 const baseCssPath = join(pkgDir, "dist", "base.css");
+const bulmaTailwindCssPath = join(pkgDir, "dist", "bulma-tailwind.css");
 const componentsCssPath = join(pkgDir, "dist", "components.css");
 const outPath = join(pkgDir, "dist", "styles.css");
 
 const base = readFileSync(baseCssPath, "utf8").trim();
+const bulmaTailwind = readFileSync(bulmaTailwindCssPath, "utf8").trim();
 const components = readFileSync(componentsCssPath, "utf8").trim();
 
-writeFileSync(outPath, `${base}\n${components}\n`);
+writeFileSync(outPath, `${base}\n${bulmaTailwind}\n${components}\n`);
 console.log(
 	`concat-css: ${baseCssPath} (${base.length} chars) + components (${components.length} chars) -> ${outPath}`,
 );

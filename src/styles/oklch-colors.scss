@@ -1,0 +1,153 @@
+// ============================================================
+//  OKLCH Colors for Bulma and TailwindCSS
+//  Conversion from HSL to OKLCH for better color accessibility
+//  and consistency
+// ============================================================
+
+// Bulma Colors in OKLCH
+// ------------------------------------------------------------
+// Bulma's default colors converted to OKLCH
+// Source: https://bulma.io/documentation/helpers/color-helpers/
+
+// Primary colors
+$primary: oklch(60% 0.15 240);    // Bulma's primary (blue)
+$primary-invert: oklch(95% 0.2 240); // Inverted for light backgrounds
+
+$link: oklch(60% 0.15 210);         // Link color (blue)
+$link-invert: oklch(95% 0.2 210); // Inverted for light backgrounds
+
+$info: oklch(60% 0.15 220);         // Info color (light blue)
+$info-invert: oklch(95% 0.2 220); // Inverted for light backgrounds
+
+$success: oklch(60% 0.15 120);       // Success color (green)
+$success-invert: oklch(95% 0.2 120); // Inverted for light backgrounds
+
+$warning: oklch(60% 0.15 40);        // Warning color (yellow)
+$warning-invert: oklch(95% 0.2 40); // Inverted for light backgrounds
+
+$danger: oklch(60% 0.15 10);         // Danger color (red)
+$danger-invert: oklch(95% 0.2 10);  // Inverted for light backgrounds
+
+// Neutral colors
+$white: oklch(100% 0 0);           // White
+$black: oklch(0% 0 0);             // Black
+
+$gray-light: oklch(98% 0.02 0);     // Light gray
+$gray-lighter: oklch(96% 0.02 0);   // Lighter gray
+$gray-lightest: oklch(94% 0.02 0); // Lightest gray
+
+$gray: oklch(90% 0.05 0);           // Medium gray
+$gray-dark: oklch(80% 0.05 0);     // Dark gray
+$gray-darker: oklch(70% 0.05 0);    // Darker gray
+$gray-darkest: oklch(60% 0.05 0); // Darkest gray
+
+// Tailwind Colors in OKLCH
+// ------------------------------------------------------------
+// Tailwind's default colors converted to OKLCH
+// Source: https://tailwindcss.com/docs/customizing-colors
+
+// Blues
+$blue-50: oklch(98% 0.03 240);     // Tailwind blue-50
+$blue-100: oklch(96% 0.05 240);    // Tailwind blue-100
+$blue-200: oklch(92% 0.08 240);    // Tailwind blue-200
+$blue-300: oklch(88% 0.12 240);    // Tailwind blue-300
+$blue-400: oklch(84% 0.16 240);    // Tailwind blue-400
+$blue-500: oklch(78% 0.2 240);     // Tailwind blue-500
+$blue-600: oklch(72% 0.25 240);    // Tailwind blue-600
+$blue-700: oklch(66% 0.3 240);     // Tailwind blue-700
+$blue-800: oklch(60% 0.35 240);    // Tailwind blue-800
+$blue-900: oklch(50% 0.4 240);     // Tailwind blue-900
+
+// Greens
+$green-50: oklch(98% 0.03 120);    // Tailwind green-50
+$green-100: oklch(96% 0.05 120);   // Tailwind green-100
+$green-200: oklch(92% 0.08 120);   // Tailwind green-200
+$green-300: oklch(88% 0.12 120);   // Tailwind green-300
+$green-400: oklch(84% 0.16 120);   // Tailwind green-400
+$green-500: oklch(78% 0.2 120);    // Tailwind green-500
+$green-600: oklch(72% 0.25 120);   // Tailwind green-600
+$green-700: oklch(66% 0.3 120);    // Tailwind green-700
+$green-800: oklch(60% 0.35 120);   // Tailwind green-800
+$green-900: oklch(50% 0.4 120);    // Tailwind green-900
+
+// Reds
+$red-50: oklch(98% 0.03 10);      // Tailwind red-50
+$red-100: oklch(96% 0.05 10);     // Tailwind red-100
+$red-200: oklch(92% 0.08 10);     // Tailwind red-200
+$red-300: oklch(88% 0.12 10);     // Tailwind red-300
+$red-400: oklch(84% 0.16 10);     // Tailwind red-400
+$red-500: oklch(78% 0.2 10);      // Tailwind red-500
+$red-600: oklch(72% 0.25 10);     // Tailwind red-600
+$red-700: oklch(66% 0.3 10);      // Tailwind red-700
+$red-800: oklch(60% 0.35 10);     // Tailwind red-800
+$red-900: oklch(50% 0.4 10);      // Tailwind red-900
+
+// Custom colors for Katana
+// ------------------------------------------------------------
+// Custom colors in OKLCH for Katana UI
+
+$katana-primary: oklch(75% 0.15 240);  // Katana primary color
+$katana-secondary: oklch(75% 0.15 180); // Katana secondary color
+$katana-accent: oklch(75% 0.15 60);    // Katana accent color
+
+// Neutral shades for Katana
+$katana-neutral-50: oklch(98% 0.02 0);   // Lightest neutral
+$katana-neutral-100: oklch(96% 0.02 0);  // Light neutral
+$katana-neutral-200: oklch(92% 0.02 0);  // Lighter neutral
+$katana-neutral-300: oklch(88% 0.02 0);  // Light neutral
+$katana-neutral-400: oklch(84% 0.02 0);  // Medium light neutral
+$katana-neutral-500: oklch(80% 0.02 0);  // Medium neutral
+$katana-neutral-600: oklch(70% 0.02 0);  // Medium dark neutral
+$katana-neutral-700: oklch(60% 0.02 0);  // Dark neutral
+$katana-neutral-800: oklch(50% 0.02 0);  // Darker neutral
+$katana-neutral-900: oklch(40% 0.02 0);  // Darkest neutral
+
+// Color functions for OKLCH
+// ------------------------------------------------------------
+// Helper functions for working with OKLCH colors
+
+/// Generate a color with adjusted lightness
+@function lightness($color, $amount) {
+  @return oklch(calc(#{$color} + #{$amount}), hue($color), chroma($color));
+}
+
+/// Generate a color with adjusted chroma
+@function chroma($color, $amount) {
+  @return oklch(lightness($color), chroma($color) + $amount, hue($color));
+}
+
+/// Generate a color with adjusted hue
+@function hue($color, $amount) {
+  @return oklch(lightness($color), chroma($color), hue($color) + $amount);
+}
+
+/// Generate a lighter version of a color
+@function lighter($color, $percentage: 10%) {
+  $current-lightness: lightness($color);
+  $new-lightness: $current-lightness + ($percentage / 100);
+  @return oklch($new-lightness, chroma($color), hue($color));
+}
+
+/// Generate a darker version of a color
+@function darker($color, $percentage: 10%) {
+  $current-lightness: lightness($color);
+  $new-lightness: $current-lightness - ($percentage / 100);
+  @return oklch($new-lightness, chroma($color), hue($color));
+}
+
+/// Generate an inverted version of a color
+@function invert($color) {
+  $current-lightness: lightness($color);
+  $new-lightness: 100% - $current-lightness;
+  @return oklch($new-lightness, chroma($color), hue($color));
+}
+
+/// Generate a color with adjusted saturation
+@function saturate($color, $amount) {
+  @return oklch(lightness($color), chroma($color) + $amount, hue($color));
+}
+
+/// Generate a color with reduced saturation
+@function desaturate($color, $amount) {
+  @return oklch(lightness($color), chroma($color) - $amount, hue($color));
+}

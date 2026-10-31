@@ -16,7 +16,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc6 -p tsconfig.json && sass ../../scss/main.scss dist/base.css --no-source-map --style=compressed && sass src/styles/index.scss dist/components.css --no-source-map --style=compressed --load-path=../.. && node scripts/concat-css.mjs",
+		"build": "tsc6 -p tsconfig.json && sass ../../scss/main.scss dist/base.css --no-source-map --style=compressed && sass src/styles/bulma-tailwind.scss dist/bulma-tailwind.css --no-source-map --style=compressed --load-path=../.. && sass src/styles/index.scss dist/components.css --no-source-map --style=compressed --load-path=../.. && node scripts/concat-css.mjs",
 		"typecheck": "tsc6 -p tsconfig.json --noEmit"
 	},
 	"devDependencies": {

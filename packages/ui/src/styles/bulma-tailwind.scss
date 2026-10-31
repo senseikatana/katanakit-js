@@ -1,0 +1,208 @@
+// ============================================================
+//  @katanakit/ui — Bulma + TailwindCSS integration
+//  Combines Bulma utility classes with TailwindCSS utilities
+//  and Katana UI components
+// ============================================================
+
+// Importar colores en OKLCH
+@import '../src/styles/oklch-colors.scss';
+
+// Configuración global de tamaño de fuente
+html {
+  font-size: 10px;
+}
+
+// Import Bulma
+@import 'bulma/sass/utilities/_all.sass';
+@import 'bulma/sass/base/_all.sass';
+@import 'bulma/sass/components/_all.sass';
+@import 'bulma/sass/elements/_all.sass';
+@import 'bulma/sass/form/_all.sass';
+@import 'bulma/sass/grid/_all.sass';
+@import 'bulma/sass/helpers/_all.sass';
+@import 'bulma/sass/layout/_all.sass';
+
+// Import TailwindCSS
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+// Import Katana UI styles
+@import 'index.scss';
+
+// Bulma + TailwindCSS utilities
+// Mixins para combinar ambos frameworks
+@mixin bulma-button {
+  @extend .button;
+  
+  &.is-primary {
+    background-color: $katana-primary;
+    color: white;
+  }
+  
+  &.is-secondary {
+    background-color: $katana-secondary;
+    color: white;
+  }
+  
+  &.is-success {
+    background-color: $success;
+    color: white;
+  }
+  
+  &.is-danger {
+    background-color: $danger;
+    color: white;
+  }
+}
+
+@mixin tailwind-button {
+  @apply px-4 py-2 rounded font-medium transition-colors;
+  
+  &.is-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+  }
+  
+  &.is-secondary {
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+  }
+  
+  &.is-success {
+    @apply bg-green-500 text-white hover:bg-green-600;
+  }
+  
+  &.is-danger {
+    @apply bg-red-500 text-white hover:bg-red-600;
+  }
+}
+
+// Componentes combinados
+.btn-combined {
+  @include bulma-button;
+  
+  &.tailwind-style {
+    @include tailwind-button;
+  }
+}
+
+// Ejemplo de componente usando ambas clases
+.card-combined {
+  @extend .card;
+  @apply shadow-lg hover:shadow-xl transition-shadow;
+  
+  .card-header {
+    @extend .card-header;
+    @apply bg-gradient-to-r from-purple-500 to-pink-500 text-white;
+  }
+  
+  .card-content {
+    @extend .card-content;
+  }
+  
+  .card-footer {
+    @extend .card-footer;
+    @apply bg-gray-100 border-t border-gray-200;
+  }
+}
+
+// Grid system combinado
+.grid-combined {
+  @extend .container;
+  @apply mx-auto px-4;
+  
+  .row-combined {
+    @extend .columns;
+    @apply flex flex-wrap;
+    
+    .col-combined {
+      @extend .column;
+      @apply p-4;
+    }
+  }
+}
+
+// Formularios combinados
+.form-combined {
+  @extend .field;
+  
+  .input-combined {
+    @extend .input;
+    @apply focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  }
+  
+  .select-combined {
+    @extend .select;
+    
+    .select__button {
+      @extend .select__button;
+      @apply focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    }
+  }
+}
+
+// Alertas combinadas
+.alert-combined {
+  @extend .notification;
+  @apply p-4 rounded-lg shadow-md;
+  
+  &.is-info {
+    @extend .is-info;
+    @apply bg-blue-50 border-blue-200 text-blue-800;
+  }
+  
+  &.is-success {
+    @extend .is-success;
+    @apply bg-green-50 border-green-200 text-green-800;
+  }
+  
+  &.is-warning {
+    @extend .is-warning;
+    @apply bg-yellow-50 border-yellow-200 text-yellow-800;
+  }
+  
+  &.is-danger {
+    @extend .is-danger;
+    @apply bg-red-50 border-red-200 text-red-800;
+  }
+}
+
+// Tablas combinadas
+.table-combined {
+  @extend .table;
+  @apply w-full text-left border-collapse;
+  
+  th {
+    @extend .th;
+    @apply bg-gray-100 font-semibold;
+  }
+  
+  td {
+    @extend .td;
+    @apply border-b border-gray-200;
+  }
+  
+  tr:hover {
+    @apply bg-gray-50;
+  }
+}
+
+// Navigation combinada
+.nav-combined {
+  @extend .navbar;
+  @apply shadow-md;
+  
+  .nav-brand {
+    @extend .navbar-brand;
+    @apply text-xl font-bold text-purple-600;
+  }
+  
+  .nav-menu {
+    @extend .navbar-menu;
+    @apply space-x-4;
+  }
+  
+  .nav-item {
+    @extend .navbar-item;
+    @apply px-4 py-2 rounded hover:bg-purple-100 transition-colors;
+  }
+}

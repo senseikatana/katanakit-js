@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulma + TailwindCSS Demo</title>
+    
+    <!-- Importar Bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    
+    <!-- Importar TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importar estilos personalizados -->
+    <link rel="stylesheet" href="../packages/ui/dist/styles.css">
+    <link rel="stylesheet" href="../packages/ui/dist/bulma-tailwind.css">
+    
+    <style>
+        /* Estilos adicionales para el demo */
+        .demo-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+        }
+        
+        .demo-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8 text-purple-600">Bulma + TailwindCSS Demo</h1>
+        
+        <!-- Botones combinados -->
+        <div class="demo-section">
+            <h2 class="demo-title">Botones combinados</h2>
+            <div class="flex flex-wrap gap-4">
+                <!-- Botones de Bulma -->
+                <button class="button is-primary">Bulma Primary</button>
+                <button class="button is-secondary">Bulma Secondary</button>
+                <button class="button is-success">Bulma Success</button>
+                <button class="button is-danger">Bulma Danger</button>
+                
+                <!-- Botones de TailwindCSS -->
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">Tailwind Primary</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors">Tailwind Secondary</button>
+                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors">Tailwind Success</button>
+                <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors">Tailwind Danger</button>
+                
+                <!-- Botones combinados -->
+                <button class="btn-combined is-primary">Combined Bulma</button>
+                <button class="btn-combined tailwind-style is-primary">Combined Tailwind</button>
+            </div>
+        </div>
+        
+        <!-- Tarjetas combinadas -->
+        <div class="demo-section">
+            <h2 class="demo-title">Tarjetas combinadas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjeta de Bulma -->
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Bulma Card</p>
+                    </div>
+                    <div class="card-content">
+                        <p class="content">Esta es una tarjeta usando Bulma CSS.</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-footer-item">Footer item</p>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta de TailwindCSS -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">Tailwind Card</h3>
+                    <p class="text-gray-600">Esta es una tarjeta usando TailwindCSS.</p>
+                </div>
+                
+                <!-- Tarjeta combinada -->
+                <div class="card-combined">
+                    <div class="card-header">
+                        <p class="card-header-title">Combined Card</p>
+                    </div>
+                    <div class="card-content">
+                        <p class="content">Esta es una tarjeta combinando Bulma y TailwindCSS.</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-footer-item">Combined Footer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Formularios combinados -->
+        <div class="demo-section">
+            <h2 class="demo-title">Formularios combinados</h2>
+            <form class="form-combined">
+                <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                        <input type="text" class="input-combined" placeholder="Tu nombre">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input type="email" class="input-combined" placeholder="tu@email.com">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Opciones</label>
+                    <div class="control">
+                        <div class="select-combined">
+                            <div class="select__button">
+                                <span class="select__value">Selecciona una opción</span>
+                                <span class="select__arrow">▼</span>
+                            </div>
+                            <div class="select__list">
+                                <div class="select__option">Opción 1</div>
+                                <div class="select__option">Opción 2</div>
+                                <div class="select__option">Opción 3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="button is-primary">Enviar</button>
+            </form>
+        </div>
+        
+        <!-- Alertas combinadas -->
+        <div class="demo-section">
+            <h2 class="demo-title">Alertas combinadas</h2>
+            <div class="space-y-4">
+                <div class="alert-combined is-info">
+                    <p class="title">Información</p>
+                    <p>Este es un mensaje de información usando Bulma + TailwindCSS.</p>
+                </div>
+                
+                <div class="alert-combined is-success">
+                    <p class="title">Éxito</p>
+                    <p>¡La operación se completó exitosamente!</p>
+                </div>
+                
+                <div class="alert-combined is-warning">
+                    <p class="title">Advertencia</p>
+                    <p>Por favor, revisa los datos antes de continuar.</p>
+                </div>
+                
+                <div class="alert-combined is-danger">
+                    <p class="title">Error</p>
+                    <p>Ha ocurrido un error inesperado.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tablas combinadas -->
+        <div class="demo-section">
+            <h2 class="demo-title">Tablas combinadas</h2>
+            <table class="table-combined">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>john@example.com</td>
+                        <td><span class="tag is-success">Activo</span></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>jane@example.com</td>
+                        <td><span class="tag is-warning">Pendiente</span></td>
+                    </tr>
+                    <tr>
+                        <td>Bob Johnson</td>
+                        <td>bob@example.com</td>
+                        <td><span class="tag is-danger">Inactivo</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Navegación combinada -->
+        <div class="demo-section">
+            <h2 class="demo-title">Navegación combinada</h2>
+            <nav class="nav-combined">
+                <div class="nav-brand">Mi App</div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-item">Inicio</a>
+                    <a href="#" class="nav-item">Acerca de</a>
+                    <a href="#" class="nav-item">Servicios</a>
+                    <a href="#" class="nav-item">Contacto</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    
+    <script>
+        // Script para manejar interacciones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar el select
+            const selectButton = document.querySelector('.select__button');
+            const selectList = document.querySelector('.select__list');
+            
+            selectButton.addEventListener('click', function() {
+                selectList.classList.toggle('hidden');
+            });
+            
+            // Cerrar el select cuando se hace clic fuera
+            document.addEventListener('click', function(e) {
+                if (!selectButton.contains(e.target) && !selectList.contains(e.target)) {
+                    selectList.classList.add('hidden');
+                }
+            });
+            
+            // Manejar las opciones del select
+            const options = document.querySelectorAll('.select__option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const value = this.textContent;
+                    document.querySelector('.select__value').textContent = value;
+                    selectList.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

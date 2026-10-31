@@ -1,0 +1,34 @@
+// Importar colores en OKLCH
+@import 'oklch-colors.scss';
+
+// Variables personalizadas para Bulma y TailwindCSS
+// Usando colores en OKLCH para mejor accesibilidad
+
+// Colores principales
+$primary: $katana-primary;
+$secondary: $katana-secondary;
+$success: $success;
+$info: $info;
+$warning: $warning;
+$danger: $danger;
+
+// Colores neutros
+$white: $white;
+$black: $black;
+$gray-light: $katana-neutral-50;
+$gray-lighter: $katana-neutral-100;
+$gray-lightest: $katana-neutral-200;
+$gray: $katana-neutral-300;
+$gray-dark: $katana-neutral-500;
+$gray-darker: $katana-neutral-700;
+$gray-darkest: $katana-neutral-900;
+
+// Configuración global de tamaño de fuente
+html {
+  font-size: 10px;
+}
+
+// Variables de TailwindCSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
