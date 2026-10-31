@@ -48,7 +48,8 @@ Scripts are grouped so nothing runs twice. The shipping commands chain them in o
 **Docs** — production build by default, `:dev` for the server:
 
 - `bun run docs` — production build (`node scripts/docs.mjs build`).
-- `bun run docs:dev` — VitePress dev server. `bun run docs:preview` serves the built site.
+- `bun run docs:dev` — VitePress dev server.
+- `bun run preview` — builds, then serves the build at `/en/docs/` (mirrors Cloudflare Pages, `_redirects` included).
 - `bun run docs:clean` — purges shared VitePress temp state.
 
 **Shipping** — each runs `check`, then `build`, then its deployment:
@@ -62,11 +63,10 @@ All three pass `--skip-ui` to `scripts/docs.mjs`, because `build` has already pr
 `node scripts/docs.mjs` with **no mode argument prints usage and exits 1** — it is not a
 build. Always pass an explicit mode (`build`, `deploy`, `gh`, `dev`, `preview`, `clean`).
 
-**Dev** — suffix `:dev`, never run as part of a shipping script:
+**Dev** — never run as part of a shipping script:
 
-- `bun run dev` — VitePress and the Express API side by side via `concurrently`.
-- `bun run api:dev` — the Express server alone. `bun run docs:dev` — docs alone.
-- `bun run bun:dev` — the Bun server.
+- `bun run dev` — the VitePress dev server (alias of `docs:dev`).
+- `bun run bun:dev` — the Bun demo server.
 
 ESLint uses flat config in `eslint.config.mjs`; do not add `.eslintrc` files. Prettier runs through ESLint.
 

@@ -95,9 +95,9 @@ Useful scripts:
 | **build**   | `bun run clean`        | Removes every regenerable artifact (`-- --dry` previews) |
 |             | `bun run build`        | `clean` → `check` → compile to `dist/` → build the UI → sync versions → typecheck the examples |
 |             | `bun run build:ui`     | Builds `@katanakit/ui` (vendored framework + components CSS) |
-| **develop** | `bun run dev`          | Docs site (VitePress) **and** the Express API, side by side via `concurrently` |
-|             | `bun run dev:api`      | Express dev server alone (`tsx`) |
-|             | `bun run dev:bun`      | Bun adapter server alone |
+| **develop** | `bun run dev`          | VitePress dev server (alias of `docs:dev`) |
+|             | `bun run preview`      | Builds, then serves the build at `/en/docs/` (the Cloudflare Pages shape) |
+|             | `bun run bun:dev`      | Bun demo server alone |
 | **verify**  | `bun run check`        | `lint` → typecheck (root + UI) → unit tests. **The gate.** |
 |             | `bun run test:e2e`     | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
 |             | `bun run test:all`     | `check` then the browser suite |
@@ -259,7 +259,7 @@ description: Cache, retry and invalidate server state.
 ```bash
 bun run dev            # generate API + changelog, then live‑reloading server
 bun run docs           # static build into docs/.vitepress/dist/
-bunx vitepress preview docs   # serve the build on :4173
+bun run preview        # build, then serve at /en/docs/ on :4173
 bun run deploy         # build, then publish to Cloudflare Pages (senseikatana.com/en/docs/)
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
 bun run clean          # purge every regenerable artifact (docs temp included)
