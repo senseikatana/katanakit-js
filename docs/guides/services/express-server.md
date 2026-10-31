@@ -733,7 +733,7 @@ capability checks.
   as a Nest `CanActivate` guard.
 - [HTTP Client](/guides/services/http-client) — call outbound APIs from your
   route handlers with Safe Results.
-- [Errors](/guides/errors) — the `{ ok, data, error }` shape reused by the
+- [Errors](/start/errors) — the `{ ok, data, error }` shape reused by the
   guard's 401/403 bodies.
 - [Framework Adapters](/guides/framework-adapters) — the client-side adapters
   that consume the API this server exposes.

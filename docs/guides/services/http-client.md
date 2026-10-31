@@ -253,7 +253,7 @@ What the method does, in order:
    `error.details` with the parsed body (truncated to 32 KiB so a hostile
    response cannot exhaust memory).
 4. Reads the body: `204` and empty bodies become `null`; JSON content is parsed
-   with [`useTryJsonParse()`](/guides/errors#usetryjsonparse); anything else is
+   with [`useTryJsonParse()`](/start/errors#usetryjsonparse); anything else is
    returned as raw text.
 5. Applies `transform` when given, and returns `{ data, error: null, url, status, ok: true }`.
 6. Catches thrown `fetch` errors as
@@ -520,7 +520,7 @@ interface ApiError {
 
 On transport failures `url` is the final URL (`response.url`), except for
 config errors where it stays `""`. This is the same `{ data, error, ok }`
-contract documented in [Error Handling](/guides/errors); internally the service
+contract documented in [Error Handling](/start/errors); internally the service
 parses bodies with `useTryJsonParse()` from `result.service.ts`, and the shape
 mirrors `useAttempt()`. Wrap the result in TanStack Query with
 [`useSafeQueryFn()`](/guides/query-client) when you need caching, retries or
@@ -601,7 +601,7 @@ global `fetch`, and leave the real registry untouched.
 
 ## Related
 
-- [Error Handling](/guides/errors) — the Safe Result contract and the
+- [Error Handling](/start/errors) — the Safe Result contract and the
   `useAttempt()` / `useTryJsonParse()` / `useErrorNormalize()` helpers.
 - [Query Client](/guides/query-client) — cache, retry and invalidate HTTP
   results through `useSafeQueryFn()`.

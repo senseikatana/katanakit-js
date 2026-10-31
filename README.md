@@ -7,7 +7,7 @@ and keeps every optional framework integration on its own package entry point �
 so a Vue app never pulls React, and a server build never pulls the DOM.
 
 [Documentation](https://senseikatana.com/en/docs/) ·
-[Getting started](https://senseikatana.com/en/docs/guides/getting-started) ·
+[Getting started](https://senseikatana.com/en/docs/start/getting-started) ·
 [Tutorial](https://senseikatana.com/en/docs/tutorials/first-api-client) ·
 [API reference](https://senseikatana.com/en/docs/api/) ·
 [Changelog](https://senseikatana.com/en/docs/changelog) ·
@@ -36,7 +36,7 @@ bun add better-auth @insforge/sdk   # only if you use those adapters
 bun add express hono                 # only if you run a server
 ```
 
-See the [installation guide](https://senseikatana.com/en/docs/guides/getting-started)
+See the [installation guide](https://senseikatana.com/en/docs/start/getting-started)
 for CDN usage and integration requirements.
 
 ---
@@ -86,7 +86,7 @@ type SafeResult<T, E> =
 succeeded and the answer is legitimately nothing* — a missing record is not an
 error, and the two are never collapsed into one.
 
-The [error handling guide](https://senseikatana.com/en/docs/guides/errors) covers
+The [error handling guide](https://senseikatana.com/en/docs/start/errors) covers
 the error shapes and the helpers that build them.
 
 ### Validate at the boundary
@@ -398,7 +398,7 @@ The site follows [Diátaxis](https://diataxis.fr): one page, one kind.
 | Kind | Where | Read it when |
 | --- | --- | --- |
 | Tutorial | [first-api-client](https://senseikatana.com/en/docs/tutorials/first-api-client) | You are learning the toolkit end to end |
-| How-to | [guides](https://senseikatana.com/en/docs/guides/getting-started) | You know the goal and need the steps |
+| How-to | [guides](https://senseikatana.com/en/docs/start/getting-started) | You know the goal and need the steps |
 | Reference | [API reference](https://senseikatana.com/en/docs/api/) | You need exact signatures |
 | Explanation | [why KatanaKit](https://senseikatana.com/en/docs/explanation/why-katanakit) · [decisions](https://senseikatana.com/en/docs/explanation/decisions/) | You want the reasoning behind a choice |
 

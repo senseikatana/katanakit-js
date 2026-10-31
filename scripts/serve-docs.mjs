@@ -10,7 +10,7 @@
  *
  * Usage: `node scripts/serve-docs.mjs [--port 4173] [--host]`
  */
-import { createReadStream, existsSync, statSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize, resolve, sep } from "node:path";
 import { dirname } from "node:path";
@@ -18,6 +18,40 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "docs", ".vitepress", "dist");
+
+/**
+ * Cloudflare Pages applies `dist/_redirects` before serving; the preview must
+ * do the same or a legacy URL 404s locally while it 301s in production.
+ * Only the literal `from`/`to`/`status` form used in this project is parsed.
+ */
+function loadRedirects() {
+	const file = join(DIST, "_redirects");
+	if (!existsSync(file)) return [];
+	return readFileSync(file, "utf8")
+		.split("\n")
+		.map((line) => line.trim())
+		.filter((line) => line && !line.startsWith("#"))
+		.map((line) => line.split(/\s+/))
+		.filter((parts) => parts.length >= 2 && /^\d{3}$/.test(parts[2] ?? "301"))
+		.map(([from, to, status]) => ({ from, to, status: Number(status ?? 301) }));
+}
+
+/** Expands `:splat` in the destination, Cloudflare-style. */
+function applyRedirect(pathname, rules) {
+	for (const rule of rules) {
+		if (rule.from.includes("*")) {
+			const [prefix, suffix = ""] = rule.from.split("*");
+			if (!pathname.startsWith(prefix) || !pathname.endsWith(suffix)) continue;
+			const splat = pathname.slice(prefix.length, pathname.length - suffix.length);
+			return rule.to.replace(":splat", splat);
+		}
+		if (pathname === rule.from) return rule.to;
+		if (pathname === `${rule.from}/`) return rule.to;
+	}
+	return null;
+}
+
+const redirects = loadRedirects();
 
 const args = process.argv.slice(2);
 const portIndex = args.indexOf("--port");
@@ -64,9 +98,11 @@ function resolveFile(urlPath) {
 }
 
 const server = createServer((request, response) => {
-	// Mirrors the first `_redirects` rule Pages applies at the root.
-	if ((request.url ?? "/") === "/") {
-		response.writeHead(301, { location: "/en/docs/" });
+	// Mirrors `_redirects` exactly as Pages applies it, so legacy URLs behave
+	// the same locally (301) as they do in production.
+	const redirect = applyRedirect((request.url ?? "/").split("?")[0], redirects);
+	if (redirect) {
+		response.writeHead(301, { location: redirect });
 		response.end();
 		return;
 	}

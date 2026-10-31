@@ -17,7 +17,7 @@ the browser, in private mode and on the server. Three design rules apply:
    Result here: persistence is best-effort by contract.
 2. **JSON by convention** — plain strings are stored verbatim; every other
    value is serialized with `JSON.stringify`. Reads go through
-   [`useTryJsonParse()`](/guides/errors), and values that are not valid JSON
+   [`useTryJsonParse()`](/start/errors), and values that are not valid JSON
    fall back to the raw string (the legacy contract for keys written by other
    code).
 3. **SSR-safe with request isolation** — outside the browser the module falls
@@ -350,6 +350,6 @@ methods.
 - [Theme](/guides/services/theme) — theme modes persisted through storage.
 - [Reactive](/guides/services/reactive) — `useCreateStorageSignal()` wraps these helpers into a signal that writes through to storage.
 - [DOM](/guides/services/dom) — composes storage for dismissible banners.
-- [Error Handling](/guides/errors) — `useTryJsonParse()`, the parser behind `useGetStorage()`.
+- [Error Handling](/start/errors) — `useTryJsonParse()`, the parser behind `useGetStorage()`.
 - [Query Client](/guides/query-client) — caching and persisting server state.
 - [API Reference](/api/functions/useGetStorage) — every export, generated from source.

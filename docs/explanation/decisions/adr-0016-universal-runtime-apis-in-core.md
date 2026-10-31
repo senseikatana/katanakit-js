@@ -53,5 +53,5 @@ lazy-import exception is invisible to the architecture test.
 ## Links
 
 - [ADR-0004: Hexagonal layout with a pure core](/explanation/decisions/adr-0004-hexagonal-core)
-- [Architecture](/guides/architecture) — the layer rules contributors follow.
+- [Architecture](/start/architecture) — the layer rules contributors follow.
 - [Service architecture](/explanation/service-architecture) — why the port/adapter split exists.

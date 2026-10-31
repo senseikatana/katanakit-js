@@ -156,7 +156,7 @@ Not everything is a Singleton, and the exceptions are named:
 
 ## Where to go next
 
-- [Architecture](/guides/architecture) — the hexagonal layering those rules
+- [Architecture](/start/architecture) — the hexagonal layering those rules
   describe.
 - [Currency conversion](/guides/currency) — the guide for the worked example.
 - [Decision records](/explanation/decisions/) — the costs behind each choice.

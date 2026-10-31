@@ -740,7 +740,7 @@ Request summary:
 
 - [HTTP Client](/guides/services/http-client) — `defineApiConfig()`, URL building
   and every fetch option the handlers forward.
-- [Error Handling](/guides/errors) — the Safe Result contract behind
+- [Error Handling](/start/errors) — the Safe Result contract behind
   `useSafeJson()`.
 - [Express Server](/guides/services/express-server) — the same conventions for
   Express, including `CORS_ORIGINS` and the capability guard.

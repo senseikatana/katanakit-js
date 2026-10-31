@@ -18,7 +18,7 @@ with mixed responsibilities and no rule about where I/O was allowed.
 ## Decision
 
 Four layers with one direction of dependency, described in full on the
-[Architecture](/guides/architecture) page:
+[Architecture](/start/architecture) page:
 
 1. `types/` — the shared kernel: every contract and domain type, single source
    of truth.
@@ -67,5 +67,5 @@ being documented, they will eventually be read as violations and "fixed".
 
 ## Links
 
-- [Architecture](/guides/architecture) — layer by layer, with the pattern table.
+- [Architecture](/start/architecture) — layer by layer, with the pattern table.
 - [Contributing contract](https://github.com/senseikatana/katanakit-js/blob/dev/CONTRIBUTING.md) — rules 1, 10 and 11.

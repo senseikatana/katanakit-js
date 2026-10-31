@@ -8,7 +8,7 @@ repository.
 ## The development contract
 
 These rules keep the codebase consistent and maintainable. Please read
-[Architecture](https://senseikatana.com/en/docs/guides/architecture) for the full context behind each rule.
+[Architecture](https://senseikatana.com/en/docs/start/architecture) for the full context behind each rule.
 
 1. **Hexagonal layering** — keep the pure `core` layer (`src/core/services/`)
    free of platform I/O: no filesystem, no unguarded browser globals, and no

@@ -8,7 +8,7 @@ description: "Convert amounts between currencies with ECB reference rates — th
 Convert an amount between two currencies with one call. Rates come from
 [Frankfurter](https://www.frankfurter.app/) (MIT, ECB reference rates, no API
 key) by default, every call returns a
-[Safe Result](/guides/errors) and nothing throws. The five flat helpers cover the
+[Safe Result](/start/errors) and nothing throws. The five flat helpers cover the
 usual jobs; the `CurrencyConverterService` facade underneath exposes the rest
 (cache control, snapshots, provider injection).
 
@@ -223,7 +223,7 @@ Frankfurter client on top of the kit's HTTP API.
 
 ## Related
 
-- [Errors & Results](/guides/errors) — the Safe Result contract in depth.
+- [Errors & Results](/start/errors) — the Safe Result contract in depth.
 - [ADR-0015](/explanation/decisions/adr-0015-cross-rates-through-a-pivot) — why
   pairs divide through a pivot instead of consuming the source's quote.
 - [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates) — why ECB

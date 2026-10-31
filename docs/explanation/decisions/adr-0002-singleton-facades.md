@@ -50,6 +50,6 @@ injection and backwards compatibility.
 
 ## Links
 
-- [Architecture](/guides/architecture) — the pattern table across all services.
+- [Architecture](/start/architecture) — the pattern table across all services.
 - [HTTP Client](/guides/services/http-client) — wrapper vs. `getInstance()` in practice.
 - [Upgrade to v6](/guides/upgrade-to/v6) — the `useInit*` → `define*Config` rename.

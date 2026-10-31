@@ -443,7 +443,7 @@ function assertAge(age: number) {
 
 ## Related
 
-- [Error Handling](/guides/errors) — the Safe Result contract, the full
+- [Error Handling](/start/errors) — the Safe Result contract, the full
   `useAttempt` / `useTryJsonParse` / `useErrorNormalize` walkthrough and when
   not to use them.
 - [HTTP Client](/guides/services/http-client) — the fetch facade, which reads

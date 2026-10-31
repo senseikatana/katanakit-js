@@ -52,6 +52,6 @@ would split the error story in two.
 
 ## Links
 
-- [Error Handling](/guides/errors) — the contract and its helpers in practice.
+- [Error Handling](/start/errors) — the contract and its helpers in practice.
 - [HTTP Client](/guides/services/http-client) — where Safe Results are most visible.
 - [Query Client](/guides/query-client) — the exception-expecting bridge.

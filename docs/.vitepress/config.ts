@@ -89,7 +89,92 @@ const ICONS = {
 		'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>',
 } as const;
 
-const tab = (icon: keyof typeof ICONS, text: string) => `${ICONS[icon]}<span>${text}</span>`;
+const tab = (icon: keyof typeof ICONS, text: string) =>
+	`<span class="vp-section-tab">${ICONS[icon]}<span>${text}</span></span>`;
+
+/**
+ * The Docs tab's tree. `/start/` holds the narrative pages, `/tutorials/` and
+ * `/explanation/` extend it, and the home page shows it as the root fallback —
+ * one tree for the whole section, so navigating inside it never reshuffles the
+ * sidebar.
+ */
+const docsSidebar = [
+	{
+		text: "Introduction",
+		collapsed: true,
+		items: [
+			{ text: "Getting Started", link: "/start/getting-started" },
+			{ text: "Tutorial: Your First API Client", link: "/tutorials/first-api-client" },
+			{ text: "Error Handling", link: "/start/errors" },
+			{ text: "Roadmap", link: "/start/roadmap" },
+		],
+	},
+	{
+		text: "Explanation",
+		collapsed: true,
+		items: [
+			{ text: "Overview", link: "/explanation/" },
+			{ text: "Why KatanaKit", link: "/explanation/why-katanakit" },
+			{ text: "Architecture", link: "/start/architecture" },
+			{ text: "Service Architecture", link: "/explanation/service-architecture" },
+			{ text: "Decisions (ADRs)", link: "/explanation/decisions/" },
+		],
+	},
+	{
+		// Copy-paste starting points. External gists rather than docs pages:
+		// each is a file set you drop into a project, not prose to read.
+		text: "Boilerplates",
+		collapsed: true,
+		items: [
+			{
+				text: "Nuxt 4",
+				link: "https://gist.github.com/senseikatana/0833bd560e547bdebf752b291a65ca8e",
+			},
+			{
+				text: "Astro 7",
+				link: "https://gist.github.com/senseikatana/7b6595e7b51fe39fc7459442de9ba196",
+			},
+			{
+				text: "React 19 + Vite 8",
+				link: "https://gist.github.com/senseikatana/8d4a152a98c6f99b3c2745b0787fb393",
+			},
+			{
+				text: "VS Code Snippets",
+				link: "https://gist.github.com/senseikatana/2dea6c57e380e0c617a9b8662f9a163e",
+			},
+			{
+				text: "Standalone source extracts",
+				collapsed: true,
+				items: [
+					{
+						text: "DOM",
+						link: "https://gist.github.com/senseikatana/011bc24c3fcc95f6c3338265294abbe7",
+					},
+					{
+						text: "Dates",
+						link: "https://gist.github.com/senseikatana/77bd2ebb10233aab44dc84093dfccfe5",
+					},
+					{
+						text: "API Manager",
+						link: "https://gist.github.com/senseikatana/7e76dcb54999fd9c4823c59998ff4e57",
+					},
+					{
+						text: "Reactive Core",
+						link: "https://gist.github.com/senseikatana/e06a918763c314932f96ff42513431e9",
+					},
+					{
+						text: "Safe Result",
+						link: "https://gist.github.com/senseikatana/402c590c99287bb80667420c0d96e0d5",
+					},
+					{
+						text: "Query Adapters",
+						link: "https://gist.github.com/senseikatana/b2bc514e42533c218820cf86c879aa5d",
+					},
+				],
+			},
+		],
+	},
+];
 
 export default defineConfig({
 	title: "KatanaKit",
@@ -161,10 +246,19 @@ export default defineConfig({
 	},
 	themeConfig: {
 		// Pill tabs — each owns one path prefix and swaps the whole sidebar
-		// (Mintlify/Rocket-style segmented navigation).
+		// (Mintlify/Rocket-style segmented navigation). Docs owns /start/,
+		// /tutorials/ and /explanation/; Guides owns the rest of /guides/.
 		nav: [
-			{ text: tab("docs", "Docs"), link: "/", activeMatch: "^/(tutorials/|explanation/|$)" },
-			{ text: tab("guides", "Guides"), link: "/guides/getting-started", activeMatch: "^/guides/" },
+			{
+				text: tab("docs", "Docs"),
+				link: "/start/getting-started",
+				activeMatch: "^/(start/|tutorials/|explanation/|$)",
+			},
+			{
+				text: tab("guides", "Guides"),
+				link: "/guides/services/",
+				activeMatch: "^/guides/",
+			},
 			{ text: tab("ui", "UI Kit"), link: "/ui-kit/", activeMatch: "^/ui-kit/" },
 			{ text: tab("api", "API Reference"), link: "/api/", activeMatch: "^/api/" },
 			{ text: tab("changelog", "Changelog"), link: "/changelog", activeMatch: "^/changelog" },
@@ -300,16 +394,6 @@ export default defineConfig({
 			],
 			"/guides/": [
 				{
-					text: "Guides",
-					collapsed: true,
-					items: [
-						{ text: "Getting Started", link: "/guides/getting-started" },
-						{ text: "Tutorial: Your First API Client", link: "/tutorials/first-api-client" },
-						{ text: "Error Handling", link: "/guides/errors" },
-						{ text: "Roadmap", link: "/guides/roadmap" },
-					],
-				},
-				{
 					text: "Core Services",
 					collapsed: true,
 					items: [
@@ -406,28 +490,9 @@ export default defineConfig({
 					],
 				},
 			],
-			"/tutorials/": [
-				{
-					text: "Tutorials",
-					collapsed: true,
-					items: [
-						{ text: "Your First API Client", link: "/tutorials/first-api-client" },
-					],
-				},
-			],
-			"/explanation/": [
-				{
-					text: "Explanation",
-					collapsed: true,
-					items: [
-						{ text: "Overview", link: "/explanation/" },
-						{ text: "Why KatanaKit", link: "/explanation/why-katanakit" },
-						{ text: "Architecture", link: "/guides/architecture" },
-						{ text: "Service Architecture", link: "/explanation/service-architecture" },
-						{ text: "Decisions (ADRs)", link: "/explanation/decisions/" },
-					],
-				},
-			],
+			"/start/": docsSidebar,
+			"/tutorials/": docsSidebar,
+			"/explanation/": docsSidebar,
 			"/changelog": [
 				{
 					text: "What's New",
@@ -435,73 +500,8 @@ export default defineConfig({
 					items: [{ text: "Changelog", link: "/changelog" }],
 				},
 			],
-			// Everything else (home, root pages) gets the intro tree.
-			"/": [
-				{
-					text: "Introduction",
-					collapsed: true,
-					items: [
-						{ text: "Getting Started", link: "/guides/getting-started" },
-						{ text: "Tutorial: Your First API Client", link: "/tutorials/first-api-client" },
-						{ text: "Error Handling", link: "/guides/errors" },
-						{ text: "Roadmap", link: "/guides/roadmap" },
-					],
-				},
-				{
-					// Copy-paste starting points. External gists rather than docs pages:
-					// each is a file set you drop into a project, not prose to read.
-					text: "Boilerplates",
-					collapsed: true,
-					items: [
-						{
-							text: "Nuxt 4",
-							link: "https://gist.github.com/senseikatana/0833bd560e547bdebf752b291a65ca8e",
-						},
-						{
-							text: "Astro 7",
-							link: "https://gist.github.com/senseikatana/7b6595e7b51fe39fc7459442de9ba196",
-						},
-						{
-							text: "React 19 + Vite 8",
-							link: "https://gist.github.com/senseikatana/8d4a152a98c6f99b3c2745b0787fb393",
-						},
-						{
-							text: "VS Code Snippets",
-							link: "https://gist.github.com/senseikatana/2dea6c57e380e0c617a9b8662f9a163e",
-						},
-						{
-							text: "Standalone source extracts",
-							collapsed: true,
-							items: [
-								{
-									text: "DOM",
-									link: "https://gist.github.com/senseikatana/011bc24c3fcc95f6c3338265294abbe7",
-								},
-								{
-									text: "Dates",
-									link: "https://gist.github.com/senseikatana/77bd2ebb10233aab44dc84093dfccfe5",
-								},
-								{
-									text: "API Manager",
-									link: "https://gist.github.com/senseikatana/7e76dcb54999fd9c4823c59998ff4e57",
-								},
-								{
-									text: "Reactive Core",
-									link: "https://gist.github.com/senseikatana/e06a918763c314932f96ff42513431e9",
-								},
-								{
-									text: "Safe Result",
-									link: "https://gist.github.com/senseikatana/402c590c99287bb80667420c0d96e0d5",
-								},
-								{
-									text: "Query Adapters",
-									link: "https://gist.github.com/senseikatana/b2bc514e42533c218820cf86c879aa5d",
-								},
-							],
-						},
-					],
-				},
-			],
+			// Everything else (home, root pages) gets the docs tree.
+			"/": docsSidebar,
 		},
 		search: { provider: "local" },
 		socialLinks: [{ icon: "github", link: "https://github.com/senseikatana/katanakit-js" }],

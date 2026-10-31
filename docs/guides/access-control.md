@@ -381,7 +381,7 @@ actually use.
 
 - [Better Auth](/guides/better-auth) — the authentication half.
 - [InsForge](/guides/insforge) — the other shipped provider.
-- [Error Handling](/guides/errors) — Safe Results and the error shapes used by
+- [Error Handling](/start/errors) — Safe Results and the error shapes used by
   the guard.
 - [ADR-0008](/explanation/decisions/adr-0008-access-is-three-orthogonal-axes) —
   why the axes are split this way.

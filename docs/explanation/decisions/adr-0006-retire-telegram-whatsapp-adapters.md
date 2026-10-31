@@ -75,6 +75,6 @@ which the assistant adapter already required.
 ## Links
 
 - [ADR-0003 — adapter subpath exports](/explanation/decisions/adr-0003-adapter-subpath-exports)
-- [Architecture](/guides/architecture) — the exports map in context.
+- [Architecture](/start/architecture) — the exports map in context.
 - [Assistant (Kitt)](/guides/assistant) — the surviving REST channel.
 - [Upgrade to v6](/guides/upgrade-to/v6) — the v6 rename tables, annotated.

@@ -463,7 +463,7 @@ consequences (page reset, analytics event, refetch) from a single callback.
 ## Related
 
 - [HTTP Client](/guides/services/http-client) — `defineApiConfig` and the Safe Result every helper on this page consumes.
-- [Error Handling](/guides/errors) — `useAttempt`, `useErrorNormalize` and the `ApiError` shape behind `error.status`.
+- [Error Handling](/start/errors) — `useAttempt`, `useErrorNormalize` and the `ApiError` shape behind `error.status`.
 - [Vue Adapter](/guides/services/vue-adapter) — the composables that live outside this server-focused subpath.
 - [Framework Adapters](/guides/framework-adapters) — how the Nuxt adapter fits next to the React, Solid, Svelte, Angular and Vue entries.
 - [API Reference](/api/) — every export, generated from source.

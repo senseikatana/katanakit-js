@@ -325,7 +325,7 @@ try {
 ```
 
 **Real use case** — global error boundaries: normalize the error first (see
-[Error helpers](/guides/errors)) and log the normalized shape so every failure
+[Error helpers](/start/errors)) and log the normalized shape so every failure
 is searchable and consistent.
 
 ## Utilities
@@ -394,7 +394,7 @@ interleave safely because neither one mutates shared logger state.
 
 - [NestJS adapter](/guides/nestjs) — `KatanaLogger` forwards Nest logs to this
   service (`debug` and `verbose` collapse to `log`).
-- [Error helpers](/guides/errors) — normalize errors before logging them with
+- [Error helpers](/start/errors) — normalize errors before logging them with
   `useLoggerError`.
 - [DOM](/guides/services/dom) — the other zero-dependency core service, with the
   same method-by-method page format.

@@ -22,7 +22,7 @@ choice from an oversight **before** changing it.
 Approved records are never rewritten. If the team changes its mind, a new
 record is written and the old one is marked *superseded by* it — like a new
 log entry that does not cross out the previous one. Nothing here is an
-implementation detail: the [Architecture](/guides/architecture) page and the
+implementation detail: the [Architecture](/start/architecture) page and the
 [API Reference](/api/) cover those.
 
 ## Records

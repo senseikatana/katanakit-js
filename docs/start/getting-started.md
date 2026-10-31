@@ -237,7 +237,7 @@ The site has four kinds of pages, one per reader need:
 | **Learn by building**, step by step | [Tutorial: Your First API Client](/tutorials/first-api-client) |
 | **Do a specific task** — HTTP client, framework, filesystem, bots | [Guides](/guides/services/) — [HTTP Client](/guides/services/http-client), [Query Client](/guides/query-client), [Filesystem](/guides/filesystem), [Notion](/guides/notion), [WordPress](/guides/wordpress), [InsForge](/guides/insforge), [Kitt assistant](/guides/assistant) |
 | **Look up an exact fact** — signature, option, error code | [Service pages](/guides/services/) and the generated [API Reference](/api/) |
-| **Understand why** it is built this way | [Why KatanaKit](/explanation/why-katanakit), [Architecture](/guides/architecture), [Decisions (ADRs)](/explanation/decisions/) |
+| **Understand why** it is built this way | [Why KatanaKit](/explanation/why-katanakit), [Architecture](/start/architecture), [Decisions (ADRs)](/explanation/decisions/) |
 
 The [Services overview](/guides/services/) lists every service with its one-line
 description.

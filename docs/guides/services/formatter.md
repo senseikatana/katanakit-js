@@ -221,7 +221,7 @@ useFormat(
   rejected, because neither `PlainDate` nor `PlainDateTime` accepts offsets.
 - Invalid input is logged through `useLogger` and then thrown as
   `new Error("Invalid date input: ...")`. Wrap the call with
-  [`useAttempt()`](/guides/errors) at I/O boundaries.
+  [`useAttempt()`](/start/errors) at I/O boundaries.
 - `number`, `Date` and `Temporal.Instant` inputs are converted to the runtime's
   time zone, so a server in UTC and a browser in UTC+2 can render different
   hours for the same instant. Pass `timeZone` in `options` or a
@@ -324,7 +324,7 @@ config.theme; // "dark"
 ```
 
 **Edge case** — for untrusted input (storage, network, user files), prefer
-[`useTryJsonParse()`](/guides/errors), which returns a Safe Result instead of
+[`useTryJsonParse()`](/start/errors), which returns a Safe Result instead of
 throwing, and validate the parsed shape with a schema before using it.
 
 ## Related
@@ -335,5 +335,5 @@ throwing, and validate the parsed shape with a schema before using it.
   `useFormat()`.
 - [Generator](/guides/services/generator) — `useSlugify()` and other string
   generators.
-- [Errors & Results](/guides/errors) — `useTryJsonParse()` and Safe Results.
+- [Errors & Results](/start/errors) — `useTryJsonParse()` and Safe Results.
 - [API Reference](/api/) — every export, generated from source.

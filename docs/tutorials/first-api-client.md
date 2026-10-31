@@ -212,11 +212,11 @@ first and second are the same object: true
 You built the whole loop: register → call → branch on failure → validate →
 cache. From here:
 
-- **Do a concrete task** → [How-to guides](/guides/getting-started) — add auth
+- **Do a concrete task** → [How-to guides](/start/getting-started) — add auth
   headers, use the client inside Astro/Express/Nuxt, set up a filesystem
   script.
 - **Look up an exact fact** → the [HTTP Client](/guides/services/http-client)
   page and the generated [API Reference](/api/).
-- **Understand the design** → [Error Handling](/guides/errors) and the
+- **Understand the design** → [Error Handling](/start/errors) and the
   decision behind it,
   [ADR-0001: Safe Results instead of exceptions](/explanation/decisions/adr-0001-safe-results).

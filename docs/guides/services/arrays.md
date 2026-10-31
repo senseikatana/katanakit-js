@@ -208,6 +208,6 @@ counterparts.
 
 - [DOM](/guides/services/dom) — `useQuerySelectorAll` returns `Element[]`, so
   every helper above applies directly to the result.
-- [Error Handling](/guides/errors) — `useGet` returns Safe Results, which is why
+- [Error Handling](/start/errors) — `useGet` returns Safe Results, which is why
   nullish collections reach these helpers in the first place.
 - [API Reference](/api/) — every export, generated from source.

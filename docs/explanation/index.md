@@ -11,7 +11,7 @@ it — with the full picture.
 
 - **[Why KatanaKit](/explanation/why-katanakit)** — the goals behind the
   toolkit, its design stance and the cases where it is the wrong tool.
-- **[Architecture](/guides/architecture)** — the hexagonal layout, layer by
+- **[Architecture](/start/architecture)** — the hexagonal layout, layer by
   layer, and the design patterns that hold it together.
 - **[Service architecture](/explanation/service-architecture)** — why every
   service is a Singleton facade: the Singleton/Facade/Observer/Strategy/DI

@@ -36,12 +36,12 @@ effects on import and a minimal install — hold without audit.
 
 **Worse.** The import path differs per adapter and there is no "kitchen sink"
 entry; nothing is discoverable from the main barrel, so docs must carry the
-map (the [entry-point list](/guides/getting-started#import-entry-points) is
+map (the [entry-point list](/start/getting-started#import-entry-points) is
 it). Adding an adapter means touching `package.json`, the docs and examples
 in the same change — by design, since that is the change the reviewer must
 see.
 
 ## Links
 
-- [Getting Started — import entry points](/guides/getting-started#import-entry-points)
-- [Architecture](/guides/architecture) — the exports map in context.
+- [Getting Started — import entry points](/start/getting-started#import-entry-points)
+- [Architecture](/start/architecture) — the exports map in context.

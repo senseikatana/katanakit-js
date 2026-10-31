@@ -95,5 +95,5 @@ if (result.ok) console.log(result.data.processed);
 ## Related
 
 - [HTTP Client](/guides/services/http-client) — the shared Safe Result shape.
-- [Error Handling](/guides/errors) — normalizing edge-function failures.
+- [Error Handling](/start/errors) — normalizing edge-function failures.
 - [Assistant](/guides/assistant) — the Prisma persistence path when you own the database.

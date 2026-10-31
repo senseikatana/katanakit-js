@@ -263,7 +263,7 @@ const url = kit.useBuildUrl("catalog", "productById", { params: { id: "p-42" } }
 **Real use case** — links you hand to another system (webhooks, report
 downloads, emails) where you want the URL without paying for a request. Call it
 during bootstrap when a config mistake should fail fast, or wrap it with
-[`useAttempt()`](/guides/errors) when the failure belongs to the request.
+[`useAttempt()`](/start/errors) when the failure belongs to the request.
 
 ### useFetch(apiName, endpointName, options?)
 
@@ -1062,7 +1062,7 @@ it("rejects a member with 403", () => {
 
 - [HTTP Client](/guides/services/http-client) — registration, URL building and
   every option the facade forwards.
-- [Error Handling](/guides/errors) — the Safe Result contract and the
+- [Error Handling](/start/errors) — the Safe Result contract and the
   `useAttempt()` helper.
 - [Framework Adapters](/guides/framework-adapters) — the browser-side adapters
   sharing the same query client.

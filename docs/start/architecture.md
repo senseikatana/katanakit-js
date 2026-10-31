@@ -336,7 +336,7 @@ walks through the vocabulary with the currency converter as the worked example.
 - **Safe Result** — fallible operations return a discriminated union
   `{ data, error, ok }` instead of throwing. The generic `SafeResult<T, E>` is
   the base of `FetchResult<T>`, `FilesystemResult<T>`, `AstroServiceResult<T>`,
-  `AiResult<T>` and `RssResult`; see [Error Handling](/guides/errors) and
+  `AiResult<T>` and `RssResult`; see [Error Handling](/start/errors) and
   [ADR-0001](/explanation/decisions/adr-0001-safe-results).
 - **Single source of truth** — all contracts and shared types live in
   `src/types/`.

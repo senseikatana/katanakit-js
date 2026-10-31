@@ -586,6 +586,20 @@
 
 /* ── Navbar: section tabs (Rocket/Mintlify-style pills) ── */
 
+/* The icon + label layout lives on this wrapper, not on the link: VitePress
+   renders `item.text` through `v-html` inside a single `<span>`, so styling
+   the link's children would only ever see that one span. */
+.vp-section-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.vp-section-tab svg {
+	flex: none;
+	display: block;
+}
+
 .VPNavBarMenu .VPNavBarMenuLink {
 	height: 34px;
 	margin: 0 2px;
@@ -620,7 +634,9 @@
 }
 
 /* Mobile screen menu: same pills, left-aligned. */
-.VPNavScreenMenu .VPNavScreenMenuLink {
+/* Specificity above VitePress' scoped `.VPNavScreenMenuLink[data-v-*]`
+   (0,2,0), so the pill look never depends on bundle order. */
+.VPNavScreen .VPNavScreenMenu .VPNavScreenMenuLink {
 	border-bottom: none;
 	border-radius: 999px;
 	margin: 2px 0;
@@ -630,7 +646,7 @@
 	gap: 8px;
 }
 
-.VPNavScreenMenu .VPNavScreenMenuLink:hover {
+.VPNavScreen .VPNavScreenMenu .VPNavScreenMenuLink:hover {
 	background: var(--vp-c-bg-soft);
 }
 
