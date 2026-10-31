@@ -21,10 +21,6 @@
 		{ "pattern": "senseikatana.com/en/", "zone_name": "senseikatana.com" },
 		{ "pattern": "senseikatana.com/en/docs", "zone_name": "senseikatana.com" },
 		{ "pattern": "senseikatana.com/en/docs/*", "zone_name": "senseikatana.com" },
-
-		// Testing only — katanakami.com (uncomment when the zone is added)
-		// { "pattern": "katanakami.com/en/docs", "zone_name": "katanakami.com" },
-		// { "pattern": "katanakami.com/en/docs/*", "zone_name": "katanakami.com" }
 	],
 
 	// No Service Binding: a Pages project is not a Workers service, so the

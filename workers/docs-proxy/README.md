@@ -9,9 +9,7 @@ prefix.
 
 | Domain | Status |
 | --- | --- |
-| `senseikatana.com` | Primary (production) |
-| `samuraicoder.dev` | Secondary (backup / vanity) |
-| `katanakami.com` | Testing only — uncomment the route in `wrangler.jsonc` |
+| `senseikatana.com` | Docs/library domain — the only one serving `/en/docs/` |
 
 ## Deploy
 
