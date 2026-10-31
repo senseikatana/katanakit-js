@@ -198,8 +198,10 @@ function mountUnderBase() {
 }
 
 function deployToCloudflare() {
-	if (!existsSync(join(DIST_DIR, "index.html"))) {
-		console.error("docs: no build to deploy — expected docs/.vitepress/dist/index.html");
+	if (!existsSync(join(DIST_DIR, DOCS_BASE, "index.html"))) {
+		console.error(
+			`docs: no build to deploy — expected docs/.vitepress/dist/${DOCS_BASE}/index.html`,
+		);
 		process.exit(1);
 	}
 
