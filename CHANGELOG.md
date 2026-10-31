@@ -8,6 +8,27 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.2.1] - 2026-10-31
+
+Highlights: feat(docs): rebuild the changelog page as one collapsible card per release, plus 2 more changes.
+
+- 🚀 feat(docs): rebuild the changelog page as one collapsible card per release `82fa443`
+  - `CONTRIBUTING.md`
+  - `docs/.vitepress/theme/style.css`
+  - `scripts/docs-prepare.mjs`
+- ⏪ revert(docs): drop the hero typewriter and restore the original heading size `07a34bf`
+  - `docs/.vitepress/theme/Layout.vue`
+  - `docs/.vitepress/theme/components/HeroTypewriter.vue`
+  - `docs/.vitepress/theme/style.css`
+- 🚀 feat(docs): type the hero heading in and drop the duplicated brand name `73e44bd`
+  - `docs/.vitepress/theme/Layout.vue`
+  - `docs/.vitepress/theme/components/HeroTypewriter.vue`
+  - `docs/.vitepress/theme/style.css`
+  - `docs/index.md`
+- 🧹 chore(release): v7.1.9 `1951246`
+- 🧹 chore(scripts): drop the demo api server and add a real preview command `9545c95`
+- 📦 build(package.json): update 1 file (+1/-1) `2204562`
+
 ## [7.2.0] - 2026-10-31
 
 Version bump that consolidates the 7.1.8 and 7.1.9 lines — the forms system,
