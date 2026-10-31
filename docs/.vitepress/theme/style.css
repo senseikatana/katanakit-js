@@ -600,6 +600,14 @@
 	display: block;
 }
 
+/* VitePress' own nav links carry no visible focus ring; the pills need one
+   because they are the site's primary navigation. */
+.VPNavBarMenu .VPNavBarMenuLink:focus-visible,
+.VPNavScreen .VPNavScreenMenu .VPNavScreenMenuLink:focus-visible {
+	outline: 2px solid var(--vp-c-brand-1);
+	outline-offset: 2px;
+}
+
 .VPNavBarMenu .VPNavBarMenuLink {
 	height: 34px;
 	margin: 0 2px;

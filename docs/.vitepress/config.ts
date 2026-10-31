@@ -90,7 +90,9 @@ const ICONS = {
 } as const;
 
 const tab = (icon: keyof typeof ICONS, text: string) =>
-	`<span class="vp-section-tab">${ICONS[icon]}<span>${text}</span></span>`;
+	// `aria-hidden` on the icon: the tab's meaning is the label, and a bare
+	// `<svg>` inside `v-html` is announced as an unlabeled graphic.
+	`<span class="vp-section-tab"><span aria-hidden="true" class="vp-section-tab__icon">${ICONS[icon]}</span><span>${text}</span></span>`;
 
 /**
  * The Docs tab's tree. `/start/` holds the narrative pages, `/tutorials/` and
