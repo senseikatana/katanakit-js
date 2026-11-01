@@ -8,6 +8,25 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.3.1] - 2026-11-01
+
+Highlights: fix(schemas): migrate wordpress schema to zod v4 and restore missing exports, plus 1 more change.
+
+- 📝 docs(styles): add sets `ac9f42a`
+  - `docs/guides/filesystem.md`
+  - `packages/ui/package.json`
+  - `packages/ui/scripts/concat-css.mjs`
+  - `packages/ui/src/styles/bulma-tailwind.scss`
+  - `packages/ui/src/styles/index.scss`
+- 🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports `17aac2c`
+  - `bun.lock`
+  - `package.json`
+  - `src/schemas/wordpress.schema.ts`
+- 🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an `118405f`
+- 🚀 feat: updates documentation, tests, and tooling across 23 files `0542810`
+- 📝 docs(scripts): add candidate, countThrees and isForbiddenVersion `d78bbd9`
+- 🚀 feat(docs): rebuild the changelog page as one collapsible card per release `82fa443`
+
 ## [7.3.0] - 2026-10-31
 
 Highlights: feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an.
