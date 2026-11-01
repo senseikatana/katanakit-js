@@ -4,205 +4,202 @@
 //  and Katana UI components
 // ============================================================
 
-// Importar colores en OKLCH
-@import '../src/styles/oklch-colors.scss';
+// OKLCH color tokens (Bulma + Tailwind + Katana overrides).
+// Loaded before Bulma so the !default values Bulma ships are kept.
+@use "../../../../src/styles/oklch-colors" as colors;
 
-// Configuración global de tamaño de fuente
+
+// Bulma (v1 ships a single _index.scss that @forwards every module;
+// importing the folders individually collides on the "index" namespace)
+@use "bulma/sass/_index" as bulma;
+
+// TailwindCSS (v4 single entry point — /base, /components and
+// /utilities no longer exist)
+@use "tailwindcss";
+
+// Global font-size
 html {
   font-size: 10px;
 }
 
-// Import Bulma
-@import 'bulma/sass/utilities/_all.sass';
-@import 'bulma/sass/base/_all.sass';
-@import 'bulma/sass/components/_all.sass';
-@import 'bulma/sass/elements/_all.sass';
-@import 'bulma/sass/form/_all.sass';
-@import 'bulma/sass/grid/_all.sass';
-@import 'bulma/sass/helpers/_all.sass';
-@import 'bulma/sass/layout/_all.sass';
-
-// Import TailwindCSS
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-// Import Katana UI styles
-@import 'index.scss';
+// NOTE: the Katana UI component classes come from `index.scss`,
+// which the build already compiles into dist/components.css and
+// concat-css.mjs appends after this file. Importing it here too
+// would double-load `scss/variables`, so it is intentionally omitted.
 
 // Bulma + TailwindCSS utilities
-// Mixins para combinar ambos frameworks
+// Mixins for combining both frameworks
 @mixin bulma-button {
-  @extend .button;
-  
+  @extend .button !optional;
+
   &.is-primary {
-    background-color: $katana-primary;
+    background-color: colors.$katana-primary;
     color: white;
   }
-  
+
   &.is-secondary {
-    background-color: $katana-secondary;
+    background-color: colors.$katana-secondary;
     color: white;
   }
-  
+
   &.is-success {
-    background-color: $success;
+    background-color: colors.$success;
     color: white;
   }
-  
+
   &.is-danger {
-    background-color: $danger;
+    background-color: colors.$danger;
     color: white;
   }
 }
 
 @mixin tailwind-button {
   @apply px-4 py-2 rounded font-medium transition-colors;
-  
+
   &.is-primary {
     @apply bg-blue-500 text-white hover:bg-blue-600;
   }
-  
+
   &.is-secondary {
     @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
   }
-  
+
   &.is-success {
     @apply bg-green-500 text-white hover:bg-green-600;
   }
-  
+
   &.is-danger {
     @apply bg-red-500 text-white hover:bg-red-600;
   }
 }
 
-// Componentes combinados
+// Combined components
 .btn-combined {
   @include bulma-button;
-  
+
   &.tailwind-style {
     @include tailwind-button;
   }
 }
 
-// Ejemplo de componente usando ambas clases
+// Example component using both class sets
 .card-combined {
-  @extend .card;
+  @extend .card !optional;
   @apply shadow-lg hover:shadow-xl transition-shadow;
-  
+
   .card-header {
-    @extend .card-header;
+    @extend .card-header !optional;
     @apply bg-gradient-to-r from-purple-500 to-pink-500 text-white;
   }
-  
+
   .card-content {
-    @extend .card-content;
+    @extend .card-content !optional;
   }
-  
+
   .card-footer {
-    @extend .card-footer;
+    @extend .card-footer !optional;
     @apply bg-gray-100 border-t border-gray-200;
   }
 }
 
-// Grid system combinado
+// Combined grid system
 .grid-combined {
-  @extend .container;
+  @extend .container !optional;
   @apply mx-auto px-4;
-  
+
   .row-combined {
-    @extend .columns;
+    @extend .columns !optional;
     @apply flex flex-wrap;
-    
+
     .col-combined {
-      @extend .column;
+      @extend .column !optional;
       @apply p-4;
     }
   }
 }
 
-// Formularios combinados
+// Combined forms
 .form-combined {
-  @extend .field;
-  
+  @extend .field !optional;
+
   .input-combined {
-    @extend .input;
+    @extend .input !optional;
     @apply focus:ring-2 focus:ring-blue-500 focus:border-transparent;
   }
-  
+
   .select-combined {
-    @extend .select;
-    
+    @extend .select !optional;
+
     .select__button {
-      @extend .select__button;
+      @extend .select__button !optional;
       @apply focus:ring-2 focus:ring-blue-500 focus:border-transparent;
     }
   }
 }
 
-// Alertas combinadas
+// Combined alerts
 .alert-combined {
-  @extend .notification;
+  @extend .notification !optional;
   @apply p-4 rounded-lg shadow-md;
-  
+
   &.is-info {
-    @extend .is-info;
+    @extend .is-info !optional;
     @apply bg-blue-50 border-blue-200 text-blue-800;
   }
-  
+
   &.is-success {
-    @extend .is-success;
+    @extend .is-success !optional;
     @apply bg-green-50 border-green-200 text-green-800;
   }
-  
+
   &.is-warning {
-    @extend .is-warning;
+    @extend .is-warning !optional;
     @apply bg-yellow-50 border-yellow-200 text-yellow-800;
   }
-  
+
   &.is-danger {
-    @extend .is-danger;
+    @extend .is-danger !optional;
     @apply bg-red-50 border-red-200 text-red-800;
   }
 }
 
-// Tablas combinadas
+// Combined tables
 .table-combined {
-  @extend .table;
+  @extend .table !optional;
   @apply w-full text-left border-collapse;
-  
+
   th {
-    @extend .th;
+    @extend .th !optional;
     @apply bg-gray-100 font-semibold;
   }
-  
+
   td {
-    @extend .td;
+    @extend .td !optional;
     @apply border-b border-gray-200;
   }
-  
+
   tr:hover {
     @apply bg-gray-50;
   }
 }
 
-// Navigation combinada
+// Combined navigation
 .nav-combined {
-  @extend .navbar;
+  @extend .navbar !optional;
   @apply shadow-md;
-  
+
   .nav-brand {
-    @extend .navbar-brand;
+    @extend .navbar-brand !optional;
     @apply text-xl font-bold text-purple-600;
   }
-  
+
   .nav-menu {
-    @extend .navbar-menu;
+    @extend .navbar-menu !optional;
     @apply space-x-4;
   }
-  
+
   .nav-item {
-    @extend .navbar-item;
+    @extend .navbar-item !optional;
     @apply px-4 py-2 rounded hover:bg-purple-100 transition-colors;
   }
 }

@@ -23,5 +23,5 @@ const components = readFileSync(componentsCssPath, "utf8").trim();
 
 writeFileSync(outPath, `${base}\n${bulmaTailwind}\n${components}\n`);
 console.log(
-	`concat-css: ${baseCssPath} (${base.length} chars) + components (${components.length} chars) -> ${outPath}`,
+	`concat-css: ${baseCssPath} (${base.length} chars) + bulma-tailwind (${bulmaTailwind.length} chars) + components (${components.length} chars) -> ${outPath}`,
 );

@@ -8,12 +8,12 @@
 //  Build: bun run build:ui
 // ============================================================
 
+@use "scss/variables" as v;
+
 // Configuración global de tamaño de fuente
 html {
   font-size: 10px;
 }
-
-@use "scss/variables" as v;
 
 // Dark theme tokens (:root[data-theme="dark"]) — opt-in upstream,
 // on by default for the UI kit.
