@@ -217,7 +217,7 @@
 		"@tanstack/query-core": "5.104.1",
 		"bulma": "^1.0.4",
 		"sass": "^1.107.1",
-		"zod": "^4.6.5"
+		"zod": "4.6.7"
 	},
 	"peerDependencies": {
 		"@angular/core": ">=16.0.0",
