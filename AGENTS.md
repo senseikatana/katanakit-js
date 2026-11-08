@@ -47,37 +47,16 @@ Scripts are grouped so nothing runs twice. The shipping commands chain them in o
 
 **Docs** — production build by default, `:dev` for the server:
 
-- `bun run docs` — production build (`node scripts/docs.mjs build`).
-- `bun run docs:dev` — VitePress dev server.
-- `bun run preview` — builds, then serves the build at `/en/docs/` (mirrors Cloudflare Pages, `_redirects` included).
-- `bun run docs:clean` — purges shared VitePress temp state.
+- `bun run docs` — production build (delegates to `senseikatana/docs`).
+- `bun run docs:dev` — VitePress dev server (delegates to `senseikatana/docs`).
+- `bun run docs:clean` — purges shared VitePress temp state (delegates to `senseikatana/docs`).
 
 **Shipping** — each runs `check`, then `build`, then its deployment:
 
-- `bun run deploy` — Cloudflare Pages. `bun run deploy:gh` — GitHub Pages.
+- `bun run deploy` — Cloudflare Pages (delegates to `senseikatana/docs`).
 - `bun run release` — npm publish via `scripts/npm-publish.mjs`.
 
-All three pass `--skip-ui` to `scripts/docs.mjs`, because `build` has already produced
-`packages/ui/dist/styles.css`. Without the flag `chain()` rebuilds it.
-
-`node scripts/docs.mjs` with **no mode argument prints usage and exits 1** — it is not a
-build. Always pass an explicit mode (`build`, `deploy`, `gh`, `dev`, `preview`, `clean`).
-
-**Dev** — never run as part of a shipping script:
-
-- `bun run dev` — the VitePress dev server (alias of `docs:dev`).
-- `bun run bun:dev` — the Bun demo server.
-
-ESLint uses flat config in `eslint.config.mjs`; do not add `.eslintrc` files. Prettier runs through ESLint.
-
-## Documentation
-
-- The docs site uses VitePress. Pages use YAML frontmatter and Vue-in-Markdown (`<script setup>`), not MDX.
-- Docs follow Diátaxis: tutorials in `docs/tutorials/`, how-to guides in `docs/guides/`, reference generated in `docs/api/` plus the UI kit `reference/` pages, explanation in `docs/explanation/`. One page, one kind — do not mix them in a single page.
-- The "why" behind hard-to-reverse decisions lives in `docs/explanation/decisions/` (context, decision, consequences). Add a numbered record there instead of burying rationale in prose; superseded records are never rewritten.
-- `scripts/docs-prepare.mjs` generates `docs/api/`, `docs/changelog.md`, and `docs/.vitepress/theme/signals.json`; do not edit these generated files by hand.
-- `scripts/docs.mjs` manages shared VitePress temporary state. Do not run `bun run dev` concurrently with `bun run deploy` or `bun run deploy:gh`. Never delete `.cache/docs.lock.json` by hand: the runner already clears locks whose owner is dead, and deleting a *live* one lets two builds write `docs/.vitepress/.temp` at once, which fails cryptically (`Cannot read properties of undefined (reading 'title')`, `Cannot find module '…/.temp/….js'`).
-- Production docs deploy to Cloudflare Pages with `bun run deploy`: it builds the site first, then publishes `docs/.vitepress/dist` to the `katanakit-docs` project via Wrangler. `bun run deploy:gh` is the GitHub Pages branch instead, and `bun run release` is the npm path. Credentials come from `CLOUDFLARE_API_TOKEN` in `.env` or a `bunx wrangler login` session. Keep Cloudflare as the hosting/storage provider; INSForge is the database fallback and Prisma is the local ORM.
+Docs are now maintained in the sibling repository `senseikatana/docs/`. The `scripts/docs.mjs` and `scripts/docs-prepare.mjs` have been moved there and adapted to sync generated content from this repository.
 
 ## Git and releases
 

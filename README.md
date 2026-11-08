@@ -6,11 +6,11 @@ conversion, and browser utilities. It ships ESM, is safe to import during SSR,
 and keeps every optional framework integration on its own package entry point —
 so a Vue app never pulls React, and a server build never pulls the DOM.
 
-[Documentation](https://senseikatana.com/en/docs/) ·
-[Getting started](https://senseikatana.com/en/docs/start/getting-started) ·
-[Tutorial](https://senseikatana.com/en/docs/tutorials/first-api-client) ·
-[API reference](https://senseikatana.com/en/docs/api/) ·
-[Changelog](https://senseikatana.com/en/docs/changelog) ·
+[Documentation](https://senseikatana.com/docs/) ·
+[Getting started](https://senseikatana.com/docs/start/getting-started) ·
+[Tutorial](https://senseikatana.com/docs/tutorials/first-api-client) ·
+[API reference](https://senseikatana.com/docs/api/) ·
+[Changelog](https://senseikatana.com/docs/changelog) ·
 [Release history](./CHANGELOG.md)
 
 ---
@@ -37,7 +37,7 @@ bun add better-auth @insforge/sdk   # only if you use those adapters
 bun add express hono                 # only if you run a server
 ```
 
-See the [installation guide](https://senseikatana.com/en/docs/start/getting-started)
+See the [installation guide](https://senseikatana.com/docs/start/getting-started)
 for CDN usage and integration requirements.
 
 ---
@@ -87,7 +87,7 @@ type SafeResult<T, E> =
 succeeded and the answer is legitimately nothing* — a missing record is not an
 error, and the two are never collapsed into one.
 
-The [error handling guide](https://senseikatana.com/en/docs/start/errors) covers
+The [error handling guide](https://senseikatana.com/docs/start/errors) covers
 the error shapes and the helpers that build them.
 
 ### Validate at the boundary
