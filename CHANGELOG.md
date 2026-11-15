@@ -8,6 +8,19 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.5.0] - 2026-11-15
+
+Maintenance release with 2 changes.
+
+- 📝 docs(plans): update 1 file (+0/-131) `8a852a5`
+  - `.kilo/plans/1794130218644-docs-migration-plan.md`
+- 📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections `5c8e24b`
+  - `.kilo/plans/1794130218644-docs-migration-plan.md`
+- 📝 docs(services): add deploy and docs to package.json `e2be25f`
+- 📝 docs(styles): add sets `ac9f42a`
+- 🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports `17aac2c`
+- 🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an `118405f`
+
 ## [7.4.0] - 2026-11-08
 
 Highlights: fix(schemas): migrate wordpress schema to zod v4 and restore missing exports, plus 2 more changes.
