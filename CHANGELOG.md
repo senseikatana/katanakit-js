@@ -8,6 +8,30 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.5.1] - 2026-11-15
+
+Maintenance release with 1 change.
+
+- 📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest `c606335`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `bun.lock`
+  - `examples/dashboard/README.md`
+  - `package.json`
+  - `scripts/serve-docs.mjs`
+  - `scripts/setup-cloudflare.mjs`
+  - `scripts/sync-hyperui.mjs`
+  - `scripts/sync-wiki.mjs`
+  - `tests/sync-wiki.test.ts`
+  - `workers/docs-proxy/README.md`
+  - `workers/docs-proxy/src/index.ts`
+  - `workers/docs-proxy/wrangler.jsonc`
+- 📝 docs(plans): update 1 file (+0/-131) `8a852a5`
+- 📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections `5c8e24b`
+- 📝 docs(services): add deploy and docs to package.json `e2be25f`
+- 📝 docs(styles): add sets `ac9f42a`
+- 🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports `17aac2c`
+
 ## [7.5.0] - 2026-11-15
 
 Maintenance release with 2 changes.
