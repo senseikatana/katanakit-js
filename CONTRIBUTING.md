@@ -91,19 +91,16 @@ Useful scripts:
 | Layer       | Script                 | What it does |
 | ----------- | ---------------------- | ------------ |
 | **lint**    | `bun run lint`         | ESLint over `src` and the UI package |
-|             | `bun run lint:fix`     | Same, with auto-fix applied |
+|             | `bun run lint`         | ESLint over `src` and the UI package |
 | **build**   | `bun run clean`        | Removes every regenerable artifact (`-- --dry` previews) |
 |             | `bun run build`        | `clean` → compile to `dist/` → build the UI → sync versions → typecheck the examples |
 |             | `bun run build:ui`     | Builds `@katanakit/ui` (vendored framework + components CSS) |
 | **develop** | `bun run dev`          | VitePress dev server (delegates to `senseikatana/docs`) |
-|             | `bun run preview`      | Builds, then serves the build at `/docs/` (the Cloudflare Pages shape) |
-|             | `bun run bun:dev`      | Bun demo server alone |
+| **develop** | `bun run dev`          | VitePress dev server (delegates to `senseikatana/docs`) |
 | **verify**  | `bun run check`        | `lint` → typecheck (root + UI) → unit tests. **The gate.** |
-|             | `bun run test:e2e`     | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
-|             | `bun run test:all`     | `check` then the browser suite |
 |             | `bun run audit:urls`   | Reachability audit for all http(s) URLs in tracked files (network-dependent; not in `check`) |
 | **ship**    | `bun run deploy`       | Builds the docs site, then publishes it to Cloudflare Pages (senseikatana.com/docs/) |
-|             | `bun run deploy:gh`    | Builds the docs site, then publishes a `gh-pages` branch deployment |
+|             | `bun run deploy`       | `check` → `build` → docs deploy to Cloudflare Pages |
 |             | `bun run release`      | `build` → write the CHANGELOG section → preflight → `npm publish` |
 
 At most three commands per job, so the list stays learnable. Coverage is the one
@@ -167,7 +164,7 @@ and the floors in the same commit.
 
 There is deliberately **no `perFile` threshold**. 20 measured files contain real
 code at 0%, and several of them (`viewport`, `sensors`, `observer`, `worker`)
-only work against a real browser — the runtime `bun run test:e2e` provides, not
+only work against a real browser — the Playwright suite provides, not
 jsdom. A per-file floor would be permanently red, and a permanently red gate is
 ignored rather than obeyed.
 
@@ -262,10 +259,9 @@ description: Cache, retry and invalidate server state.
 ```bash
 bun run dev            # generate API + changelog, then live‑reloading server
 bun run docs           # static build of the docs site (output in senseikatana/docs/)
-bun run preview        # build, then serve at /docs/ on :4173 (the Pages shape)
-bun run deploy         # build, then publish to Cloudflare Pages (senseikatana.com/docs/)
-bun run deploy:gh      # manual preview on the gh-pages branch (no Actions)
-bun run clean          # purge every regenerable artifact (docs:clean covers VitePress caches)
+bun run deploy         # check, build, then deploy docs to Cloudflare Pages
+bun run release        # check, build, publish to npm
+bun run clean          # purge every regenerable artifact
 ```
 
 `deploy` needs Cloudflare credentials: either `CLOUDFLARE_API_TOKEN` in
@@ -289,8 +285,7 @@ scripts run here with only this repository checked out.
 
 Apex domains that serve other applications (`senseikatana.com`,
 `samuraicoder.dev`) get `/docs/` through the reverse-proxy Worker in the
-sibling `senseikatana` repository (`workers/docs-proxy/`). `bun run
-deploy:proxy` delegates there; `scripts/docs.mjs deploy` redeploys the Worker
+sibling `senseikatana` repository (`workers/docs-proxy/`). `scripts/docs.mjs deploy` redeploys the Worker
 automatically after every docs deploy, since the URL contract (base path, home
 alias, legacy redirects) is one unit. The Worker uses a Service Binding to the
 Pages project (no HTTP hop);
@@ -387,7 +382,6 @@ git tag --sort=-creatordate     # check tags
 - [ ] New framework code is reachable via a subpath, not the main barrel.
 - [ ] `bun run check` passes (ESLint + typecheck + tests).
 - [ ] `bunx vitest run --coverage` run when tests changed — coverage does not drop below the floors in `vitest.config.ts`.
-- [ ] `bun run test:e2e` passes when the change touches `packages/ui` (animations, cascade, focus, or anything timing-dependent).
 - [ ] Tests added/updated for the change.
 - [ ] Documentation and `CHANGELOG.md` updated if the public API changed.
 - [ ] Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/).

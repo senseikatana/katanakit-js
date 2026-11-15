@@ -1,0 +1,73 @@
+name: Release & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout katanakit-js
+        uses: actions/checkout@v4
+        with:
+          path: katanakit-js
+
+      - name: Checkout senseikatana (docs)
+        uses: actions/checkout@v4
+        with:
+          repository: senseikatana/senseikatana
+          path: senseikatana
+          token: ${{ secrets.SENSEIKATANA_TOKEN }}
+
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: |
+          cd katanakit-js && bun install
+          cd ../senseikatana && bun install
+
+      - name: Quality gate (lint + typecheck + test)
+        run: cd katanakit-js && bun run check
+
+      - name: Build
+        run: cd katanakit-js && bun run build
+
+      - name: Check if version is already published
+        id: version
+        run: |
+          VERSION=$(node -p "require('./katanakit-js/package.json').version")
+          PUBLISHED=$(npm view katanakit-js@$VERSION version 2>/dev/null || echo "not-published")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "published=$PUBLISHED" >> "$GITHUB_OUTPUT"
+          if [ "$PUBLISHED" != "not-published" ]; then
+            echo "::warning::katanakit-js@$VERSION is already on npm — skipping publish"
+          fi
+
+      - name: Generate release notes
+        if: steps.version.outputs.published == 'not-published'
+        run: cd katanakit-js && node scripts/generate-release-notes.mjs "v${{ steps.version.outputs.version }}" --write
+
+      - name: Publish to npm
+        if: steps.version.outputs.published == 'not-published'
+        run: cd katanakit-js && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Deploy docs to Cloudflare Pages
+        run: cd senseikatana && bun run docs:deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

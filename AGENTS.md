@@ -33,8 +33,6 @@ Scripts are grouped so nothing runs twice. The shipping commands chain them in o
 
 - `bun run check` — ESLint, root and UI typechecks, then Vitest. This is the gate.
 - `bun run test`, `bun run typecheck`, `bun run lint` — the three pieces of `check`, usable alone.
-- `bun run test:e2e` — the Playwright suite in `tests/e2e/` for `@katanakit/ui` (browser-only behaviour: the `@layer` cascade, animations, `animationend`, `prefers-reduced-motion`). jsdom has no animation engine, so `animationend` never fires there and those paths are unreachable from the unit suite — see `docs/ui-kit/testing.md`. `bun run test:all` runs `check` plus e2e.
-- `bun run lint:fix` applies ESLint auto-fixes to `src` and the UI package.
 - Run one test file with `bunx vitest run <path>`. Tests live under `tests/` and `packages/**/tests/`; Vitest maps `@/` to `src`.
 
 **Build** — `clean` runs here and nowhere else:
@@ -49,8 +47,6 @@ Scripts are grouped so nothing runs twice. The shipping commands chain them in o
 
 - `bun run docs` — production build (delegates to `senseikatana/docs`).
 - `bun run dev` — VitePress dev server (delegates to `senseikatana/docs`).
-- `bun run preview` — builds, then serves the Pages shape locally (delegates to `senseikatana/docs`).
-- `bun run docs:clean` — purges shared VitePress temp state (delegates to `senseikatana/docs`).
 
 **Shipping** — each runs `check`, then `build`, then its deployment:
 
