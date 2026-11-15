@@ -5,9 +5,15 @@ import { dirname, join, posix, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE_ORIGIN = "https://senseikatana.com";
-const DOCS_BASE = "/docs";
+// URL scheme: mirror of senseikatana/config/docs-site.json (single source of
+// truth). GitHub Actions runs this script with only this repository checked
+// out, so the mirror is authoritative here; tests/docs-site.test.ts keeps it
+// in sync with the source whenever the sibling repository is present.
+const docsSite = JSON.parse(readFileSync(join(ROOT, "scripts", "docs-site.json"), "utf8"));
+const SITE_ORIGIN = docsSite.siteOrigin;
+const DOCS_BASE = docsSite.docsBase;
 const DOCS_ORIGIN = `${SITE_ORIGIN}${DOCS_BASE}`;
+const DOCS_HOME_URL = `${SITE_ORIGIN}${docsSite.docsHome}`;
 const REPOSITORY = process.env.GITHUB_REPOSITORY ?? "senseikatana/katanakit-js";
 const MANIFEST = ".katanakit-wiki-manifest.json";
 
@@ -305,7 +311,7 @@ export function cleanPage(sourcePath, content, pagesBySource) {
 			`- [Explanation and decisions](${pagesBySource.get("docs/explanation/index.md")})`,
 			`- [UI Kit](${pagesBySource.get("docs/ui-kit/index.md")})`,
 			"",
-			`The complete documentation site and generated API reference are available at [senseikatana.com/docs/overview](${DOCS_ORIGIN}/overview).`,
+			`The complete documentation site and generated API reference are available at [${SITE_ORIGIN.replace(/^https?:\/\//, "")}${docsSite.docsHome}](${DOCS_HOME_URL}).`,
 			"",
 		]
 			.join("\n")

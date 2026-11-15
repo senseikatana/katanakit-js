@@ -30,7 +30,8 @@ const root = join(here, "..");
 const DEST = join(root, "docs", "public", "hyperui");
 const DOCS_PUBLIC = join(root, "docs", "public");
 /** Public path of the docs mount; every generated absolute link needs it. */
-const DOCS_BASE = "/docs";
+// Mirror of senseikatana/config/docs-site.json (see tests/docs-site.test.ts).
+const DOCS_BASE = JSON.parse(readFileSync(join(root, "scripts", "docs-site.json"), "utf8")).docsBase;
 const MD_PATH = join(root, "docs", "ui-kit", "hyperui.md");
 const UPSTREAM = "https://github.com/markmead/hyperui.git";
 

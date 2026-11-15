@@ -49,9 +49,13 @@
  */
 
 import postgres from "@prisma/orm-postgres/runtime";
+import { contractFromJson } from "@prisma/orm-postgres/static";
 
 import type { Contract } from "./schema.d.js";
 import contractJson from "./schema.json" with { type: "json" };
+
+/** Typed contract: validated once, shared by every client built from it. */
+const contract = contractFromJson<Contract>(contractJson);
 
 /** Module-level singleton instance. */
 let client: ReturnType<typeof postgres<Contract>> | null = null;
@@ -83,7 +87,7 @@ export function usePrismaClient(datasourceUrl?: string): ReturnType<typeof postg
 			);
 		}
 		client = postgres<Contract>({
-			contractJson,
+			contract,
 			url,
 		});
 	}

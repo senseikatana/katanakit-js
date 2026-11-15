@@ -3,8 +3,8 @@
 	"entryPoints": ["src/index.ts"],
 	"tsconfig": "tsconfig.json",
 	"plugin": [
-		"typedoc-plugin-markdown",
-		"typedoc-vitepress-theme",
+		"./node_modules/typedoc-plugin-markdown/dist/index.js",
+		"./node_modules/typedoc-vitepress-theme/dist/index.js",
 		"./scripts/typedoc-drop-deprecated.mjs"
 	],
 	"out": "docs/api",

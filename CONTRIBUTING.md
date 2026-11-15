@@ -271,16 +271,28 @@ bun run clean          # purge every regenerable artifact (docs temp included)
 `.env` (see `.env.example`, never committed) or a `bunx wrangler login` session.
 It always builds first, so the published site is never a stale artifact.
 
+> **TypeDoc plugins load by relative path** (`./node_modules/.../dist/index.js`
+> in `typedoc.json`, not by package name): store-based package managers
+> (pnpm-style symlinked installs) install TypeDoc outside the project, and
+> name-based plugin resolution then walks up from the store and never sees the
+> project's `node_modules`.
+
 The VitePress config mounts every route under `/docs/`, and
 `scripts/docs.mjs` nests the build output to match, because Cloudflare Pages
 serves a deployment at the domain root. The home page is published at
 `https://senseikatana.com/docs/overview` (the proxy Worker aliases that URL
-onto the build's section root).
+onto the build's section root). The whole URL scheme (origin, base path, home
+URL, public Pages URL) lives in `senseikatana/config/docs-site.json`;
+`scripts/docs-site.json` in this repository is its tested mirror, because CI
+scripts run here with only this repository checked out.
 
 Apex domains that serve other applications (`senseikatana.com`,
-`samuraicoder.dev`) get `/docs/` through the reverse-proxy Worker in
-`workers/docs-proxy/`. Deploy it with `bun run deploy:proxy` after a docs
-deploy. The Worker uses a Service Binding to the Pages project (no HTTP hop);
+`samuraicoder.dev`) get `/docs/` through the reverse-proxy Worker in the
+sibling `senseikatana` repository (`workers/docs-proxy/`). `bun run
+deploy:proxy` delegates there; `scripts/docs.mjs deploy` redeploys the Worker
+automatically after every docs deploy, since the URL contract (base path, home
+alias, legacy redirects) is one unit. The Worker uses a Service Binding to the
+Pages project (no HTTP hop);
 it falls back to an HTTP fetch of `katanakit-docs.pages.dev` when the binding
 is not yet wired.
 
