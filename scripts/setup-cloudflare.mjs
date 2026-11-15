@@ -30,7 +30,7 @@ const API = "https://api.cloudflare.com/client/v4";
 const PROJECTS = [
 	// The apexes (senseikatana.com, samuraicoder.dev) serve other apps, so the
 	// Pages project must NOT own them: the Worker in workers/docs-proxy owns
-	// /en/docs/* there. docs.senseikatana.com stays attached only as a legacy
+	// /docs/* there. docs.senseikatana.com stays attached only as a legacy
 	// redirector — _redirects 301s it to the canonical host.
 	{ name: "katanakit-docs", domain: "docs.senseikatana.com", build: "bun run deploy" },
 ];

@@ -1,4 +1,4 @@
-// Reverse-proxy Worker: mounts the katanakit-docs Pages project under /en/docs/
+// Reverse-proxy Worker: mounts the katanakit-docs Pages project under /docs/
 // on the apex domains that already serve other applications.
 //
 // Deploy: `npx wrangler deploy -c workers/docs-proxy/wrangler.jsonc`
@@ -6,19 +6,20 @@
 // Routes are per-zone. The zones must exist in the same Cloudflare account.
 // Add or remove domains here; the Worker code is domain-agnostic.
 {
-	"$schema": "https://unpkg.com/wrangler/config-schema.json",
+	"$schema": "https://unpkg.com/wrangler@4.162.0/config-schema.json",
 	"name": "katanakit-docs-proxy",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-01-01",
 
 	// The Worker only fires on these routes; everything else stays with
-	// whatever already serves the zone (the extranet app, samurai site, etc.).
+	// whatever already serves the zone (the personal site, the extranet app,
+	// samurai site, etc.). Never claim the site root or bare locale paths:
+	// those belong to the zone's own apps.
 	"routes": [
-		// senseikatana.com is the docs/library domain — ONLY these routes live
-		// here. Every other app on the account runs on samuraicoder.dev.
-		{ "pattern": "senseikatana.com/", "zone_name": "senseikatana.com" },
-		{ "pattern": "senseikatana.com/en", "zone_name": "senseikatana.com" },
-		{ "pattern": "senseikatana.com/en/", "zone_name": "senseikatana.com" },
+		// senseikatana.com — docs/library paths only.
+		{ "pattern": "senseikatana.com/docs", "zone_name": "senseikatana.com" },
+		{ "pattern": "senseikatana.com/docs/*", "zone_name": "senseikatana.com" },
+		// Legacy /en/docs* URLs redirect to the canonical /docs* ones.
 		{ "pattern": "senseikatana.com/en/docs", "zone_name": "senseikatana.com" },
 		{ "pattern": "senseikatana.com/en/docs/*", "zone_name": "senseikatana.com" },
 	],

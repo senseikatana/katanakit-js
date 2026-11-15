@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * Serves `docs/.vitepress/dist` the way Cloudflare Pages does: at the domain
- * root, with the docs mounted under `/en/docs/`.
+ * root, with the docs mounted under `/docs/`.
  *
  * `vitepress preview` mounts the output at VitePress' `base`, which would look
- * for `dist/en/docs/en/docs/…` now that the build is nested for Pages. This
+ * for `dist/docs/docs/…` now that the build is nested for Pages. This
  * server reads the same tree Pages sees, resolves clean URLs (`/x` → `x.html`)
  * and falls back to the generated 404 page.
  *
@@ -124,7 +124,7 @@ const server = createServer((request, response) => {
 });
 
 server.listen(port, host, () => {
-	console.log(`docs: preview at http://localhost:${port}/en/docs/`);
+	console.log(`docs: preview at http://localhost:${port}/docs/`);
 });
 
 const stop = () => server.close(() => process.exit(0));

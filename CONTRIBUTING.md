@@ -8,7 +8,7 @@ repository.
 ## The development contract
 
 These rules keep the codebase consistent and maintainable. Please read
-[Architecture](https://senseikatana.com/en/docs/start/architecture) for the full context behind each rule.
+[Architecture](https://senseikatana.com/docs/start/architecture) for the full context behind each rule.
 
 1. **Hexagonal layering** — keep the pure `core` layer (`src/core/services/`)
    free of platform I/O: no filesystem, no unguarded browser globals, and no
@@ -16,9 +16,9 @@ These rules keep the codebase consistent and maintainable. Please read
    `import()` inside a method (`generator.service.ts`'s `node:crypto` pattern).
    Universal runtime APIs (`fetch`, `URL`, `crypto`, guarded `process.env`) are
    allowed — `http.service.ts` wraps the global `fetch` by design;
-   [ADR-0004](https://senseikatana.com/en/docs/explanation/decisions/adr-0004-hexagonal-core)
+   [ADR-0004](https://senseikatana.com/docs/explanation/decisions/adr-0004-hexagonal-core)
    and
-   [ADR-0016](https://senseikatana.com/en/docs/explanation/decisions/adr-0016-universal-runtime-apis-in-core)
+   [ADR-0016](https://senseikatana.com/docs/explanation/decisions/adr-0016-universal-runtime-apis-in-core)
    record the boundary. Adapters that own platform I/O
    live in `src/infrastructure/` (DOM, storage, viewport, sensors, observer,
    worker, theme). Framework-facing adapters live in `src/adapters/` (`astro/`,
@@ -96,12 +96,12 @@ Useful scripts:
 |             | `bun run build`        | `clean` → `check` → compile to `dist/` → build the UI → sync versions → typecheck the examples |
 |             | `bun run build:ui`     | Builds `@katanakit/ui` (vendored framework + components CSS) |
 | **develop** | `bun run dev`          | VitePress dev server (alias of `docs:dev`) |
-|             | `bun run preview`      | Builds, then serves the build at `/en/docs/` (the Cloudflare Pages shape) |
+|             | `bun run preview`      | Builds, then serves the build at `/docs/` (the Cloudflare Pages shape) |
 |             | `bun run bun:dev`      | Bun demo server alone |
 | **verify**  | `bun run check`        | `lint` → typecheck (root + UI) → unit tests. **The gate.** |
 |             | `bun run test:e2e`     | Playwright suite for `@katanakit/ui` — real browser, covers what jsdom cannot |
 |             | `bun run test:all`     | `check` then the browser suite |
-| **ship**    | `bun run deploy`       | Builds the docs site, then publishes it to Cloudflare Pages (senseikatana.com/en/docs/) |
+| **ship**    | `bun run deploy`       | Builds the docs site, then publishes it to Cloudflare Pages (senseikatana.com/docs/) |
 |             | `bun run deploy:gh`    | Builds with the GitHub Pages base and publishes to the gh-pages branch |
 |             | `bun run release`      | `build` → write the CHANGELOG section → preflight → `npm publish` |
 
@@ -194,7 +194,7 @@ Biggest gaps at the baseline: `viewport.service.ts` (117 statements, 0%),
 ## Updating documentation
 
 The public documentation site lives at
-**[senseikatana.com/en/docs](https://senseikatana.com/en/docs/)** and
+**[senseikatana.com/docs/overview](https://senseikatana.com/docs/overview)** and
 is built with VitePress. The source is in `docs/`.
 
 ### The four kinds of documentation
@@ -261,8 +261,8 @@ description: Cache, retry and invalidate server state.
 ```bash
 bun run dev            # generate API + changelog, then live‑reloading server
 bun run docs           # static build into docs/.vitepress/dist/
-bun run preview        # build, then serve at /en/docs/ on :4173
-bun run deploy         # build, then publish to Cloudflare Pages (senseikatana.com/en/docs/)
+bun run preview        # build, then serve at /docs/ on :4173
+bun run deploy         # build, then publish to Cloudflare Pages (senseikatana.com/docs/)
 bun run docs:gh        # manual preview on the gh‑pages branch (no Actions)
 bun run clean          # purge every regenerable artifact (docs temp included)
 ```
@@ -271,15 +271,14 @@ bun run clean          # purge every regenerable artifact (docs temp included)
 `.env` (see `.env.example`, never committed) or a `bunx wrangler login` session.
 It always builds first, so the published site is never a stale artifact.
 
-The VitePress config mounts every route under `/en/docs/`, and
+The VitePress config mounts every route under `/docs/`, and
 `scripts/docs.mjs` nests the build output to match, because Cloudflare Pages
-serves a deployment at the domain root. Keep a redirect rule on the legacy
-`docs.senseikatana.com` host pointing at
-`https://senseikatana.com/en/docs/:splat` — one Pages project cannot answer two
-hostnames with different roots.
+serves a deployment at the domain root. The home page is published at
+`https://senseikatana.com/docs/overview` (the proxy Worker aliases that URL
+onto the build's section root).
 
 Apex domains that serve other applications (`senseikatana.com`,
-`samuraicoder.dev`) get `/en/docs/` through the reverse-proxy Worker in
+`samuraicoder.dev`) get `/docs/` through the reverse-proxy Worker in
 `workers/docs-proxy/`. Deploy it with `bun run deploy:proxy` after a docs
 deploy. The Worker uses a Service Binding to the Pages project (no HTTP hop);
 it falls back to an HTTP fetch of `katanakit-docs.pages.dev` when the binding
@@ -398,4 +397,4 @@ not be tolerated.
 
 - [Open an issue](https://github.com/senseikatana/katanakit-js/issues) for bugs
 - [Start a discussion](https://github.com/senseikatana/katanakit-js/discussions) for questions
-- [Read the docs](https://senseikatana.com/en/docs/) for guides and API reference
+- [Read the docs](https://senseikatana.com/docs/overview) for guides and API reference

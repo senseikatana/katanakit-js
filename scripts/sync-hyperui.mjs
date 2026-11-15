@@ -30,7 +30,7 @@ const root = join(here, "..");
 const DEST = join(root, "docs", "public", "hyperui");
 const DOCS_PUBLIC = join(root, "docs", "public");
 /** Public path of the docs mount; every generated absolute link needs it. */
-const DOCS_BASE = "/en/docs";
+const DOCS_BASE = "/docs";
 const MD_PATH = join(root, "docs", "ui-kit", "hyperui.md");
 const UPSTREAM = "https://github.com/markmead/hyperui.git";
 
@@ -172,7 +172,7 @@ function main() {
 	}
 
 	// The vendored examples keep upstream's root-absolute asset paths
-	// (`/component.css`, `/blog.css`), which 404 under the /en/docs mount.
+	// (`/component.css`, `/blog.css`), which 404 under the /docs mount.
 	// Rewrite only those references; the markup itself stays upstream's.
 	for (const file of htmlFiles(DEST)) {
 		const original = readFileSync(file, "utf8");

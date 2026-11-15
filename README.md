@@ -6,7 +6,7 @@ conversion, and browser utilities. It ships ESM, is safe to import during SSR,
 and keeps every optional framework integration on its own package entry point —
 so a Vue app never pulls React, and a server build never pulls the DOM.
 
-[Documentation](https://senseikatana.com/docs/) ·
+[Documentation](https://senseikatana.com/docs/overview) ·
 [Getting started](https://senseikatana.com/docs/start/getting-started) ·
 [Tutorial](https://senseikatana.com/docs/tutorials/first-api-client) ·
 [API reference](https://senseikatana.com/docs/api/) ·
@@ -150,7 +150,7 @@ quote never loses precision and both directions are exactly reciprocal.
 Subscribe to rate updates with `useSubscribeRates()`, or implement
 `ICurrencyRateProvider` and inject it for live quotes.
 
-→ [Currency conversion guide](https://senseikatana.com/en/docs/guides/currency)
+→ [Currency conversion guide](https://senseikatana.com/docs/guides/currency)
 
 ### Authorization — roles, capabilities and resource grants
 
@@ -214,7 +214,7 @@ if (!result.ok) {
 The last active holder of a role cannot lose it, nobody can suspend or demote
 themselves, and `owner` is never assigned through these paths.
 
-→ [Access control guide](https://senseikatana.com/en/docs/guides/access-control)
+→ [Access control guide](https://senseikatana.com/docs/guides/access-control)
 
 ### Authentication — one port, any provider
 
@@ -246,8 +246,8 @@ national-identity integration — they all implement the same `IAuthProvider`.
 failure is `ok: false`. Flattening those two turns a broken provider into a
 publicly readable route.
 
-→ [Better Auth guide](https://senseikatana.com/en/docs/guides/better-auth) ·
-[InsForge guide](https://senseikatana.com/en/docs/guides/insforge)
+→ [Better Auth guide](https://senseikatana.com/docs/guides/better-auth) ·
+[InsForge guide](https://senseikatana.com/docs/guides/insforge)
 
 ### katanakitAI — API keys, MCP and agent config
 
@@ -264,7 +264,7 @@ kai agents config opencode --key <id>     # auto config + manual connection
 kai keys export --out ~/backups/keys.enc.json
 ```
 
-See [katanakitAI](https://senseikatana.com/en/docs/guides/services/katanakit-ai) for the full guide.
+See [katanakitAI](https://senseikatana.com/docs/guides/services/katanakit-ai) for the full guide.
 
 ### Reactive signals
 
@@ -287,7 +287,7 @@ useCreateEffect(() => {
 Works identically in Node and in the browser — the effect simply does not run
 where there is no DOM to update.
 
-→ [Reactive guide](https://senseikatana.com/en/docs/guides/services/reactive)
+→ [Reactive guide](https://senseikatana.com/docs/guides/services/reactive)
 
 ### Framework adapters
 
@@ -304,7 +304,7 @@ Available entry points: `express`, `hono`, `bun`, `nestjs`, `nuxt`, `vue`,
 `insforge`, `drizzle`, `assistant`, `notion`, `wordpress`, `photoswipe`, plus `/schemas`,
 `/prisma` and `/styles.css`.
 
-→ [Framework adapters](https://senseikatana.com/en/docs/guides/framework-adapters)
+→ [Framework adapters](https://senseikatana.com/docs/guides/framework-adapters)
 
 ### Typed HTTP, dates, arrays and more
 
@@ -322,7 +322,7 @@ useDateOrder("2026-04-01", "2026-03-01");             // "after"
 Notion uses in its formula editor — `years`, `quarters`, `months`, `weeks`,
 `days`, `hours`, `minutes`.
 
-→ [All services](https://senseikatana.com/en/docs/guides/services/)
+→ [All services](https://senseikatana.com/docs/guides/services/)
 
 ### Native forms, validated with Zod
 
@@ -343,7 +343,7 @@ already write decides the messages. Errors render inside each field with
 the submit button reports `aria-busy` until an async `onSubmit` settles. No
 `react-hook-form`, no resolvers: `FormData` in, typed values out.
 
-→ [Forms guide](https://senseikatana.com/en/docs/guides/services/forms)
+→ [Forms guide](https://senseikatana.com/docs/guides/services/forms)
 
 ### One service shape
 
@@ -356,7 +356,7 @@ Injection** (`create()` builds an isolated instance with injected
 collaborators). Public methods use the `use*` prefix; `on*` is reserved
 exclusively for Observer callbacks the service invokes.
 
-→ [Service architecture](https://senseikatana.com/en/docs/explanation/service-architecture)
+→ [Service architecture](https://senseikatana.com/docs/explanation/service-architecture)
 
 ---
 
@@ -420,13 +420,13 @@ The site follows [Diátaxis](https://diataxis.fr): one page, one kind.
 
 | Kind | Where | Read it when |
 | --- | --- | --- |
-| Tutorial | [first-api-client](https://senseikatana.com/en/docs/tutorials/first-api-client) | You are learning the toolkit end to end |
-| How-to | [guides](https://senseikatana.com/en/docs/start/getting-started) | You know the goal and need the steps |
-| Reference | [API reference](https://senseikatana.com/en/docs/api/) | You need exact signatures |
-| Explanation | [why KatanaKit](https://senseikatana.com/en/docs/explanation/why-katanakit) · [decisions](https://senseikatana.com/en/docs/explanation/decisions/) | You want the reasoning behind a choice |
+| Tutorial | [first-api-client](https://senseikatana.com/docs/tutorials/first-api-client) | You are learning the toolkit end to end |
+| How-to | [guides](https://senseikatana.com/docs/start/getting-started) | You know the goal and need the steps |
+| Reference | [API reference](https://senseikatana.com/docs/api/) | You need exact signatures |
+| Explanation | [why KatanaKit](https://senseikatana.com/docs/explanation/why-katanakit) · [decisions](https://senseikatana.com/docs/explanation/decisions/) | You want the reasoning behind a choice |
 
 Architecture decisions are recorded as ADRs and are never rewritten — see the
-[decisions index](https://senseikatana.com/en/docs/explanation/decisions/).
+[decisions index](https://senseikatana.com/docs/explanation/decisions/).
 
 ---
 

@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE_ORIGIN = "https://senseikatana.com";
-const DOCS_BASE = "/en/docs";
+const DOCS_BASE = "/docs";
 const DOCS_ORIGIN = `${SITE_ORIGIN}${DOCS_BASE}`;
 const REPOSITORY = process.env.GITHUB_REPOSITORY ?? "senseikatana/katanakit-js";
 const MANIFEST = ".katanakit-wiki-manifest.json";
@@ -305,7 +305,7 @@ export function cleanPage(sourcePath, content, pagesBySource) {
 			`- [Explanation and decisions](${pagesBySource.get("docs/explanation/index.md")})`,
 			`- [UI Kit](${pagesBySource.get("docs/ui-kit/index.md")})`,
 			"",
-			`The complete documentation site and generated API reference are available at [senseikatana.com/en/docs](${DOCS_ORIGIN}/).`,
+			`The complete documentation site and generated API reference are available at [senseikatana.com/docs/overview](${DOCS_ORIGIN}/overview).`,
 			"",
 		]
 			.join("\n")
