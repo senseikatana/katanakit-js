@@ -8,6 +8,31 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.5.2] - 2026-11-15
+
+Highlights: feat(scripts): add contract, DOCS_BASE and redesign all sites.
+
+- 🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites `7a463bb`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `package.json`
+  - `pnpm-lock.yaml`
+  - `scripts/docs-site.json`
+  - `scripts/setup-cloudflare.mjs`
+  - `scripts/sync-hyperui.mjs`
+  - `scripts/sync-wiki.mjs`
+  - `src/prisma/use-prisma.ts`
+  - `tests/docs-site.test.ts`
+  - `typedoc.json`
+  - `workers/docs-proxy/README.md`
+  - `workers/docs-proxy/src/index.ts`
+  - `workers/docs-proxy/wrangler.jsonc`
+- 📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest `c606335`
+- 📝 docs(plans): update 1 file (+0/-131) `8a852a5`
+- 📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections `5c8e24b`
+- 📝 docs(services): add deploy and docs to package.json `e2be25f`
+- 📝 docs(styles): add sets `ac9f42a`
+
 ## [7.5.1] - 2026-11-15
 
 Maintenance release with 1 change.
