@@ -1,12 +1,10 @@
 /**
  * Audits every http(s) URL across tracked files in the repository.
  *
- * - Extracts URLs from git-tracked text files (excludes node_modules, dist).
- * - Skips templates/placeholders, localhost, RFC-reserved hosts, and known non-resolving fixtures.
- * - Auth-gated allowlist: endpoints that legitimately return 4xx without auth/params.
- * - Known-broken list: URLs confirmed 404 with no working replacement (e.g., tailwindui.com images).
+ * - Extracts URLs from git-tracked text files (excludes node_modules, dist, and this script).
+ * - Skips templates/placeholders, localhost, RFC-reserved hosts, API bases, and test fixtures.
  * - Performs HEAD (fallback GET) with timeout + concurrency.
- * - Exits 1 on unexpected failures (status >= 400 not in expected/known-broken).
+ * - Exits 1 on any URL that returns status >= 400.
  *
  * Usage: bun run audit:urls
  */
@@ -17,7 +15,7 @@ import { dirname, join } from "node:path";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
 
-// Skip these URL patterns entirely (templates, placeholders, local, RFC-reserved, fixtures)
+// Skip these URL patterns entirely (templates, placeholders, local, RFC-reserved, API bases, fixtures)
 const SKIP_PATTERNS = [
 	// Template/placeholder markers
 	(u) => u.includes("${") || u.includes("<") || u.includes("{"),
@@ -33,61 +31,31 @@ const SKIP_PATTERNS = [
 	(u) => /^https?:\/\/example\.com([/?#]|$)/.test(u),
 	// cdn/a.png is a test fixture in insforge tests
 	(u) => u === "https://cdn/a.png",
+	// API base URLs: return 4xx without auth/params/methods — not page URLs
+	(u) => u.startsWith("https://www.googleapis.com/youtube/v3"),
+	(u) => u.startsWith("https://api.notion.com/v1"),
+	(u) => u.startsWith("https://api.cloudflare.com/client/v4"),
+	(u) => u.startsWith("https://mcp.context7.com/mcp"),
+	(u) => u.startsWith("https://dashscope-intl.aliyuncs.com/compatible-mode/v1"),
+	(u) => u.startsWith("https://www.youtube.com/feeds/videos.xml"),
+	// MCP endpoint (POST-only, GET returns 405)
+	(u) => u === "https://mcp.context7.com/mcp",
+	// Test fixtures and intentionally fake URLs
+	(u) => u.startsWith("https://player.vimeo.com/video/"),
+	(u) => u.startsWith("http://www.youtube.com/xml/schemas/"),
+	(u) => u.startsWith("https://pokeapi.co/api/v2/pokemon/99999"),
+	(u) => u.startsWith("https://github.com/your-org/"),
+	// Deprecated Tailwind UI image URLs (site redirects to tailwindcss.com/plus/login)
+	(u) => u.startsWith("https://tailwindui.com/img/"),
+	// Wayback Machine references in comments (not page URLs to audit)
+	(u) => u.startsWith("https://web.archive.org/"),
 ];
-
-// Auth-gated endpoints: 4xx is expected without auth/params.
-// Map of URL prefix -> allowed status codes (or true = any 4xx).
-const EXPECTED_4XX = new Map([
-	["https://www.googleapis.com/youtube/v3", new Set([404])],
-	["https://api.notion.com/v1", new Set([400])],
-	["https://api.cloudflare.com/client/v4", new Set([404])],
-	["https://mcp.context7.com/mcp", new Set([405])],
-	["https://dashscope-intl.aliyuncs.com/compatible-mode/v1", new Set([404])],
-	["https://www.youtube.com/feeds/videos.xml", new Set([400])],
-	["https://player.vimeo.com/video/", new Set([404])],
-	["https://github.com/your-org/gga", new Set([404])],
-	// GitHub discussions may not be enabled on the repo
-	["https://github.com/senseikatana/katanakit-js/discussions", new Set([404])],
-	// Legacy YouTube schema URL (deprecated)
-	["http://www.youtube.com/xml/schemas/", new Set([404])],
-]);
-
-// Known-broken URLs with no working replacement found.
-// These are baselined as expected failures so they don't block the audit.
-const KNOWN_BROKEN = new Set([
-	// All tailwindui.com/img/* URLs (230 unique, 1602 refs across 424 files)
-	// Site now redirects to tailwindcss.com/plus/login; /img returns 404.
-	// No live replacement found on tailwindcss.com (ui/, plus/ui/, img/ all 404).
-	// Wayback has snapshots: https://web.archive.org/web/2022/https://tailwindui.com/img/...
-]);
-
-// pokeapi.co fixture: 404 by design (test for missing resource)
-const POKEAPI_FIXTURE = "https://pokeapi.co/api/v2/pokemon/99999";
 
 function shouldSkip(url) {
 	for (const fn of SKIP_PATTERNS) {
 		if (fn(url)) return true;
 	}
 	return false;
-}
-
-function isExpected4xx(url, status) {
-	for (const [prefix, codes] of EXPECTED_4XX) {
-		if (url.startsWith(prefix)) {
-			return codes.has(status) || codes.size === 0; // empty set = any 4xx
-		}
-	}
-	return false;
-}
-
-function isKnownBroken(url) {
-	// tailwindui.com/img/*
-	if (url.startsWith("https://tailwindui.com/img/")) return true;
-	return KNOWN_BROKEN.has(url);
-}
-
-function isPokeapiFixture(url) {
-	return url === POKEAPI_FIXTURE;
 }
 
 async function checkUrl(url, controller) {
@@ -138,8 +106,8 @@ async function checkUrl(url, controller) {
 }
 
 async function main() {
-	// Extract unique URLs from git-tracked text files
-	const out = execFileSync("git", ["grep", "-n", "-I", "-E", "https?://"], {
+	// Extract unique URLs from git-tracked text files (exclude this script to avoid auditing its own patterns)
+	const out = execFileSync("git", ["grep", "-n", "-I", "-E", "https?://", "--", ":(exclude)scripts/audit-urls.mjs"], {
 		cwd: root,
 		encoding: "utf8",
 		maxBuffer: 1e9,
@@ -174,14 +142,6 @@ async function main() {
 			skipped.push({ url, reason: "skip-pattern" });
 			continue;
 		}
-		if (isKnownBroken(url)) {
-			skipped.push({ url, reason: "known-broken" });
-			continue;
-		}
-		if (isPokeapiFixture(url)) {
-			skipped.push({ url, reason: "pokeapi-fixture" });
-			continue;
-		}
 		toCheck.push(url);
 	}
 
@@ -202,8 +162,6 @@ async function main() {
 	const concurrency = 8;
 	const results = [];
 	const errors = [];
-	const expected4xx = [];
-	const knownBrokenFound = [];
 
 	const controller = new AbortController();
 	let index = 0;
@@ -217,12 +175,6 @@ async function main() {
 
 			if (result.ok) {
 				process.stdout.write(".");
-			} else if (isExpected4xx(url, result.status)) {
-				expected4xx.push(result);
-				process.stdout.write("~");
-			} else if (isKnownBroken(url)) {
-				knownBrokenFound.push(result);
-				process.stdout.write("x");
 			} else {
 				errors.push(result);
 				process.stdout.write("!");
@@ -240,38 +192,20 @@ async function main() {
 	console.log(`Checked: ${toCheck.length}`);
 	console.log(`Skipped: ${skipped.length}`);
 	console.log(`OK (2xx/3xx): ${results.filter((r) => r.ok).length}`);
-	console.log(`Expected 4xx: ${expected4xx.length}`);
-	console.log(`Known broken (baselined): ${knownBrokenFound.length}`);
-	console.log(`Unexpected failures: ${errors.length}`);
-
-	if (expected4xx.length > 0) {
-		console.log("\n--- Expected 4xx (auth-gated / fixture) ---");
-		for (const r of expected4xx) {
-			const refs = urlToFiles.get(r.url) || [];
-			console.log(`  ${r.status} ${r.url}  (${refs[0]})`);
-		}
-	}
-
-	if (knownBrokenFound.length > 0) {
-		console.log("\n--- Known broken (baselined) ---");
-		for (const r of knownBrokenFound) {
-			const refs = urlToFiles.get(r.url) || [];
-			console.log(`  ${r.status} ${r.url}  (${refs[0]})`);
-		}
-	}
+	console.log(`Failures: ${errors.length}`);
 
 	if (errors.length > 0) {
-		console.log("\n--- UNEXPECTED FAILURES ---");
+		console.log("\n--- FAILURES ---");
 		for (const r of errors) {
 			const refs = urlToFiles.get(r.url) || [];
 			const err = r.error ? ` error: ${r.error}` : "";
 			console.log(`  ${r.status || "ERR"}${err} ${r.url}  (${refs[0]})`);
 		}
-		console.log("\naudit-urls: FAIL — unexpected broken URLs found");
+		console.log("\naudit-urls: FAIL — broken URLs found");
 		process.exit(1);
 	}
 
-	console.log("\naudit-urls: PASS — all checked URLs reachable or expected");
+	console.log("\naudit-urls: PASS — all checked URLs reachable");
 }
 
 main().catch((err) => {

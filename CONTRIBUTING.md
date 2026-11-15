@@ -409,5 +409,5 @@ not be tolerated.
 ## Questions?
 
 - [Open an issue](https://github.com/senseikatana/katanakit-js/issues) for bugs
-- [Start a discussion](https://github.com/senseikatana/katanakit-js/discussions) for questions
+- [Open an issue](https://github.com/senseikatana/katanakit-js/issues) for questions
 - [Read the docs](https://senseikatana.com/docs/overview) for guides and API reference
