@@ -8,6 +8,33 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.5.3] - 2026-11-15
+
+Highlights: feat(scripts): unify the docs script surface and add audit:urls, plus 3 more changes.
+
+- 📝 docs(CONTRIBUTING.md): add out `233c95c`
+  - `CONTRIBUTING.md`
+  - `INPUT-SURFACE-INVENTORY.md`
+  - `packages/ui/package.json`
+  - `scripts/audit-urls.mjs`
+- 🚀 feat(scripts): unify the docs script surface and add audit:urls `4757447`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+  - `scripts/audit-urls.mjs`
+  - `scripts/clean.mjs`
+  - `scripts/docs-publish.mjs`
+  - `scripts/serve-docs.mjs`
+- 📦 build(bun.lock): add check and concurrently to package.json `7e04a13`
+  - `bun.lock`
+  - `package.json`
+- 📦 build(bun.lock): add better-auth to package.json and update to latest versions `7bbd5a0`
+  - `bun.lock`
+  - `package.json`
+  - `pnpm-lock.yaml`
+- 🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites `7a463bb`
+- 📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest `c606335`
+
 ## [7.5.2] - 2026-11-15
 
 Highlights: feat(scripts): add contract, DOCS_BASE and redesign all sites.
