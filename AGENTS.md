@@ -45,10 +45,11 @@ Scripts are grouped so nothing runs twice. The shipping commands chain them in o
 
 `build` deliberately does **not** run `check`. Call `bun run check && bun run build`, or use a shipping script below — chaining `check` into `build` made the tests run twice.
 
-**Docs** — production build by default, `:dev` for the server:
+**Docs** — production build by default, `dev` for the server:
 
 - `bun run docs` — production build (delegates to `senseikatana/docs`).
-- `bun run docs:dev` — VitePress dev server (delegates to `senseikatana/docs`).
+- `bun run dev` — VitePress dev server (delegates to `senseikatana/docs`).
+- `bun run preview` — builds, then serves the Pages shape locally (delegates to `senseikatana/docs`).
 - `bun run docs:clean` — purges shared VitePress temp state (delegates to `senseikatana/docs`).
 
 **Shipping** — each runs `check`, then `build`, then its deployment:
@@ -56,7 +57,7 @@ Scripts are grouped so nothing runs twice. The shipping commands chain them in o
 - `bun run deploy` — Cloudflare Pages (delegates to `senseikatana/docs`).
 - `bun run release` — npm publish via `scripts/npm-publish.mjs`.
 
-Docs are now maintained in the sibling repository `senseikatana/docs/`. The `scripts/docs.mjs` and `scripts/docs-prepare.mjs` have been moved there and adapted to sync generated content from this repository.
+Docs are now maintained in the sibling repository `senseikatana/docs/`: its `scripts/docs.mjs` syncs generated content from this repository and runs VitePress. `scripts/docs-prepare.mjs` stays here (TypeDoc API + changelog page) and is invoked by `docs.mjs` during every docs build.
 
 ## Git and releases
 

@@ -32,15 +32,10 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const TARGETS = [
 	["dist", "bun run build"],
 	["packages/ui/dist", "bun run build:ui"],
-	["docs/api", "bun run deploy"],
-	["docs/changelog.md", "bun run deploy"],
-	["docs/.vitepress/dist", "bun run deploy"],
-	["docs/.vitepress/cache", "bun run deploy"],
-	["docs/.vitepress/.temp", "bun run deploy"],
-	["docs/.vitepress/theme/signals.json", "bun run deploy"],
-	[".vitepress", "bun run deploy"],
-	[".cache", "bun run deploy"],
-	["node_modules/.vite", "bun run dev"],
+	["docs/api", "bun run docs"],
+	["docs/changelog.md", "bun run docs"],
+	["docs/.vitepress/theme/signals.json", "bun run docs"],
+	["node_modules/.vite", "bun run test"],
 ];
 
 /**
