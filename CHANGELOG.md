@@ -8,6 +8,30 @@ For installation and usage, see the
 [published release notes](https://senseikatana.com/en/docs/changelog) or return to
 the [project repository](https://github.com/senseikatana/katanakit-js).
 
+## [7.5.4] - 2026-11-18
+
+Highlights: feat(INPUT-SURFACE-INVENTORY.md): add facade, grouped and isRecord, plus 1 more change.
+
+- 🚀 feat(INPUT-SURFACE-INVENTORY.md): add facade, grouped and isRecord `98593cc`
+  - `INPUT-SURFACE-INVENTORY.md`
+  - `README.md`
+  - `docs/CNAME`
+  - `examples/api-manager/demo.ts`
+  - `src/core/services/http.service.ts`
+  - `src/types/core/config-facade.ts`
+  - `tests/http.service.test.ts`
+  - `tsconfig.examples.json`
+  - `tsconfig.examples.solid.json`
+- 🤖 ci: add release workflow and trim scripts to the essentials `2a42cc9`
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+- 📝 docs(CONTRIBUTING.md): add out `233c95c`
+- 🚀 feat(scripts): unify the docs script surface and add audit:urls `4757447`
+- 📦 build(bun.lock): add check and concurrently to package.json `7e04a13`
+- 📦 build(bun.lock): add better-auth to package.json and update to latest versions `7bbd5a0`
+
 ## [7.5.3] - 2026-11-15
 
 Highlights: feat(scripts): unify the docs script surface and add audit:urls, plus 3 more changes.
