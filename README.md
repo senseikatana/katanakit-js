@@ -71,6 +71,40 @@ if (result.ok) {
 }
 ```
 
+### Options-style config
+
+The same literal also accepts Vue-Options-style sections when you want the
+whole client in one object — `apis` to register, `data()` for mutable state,
+`onInit` for one-time setup, and `methods` for callable requests:
+
+```ts
+import { defineApiConfig, useFetch } from "katanakit-js";
+
+export default defineApiConfig({
+  apis: {
+    pokeapi: {
+      baseUri: "https://pokeapi.co/api/v2",
+      endpoints: { pokemonById: "/pokemon/:id/" },
+    },
+  },
+  data: () => ({ calls: 0 }),
+  onInit() {
+    // Runs once, after registration. Synchronous on purpose.
+  },
+  methods: {
+    async getPokemon(id: number) {
+      this.data.calls += 1;
+      return useFetch("pokeapi", "pokemonById", { params: { id } });
+    },
+  },
+});
+```
+
+Flat entries keep working — the sections are additive. `data` is plain mutable
+state (not reactive), and `onInit` runs while the module is evaluated, so async
+work belongs in a method. `apis`, `data`, `onInit` and `methods` are reserved
+names.
+
 ### Safe Results
 
 This is the convention the whole toolkit follows. A fallible operation returns

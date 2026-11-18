@@ -225,6 +225,84 @@ describe("defineApiConfig", () => {
 		expect(fetchMock).toHaveBeenCalledOnce();
 	});
 
+	it("seeds `data()` and keeps it mutable across `methods` calls", () => {
+		const facade = defineApiConfig({
+			data: () => ({ count: 0 }),
+			methods: {
+				bump() {
+					this.data.count += 1;
+					return this.data.count;
+				},
+			},
+		});
+
+		expect(facade.data.count).toBe(0);
+		expect(facade.bump()).toBe(1);
+		expect(facade.bump()).toBe(2);
+		expect(facade.data.count).toBe(2);
+	});
+
+	it("runs `onInit` once with the finished facade as `this`", () => {
+		const seen: string[] = [];
+
+		const facade = defineApiConfig({
+			optinit: { baseUri: "https://example.com", endpoints: { ping: "/ping" } },
+			data: () => ({ booted: false }),
+			onInit() {
+				this.markBooted();
+				seen.push(this.config.optinit.baseUri);
+			},
+			methods: {
+				markBooted() {
+					this.data.booted = true;
+				},
+			},
+		});
+
+		expect(seen).toEqual(["https://example.com"]);
+		expect(facade.data.booted).toBe(true);
+	});
+
+	it("registers the `apis` group without leaking it onto `config`", () => {
+		const facade = defineApiConfig({
+			apis: {
+				optgroup: { baseUri: "https://example.com", endpoints: { list: "/list" } },
+			},
+		});
+
+		expect(useGetApis().optgroup.baseUri).toBe("https://example.com");
+		expect("apis" in facade.config).toBe(false);
+	});
+
+	it("merges top-level and `methods` methods on the same facade", () => {
+		const facade = defineApiConfig({
+			data: () => ({ n: 1 }),
+			topLevel: function () {
+				return this.data.n;
+			},
+			methods: {
+				nested() {
+					return this.topLevel() + 1;
+				},
+			},
+		});
+
+		expect(facade.nested()).toBe(2);
+	});
+
+	it("throws when a `methods` entry is not a function", () => {
+		const malformed = { methods: { nope: 1 } } as unknown as object;
+
+		expect(() => defineApiConfig(malformed)).toThrow(/methods\.nope/);
+	});
+
+	it("throws when a section has the wrong shape", () => {
+		expect(() => defineApiConfig({ data: {} } as unknown as object)).toThrow(/must be a function/);
+		expect(() =>
+			defineApiConfig({ apis: { nope: { baseUri: "https://example.com" } } } as unknown as object),
+		).toThrow(/in "apis" is not an API entry/);
+	});
+
 	it("throws when a non-method object is not an API entry", () => {
 		// Bypass the type checker to exercise the runtime guard JS consumers hit.
 		const malformed = { bad: { nope: true } } as unknown as object;

@@ -9,13 +9,13 @@
 
 import {
 	defineApiConfig,
+	useBuildUrl,
+	useDelete,
+	useFetch,
 	useGetApi,
+	usePatch,
 	usePost,
 	usePut,
-	usePatch,
-	useDelete,
-	useBuildUrl,
-	useFetch,
 } from "../../src/core/services/http.service.js";
 
 /* ------------------------------------------------------------------ */
@@ -237,6 +237,38 @@ async function handleErrorCase(): Promise<void> {
 }
 
 /* ------------------------------------------------------------------ */
+/* 10. Options-style config — APIs, state, init and methods together  */
+/* ------------------------------------------------------------------ */
+
+const usersApi = defineApiConfig({
+	data: () => ({ calls: 0 }),
+
+	onInit() {
+		console.log("\n[options config] registered; `this.data` is ready");
+	},
+
+	methods: {
+		async listUsers(): Promise<void> {
+			this.data.calls += 1;
+
+			const result = await useGetApi<{ id: number; name: string }[]>("myBackend", "users", {
+				query: { _limit: 3 },
+			});
+
+			if (result.ok) {
+				console.log(`  ${result.data.length} users (call #${this.data.calls})`);
+			} else {
+				console.error("  Failed:", result.error.message);
+			}
+		},
+
+		callCount(): number {
+			return this.data.calls;
+		},
+	},
+});
+
+/* ------------------------------------------------------------------ */
 /* Run all examples                                                   */
 /* ------------------------------------------------------------------ */
 
@@ -250,6 +282,8 @@ async function main(): Promise<void> {
 	await fetchWithAuth();
 	showUrlBuilding();
 	await handleErrorCase();
+	await usersApi.listUsers();
+	console.log("  options-style calls:", usersApi.callCount());
 
 	console.log("\nDone.");
 }

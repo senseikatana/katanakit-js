@@ -15,11 +15,30 @@ export type ConfigMethodKeys<T> = {
 	[K in keyof T]-?: NonNullable<T[K]> extends ConfigMethod ? K : never;
 }[keyof T];
 
-/** The props/booleans half of a `define*Config` literal — the config data. */
-export type ConfigData<T> = Omit<T, ConfigMethodKeys<T>>;
+/**
+ * Section keys `defineApiConfig` reads as Options-API-style groups instead of
+ * flat entries. They are never copied onto `config` and never registered as
+ * APIs.
+ */
+export type ApiConfigSectionKey = "apis" | "data" | "onInit" | "methods";
 
-/** The methods half of a `define*Config` literal. */
-export type ConfigMethodEntries<T> = Pick<T, ConfigMethodKeys<T>>;
+/** The props/booleans half of a `define*Config` literal — the config data. */
+export type ConfigData<T> = Omit<T, ConfigMethodKeys<T> | ApiConfigSectionKey>;
+
+/** The flat methods half of a `define*Config` literal. */
+export type ConfigMethodEntries<T> = Pick<T, Exclude<ConfigMethodKeys<T>, ApiConfigSectionKey>>;
+
+/**
+ * Methods declared in the `methods: {}` section, merged flat onto the facade
+ * alongside any top-level methods. Absent when the literal declares none.
+ */
+export type ApiConfigNestedMethods<T> = T extends { methods: infer M } ? M : unknown;
+
+/**
+ * State declared by the `data()` section — the return type of that factory.
+ * Absent when the literal declares no `data`, matching the runtime facade.
+ */
+export type ApiConfigStateEntry<T> = T extends { data: () => infer S } ? { data: S } : unknown;
 
 /**
  * What every `define*Config` returns: the registered config under `config`,
@@ -44,7 +63,9 @@ export type ConfigMethodEntries<T> = Pick<T, ConfigMethodKeys<T>>;
 export type ConfigFacade<T> = {
 	/** Props and booleans declared in the literal (methods stripped out). */
 	config: ConfigData<T>;
-} & ConfigMethodEntries<T>;
+} & ConfigMethodEntries<T> &
+	ApiConfigNestedMethods<T> &
+	ApiConfigStateEntry<T>;
 
 /**
  * Constrains every non-method entry of a `define*Config` literal to `V`, while
@@ -59,9 +80,8 @@ export type ConfigValues<T, V> = {
 };
 
 /**
- * Values accepted by {@link defineApiConfig}: an {@link ApiEntry}, a boolean
- * flag (kept on `config` only — never registered as an API) or a method.
+ * Values accepted by {@link defineApiConfig} as a flat entry: an {@link ApiEntry},
+ * a boolean flag (kept on `config` only — never registered as an API) or a
+ * method.
  */
 export type ApiConfigValue = ApiEntry | boolean | ConfigMethod;
-
-/* -------------------------------------------------------------------------- */

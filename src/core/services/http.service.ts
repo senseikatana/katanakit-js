@@ -1,9 +1,8 @@
 import type {
-	ApiConfigValue,
 	ApiEntry,
 	ApisConfig,
 	ConfigFacade,
-	ConfigValues,
+	ConfigMethod,
 	FetchOptions,
 	FetchRequest,
 	FetchResult,
@@ -25,6 +24,18 @@ const MAX_ERROR_BODY_CHARS = 32 * 1024;
  */
 function isApiEntry(value: unknown): value is ApiEntry {
 	return typeof value === "object" && value !== null && "baseUri" in value && "endpoints" in value;
+}
+
+/**
+ * Internal: narrows an unknown value to a plain object (not `null`, not an
+ * array). Used to validate the `apis` and `methods` sections before anything
+ * reaches the registry.
+ *
+ * @param value - The value to inspect.
+ * @returns `true` for a non-null, non-array object.
+ */
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 /**
@@ -512,40 +523,101 @@ export class FetchApiManager {
 /**
  * Declares the API registry in a single call - the config-file entry point.
  *
- * Registers every {@link ApiEntry} you list and returns them alongside the
- * props, flags and methods declared on the same literal, so one `export default`
- * is the whole setup: no second registration step.
+ * Flat entries stay supported: every {@link ApiEntry} you list is registered,
+ * boolean flags are kept on `config`, and methods are returned on the facade.
+ * On top of that it accepts the Options-API-style sections:
  *
- * Only object entries shaped like `{ baseUri, endpoints }` reach the registry;
- * boolean flags are kept on `config` for your own methods to read.
+ * - `apis` - a registry group, registered exactly like flat entries.
+ * - `data()` - returns the mutable facade state, exposed as `this.data`.
+ * - `onInit()` - runs once, after registration, with the facade as `this`.
+ * - `methods` - callable methods, merged flat onto the facade.
+ *
+ * One `export default` is the whole setup: no second registration step.
  *
  * @typeParam T - The literal passed in.
- * @param input - API entries, flags and methods in one object literal.
+ * @param input - API entries, flags, sections and methods in one object literal.
  * @returns The registered config plus the declared methods (see `ConfigFacade`).
- * @throws {Error} If a non-method value is an object that is not an API entry.
+ * @throws {Error} If a non-method value is an object that is not an API entry,
+ *   if a section has the wrong shape, or if a `methods` entry is not a function.
  *
  * @example
  * ```ts
- * import { defineApiConfig } from "katanakit-js";
+ * import { defineApiConfig, useFetch } from "katanakit-js";
  *
  * export default defineApiConfig({
- *   pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
- *   debug: true,
- *   getPokemon: async function () {
- *     return useFetch("pokeapi", "byId", { params: { id: 25 } });
+ *   apis: {
+ *     pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
+ *   },
+ *   data: () => ({ calls: 0 }),
+ *   onInit() {
+ *     // Runs once, after registration. Synchronous on purpose.
+ *   },
+ *   methods: {
+ *     async getPokemon(id: number) {
+ *       this.data.calls += 1;
+ *       return useFetch("pokeapi", "byId", { params: { id } });
+ *     },
  *   },
  * });
  * ```
  *
- * @remarks Methods must be written with `function`, not as arrows - `this.config`
- * is undefined inside an arrow function.
+ * @remarks Methods must be written as method shorthand or with `function`, not
+ * as arrows - `this` is undefined inside an arrow function.
+ *
+ * `data` is plain mutable state: it is not reactive and it is shared by every
+ * method of that facade. `onInit` is synchronous because it runs while the
+ * module is evaluated; do async work in a method.
+ *
+ * `apis`, `data`, `onInit` and `methods` are reserved: an API or method with
+ * one of those names must be declared under `apis` / `methods` instead.
  */
 export function defineApiConfig<T extends object>(
-	input: T & ThisType<ConfigFacade<T>> & ConfigValues<NoInfer<T>, ApiConfigValue>,
+	input: T & ThisType<ConfigFacade<T>>,
 ): ConfigFacade<T> {
-	const { config, methods } = useSplitConfig(input);
+	const { apis, data, onInit, methods, ...flat } = input as T & {
+		apis?: ApisConfig;
+		data?: () => object;
+		onInit?: ConfigMethod;
+		methods?: Record<string, ConfigMethod>;
+	};
 
-	const registered: ApisConfig = {};
+	// Every section is validated before the singleton registry is touched.
+	if (data !== undefined && typeof data !== "function") {
+		throw new Error(
+			'[FetchApiManager] defineApiConfig: "data" must be a function returning the state object.',
+		);
+	}
+	if (onInit !== undefined && typeof onInit !== "function") {
+		throw new Error('[FetchApiManager] defineApiConfig: "onInit" must be a function.');
+	}
+	if (methods !== undefined && !isRecord(methods)) {
+		throw new Error('[FetchApiManager] defineApiConfig: "methods" must be an object of functions.');
+	}
+	if (apis !== undefined && !isRecord(apis)) {
+		throw new Error('[FetchApiManager] defineApiConfig: "apis" must be an object of API entries.');
+	}
+
+	const grouped: ApisConfig = {};
+	for (const [name, entry] of Object.entries(apis ?? {})) {
+		if (!isApiEntry(entry)) {
+			throw new Error(
+				`[FetchApiManager] defineApiConfig: "${name}" in "apis" is not an API entry ` +
+					`(expected an object with baseUri and endpoints).`,
+			);
+		}
+		grouped[name] = entry;
+	}
+
+	const nested = methods ?? {};
+	for (const [name, method] of Object.entries(nested)) {
+		if (typeof method !== "function") {
+			throw new Error(`[FetchApiManager] defineApiConfig: "methods.${name}" must be a function.`);
+		}
+	}
+
+	const { config, methods: flatMethods } = useSplitConfig(flat);
+
+	const registered: ApisConfig = { ...grouped };
 	for (const [name, value] of Object.entries(config)) {
 		if (isApiEntry(value)) {
 			registered[name] = value;
@@ -560,8 +632,14 @@ export function defineApiConfig<T extends object>(
 	}
 	FetchApiManager.getInstance().useInit(registered);
 
-	// `methods` is a generic spread, so TS cannot prove the exact facade shape.
-	return { config, ...methods } as ConfigFacade<T>;
+	const state = data ? data() : {};
+	// The sections widen the literal, so TS cannot prove the exact facade shape.
+	const facade = { config, data: state, ...flatMethods, ...nested } as unknown as ConfigFacade<T>;
+
+	// `onInit` sees the finished facade: state, config and every method.
+	if (onInit) onInit.call(facade);
+
+	return facade;
 }
 
 /* -------------------------------------------------------------------------- */
